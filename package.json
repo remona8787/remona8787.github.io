@@ -10,22 +10,25 @@
     "android:apk": "cd android && ./gradlew assembleDebug",
     "android:aab": "cd android && ./gradlew bundleRelease",
     "ios:open": "npx cap open ios",
-    "launch:check": "node scripts/launch-check.mjs"
+    "launch:check": "node scripts/launch-check.mjs",
+    "e2e": "npm run build && playwright test"
   },
   "dependencies": {
-    "@supabase/supabase-js": "2.99.2",
-    "@capacitor/core": "8.5.3",
     "@capacitor/android": "8.5.3",
-    "@capacitor/ios": "8.5.3",
     "@capacitor/app": "^8.0.0",
     "@capacitor/browser": "^8.0.0",
-    "@capacitor/share": "^8.0.0",
+    "@capacitor/core": "8.5.3",
     "@capacitor/geolocation": "^8.0.0",
+    "@capacitor/ios": "8.5.3",
+    "@capacitor/share": "^8.0.0",
+    "@capacitor/splash-screen": "^8.0.0",
     "@capacitor/status-bar": "^8.0.0",
-    "@capacitor/splash-screen": "^8.0.0"
+    "@supabase/supabase-js": "2.99.2"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.2",
     "@capacitor/cli": "8.5.3",
+    "@playwright/test": "^1.56.1",
     "esbuild": "0.25.12"
   }
 }
