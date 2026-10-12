@@ -1,5 +1,5 @@
 // Browser QA. Runs against the local dist/ build by default (see playwright.config.mjs) or AOL_TEST_URL.
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures.mjs';
 const base=process.env.AOL_TEST_URL||'http://127.0.0.1:4173';
 for(const viewport of [{width:360,height:800},{width:390,height:844},{width:412,height:915},{width:430,height:932},{width:768,height:1024},{width:1440,height:900}]){
  test(`discover, save and plan ${viewport.width}`,async({page})=>{

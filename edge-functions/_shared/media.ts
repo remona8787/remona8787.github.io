@@ -60,6 +60,13 @@ export async function cacheCommonsAsset(
     if(existing?.storage_path){const {error}=await supabase.storage.from('place-media-cache').remove([existing.storage_path]);if(error)throw error}
     return {cached:false,clearanceStatus:'pending',reason:'editorial-review-required',info}
   }
+  // Unchanged file and rights since the last cache: refresh the check timestamps only, no re-download.
+  if (existing?.storage_path && existing.cached_public_url && previouslyApproved && existing.source_sha1 === info.sha1) {
+    const now = new Date().toISOString()
+    const { error } = await supabase.from("media_assets").update({ checked_at: now, last_rights_sync_at: now, sync_status: "active" }).eq("id", existing.id)
+    if (error) throw error
+    return { cached: true, clearanceStatus: "cleared", reason: "unchanged", info }
+  }
   const ext = extensionForMime(info.mime)
   const path = `places/${place.place_code}/${info.sha1 || Date.now()}-${safeSlug(args.commonsFile)}.${ext}`
   const body = await downloadCommonsImage(info.cacheSourceUrl,info.mime)

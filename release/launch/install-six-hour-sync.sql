@@ -2,7 +2,8 @@
 -- Vault secrets: project_url, publishable_key, media_cron_secret.
 -- MEDIA_CRON_SECRET on deployed functions must equal the Vault secret.
 -- Schedules use UTC; starts correspond to 00/06/12/18 KST plus the listed minute offsets.
--- Bounded rolling batches; 6-hour invocation is not a promise that the whole world is refreshed.
+-- Place photos: every published place is re-matched against Wikidata each run (one query); up to 60 images
+-- are checked per run and unchanged files are not re-downloaded. Discovery/rights jobs stay bounded batches.
 begin;
 create extension if not exists pg_cron;
 create extension if not exists pg_net;
@@ -30,7 +31,7 @@ select cron.schedule('aol-media-discovery-6h','23 3,9,15,21 * * *', $job$
  select net.http_post(
   url := (select decrypted_secret from vault.decrypted_secrets where name='project_url') || '/functions/v1/sync-place-media',
   headers := jsonb_build_object('Content-Type','application/json','apikey',(select decrypted_secret from vault.decrypted_secrets where name='publishable_key'),'x-aol-cron-secret',(select decrypted_secret from vault.decrypted_secrets where name='media_cron_secret')),
-  body := '{"limit": 10}'::jsonb, timeout_milliseconds := 20000
+  body := '{"limit": 60, "candidate_limit": 5}'::jsonb, timeout_milliseconds := 150000
  );
 $job$);
 

@@ -5,7 +5,7 @@ const configPath=process.argv[2]||'site-public-cleared/config.js';
 const ctx={window:{}};vm.runInNewContext(await readFile(configPath,'utf8'),ctx,{timeout:1000});
 const cfg=ctx.window.AOL_CONFIG||{},checks=[];
 // Legal pages (privacy/terms/support/delete-account) render these; PIPA requires an identified operator and contact.
-checks.push({name:'operator_contact',status:cfg.OPERATOR_NAME?.trim()&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cfg.SUPPORT_EMAIL||'')?'passed':'blocked',reason:'set OPERATOR_NAME and SUPPORT_EMAIL in config.js'});
+{const ok=!!(cfg.OPERATOR_NAME?.trim()&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cfg.SUPPORT_EMAIL||''));checks.push(ok?{name:'operator_contact',status:'passed'}:{name:'operator_contact',status:'blocked',reason:'set OPERATOR_NAME and SUPPORT_EMAIL in config.js'})}
 async function probe(name,path,validate){
  if(!cfg.SUPABASE_URL||!cfg.SUPABASE_PUBLISHABLE_KEY){checks.push({name,status:'blocked',reason:'backend_not_configured'});return}
  try{

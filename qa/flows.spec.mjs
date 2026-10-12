@@ -1,5 +1,5 @@
 // Core guest flows in a real browser: records persist across reloads, backup downloads, theme toggles, offline shell works.
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures.mjs';
 test('visit record survives reload',async({page})=>{
  await page.goto('/#place/SEOUL001');
  await page.locator('[data-visit]').click();

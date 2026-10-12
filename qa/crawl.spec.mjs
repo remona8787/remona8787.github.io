@@ -1,6 +1,6 @@
 // Visits every SPA route and static page at phone and desktop widths.
 // Fails on uncaught errors, same-origin request failures, horizontal overflow, or tap targets below 24px.
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures.mjs';
 const routes=['home','explore','map','saved','my','magazine','routes','journal','calendar','account','settings','audit','place/SEOUL001','curation/CUR01','nope'];
 const pages=['about.html','privacy.html','terms.html','support.html','delete-account.html','404.html','admin/','nope/deep/path'];
 for(const width of [360,1440]){

@@ -5,5 +5,5 @@ window.AOL_CONFIG={
  PUBLIC_URL:'https://light-architecture-jihyun.peppydegu2.chatgpt.site',
  TILE_URL:'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
  TILE_ATTRIBUTION:'© OpenStreetMap contributors',
- SUPPORT_EMAIL:'',OPERATOR_NAME:'',PRIVACY_OFFICER:'',MEDIA_MODE:'hybrid'
+ SUPPORT_EMAIL: 'remona56@hanmail.net',OPERATOR_NAME: '김지현 (JIHYUN KIM)',PRIVACY_OFFICER: '김지현 (JIHYUN KIM)',MEDIA_MODE:'hybrid'
 };

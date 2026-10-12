@@ -1,3 +1,5 @@
+import { assessRights, DEFAULT_POLICY, KR_FOP_TEMPLATES } from "./live-media.mjs"
+
 export type CommonsInfo = {
   file: string
   filePage: string
@@ -42,9 +44,15 @@ export function rightsDecision(license: string) {
   return {commercialAllowed:allowed,derivativesAllowed:allowed}
 }
 
-export function hasRightsWarning(categories: string[], metadata: Record<string, any>) {
+// Category/metadata signals that a file may be removed or is not freely reusable.
+// Freedom-of-panorama is decided from templates instead (see live-media.mjs): South Korea's non-sale FoP
+// follows the display policy, any other country's NoFoP tag blocks.
+export function hasRightsWarning(categories: string[], metadata: Record<string, any>, templates: string[] = [], policy = DEFAULT_POLICY) {
   const flags=categories.join(' ')+' '+stripHtml(metadata.Restrictions?.value)+' '+stripHtml(metadata.Permission?.value);
-  return /no[ _-]?fop|non[ _-]?commercial|copyright violation|deletion request|permission required|fair use|비상업|허가 필요/i.test(flags);
+  if (/non[ _-]?commercial|copyright violation|deletion request|permission required|fair use|비상업|허가 필요/i.test(flags)) return true
+  const otherNoFop=templates.some(t=>/^Template:NoFoP-/i.test(t)&&!KR_FOP_TEMPLATES.includes(t))
+  if (otherNoFop || /no[ _-]?fop/i.test(categories.filter(c=>!/south[ _-]?korea/i.test(c)).join(' '))) return true
+  return !assessRights({license:'CC0', templates}, policy).ok
 }
 
 export async function fetchCommonsInfo(file: string): Promise<CommonsInfo> {
@@ -52,7 +60,8 @@ export async function fetchCommonsInfo(file: string): Promise<CommonsInfo> {
     action: "query",
     format: "json",
     origin: "*",
-    prop: "imageinfo|categories",
+    prop: "imageinfo|categories|templates",
+    tllimit: "max",
     cllimit: "100",
     iiprop: "url|extmetadata|sha1|timestamp|mime",
     iiurlwidth: "1600",
@@ -72,11 +81,13 @@ export async function fetchCommonsInfo(file: string): Promise<CommonsInfo> {
   const creator = stripHtml(meta.Artist?.value || meta.Credit?.value || meta.Attribution?.value || "Wikimedia Commons contributor")
   const rightsStatement = stripHtml(meta.UsageTerms?.value || meta.Copyrighted?.value || licenseCode)
   const categories=(page.categories||[]).map((c:any)=>String(c.title||''));
-  const warning=hasRightsWarning(categories,meta)||!!json.continue?.clcontinue;
+  const templates=(page.templates||[]).map((t:any)=>String(t.title||''));
+  const warning=hasRightsWarning(categories,meta,templates)||!!json.continue?.clcontinue||!!json.continue?.tlcontinue;
   const decision=rightsDecision(licenseCode);
   const commercialAllowed=decision.commercialAllowed&&!warning, derivativesAllowed=decision.derivativesAllowed&&!warning;
   meta.aol_rights_categories=categories;
   meta.aol_rights_warning=warning;
+  meta.aol_rights_templates=templates.filter((t:string)=>/^Template:(NoFoP|FoP|Delete|Copyvio)/i.test(t));
   const filePage = `https://commons.wikimedia.org/wiki/File:${encodeURIComponent(file)}`
   const attributionText = `${creator} · ${licenseCode} · Wikimedia Commons`
   const originalUrl = String(ii.url || "")

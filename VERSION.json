@@ -1,9 +1,10 @@
 {
-  "version": "0.14.0",
+  "version": "0.14.1",
   "date": "2026-10-12",
   "primary_app": "site-public-cleared (deploy dist/)",
   "backend_status": "sql_verified_locally; not applied to production",
   "data_provenance": "uploaded v0.10; not reverified",
   "seed_count": 49,
-  "launch_runbook": "release/launch/LAUNCH.md"
+  "launch_runbook": "release/launch/LAUNCH.md",
+  "live_media_sync": "client 6h (Wikidata/Commons) + server cron 6h"
 }

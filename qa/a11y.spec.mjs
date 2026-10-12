@@ -1,5 +1,5 @@
 // WCAG 2.1 A/AA automated scan (axe-core) of the main screens.
-import {test,expect} from '@playwright/test';
+import {test,expect} from './fixtures.mjs';
 import AxeBuilder from '@axe-core/playwright';
 for(const r of ['home','explore','map','saved','my','journal','routes','calendar','settings','account','place/SEOUL001','curation/CUR01'])
  for(const width of [390,1440])test(`a11y #${r} @${width}`,async({page})=>{

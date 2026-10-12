@@ -1,0 +1,359 @@
+# v0.14.1 verification — 2026-10-12T17:00:11Z
+
+$ npm test
+# Subtest: every top-level page renders without a dependency on external scripts
+ok 1 - every top-level page renders without a dependency on external scripts
+# Subtest: all seed and curation detail pages render with escaped data
+ok 2 - all seed and curation detail pages render with escaped data
+# Subtest: save toggle persists then removes a place
+ok 3 - save toggle persists then removes a place
+# Subtest: route create, rename, reorder, remove, duplicate persist correctly
+ok 4 - route create, rename, reorder, remove, duplicate persist correctly
+# Subtest: visit form persists date, rating and literal HTML as data
+ok 5 - visit form persists date, rating and literal HTML as data
+# Subtest: failed persistence never mutates in-memory state
+ok 6 - failed persistence never mutates in-memory state
+# Subtest: guest, account A and account B keep separate local records
+ok 7 - guest, account A and account B keep separate local records
+# Subtest: guest migration is explicit, idempotent, and retains the source
+ok 8 - guest migration is explicit, idempotent, and retains the source
+# Subtest: cloud replacement persists in the active account only
+ok 9 - cloud replacement persists in the active account only
+# Subtest: corrupt account data is preserved and blocks edits
+ok 10 - corrupt account data is preserved and blocks edits
+# Subtest: archive search includes artists and normalized regional names
+ok 11 - archive search includes artists and normalized regional names
+# Subtest: dates alone never imply confirmed visitor availability
+ok 12 - dates alone never imply confirmed visitor availability
+# Subtest: confirmed operation must have source, check date and future expiry
+ok 13 - confirmed operation must have source, check date and future expiry
+# Subtest: permanent projects do not become ended events
+ok 14 - permanent projects do not become ended events
+# Subtest: coordinates need editorial verification and a source
+ok 15 - coordinates need editorial verification and a source
+# Subtest: hidden places never leak through discovery search
+ok 16 - hidden places never leak through discovery search
+# Subtest: missing dates stay unknown, including invalid dates
+ok 17 - missing dates stay unknown, including invalid dates
+# Subtest: relevance ranks name matches above artist matches
+ok 18 - relevance ranks name matches above artist matches
+# Subtest: year filtering never infers an absent project year
+ok 19 - year filtering never infers an absent project year
+# Subtest: catalog outage does not prevent auth subscription or account switching
+ok 20 - catalog outage does not prevent auth subscription or account switching
+# Subtest: failed media request preserves last successful media
+ok 21 - failed media request preserves last successful media
+# Subtest: stale admin response cannot attach previous user channel
+ok 22 - stale admin response cannot attach previous user channel
+# Subtest: realtime subscription cannot hide a workspace conflict
+ok 23 - realtime subscription cannot hide a workspace conflict
+# Subtest: conflict resolution cannot apply a response after account switch
+ok 24 - conflict resolution cannot apply a response after account switch
+# Subtest: catalog requests are deduplicated
+ok 25 - catalog requests are deduplicated
+# Subtest: invalid sync revision blocks syncing instead of overwriting server state
+ok 26 - invalid sync revision blocks syncing instead of overwriting server state
+# Subtest: text token contrast light body
+ok 27 - text token contrast light body
+# Subtest: text token contrast light metadata
+ok 28 - text token contrast light metadata
+# Subtest: text token contrast light muted panel
+ok 29 - text token contrast light muted panel
+# Subtest: text token contrast button
+ok 30 - text token contrast button
+# Subtest: text token contrast dark body
+ok 31 - text token contrast dark body
+# Subtest: text token contrast dark metadata
+ok 32 - text token contrast dark metadata
+# Subtest: text token contrast dark button
+ok 33 - text token contrast dark button
+# Subtest: text token contrast hero text
+ok 34 - text token contrast hero text
+# Subtest: actual seed counts and unique place IDs
+ok 35 - actual seed counts and unique place IDs
+# Subtest: Seoul date crosses midnight in UTC
+ok 36 - Seoul date crosses midnight in UTC
+# Subtest: date validation rejects impossible dates
+ok 37 - date validation rejects impossible dates
+# Subtest: refresh threshold is inclusive
+ok 38 - refresh threshold is inclusive
+# Subtest: ended programs outrank old verification flags
+ok 39 - ended programs outrank old verification flags
+# Subtest: program end date itself remains within recorded period
+ok 40 - program end date itself remains within recorded period
+# Subtest: future program dates are upcoming
+ok 41 - future program dates are upcoming
+# Subtest: future verification dates never imply verified
+ok 42 - future verification dates never imply verified
+# Subtest: Wikidata candidates never inherit verified status
+ok 43 - Wikidata candidates never inherit verified status
+# Subtest: null, strings and out of range coordinates rejected
+ok 44 - null, strings and out of range coordinates rejected
+# Subtest: combined search/filter never returns incompatible records
+ok 45 - combined search/filter never returns incompatible records
+# Subtest: safe external URLs reject active script and data URLs
+ok 46 - safe external URLs reject active script and data URLs
+# Subtest: escape markup safely
+ok 47 - escape markup safely
+# Subtest: legacy saves migrate, unknown IDs removed, visits keep count
+ok 48 - legacy saves migrate, unknown IDs removed, visits keep count
+# Subtest: corrupt storage is blocked and never silently overwritten
+ok 49 - corrupt storage is blocked and never silently overwritten
+# Subtest: storage disabled is handled without startup throw
+ok 50 - storage disabled is handled without startup throw
+# Subtest: full backup roundtrip preserves notes, routes, candidates
+ok 51 - full backup roundtrip preserves notes, routes, candidates
+# Subtest: unsupported and incomplete backups rejected
+ok 52 - unsupported and incomplete backups rejected
+# Subtest: invalid references and duplicate record IDs rejected
+ok 53 - invalid references and duplicate record IDs rejected
+# Subtest: invalid dates and excessive notes rejected
+ok 54 - invalid dates and excessive notes rejected
+# Subtest: CSV protects formulas and quotes line breaks
+ok 55 - CSV protects formulas and quotes line breaks
+# Subtest: ICS is all-day, next-day exclusive, folded by octets
+ok 56 - ICS is all-day, next-day exclusive, folded by octets
+# Subtest: ICS without a date fails clearly
+ok 57 - ICS without a date fails clearly
+# Subtest: privileged secret matching is fail-closed
+ok 58 - privileged secret matching is fail-closed
+# Subtest: invalid Overpass payload is a failure, never an empty successful discovery
+ok 59 - invalid Overpass payload is a failure, never an empty successful discovery
+# Subtest: invalid Wikidata payload is a failure, never an empty successful discovery
+ok 60 - invalid Wikidata payload is a failure, never an empty successful discovery
+# Subtest: general museum candidate is not eligible for automatic promotion
+ok 61 - general museum candidate is not eligible for automatic promotion
+# Subtest: light and media relevance identifies specialist candidates
+ok 62 - light and media relevance identifies specialist candidates
+# Subtest: image signature identifies PNG
+ok 63 - image signature identifies PNG
+# Subtest: HTML renamed as JPG is rejected before decode
+ok 64 - HTML renamed as JPG is rejected before decode
+# Subtest: empty photo is rejected
+ok 65 - empty photo is rejected
+# Subtest: oversize photo is rejected before reading
+ok 66 - oversize photo is rejected before reading
+# Subtest: photo dimensions preserve aspect ratio without enlargement
+ok 67 - photo dimensions preserve aspect ratio without enlargement
+# Subtest: excessive decoded pixel dimensions are rejected
+ok 68 - excessive decoded pixel dimensions are rejected
+# Subtest: photo re-encoding returns new JPEG and closes bitmap
+ok 69 - photo re-encoding returns new JPEG and closes bitmap
+# Subtest: failed encoding closes bitmap and does not return original
+ok 70 - failed encoding closes bitmap and does not return original
+# Subtest: media downloader rejects untrusted destinations
+ok 71 - media downloader rejects untrusted destinations
+# Subtest: media downloader accepts only exact Wikimedia HTTPS host
+ok 72 - media downloader accepts only exact Wikimedia HTTPS host
+# Subtest: download body signature must match declared type
+ok 73 - download body signature must match declared type
+# Subtest: media declared size over limit is rejected
+ok 74 - media declared size over limit is rejected
+# Subtest: name variants split composite names and drop parentheticals
+ok 75 - name variants split composite names and drop parentheticals
+# Subtest: query restricts to Seoul and escapes names
+ok 76 - query restricts to Seoul and escapes names
+# Subtest: exact unambiguous matches only; full name wins over variants
+ok 77 - exact unambiguous matches only; full name wins over variants
+# Subtest: invalid WDQS payload is an error, not an empty result
+ok 78 - invalid WDQS payload is an error, not an empty result
+# Subtest: Special:FilePath URLs decode to file names
+ok 79 - Special:FilePath URLs decode to file names
+# Subtest: license allowlist accepts free licenses incl. national ports, rejects NC/ND
+ok 80 - license allowlist accepts free licenses incl. national ports, rejects NC/ND
+# Subtest: rights: deletion tags block, Korean FoP follows policy, SVG excluded
+ok 81 - rights: deletion tags block, Korean FoP follows policy, SVG excluded
+# Subtest: Commons metadata is fetched in batches of 50 and continuation merges templates
+ok 82 - Commons metadata is fetched in batches of 50 and continuation merges templates
+# Subtest: full sync: attributed rows for cleared files, rejected files listed, WDQS called with POST
+ok 83 - full sync: attributed rows for cleared files, rejected files listed, WDQS called with POST
+# Subtest: missing author falls back to a generic credit and source link
+ok 84 - missing author falls back to a generic credit and source link
+# Subtest: host-building variants strip installation suffixes only
+ok 85 - host-building variants strip installation suffixes only
+# Subtest: own name beats host building; host matches are labelled
+ok 86 - own name beats host building; host matches are labelled
+# Subtest: known reusable license: CC BY 4.0
+ok 87 - known reusable license: CC BY 4.0
+# Subtest: known reusable license: CC BY-SA 4.0
+ok 88 - known reusable license: CC BY-SA 4.0
+# Subtest: known reusable license: CC0 1.0
+ok 89 - known reusable license: CC0 1.0
+# Subtest: known reusable license: Public domain
+ok 90 - known reusable license: Public domain
+# Subtest: ambiguous/restricted license rejected: Unknown
+ok 91 - ambiguous/restricted license rejected: Unknown
+# Subtest: ambiguous/restricted license rejected: CC BY-NC 4.0
+ok 92 - ambiguous/restricted license rejected: CC BY-NC 4.0
+# Subtest: ambiguous/restricted license rejected: CC BY-ND 4.0
+ok 93 - ambiguous/restricted license rejected: CC BY-ND 4.0
+# Subtest: ambiguous/restricted license rejected: not CC BY 4.0
+ok 94 - ambiguous/restricted license rejected: not CC BY 4.0
+# Subtest: ambiguous/restricted license rejected: CC BY 4.0 or restricted
+ok 95 - ambiguous/restricted license rejected: CC BY 4.0 or restricted
+# Subtest: foreign no-FoP template blocks automated clearance
+ok 96 - foreign no-FoP template blocks automated clearance
+# Subtest: South Korean FoP tag follows the display policy
+ok 97 - South Korean FoP tag follows the display policy
+# Subtest: Commons deletion tag blocks automated clearance
+ok 98 - Commons deletion tag blocks automated clearance
+# Subtest: non-Korean NoFoP category blocks automated clearance
+ok 99 - non-Korean NoFoP category blocks automated clearance
+# Subtest: Commons metadata restriction blocks automated clearance
+ok 100 - Commons metadata restriction blocks automated clearance
+# Subtest: ordinary category does not imply a rights restriction
+ok 101 - ordinary category does not imply a rights restriction
+# Subtest: reviewed photos available before backend connection
+ok 102 - reviewed photos available before backend connection
+# Subtest: successful empty server snapshot never resurrects revoked photos
+ok 103 - successful empty server snapshot never resurrects revoked photos
+# Subtest: pending server image is not exposed
+ok 104 - pending server image is not exposed
+# Subtest: bootstrap references have provenance and distinguish direct media from cache
+ok 105 - bootstrap references have provenance and distinguish direct media from cache
+# Subtest: complete-backend.sql is idempotent on the reported partial state
+ok 106 - complete-backend.sql is idempotent on the reported partial state
+# Subtest: fresh project: numbered SQL + migration apply in order, then complete-backend is a no-op
+ok 107 - fresh project: numbered SQL + migration apply in order, then complete-backend is a no-op
+# Subtest: every public table has RLS enabled
+ok 108 - every public table has RLS enabled
+# Subtest: anon reads only published places, with the city relation the client queries
+ok 109 - anon reads only published places, with the city relation the client queries
+# Subtest: anon cannot write places
+ok 110 - anon cannot write places
+# Subtest: workspaces: two users are isolated and saves are compare-and-swap
+ok 111 - workspaces: two users are isolated and saves are compare-and-swap
+# Subtest: visit photos: metadata rows and storage objects are owner-only
+ok 112 - visit photos: metadata rows and storage objects are owner-only
+# Subtest: editorial articles: anon sees published only; only admins write
+ok 113 - editorial articles: anon sees published only; only admins write
+# Subtest: candidate promotion is not callable by signed-in users
+ok 114 - candidate promotion is not callable by signed-in users
+# Subtest: cleared media view is readable by anon
+ok 115 - cleared media view is readable by anon
+# tests 115
+# suites 0
+# pass 115
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 5162.962967
+
+$ npm run check
+Syntax checked 11 scripts; local entry assets, auth guards, admin consistency passed.
+All Edge Function TypeScript syntax checked (not server execution).
+
+$ deno check --no-config edge-functions/*/index.ts (deno 2.5.4)
+type errors: 0
+
+$ node scripts/launch-check.mjs (no backend configured; network to Supabase blocked here)
+operator_contact: passed
+public_catalog: blocked
+cleared_media_view: blocked
+actual_media_available: blocked
+editorial_articles: blocked
+email_auth_enabled: blocked
+
+$ npm run e2e  (Chromium headless, local dist/ with production _headers)
+  ✓   1 qa/crawl.spec.mjs:8:3 › /#home @360 (1.8s)
+  ✓   3 qa/crawl.spec.mjs:8:3 › /#explore @360 (1.2s)
+  ✓   2 qa/a11y.spec.mjs:5:32 › a11y #home @390 (3.1s)
+  ✓   4 qa/crawl.spec.mjs:8:3 › /#map @360 (1.0s)
+  ✓   6 qa/crawl.spec.mjs:8:3 › /#saved @360 (952ms)
+  ✓   7 qa/crawl.spec.mjs:8:3 › /#my @360 (1.0s)
+  ✓   5 qa/a11y.spec.mjs:5:32 › a11y #home @1440 (3.4s)
+  ✓   8 qa/crawl.spec.mjs:8:3 › /#magazine @360 (1.0s)
+  ✓  10 qa/crawl.spec.mjs:8:3 › /#routes @360 (1.1s)
+  ✓   9 qa/a11y.spec.mjs:5:32 › a11y #explore @390 (2.5s)
+  ✓  11 qa/crawl.spec.mjs:8:3 › /#journal @360 (1.1s)
+  ✓  13 qa/crawl.spec.mjs:8:3 › /#calendar @360 (1.3s)
+  ✓  14 qa/crawl.spec.mjs:8:3 › /#account @360 (1.0s)
+  ✓  12 qa/a11y.spec.mjs:5:32 › a11y #explore @1440 (2.9s)
+  ✓  15 qa/crawl.spec.mjs:8:3 › /#settings @360 (1.1s)
+  ✓  17 qa/crawl.spec.mjs:8:3 › /#audit @360 (1.1s)
+  ✓  16 qa/a11y.spec.mjs:5:32 › a11y #map @390 (1.8s)
+  ✓  18 qa/crawl.spec.mjs:8:3 › /#place/SEOUL001 @360 (1.2s)
+  ✓  19 qa/a11y.spec.mjs:5:32 › a11y #map @1440 (1.9s)
+  ✓  20 qa/crawl.spec.mjs:8:3 › /#curation/CUR01 @360 (1.0s)
+  ✓  22 qa/crawl.spec.mjs:8:3 › /#nope @360 (919ms)
+  ✓  21 qa/a11y.spec.mjs:5:32 › a11y #saved @390 (1.6s)
+  ✓  23 qa/crawl.spec.mjs:8:3 › /about.html @360 (934ms)
+  ✓  25 qa/crawl.spec.mjs:8:3 › /privacy.html @360 (1.0s)
+  ✓  24 qa/a11y.spec.mjs:5:32 › a11y #saved @1440 (1.7s)
+  ✓  26 qa/crawl.spec.mjs:8:3 › /terms.html @360 (988ms)
+  ✓  27 qa/a11y.spec.mjs:5:32 › a11y #my @390 (1.7s)
+  ✓  28 qa/crawl.spec.mjs:8:3 › /support.html @360 (922ms)
+  ✓  30 qa/crawl.spec.mjs:8:3 › /delete-account.html @360 (932ms)
+  ✓  29 qa/a11y.spec.mjs:5:32 › a11y #my @1440 (1.8s)
+  ✓  31 qa/crawl.spec.mjs:8:3 › /404.html @360 (955ms)
+  ✓  33 qa/crawl.spec.mjs:8:3 › /admin/ @360 (726ms)
+  ✓  32 qa/a11y.spec.mjs:5:32 › a11y #journal @390 (1.6s)
+  ✓  34 qa/crawl.spec.mjs:8:3 › /nope/deep/path @360 (880ms)
+  ✓  35 qa/a11y.spec.mjs:5:32 › a11y #journal @1440 (1.6s)
+  ✓  36 qa/crawl.spec.mjs:8:3 › /#home @1440 (1.8s)
+  ✓  38 qa/crawl.spec.mjs:8:3 › /#explore @1440 (1.3s)
+  ✓  37 qa/a11y.spec.mjs:5:32 › a11y #routes @390 (1.7s)
+  ✓  39 qa/crawl.spec.mjs:8:3 › /#map @1440 (1.2s)
+  ✓  40 qa/a11y.spec.mjs:5:32 › a11y #routes @1440 (2.0s)
+  ✓  41 qa/crawl.spec.mjs:8:3 › /#saved @1440 (1.1s)
+  ✓  43 qa/crawl.spec.mjs:8:3 › /#my @1440 (1.0s)
+  ✓  42 qa/a11y.spec.mjs:5:32 › a11y #calendar @390 (2.2s)
+  ✓  44 qa/crawl.spec.mjs:8:3 › /#magazine @1440 (1.0s)
+  ✓  46 qa/crawl.spec.mjs:8:3 › /#routes @1440 (1.1s)
+  ✓  45 qa/a11y.spec.mjs:5:32 › a11y #calendar @1440 (2.2s)
+  ✓  47 qa/crawl.spec.mjs:8:3 › /#journal @1440 (1.1s)
+  ✓  49 qa/crawl.spec.mjs:8:3 › /#calendar @1440 (1.4s)
+  ✓  48 qa/a11y.spec.mjs:5:32 › a11y #settings @390 (1.9s)
+  ✓  50 qa/crawl.spec.mjs:8:3 › /#account @1440 (1.1s)
+  ✓  51 qa/a11y.spec.mjs:5:32 › a11y #settings @1440 (2.0s)
+  ✓  52 qa/crawl.spec.mjs:8:3 › /#settings @1440 (1.1s)
+  ✓  54 qa/crawl.spec.mjs:8:3 › /#audit @1440 (1.5s)
+  ✓  53 qa/a11y.spec.mjs:5:32 › a11y #account @390 (1.9s)
+  ✓  55 qa/crawl.spec.mjs:8:3 › /#place/SEOUL001 @1440 (1.4s)
+  ✓  56 qa/a11y.spec.mjs:5:32 › a11y #account @1440 (2.0s)
+  ✓  57 qa/crawl.spec.mjs:8:3 › /#curation/CUR01 @1440 (1.2s)
+  ✓  59 qa/crawl.spec.mjs:8:3 › /#nope @1440 (1.1s)
+  ✓  58 qa/a11y.spec.mjs:5:32 › a11y #place/SEOUL001 @390 (2.1s)
+  ✓  60 qa/crawl.spec.mjs:8:3 › /about.html @1440 (982ms)
+  ✓  62 qa/crawl.spec.mjs:8:3 › /privacy.html @1440 (1.1s)
+  ✓  61 qa/a11y.spec.mjs:5:32 › a11y #place/SEOUL001 @1440 (1.9s)
+  ✓  63 qa/crawl.spec.mjs:8:3 › /terms.html @1440 (950ms)
+  ✓  65 qa/crawl.spec.mjs:8:3 › /support.html @1440 (959ms)
+  ✓  64 qa/a11y.spec.mjs:5:32 › a11y #curation/CUR01 @390 (1.6s)
+  ✓  66 qa/crawl.spec.mjs:8:3 › /delete-account.html @1440 (948ms)
+  ✓  67 qa/a11y.spec.mjs:5:32 › a11y #curation/CUR01 @1440 (1.7s)
+  ✓  68 qa/crawl.spec.mjs:8:3 › /404.html @1440 (915ms)
+  ✓  70 qa/crawl.spec.mjs:8:3 › /admin/ @1440 (794ms)
+  ✓  69 qa/flows.spec.mjs:3:1 › visit record survives reload (985ms)
+  ✓  72 qa/flows.spec.mjs:13:1 › JSON backup downloads (444ms)
+  ✓  71 qa/crawl.spec.mjs:8:3 › /nope/deep/path @1440 (965ms)
+  ✓  73 qa/flows.spec.mjs:18:1 › theme toggle persists (860ms)
+  ✓  74 qa/legal.spec.mjs:4:2 › privacy.html flags missing operator (448ms)
+  ✓  76 qa/legal.spec.mjs:8:2 › privacy.html renders configured operator (455ms)
+  ✓  75 qa/flows.spec.mjs:26:1 › search with no match shows an empty state (571ms)
+  ✓  77 qa/legal.spec.mjs:4:2 › terms.html flags missing operator (358ms)
+  ✓  79 qa/legal.spec.mjs:8:2 › terms.html renders configured operator (400ms)
+  ✓  80 qa/legal.spec.mjs:4:2 › support.html flags missing operator (322ms)
+  ✓  78 qa/flows.spec.mjs:32:2 › offline › app shell loads offline after first visit (1.1s)
+  ✓  81 qa/legal.spec.mjs:8:2 › support.html renders configured operator (403ms)
+  ✓  82 qa/flows.spec.mjs:42:1 › self-hosted map library loads under the production CSP (635ms)
+  ✓  83 qa/legal.spec.mjs:4:2 › delete-account.html flags missing operator (412ms)
+  ✓  85 qa/legal.spec.mjs:8:2 › delete-account.html renders configured operator (383ms)
+  ✓  84 qa/live-media.spec.mjs:28:1 › photos sync with attribution and appear on cards and detail pages (679ms)
+  ✓  86 qa/legal.spec.mjs:15:1 › email with markup is never turned into a link (384ms)
+  ✓  87 qa/live-media.spec.mjs:50:1 › host-building photos are labelled; non-free licenses are never shown (518ms)
+  ✓  88 qa/legal.spec.mjs:19:1 › production config shows the registered operator (451ms)
+  ✓  90 qa/ux.spec.mjs:5:2 › discover, save and plan 360 (941ms)
+  ✓  89 qa/live-media.spec.mjs:60:1 › results are cached for 6 hours; a failed refresh keeps the last good result (1.8s)
+  ✓  91 qa/ux.spec.mjs:5:2 › discover, save and plan 390 (844ms)
+  ✓  92 qa/live-media.spec.mjs:76:1 › manual sync from settings and takedown list (874ms)
+  -  94 qa/live-media.spec.mjs:91:2 › real Wikidata/Commons › live sync matches places and every shown photo carries attribution
+  ✓  93 qa/ux.spec.mjs:5:2 › discover, save and plan 412 (934ms)
+  ✓  95 qa/ux.spec.mjs:5:2 › discover, save and plan 430 (751ms)
+  ✓  96 qa/ux.spec.mjs:5:2 › discover, save and plan 768 (742ms)
+  ✓  97 qa/ux.spec.mjs:5:2 › discover, save and plan 1440 (863ms)
+  ✓  98 qa/ux.spec.mjs:13:1 › verified map does not display unreviewed coordinates (352ms)
+  -  99 qa/ux.spec.mjs:14:1 › published project photos actually decode
+  2 skipped
+  97 passed (1.1m)

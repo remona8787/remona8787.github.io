@@ -22,3 +22,4 @@ details>summary{min-height:32px;display:flex;align-items:center}
 td .source-link{white-space:nowrap;min-width:44px}
 .sidebar-bottom a{text-decoration:underline;text-underline-offset:3px}
 .legal h2{font-size:18px;margin:32px 0 10px}.legal li{margin:6px 0;line-height:1.65}.legal p{line-height:1.7}.notice{padding:12px 14px;border:1px solid var(--line);border-left:4px solid #c2410c;border-radius:10px}.unresolved{color:#b42318;font-weight:600}
+.legal a[href^="mailto:"]{display:inline-block;padding:6px 0;min-height:32px}

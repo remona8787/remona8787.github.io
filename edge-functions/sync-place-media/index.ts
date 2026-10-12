@@ -2,6 +2,9 @@ import { authorizedSecret } from "../_shared/auth.mjs"
 import { createClient } from "npm:@supabase/supabase-js@2"
 import { fetchCommonsInfo } from "../_shared/commons.ts"
 import { cacheCommonsAsset, getAdminKey } from "../_shared/media.ts"
+import { buildPlaceQuery, parsePlaceQuery, WDQS_URL, DEFAULT_POLICY } from "../_shared/live-media.mjs"
+
+const UA = "ArchitectureOfLight/0.14 (https://light-architecture-jihyun.peppydegu2.chatgpt.site)"
 
 function json(data: unknown, status = 200) {
   return new Response(JSON.stringify(data), {
@@ -28,37 +31,6 @@ function score(a: string, b: string) {
   let hit = 0
   for (const x of A) if (B.has(x)) hit++
   return hit ? Math.min(78, 28 + hit * 17) : 0
-}
-
-async function wikidataP18(names: string[]) {
-  for (const q of names) {
-    try {
-      const params = new URLSearchParams({
-        action: "wbsearchentities", format: "json", origin: "*",
-        language: /[가-힣]/.test(q) ? "ko" : "en",
-        uselang: "ko", limit: "5", search: q,
-      })
-      const sr = await fetch(`https://www.wikidata.org/w/api.php?${params}`).then((r) => r.json())
-      const hit = (sr.search || []).sort((a: any,b: any) => {
-        const sa = Math.max(...names.map((n) => score(a.label || "", n)))
-        const sb = Math.max(...names.map((n) => score(b.label || "", n)))
-        return sb - sa
-      })[0]
-      if (!hit) continue
-      const best = Math.max(...names.map((n) => score(hit.label || "", n)))
-      if (best < 48) continue
-
-      const gp = new URLSearchParams({
-        action: "wbgetentities", format: "json", origin: "*",
-        props: "claims", ids: hit.id,
-      })
-      const gr = await fetch(`https://www.wikidata.org/w/api.php?${gp}`).then((r) => r.json())
-      const e = gr.entities?.[hit.id]
-      const p18 = e?.claims?.P18?.[0]?.mainsnak?.datavalue?.value
-      if (p18) return { file: String(p18), score: 98, via: "Wikidata P18" }
-    } catch {}
-  }
-  return null
 }
 
 async function commonsSearch(names: string[]) {
@@ -95,19 +67,20 @@ Deno.serve(async (req) => {
 
   try {
     const body = await req.json().catch(()=>({}))
-    const limit = Math.min(Math.max(Number(body.limit || 5), 1), 20)
+    // Exact Wikidata matches: every published place, every run (one SPARQL query). Images cached per run are capped.
+    const imageLimit = Math.min(Math.max(Number(body.limit || 60), 1), 150)
+    // Places without an exact match: a few per run go through Commons search into the editorial review queue.
+    const candidateLimit = Math.min(Math.max(Number(body.candidate_limit ?? 5), 0), 20)
     const placeCode = body.place_code ? String(body.place_code) : null
     const supabase = createClient(Deno.env.get("SUPABASE_URL")!, getAdminKey(), { auth:{persistSession:false} })
 
     let query = supabase
       .from("places")
-      .select("id,place_code,name_kr,name_en,mvp_priority")
+      .select("id,place_code,name_kr,name_en,mvp_priority,last_media_discovery_at")
       .eq("is_published", true)
       .order("last_media_discovery_at", { ascending:true, nullsFirst:true })
       .order("mvp_priority", { ascending:true })
-      .limit(limit)
     if (placeCode) query = query.eq("place_code", placeCode)
-
     const { data: places, error } = await query
     if (error) throw error
 
@@ -117,55 +90,58 @@ Deno.serve(async (req) => {
       status:"running",
     }).select().single()
 
-    let fetched=0, inserted=0, flagged=0
+    let fetched=0, inserted=0, flagged=0, cachedImages=0
     const result:any[]=[]
+    const list=(places||[]).map((p:any)=>({...p,place_id:p.place_code}))
 
-    for (const place of places || []) {
-      const names=[place.name_kr,place.name_en].filter(Boolean)
-      const seeds:any[]=[]
-      const p18=await wikidataP18(names)
-      if (p18) seeds.push(p18)
-      seeds.push(...await commonsSearch(names))
+    const wdRes = await fetch(WDQS_URL, {
+      method:"POST",
+      headers:{"Content-Type":"application/x-www-form-urlencoded",Accept:"application/sparql-results+json","User-Agent":UA},
+      body:new URLSearchParams({query:buildPlaceQuery(list),format:"json"}),
+      signal:AbortSignal.timeout(30000),
+    })
+    if (!wdRes.ok) throw new Error(`Wikidata query HTTP ${wdRes.status}`)
+    const matches = parsePlaceQuery(await wdRes.json(), list)
 
-      const unique = new Map<string,any>()
-      for (const c of seeds) if (!unique.has(c.file) || unique.get(c.file).score < c.score) unique.set(c.file,c)
-      const enriched:any[]=[]
-
-      for (const c of Array.from(unique.values()).slice(0,8)) {
-        try {
-          const info=await fetchCommonsInfo(c.file)
-          fetched++
-          enriched.push({...c,allowed:info.commercialAllowed&&info.derivativesAllowed,license:info.licenseCode})
-        } catch {}
-      }
-
-      enriched.sort((a,b)=>(Number(b.allowed)-Number(a.allowed))*1000+(b.score-a.score))
-      const top=enriched.slice(0,3)
-      const cached=[]
-
-      for (let i=0;i<top.length;i++) {
-        try {
-          const c=top[i]
-          const r=await cacheCommonsAsset(supabase,{
-            placeCode:place.place_code,
-            commonsFile:c.file,
-            relevanceScore:c.score,
-            isCover:i===0,
-            displayOrder:i,
-            allowPendingCache:true,
-            reason:"automatic_top3_discovery",
-          })
-          inserted += r.cached ? 1 : 0
-          if (r.clearanceStatus !== "cleared") flagged++
-          cached.push({file:c.file,score:c.score,clearance:r.clearanceStatus})
-        } catch (e) {
-          flagged++
-          cached.push({file:top[i].file,error:String((e as {message?: string} | null)?.message || e)})
+    const now = new Date().toISOString()
+    let candidatesLeft = candidateLimit
+    for (const place of list) {
+      const m = matches.get(place.place_code)
+      const cached:any[] = []
+      if (m) {
+        // Exact, unambiguous Wikidata match: publish automatically if the file passes the rights check.
+        const files = m.images.slice(0, DEFAULT_POLICY.maxImagesPerPlace)
+        for (let i=0;i<files.length && cachedImages<imageLimit;i++) {
+          try {
+            const r = await cacheCommonsAsset(supabase,{placeCode:place.place_code,commonsFile:files[i],relevanceScore:98,isCover:i===0,displayOrder:i,reviewed:true,reason:"wikidata_exact_match"})
+            fetched++; cachedImages++
+            inserted += r.cached ? 1 : 0
+            if (r.clearanceStatus !== "cleared") flagged++
+            cached.push({file:files[i],via:`Wikidata ${m.qid}`,clearance:r.clearanceStatus})
+          } catch (e) {
+            flagged++
+            cached.push({file:files[i],error:String((e as {message?: string} | null)?.message || e)})
+          }
         }
-      }
-      const {error:rotationError}=await supabase.from("places").update({last_media_discovery_at:new Date().toISOString()}).eq("id",place.id);
-      if(rotationError)throw rotationError;
-      result.push({place_code:place.place_code,cached})
+      } else if (candidatesLeft > 0) {
+        // No exact match: Commons search results only ever enter the review queue (never auto-published).
+        candidatesLeft--
+        const names=[place.name_kr,place.name_en].filter(Boolean)
+        for (const c of (await commonsSearch(names)).sort((a,b)=>b.score-a.score).slice(0,3)) {
+          try {
+            const r = await cacheCommonsAsset(supabase,{placeCode:place.place_code,commonsFile:c.file,relevanceScore:c.score,reviewed:false,reason:"commons_search_candidate"})
+            fetched++
+            if (r.clearanceStatus !== "cleared") flagged++
+            cached.push({file:c.file,via:c.via,clearance:r.clearanceStatus})
+          } catch (e) {
+            flagged++
+            cached.push({file:c.file,error:String((e as {message?: string} | null)?.message || e)})
+          }
+        }
+      } else continue
+      const {error:rotationError}=await supabase.from("places").update({last_media_discovery_at:now}).eq("id",place.id)
+      if(rotationError)throw rotationError
+      result.push({place_code:place.place_code,wikidata:m?.qid||null,cached})
     }
 
     if (run?.id) {
@@ -175,11 +151,11 @@ Deno.serve(async (req) => {
         fetched_count:fetched,
         inserted_count:inserted,
         flagged_count:flagged,
-        metadata:{places:result},
+        metadata:{matched:matches.size,places:result},
       }).eq("id",run.id)
     }
 
-    return json({ok:true,places:result,fetched,inserted,flagged})
+    return json({ok:true,matched:matches.size,places:result,fetched,inserted,flagged})
   } catch (error) {
     return json({ok:false,error:String((error as {message?: string} | null)?.message || error)},500)
   }
