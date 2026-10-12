@@ -1,0 +1,9 @@
+﻿page,parameters,backend_queries,primary_actions,auth_requirement
+HomePage,none,"places (A/published), curations",Hero->Map(mode=tonight); place->Detail; curation->CurationDetail,public
+MapPage,"mode?, category?, curationId?",places with lat/lng,marker/card->Detail; filters->local state,public
+PlaceDetailPage,placeId UUID,place single; media; works; schedules; saved/visited if auth,save toggle; visited upsert; official link; directions,mixed
+CurationPage,none,curations published,card->CurationDetail,public
+CurationDetailPage,curationId UUID,curation single; curation_places ordered,map all->Map; place->Detail,public
+MyLightMapPage,none,saved_places; visited_places; linked places,login CTA or personal map,authenticated
+AuthPage,returnRoute?,Supabase Auth,login/signup -> return,public
+SearchPage,query?,places published,result->Detail,public

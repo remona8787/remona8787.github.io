@@ -1,0 +1,9 @@
+﻿page,widget,trigger,action_type,target,logic,auth_required
+HomePage,오늘 밤 뭐 볼까?,On Tap,Navigate,MapPage,mode='tonight',No
+HomePage,장소 카드,On Tap,Navigate,PlaceDetailPage,placeId=current.id,No
+HomePage,큐레이션 카드,On Tap,Navigate,CurationDetailPage,curationId=current.id,No
+PlaceDetailPage,저장,On Tap,Conditional + RPC,AuthPage or toggle_saved_place,if logged out -> Auth; else RPC,Yes
+PlaceDetailPage,방문했어요,On Tap,Conditional + RPC,AuthPage or mark_visited_place,if logged out -> Auth; else RPC,Yes
+PlaceDetailPage,길찾기,On Tap,Launch URL,Google Maps search URL,encode address,No
+CurationDetailPage,지도에서 모두 보기,On Tap,Navigate,MapPage,curationId=current.id,No
+MyLightMapPage,로그인 CTA,On Tap,Navigate,AuthPage,returnRoute='MyLightMapPage',No

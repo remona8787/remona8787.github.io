@@ -1,0 +1,20 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const vm=require('node:vm');
+const fs=require('node:fs');
+const {transformSync}=require('esbuild');
+function moduleAt(path,globals={}){const ctx=vm.createContext({module:{exports:{}},Blob,URL,Uint8Array,AbortSignal,...globals});vm.runInContext(transformSync(fs.readFileSync(path,'utf8'),{loader:path.endsWith('.ts')?'ts':'js',format:'cjs'}).code,ctx);return ctx.module.exports}
+const api=moduleAt('client/image-safety.js');
+test('image signature identifies PNG',()=>assert.equal(api.detectImageMime(Uint8Array.from([137,80,78,71,13,10,26,10])),'image/png'));
+test('HTML renamed as JPG is rejected before decode',async()=>{await assert.rejects(api.preparePhoto(new Blob(['<html>bad</html>'],{type:'image/jpeg'})),/형식/)});
+test('empty photo is rejected',async()=>{await assert.rejects(api.preparePhoto(new Blob([],{type:'image/jpeg'})),/5MB/)});
+test('oversize photo is rejected before reading',async()=>{await assert.rejects(api.preparePhoto({size:6*1024*1024}),/5MB/)});
+test('photo dimensions preserve aspect ratio without enlargement',()=>{assert.deepEqual({...api.imageDimensions(4000,2000)},{width:2048,height:1024});assert.deepEqual({...api.imageDimensions(100,50)},{width:100,height:50})});
+test('excessive decoded pixel dimensions are rejected',()=>assert.throws(()=>api.imageDimensions(10000,10000),/화소/));
+test('photo re-encoding returns new JPEG and closes bitmap',async()=>{let closed=false,drawn=false;const source=new Blob([Uint8Array.from([255,216,255,0,1,2])],{type:'image/jpeg'}),output=new Blob(['pixels'],{type:'image/jpeg'});const result=await api.preparePhoto(source,{decode:async()=>({width:400,height:200,close(){closed=true}}),canvas:()=>({getContext:()=>({fillRect(){},drawImage(){drawn=true}}),toBlob(fn,type){assert.equal(type,'image/jpeg');fn(output)}})});assert.equal(result,output);assert.notEqual(result,source);assert.equal(closed,true);assert.equal(drawn,true)});
+test('failed encoding closes bitmap and does not return original',async()=>{let closed=false;await assert.rejects(api.preparePhoto(new Blob([Uint8Array.from([255,216,255])],{type:'image/jpeg'}),{decode:async()=>({width:10,height:10,close(){closed=true}}),canvas:()=>({getContext:()=>({fillRect(){},drawImage(){}}),toBlob(fn){fn(null)}})}),/변환/);assert.equal(closed,true)});
+const downloader=moduleAt('edge-functions/_shared/image-download.ts');
+test('media downloader rejects untrusted destinations',()=>{for(const url of ['http://upload.wikimedia.org/x','https://evil.test/a.jpg','https://upload.wikimedia.org.evil.test/x','https://user@upload.wikimedia.org/a','https://upload.wikimedia.org:8443/a'])assert.throws(()=>downloader.allowedImageURL(url),/Untrusted/)});
+test('media downloader accepts only exact Wikimedia HTTPS host',()=>assert.equal(downloader.allowedImageURL('https://upload.wikimedia.org/a.jpg'),'https://upload.wikimedia.org/a.jpg'));
+test('download body signature must match declared type',async()=>{const a=moduleAt('edge-functions/_shared/image-download.ts',{fetch:async()=>new Response('<html>',{headers:{'content-type':'image/jpeg'}})});await assert.rejects(a.downloadCommonsImage('https://upload.wikimedia.org/a.jpg','image/jpeg'),/signature/)});
+test('media declared size over limit is rejected',async()=>{const a=moduleAt('edge-functions/_shared/image-download.ts',{fetch:async()=>new Response('x',{headers:{'content-type':'image/jpeg','content-length':String(16*1024*1024)}})});await assert.rejects(a.downloadCommonsImage('https://upload.wikimedia.org/a.jpg','image/jpeg'),/large/)});

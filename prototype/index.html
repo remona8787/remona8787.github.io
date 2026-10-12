@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0B0E14">
+  <title>빛의 건축 v0.2</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <button class="brand" data-nav="home" aria-label="홈">빛의 건축 <span>ARCHITECTURE OF LIGHT</span></button>
+      <button id="searchBtn" class="icon-btn" aria-label="검색">⌕</button>
+    </header>
+
+    <main id="view" class="view"></main>
+
+    <nav class="bottom-nav" aria-label="메인 메뉴">
+      <button data-nav="home" class="nav-item active"><b>⌂</b><span>홈</span></button>
+      <button data-nav="map" class="nav-item"><b>⌖</b><span>지도</span></button>
+      <button data-nav="curation" class="nav-item"><b>✦</b><span>큐레이션</span></button>
+      <button data-nav="saved" class="nav-item"><b>♡</b><span>저장</span></button>
+      <button data-nav="my" class="nav-item"><b>◉</b><span>MY</span></button>
+    </nav>
+  </div>
+
+  <dialog id="searchDialog" class="search-dialog">
+    <form method="dialog" class="search-head">
+      <input id="searchInput" placeholder="장소, 지역, 카테고리 검색" autocomplete="off">
+      <button aria-label="닫기">닫기</button>
+    </form>
+    <div id="searchResults" class="search-results"></div>
+  </dialog>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

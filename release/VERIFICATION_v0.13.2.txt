@@ -1,0 +1,106 @@
+
+> architecture-of-light@0.13.2 test
+> node --test tests/*.test.cjs
+
+✔ every top-level page renders without a dependency on external scripts (80.212606ms)
+✔ all seed and curation detail pages render with escaped data (52.919049ms)
+✔ save toggle persists then removes a place (23.365526ms)
+✔ route create, rename, reorder, remove, duplicate persist correctly (10.097374ms)
+✔ visit form persists date, rating and literal HTML as data (13.287186ms)
+✔ failed persistence never mutates in-memory state (13.277717ms)
+✔ guest, account A and account B keep separate local records (44.938423ms)
+✔ guest migration is explicit, idempotent, and retains the source (28.36889ms)
+✔ cloud replacement persists in the active account only (24.048862ms)
+✔ corrupt account data is preserved and blocks edits (15.23181ms)
+✔ archive search includes artists and normalized regional names (1.554806ms)
+✔ dates alone never imply confirmed visitor availability (0.586625ms)
+✔ confirmed operation must have source, check date and future expiry (0.241004ms)
+✔ permanent projects do not become ended events (0.157347ms)
+✔ coordinates need editorial verification and a source (0.220142ms)
+✔ hidden places never leak through discovery search (0.171548ms)
+✔ missing dates stay unknown, including invalid dates (0.155265ms)
+✔ relevance ranks name matches above artist matches (0.288185ms)
+✔ year filtering never infers an absent project year (0.221634ms)
+✔ catalog outage does not prevent auth subscription or account switching (6.592316ms)
+✔ failed media request preserves last successful media (2.868308ms)
+✔ stale admin response cannot attach previous user channel (3.866142ms)
+✔ realtime subscription cannot hide a workspace conflict (1.586253ms)
+✔ conflict resolution cannot apply a response after account switch (2.070193ms)
+✔ catalog requests are deduplicated (1.246081ms)
+✔ invalid sync revision blocks syncing instead of overwriting server state (1.525802ms)
+✔ text token contrast light body (3.792512ms)
+✔ text token contrast light metadata (0.226412ms)
+✔ text token contrast light muted panel (0.118268ms)
+✔ text token contrast button (0.11285ms)
+✔ text token contrast dark body (0.164548ms)
+✔ text token contrast dark metadata (0.146552ms)
+✔ text token contrast dark button (0.304209ms)
+✔ text token contrast hero text (0.121744ms)
+✔ actual seed counts and unique place IDs (1.412381ms)
+✔ Seoul date crosses midnight in UTC (20.608452ms)
+✔ date validation rejects impossible dates (0.529339ms)
+✔ refresh threshold is inclusive (0.427705ms)
+✔ ended programs outrank old verification flags (0.277429ms)
+✔ program end date itself remains within recorded period (0.272131ms)
+✔ future program dates are upcoming (0.179902ms)
+✔ future verification dates never imply verified (0.147463ms)
+✔ Wikidata candidates never inherit verified status (0.857984ms)
+✔ null, strings and out of range coordinates rejected (1.156996ms)
+✔ combined search/filter never returns incompatible records (0.949452ms)
+✔ safe external URLs reject active script and data URLs (0.250007ms)
+✔ escape markup safely (0.240673ms)
+✔ legacy saves migrate, unknown IDs removed, visits keep count (0.728509ms)
+✔ corrupt storage is blocked and never silently overwritten (0.215064ms)
+✔ storage disabled is handled without startup throw (0.206442ms)
+✔ full backup roundtrip preserves notes, routes, candidates (0.451591ms)
+✔ unsupported and incomplete backups rejected (0.335506ms)
+✔ invalid references and duplicate record IDs rejected (0.265611ms)
+✔ invalid dates and excessive notes rejected (0.333674ms)
+✔ CSV protects formulas and quotes line breaks (0.274635ms)
+✔ ICS is all-day, next-day exclusive, folded by octets (0.872156ms)
+✔ ICS without a date fails clearly (0.330709ms)
+✔ privileged secret matching is fail-closed (1.189725ms)
+✔ invalid Overpass payload is a failure, never an empty successful discovery (4.344204ms)
+✔ invalid Wikidata payload is a failure, never an empty successful discovery (1.302284ms)
+✔ general museum candidate is not eligible for automatic promotion (1.739254ms)
+✔ light and media relevance identifies specialist candidates (0.756351ms)
+✔ image signature identifies PNG (1.101381ms)
+✔ HTML renamed as JPG is rejected before decode (0.84183ms)
+✔ empty photo is rejected (0.217688ms)
+✔ oversize photo is rejected before reading (0.13303ms)
+✔ photo dimensions preserve aspect ratio without enlargement (0.688699ms)
+✔ excessive decoded pixel dimensions are rejected (0.179221ms)
+✔ photo re-encoding returns new JPEG and closes bitmap (0.685263ms)
+✔ failed encoding closes bitmap and does not return original (0.294134ms)
+✔ media downloader rejects untrusted destinations (0.340554ms)
+✔ media downloader accepts only exact Wikimedia HTTPS host (0.297178ms)
+✔ download body signature must match declared type (6.432274ms)
+✔ media declared size over limit is rejected (3.006916ms)
+✔ known reusable license: CC BY 4.0 (1.008983ms)
+✔ known reusable license: CC BY-SA 4.0 (0.137076ms)
+✔ known reusable license: CC0 1.0 (0.080751ms)
+✔ known reusable license: Public domain (0.060752ms)
+✔ ambiguous/restricted license rejected: Unknown (0.223277ms)
+✔ ambiguous/restricted license rejected: CC BY-NC 4.0 (0.072689ms)
+✔ ambiguous/restricted license rejected: CC BY-ND 4.0 (0.059129ms)
+✔ ambiguous/restricted license rejected: not CC BY 4.0 (0.05338ms)
+✔ ambiguous/restricted license rejected: CC BY 4.0 or restricted (0.102745ms)
+ℹ tests 83
+ℹ suites 0
+ℹ pass 83
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 426.857253
+
+> architecture-of-light@0.13.2 build
+> node scripts/build.mjs
+
+Built static app from site-public-cleared → dist
+
+> architecture-of-light@0.13.2 check
+> node scripts/check.mjs
+
+Syntax checked 11 scripts; local entry assets, auth guards, admin consistency passed.
+All Edge Function TypeScript syntax checked (not server execution).

@@ -1,0 +1,38 @@
+window.AOL_REVIEWED_MEDIA = [
+  {
+    "place_code": "SEOUL031",
+    "provider_asset_id": "Old Seoul Station at night 01.JPG",
+    "display_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Old_Seoul_Station_at_night_01.JPG/960px-Old_Seoul_Station_at_night_01.JPG",
+    "original_file_url": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Old_Seoul_Station_at_night_01.JPG",
+    "creator": "Abasaa",
+    "license_code": "Public domain",
+    "license_url": "https://commons.wikimedia.org/wiki/File:Old_Seoul_Station_at_night_01.JPG",
+    "captured_at": "2013-02-15",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Old%20Seoul%20Station%20at%20night%2001.JPG",
+    "clearance_status": "cleared",
+    "review_required": false,
+    "source_provider": "wikimedia_commons",
+    "last_rights_sync_at": "2026-10-12T01:11:44.109773+00:00",
+    "delivery": "commons_direct",
+    "caption": "장소의 과거 외관 사진 · 현재 전시·상영 모습이 아닙니다.",
+    "changes": "원본 내용 변경 없음 · 카드에서 화면 비율에 맞춰 표시"
+  },
+  {
+    "place_code": "SEOUL035",
+    "provider_asset_id": "Seoul Museum of Art (SeMA).jpg",
+    "display_url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/Seoul_Museum_of_Art_%28SeMA%29.jpg/960px-Seoul_Museum_of_Art_%28SeMA%29.jpg",
+    "original_file_url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Seoul_Museum_of_Art_%28SeMA%29.jpg",
+    "creator": "Ollie Palmer",
+    "license_code": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "captured_at": "2016-03-19",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Seoul%20Museum%20of%20Art%20%28SeMA%29.jpg",
+    "clearance_status": "cleared",
+    "review_required": false,
+    "source_provider": "wikimedia_commons",
+    "last_rights_sync_at": "2026-10-12T01:11:44.109784+00:00",
+    "delivery": "commons_direct",
+    "caption": "장소의 과거 외관 사진 · 현재 전시·상영 모습이 아닙니다.",
+    "changes": "원본 내용 변경 없음 · 카드에서 화면 비율에 맞춰 표시"
+  }
+];

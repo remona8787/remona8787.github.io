@@ -1,0 +1,81 @@
+
+:root{
+  --bg:#0B0E14; --surface:#151A22; --elev:#202632; --text:#F7F7F5; --muted:#A8AFBA;
+  --line:#303744; --violet:#7C4DFF; --lav:#B98CFF; --warm:#FFD8A8; --ok:#55C98B;
+  --safe-bottom:max(14px,env(safe-area-inset-bottom));
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:#07090d;color:var(--text);font-family:system-ui,-apple-system,"Pretendard","Noto Sans KR",sans-serif}
+button,input{font:inherit}
+button{color:inherit}
+body{min-height:100vh}
+.app-shell{width:min(100%,430px);min-height:100dvh;margin:auto;background:
+ radial-gradient(circle at 85% 0%,rgba(124,77,255,.18),transparent 28%),
+ var(--bg);position:relative;padding-bottom:84px;box-shadow:0 0 70px #000}
+.topbar{height:68px;position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:linear-gradient(#0b0e14ee,#0b0e14bb,transparent);backdrop-filter:blur(14px)}
+.brand{background:none;border:0;text-align:left;font-family:Georgia,"Noto Serif KR",serif;font-size:21px;padding:0}
+.brand span{display:block;font-family:system-ui;font-size:7px;letter-spacing:.18em;color:#9da4b0;margin-top:3px}
+.icon-btn{width:38px;height:38px;border:1px solid var(--line);background:#161b24;border-radius:12px;font-size:23px}
+.view{padding:0 18px 28px}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);z-index:30;width:min(100%,430px);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 8px var(--safe-bottom);background:#0c1016ee;border-top:1px solid #242a34;backdrop-filter:blur(18px)}
+.nav-item{border:0;background:none;display:flex;flex-direction:column;gap:4px;align-items:center;color:#78808d;font-size:10px;padding:3px}
+.nav-item b{font-size:20px;font-weight:500}.nav-item.active{color:#fff}.nav-item.active b{color:var(--lav)}
+h1{font-size:29px;margin:5px 0 5px;letter-spacing:-.04em} h2{font-size:20px;margin:28px 0 12px} p{line-height:1.6}
+.eyebrow{font-size:11px;letter-spacing:.11em;color:var(--lav);font-weight:700;text-transform:uppercase}
+.muted{color:var(--muted)}
+.hero{min-height:190px;padding:22px;border:1px solid #4c4276;border-radius:22px;background:
+ linear-gradient(145deg,rgba(50,58,82,.25),rgba(10,12,19,.35)),
+ radial-gradient(circle at 78% 28%,#6f4df099,transparent 9%),
+ radial-gradient(circle at 65% 50%,#f3c59255,transparent 22%),
+ linear-gradient(160deg,#111827,#0b0e14 60%);display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 16px 38px #0007}
+.hero h2{font-size:25px;margin:0 0 6px}.hero p{margin:0;color:#c7ccd4}.hero .cta{margin-top:16px}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:14px;padding:13px 15px;font-weight:800;background:#f7f7f5;color:#0b0e14}
+.cta.secondary{background:#212733;color:#fff;border:1px solid #343c4a}.cta.full{width:100%}
+.chips{display:flex;gap:8px;overflow:auto;padding:2px 0 5px;scrollbar-width:none}
+.chip{white-space:nowrap;border:1px solid var(--line);background:#141923;border-radius:999px;padding:8px 12px;font-size:12px;color:#cdd2da}
+.chip.active{background:#ece9ff;color:#17131f;border-color:#ece9ff}
+.hscroll{display:flex;gap:12px;overflow:auto;padding:2px 0 8px;margin-right:-18px;scrollbar-width:none}
+.place-card{width:210px;flex:none;background:#151a22;border:1px solid #252c38;border-radius:18px;overflow:hidden;text-align:left;padding:0}
+.place-card .visual,.cover{height:125px;background:
+ radial-gradient(circle at 68% 35%,#7459ff88,transparent 14%),
+ linear-gradient(145deg,#1d2842,#111827 45%,#111318);position:relative}
+.place-card .visual:after,.cover:after{content:"";position:absolute;left:18%;right:8%;bottom:25%;height:2px;background:linear-gradient(90deg,transparent,#c6adff,#ffd7ad,transparent);box-shadow:0 0 18px #9677ff}
+.card-body{padding:13px}.place-card h3,.list-card h3{font-size:16px;margin:0 0 5px}.meta{font-size:11px;color:#aeb5c0}.badge{display:inline-block;font-size:10px;border-radius:6px;padding:3px 6px;background:#18342b;color:#7ee5af;margin-right:4px}
+.badge.violet{background:#2c2149;color:#d3bfff}.section-head{display:flex;justify-content:space-between;align-items:center}.section-head button{border:0;background:none;color:#aaa}
+.list{display:flex;flex-direction:column;gap:10px}.list-card{border:1px solid #252c38;background:#141923;border-radius:16px;padding:12px;display:grid;grid-template-columns:74px 1fr auto;gap:12px;text-align:left;align-items:center}
+.thumb{width:74px;height:74px;border-radius:12px;background:linear-gradient(135deg,#202945,#161923 62%,#3b2d4c)}
+.list-card .arrow{color:#777;font-size:18px}
+.map-shell{height:310px;border:1px solid #2b3340;border-radius:20px;background:
+ linear-gradient(#111722cc,#0f141ecc),
+ repeating-linear-gradient(35deg,transparent 0 28px,#273040 29px 30px),
+ repeating-linear-gradient(-35deg,transparent 0 39px,#273040 40px 41px);position:relative;overflow:hidden}
+.map-shell:before{content:"실제 좌표 연결 전 · 주소 기반 프로토타입";position:absolute;top:14px;left:14px;font-size:10px;color:#b7bdc8;background:#111723cc;padding:7px 9px;border-radius:9px}
+.mock-pin{position:absolute;width:16px;height:16px;border-radius:50% 50% 50% 0;background:var(--lav);transform:rotate(-45deg);box-shadow:0 0 18px #8a6dff}.mock-pin:after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:#fff;left:5px;top:5px}
+.notice{padding:13px 14px;border:1px solid #3d354e;border-radius:14px;background:#1a1622;color:#c9c4d4;font-size:12px;line-height:1.55}
+.detail-head{margin:0 -18px}.cover{height:260px}.detail-content{margin-top:-22px;position:relative;background:var(--bg);border-radius:24px 24px 0 0;padding:22px 0 0}
+.detail-title{display:flex;justify-content:space-between;gap:12px}.detail-title h1{margin:0}.round-action{width:42px;height:42px;border-radius:50%;border:1px solid #343c49;background:#161c25;font-size:20px}
+.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.info{padding:12px;background:#141923;border:1px solid #242b35;border-radius:14px}.info strong{display:block;font-size:11px;color:#9fa7b3;margin-bottom:5px}.quote{font-family:Georgia,"Noto Serif KR",serif;font-size:19px;color:#f3d0a5;line-height:1.55;border-left:2px solid #c4986b;padding-left:14px}
+.source{font-size:11px;color:#88909e;overflow-wrap:anywhere}
+.curation-card{min-height:180px;border-radius:20px;padding:20px;background:
+ radial-gradient(circle at 70% 25%,#775cff66,transparent 14%),
+ linear-gradient(140deg,#1f2637,#11151d 62%);border:1px solid #303748;display:flex;flex-direction:column;justify-content:flex-end;text-align:left}
+.curation-card h3{font-size:22px;margin:5px 0}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{padding:14px 8px;text-align:center;background:#141923;border:1px solid #252c38;border-radius:14px}.stat strong{display:block;font-size:23px}.stat span{font-size:10px;color:#9ea6b2}
+.empty{padding:36px 16px;text-align:center;color:#a4abb6;border:1px dashed #343b48;border-radius:18px}
+.search-dialog{width:min(100%,430px);height:100dvh;max-height:none;border:0;padding:0;background:#0b0e14;color:#fff}.search-dialog::backdrop{background:#000a}
+.search-head{display:flex;gap:8px;padding:14px;border-bottom:1px solid #252b35}.search-head input{flex:1;background:#171c25;color:#fff;border:1px solid #313947;border-radius:12px;padding:12px}.search-head button{border:0;background:none}
+.search-results{padding:14px}
+a.link{color:#d0baff;text-decoration:none}
+.small{font-size:11px}
+hr{border:0;border-top:1px solid #252b35;margin:24px 0}
+@media(min-width:700px){body{padding:25px 0}.app-shell{min-height:900px;border-radius:28px;overflow:hidden}.bottom-nav{bottom:25px;border-radius:0 0 28px 28px}}
+
+.region-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.region-tab{border:1px solid var(--line);background:#141923;color:#abb3bf;padding:11px;border-radius:12px;font-weight:700}
+.region-tab.active{background:#ece9ff;color:#17131f}
+.live-pill{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:4px 8px;font-size:10px;background:#133326;color:#7ee5af}
+.live-pill.warn{background:#3b2e16;color:#ffd27e}
+.live-pill.off{background:#382020;color:#ff9c9c}
+.provider-card{padding:15px;border:1px solid #2c3340;border-radius:16px;background:#141923}
+.provider-card h3{margin:0 0 6px}
+.auditline{font-size:10px;color:#929ba8;margin-top:5px}
+.source-dot{width:7px;height:7px;border-radius:50%;background:#55c98b;display:inline-block}

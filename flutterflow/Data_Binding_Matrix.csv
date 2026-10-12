@@ -1,0 +1,13 @@
+﻿page,section,source,query_type,filters,order,widget,action_or_parameter
+HomePage,지금 볼 수 있어요,places,List,is_published=true; mvp_priority=A,verified_at DESC,PlaceCardHorizontal,placeId=current.id
+HomePage,이번 주 큐레이션,curations,List,is_published=true,published_at DESC,CurationCard,curationId=current.id
+MapPage,지도/목록,places,List,is_published=true; latitude!=null; longitude!=null,name_kr ASC,MapMarker + PlaceCardCompact,placeId=current.id
+PlaceDetailPage,장소 기본,places,Single,id=page.placeId,,Detail sections,
+PlaceDetailPage,작품,works,List,place_id=page.placeId,start_date DESC,Work card,
+PlaceDetailPage,일정,schedules,List,place_id=page.placeId,,Info rows,
+PlaceDetailPage,저장 상태,saved_places,Single,user_id=auth.uid; place_id=page.placeId,,Save button,RPC toggle_saved_place
+CurationPage,큐레이션 목록,curations,List,is_published=true,published_at DESC,CurationCard,curationId=current.id
+CurationDetailPage,큐레이션 장소,RPC get_curation_places,List,p_curation_id=page.curationId,sort_order ASC,Place rows,placeId=current.place_id
+MyLightMapPage,KPI,RPC get_my_light_stats,Single,,,KPI strip,
+MyLightMapPage,저장,saved_places + places,List,user_id=auth.uid,saved_at DESC,PlaceCardCompact,
+MyLightMapPage,방문,visited_places + places,List,user_id=auth.uid,last_visited_at DESC,PlaceCardCompact,

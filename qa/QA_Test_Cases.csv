@@ -1,0 +1,19 @@
+﻿id,area,test,steps,expected,priority,status
+QA-001,Public,Home anonymous,로그아웃 상태 앱 실행,Home이 로그인 없이 로드,P0,Not run
+QA-002,Data,Seed count,Supabase places 조회,50행 존재,P0,Not run
+QA-003,Navigation,Place detail,Home 카드 탭,선택한 placeId의 상세정보 표시,P0,Not run
+QA-004,Search,Korean search,'광화' 검색,관련 장소 반환,P1,Not run
+QA-005,Curation,Curation order,큐레이션 상세 진입,sort_order 순으로 장소 표시,P1,Not run
+QA-006,Auth,Login gate,로그아웃 상태 저장 탭,Auth 화면으로 이동,P0,Not run
+QA-007,Save,Toggle save,로그인 후 저장 2회,insert 후 delete; 중복행 없음,P0,Not run
+QA-008,Visit,Visit counter,방문했어요 2회,visit_count가 2,P1,Not run
+QA-009,RLS,Cross-user saved,사용자 B로 사용자 A 데이터 접근 시도,읽기 불가,P0,Not run
+QA-010,RLS,Cross-user visited,사용자 B로 사용자 A 데이터 접근 시도,읽기 불가,P0,Not run
+QA-011,Map,Missing coordinate safety,lat/lng null 장소 존재,지도 marker로 전달되지 않음,P0,Not run
+QA-012,Map,Coordinate bounds,모든 좌표 검사,"lat -90~90, lng -180~180",P0,Not run
+QA-013,External,Official URL,상세 공식링크 탭,정상 URL 열림,P1,Not run
+QA-014,Copyright,Media metadata,이미지 게시 전 확인,copyright/source 기록,P0,Not run
+QA-015,My,Stats,저장/방문 후 My 진입,KPI가 실제 데이터와 일치,P1,Not run
+QA-016,Responsive,Galaxy,Android 실기기 확인,텍스트 잘림/오버플로 없음,P1,Not run
+QA-017,Accessibility,Text scale,폰트 확대,핵심 CTA 사용 가능,P2,Not run
+QA-018,Offline,Prototype localStorage,프로토타입 저장/방문 후 새로고침,기록 유지,P2,Not run

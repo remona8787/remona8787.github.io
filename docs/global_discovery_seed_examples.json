@@ -1,0 +1,75 @@
+{
+  "countries": [
+    {
+      "iso2": "KR",
+      "iso3": "KOR",
+      "name_en": "South Korea",
+      "name_local": "대한민국",
+      "continent": "Asia",
+      "default_language": "ko",
+      "wikidata_id": "Q884"
+    },
+    {
+      "iso2": "JP",
+      "iso3": "JPN",
+      "name_en": "Japan",
+      "name_local": "日本",
+      "continent": "Asia",
+      "default_language": "ja",
+      "wikidata_id": "Q17"
+    },
+    {
+      "iso2": "US",
+      "iso3": "USA",
+      "name_en": "United States",
+      "name_local": "United States",
+      "continent": "North America",
+      "default_language": "en",
+      "wikidata_id": "Q30"
+    }
+  ],
+  "cities": [
+    {
+      "city_code": "SEOUL",
+      "country_iso2": "KR",
+      "name_en": "Seoul",
+      "name_local": "서울",
+      "wikidata_id": "Q8684",
+      "bbox": [
+        37.413294,
+        126.734086,
+        37.715133,
+        127.269311
+      ],
+      "discovery_priority": 1
+    },
+    {
+      "city_code": "TOKYO",
+      "country_iso2": "JP",
+      "name_en": "Tokyo",
+      "name_local": "東京",
+      "wikidata_id": "Q1490",
+      "bbox": [
+        35.528984,
+        139.562103,
+        35.898403,
+        139.918391
+      ],
+      "discovery_priority": 2
+    },
+    {
+      "city_code": "NEWYORK",
+      "country_iso2": "US",
+      "name_en": "New York City",
+      "name_local": "New York City",
+      "wikidata_id": "Q60",
+      "bbox": [
+        40.477399,
+        -74.25909,
+        40.917577,
+        -73.700272
+      ],
+      "discovery_priority": 3
+    }
+  ]
+}

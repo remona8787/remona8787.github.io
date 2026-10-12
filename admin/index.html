@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a0e14">
+<title>빛의 건축 · Global Discovery Admin</title>
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<div class="app">
+  <a href="../" style="display:block;margin:20px;color:#b997ff">← 빛의 건축으로</a>
+  <section id="loginPanel" class="panel login">
+    <div class="brand"><small>ARCHITECTURE OF LIGHT</small><h1>Global Discovery Admin</h1></div>
+    <p style="color:#9aa4b1">Supabase Auth 계정으로 로그인합니다. `app_admins`에 등록된 계정만 사용할 수 있습니다.</p>
+    <input id="email" type="email" autocomplete="email" placeholder="Email">
+    <input id="password" type="password" autocomplete="current-password" placeholder="Password">
+    <button class="btn primary" id="loginBtn">로그인</button>
+    <div id="loginMsg" class="notice hidden"></div>
+  </section>
+
+  <section id="adminPanel" class="hidden">
+    <header class="top">
+      <div class="brand"><small>ARCHITECTURE OF LIGHT</small><h1>Global Discovery Admin</h1></div>
+      <div class="toolbar">
+        <span id="userLabel" style="color:#9aa4b1"></span>
+        <button class="btn" id="refreshBtn">새로고침</button>
+        <button class="btn" id="logoutBtn">로그아웃</button>
+      </div>
+    </header>
+
+    <div class="discovery panel">
+      <b style="align-self:center">Discovery 실행</b>
+      <button class="btn primary" data-discover="SEOUL">서울</button>
+      <button class="btn primary" data-discover="TOKYO">도쿄</button>
+      <button class="btn primary" data-discover="NEWYORK">뉴욕</button>
+      <span id="discoverMsg" style="align-self:center;color:#9aa4b1"></span>
+    </div>
+
+    <div id="stats" class="stats"></div>
+
+    <div class="grid">
+      <main class="panel">
+        <div class="filters">
+          <select id="cityFilter">
+            <option value="">전체 도시</option>
+            <option value="SEOUL">서울</option>
+            <option value="TOKYO">도쿄</option>
+            <option value="NEWYORK">뉴욕</option>
+          </select>
+          <select id="statusFilter">
+            <option value="">전체 상태</option>
+            <option value="ready">ready</option>
+            <option value="draft">draft</option>
+            <option value="published">published</option>
+            <option value="rejected">rejected</option>
+            <option value="hidden">hidden</option>
+          </select>
+          <select id="scoreFilter">
+            <option value="0">점수 전체</option>
+            <option value="50">50+</option>
+            <option value="60">60+</option>
+            <option value="70">70+</option>
+            <option value="80">80+</option>
+          </select>
+          <input id="searchFilter" placeholder="장소명 / 타입 검색">
+          <button class="btn" id="applyFilter">적용</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>장소</th><th>도시</th><th>유형</th><th>Provider</th><th>Relevance</th><th>Confidence</th><th>Status</th></tr></thead>
+            <tbody id="candidateRows"></tbody>
+          </table>
+        </div>
+      </main>
+
+      <aside class="panel detail">
+        <h2>후보 상세</h2>
+        <div id="candidateDetail" style="color:#8f9aaa">왼쪽에서 후보를 선택하세요.</div>
+      </aside>
+    </div>
+
+    <section class="panel"><h2>아카이브·매거진 작성</h2><form id="articleForm"><label>제목<input name="title" maxlength="200" required></label><label>작성자<input name="author" maxlength="200"></label><label>요약<textarea name="summary" maxlength="1000"></textarea></label><label>본문<textarea name="body" maxlength="100000" required></textarea></label><label>출처 URL<input name="source_url" type="url"></label><label>상태<select name="status"><option value="draft">비공개 초안</option><option value="published">공개</option></select></label><button class="btn primary">글 등록</button><p id="articleMsg" role="status"></p></form></section><section class="panel jobs">
+      <h2 style="margin-top:0">최근 Ingestion Jobs</h2>
+      <div id="jobs"></div>
+    </section>
+  </section>
+</div>
+<script src="./config.js"></script>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

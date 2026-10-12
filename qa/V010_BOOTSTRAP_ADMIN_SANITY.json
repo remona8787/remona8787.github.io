@@ -1,0 +1,47 @@
+{
+  "admin_app": {
+    "ok": true,
+    "stderr": ""
+  },
+  "site_app": {
+    "ok": true,
+    "stderr": ""
+  },
+  "public_site_app": {
+    "ok": true,
+    "stderr": ""
+  },
+  "10_global_discovery_engine.sql": {
+    "dollar_quotes_even": true,
+    "semicolon_count": 61
+  },
+  "12_seed_countries_cities.sql": {
+    "dollar_quotes_even": true,
+    "semicolon_count": 4
+  },
+  "13_admin_review_console.sql": {
+    "dollar_quotes_even": true,
+    "semicolon_count": 79
+  },
+  "14_bootstrap_job_markers.sql": {
+    "dollar_quotes_even": true,
+    "semicolon_count": 2
+  },
+  "15_discovery_hardening.sql": {
+    "dollar_quotes_even": true,
+    "semicolon_count": 35
+  },
+  "16_bootstrap_admin_smoke_tests.sql": {
+    "dollar_quotes_even": true,
+    "semicolon_count": 6
+  },
+  "global_engine": {
+    "countries": true,
+    "admin_rpc": true,
+    "bootstrap_ps1": true,
+    "admin_dashboard": true,
+    "admin_edge": true,
+    "promote_schema_fixed": true,
+    "overpass_syntax": true
+  }
+}

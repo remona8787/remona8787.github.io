@@ -1,0 +1,11 @@
+const {test}=require('node:test'),assert=require('node:assert/strict'),X=require('../site-public-cleared/catalog.js');
+const today='2026-10-11',p={place_id:'SEOUL001',name_kr:'빛의 전당',name_en:'Light Hall',primary_category:'Media Art',artist:'홍길동',program_start:'2026-10-01',program_end:'2026-10-20'};
+test('archive search includes artists and normalized regional names',()=>{assert.equal(X.search([p],{q:'서울 홍길동'},today).length,1);assert.equal(X.search([p],{country:'대한민국',city:'부산'},today).length,0)});
+test('dates alone never imply confirmed visitor availability',()=>{assert.equal(X.status(p,today),'ongoing');assert.equal(X.available(p,today),false)});
+test('confirmed operation must have source, check date and future expiry',()=>{const q={...p,operation_verified:true,verified_at:'2026-10-10',operation_verified_until:'2026-10-12',operation_source_url:'https://example.com'};assert.equal(X.available(q,today),true);assert.equal(X.available({...q,operation_verified_until:'2026-10-10'},today),false);assert.equal(X.available({...q,operation_source_url:''},today),false)});
+test('permanent projects do not become ended events',()=>{assert.equal(X.status({...p,content_type:'permanent',program_end:'2020-01-01'},today),'permanent')});
+test('coordinates need editorial verification and a source',()=>{const q={...p,latitude:37.5,longitude:127};assert.equal(X.mappable(q),false);assert.equal(X.mappable({...q,coordinate_review_status:'verified',coordinate_source_url:'https://example.com'}),true);assert.equal(X.mappable({...q,latitude:200,coordinate_review_status:'verified',coordinate_source_url:'https://example.com'}),false)});
+test('hidden places never leak through discovery search',()=>assert.equal(X.search([{...p,is_published:false}],{},today).length,0));
+test('missing dates stay unknown, including invalid dates',()=>{assert.equal(X.status({...p,program_start:null,program_end:null},today),'unknown');assert.equal(X.status({...p,program_start:'2026-02-30',program_end:null},today),'unknown')});
+test('relevance ranks name matches above artist matches',()=>{const q={...p,place_id:'B',name_kr:'다른 공간',name_en:'',artist:'빛의 전당'};assert.equal(X.search([q,p],{q:'빛의 전당'},today)[0].place_id,p.place_id)});
+test('year filtering never infers an absent project year',()=>assert.equal(X.search([{...p,program_start:null}],{year:'2026'},today).length,0));

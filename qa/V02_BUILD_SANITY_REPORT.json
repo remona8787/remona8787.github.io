@@ -1,0 +1,49 @@
+{
+  "app.js": {
+    "ok": true,
+    "stderr": ""
+  },
+  "data.js": {
+    "ok": true,
+    "stderr": ""
+  },
+  "01_schema.sql": {
+    "semicolon_count": 88,
+    "dollar_quote_even": true
+  },
+  "02_seed_seoul50.sql": {
+    "semicolon_count": 28,
+    "dollar_quote_even": true
+  },
+  "03_storage.sql": {
+    "semicolon_count": 3,
+    "dollar_quote_even": true
+  },
+  "04_flutterflow_rpc.sql": {
+    "semicolon_count": 33,
+    "dollar_quote_even": true
+  },
+  "05_live_data_schema.sql": {
+    "semicolon_count": 30,
+    "dollar_quote_even": true
+  },
+  "06_cron_templates.sql": {
+    "semicolon_count": 4,
+    "dollar_quote_even": true
+  },
+  "07_audited_corrections.sql": {
+    "semicolon_count": 7,
+    "dollar_quote_even": true
+  },
+  "98_data_audit.sql": {
+    "semicolon_count": 8,
+    "dollar_quote_even": true
+  },
+  "99_smoke_tests.sql": {
+    "semicolon_count": 7,
+    "dollar_quote_even": true
+  },
+  "seed_places": 50,
+  "visible_places": 49,
+  "curations": 6
+}

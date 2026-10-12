@@ -1,0 +1,12 @@
+﻿provider,coverage,best_for,credential,refresh,role,implementation_note,official_url
+Korea TourAPI 4.0,Korea,POI·관광지·행사·이미지·동기화목록,API key,주기 동기화,Canonical 후보(이용조건 준수),"전국 확장 1순위. 약 26만 건 국문 관광정보, 위치/키워드/행사/이미지/동기화 목록 제공.",https://www.data.go.kr/data/15101578/openapi.do?recommendDataYn=Y
+서울 열린데이터광장,Seoul,문화행사·문화공간·예약·좌표,API key,15분~6시간,Canonical/Live,서울 문화행사와 문화공간 OpenAPI를 자동 유입. 앱 편집규칙으로 빛·미디어 관련만 선별.,https://data.seoul.go.kr/dataList/17/literacyView.do
+문화체육관광부/문화포털 API,Korea,국립박물관 문화행사·공연/아카이브,API key 또는 기관 정책,6~24시간,Canonical/Live,전시·행사 보강용.,https://www.data.go.kr/data/15105222/openapi.do?recommendDataYn=Y
+Wikidata,Global,장소 식별자·좌표·건축가·개관연도·공식사이트,없음/공개 SPARQL,주 1회,Canonical enrichment,구조화 데이터 CC0. 장기 식별·지식 그래프에 적합.,https://www.wikidata.org/wiki/Wikidata:Licensing
+OpenStreetMap,Global,기초 지리·POI·주소,공개 데이터(ODbL),월/주기,Canonical geography,ODbL 출처표시·share-alike 영향 검토. 공개 Nominatim은 1 req/s 제한이라 production bulk에는 자체/상용 provider 권장.,https://www.openstreetmap.org/copyright
+Google Places API,Global,POI 검색·영업시간·open_now·사진·Place ID,Google Cloud key+billing,요청 시 Live,Ephemeral overlay,Place ID는 저장 가능하지만 Places 콘텐츠 저장/캐싱 제한. Google Map/attribution 규칙 준수. 영업시간/존재 확인용 오버레이에 적합.,https://developers.google.com/maps/documentation/places/web-service/policies
+Foursquare Places API,Global,POI 검색·상세·카테고리·사진/팁(등급별),Service key,요청 시 Live,Ephemeral overlay,전세계 POI 대안. 화면에 Powered by Foursquare 등 약관/캐싱 준수. 2026 과금체계 확인.,https://foursquare.com/pricing/
+Mapbox Search Box,Global,POI·주소 검색·autocomplete,Access token,요청 시 Live,Search only,Search Box 응답은 temporary use 제한이 있어 canonical DB로 저장하지 않음.,https://docs.mapbox.com/api/search/search-box/
+Ticketmaster Discovery,Global markets,공연·행사·venue·attraction,API key,1~6시간,Live events,공연·이벤트 레이어. 미디어아트/빛 축제 키워드·분류 후 에디터 필터.,https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/
+Europeana APIs,Europe/Global collections,문화유산 메타데이터·미디어·IIIF·rights,무료 API key,일/주,Enrichment/media candidate,권리 상태로 필터 가능한 문화 이미지·메타데이터. 장소 운영시간용이 아니라 콘텐츠/아카이브용.,https://www.europeana.eu/en/apis
+Wikimedia Commons,Global,장소/건축/작품 이미지,없음,필요 시,Media candidate,파일별 CC/PD 라이선스를 반드시 확인하고 저작자·라이선스 표기. 외부 핫링크보다 권리 기록 후 자체 Storage 권장.,https://commons.wikimedia.org/wiki/Commons:Reusing_content_outside_Wikimedia

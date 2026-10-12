@@ -1,0 +1,51 @@
+{
+  "app.js": {
+    "ok": true,
+    "stderr": ""
+  },
+  "data.js": {
+    "ok": true,
+    "stderr": ""
+  },
+  "sw.js": {
+    "ok": true,
+    "stderr": ""
+  },
+  "single_file_html": {
+    "has_home": true,
+    "has_seed_50_marker": true,
+    "has_search": true,
+    "has_localstorage": true,
+    "bytes": 140684
+  },
+  "01_schema.sql": {
+    "semicolon_count": 88,
+    "dollar_quote_even": true,
+    "bytes": 14631
+  },
+  "02_seed_seoul50.sql": {
+    "semicolon_count": 28,
+    "dollar_quote_even": true,
+    "bytes": 83790
+  },
+  "03_storage.sql": {
+    "semicolon_count": 3,
+    "dollar_quote_even": true,
+    "bytes": 770
+  },
+  "04_flutterflow_rpc.sql": {
+    "semicolon_count": 33,
+    "dollar_quote_even": true,
+    "bytes": 4763
+  },
+  "98_data_audit.sql": {
+    "semicolon_count": 8,
+    "dollar_quote_even": true,
+    "bytes": 1745
+  },
+  "99_smoke_tests.sql": {
+    "semicolon_count": 7,
+    "dollar_quote_even": true,
+    "bytes": 1096
+  }
+}

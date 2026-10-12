@@ -1,0 +1,28 @@
+{
+  "site/app.js": {
+    "ok": true,
+    "stderr": ""
+  },
+  "site-public-cleared/app.js": {
+    "ok": true,
+    "stderr": ""
+  },
+  "08_hybrid_media_pipeline.sql": {
+    "semicolon_count": 20,
+    "dollar_quote_even": true,
+    "has_public_view": true
+  },
+  "09_hybrid_media_cron.sql": {
+    "semicolon_count": 12,
+    "dollar_quote_even": true,
+    "has_public_view": true
+  },
+  "edge_functions": {
+    "cache": true,
+    "discover": true,
+    "refresh": true,
+    "shared": true
+  },
+  "hybrid_client": true,
+  "fallback_client": true
+}

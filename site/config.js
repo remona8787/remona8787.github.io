@@ -1,0 +1,5 @@
+window.AOL_CONFIG = {
+  SUPABASE_URL: "",
+  SUPABASE_PUBLISHABLE_KEY: "",
+  MEDIA_MODE: "hybrid"
+};

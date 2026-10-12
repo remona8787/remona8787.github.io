@@ -1,0 +1,14 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const vm=require('node:vm');
+const fs=require('node:fs');
+const {transformSync}=require('esbuild');
+const ctx=vm.createContext({module:{exports:{}}});
+vm.runInContext(transformSync(fs.readFileSync('edge-functions/_shared/commons.ts','utf8'),{loader:'ts',format:'cjs'}).code,ctx);
+const decide=ctx.module.exports.rightsDecision;
+for(const license of ['CC BY 4.0','CC BY-SA 4.0','CC0 1.0','Public domain'])test('known reusable license: '+license,()=>assert.equal(decide(license).commercialAllowed,true));
+for(const license of ['Unknown','CC BY-NC 4.0','CC BY-ND 4.0','not CC BY 4.0','CC BY 4.0 or restricted'])test('ambiguous/restricted license rejected: '+license,()=>assert.equal(decide(license).commercialAllowed,false));
+const warning=ctx.module.exports.hasRightsWarning;
+test('Commons architectural copyright warning blocks automated clearance',()=>assert.equal(warning(['Category:NoFoP-South Korea'],{}),true));
+test('Commons metadata restriction blocks automated clearance',()=>assert.equal(warning([],{Restrictions:{value:'Permission required'}}),true));
+test('ordinary category does not imply a rights restriction',()=>assert.equal(warning(['Category:Seoul Station'],{}),false));

@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-10T16:28:24.362Z",
+  "databaseConnected": false,
+  "results": [
+    {
+      "city": "SEOUL",
+      "status": "fetched_not_persisted",
+      "candidates": []
+    },
+    {
+      "city": "TOKYO",
+      "status": "fetched_not_persisted",
+      "candidates": []
+    },
+    {
+      "city": "NEWYORK",
+      "status": "fetched_not_persisted",
+      "candidates": []
+    }
+  ],
+  "diagnostic_query": {
+    "description": "Wikidata VALUES label query",
+    "http_status": 403
+  }
+}

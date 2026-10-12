@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-11T09:05:33.834Z",
+  "configPath": "release/launch/public-config.js",
+  "checks": [
+    {
+      "name": "email_auth_enabled",
+      "status": "passed",
+      "http": 200
+    },
+    {
+      "name": "editorial_articles",
+      "status": "failed",
+      "http": 404
+    },
+    {
+      "name": "public_catalog",
+      "status": "failed",
+      "http": 400
+    },
+    {
+      "name": "cleared_media_view",
+      "status": "passed",
+      "http": 200
+    },
+    {
+      "name": "actual_media_available",
+      "status": "failed",
+      "http": 200
+    }
+  ],
+  "unverified": [
+    "email_delivery",
+    "two_user_rls",
+    "realtime_two_clients",
+    "private_photo_upload",
+    "admin_review",
+    "cron_execution",
+    "browser_e2e"
+  ]
+}

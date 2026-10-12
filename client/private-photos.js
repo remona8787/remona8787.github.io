@@ -1,0 +1,9 @@
+import {preparePhoto} from './image-safety.js';
+export function photoAPI(getClient,getUser){
+ function context(){const client=getClient(),user=getUser();if(!client||!user)throw Error('개인 사진은 로그인 및 서버 연결 후 사용할 수 있습니다.');return {client,user}}
+ return {
+ async upload(visitId,file){const {client,user}=context();if(!/^[\w-]{1,100}$/.test(visitId))throw Error('방문 기록 ID 오류');const prepared=await preparePhoto(file);if(getUser()?.id!==user.id)throw Error('계정이 변경되어 업로드를 중단했습니다.');const id=crypto.randomUUID(),path=user.id+'/'+id+'.jpg';const {error}=await client.storage.from('visit-photos').upload(path,prepared,{contentType:prepared.type,upsert:false,cacheControl:'0'});if(error)throw error;if(getUser()?.id!==user.id)throw Error('계정이 변경되었습니다. 사진은 이전 계정 경로에만 저장되었습니다.');const {error:rowError}=await client.from('visit_photos').insert({id,user_id:user.id,visit_id:visitId,storage_path:path});if(rowError){await client.storage.from('visit-photos').remove([path]);throw rowError}},
+ async list(visitId){const {client,user}=context();const {data,error}=await client.from('visit_photos').select('id,storage_path').eq('user_id',user.id).eq('visit_id',visitId).order('created_at');if(error)throw error;const out=[];for(const row of data){const {data:signed,error:signError}=await client.storage.from('visit-photos').createSignedUrl(row.storage_path,60);if(signError)throw signError;out.push({...row,url:signed.signedUrl})}return out},
+ async remove(id){const {client,user}=context();const {data,error}=await client.from('visit_photos').select('storage_path').eq('id',id).eq('user_id',user.id).single();if(error)throw error;const {error:storageError}=await client.storage.from('visit-photos').remove([data.storage_path]);if(storageError)throw storageError;const {error:rowError}=await client.from('visit_photos').delete().eq('id',id).eq('user_id',user.id);if(rowError)throw rowError}
+ }
+}

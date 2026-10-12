@@ -1,0 +1,2 @@
+-- Superseded by release/launch/install-six-hour-sync.sql (v0.13.3).
+-- Use that one deployment script after backend and functions are ready.

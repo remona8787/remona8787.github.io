@@ -1,0 +1,33 @@
+{
+  "brand": {
+    "name_ko": "빛의 건축",
+    "name_en": "Architecture of Light",
+    "tagline": "도시의 빛을 발견하세요."
+  },
+  "colors": {
+    "bg_primary": "#0B0E14",
+    "bg_surface": "#151A22",
+    "bg_elevated": "#202632",
+    "brand_primary": "#7C4DFF",
+    "brand_lavender": "#B98CFF",
+    "brand_warm": "#FFD8A8",
+    "text_primary": "#F7F7F5",
+    "text_secondary": "#A8AFBA",
+    "line_subtle": "#303744",
+    "success": "#55C98B"
+  },
+  "typography": {
+    "primary": "Pretendard",
+    "fallback": "Noto Sans KR"
+  },
+  "radius": {
+    "card": 16,
+    "image": 14,
+    "button": 14
+  },
+  "spacing": {
+    "page_horizontal": 20,
+    "section": 28,
+    "card_gap": 12
+  }
+}
