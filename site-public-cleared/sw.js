@@ -1,4 +1,4 @@
-const CACHE='aol-v0133-20261012-1';
+const CACHE='aol-v0140-20261012-1';
 const ASSETS=['./index.html','./styles.css','./app.js','./core.js','./catalog.js','./account.js','./assets/cloud.js','./assets/native.js','./assets/symbol.svg','./assets/seed.js','./assets/reviewed-media.js','./config.js','./manifest.webmanifest','./assets/icon-192.png','./assets/icon-512.png'];
 const scopeURL=new URL(self.registration.scope);
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS))));

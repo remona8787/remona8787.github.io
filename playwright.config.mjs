@@ -6,5 +6,5 @@ if(!/UTF-8/i.test(process.env.LC_ALL||process.env.LANG||''))process.env.LC_ALL=p
 export default defineConfig({
  testDir:'qa',testMatch:/.*\.spec\.mjs/,timeout:30000,retries:0,
  use:{baseURL:process.env.AOL_TEST_URL||`http://127.0.0.1:${port}`,serviceWorkers:'block'},
- webServer:process.env.AOL_TEST_URL?undefined:{command:`python3 -m http.server ${port} --bind 127.0.0.1 --directory dist`,port,reuseExistingServer:true}
+ webServer:process.env.AOL_TEST_URL?undefined:{command:`node scripts/serve.mjs dist ${port}`,port,reuseExistingServer:true}
 });

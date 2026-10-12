@@ -6,5 +6,6 @@ window.AOL_CONFIG = {
  TILE_ATTRIBUTION: '© OpenStreetMap contributors',
  SUPPORT_EMAIL: '',
  OPERATOR_NAME: '',
+ PRIVACY_OFFICER: '',
  MEDIA_MODE: 'hybrid'
 };

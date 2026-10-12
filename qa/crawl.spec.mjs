@@ -2,7 +2,7 @@
 // Fails on uncaught errors, same-origin request failures, horizontal overflow, or tap targets below 24px.
 import {test,expect} from '@playwright/test';
 const routes=['home','explore','map','saved','my','magazine','routes','journal','calendar','account','settings','audit','place/SEOUL001','curation/CUR01','nope'];
-const pages=['about.html','privacy.html','terms.html','support.html','delete-account.html','404.html','admin/'];
+const pages=['about.html','privacy.html','terms.html','support.html','delete-account.html','404.html','admin/','nope/deep/path'];
 for(const width of [360,1440]){
  for(const target of [...routes.map(r=>'/#'+r),...pages.map(p=>'/'+p)]){
   test(`${target} @${width}`,async({page,baseURL})=>{

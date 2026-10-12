@@ -1,40 +1,14 @@
-# 1-click에 가까운 Public Beta 배포
+# 배포
 
-`site/` 폴더는 빌드 과정이 없는 정적 PWA다.
+배포 대상은 항상 빌드 결과물 `dist/`입니다. `site-public-cleared/`를 그대로 올리면 로그인·동기화 번들(`assets/cloud.js`, `assets/supabase.js`)과 지도 라이브러리(`assets/vendor/leaflet`)가 빠집니다.
 
-## 계정 없이 여기까지 완료됨
-- 서울 검증 Seed
-- installable PWA manifest/service worker
-- 실제 OpenStreetMap 인터랙티브 지도
-- 실제 Wikidata 전세계 검색
-- 실제 Wikimedia Commons 이미지 라이선스 메타데이터 확인
-- 저장/방문 localStorage
-- privacy/about
-- Netlify/Cloudflare Pages용 `_headers`
-- Vercel config
-- Dockerfile
+    npm ci && npm run build      # → dist/
 
-## 공개 URL을 만드는 마지막 1단계
-호스팅 계정 하나가 필요하다.
+- **Netlify / Cloudflare Pages**: Git 연결 시 base `light-architecture`, build `npm run build`, publish `dist`. 수동 업로드는 `dist/` 폴더를 끌어다 놓기. 보안 헤더는 `_headers`가 적용됩니다.
+- **Vercel**: Root `light-architecture`, Build `npm run build`, Output `dist`. 헤더는 `vercel.json`.
+- **Docker**: `dist/`에서 `docker build -t architecture-of-light . && docker run -p 8080:80 architecture-of-light`.
+- **ChatGPT Sites**: `.openai/hosting.json`이 `dist`를 가리킵니다.
 
-### Netlify / Cloudflare Pages
-`site/` 폴더 전체를 정적 사이트로 배포. 빌드 명령 없음, publish directory는 site root.
+배포 후 `AOL_TEST_URL=https://<주소> npm run e2e`로 실제 주소를 검증합니다(사진 디코드 포함).
 
-### Vercel
-site 폴더를 프로젝트 root로 업로드. Framework preset: Other.
-
-### Docker
-`docker build -t architecture-of-light .`
-`docker run -p 8080:80 architecture-of-light`
-
-## 스토어 앱과의 차이
-이 PWA는 Android/desktop에서 브라우저의 “홈 화면에 추가/앱 설치”로 설치 가능하다.
-Google Play/App Store 등록은 개발자 계정·서명·스토어 심사가 별도로 필요하다.
-
-## Production 전 권장 교체
-OpenStreetMap 공식 타일은 best-effort이며 상업/대규모 트래픽에 SLA가 없다.
-정식 트래픽이 생기면 OSM 기반 상용 tile provider 또는 자체 호스팅으로 교체할 수 있도록 map tile URL을 config화할 것.
-
-
-## v0.8 Hybrid Media
-`config.js`에 Supabase URL/publishable key를 넣으면 `public_place_media`의 CDN 캐시 이미지가 live Commons보다 우선됩니다.
+OpenStreetMap 공식 타일은 SLA가 없습니다. 트래픽이 늘면 `config.js`의 `TILE_URL`을 상용 타일 제공자로 교체하세요.

@@ -11,7 +11,7 @@ function msg(el,text,bad=false){el.textContent=text;el.classList.toggle("hidden"
 
 async function boot(){
  if(!configured()){msg($("#loginMsg"),"서버 미연결: config.js에 SUPABASE_URL / PUBLISHABLE_KEY를 입력하세요. 개인 기록 기능은 메인 앱에서 사용할 수 있습니다.",true);$("#loginBtn").disabled=true;return}
- const {createClient}=await import("https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm");
+ const {createClient}=await import("../assets/supabase.js");
  supabase=createClient(cfg.SUPABASE_URL,cfg.SUPABASE_PUBLISHABLE_KEY);
  const {data:{session}}=await supabase.auth.getSession();
  if(session) await enterAdmin(session); else showLogin();

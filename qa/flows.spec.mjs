@@ -39,3 +39,11 @@ test.describe('offline',()=>{
   await page.goto('/#place/SEOUL001');await expect(page.locator('#view h1')).toBeVisible();
  });
 });
+test('self-hosted map library loads under the production CSP',async({page})=>{
+ const violations=[];page.on('console',m=>{if(/Content Security Policy/i.test(m.text()))violations.push(m.text())});
+ const csp=(await page.goto('/#map')).headers()['content-security-policy'];expect(csp,'server must apply _headers').toContain("script-src 'self'");
+ await page.locator('[data-load-map]').first().click();
+ await expect(page.locator('.leaflet-container')).toBeVisible();
+ expect(await page.evaluate(()=>typeof window.L?.map)).toBe('function');
+ expect(violations).toEqual([]);
+});

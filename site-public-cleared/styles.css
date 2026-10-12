@@ -21,3 +21,4 @@ details>summary{min-height:32px;display:flex;align-items:center}
 @media(max-width:760px){.breadcrumb{font-size:11px;letter-spacing:.4px}.text-link,.section-head small,.card-meta,.stat span,.top-actions .button,.list-row .button,.card-bottom .button,.nav-link,.category-tile b{font-size:11px}.category-tile small,.pill{font-size:10px}.text-link,.source-link,.section-head>a,details>summary,.card-bottom .button,.top-actions .button,.list-row .button{min-height:44px}.card-bottom .button{padding:6px 10px}}
 td .source-link{white-space:nowrap;min-width:44px}
 .sidebar-bottom a{text-decoration:underline;text-underline-offset:3px}
+.legal h2{font-size:18px;margin:32px 0 10px}.legal li{margin:6px 0;line-height:1.65}.legal p{line-height:1.7}.notice{padding:12px 14px;border:1px solid var(--line);border-left:4px solid #c2410c;border-radius:10px}.unresolved{color:#b42318;font-weight:600}
