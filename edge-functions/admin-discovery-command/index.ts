@@ -77,6 +77,6 @@ Deno.serve(async (req) => {
       result,
     }, r.ok ? 200 : r.status)
   } catch (e) {
-    return out({ ok: false, error: String(e?.message || e) }, 500)
+    return out({ ok: false, error: String((e as {message?: string} | null)?.message || e) }, 500)
   }
 })

@@ -43,6 +43,6 @@ Deno.serve(async (req) => {
 
     return json({ ok: true, ...result })
   } catch (error) {
-    return json({ ok: false, error: String(error?.message || error) }, 500)
+    return json({ ok: false, error: String((error as {message?: string} | null)?.message || error) }, 500)
   }
 })

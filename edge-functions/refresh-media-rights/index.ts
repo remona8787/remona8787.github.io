@@ -154,15 +154,15 @@ Deno.serve(async (req) => {
           provider: "wikimedia_commons",
           action: "rights_refresh",
           result: "error",
-          detail: { error: String(itemError?.message || itemError) },
+          detail: { error: String((itemError as {message?: string} | null)?.message || itemError) },
         })
 
-        report.push({ id: asset.id, status: "error", error: String(itemError?.message || itemError) })
+        report.push({ id: asset.id, status: "error", error: String((itemError as {message?: string} | null)?.message || itemError) })
       }
     }
 
     return json({ ok: true, checked: report.length, report })
   } catch (error) {
-    return json({ ok: false, error: String(error?.message || error) }, 500)
+    return json({ ok: false, error: String((error as {message?: string} | null)?.message || error) }, 500)
   }
 })

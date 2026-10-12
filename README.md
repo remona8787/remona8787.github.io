@@ -1,6 +1,11 @@
-# 최신 버전: v0.11
+# 최신 버전: v0.14
 
-실행 대상: `site-public-cleared/`. 변경 내용·실행·제약은 [README_v0.11.md](README_v0.11.md)를 먼저 확인하세요. 아래는 원본 v0.1 문서입니다.
+- 출시 순서: [release/launch/LAUNCH.md](release/launch/LAUNCH.md)
+- 이번 변경·검증: [release/STATUS_v0.14.md](release/STATUS_v0.14.md)
+- 소스: `site-public-cleared/` → `npm run build` → 배포 대상 `dist/`
+- 검증: `npm test` (단위 + SQL/RLS), `npm run e2e` (실제 브라우저), `node scripts/launch-check.mjs`
+
+기능 설명은 [README_v0.11.md](README_v0.11.md)를 참고하세요. 아래는 원본 v0.1 문서입니다.
 
 ---
 

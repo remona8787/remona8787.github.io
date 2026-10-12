@@ -160,7 +160,7 @@ Deno.serve(async (req) => {
           cached.push({file:c.file,score:c.score,clearance:r.clearanceStatus})
         } catch (e) {
           flagged++
-          cached.push({file:top[i].file,error:String(e?.message||e)})
+          cached.push({file:top[i].file,error:String((e as {message?: string} | null)?.message || e)})
         }
       }
       const {error:rotationError}=await supabase.from("places").update({last_media_discovery_at:new Date().toISOString()}).eq("id",place.id);
@@ -181,6 +181,6 @@ Deno.serve(async (req) => {
 
     return json({ok:true,places:result,fetched,inserted,flagged})
   } catch (error) {
-    return json({ok:false,error:String(error?.message||error)},500)
+    return json({ok:false,error:String((error as {message?: string} | null)?.message || error)},500)
   }
 })

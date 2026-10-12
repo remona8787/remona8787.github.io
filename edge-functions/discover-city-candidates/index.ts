@@ -224,7 +224,7 @@ Deno.serve(async (req) => {
       report,
     })
   } catch (error) {
-    if(jobId&&supabase)await supabase.from("ingestion_jobs").update({status:"error",finished_at:new Date().toISOString(),error_message:String(error?.message||error).slice(0,1500)}).eq("id",jobId);
-    return json({ ok: false, error: String(error?.message || error) }, 500)
+    if(jobId&&supabase)await supabase.from("ingestion_jobs").update({status:"error",finished_at:new Date().toISOString(),error_message:String((error as {message?: string} | null)?.message || error).slice(0,1500)}).eq("id",jobId);
+    return json({ ok: false, error: String((error as {message?: string} | null)?.message || error) }, 500)
   }
 })
