@@ -3,7 +3,7 @@
   "version": "0.14.0",
   "private": true,
   "scripts": {
-    "test": "node --test tests/*.test.cjs",
+    "test": "node --test tests/*.test.cjs tests/*.test.mjs",
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
     "native:sync": "npm run build && npx cap sync",
@@ -29,6 +29,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",
     "@capacitor/cli": "8.5.3",
+    "@electric-sql/pglite": "^0.3.7",
     "@playwright/test": "^1.56.1",
     "esbuild": "0.25.12"
   }

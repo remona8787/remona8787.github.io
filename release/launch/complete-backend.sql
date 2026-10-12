@@ -978,14 +978,19 @@ revoke all on public.archive_articles from anon,authenticated;
 grant select on public.archive_articles to anon,authenticated;
 grant insert,update,delete on public.archive_articles to authenticated;
 grant all on public.archive_articles to service_role;
+drop policy if exists articles_public_read on public.archive_articles;
 create policy articles_public_read on public.archive_articles for select to anon,authenticated using(status='published');
+drop policy if exists articles_admin on public.archive_articles;
 create policy articles_admin on public.archive_articles for all to authenticated using((select public.is_app_admin())) with check((select public.is_app_admin()));
-create index articles_published_date on public.archive_articles(published_at desc) where status='published';
+create index if not exists articles_published_date on public.archive_articles(published_at desc) where status='published';
 insert into storage.buckets(id,name,public,file_size_limit,allowed_mime_types)
 values('visit-photos','visit-photos',false,5242880,array['image/jpeg','image/png','image/webp'])
 on conflict(id) do update set public=false,file_size_limit=excluded.file_size_limit,allowed_mime_types=excluded.allowed_mime_types;
+drop policy if exists private_visit_photo_read on storage.objects;
 create policy private_visit_photo_read on storage.objects for select to authenticated using(bucket_id='visit-photos' and (storage.foldername(name))[1]=(select auth.uid())::text);
+drop policy if exists private_visit_photo_insert on storage.objects;
 create policy private_visit_photo_insert on storage.objects for insert to authenticated with check(bucket_id='visit-photos' and (storage.foldername(name))[1]=(select auth.uid())::text);
+drop policy if exists private_visit_photo_delete on storage.objects;
 create policy private_visit_photo_delete on storage.objects for delete to authenticated using(bucket_id='visit-photos' and (storage.foldername(name))[1]=(select auth.uid())::text);
 create table if not exists public.visit_photos(
  id uuid primary key,user_id uuid not null references auth.users(id) on delete cascade,
@@ -996,10 +1001,13 @@ alter table public.visit_photos enable row level security;
 revoke all on public.visit_photos from anon,authenticated;
 grant select,insert,delete on public.visit_photos to authenticated;
 grant all on public.visit_photos to service_role;
+drop policy if exists visit_photo_owner_read on public.visit_photos;
 create policy visit_photo_owner_read on public.visit_photos for select to authenticated using(user_id=(select auth.uid()));
+drop policy if exists visit_photo_owner_insert on public.visit_photos;
 create policy visit_photo_owner_insert on public.visit_photos for insert to authenticated with check(user_id=(select auth.uid()));
+drop policy if exists visit_photo_owner_delete on public.visit_photos;
 create policy visit_photo_owner_delete on public.visit_photos for delete to authenticated using(user_id=(select auth.uid()));
-create index visit_photos_owner_visit on public.visit_photos(user_id,visit_id);
+create index if not exists visit_photos_owner_visit on public.visit_photos(user_id,visit_id);
 
 
 alter function public.touch_updated_at() set search_path='';
