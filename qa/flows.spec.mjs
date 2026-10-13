@@ -15,13 +15,36 @@ test('JSON backup downloads',async({page})=>{
  const [download]=await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:/JSON/}).first().click()]);
  expect(download.suggestedFilename()).toMatch(/\.json$/);
 });
-test('theme toggle persists',async({page})=>{
- await page.goto('/#home');
- const before=await page.evaluate(()=>document.documentElement.dataset.theme);
- await page.locator('.topbar button').first().click();
- await expect.poll(()=>page.evaluate(()=>document.documentElement.dataset.theme)).not.toBe(before);
- const after=await page.evaluate(()=>document.documentElement.dataset.theme);
- await page.reload();expect(await page.evaluate(()=>document.documentElement.dataset.theme)).toBe(after);
+// The theme control lives in 설정 (화면): it follows the system by default, and an explicit choice persists.
+test('theme choice persists',async({page})=>{
+ await page.goto('/#settings');
+ expect(await page.evaluate(()=>document.documentElement.dataset.theme)).toBe('system');
+ await expect(page.getByRole('radio',{name:'시스템'})).toHaveAttribute('aria-checked','true');
+ await page.getByRole('radio',{name:'다크'}).click();
+ await expect.poll(()=>page.evaluate(()=>document.documentElement.dataset.theme)).toBe('dark');
+ expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(13, 15, 38)');
+ await page.reload();expect(await page.evaluate(()=>document.documentElement.dataset.theme)).toBe('dark');
+ await expect(page.getByRole('radio',{name:'다크'})).toHaveAttribute('aria-checked','true');
+ await page.getByRole('radio',{name:'라이트'}).click();
+ await expect.poll(()=>page.evaluate(()=>document.documentElement.dataset.theme)).toBe('light');
+ expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(246, 245, 251)');
+ // A radio group: arrow keys move the choice and the focus.
+ await page.getByRole('radio',{name:'라이트'}).focus();await page.keyboard.press('ArrowRight');
+ await expect(page.getByRole('radio',{name:'다크'})).toHaveAttribute('aria-checked','true');
+ await expect(page.getByRole('radio',{name:'다크'})).toBeFocused();
+});
+test.describe('system dark',()=>{
+ test.use({colorScheme:'dark',viewport:{width:1280,height:800}});
+ test('the system dark setting applies until a theme is chosen',async({page})=>{
+  await page.goto('/#home');
+  expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(13, 15, 38)');
+  await expect(page.locator('.sidebar .brand-logo.logo-dark')).toBeVisible();
+  await expect(page.locator('.sidebar .brand-logo.logo-light')).toBeHidden();
+  await page.goto('/#settings');await page.getByRole('radio',{name:'라이트'}).click();
+  expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(246, 245, 251)');
+  await expect(page.locator('.sidebar .brand-logo.logo-light')).toBeVisible();
+  await expect(page.locator('.sidebar .brand-logo.logo-dark')).toBeHidden();
+ });
 });
 test('search with no match shows an empty state',async({page})=>{
  await page.goto('/#home');await page.locator('#homeSearch input').fill('zzzz존재하지않음');await page.locator('#homeSearch button').click();

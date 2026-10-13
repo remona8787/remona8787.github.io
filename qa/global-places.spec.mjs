@@ -100,7 +100,7 @@ test('explore: country and city filters from all places, 24 results per page, se
  await expect(page.locator('#view')).not.toContainText('Q99200002');
  // The 세계의 빛 rail's "전체 보기" lists every place outside Korea.
  await page.goto('/#home');
- await rail(page,'세계의 빛').getByRole('button',{name:'전체 보기 →'}).click();
+ await rail(page,'세계의 빛').getByRole('button',{name:'전체 보기'}).click();
  await expect(page.locator('.result-meta')).toContainText(`${WORLD_SHOWN}개 프로젝트 · 24개 표시`);
 });
 
@@ -184,15 +184,15 @@ test('a saved, planned and recorded Wikidata place survives a reload without the
  const {state}=await mockApis(page);
  await page.goto('/#place/WD-Q12618343');
  await expect(page.locator('h1')).toHaveText('진주남강유등축제');
- await page.getByRole('button',{name:'♡ 저장'}).click();
- await expect(page.getByRole('button',{name:'♥ 저장됨'})).toBeVisible();
- await page.getByRole('button',{name:'＋ 답사 코스에 담기'}).click();
+ await page.getByRole('button',{name:'저장',exact:true}).click();
+ await expect(page.getByRole('button',{name:'저장됨',exact:true})).toBeVisible();
+ await page.getByRole('button',{name:'답사 코스에 담기',exact:true}).click();
  await page.locator('#newRouteForm input[name=name]').fill('남강 유등 답사');
  await page.locator('#newRouteForm button[type=submit]').click();
  await expect(page.locator('h1')).toHaveText('남강 유등 답사');
  await expect(page.locator('.list-row')).toContainText('진주남강유등축제');
  await page.goto('/#place/WD-Q12618343');
- await page.getByRole('button',{name:'＋ 기록'}).click();
+ await page.getByRole('button',{name:'기록',exact:true}).click();
  await page.locator('#visitForm textarea[name=note]').fill('유등이 강 위에 떠 있다');
  await page.locator('#visitForm button[type=submit]').click();
  await expect(page.locator('#toast')).toContainText('현장 기록을 저장했습니다');
@@ -271,8 +271,8 @@ test('a list too big for storage keeps every Korean and saved place; the cut cop
  // Save a place abroad with the fewest sitelinks (it would be cut first), then sync again so it is stored first.
  const saved='WD-Q6000000';
  await page.goto('/#place/'+saved);
- await page.getByRole('button',{name:'♡ 저장'}).click();
- await expect(page.getByRole('button',{name:'♥ 저장됨'})).toBeVisible();
+ await page.getByRole('button',{name:'저장',exact:true}).click();
+ await expect(page.getByRole('button',{name:'저장됨',exact:true})).toBeVisible();
  await page.goto('/#settings');
  const n=calls.branches.length;
  await page.getByRole('button',{name:'지금 동기화'}).click();

@@ -1,6 +1,7 @@
 (function(root,factory){const a=factory();if(typeof module==='object'&&module.exports)module.exports=a;else root.AOLCatalog=a})(typeof globalThis!=='undefined'?globalThis:this,function(){
 'use strict';
-const categories=[['Media Facade','미디어파사드','▥'],['Light Art','라이트아트','✧'],['Media Art','미디어아트','◈'],['Architectural Lighting','건축조명','▱'],['Nightscape','야간경관','☾'],['Public Art','공공미술','◎'],['Exhibition','전시·페스티벌','▦'],['Festival','빛 축제','✺'],['Global','글로벌 프로젝트','↗']];
+// [key, label, icon]: the icon is a Phosphor icon name from scripts/icons.mjs.
+const categories=[['Media Facade','미디어파사드','buildings'],['Light Art','라이트아트','sparkle'],['Media Art','미디어아트','monitor-play'],['Architectural Lighting','건축조명','lightbulb-filament'],['Nightscape','야간경관','moon-stars'],['Public Art','공공미술','shapes'],['Exhibition','전시·페스티벌','frame-corners'],['Festival','빛 축제','confetti'],['Global','글로벌 프로젝트','globe-hemisphere-east']];
 const text=v=>String(v||'').normalize('NFKC').toLocaleLowerCase();
 function region(p){return {country:p.country||p.country_name||(/^SEOUL\d+$/.test(p.place_id)?'대한민국':''),city:p.city||(/^SEOUL\d+$/.test(p.place_id)?'서울':p.district||'')}}
 function valid(s){return typeof s==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(s)&&!isNaN(Date.parse(s))&&new Date(s).toISOString().slice(0,10)===s}

@@ -50,7 +50,7 @@ function validate(data,knownIds=[]){
   seenRoutes.add(r.id);out.routes.push({id:r.id,name:r.name,date:r.date||'',note:r.note||'',stops:[...new Set(r.stops)]});
  }
  for(const [k,v] of Object.entries(data.legacyVisits||{}))if(known.has(k)&&Number.isInteger(v)&&v>0&&v<100000)out.legacyVisits[k]=v;
- out.preferences={theme:["light","dark"].includes(data.preferences?.theme)?data.preferences.theme:"light",language:data.preferences?.language==="en"?"en":"ko"};
+ out.preferences={theme:["system","light","dark"].includes(data.preferences?.theme)?data.preferences.theme:"system",language:data.preferences?.language==="en"?"en":"ko"};
  return out;
 }
 function read(storage,knownIds){
