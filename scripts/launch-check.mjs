@@ -19,6 +19,7 @@ await Promise.all([
  probe('cleared_media_view','/rest/v1/public_place_media?select=id&limit=1',Array.isArray),
  probe('actual_media_available','/rest/v1/public_place_media?select=cached_public_url&limit=1',x=>Array.isArray(x)&&x.some(a=>a.cached_public_url)),
  probe('editorial_articles','/rest/v1/archive_articles?select=id&limit=1',Array.isArray),
+ probe('discovered_places_view','/rest/v1/public_discovered_places?select=qid&limit=1',Array.isArray),
  probe('email_auth_enabled','/auth/v1/settings',x=>x.external?.email===true)
 ]);
 const report={at:new Date().toISOString(),configPath,checks,unverified:['email_delivery','two_user_rls','realtime_two_clients','private_photo_upload','admin_review','cron_execution','browser_e2e']};

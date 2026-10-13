@@ -6,8 +6,9 @@ import {readFile} from 'node:fs/promises';
 import {PGlite} from '@electric-sql/pglite';
 const root=new URL('../',import.meta.url);
 const sql=async f=>(await readFile(new URL(f,root),'utf8')).replace(/create extension if not exists "?pgcrypto"?[^;]*;/gi,'');
+const DISCOVERED='supabase/migrations/20261013000000_discovered_places.sql';
 const PARTIAL=['supabase/01_schema.sql','supabase/02_seed_seoul50.sql','supabase/03_storage.sql','supabase/05_live_data_schema.sql','supabase/08_hybrid_media_pipeline.sql','supabase/10_global_discovery_engine.sql'];
-const FRESH=['supabase/01_schema.sql','supabase/02_seed_seoul50.sql','supabase/03_storage.sql','supabase/04_flutterflow_rpc.sql','supabase/05_live_data_schema.sql','supabase/07_audited_corrections.sql','supabase/08_hybrid_media_pipeline.sql','supabase/10_global_discovery_engine.sql','supabase/12_seed_countries_cities.sql','supabase/13_admin_review_console.sql','supabase/15_discovery_hardening.sql','supabase/17_user_sync_and_operations.sql','supabase/18_discovery_rotation.sql','supabase/migrations/20261010160920_archive_media_and_editorial.sql'];
+const FRESH=['supabase/01_schema.sql','supabase/02_seed_seoul50.sql','supabase/03_storage.sql','supabase/04_flutterflow_rpc.sql','supabase/05_live_data_schema.sql','supabase/07_audited_corrections.sql','supabase/08_hybrid_media_pipeline.sql','supabase/10_global_discovery_engine.sql','supabase/12_seed_countries_cities.sql','supabase/13_admin_review_console.sql','supabase/15_discovery_hardening.sql','supabase/17_user_sync_and_operations.sql','supabase/18_discovery_rotation.sql','supabase/migrations/20261010160920_archive_media_and_editorial.sql',DISCOVERED];
 async function database(files){const db=new PGlite();await db.exec(await sql('tests/sql/supabase-stubs.sql'));for(const f of files)await db.exec(await sql(f)).catch(e=>{throw Error(`${f}: ${e.message}`)});return db}
 // Run fn as a PostgREST-like request: role anon/authenticated with the JWT subject set.
 async function as(db,role,sub,fn){return db.transaction(async tx=>{await tx.exec(`set local role ${role}`);await tx.query(`select set_config('request.jwt.claim.sub',$1,true)`,[sub||'']);return fn(tx)})}
@@ -72,4 +73,107 @@ test('candidate promotion is not callable by signed-in users',async()=>{
 test('cleared media view is readable by anon',async()=>{
  await as(db,'anon',null,tx=>tx.query(`select * from public.public_place_media limit 1`));
 });
-test.after(()=>db?.close());
+
+// ---- server-side nationwide/worldwide sync: public.discovered_places and its view ----------------------------
+// Supabase grants every new table, view and function in public to anon/authenticated by default; the plain stubs do
+// not, so these tests add those default grants first: the migration's own revokes must hold against them.
+const SUPABASE_DEFAULT_GRANTS=`alter default privileges in schema public grant all on tables to anon,authenticated,service_role;
+alter default privileges in schema public grant all on functions to anon,authenticated,service_role;
+alter default privileges in schema public grant all on sequences to anon,authenticated,service_role;`;
+const H=3600e3,iso=ms=>new Date(ms).toISOString();
+// A valid apply_discovered_places row (record = the app's compact form: [qid, name, …, lat, lon, image, …]).
+const dpRow=(qid,{branches=['world:seeds'],image=null,scope='world',name='빛 '+qid}={})=>({qid,scope,record:[qid,name,'','','2','Q17','일본','도쿄',35.6,139.7,image||'','',3,'','',''],primary_category:'Festival',latitude:35.6,longitude:139.7,sitelinks:3,branches,image_file:image});
+const media=(qid,file)=>[{place_code:'WD-'+qid,wikidata:qid,provider_asset_id:file,display_url:'https://upload.wikimedia.org/x.jpg',creator:'Lee',license_code:'CC BY-SA 4.0',clearance_status:'cleared',review_required:false}];
+const svc=(d,fn)=>as(d,'service_role',null,fn);
+const apply=(d,list,seen)=>svc(d,tx=>rows(tx,`select public.apply_discovered_places($1::jsonb,$2) n`,[JSON.stringify(list),seen])).then(r=>r[0].n);
+const setMedia=(d,list,at,kr=true)=>svc(d,tx=>rows(tx,`select public.set_discovered_media($1::jsonb,$2,$3) n`,[JSON.stringify(list),at,kr])).then(r=>r[0].n);
+const view=(d,role='anon')=>as(d,role,null,tx=>rows(tx,`select qid,image_status,image_reasons,media,last_seen_at from public.public_discovered_places order by qid`));
+let dp;
+test('discovered places: the migration re-runs cleanly on its own, under Supabase default grants',async()=>{
+ dp=new PGlite();await dp.exec(await sql('tests/sql/supabase-stubs.sql'));await dp.exec(SUPABASE_DEFAULT_GRANTS);
+ await dp.exec(await sql(DISCOVERED));await dp.exec(await sql(DISCOVERED));
+});
+test('discovered places: complete-backend.sql carries the migration verbatim',async()=>{
+ const body=(await sql(DISCOVERED)).split('\n').filter(l=>!['begin;','commit;'].includes(l.trim())).join('\n').trim();
+ const bundle=await sql('release/launch/complete-backend.sql');
+ assert.ok(bundle.includes('-- SOURCE: migrations/20261013000000_discovered_places.sql\n'+body+'\ncommit;'),'the bundle ends with the migration body');
+ for(const d of [db]){const [{n}]=await rows(d,`select count(*)::int n from pg_views where schemaname='public' and viewname='public_discovered_places'`);assert.equal(n,1)}
+});
+test('discovered places: anon and signed-in users read the view only; they cannot write or run the sync',async()=>{
+ const now=iso(Date.now());
+ assert.equal(await apply(dp,[dpRow('Q1',{image:'a.jpg'}),dpRow('Q2')],now),2);
+ for(const role of ['anon','authenticated']){
+  assert.deepEqual((await view(dp,role)).map(r=>r.qid),['Q1','Q2'],role+' reads the view');
+  for(const q of [`select * from public.discovered_places`,`insert into public.discovered_places(qid,scope,record,primary_category,latitude,longitude) values('Q9','world','["Q9"]','Festival',0,0)`,
+   `update public.discovered_places set sitelinks=99`,`delete from public.discovered_places`,
+   `update public.public_discovered_places set sitelinks=99`,`delete from public.public_discovered_places`,
+   `select public.apply_discovered_places('[]'::jsonb,now())`,`select public.prune_discovered_places(now(),'{}')`,
+   `select public.discovered_images_due(10,now(),true)`,`select public.set_discovered_media('[]'::jsonb,now(),true)`])
+   await assert.rejects(as(dp,role,null,tx=>tx.query(q)),/permission denied/,`${role}: ${q}`);
+ }
+ const [{rls}]=await rows(dp,`select relrowsecurity rls from pg_class where oid='public.discovered_places'::regclass`);assert.equal(rls,true);
+ const [{n}]=await rows(dp,`select count(*)::int n from pg_policies where tablename='discovered_places'`);assert.equal(n,0,'no client policy at all');
+ assert.equal((await rows(dp,`select sitelinks from public.discovered_places where qid='Q1'`))[0].sitelinks,3,'nothing changed');
+});
+test('discovered places: places unseen for 72 hours and photo verdicts older than 24 hours are hidden',async()=>{
+ const t=Date.now();
+ await apply(dp,[dpRow('Q3',{image:'c.jpg'}),dpRow('Q4',{image:'d.jpg'})],iso(t));
+ await apply(dp,[dpRow('Q5')],iso(t-73*H));
+ assert.equal(await setMedia(dp,[{qid:'Q3',image_file:'c.jpg',status:'cleared',reasons:[],media:media('Q3','c.jpg')}],iso(t-2*H)),1);
+ assert.equal(await setMedia(dp,[{qid:'Q4',image_file:'d.jpg',status:'cleared',reasons:[],media:media('Q4','d.jpg')}],iso(t-25*H)),1);
+ const v=Object.fromEntries((await view(dp)).map(r=>[r.qid,r]));
+ assert.equal(v.Q5,undefined,'unseen for 73 h: hidden');
+ assert.equal(v.Q3.image_status,'cleared');assert.equal(v.Q3.media[0].creator,'Lee');
+ assert.equal(v.Q4.image_status,'pending','a verdict older than 24 h is not offered');assert.deepEqual(v.Q4.media,[]);
+ assert.equal(v.Q2.image_status,'none');
+ // The table still holds them for the next run.
+ assert.equal((await rows(dp,`select count(*)::int n from public.discovered_places where qid in ('Q4','Q5')`))[0].n,2);
+});
+test('discovered places: verdicts follow the file; a blocked photo has reasons and no media; bad verdicts are ignored',async()=>{
+ const t=Date.now(),first=(await rows(dp,`select first_seen_at from public.discovered_places where qid='Q1'`))[0].first_seen_at;
+ assert.equal(await setMedia(dp,[{qid:'Q1',image_file:'a.jpg',status:'blocked',reasons:['foreign_no_freedom_of_panorama'],media:media('Q1','a.jpg')}],iso(t)),1);
+ let [r]=(await view(dp)).filter(x=>x.qid==='Q1');
+ assert.deepEqual([r.image_status,r.image_reasons,r.media],['blocked',['foreign_no_freedom_of_panorama'],[]]);
+ // A verdict for another file, a cleared verdict without media, or an unknown status changes nothing.
+ assert.equal(await setMedia(dp,[{qid:'Q1',image_file:'old.jpg',status:'cleared',reasons:[],media:media('Q1','old.jpg')},{qid:'Q3',image_file:'c.jpg',status:'cleared',reasons:[],media:[]},{qid:'Q3',image_file:'c.jpg',status:'ok',media:media('Q3','c.jpg')}],iso(t)),0);
+ // The same file seen again keeps its verdict; a new file resets it to pending; first_seen_at never moves.
+ await apply(dp,[dpRow('Q1',{image:'a.jpg',name:'새 이름'})],iso(t+1000));
+ [r]=(await view(dp)).filter(x=>x.qid==='Q1');assert.equal(r.image_status,'blocked');
+ await apply(dp,[dpRow('Q1',{image:'b.jpg'})],iso(t+2000));
+ [r]=(await view(dp)).filter(x=>x.qid==='Q1');assert.deepEqual([r.image_status,r.image_reasons,r.media],['pending',[],[]]);
+ const [after]=await rows(dp,`select first_seen_at,last_seen_at,media_checked_at,image_file from public.discovered_places where qid='Q1'`);
+ assert.equal(+after.first_seen_at,+first);assert.equal(after.media_checked_at,null);assert.equal(after.image_file,'b.jpg');
+ await apply(dp,[dpRow('Q1')],iso(t+3000));
+ [r]=(await view(dp)).filter(x=>x.qid==='Q1');assert.equal(r.image_status,'none','photo removed from Wikidata');
+ // A record that is not the place's own compact array is refused.
+ await assert.rejects(apply(dp,[{...dpRow('Q6'),record:['Q7']}],iso(t)),/check constraint/);
+ await assert.rejects(apply(dp,[{...dpRow('Q6'),latitude:91}],iso(t)),/check constraint/);
+});
+test('discovered places: prune keeps what only failed branches returned, drops the rest, and anything unseen for 30 days',async()=>{
+ const d=new PGlite();await d.exec(await sql('tests/sql/supabase-stubs.sql'));await d.exec(await sql(DISCOVERED));
+ const t=Date.now(),before=iso(t-6*H),now=iso(t);
+ await apply(d,[dpRow('Q10',{branches:['world:seeds']}),dpRow('Q11',{branches:['world:genres']}),dpRow('Q12',{branches:['world:genres','world:seeds']}),dpRow('Q13',{branches:['korea:classes']})],before);
+ await apply(d,[dpRow('Q14',{branches:['world:genres']})],iso(t-31*24*H));
+ // This run saw Q10 only; world:genres failed.
+ await apply(d,[dpRow('Q10',{branches:['world:seeds']})],now);
+ const pruned=(await svc(d,tx=>rows(tx,`select public.prune_discovered_places($1,$2) n`,[now,['world:genres']])))[0].n;
+ assert.equal(pruned,2,'Q13 (its branch answered without it) and Q14 (unseen for 31 days)');
+ assert.deepEqual((await rows(d,`select qid from public.discovered_places order by qid`)).map(r=>r.qid),['Q10','Q11','Q12']);
+ assert.equal((await svc(d,tx=>rows(tx,`select public.prune_discovered_places($1,'{}') n`,[now])))[0].n,2,'every branch answered: only what this run saw stays');
+ await d.close();
+});
+test('discovered places: photos due — never checked first, then another FoP policy, then the oldest; fresh ones wait',async()=>{
+ const d=new PGlite();await d.exec(await sql('tests/sql/supabase-stubs.sql'));await d.exec(await sql(DISCOVERED));
+ const t=Date.now(),now=iso(t);
+ await apply(d,['Q20','Q21','Q22','Q23','Q24'].map(q=>dpRow(q,{image:q+'.jpg'})).concat([dpRow('Q25')]),now);
+ await apply(d,[dpRow('Q26',{image:'Q26.jpg'})],iso(t-80*H)); // hidden from the view: not worth checking
+ const ok=q=>({qid:q,image_file:q+'.jpg',status:'cleared',reasons:[],media:media(q,q+'.jpg')});
+ await setMedia(d,[ok('Q21')],iso(t-20*H));await setMedia(d,[ok('Q22')],iso(t-10*H));await setMedia(d,[ok('Q23')],iso(t-H),false);await setMedia(d,[ok('Q24')],iso(t-H));
+ const due=async(limit,kr=true)=>(await svc(d,tx=>rows(tx,`select public.discovered_images_due($1,$2,$3) d`,[limit,iso(t-5*H),kr])))[0].d.map(x=>x.qid);
+ assert.deepEqual(await due(10),['Q20','Q23','Q21','Q22']);
+ assert.deepEqual(await due(2),['Q20','Q23']);
+ assert.deepEqual(await due(10,false),['Q20','Q21','Q22','Q24'],'policy off: every photo checked with it on is due (oldest first); Q23 is not');
+ assert.deepEqual(await due(0),[]);
+ await d.close();
+});
+test.after(()=>Promise.all([db?.close(),dp?.close()]));

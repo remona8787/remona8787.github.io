@@ -1,5 +1,6 @@
 // Nationwide (South Korea) and worldwide discovery of light-related places from Wikidata, refreshed every 6 hours.
-// Shared by the browser (client/global-places.js, no backend needed) and any later server sync function.
+// Shared by the browser (client/global-places.js, no backend needed) and the server sync (sync-global-places, through
+// global-places-server.mjs), so both run exactly the same queries and checks.
 // Pure ESM with injected fetch: no DOM, runs unchanged in browsers, Deno and Node tests.
 //
 // Discovery is split into small, separate SPARQL "branches" (one per class family, genre list, seed list …) instead of

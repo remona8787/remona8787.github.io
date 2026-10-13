@@ -7,7 +7,7 @@ for(const relative of ['site-public-cleared/app.js','site-public-cleared/core.js
 }
 const index=await readFile(path.join(root,'site-public-cleared/index.html'),'utf8');
 for(const [,asset] of index.matchAll(/(?:src|href)="\.\/([^"#]+)"/g))await readFile(path.join(root,'dist',asset));
-for(const name of ['refresh-media-rights','cache-commons-media','promote-candidate','sync-place-media','discover-city-candidates','sync-seoul-cultural-events']){
+for(const name of ['refresh-media-rights','cache-commons-media','promote-candidate','sync-place-media','discover-city-candidates','sync-seoul-cultural-events','sync-global-places']){
  const source=await readFile(path.join(root,'edge-functions',name,'index.ts'),'utf8');if(!source.includes('authorizedSecret'))throw Error('Missing explicit auth check: '+name);
 }
 const admin=await readFile(path.join(root,'admin/app.js'),'utf8');if(admin!==await readFile(path.join(root,'site-public-cleared/admin/app.js'),'utf8'))throw Error('Admin copies diverged');

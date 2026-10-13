@@ -11,7 +11,7 @@ REF="${1:-refwrdfxbhcsguweicle}"
 CLI="npx --yes supabase@2.116.0"
 : "${SUPABASE_ACCESS_TOKEN:?Set SUPABASE_ACCESS_TOKEN (Supabase Dashboard → Account → Access Tokens)}"
 # Scaffolds that only return 501 (refresh-live-place, sync-korea-open-data, sync-ticketmaster, sync-wikidata) are not deployed.
-FUNCTIONS=(delete-account discover-city-candidates sync-place-media refresh-media-rights cache-commons-media promote-candidate admin-discovery-command sync-seoul-cultural-events)
+FUNCTIONS=(delete-account discover-city-candidates sync-place-media refresh-media-rights cache-commons-media promote-candidate admin-discovery-command sync-seoul-cultural-events sync-global-places)
 
 work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
 mkdir -p "$work/supabase/functions"

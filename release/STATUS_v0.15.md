@@ -1,0 +1,22 @@
+# v0.15 — 전국·세계 빛 장소 서버 동기화 (sync-global-places)
+
+2026-10-13. 서버(Supabase)를 연결하면 전국·세계 장소의 Wikidata 조회가 방문자 브라우저마다가 아니라 서버에서 6시간에 한 번만 실행된다. 운영 반영은 아직 안 됨(아래 "남은 일").
+
+## 바뀐 것
+- **DB** `supabase/migrations/20261013000000_discovered_places.sql` (같은 내용이 `release/launch/complete-backend.sql` 끝에 포함, 둘 다 재실행 안전)
+  - `public.discovered_places`: QID 기본키(`^Q[0-9]+$`), 범위(korea/world), 앱의 압축 장소 레코드(jsonb 배열, 첫 원소 = QID), 대표 분류, 좌표, 위키 링크 수, 갈래 목록, P18 파일, 사진 판정(none/pending/cleared/blocked)·사유·출처 표기 행(jsonb 배열)·판정 시각·판정 당시 한국 FoP 정책, first/last_seen_at, synced_at.
+  - RLS 켜짐, anon/로그인 사용자 권한·정책 없음. 읽기는 보기 `public.public_discovered_places`로만: 72시간 동안 다시 확인되지 않은 장소와 24시간이 지난 사진 판정은 숨김. 보기는 읽기 전용(Supabase 기본 권한도 회수). Security Advisor에 "Security Definer View"로 표시되는 것은 의도(LAUNCH.md 4단계).
+  - 쓰기는 service_role 전용 함수 4개: `apply_discovered_places`(파일이 바뀌면 판정 초기화), `prune_discovered_places`(실패한 갈래가 찾았던 장소는 남김, 30일 넘게 안 보인 것은 삭제), `discovered_images_due`(미확인 → 정책 변경 → 오래된 순), `set_discovered_media`(다른 파일에 대한 판정·사진 없는 cleared는 무시).
+- **Edge Function** `edge-functions/sync-global-places` (+ 공용 `edge-functions/_shared/global-places-server.mjs`): `x-aol-cron-secret`/`x-aol-media-admin-secret` 인증(sync-place-media와 같음), 브라우저와 같은 갈래 조회 12개를 설명형 User-Agent로 실행, 사진 권리를 Commons에서 50개씩 확인(`MEDIA_KR_FOP_DISPLAY`, 기본 켜짐), 500행씩 저장, 실행마다 `sync_runs`에 갈래별 상태 기록. 기본 130초 예산(150초 요청 제한 안), 실행 중이면 409. 배포 목록(`scripts/deploy-edge-functions.sh`)과 4번째 예약 `aol-global-places-6h`(`53 3,9,15,21 * * *`, `install-six-hour-sync.sql`)에 추가.
+- **앱** `client/global-places.js`: `SUPABASE_URL`+`SUPABASE_PUBLISHABLE_KEY`가 있으면 `public_discovered_places`를 한 번 요청(`apikey` 헤더만, 1000곳 넘으면 Content-Range로 나눠 받음)해 장소와 사진 판정을 함께 사용. 서버에 행이 없거나 오류면 기존 브라우저 조회로 대체. 6시간 캐시 유지(서버 자료가 6시간을 넘으면 최대 30분마다 다시 확인). 브라우저에 없는 사진 판정은 Commons 대신 서버에 먼저 물음. 한국 FoP는 앱 설정을 따로 적용.
+- `scripts/launch-check.mjs`에 `discovered_places_view` 확인, `scripts/check.mjs` 인증 확인 목록에 함수 추가, CI에 Deno 로컬 실행 테스트 단계 추가.
+- `site-public-cleared/app.js`는 바꾸지 않음(기존 `AOL_GLOBAL`·`AOL_GLOBAL_MEDIA`·`AOLGlobal.imageStatus` 계약 그대로).
+
+## 검증 (이 환경)
+- 단위·SQL: 159개 통과(새로 16개: PGlite에서 마이그레이션 재실행·Supabase 기본 권한 아래 anon/로그인 사용자는 보기만 읽기·쓰기/함수 실행 거부·72시간/24시간 숨김·판정 초기화·prune·확인 순서, 서버 행 생성·왕복·판정·실행 논리, 실제 SQL 위에서 6시간 간격 두 번 실행 후 앱이 읽는 끝-끝 테스트, 배포·예약 설정 일치). 보기의 쓰기 권한 회수를 일부러 빼면 테스트가 실패하는 것을 확인.
+- Deno 2.5.4: 모든 Edge Function 타입 검사 통과. `tests/deno/sync-global-places_test.ts`가 함수를 외부 요청 전부 흉내 낸 상태로 실행(6개: GET 405·비밀값 없음/틀림 401·외부 요청 없음, 정상 실행의 갈래별 조회·User-Agent·저장·prune·사진 판정·sync_runs, 한국 FoP 끔, 실행 중 409, 전 갈래 실패 502, DB 오류 500). 실제 HTTP로도 띄워 405/401 확인.
+- 브라우저(Playwright, 운영 CSP): `qa/global-places-server.spec.mjs` 5개(서버 한 번 요청으로 대체·Wikidata/Commons 조회 없음·사진 표시, 6시간 캐시와 재확인, 서버 비었거나 오류 시 브라우저 조회, 1000곳 넘는 목록 나눠 받기, 사진 판정을 서버에 묻기). 서버 모드를 끄면 5개 모두 실패하는 것을 확인. 전체 E2E 121개 중 118개 통과, 3개 skip(실제 Wikidata·Wikimedia 접속이 필요한 테스트, 이 환경에서 차단).
+
+## 남은 일 (운영자)
+- SQL 적용(`complete-backend.sql` 또는 마이그레이션 파일), 함수 배포(9개), `install-six-hour-sync.sql` 재실행, 첫 실행 결과 확인(LAUNCH.md 7단계 "전국·세계 장소 서버 동기화").
+- 실제 Wikidata에서의 갈래별 시간, 130초 예산 안에 확인되는 사진 수, Edge Function CPU 제한(2초)은 이 환경에서 확인할 수 없었다(외부 접속 차단). 첫 실행의 응답과 `sync_runs`로 확인.

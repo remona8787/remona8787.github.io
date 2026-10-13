@@ -4,6 +4,7 @@
 - `refresh-live-place`: Google Places / Foursquare 단일 장소 실시간 보강
 - `sync-wikidata`: 전세계 장소 식별·기초정보
 - `sync-ticketmaster`: 글로벌 이벤트 후보
+- `sync-global-places`: 전국·세계 빛 장소(Wikidata 갈래 조회 + Commons 사진 권리 확인)를 6시간마다 한 번 실행해 `discovered_places`에 저장. 앱은 `public_discovered_places` 보기로 읽음(`release/launch/LAUNCH.md` 7단계)
 
 ## 원칙
 - 빛의 건축 편집 DB가 canonical.

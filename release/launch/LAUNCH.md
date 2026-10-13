@@ -50,7 +50,7 @@ AOL_TEST_URL=https://light-architecture-jihyun.peppydegu2.chatgpt.site npm run e
 - 사진이 몇 곳에 붙을지는 Wikidata에 등록된 항목에 달려 있어 배포 후에 확인됩니다. 미디어파사드·전시처럼 Wikidata 항목이 없는 곳은 계속 "사진 준비 중"으로 남습니다. Wikidata에 항목과 대표 사진(P18)을 등록하면 다음 동기화 때 자동으로 반영됩니다.
 
 #### 전국·세계의 빛 장소 자동 동기화 (A단계부터 동작, 서버 불필요)
-- **무엇을**: 수록된 서울 49곳 외에, 대한민국 전역과 세계의 미디어파사드·라이트아트·미디어아트·몰입형 전시·빛 축제·야간경관 장소를 Wikidata에서 찾아 앱에 더합니다. 방문자의 브라우저가 최대 6시간에 한 번 가져오고(`client/global-places.js`), 조회 규칙은 `edge-functions/_shared/global-places.mjs`에 있어 나중에 서버 동기화 함수에서도 그대로 쓸 수 있습니다. 끄려면 `config.js`의 `PLACE_GLOBAL_SYNC: false`.
+- **무엇을**: 수록된 서울 49곳 외에, 대한민국 전역과 세계의 미디어파사드·라이트아트·미디어아트·몰입형 전시·빛 축제·야간경관 장소를 Wikidata에서 찾아 앱에 더합니다. 서버를 연결하기 전(A단계)에는 방문자의 브라우저가 최대 6시간에 한 번 가져오고(`client/global-places.js`), B단계에서 서버를 연결하고 7단계의 예약을 설치하면 서버 함수 `sync-global-places`가 6시간에 한 번만 조회해 모든 방문자에게 나눠 줍니다(아래 "서버 동기화"). 조회 규칙은 둘 다 `edge-functions/_shared/global-places.mjs` 하나를 씁니다. 끄려면 `config.js`의 `PLACE_GLOBAL_SYNC: false`.
 - **검증된 분류만 사용**: 조회에 쓰는 Wikidata 항목(QID)은 모두 wikidata.org에서 뜻을 확인한 것만 씁니다(미디어 파사드 Q17158007·Q4287692, 빛 설치 Q1823448, 라이트 아트 Q1421557, 프로젝션 매핑 Q776483, 빛 축제 Q124414048, 일루미네이션 Q1658880 등과 대표 장소 목록). 이름만 비슷하거나 확인되지 않은 항목(리옹 영화제 Q10957, 애니메이션 회사 Illumination Q1189512, The Sphere 렌털 회사 Q7765824, 설명 미확인 BUSAN X the SKY Q109905495 등)은 `NEVER_QUERY_QIDS`에 적어 두고 조회에 쓰지 않습니다(단위 테스트가 모든 조회를 이 목록과 대조). 이 목록에 있다고 숨기지는 않습니다. 분류 조회가 스스로 찾아온 항목은 보여주고(예: 전망대 분류로 나온 Q109905495), 정말 같은 항목의 중복이거나 빛 장소가 아닌 이름 닮은꼴 4개만 `NEVER_SHOW_QIDS`로 숨깁니다(teamLab Borderless 중복 Q104383619, Q10957, Q1189512, Q7765824).
 - **작게 나눈 조회**: 큰 UNION 하나 대신 갈래(branch)별 작은 조회 12개(korea:seeds·classes·genres·festival-keywords·name-keywords, world:seeds·classes-art·classes-events·genres·parts·public-art·lantern)를 동시에 2개씩, 갈래마다 60초 제한과 LIMIT을 두고 보냅니다. 한 갈래가 실패·시간 초과돼도 나머지 결과는 그대로 쓰고, 실패한 갈래가 지난번에 찾았던 장소는 이전 결과에서 유지합니다. 가장 비싼 "한국어 이름 키워드" 갈래는 맨 마지막에 따로 돌아 다른 갈래에 영향을 주지 않습니다. 결과는 QID 기준으로 합치고, 분류가 여럿이면 미디어파사드 → 미디어아트 → 라이트아트 → 빛 축제 → 전시 → 건축조명 → 공공미술 → 야간경관 순으로 대표 분류를 정합니다. 새 분류 "빛 축제(Festival)"가 생겼습니다.
 - **도시와 구**: 항목의 소재지(P131, 없으면 위치 P276)를 최대 세 단계 위로 올라가 처음 만나는 도시급 행정구역을 "도시"로, 그 바로 아래 단위를 "구"로 따로 씁니다(도시급: 한국 특별시·광역시·특별자치시·시·제주 행정시, 그리고 city·big city·metropolis·municipality·일본 시·일본 특별구·프랑스 코뮌·미국 city·독일 Gemeinde. 모두 wikidata.org에서 확인한 QID). 세 단계 안에 한국 분류(특별시·광역시·특별자치시·시·행정시)가 있으면 더 가까운 일반 분류보다 그것을 씁니다(구 항목에 인구 기준 "big city"가 붙어 있어도 도시는 서울). "서울특별시"·"부산광역시"·"세종특별자치시"는 수록 장소처럼 "서울"·"부산"·"세종"으로 줄여, 동기화된 서울 장소가 수록 장소와 함께 "서울"로 세어지고, 부산 중구와 서울 중구가 한 카드로 합쳐지지 않습니다. 세 단계 안에 도시급 단위가 없으면 가장 가까운 행정구역 이름을 도시 자리에 씁니다. 카드·상세에는 "부산 · 수영구"처럼 함께 보여주고, 구 이름으로도 검색됩니다.
@@ -76,7 +76,9 @@ SQL Editor에서 `release/launch/complete-backend.sql` 전체를 붙여 넣고 �
 - 하나의 트랜잭션입니다. 실패하면 아무것도 바뀌지 않습니다.
 - 여러 번 실행해도 안전합니다(이전 시도가 일부 적용됐어도 됨). 로컬 Postgres에서 검증했습니다(`tests/sql.test.mjs`).
 
-확인: `node scripts/launch-check.mjs release/launch/public-config.js`에서 `public_catalog`, `editorial_articles` 항목이 passed.
+확인: `node scripts/launch-check.mjs release/launch/public-config.js`에서 `public_catalog`, `editorial_articles`, `discovered_places_view` 항목이 passed.
+- 이 파일에는 전국·세계 장소 서버 동기화용 테이블 `discovered_places`와 공개 보기 `public_discovered_places`(마이그레이션 `supabase/migrations/20261013000000_discovered_places.sql`)가 들어 있습니다. 이미 이전 버전의 `complete-backend.sql`을 실행했다면 이 파일을 한 번 더 실행하거나, 마이그레이션 파일만 실행해도 됩니다(둘 다 다시 실행해도 안전).
+- **Security Advisor 안내**: `public_discovered_places`는 "Security Definer View"로 표시됩니다. 의도된 설정입니다. 테이블에는 방문자(anon·로그인 사용자) 권한이 전혀 없고 RLS 정책도 없어서, 공개 데이터(Wikidata 장소·권리 확인을 통과한 사진의 출처 표기)를 72시간 안에 확인된 것만 이 보기로 읽게 하려면 보기가 소유자 권한으로 실행되어야 합니다. 보기는 읽기 전용이고(쓰기 권한 회수), 쓰기는 서버 함수(service_role)만 합니다.
 
 ### 5. 인증 메일 설정 (중요)
 - **Authentication → URL Configuration**
@@ -92,7 +94,7 @@ Supabase 대시보드 → Account → Access Tokens에서 토큰을 만든 뒤:
 ```
 SUPABASE_ACCESS_TOKEN=sbp_... ./scripts/deploy-edge-functions.sh
 ```
-- 계정 삭제·사진 수집·후보 발굴·관리자 명령 등 8개 함수를 배포합니다. 501 스텁 4개는 배포하지 않습니다.
+- 계정 삭제·사진 수집·후보 발굴·관리자 명령·전국·세계 장소 동기화(`sync-global-places`) 등 9개 함수를 배포합니다. 501 스텁 4개는 배포하지 않습니다.
 - `MEDIA_CRON_SECRET`, `MEDIA_ADMIN_SECRET`를 생성해 함수에 설정하고, `.secrets/edge-secrets.env`에 저장합니다(git 제외).
 
 ### 7. 6시간 자동 갱신 (선택)
@@ -102,9 +104,25 @@ select vault.create_secret('https://refwrdfxbhcsguweicle.supabase.co','project_u
 select vault.create_secret('<publishable key>','publishable_key');
 select vault.create_secret('<MEDIA_CRON_SECRET 값>','media_cron_secret');
 ```
-그다음 `release/launch/install-six-hour-sync.sql`을 실행합니다. 사진 작업은 매 실행마다 게시된 모든 장소를 Wikidata와 다시 대조하고(같은 연결 규칙), 바뀌지 않은 사진은 다시 내려받지 않습니다. 정확히 연결된 사진만 자동으로 게시되고, 이름 검색으로 찾은 사진은 관리자 검토 대기로 들어갑니다.
+그다음 `release/launch/install-six-hour-sync.sql`을 실행합니다(4단계의 `complete-backend.sql`이 먼저 적용돼 있어야 하며, 아니면 이 파일이 멈추고 알려 줍니다). 예약 4개: 후보 발굴(`aol-discovery-6h`), 장소 사진(`aol-media-discovery-6h`), 사진 권리 재확인(`aol-media-rights-6h`), 전국·세계 장소(`aol-global-places-6h`, 매일 UTC 03:53·09:53·15:53·21:53 = 한국 12:53·18:53·00:53·06:53). 사진 작업은 매 실행마다 게시된 모든 장소를 Wikidata와 다시 대조하고(같은 연결 규칙), 바뀌지 않은 사진은 다시 내려받지 않습니다. 정확히 연결된 사진만 자동으로 게시되고, 이름 검색으로 찾은 사진은 관리자 검토 대기로 들어갑니다.
 서버를 연결하면(9단계) 앱은 서버의 사진 목록을 우선 사용하므로, **9단계 전에 이 예약을 먼저 설치하고 한 번 실행해 사진이 채워졌는지 확인하세요.**
 확인: 다음 실행 시각 이후 `select * from cron.job_run_details order by start_time desc limit 10;`와 `ingestion_jobs`/`media_sync_log`에 성공 기록이 있는지 봅니다. 예약 등록만으로 수집이 성공한 것은 아닙니다.
+
+#### 전국·세계 장소 서버 동기화 (`sync-global-places`)
+- **하는 일**: 6시간마다 한 번, A단계에서 브라우저가 하던 Wikidata 갈래 조회 12개를 서버에서 실행하고(같은 규칙·같은 검증 목록, Wikimedia 정책에 맞는 설명형 User-Agent), 대표 사진(P18)의 권리를 Commons에서 50개씩 확인한 뒤 `discovered_places`에 저장합니다. 앱은 서버가 연결돼 있으면 `public_discovered_places`를 한 번 요청해(공개 키 `apikey` 헤더만 사용, 1000곳이 넘으면 1000곳씩 나눠 받음) 장소 목록과 사진 확인 결과를 함께 받으므로, 방문자 브라우저는 Wikidata·Commons에 조회하지 않습니다. 서버에 아직 행이 없거나(예약 미설치·첫 실행 전) 서버에 연결할 수 없으면 앱은 예전처럼 브라우저에서 직접 조회합니다.
+- **캐시**: 앱은 서버 목록을 브라우저에 6시간 보관합니다. 서버 자료가 6시간을 넘으면 다음 실행이 끝났을 수 있으므로 최대 30분에 한 번 다시 묻습니다. 화면의 "장소 목록 동기화" 시각은 서버가 마지막으로 동기화한 시각입니다.
+- **실패 처리**: 갈래 일부가 실패하면 그 갈래가 지난번에 찾은 장소는 지우지 않고 남깁니다(성공한 갈래에서 사라진 장소만 지움). 모든 갈래가 실패하거나 아무 장소도 찾지 못하면 아무것도 바꾸지 않습니다. 72시간 동안 다시 확인되지 않은 장소와 24시간이 지난 사진 확인 결과는 공개 보기에서 빠집니다(브라우저 동기화와 같은 기준).
+- **시간 제한**: Supabase는 150초 안에 응답하지 않는 요청을 끊으므로, 한 번 실행은 기본 130초 안에 끝냅니다(Wikidata 조회는 약 100초에서 멈추고, 남은 시간에 사진을 확인). 못 끝낸 사진은 다음 실행에서 먼저(확인한 적 없는 것 → 정책이 바뀐 것 → 오래된 것 순) 확인합니다. 유료 플랜은 요청 본문 `{"budget_ms": 380000}`처럼 늘릴 수 있지만, 이때는 예약의 `timeout_milliseconds`도 함께 늘리세요.
+- **한국 FoP 정책**: 함수 비밀값 `MEDIA_KR_FOP_DISPLAY`(기본 켜짐). 끄려면 `npx supabase secrets set MEDIA_KR_FOP_DISPLAY=false --project-ref refwrdfxbhcsguweicle`과 함께 `config.js`의 `MEDIA_KR_FOP_DISPLAY: false`도 바꾸세요(앱은 자기 설정을 따로 적용해, 서버가 허용한 한국 FoP 사진도 앱 설정이 꺼져 있으면 보여주지 않습니다). 정책을 바꾸면 그 사진들이 다음 실행에서 가장 먼저 다시 확인됩니다.
+- **처음 한 번 바로 실행** (9단계 전에 권장): `.secrets/edge-secrets.env`가 있는 컴퓨터에서
+  ```
+  . .secrets/edge-secrets.env
+  curl -sS -X POST https://refwrdfxbhcsguweicle.supabase.co/functions/v1/sync-global-places \
+    -H "x-aol-media-admin-secret: $MEDIA_ADMIN_SECRET" -H 'content-type: application/json' -d '{}'
+  ```
+  응답의 `branches`에 갈래별 성공/실패·건수·소요 시간이, `images`에 확인한 사진 수(`checked`·`cleared`·`blocked`)와 다음으로 미룬 수(`deferred`)가 나옵니다. 실행 중인 작업이 있으면 409(`already_running`)를 돌려줍니다(10분 지나면 무시, `{"force": true}`로 강제).
+- **확인**: `select status, error_message, metadata->'branches' from sync_runs where job_name='sync-global-places' order by started_at desc limit 4;`와 `select count(*), count(*) filter (where image_status='cleared') from public_discovered_places;`.
+- **아직 실제 Wikidata·Supabase에서 돌려보지 않았습니다**: 개발 환경에서는 query.wikidata.org·commons.wikimedia.org·supabase.co에 접속할 수 없어, SQL은 로컬 Postgres(PGlite, `tests/sql.test.mjs`·`tests/global-places-server.test.mjs`)에서, 함수는 Deno로 모든 외부 요청을 흉내 내어(`tests/deno/sync-global-places_test.ts`) 확인했습니다. 실제 조회 시간이 130초 예산을 넘는지, Edge Function의 CPU 제한(요청당 2초)에 걸리는지는 첫 실행의 응답·`sync_runs`로 확인하세요. 시간이 모자라면 사진은 여러 번에 나눠 확인되고(`deferred`), 갈래가 계속 시간 초과로 실패하면 `BRANCHES`의 LIMIT을 줄이세요.
 
 ### 8. 관리자 계정 지정
 사이트에서 본인 계정으로 가입한 뒤 SQL Editor에서:
@@ -134,5 +152,5 @@ Google Play 개발자 계정(25달러, 1회)과 Apple Developer Program(연 99�
 ## 알려진 한계 (출시를 막지는 않음)
 - 실제 사진이 있는 장소는 2곳입니다. 한국은 건축물·공공미술의 파노라마 자유(FoP)가 제한되어, Commons 사진도 개별 권리 검토 없이 자동으로 공개하지 않습니다. 나머지는 "사진 준비 중"으로 표시됩니다.
 - 편집 검증 좌표가 있는 수록 장소는 아직 없어 지도 핀은 표시되지 않습니다(추정 좌표를 쓰지 않는 정책). 지도에는 전국·세계 동기화 장소의 Wikidata 등록 좌표만 원형 표시로 나오며, 편집 검토 전 좌표임을 팝업과 목록에 밝힙니다.
-- 전국·세계 장소 동기화는 방문자 브라우저마다 Wikidata에 조회를 보냅니다(6시간에 한 번, 갈래 12개). 방문자가 많아지면 B단계의 서버 함수로 옮겨 한 번만 조회하고 결과를 나눠 주는 편이 Wikidata 이용 정책에도 맞습니다.
+- 서버를 연결하기 전(A단계)에는 전국·세계 장소 동기화가 방문자 브라우저마다 Wikidata에 조회를 보냅니다(6시간에 한 번, 갈래 12개). B단계 7단계의 `aol-global-places-6h` 예약을 설치하면 서버가 6시간에 한 번만 조회하고 결과를 나눠 줍니다(Wikidata 이용 정책에도 맞음). 서버가 비어 있거나 응답하지 않으면 앱은 브라우저 조회로 돌아갑니다.
 - OpenStreetMap 기본 타일은 SLA가 없습니다. 트래픽이 늘면 `TILE_URL`을 교체하세요.

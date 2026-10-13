@@ -1,10 +1,14 @@
-// Browser-side nationwide (South Korea) and worldwide discovery of light places from Wikidata, every 6 hours.
-// Works on a static host with no backend: results are cached per browser (compactly) and a failed refresh keeps
-// the last good result for at most 72 hours. Photos are rights-checked lazily: only the Wikidata places currently on
-// screen are checked against Commons (license, deletion and freedom-of-panorama tags), and nothing is shown before
-// that check passes.
+// Nationwide (South Korea) and worldwide discovery of light places from Wikidata, every 6 hours.
+// With the Supabase backend configured (SUPABASE_URL + SUPABASE_PUBLISHABLE_KEY) the list comes from the server, which
+// runs the Wikidata queries and the photo rights checks once per 6 hours for everyone (Edge Function sync-global-places,
+// view public_discovered_places): one REST request instead of a dozen Wikidata queries per browser. When the server has
+// no rows or cannot be reached, the browser runs the same queries itself, exactly as on a static host with no backend.
+// Results are cached per browser (compactly) and a failed refresh keeps the last good result for at most 72 hours.
+// Photos are rights-checked lazily: only the Wikidata places currently on screen are checked (the server's verdict
+// first, Commons otherwise: license, deletion and freedom-of-panorama tags), and nothing is shown before that check passes.
 import { syncGlobal, packPlaces, expandPlaces, carryOver, checkImages, curatedIndex, isCuratedDuplicate, GLOBAL_SYNC_INTERVAL_MS } from '../edge-functions/_shared/global-places.mjs'
 import { DEFAULT_POLICY } from '../edge-functions/_shared/live-media.mjs'
+import { fromServerRows, verdictsFromServerRows, SERVER_VIEW, SERVER_COLUMNS, SERVER_MEDIA_COLUMNS } from '../edge-functions/_shared/global-places-server.mjs'
 
 // Storage format 2: rows from packPlaces with a branch-id table (format 1 copies are discarded on first read).
 const KEY = 'aol_global_v1', MEDIA_KEY = 'aol_global_media_v1', STORE_VERSION = 2
@@ -15,6 +19,13 @@ const MAX_STORE_CHARS = 1_000_000, MAX_MEDIA_ENTRIES = 400
 const MAX_STALE_MS = 72 * 60 * 60 * 1000
 const cfg = window.AOL_CONFIG || {}
 const policy = { ...DEFAULT_POLICY, krFopDisplay: cfg.MEDIA_KR_FOP_DISPLAY !== false }
+// The server's list (public_discovered_places), read with the publishable key only (no user session needed).
+const SERVER = cfg.SUPABASE_URL && cfg.SUPABASE_PUBLISHABLE_KEY ? { base: String(cfg.SUPABASE_URL).replace(/\/+$/, '') + '/rest/v1/' + SERVER_VIEW, key: String(cfg.SUPABASE_PUBLISHABLE_KEY) } : null
+// PostgREST returns at most "max rows" (1000 by default on Supabase) per request: larger lists take a few pages.
+const SERVER_PAGE = 1000, SERVER_MAX_PAGES = 20
+// The server syncs every 6 hours. A server copy is kept for 6 hours, but once the server's own data is 6 hours old a
+// newer run is due, so the app asks again (at most every 30 minutes) instead of waiting out its full 6 hours.
+const SERVER_RECHECK_MS = 30 * 60 * 1000
 let running = null, memory = null, storeDisabled = false
 // Closing or leaving the page stops the sync: no requests or re-renders from a page that is going away.
 // A page restored from the back/forward cache starts again.
@@ -23,6 +34,14 @@ addEventListener('pagehide', () => life.abort())
 addEventListener('pageshow', e => { if (e.persisted && life.signal.aborted) { life = new AbortController(); running = null; refresh() } })
 
 const ageOf = v => Date.now() - Date.parse(v.fetchedAt)
+// Fresh enough not to refresh. fetchedAt is the time of the data itself (the server's latest sync for a server copy);
+// checkedAt is when this browser last asked the server.
+function isFresh(v) {
+  if (!v || v.incomplete) return false
+  if (v.source !== 'server' || !SERVER) return ageOf(v) < GLOBAL_SYNC_INTERVAL_MS
+  const checked = Date.now() - Date.parse(v.checkedAt)
+  return checked < GLOBAL_SYNC_INTERVAL_MS && (ageOf(v) < GLOBAL_SYNC_INTERVAL_MS || checked < SERVER_RECHECK_MS)
+}
 
 function read() {
   if (memory) return memory
@@ -62,7 +81,7 @@ function write(v) {
   const packed = packPlaces(v.places, { maxChars: MAX_STORE_CHARS, keepIds: usedIds() })
   v.truncated = packed.truncated
   if (storeDisabled) return
-  const stored = { version: STORE_VERSION, fetchedAt: v.fetchedAt, krFopDisplay: policy.krFopDisplay, branches: v.branches, branchIds: packed.branchIds, truncated: packed.truncated, rows: packed.rows }
+  const stored = { version: STORE_VERSION, source: v.source || 'browser', fetchedAt: v.fetchedAt, checkedAt: v.checkedAt, krFopDisplay: policy.krFopDisplay, branches: v.branches, branchIds: packed.branchIds, truncated: packed.truncated, rows: packed.rows }
   // Quota exceeded or storage blocked: drop the old copy (never crowd out the user's own records) and keep memory.
   try { localStorage.setItem(KEY, JSON.stringify(stored)) } catch { try { localStorage.removeItem(KEY) } catch {} }
 }
@@ -80,6 +99,36 @@ async function fetchJSON(url, init = {}) {
 
 const placesOf = v => v ? (v.places || (v.places = expandPlaces(v.rows, v.branchIds))) : []
 
+// GET from the server's view with the publishable key. Returns [rows, total|null] (total from Content-Range).
+async function serverGet(query, signal, count = false) {
+  const controller = new AbortController(), timer = setTimeout(() => controller.abort(), 30000), onAbort = () => controller.abort()
+  if (signal?.aborted) controller.abort()
+  signal?.addEventListener?.('abort', onAbort, { once: true })
+  try {
+    const headers = { apikey: SERVER.key, Accept: 'application/json', ...(count ? { Prefer: 'count=exact' } : {}) }
+    const res = await fetch(SERVER.base + '?' + query, { headers, signal: controller.signal, credentials: 'omit' })
+    if (!res.ok) throw Error('HTTP ' + res.status)
+    const rows = await res.json()
+    if (!Array.isArray(rows)) throw Error('invalid_server_payload')
+    const total = /\/(\d+)\s*$/.exec(res.headers.get('content-range') || '')
+    return [rows, total ? Number(total[1]) : null]
+  } finally { clearTimeout(timer); signal?.removeEventListener?.('abort', onAbort) }
+}
+
+// The whole server list: one request unless it is longer than a page. null when the server has no rows yet.
+async function fromServer(signal) {
+  const rows = []
+  for (let page = 0; page < SERVER_MAX_PAGES; page++) {
+    const [list, total] = await serverGet(`select=${SERVER_COLUMNS}&order=qid.asc&limit=${SERVER_PAGE}&offset=${rows.length}`, signal, true)
+    rows.push(...list)
+    if (!list.length || (total !== null ? rows.length >= total : list.length < SERVER_PAGE)) break
+  }
+  const { places, verdicts: found, fetchedAt } = fromServerRows(rows, { policy })
+  if (!places.length || !fetchedAt) return null
+  useServerVerdicts(found)
+  return { version: STORE_VERSION, source: 'server', fetchedAt, checkedAt: new Date().toISOString(), branches: [], places }
+}
+
 function apply(v, status, attempt) {
   const places = placesOf(v)
   window.AOL_GLOBAL = { places, fetchedAt: v?.fetchedAt || null, status, branches: attempt || v?.branches || [], truncated: !!v?.truncated }
@@ -91,19 +140,29 @@ function apply(v, status, attempt) {
 export async function refresh(force = false) {
   let cached = read()
   if (cached && !(ageOf(cached) < MAX_STALE_MS)) cached = expire()
-  const fresh = cached && !cached.incomplete && ageOf(cached) < GLOBAL_SYNC_INTERVAL_MS
-  if (fresh && !force) return cached
+  if (isFresh(cached) && !force) return cached
   if (running) return running
   const signal = life.signal
   const run = (async () => {
     if (!cached) apply(null, 'loading')
+    if (SERVER) {
+      // The server's list first; without rows (sync not installed yet) or on any error, the browser syncs itself.
+      try {
+        const next = await fromServer(signal)
+        if (signal.aborted) return cached
+        if (next) {
+          write(next); apply(next, ageOf(next) < GLOBAL_SYNC_INTERVAL_MS + SERVER_RECHECK_MS ? 'ok' : 'stale')
+          return next
+        }
+      } catch { if (signal.aborted) return cached }
+    }
     try {
       const result = await syncGlobal({ fetchJSON, signal })
       if (signal.aborted) return cached
       const failed = result.branches.filter(b => !b.ok).map(b => b.id)
       // A branch that failed this time keeps its places from the last good result (stale-on-error per branch).
       const places = carryOver(placesOf(cached), result.places, failed)
-      const next = { version: STORE_VERSION, fetchedAt: new Date().toISOString(), branches: result.branches, places }
+      const next = { version: STORE_VERSION, source: 'browser', fetchedAt: new Date().toISOString(), branches: result.branches, places }
       write(next); apply(next, failed.length ? 'partial' : 'ok')
       return next
     } catch (e) {
@@ -146,8 +205,25 @@ function saveVerdicts() {
 // Cleared files become media rows with the same shape (and attribution) as the live photo sync. A verdict older
 // than 6 hours is re-checked as soon as its place is on screen; until that succeeds (e.g. while offline) it is used
 // for at most 24 hours, after which the photo counts as unchecked and is not shown. (The place list has its own,
-// longer limit: MAX_STALE_MS, 72 hours.)
+// longer limit: MAX_STALE_MS, 72 hours.) A verdict from the server (src 'server') is not re-checked by the browser
+// while it is valid: the server re-checks every photo within 24 hours and the next list brings the new verdicts.
 const MAX_VERDICT_AGE_MS = 4 * GLOBAL_SYNC_INTERVAL_MS
+const recheckAfter = v => v.src === 'server' ? MAX_VERDICT_AGE_MS : GLOBAL_SYNC_INTERVAL_MS
+
+// Verdicts made by the server (made under the app's own KR FoP policy, see verdictsFromServerRows). A newer verdict
+// this browser made itself is kept.
+function useServerVerdicts(list) {
+  let changed = false
+  for (const v of list) {
+    if (!(Date.now() - v.at < MAX_VERDICT_AGE_MS)) continue
+    const prev = verdicts.get(v.file)
+    if (prev && prev.at >= v.at) continue
+    verdicts.set(v.file, { at: v.at, ok: v.ok, reasons: v.reasons, row: v.ok ? v.row : null, src: 'server' })
+    changed = true
+  }
+  if (changed) saveVerdicts()
+  return changed
+}
 function rebuildMedia() {
   const rows = []
   for (const [placeId, it] of imageOf) {
@@ -170,15 +246,28 @@ async function flush() {
     const it = imageOf.get(id)
     if (!it) continue
     const v = verdicts.get(it.image)
-    if (v && Date.now() - v.at < GLOBAL_SYNC_INTERVAL_MS) continue
+    if (v && Date.now() - v.at < recheckAfter(v)) continue
     if (inflight.has(it.image) || Date.now() - (failedAt.get(it.image) || 0) < 5 * 60 * 1000) continue
     if (!items.some(x => x.image === it.image)) items.push({ place_id: id, ...it })
   }
   wanted.clear()
   let changed = false
   for (let i = 0; i < items.length; i += 50) {
-    const batch = items.slice(i, i + 50) // one Commons request per 50 files
+    let batch = items.slice(i, i + 50) // one Commons request per 50 files
     batch.forEach(x => inflight.add(x.image))
+    if (SERVER && memory?.source === 'server') {
+      // The server has usually checked these already (e.g. its verdicts did not all fit in this browser's storage).
+      try {
+        const qids = [...new Set(batch.map(x => x.wikidata).filter(q => /^Q\d+$/.test(q || '')))]
+        const [rows] = qids.length ? await serverGet(`select=${SERVER_MEDIA_COLUMNS}&qid=in.(${qids.join(',')})`, signal) : [[]]
+        if (!signal.aborted && useServerVerdicts(verdictsFromServerRows(rows, { policy }))) changed = true
+      } catch {}
+      if (signal.aborted) { batch.forEach(x => inflight.delete(x.image)); return }
+      const done = batch.filter(x => { const v = verdicts.get(x.image); return v && Date.now() - v.at < recheckAfter(v) })
+      done.forEach(x => inflight.delete(x.image))
+      batch = batch.filter(x => !done.includes(x))
+      if (!batch.length) continue
+    }
     try {
       const result = await checkImages(batch, { fetchJSON: (url, init = {}) => fetchJSON(url, { ...init, signal }), policy })
       if (signal.aborted) return
