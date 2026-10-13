@@ -3,7 +3,10 @@
 //   site-public-cleared/assets/     web symbol, favicon, PWA / Apple icons, OG image
 //   android/…/res/mipmap-*/         launcher icons (legacy, round, adaptive foreground)
 //   ios/…/AppIcon.appiconset/       1024 App Store / home-screen icon
+//   android/…/res/drawable*/splash.png, drawable/splash_{mark,launch}.xml, values/splash_background.xml
+//   ios/…/Splash.imageset/          launch screens: navy field, dark mark centred in a crop-safe area
 // Wordmarks are Pretendard (OFL-1.1) glyph outlines, so no SVG depends on an installed font.
+// Text is shaped by HarfBuzz (as in Chromium) so the font's GPOS kerning applies; opentype.js outlines.
 // PNGs are rasterised by Chromium from the app's @playwright/test devDependency.
 //
 // Usage, from light-architecture/:  npm ci && (cd brand/tools && npm ci) && node brand/tools/build.mjs
@@ -12,6 +15,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import opentype from 'opentype.js';
+import * as hb from 'harfbuzzjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, '..', '..');
@@ -19,6 +23,7 @@ const BRAND = join(ROOT, 'brand');
 const ASSETS = join(ROOT, 'site-public-cleared', 'assets');
 const ANDROID_RES = join(ROOT, 'android', 'app', 'src', 'main', 'res');
 const IOS_ICON = join(ROOT, 'ios', 'App', 'App', 'Assets.xcassets', 'AppIcon.appiconset');
+const IOS_SPLASH = join(ROOT, 'ios', 'App', 'App', 'Assets.xcassets', 'Splash.imageset');
 const FONT_DIR = join(HERE, 'node_modules', 'pretendard', 'dist', 'public', 'static');
 const SVG_ONLY = process.argv.includes('--svg');
 
@@ -95,7 +100,15 @@ const svgDoc = (vb, body, label, attrs = '') =>
 const NAME = '빛의 건축 Architecture of Light';
 
 // ---------------------------------------------------------------- text → outlines (Pretendard)
-const loadFont = w => { const b = readFileSync(join(FONT_DIR, `Pretendard-${w}.otf`)); return opentype.parse(b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength)); };
+// HarfBuzz shapes (GPOS kern, calt, ccmp: what Chromium applies), opentype.js outlines the shaped
+// glyph ids. opentype.js 2.0.0's own kerning reads 0 for Pretendard's PairPos-in-Extension lookups,
+// which left 'rc', 're' and 'te' in "Architecture" about 0.017 em too loose.
+const loadFont = w => {
+  const b = readFileSync(join(FONT_DIR, `Pretendard-${w}.otf`));
+  const font = opentype.parse(b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength));
+  font.hb = new hb.Font(new hb.Face(new hb.Blob(b)));
+  return font;
+};
 const FONT = { Bold: loadFont('Bold'), SemiBold: loadFont('SemiBold') };
 // own serialiser: every contour explicitly closed, 2-decimal coordinates
 function toD(cmds) {
@@ -109,13 +122,23 @@ function toD(cmds) {
   }
   return open ? d + 'Z' : d;
 }
-const ink = (font, str, size, ls) => font.getPath(str, 0, 0, size, { kerning: true, letterSpacing: ls }).getBoundingBox();
+// Shaped outline of `str` with its pen starting at (x, y); `ls` is tracking in em added after every glyph.
+function shapedPath(font, str, x, y, size, ls = 0) {
+  const buf = new hb.Buffer(); buf.addText(str); buf.guessSegmentProperties(); hb.shape(font.hb, buf);
+  const k = size / font.unitsPerEm, pos = buf.getGlyphPositions(), path = new opentype.Path();
+  buf.getGlyphInfos().forEach((g, i) => {
+    path.extend(font.glyphs.get(g.codepoint).getPath(x + pos[i].xOffset * k, y - pos[i].yOffset * k, size, {}, font));
+    x += pos[i].xAdvance * k; x += ls * size;
+  });
+  return path;
+}
+const ink = (font, str, size, ls) => shapedPath(font, str, 0, 0, size, ls).getBoundingBox();
 // Place a string so that its ink box starts at (x, top) — or, with {cy}, is centred on cy.
 function text(font, str, size, ls, { x, top, cy, baseline, cx }) {
   const b = ink(font, str, size, ls);
   const ox = cx !== undefined ? cx - (b.x1 + b.x2) / 2 : x - b.x1;
   const oy = baseline !== undefined ? baseline : top !== undefined ? top - b.y1 : cy - (b.y1 + b.y2) / 2;
-  const p = font.getPath(str, ox, oy, size, { kerning: true, letterSpacing: ls });
+  const p = shapedPath(font, str, ox, oy, size, ls);
   return { d: toD(p.commands), bb: p.getBoundingBox() };
 }
 const KO = '빛의 건축', KO_LS = -0.025, SUB = 'ARCHITECTURE OF LIGHT', SUB_LS = 0.14, EN = 'Architecture of Light', EN_LS = -0.012;
@@ -220,6 +243,60 @@ function paddedSvg(col) {
   return svgDoc(`${f2(cx - side / 2)} ${f2(cy - side / 2)} ${f2(side)} ${f2(side)}`, shapes(MARK, col), NAME);
 }
 
+// ---------------------------------------------------------------- launch splash (native)
+// Every splash is the navy field with the app-icon composition (dark mark at ICON_T) centred, so the
+// launcher icon, Android 12+'s system splash and the splash rasters show one picture.
+// Android (core-splashscreen, every API level) draws windowSplashScreenAnimatedIcon = splash_mark.xml on
+// windowSplashScreenBackground = Navy. splash_mark is the launcher-foreground composition as a vector at
+// 288 dp, masked to a 192 dp circle, so the mark is 504/1024 × 192 ≈ 94.5 dp wide: ≈ 23% of a 411 dp
+// phone. The rasters keep that share of the short side a 9:19.5 phone shows after centre-cropping.
+const SPLASH_K = 0.23;
+const MARK_INK = [BOX.x0, BOX.y0, BOX.x1, BOX.y1].map((v, i) => (i % 2 ? ICON_T.y : ICON_T.x) + v * ICON_T.s); // in the 1024 composition
+function splashSvg(w, h, orient) {
+  const k = SPLASH_K * Math.min(w, h, Math.max(w, h) * 9 / 19.5) / (MARK_INK[2] - MARK_INK[0]);
+  const tx = w / 2 - 512 * k, ty = h / 2 - 512 * k, pad = PIER * ICON_T.s * k;
+  // Crop-safe: the ink box plus one pier width stays inside what a centre crop keeps on every screen
+  // from 9:21 to 21:9 (drawable-port-* is only used in portrait, drawable-land-* only in landscape).
+  const aMin = orient === 'land' ? 1 : 9 / 21, aMax = orient === 'port' ? 1 : 21 / 9;
+  const visW = Math.min(w, h * aMin), visH = Math.min(h, w / aMax);
+  const [x0, y0, x1, y1] = MARK_INK.map((v, i) => (i % 2 ? ty : tx) + v * k + (i < 2 ? -pad : pad));
+  if (x0 < (w - visW) / 2 || x1 > (w + visW) / 2 || y0 < (h - visH) / 2 || y1 > (h + visH) / 2) throw Error(`splash ${w}×${h} leaves the crop-safe area`);
+  return svgDoc(`0 0 ${w} ${h}`, `<rect width="${w}" height="${h}" fill="${P.navy}"/><g transform="translate(${f2(tx)} ${f2(ty)}) scale(${+k.toFixed(5)})">${iconMark}</g>`, '빛의 건축');
+}
+// Capacitor's splash.png slots, same sizes as before (drawable/ has no orientation qualifier).
+const ANDROID_SPLASH = {
+  drawable: [480, 320], 'drawable-land-mdpi': [480, 320], 'drawable-land-hdpi': [800, 480], 'drawable-land-xhdpi': [1280, 720],
+  'drawable-land-xxhdpi': [1600, 960], 'drawable-land-xxxhdpi': [1920, 1280], 'drawable-port-mdpi': [320, 480],
+  'drawable-port-hdpi': [480, 800], 'drawable-port-xhdpi': [720, 1280], 'drawable-port-xxhdpi': [960, 1600], 'drawable-port-xxxhdpi': [1280, 1920],
+};
+const splashOrient = dir => (dir.match(/-(port|land)-/) || [])[1];
+const IOS_SPLASH_FILES = ['splash-2732x2732.png', 'splash-2732x2732-1.png', 'splash-2732x2732-2.png']; // 3x, 2x, 1x (Contents.json)
+for (const [dir, [w, h]] of Object.entries(ANDROID_SPLASH)) splashSvg(w, h, splashOrient(dir)); // fail fast, also with --svg
+splashSvg(2732, 2732);
+// Vector form of the launcher foreground: the 1024 composition maps onto the central 72 of 108 units.
+const FG = { s: ICON_T.s * 72 / 1024, x: 18 + ICON_T.x * 72 / 1024, y: 18 + ICON_T.y * 72 / 1024 };
+const circleD = ({ cx, cy, r }) => `M${f2(cx - r)} ${f2(cy)}A${r} ${r} 0 1 0 ${f2(cx + r)} ${f2(cy)}A${r} ${r} 0 1 0 ${f2(cx - r)} ${f2(cy)}Z`;
+const splashMarkXml = `<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated by brand/tools/build.mjs: the launcher-foreground composition as a vector (108-unit canvas,
+     mark inside the central 72). Used as windowSplashScreenAnimatedIcon and by splash_launch.xml. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="288dp" android:height="288dp" android:viewportWidth="108" android:viewportHeight="108">
+    <group android:translateX="${FG.x}" android:translateY="${FG.y}" android:scaleX="${FG.s}" android:scaleY="${FG.s}">
+        <path android:fillColor="${SCHEME.dark.beam}" android:pathData="${MARK.beam}"/>
+        <path android:fillColor="${SCHEME.dark.arch}" android:pathData="${MARK.arch}"/>
+        <path android:fillColor="${SCHEME.dark.dot}" android:pathData="${circleD(MARK.dot)}"/>
+    </group>
+</vector>
+`;
+const splashLaunchXml = `<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated by brand/tools/build.mjs: the launch theme's android:background. A navy field with the
+     mark centred at its own size, so it is never stretched to the window's aspect ratio. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/splash_background"/>
+    <item android:drawable="@drawable/splash_mark" android:gravity="center" android:width="288dp" android:height="288dp"/>
+</layer-list>
+`;
+
 // ---------------------------------------------------------------- write SVGs
 const out = (path, data) => { mkdirSync(dirname(path), { recursive: true }); writeFileSync(path, data); };
 const svgs = {
@@ -227,6 +304,7 @@ const svgs = {
   'symbol-dark.svg': svgDoc('0 0 64 64', markDark, NAME),
   'symbol-mono.svg': svgDoc('0 0 64 64', shapes(MARK, { arch: 'currentColor', beam: 'currentColor', dot: 'currentColor' }, MARK.beamMono), NAME),
   'symbol-16.svg': favLight,
+  'symbol-16-dark.svg': svgDoc('0 0 64 64', shapes(FAV, SCHEME.dark), '빛의 건축'),
   'symbol-padded.svg': paddedSvg(SCHEME.light),
   'symbol-padded-dark.svg': paddedSvg(SCHEME.dark),
   'app-icon.svg': appIconSvg,
@@ -245,8 +323,11 @@ for (const [name, svg] of Object.entries(svgs)) out(join(BRAND, name), svg);
 out(join(ASSETS, 'symbol.svg'), svgs['symbol.svg']);
 out(join(ASSETS, 'symbol-dark.svg'), svgs['symbol-dark.svg']);
 out(join(ASSETS, 'favicon.svg'), favAdaptive);
+out(join(ANDROID_RES, 'drawable', 'splash_mark.xml'), splashMarkXml);
+out(join(ANDROID_RES, 'drawable', 'splash_launch.xml'), splashLaunchXml);
+out(join(ANDROID_RES, 'values', 'splash_background.xml'), `<resources><color name="splash_background">${P.navy}</color></resources>\n`);
 console.log('metrics', JSON.stringify(metrics));
-console.log('wrote', Object.keys(svgs).length, 'brand SVGs + 3 web SVGs');
+console.log('wrote', Object.keys(svgs).length, 'brand SVGs + 3 web SVGs + 3 Android splash resources');
 if (SVG_ONLY) process.exit(0);
 
 // ---------------------------------------------------------------- OG image (1200×630)
@@ -299,6 +380,8 @@ save(join(BRAND, 'og-image.png'), og);
 
 // web
 save(join(ASSETS, 'og-image.png'), og);
+// favicon PNGs are the 16 px cut, which is snapped to whole pixels at 16, 32 and 48
+for (const s of [16, 32]) save(join(ASSETS, `favicon-${s}.png`), await png(favLight, s));
 save(join(ASSETS, 'favicon.png'), await png(favLight, 48));
 for (const s of [192, 512, 1024]) save(join(ASSETS, `icon-${s}.png`), await png(tileSvg('squircle'), s));
 save(join(ASSETS, 'icon-maskable-512.png'), await png(appIconSvg, 512, 512, { opaque: true }));
@@ -316,6 +399,12 @@ out(join(ANDROID_RES, 'values', 'ic_launcher_background.xml'), `<resources><colo
 
 // iOS: one 1024 universal icon, opaque (App Store rejects alpha)
 save(join(IOS_ICON, 'AppIcon-512@2x.png'), await png(appIconSvg, 1024, 1024, { opaque: true }));
+
+// Launch splash rasters: Android splash.png (Capacitor's SplashScreen.show(), androidScaleType CENTER_CROP)
+// and iOS Splash.imageset (LaunchScreen.storyboard, scaleAspectFill). All opaque.
+for (const [dir, [w, h]] of Object.entries(ANDROID_SPLASH)) save(join(ANDROID_RES, dir, 'splash.png'), await png(splashSvg(w, h, splashOrient(dir)), w, h, { opaque: true }));
+const iosSplash = await png(splashSvg(2732, 2732), 2732, 2732, { opaque: true });
+for (const f of IOS_SPLASH_FILES) save(join(IOS_SPLASH, f), iosSplash);
 
 await browser.close();
 console.log('wrote', written.length, 'PNGs');
