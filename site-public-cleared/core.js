@@ -10,6 +10,7 @@ function days(a,b){return Math.floor((Date.parse(b)-Date.parse(a))/86400000)}
 function freshness(p,date=today()){
  const checked=p.verified_at,age=validDate(checked)?days(checked,date):null,ttl=Number(p.refresh_days)||30;
  if(p.origin==='wikidata')return {key:'unverified',label:'검색 후보 · 미검토',tone:'warn',age:null};
+ if(p.origin==='wikidata-sync')return {key:'synced',label:'Wikidata 공동 편집 데이터',tone:'info',age:null};
  if(validDate(p.program_end)&&p.program_end<date)return {key:'ended',label:'수록 프로그램 종료',tone:'off',age};
  if(validDate(p.program_start)&&p.program_start>date)return {key:'upcoming',label:'수록 일정상 예정',tone:'info',age};
  if(/ENDED|BETWEEN/.test(p.live_operation_state||''))return {key:'ended',label:'수록 프로그램 종료',tone:'off',age};
@@ -32,7 +33,11 @@ function validate(data,knownIds=[]){
   if(!c||!/^WD-Q\d+$/.test(c.place_id)||seenCandidates.has(c.place_id)||!checkText(c.name_kr,300)||!checkText(c.short_description||'',2000))throw Error('세계 장소 데이터가 잘못되었습니다.');
   if((c.latitude!=null||c.longitude!=null)&&!coords(c))throw Error('좌표가 잘못되었습니다.');
   seenCandidates.add(c.place_id);known.add(c.place_id);
-  out.candidates.push({place_id:c.place_id,name_kr:c.name_kr,name_en:checkText(c.name_en,300)?c.name_en:'',short_description:c.short_description||'',origin:'wikidata',primary_category:'Global',district:'세계 검색',latitude:c.latitude??null,longitude:c.longitude??null,website:safeURL(c.website),source_url:'https://www.wikidata.org/wiki/'+c.place_id.slice(3),verified_at:validDate(c.verified_at)?c.verified_at:'',image:checkText(c.image,1000)?c.image:''});
+  const base={place_id:c.place_id,name_kr:c.name_kr,name_en:checkText(c.name_en,300)?c.name_en:'',short_description:c.short_description||'',origin:'wikidata',primary_category:'Global',district:'세계 검색',latitude:c.latitude??null,longitude:c.longitude??null,website:safeURL(c.website),source_url:'https://www.wikidata.org/wiki/'+c.place_id.slice(3),verified_at:validDate(c.verified_at)?c.verified_at:'',image:checkText(c.image,1000)?c.image:''};
+  // A place from the 6-hourly Wikidata sync that the user saved, planned or recorded: keep what is needed to show it
+  // when the sync result is not available (offline, expired cache). Source URLs are rebuilt from the QID, never trusted.
+  if(c.origin==='wikidata-sync'){const kind=k=>typeof k==='string'&&/^[A-Za-z ]{1,40}$/.test(k),qid=c.place_id.slice(3),text=(v,n)=>checkText(v,n)?v:'';Object.assign(base,{origin:'wikidata-sync',primary_category:kind(c.primary_category)?c.primary_category:'Global',categories:Array.isArray(c.categories)?c.categories.filter(kind).slice(0,8):[],district:'',country:text(c.country,120),city:text(c.city,120),scope:c.scope==='korea'?'korea':'world',wikidata:qid,source_publisher:'Wikidata',sitelinks:Number.isInteger(c.sitelinks)&&c.sitelinks>=0?c.sitelinks:0,website:/^https:/.test(base.website)?base.website:''});if(coords(c))Object.assign(base,{coordinate_review_status:'source',coordinate_source:'wikidata',coordinate_source_url:base.source_url})}
+  out.candidates.push(base);
  }
  out.saved=[...new Set(data.saved.filter(x=>known.has(x)))];
  const seenVisits=new Set(),seenRoutes=new Set();

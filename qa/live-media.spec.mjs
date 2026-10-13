@@ -3,6 +3,7 @@
 import {test,expect} from './fixtures.mjs';
 import {readFileSync} from 'node:fs';
 import {wdqs,commonsPage,commonsResponse} from '../tests/fixtures/live-media-fixtures.mjs';
+import {branchIdOf} from '../edge-functions/_shared/global-places.mjs';
 
 const PNG=readFileSync(new URL('../site-public-cleared/assets/icon-512.png',import.meta.url));
 const cors={'access-control-allow-origin':'*','content-type':'application/json'};
@@ -17,9 +18,13 @@ const FILES={
  'Leeum NC.jpg':commonsPage({license:'CC BY-NC 4.0'}),
 };
 
+// The nationwide/worldwide place sync (qa/global-places.spec.mjs) posts to the same endpoint; its tagged queries fall
+// through to the default block so these tests keep counting only the curated-place photo sync.
+const isGlobal=r=>!!branchIdOf(new URLSearchParams(r.request().postData()||'').get('query'));
+
 async function mockApis(page,{fail=false}={}){
  const calls={wdqs:0,commons:0};
- await page.route('https://query.wikidata.org/**',async r=>{calls.wdqs++;if(fail)return r.fulfill({status:503,headers:cors,body:'{}'});expect(r.request().method()).toBe('POST');await r.fulfill({headers:cors,body:JSON.stringify(WD)})});
+ await page.route('https://query.wikidata.org/**',async r=>{if(isGlobal(r))return r.fallback();calls.wdqs++;if(fail)return r.fulfill({status:503,headers:cors,body:'{}'});expect(r.request().method()).toBe('POST');await r.fulfill({headers:cors,body:JSON.stringify(WD)})});
  await page.route('https://commons.wikimedia.org/w/api.php**',async r=>{calls.commons++;const titles=new URL(r.request().url()).searchParams.get('titles').split('|').map(t=>t.replace(/^File:/,''));await r.fulfill({headers:cors,body:JSON.stringify(commonsResponse(Object.fromEntries(titles.filter(t=>FILES[t]).map(t=>[t,FILES[t]]))))})});
  await page.route(/^https:\/\/(upload|thumb)\.wikimedia\.org\//,r=>r.fulfill({contentType:'image/png',body:PNG}));
  return calls;
@@ -65,7 +70,7 @@ test('results are cached for 6 hours; a failed refresh keeps the last good resul
  // Age the cache past 6 hours and make the source fail.
  await page.evaluate(()=>{const v=JSON.parse(localStorage.getItem('aol_live_v1'));v.fetchedAt=new Date(Date.now()-7*3600e3).toISOString();localStorage.setItem('aol_live_v1',JSON.stringify(v))});
  await page.unroute('https://query.wikidata.org/**');
- let failed=0;await page.route('https://query.wikidata.org/**',r=>{failed++;r.fulfill({status:503,headers:cors,body:'{}'})});
+ let failed=0;await page.route('https://query.wikidata.org/**',r=>{if(isGlobal(r))return r.fallback();failed++;r.fulfill({status:503,headers:cors,body:'{}'})});
  await page.goto('/#settings');await page.reload();
  await expect.poll(()=>failed).toBe(1);
  await expect(page.locator('#liveSyncTime')).toContainText('최근 갱신 실패');

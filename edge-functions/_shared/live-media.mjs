@@ -21,6 +21,16 @@ export const BLOCKING_TEMPLATES = [
 // South Korea has freedom of panorama only for non-sale uses (Copyright Act Art. 35(2)), so Commons tags
 // such photos. A free service that displays them does not sell copies; the operator can switch this off.
 export const KR_FOP_TEMPLATES = ['Template:NoFoP-South Korea', 'Template:FoP-South Korea']
+// Other countries' "no freedom of panorama" tags BLOCK automatic display: the photo may be free, but the building
+// or artwork in it is not, and the Korean non-sale exception does not apply abroad. Any Template:NoFoP-* other than
+// South Korea blocks (see assessRights); this list only asks Commons to report the common ones (tltemplates is an
+// exact-name filter, and a name that does not exist on Commons is simply never returned). The API accepts at most
+// 50 tltemplates values in total, so the list stays within that (tests/global-places.test.mjs checks it).
+export const NOFOP_TEMPLATES = [
+  'France', 'Italy', 'Japan', 'United States', 'US', 'Russia', 'Ukraine', 'United Arab Emirates', 'UAE', 'Belgium',
+  'China', 'Taiwan', 'Greece', 'Vietnam', 'Indonesia', 'Philippines', 'Argentina', 'Qatar', 'Saudi Arabia', 'Romania',
+  'Bulgaria', 'Lithuania', 'Latvia', 'Estonia', 'Iceland', 'Belarus', 'Kazakhstan', 'Armenia', 'Georgia', 'Azerbaijan',
+].map(c => 'Template:NoFoP-' + c)
 const ALLOWED_MIME = new Set(['image/jpeg', 'image/png', 'image/webp'])
 
 export const DEFAULT_POLICY = { krFopDisplay: true, maxImagesPerPlace: 3 }
@@ -148,6 +158,7 @@ export function assessRights({ license, mime, templates = [] }, policy = DEFAULT
   if (BLOCKING_TEMPLATES.some(x => t.has(x))) reasons.push('commons_deletion_or_permission_issue')
   const krFop = KR_FOP_TEMPLATES.some(x => t.has(x))
   if (krFop && !policy.krFopDisplay) reasons.push('kr_freedom_of_panorama_disabled')
+  if (templates.some(x => /^Template:NoFoP-/i.test(x) && !KR_FOP_TEMPLATES.includes(x))) reasons.push('foreign_no_freedom_of_panorama')
   return { ok: reasons.length === 0, krFop, reasons }
 }
 
@@ -158,7 +169,7 @@ export function commonsInfoParams(files) {
     iiprop: 'url|extmetadata|mime',
     iiurlwidth: '960',
     iiextmetadatafilter: 'Artist|Credit|LicenseShortName|LicenseUrl|UsageTerms|DateTimeOriginal',
-    tltemplates: [...BLOCKING_TEMPLATES, ...KR_FOP_TEMPLATES].join('|'),
+    tltemplates: [...BLOCKING_TEMPLATES, ...KR_FOP_TEMPLATES, ...NOFOP_TEMPLATES].join('|'),
     tllimit: 'max',
     titles: files.map(f => 'File:' + f).join('|'),
   })
