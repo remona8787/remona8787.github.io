@@ -12,10 +12,14 @@ const WD=wdqs([
  ['롯데월드타워','ko','Q491381','Lotte World Tower.jpg','Point(127.1025 37.5125)'],
  ['리움미술관','ko','Q482009','Leeum NC.jpg'],
 ]);
+// A row of the QID part of the query (curated places' seed "wikidata"): no ?name, the item's Korean label.
+// SEOUL045 반포대교 달빛무지개분수 carries Q255506 (반포대교, its host bridge).
+WD.results.bindings.push({item:{type:'uri',value:'http://www.wikidata.org/entity/Q255506'},label:{type:'literal',value:'반포대교','xml:lang':'ko'},image:{type:'uri',value:'http://commons.wikimedia.org/wiki/Special:FilePath/Banpo%20Bridge%20fountain.jpg'}});
 const FILES={
  'DDP night.jpg':commonsPage({artist:'<a href="//commons.wikimedia.org/wiki/User:Kim">Kim Photographer</a>',license:'CC BY-SA 4.0',date:'2019-05-04 19:20:11',templates:['Template:NoFoP-South Korea'],url:'https://upload.wikimedia.org/wikipedia/commons/a/ab/DDP_night.jpg'}),
  'Lotte World Tower.jpg':commonsPage({artist:'Lee',license:'CC BY 2.0',url:'https://upload.wikimedia.org/wikipedia/commons/c/cd/Lotte_World_Tower.jpg'}),
  'Leeum NC.jpg':commonsPage({license:'CC BY-NC 4.0'}),
+ 'Banpo Bridge fountain.jpg':commonsPage({artist:'Han',license:'CC BY 4.0',url:'https://upload.wikimedia.org/wikipedia/commons/e/ef/Banpo_Bridge_fountain.jpg'}),
 };
 
 // The nationwide/worldwide place sync (qa/global-places.spec.mjs) posts to the same endpoint; its tagged queries fall
@@ -23,8 +27,8 @@ const FILES={
 const isGlobal=r=>!!branchIdOf(new URLSearchParams(r.request().postData()||'').get('query'));
 
 async function mockApis(page,{fail=false}={}){
- const calls={wdqs:0,commons:0};
- await page.route('https://query.wikidata.org/**',async r=>{if(isGlobal(r))return r.fallback();calls.wdqs++;if(fail)return r.fulfill({status:503,headers:cors,body:'{}'});expect(r.request().method()).toBe('POST');await r.fulfill({headers:cors,body:JSON.stringify(WD)})});
+ const calls={wdqs:0,commons:0,queries:[]};
+ await page.route('https://query.wikidata.org/**',async r=>{if(isGlobal(r))return r.fallback();calls.wdqs++;calls.queries.push(new URLSearchParams(r.request().postData()||'').get('query'));if(fail)return r.fulfill({status:503,headers:cors,body:'{}'});expect(r.request().method()).toBe('POST');await r.fulfill({headers:cors,body:JSON.stringify(WD)})});
  await page.route('https://commons.wikimedia.org/w/api.php**',async r=>{calls.commons++;const titles=new URL(r.request().url()).searchParams.get('titles').split('|').map(t=>t.replace(/^File:/,''));await r.fulfill({headers:cors,body:JSON.stringify(commonsResponse(Object.fromEntries(titles.filter(t=>FILES[t]).map(t=>[t,FILES[t]]))))})});
  await page.route(/^https:\/\/(upload|thumb)\.wikimedia\.org\//,r=>r.fulfill({contentType:'image/png',body:PNG}));
  return calls;
@@ -53,7 +57,15 @@ test('photos sync with attribution and appear on cards and detail pages',async({
 });
 
 test('host-building photos are labelled; non-free licenses are never shown',async({page})=>{
- await mockApis(page);
+ const calls=await mockApis(page);
+ // Curated places with a verified QID in the seed are asked for by QID and linked to exactly that item.
+ await page.goto('/#place/SEOUL045');
+ await expect(page.locator('.image-gallery figure')).toContainText('프로젝트가 있는 건물(반포대교)의 사진');
+ await expect(page.locator('.image-gallery figure')).toContainText('Han · CC BY 4.0');
+ await expect(page.locator('.live-info')).toContainText('프로젝트가 설치된 건물(반포대교) 기준');
+ await expect(page.locator('.live-info a',{hasText:'Wikidata Q255506'})).toHaveAttribute('href','https://www.wikidata.org/wiki/Q255506');
+ expect(calls.queries[0]).toMatch(/VALUES \?item \{[^}]*wd:Q255506[^}]*\}/);
+ expect(calls.queries[0]).toMatch(/VALUES \?item \{[^}]*wd:Q5295847[^}]*\}/);
  await page.goto('/#place/SEOUL018');
  await expect(page.locator('.image-gallery figure')).toContainText('프로젝트가 있는 건물(롯데월드타워)의 사진');
  await expect(page.locator('.live-info')).toContainText('프로젝트가 설치된 건물(롯데월드타워) 기준');
@@ -82,7 +94,7 @@ test('manual sync from settings and takedown list',async({page})=>{
  const calls=await mockApis(page);
  await page.goto('/#settings');
  await expect(page.locator('#liveSyncTime')).not.toContainText('아직 없음');
- await expect(page.locator('.panel',{hasText:'장소 사진·정보 동기화'})).toContainText('3곳 / 2장');
+ await expect(page.locator('.panel',{hasText:'장소 사진·정보 동기화'})).toContainText('4곳 / 3장');
  await page.getByRole('button',{name:'지금 동기화'}).click();
  await expect.poll(()=>calls.wdqs).toBe(2);
  await page.route('**/assets/media-blocklist.js',r=>r.fulfill({contentType:'text/javascript',body:"window.AOL_MEDIA_BLOCKLIST=['DDP night.jpg']"}));

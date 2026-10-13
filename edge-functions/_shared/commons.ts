@@ -1,4 +1,4 @@
-import { assessRights, DEFAULT_POLICY, KR_FOP_TEMPLATES } from "./live-media.mjs"
+import { assessRights, DEFAULT_POLICY, foreignNoFop } from "./live-media.mjs"
 
 export type CommonsInfo = {
   file: string
@@ -46,12 +46,11 @@ export function rightsDecision(license: string) {
 
 // Category/metadata signals that a file may be removed or is not freely reusable.
 // Freedom-of-panorama is decided from templates instead (see live-media.mjs): South Korea's non-sale FoP
-// follows the display policy, any other country's NoFoP tag blocks.
+// follows the display policy, any other country's NoFoP tag (or a subpage such as ".../layout") blocks.
 export function hasRightsWarning(categories: string[], metadata: Record<string, any>, templates: string[] = [], policy = DEFAULT_POLICY) {
   const flags=categories.join(' ')+' '+stripHtml(metadata.Restrictions?.value)+' '+stripHtml(metadata.Permission?.value);
   if (/non[ _-]?commercial|copyright violation|deletion request|permission required|fair use|비상업|허가 필요/i.test(flags)) return true
-  const otherNoFop=templates.some(t=>/^Template:NoFoP-/i.test(t)&&!KR_FOP_TEMPLATES.includes(t))
-  if (otherNoFop || /no[ _-]?fop/i.test(categories.filter(c=>!/south[ _-]?korea/i.test(c)).join(' '))) return true
+  if (foreignNoFop(templates) || /no[ _-]?fop/i.test(categories.filter(c=>!/south[ _-]?korea/i.test(c)).join(' '))) return true
   return !assessRights({license:'CC0', templates}, policy).ok
 }
 
@@ -61,6 +60,7 @@ export async function fetchCommonsInfo(file: string): Promise<CommonsInfo> {
     format: "json",
     origin: "*",
     prop: "imageinfo|categories|templates",
+    tlnamespace: "10",
     tllimit: "max",
     cllimit: "100",
     iiprop: "url|extmetadata|sha1|timestamp|mime",

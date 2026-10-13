@@ -1,13 +1,18 @@
 // Browser-side nationwide (South Korea) and worldwide discovery of light places from Wikidata, every 6 hours.
 // Works on a static host with no backend: results are cached per browser (compactly) and a failed refresh keeps
-// the last good result. Photos are rights-checked lazily: only the Wikidata places currently on screen are checked
-// against Commons (license, deletion and freedom-of-panorama tags), and nothing is shown before that check passes.
-import { syncGlobal, compactPlaces, expandPlaces, carryOver, checkImages, curatedNameKeys, nameKey, GLOBAL_SYNC_INTERVAL_MS } from '../edge-functions/_shared/global-places.mjs'
+// the last good result for at most 72 hours. Photos are rights-checked lazily: only the Wikidata places currently on
+// screen are checked against Commons (license, deletion and freedom-of-panorama tags), and nothing is shown before
+// that check passes.
+import { syncGlobal, packPlaces, expandPlaces, carryOver, checkImages, curatedIndex, isCuratedDuplicate, GLOBAL_SYNC_INTERVAL_MS } from '../edge-functions/_shared/global-places.mjs'
 import { DEFAULT_POLICY } from '../edge-functions/_shared/live-media.mjs'
 
-const KEY = 'aol_global_v1', MEDIA_KEY = 'aol_global_media_v1'
+// Storage format 2: rows from packPlaces with a branch-id table (format 1 copies are discarded on first read).
+const KEY = 'aol_global_v1', MEDIA_KEY = 'aol_global_media_v1', STORE_VERSION = 2
 // Stay well inside the ~5 MB localStorage budget the user's own records share; the rest stays in memory.
 const MAX_STORE_CHARS = 1_000_000, MAX_MEDIA_ENTRIES = 400
+// A place list older than this is not shown any more, even when every refresh since has failed: it is dropped and the
+// screen says the list is unavailable (the user's own saved, planned or recorded places are kept with their records).
+const MAX_STALE_MS = 72 * 60 * 60 * 1000
 const cfg = window.AOL_CONFIG || {}
 const policy = { ...DEFAULT_POLICY, krFopDisplay: cfg.MEDIA_KR_FOP_DISPLAY !== false }
 let running = null, memory = null, storeDisabled = false
@@ -17,24 +22,47 @@ let life = new AbortController()
 addEventListener('pagehide', () => life.abort())
 addEventListener('pageshow', e => { if (e.persisted && life.signal.aborted) { life = new AbortController(); running = null; refresh() } })
 
+const ageOf = v => Date.now() - Date.parse(v.fetchedAt)
+
 function read() {
   if (memory) return memory
   try {
     const v = JSON.parse(localStorage.getItem(KEY) || 'null')
-    if (v?.version === 1 && Array.isArray(v.rows) && v.krFopDisplay === policy.krFopDisplay && !isNaN(Date.parse(v.fetchedAt))) memory = v
+    if (!v) return null
+    if (v.version !== STORE_VERSION || !Array.isArray(v.rows) || v.krFopDisplay !== policy.krFopDisplay || isNaN(Date.parse(v.fetchedAt)) || !(ageOf(v) < MAX_STALE_MS)) {
+      localStorage.removeItem(KEY)
+      return null
+    }
+    // A copy that had to be cut to fit is complete only in the tab that ran the sync: elsewhere it stands in until the
+    // next sync, and it is never treated as fresh.
+    v.incomplete = !!v.truncated
+    memory = v
   } catch {}
   return memory
 }
 
-// Stores as many places as fit (they are sorted most-linked first); the full result always stays in memory.
+// The place list is too old to show (a long-lived tab whose refreshes kept failing): forget it everywhere.
+function expire() {
+  memory = null
+  try { localStorage.removeItem(KEY) } catch {}
+  return null
+}
+
+// Places the user has saved, planned or recorded: always stored first (their own records keep a copy as well).
+function usedIds() {
+  const db = window.AOLApp?.getDB?.()
+  if (!db) return new Set()
+  return new Set([...(db.saved || []), ...(db.visits || []).map(v => v.placeId), ...(db.routes || []).flatMap(r => r.stops || [])])
+}
+
+// Stores what fits (packPlaces: the user's places and every Korean place first, descriptions shortened before any
+// place is dropped); the full result always stays in memory.
 function write(v) {
   memory = v
-  const rows = compactPlaces(v.places)
-  let rowsFit = rows, size = 0
-  for (let i = 0; i < rows.length; i++) { size += JSON.stringify(rows[i]).length + 1; if (size > MAX_STORE_CHARS) { rowsFit = rows.slice(0, i); break } }
-  v.truncated = rowsFit.length < rows.length
+  const packed = packPlaces(v.places, { maxChars: MAX_STORE_CHARS, keepIds: usedIds() })
+  v.truncated = packed.truncated
   if (storeDisabled) return
-  const stored = { version: 1, fetchedAt: v.fetchedAt, krFopDisplay: policy.krFopDisplay, branches: v.branches, truncated: v.truncated, rows: rowsFit }
+  const stored = { version: STORE_VERSION, fetchedAt: v.fetchedAt, krFopDisplay: policy.krFopDisplay, branches: v.branches, branchIds: packed.branchIds, truncated: packed.truncated, rows: packed.rows }
   // Quota exceeded or storage blocked: drop the old copy (never crowd out the user's own records) and keep memory.
   try { localStorage.setItem(KEY, JSON.stringify(stored)) } catch { try { localStorage.removeItem(KEY) } catch {} }
 }
@@ -50,7 +78,7 @@ async function fetchJSON(url, init = {}) {
   } finally { clearTimeout(timer); init.signal?.removeEventListener?.('abort', onAbort) }
 }
 
-const placesOf = v => v ? (v.places || (v.places = expandPlaces(v.rows))) : []
+const placesOf = v => v ? (v.places || (v.places = expandPlaces(v.rows, v.branchIds))) : []
 
 function apply(v, status, attempt) {
   const places = placesOf(v)
@@ -61,8 +89,9 @@ function apply(v, status, attempt) {
 }
 
 export async function refresh(force = false) {
-  const cached = read()
-  const fresh = cached && Date.now() - Date.parse(cached.fetchedAt) < GLOBAL_SYNC_INTERVAL_MS
+  let cached = read()
+  if (cached && !(ageOf(cached) < MAX_STALE_MS)) cached = expire()
+  const fresh = cached && !cached.incomplete && ageOf(cached) < GLOBAL_SYNC_INTERVAL_MS
   if (fresh && !force) return cached
   if (running) return running
   const signal = life.signal
@@ -74,7 +103,7 @@ export async function refresh(force = false) {
       const failed = result.branches.filter(b => !b.ok).map(b => b.id)
       // A branch that failed this time keeps its places from the last good result (stale-on-error per branch).
       const places = carryOver(placesOf(cached), result.places, failed)
-      const next = { version: 1, fetchedAt: new Date().toISOString(), branches: result.branches, places }
+      const next = { version: STORE_VERSION, fetchedAt: new Date().toISOString(), branches: result.branches, places }
       write(next); apply(next, failed.length ? 'partial' : 'ok')
       return next
     } catch (e) {
@@ -115,8 +144,9 @@ function saveVerdicts() {
 }
 
 // Cleared files become media rows with the same shape (and attribution) as the live photo sync. A verdict older
-// than 6 hours is re-checked as soon as its place is on screen; until then (or while offline) it is used for at most
-// 24 hours, like the stale-on-error rule of the place list.
+// than 6 hours is re-checked as soon as its place is on screen; until that succeeds (e.g. while offline) it is used
+// for at most 24 hours, after which the photo counts as unchecked and is not shown. (The place list has its own,
+// longer limit: MAX_STALE_MS, 72 hours.)
 const MAX_VERDICT_AGE_MS = 4 * GLOBAL_SYNC_INTERVAL_MS
 function rebuildMedia() {
   const rows = []
@@ -188,14 +218,12 @@ export function wantImages(placeIds) {
   if (wanted.size && !flushTimer) flushTimer = setTimeout(flush, 60)
 }
 
-// A synced Korean place that is the same as a curated one (by name or host building) is hidden from discovery.
-let keySig = '', keys = new Set()
-export function curatedMatch(p) {
-  if (p?.scope !== 'korea') return false
-  const curated = window.AOLApp?.places?.() || []
-  const sig = curated.length + ':' + curated.map(x => x.place_id).join(',').length
-  if (sig !== keySig) { keySig = sig; keys = curatedNameKeys(curated) }
-  return keys.has(nameKey(p.name_kr)) || (!!p.name_en && keys.has(nameKey(p.name_en)))
+// A synced place that is the same as a curated one (same QID, or for Korean places the same name or host building)
+// is hidden from discovery. The app passes its curated list; the index is rebuilt only when that list changes.
+let lastCurated = null, curated = curatedIndex([])
+export function curatedMatch(p, list = window.AOLApp?.places?.() || []) {
+  if (list !== lastCurated) { lastCurated = list; curated = curatedIndex(list) }
+  return isCuratedDuplicate(p, curated)
 }
 
 loadVerdicts()

@@ -1,0 +1,70 @@
+# A tiny Wikidata-shaped graph for running the real branch queries (buildBranchQuery) in a SPARQL engine
+# (tests/global-places-sparql.test.mjs, oxigraph). Classes, countries, cities and query seeds use their real QIDs;
+# districts, dongs and most places are fictional (Q993…/Q994…). Only the triples the queries read are modelled.
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
+@prefix wikibase: <http://wikiba.se/ontology#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Countries
+wd:Q884 rdfs:label "대한민국"@ko, "South Korea"@en .
+wd:Q17 rdfs:label "일본"@ko, "Japan"@en .
+wd:Q142 rdfs:label "프랑스"@ko, "France"@en .
+wd:Q183 rdfs:label "독일"@ko, "Germany"@en .
+
+# City-level units (P31 in CITY_CLASSES) and the units around them
+# Seoul also carries a generic class, and its 중구 the generic "big city" (as an editor might add by population): the
+# Korean class of Seoul must still win, so places in 중구 are in 서울, not in a city called 중구.
+wd:Q8684 wdt:P31 wd:Q7574799, wd:Q200250 ; wdt:P17 wd:Q884 ; rdfs:label "서울특별시"@ko, "Seoul"@en .
+wd:Q99300001 wdt:P31 wd:Q99300900, wd:Q1549591 ; wdt:P131 wd:Q8684 ; rdfs:label "중구"@ko, "Jung District"@en .
+wd:Q99300002 wdt:P31 wd:Q99300901 ; wdt:P131 wd:Q99300001 ; rdfs:label "을지로동"@ko .
+wd:Q16520 wdt:P31 wd:Q482821 ; rdfs:label "부산광역시"@ko, "Busan"@en .
+wd:Q99300003 wdt:P31 wd:Q99300900 ; wdt:P131 wd:Q16520 ; rdfs:label "수영구"@ko .
+wd:Q99300004 wdt:P31 wd:Q99300902 ; rdfs:label "경상남도"@ko .
+wd:Q42144 wdt:P31 wd:Q29045252 ; wdt:P131 wd:Q99300004 ; rdfs:label "진주시"@ko .
+wd:Q20929 wdt:P31 wd:Q16181672 ; rdfs:label "세종특별자치시"@ko .
+wd:Q99300005 wdt:P31 wd:Q99300901 ; wdt:P131 wd:Q20929 ; rdfs:label "보람동"@ko .
+wd:Q41164 wdt:P31 wd:Q99300902 ; rdfs:label "제주특별자치도"@ko .
+wd:Q42142 wdt:P31 wd:Q12624746 ; wdt:P131 wd:Q41164 ; rdfs:label "제주시"@ko .
+wd:Q456 wdt:P31 wd:Q484170 ; wdt:P17 wd:Q142 ; wdt:P625 "Point(4.835 45.758)"^^geo:wktLiteral ; rdfs:label "리옹"@ko, "Lyon"@en .
+wd:Q1490 wdt:P31 wd:Q99300903 ; rdfs:label "도쿄도"@ko .
+wd:Q190088 wdt:P31 wd:Q5327704 ; wdt:P131 wd:Q1490 ; rdfs:label "미나토구"@ko .
+wd:Q99300010 wdt:P31 wd:Q99300904 ; wdt:P131 wd:Q99300011 ; rdfs:label "어느 마을"@ko .
+wd:Q99300011 wdt:P31 wd:Q99300903 ; rdfs:label "어느 현"@ko .
+wd:Q99300012 wdt:P31 wd:Q262166 ; rdfs:label "Lichtstadt"@en, "Lichtstadt"@de .
+
+# A subclass of light installation, to exercise wdt:P31/wdt:P279*
+wd:Q99300950 wdt:P279 wd:Q1823448 .
+
+# Korean places
+wd:Q5295847 wdt:P131 wd:Q99300001 ; wdt:P17 wd:Q884 ; wdt:P625 "Point(127.0095 37.5665)"^^geo:wktLiteral ;
+  rdfs:label "동대문디자인플라자"@ko, "Dongdaemun Design Plaza"@en ; schema:description "서울 중구의 복합문화공간"@ko ;
+  wdt:P18 <http://commons.wikimedia.org/wiki/Special:FilePath/DDP%20night.jpg> ; wdt:P856 <https://ddp.or.kr/> ;
+  wikibase:sitelinks "30"^^xsd:integer .
+wd:Q99400001 wdt:P31 wd:Q99300950 ; wdt:P17 wd:Q884 ; wdt:P131 wd:Q99300002 ; wdt:P625 "Point(126.991 37.566)"^^geo:wktLiteral ;
+  rdfs:label "을지로 빛 설치"@ko ; wikibase:sitelinks "1"^^xsd:integer .
+wd:Q109905495 wdt:P31 wd:Q177305 ; wdt:P17 wd:Q884 ; wdt:P131 wd:Q99300003 ; wdt:P625 "Point(129.1604 35.1587)"^^geo:wktLiteral ;
+  rdfs:label "BUSAN X the SKY"@en ; wikibase:sitelinks "2"^^xsd:integer .
+wd:Q99400002 wdt:P31 wd:Q132241 ; wdt:P17 wd:Q884 ; wdt:P131 wd:Q42144 ; wdt:P625 "Point(128.08 35.18)"^^geo:wktLiteral ;
+  rdfs:label "진주 빛 축제"@ko .
+wd:Q99400003 wdt:P31 wd:Q132241 ; wdt:P17 wd:Q884 ; wdt:P625 "Point(127 37)"^^geo:wktLiteral ; rdfs:label "김치축제"@ko .
+wd:Q99400004 wdt:P31 wd:Q1823448 ; wdt:P17 wd:Q884 ; wdt:P131 wd:Q99300005 ; wdt:P625 "Point(127.289 36.48)"^^geo:wktLiteral ;
+  rdfs:label "세종 빛 정원"@ko .
+wd:Q99400005 wdt:P31 wd:Q1440300 ; wdt:P17 wd:Q884 ; wdt:P131 wd:Q42142 ; wdt:P625 "Point(126.53 33.5)"^^geo:wktLiteral ;
+  rdfs:label "제주 전망탑"@ko .
+
+# World places
+wd:Q4167 wdt:P17 wd:Q142 ; wdt:P276 wd:Q456 ; rdfs:label "빛의 축제"@ko, "Festival of Lights"@en ; wikibase:sitelinks "30"^^xsd:integer .
+wd:Q99400010 wdt:P31 wd:Q1823448 ; wdt:P17 wd:Q17 ; wdt:P131 wd:Q190088 ; wdt:P625 "Point(139.745 35.66)"^^geo:wktLiteral ;
+  rdfs:label "光のトンネル"@mul .
+wd:Q99400011 wdt:P31 wd:Q1823448 ; wdt:P17 wd:Q183 ; wdt:P131 wd:Q99300012 ; wdt:P625 "Point(7.6 51.5)"^^geo:wktLiteral ;
+  rdfs:label "Lichtkunstweg"@de, "Chemin de lumière"@fr .
+wd:Q99400012 wdt:P31 wd:Q1823448 ; wdt:P17 wd:Q17 ; wdt:P131 wd:Q99300010 ; wdt:P625 "Point(136.9 35.1)"^^geo:wktLiteral ;
+  rdfs:label "마을의 빛"@ko .
+wd:Q99400013 wdt:P31 wd:Q1823448 ; wdt:P17 wd:Q17 ; wdt:P625 "Point(135.5 34.7)"^^geo:wktLiteral .
+wd:Q104383619 wdt:P31 wd:Q63442021 ; wdt:P17 wd:Q17 ; wdt:P131 wd:Q190088 ; wdt:P625 "Point(139.7454 35.6604)"^^geo:wktLiteral ;
+  rdfs:label "teamLab Borderless"@en .
+wd:Q10957 wdt:P31 wd:Q124414048 ; wdt:P17 wd:Q142 ; wdt:P625 "Point(4.8 45.7)"^^geo:wktLiteral ; rdfs:label "Lumière Festival"@en .

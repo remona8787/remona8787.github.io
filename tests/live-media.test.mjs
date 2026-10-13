@@ -134,3 +134,36 @@ test('own name beats host building; host matches are labelled', async () => {
   assert.match(r.media[0].caption, /^프로젝트가 있는 건물\(롯데월드타워\)의 사진/)
   assert.equal(r.info.SEOUL018.matchKind, 'host')
 })
+
+test('explicit curated QIDs are queried and matched directly, before any name; host QIDs are labelled as the building', () => {
+  const ps = [
+    { place_id: 'SEOUL018', name_kr: '롯데월드타워 미디어파사드', name_en: 'Lotte World Tower Media Facade', wikidata: 'Q494895', wikidata_match: 'host' },
+    { place_id: 'SEOUL043', name_kr: 'N서울타워', name_en: 'N Seoul Tower', wikidata: 'Q69134' },
+    { place_id: 'SEOUL044', name_kr: '세빛섬', name_en: 'Some Sevit', wikidata: 'Q7451660' },
+    { place_id: 'SEOUL001', name_kr: '아뜰리에 노들', name_en: 'Atelier Nodeul', wikidata: 'Q0 bogus' },
+  ]
+  const q = buildPlaceQuery(ps)
+  assert.match(q, /VALUES \?item \{ wd:Q494895 wd:Q69134 wd:Q7451660 \}/)
+  assert.ok(!q.includes('bogus'))
+  assert.ok(!buildPlaceQuery([{ name_kr: '이름' }]).includes('VALUES ?item'), 'no QID branch without QIDs')
+  const item = qid => ({ type: 'uri', value: 'http://www.wikidata.org/entity/' + qid })
+  const json = {
+    results: {
+      bindings: [
+        // Name rows (restricted to Seoul): a different item shares the host building's name.
+        { name: { type: 'literal', value: '롯데월드타워', 'xml:lang': 'ko' }, item: item('Q500'), image: { type: 'uri', value: 'http://commons.wikimedia.org/wiki/Special:FilePath/Other.jpg' } },
+        { name: { type: 'literal', value: '세빛섬', 'xml:lang': 'ko' }, item: item('Q7451660') },
+        { name: { type: 'literal', value: '아뜰리에 노들', 'xml:lang': 'ko' }, item: item('Q900') },
+        // QID rows: no ?name, the item's Korean label.
+        { item: item('Q494895'), label: { type: 'literal', value: '롯데월드타워', 'xml:lang': 'ko' }, image: { type: 'uri', value: 'http://commons.wikimedia.org/wiki/Special:FilePath/LWT.jpg' }, coord: { type: 'literal', value: 'Point(127.1025 37.5125)' } },
+        { item: item('Q69134'), label: { type: 'literal', value: 'N서울타워', 'xml:lang': 'ko' }, image: { type: 'uri', value: 'http://commons.wikimedia.org/wiki/Special:FilePath/Tower.jpg' } },
+      ],
+    },
+  }
+  const m = parsePlaceQuery(json, ps)
+  assert.deepEqual([m.get('SEOUL018').qid, m.get('SEOUL018').matchKind, m.get('SEOUL018').matchedName, m.get('SEOUL018').images], ['Q494895', 'host', '롯데월드타워', ['LWT.jpg']])
+  assert.deepEqual(m.get('SEOUL018').coord, { lat: 37.5125, lon: 127.1025 })
+  assert.deepEqual([m.get('SEOUL043').qid, m.get('SEOUL043').matchKind], ['Q69134', 'exact'])
+  assert.deepEqual([m.get('SEOUL044').qid, m.get('SEOUL044').matchKind], ['Q7451660', 'exact'], 'its QID row is missing: the name match still works')
+  assert.deepEqual([m.get('SEOUL001').qid, m.get('SEOUL001').matchKind], ['Q900', 'exact'], 'no valid QID: name matching')
+})

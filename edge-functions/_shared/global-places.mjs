@@ -5,10 +5,11 @@
 // Discovery is split into small, separate SPARQL "branches" (one per class family, genre list, seed list …) instead of
 // one big UNION, so a slow or failing branch cannot take the others down: each branch has its own timeout and LIMIT,
 // and results are merged by QID afterwards. Every class/genre QID below was verified on wikidata.org; look-alikes
-// that were checked and rejected are listed in REJECTED_QIDS and must never appear in a query.
+// that were checked and rejected are listed in NEVER_QUERY_QIDS and must never appear in a query (a much shorter
+// NEVER_SHOW_QIDS list holds the few items that are hidden even when a class query returns them).
 // Images are NOT fetched here: the client checks each P18 file's rights lazily (checkImages) before showing it.
 
-import { WDQS_URL, SYNC_INTERVAL_MS, DEFAULT_POLICY, fileFromFilePath, fetchCommonsPages, assessRights, toMediaRow, stripHtml, nameVariants, hostVariants } from './live-media.mjs'
+import { WDQS_URL, SYNC_INTERVAL_MS, SEOUL_QID, DEFAULT_POLICY, fileFromFilePath, fetchCommonsPages, assessRights, toMediaRow, stripHtml, nameVariants, hostVariants, placeQid } from './live-media.mjs'
 
 /** @typedef {'Media Facade'|'Light Art'|'Media Art'|'Festival'|'Exhibition'|'Architectural Lighting'|'Public Art'|'Nightscape'} Kind */
 /** @typedef {'korea'|'world'} Scope */
@@ -25,13 +26,16 @@ import { WDQS_URL, SYNC_INTERVAL_MS, DEFAULT_POLICY, fileFromFilePath, fetchComm
  * @property {string} qid
  * @property {string} labelKo
  * @property {string} labelEn
+ * @property {string} labelOther    label in another language ("mul", then ja/zh/de/fr/es) for items with neither
  * @property {string} descKo
  * @property {string} descEn
  * @property {{lat: number, lon: number}} coord
  * @property {string} image          Commons file name ('' when none)
  * @property {string} countryQid
  * @property {string} countryLabel
- * @property {string} admin
+ * @property {string} cityQid        first city-level unit up the P131 chain ('' when none was found)
+ * @property {string} city           its short name ("서울"), else the item's most specific admin unit
+ * @property {string} district       the unit just below the city (e.g. "중구"), '' when none
  * @property {string} website        https only ('' when none)
  * @property {Kind[]} kinds
  * @property {number} sitelinks
@@ -40,14 +44,17 @@ import { WDQS_URL, SYNC_INTERVAL_MS, DEFAULT_POLICY, fileFromFilePath, fetchComm
 /**
  * @typedef {object} GlobalPlace
  * @property {string} place_id               "WD-Q…"
- * @property {string} name_kr                Korean label, else English label, else the QID
+ * @property {string} name_kr                Korean label, else English, else "mul"/ja/zh/de/fr/es (items with none are dropped)
  * @property {string} name_en
  * @property {string} short_description
  * @property {Kind} primary_category
  * @property {Kind[]} categories
  * @property {string} country
  * @property {string} country_qid
- * @property {string} city                   label of the item's P131 (or of its P276 location)
+ * @property {string} city                   first city-level unit up the item's P131 chain (or its P276 location's): "서울",
+ *                                           "부산", "리옹" …; the item's own admin unit when no city-level unit is found
+ * @property {string} city_qid
+ * @property {string} district               the unit just below that city ("중구"), '' when none
  * @property {number} latitude
  * @property {number} longitude
  * @property {'source'} coordinate_review_status
@@ -130,6 +137,32 @@ export const PART_CLASSES = [
 ]
 export const PUBLIC_ART = 'Q557141'
 export const PUBLIC_ART_LIGHT_GENRES = ['Q1421557', 'Q1798004', 'Q860372', 'Q378604']
+// City-level administrative unit classes (P31 values), each verified on wikidata.org. The city of a place is the
+// first unit up its P131 chain (at most three steps) that is an instance of one of these; matched with plain wdt:P31
+// (no P279* walk), so the check costs a few index lookups per place. The Korean classes (KOREA_CITY_CLASSES) win over
+// the generic ones anywhere in the walk: a Seoul district that an editor also typed "big city" by its population
+// must not become the city of the places in it.
+/** @type {[string, string][]} */
+export const CITY_CLASSES = [
+  ['Q7574799', 'Special City of Korea (Seoul)'],
+  ['Q29045219', 'special city of South Korea (redirected to Q7574799; until every statement is updated)'],
+  ['Q482821', 'metropolitan city of South Korea'],
+  ['Q16181672', 'special autonomous city in South Korea (Sejong)'],
+  ['Q29045252', 'city of South Korea'],
+  ['Q12624746', 'administrative city in South Korea (Jeju, Seogwipo)'],
+  ['Q515', 'city'],
+  ['Q1549591', 'big city'],
+  ['Q200250', 'metropolis'],
+  ['Q15284', 'municipality'],
+  ['Q494721', 'city of Japan'],
+  ['Q5327704', 'special ward of Japan'],
+  ['Q484170', 'commune of France'],
+  ['Q1093829', 'city in the United States'],
+  ['Q262166', 'municipality in Germany'],
+]
+export const KOREA_CITY_CLASSES = ['Q7574799', 'Q29045219', 'Q482821', 'Q16181672', 'Q29045252', 'Q12624746']
+// Items with neither a Korean nor an English label are named by their first label in these languages.
+export const FALLBACK_LABEL_LANGS = ['mul', 'ja', 'zh', 'de', 'fr', 'es']
 export const LANTERN_FESTIVAL = 'Q718636' // the lunar-calendar holiday: used only as a P31/P361 target
 export const FESTIVAL = 'Q132241' // too broad worldwide: Korea only, filtered by Korean light keywords in the label
 export const KOREA_FESTIVAL_KEYWORDS = '빛|등축제|유등|연등|등불|불꽃|조명|루미나|일루미|라이트|미디어|야경'
@@ -178,8 +211,10 @@ export const WORLD_SEEDS = [
   ['Q191212', 'Light Art', 'Centre for International Light Art (Unna)'],
   ['Q7899954', 'Public Art', 'Urban Light (Los Angeles)'],
 ]
-// Checked and rejected look-alikes (wrong concept, redirect, duplicate or unverified). Never query these.
-export const REJECTED_QIDS = [
+// Checked and rejected as query seeds or classes (wrong concept, redirect, duplicate or unverified). Never query
+// these; tests check every branch query against this list. Being on it does NOT hide an item that a class or genre
+// query returns on its own (e.g. Q109905495, an observation deck in Busan, is merely unverified as a seed).
+export const NEVER_QUERY_QIDS = [
   'Q10957', // Lumière Festival: a Lyon FILM festival, not the Fête des Lumières (Q4167)
   'Q1189512', // Illumination: the American animation studio
   'Q7765824', // The Sphere: a rental network, not the Las Vegas venue
@@ -190,10 +225,18 @@ export const REJECTED_QIDS = [
   'Q210064', // lighting: far too broad
   'Q682010', // video art: pulls in films and video works, not places
   'Q496218', // a different building from Lotte World Tower (Q494895)
-  'Q7937831', // Vivid: a Birmingham arts centre
+  'Q7937831', // Vivid: a Birmingham arts centre, not Vivid Sydney
   'Q55736992', // only uses a Gwangan Bridge photo
   'Q104383619', // unlabeled duplicate of teamLab Borderless
-  'Q109905495', // BUSAN X the SKY: description unverified
+  'Q109905495', // BUSAN X the SKY: description unverified as a seed
+]
+// Never shown, even when a query returns them: a duplicate of an item that is shown, and look-alikes that are not
+// light places at all but share a famous light place's name.
+export const NEVER_SHOW_QIDS = [
+  'Q104383619', // unlabeled duplicate of teamLab Borderless (Q104235671)
+  'Q10957', // Lumière Festival (film), mistaken for the Fête des Lumières (Q4167)
+  'Q1189512', // Illumination (animation studio)
+  'Q7765824', // The Sphere (rental network), mistaken for Sphere in Las Vegas (Q60749353)
 ]
 
 const values = (/** @type {[string, Kind, string][]} */ rows, /** @type {string} */ v) =>
@@ -222,10 +265,23 @@ export const BRANCHES = [
   },
 ]
 
-// One small query per branch. No wikibase:label service (too slow on large sets): labels come from rdfs:label.
-// Country and admin labels are fetched inside their own OPTIONAL group so an unbound ?ctry/?adm never joins
-// against every label in the graph. ?country is "Q…|label" so the QID and its label always come from the same row.
+const CITY_IN = `(${CITY_CLASSES.map(([q]) => 'wd:' + q).join(', ')})`
+const KOREA_CITY_IN = `(${KOREA_CITY_CLASSES.map(q => 'wd:' + q).join(', ')})`
+const labelsOf = (/** @type {string} */ v, indent = '      ') =>
+  `OPTIONAL { ?${v} rdfs:label ?${v}ko . FILTER(LANG(?${v}ko) = "ko") }\n${indent}OPTIONAL { ?${v} rdfs:label ?${v}en . FILTER(LANG(?${v}en) = "en") }`
+const entityPair = (/** @type {string} */ v, /** @type {string} */ name) => `CONCAT(STRAFTER(STR(?${v}), "/entity/"), "|", ${name})`
+
+// One small query per branch. No wikibase:label service (too slow on large sets): labels come from rdfs:label, one
+// OPTIONAL per language (each binds at most one value, so rows never multiply).
+// Country, city and district labels are fetched inside their own OPTIONAL groups so an unbound unit never joins
+// against every label in the graph. ?country and ?city are "Q…|label" so a QID and its label come from the same row.
 // Korea branches already restrict to South Korea, so their country is fixed (items with several P17 stay Korean).
+// City: up to three P131 steps (item → district → city, or item → dong → district → city) to the first unit whose P31
+// is in CITY_CLASSES (a Korean class anywhere in the walk beats a generic one); the unit just below it is the district.
+// Each row ranks its match (6–4: Korean class at step 1–3, 3–1: generic class at step 1–3, 0: none) and the ?city and
+// ?district columns lead with that digit, ?district also with the city's QID, so MAX over an item's rows picks the best
+// city and the district of that same city (parseBranch strips the prefixes). Without a city-level unit the item's own
+// admin unit is reported as the district and parseBranch uses it as the city, like before.
 /** @param {Branch} branch */
 export function buildBranchQuery(branch) {
   return `${BRANCH_MARKER}${branch.id}
@@ -235,10 +291,10 @@ PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
 SELECT ?item
-  (SAMPLE(?lko) AS ?label_ko) (SAMPLE(?len) AS ?label_en)
+  (SAMPLE(?lko) AS ?label_ko) (SAMPLE(?len) AS ?label_en) (SAMPLE(?lother) AS ?label_other)
   (SAMPLE(?dko) AS ?desc_ko) (SAMPLE(?den) AS ?desc_en)
   (SAMPLE(?c) AS ?coord) (SAMPLE(?img) AS ?image)
-  (SAMPLE(?ctryPair) AS ?country) (SAMPLE(?admLabel) AS ?admin) (SAMPLE(?web) AS ?site)
+  (SAMPLE(?ctryPair) AS ?country) (MAX(?cityKey) AS ?city) (MAX(?districtKey) AS ?district) (SAMPLE(?web) AS ?site)
   (GROUP_CONCAT(DISTINCT ?k; separator="|") AS ?kind) (MAX(?sl) AS ?sitelinks)
 WHERE {
   {
@@ -253,6 +309,8 @@ WHERE {
   OPTIONAL { ?item wikibase:sitelinks ?sl . }
   OPTIONAL { ?item rdfs:label ?lko . FILTER(LANG(?lko) = "ko") }
   OPTIONAL { ?item rdfs:label ?len . FILTER(LANG(?len) = "en") }
+${FALLBACK_LABEL_LANGS.map(l => `  OPTIONAL { ?item rdfs:label ?l_${l} . FILTER(LANG(?l_${l}) = "${l}") }`).join('\n')}
+  BIND(COALESCE(${FALLBACK_LABEL_LANGS.map(l => '?l_' + l).join(', ')}) AS ?lother)
   OPTIONAL { ?item schema:description ?dko . FILTER(LANG(?dko) = "ko") }
   OPTIONAL { ?item schema:description ?den . FILTER(LANG(?den) = "en") }
   OPTIONAL { ?item wdt:P18 ?img . }
@@ -265,11 +323,30 @@ WHERE {
   }`}
   BIND(CONCAT(STRAFTER(STR(?ctry), "/entity/"), "|", COALESCE(?cko, ?cen, "")) AS ?ctryPair)
   OPTIONAL {
-    { ?item wdt:P131 ?adm . } UNION { ?item wdt:P276 ?adm . FILTER NOT EXISTS { ?item wdt:P131 ?ownAdmin . } }
-    OPTIONAL { ?adm rdfs:label ?ako . FILTER(LANG(?ako) = "ko") }
-    OPTIONAL { ?adm rdfs:label ?aen . FILTER(LANG(?aen) = "en") }
+    { ?item wdt:P131 ?a1 . BIND(true AS ?viaAdmin) } UNION { ?item wdt:P276 ?a1 . FILTER NOT EXISTS { ?item wdt:P131 ?ownAdmin . } }
+    ${labelsOf('a1', '    ')}
+    OPTIONAL { ?a1 wdt:P31 ?t1 . FILTER(?t1 IN ${CITY_IN}) }
+    OPTIONAL {
+      ?a1 wdt:P131 ?a2 . ?a2 wdt:P31 ?t2 . FILTER(?t2 IN ${CITY_IN})
+      ${labelsOf('a2')}
+    }
+    OPTIONAL {
+      ?a1 wdt:P131 ?m2 . ?m2 wdt:P131 ?a3 . ?a3 wdt:P31 ?t3 . FILTER(?t3 IN ${CITY_IN})
+      ${labelsOf('m2')}
+      ${labelsOf('a3')}
+    }
   }
-  BIND(COALESCE(?ako, ?aen) AS ?admLabel)
+  BIND(COALESCE(?a1ko, ?a1en, "") AS ?a1name)
+  BIND(IF(BOUND(?t1) && ?t1 IN ${KOREA_CITY_IN}, 6, IF(BOUND(?t2) && ?t2 IN ${KOREA_CITY_IN}, 5,
+       IF(BOUND(?t3) && ?t3 IN ${KOREA_CITY_IN}, 4, IF(BOUND(?t1), 3, IF(BOUND(?t2), 2, IF(BOUND(?t3), 1, 0)))))) AS ?cityRank)
+  BIND(IF(?cityRank IN (6, 3), 1, IF(?cityRank IN (5, 2), 2, IF(?cityRank IN (4, 1), 3, 0))) AS ?cityStep)
+  BIND(IF(?cityStep = 1, ${entityPair('a1', '?a1name')},
+       IF(?cityStep = 2, ${entityPair('a2', 'COALESCE(?a2ko, ?a2en, "")')},
+       IF(?cityStep = 3, ${entityPair('a3', 'COALESCE(?a3ko, ?a3en, "")')}, ""))) AS ?cityPair)
+  BIND(IF(?cityStep = 1, "", IF(?cityStep = 2, IF(BOUND(?viaAdmin), ?a1name, ""),
+       IF(?cityStep = 3, COALESCE(?m2ko, ?m2en, ""), IF(BOUND(?viaAdmin), ?a1name, "")))) AS ?districtName)
+  BIND(CONCAT(STR(?cityRank), ?cityPair) AS ?cityKey)
+  BIND(CONCAT(STR(?cityRank), STRBEFORE(?cityPair, "|"), "|", ?districtName) AS ?districtKey)
   OPTIONAL { ?item wdt:P856 ?web . }
 }
 GROUP BY ?item
@@ -313,7 +390,39 @@ export function primaryCategory(kinds) {
   return CATEGORY_PRIORITY.find(k => kinds.includes(k)) || null
 }
 
-// Parses one branch's SPARQL JSON. Rows without a QID, a usable coordinate or a known category are dropped.
+// The curated catalogue (and everyday Korean) names Korean special/metropolitan cities without their status suffix:
+// "서울특별시" → "서울", "부산광역시" → "부산", "세종특별자치시" → "세종". Other names are kept as they are.
+/** @param {string} qid @param {string} label */
+export function cityName(qid, label) {
+  if (qid === SEOUL_QID) return '서울'
+  const m = String(label || '').match(/^(.{2,}?)(특별시|광역시|특별자치시)$/)
+  return m ? m[1] : String(label || '')
+}
+
+/** @param {any} pair "Q…|label" @returns {[string, string]} [qid or '', label] */
+const splitPair = (pair, max = 120) => {
+  const s = String(pair || ''), cut = s.indexOf('|')
+  const q = cut >= 0 ? s.slice(0, cut) : ''
+  return [/^Q\d+$/.test(q) ? q : '', clean(cut >= 0 ? s.slice(cut + 1) : '', max)]
+}
+
+// ?city is "<rank>Q…|label" (just "0" when the walk found no city-level unit) and ?district is "<rank>Q…|name" with the
+// same rank and city QID ("0|name of the item's own admin unit" without a city): see buildBranchQuery.
+/** @param {any} r one result row @returns {{cityQid: string, city: string, district: string}} */
+function cityOf(r) {
+  const c = /^(\d)(.*)$/s.exec(String(r.city?.value ?? '0')) || ['', '0', '']
+  const d = /^(\d)([^|]*)\|(.*)$/s.exec(String(r.district?.value ?? ''))
+  let [cityQid, cityLabel] = splitPair(c[2])
+  let city = cityName(cityQid, cityLabel)
+  // The district must come from the same row of the walk as the city (same rank, same city QID).
+  let district = d && d[1] === c[1] && d[2] === c[2].split('|')[0] ? clean(d[3], 120) : ''
+  if (!city) { city = district; district = ''; cityQid = '' } // no (named) city-level unit: the item's own admin unit
+  if (district === city) district = ''
+  return { cityQid, city, district }
+}
+
+// Parses one branch's SPARQL JSON. Rows without a QID, a usable coordinate, a known category or any label are dropped
+// (a bare QID is never shown as a name), and so are the few NEVER_SHOW_QIDS.
 /** @param {any} json @param {string} branchId @returns {{items: RawItem[], dropped: number}} */
 export function parseBranch(json, branchId) {
   const rows = json?.results?.bindings
@@ -325,20 +434,20 @@ export function parseBranch(json, branchId) {
     const qid = qidOf(r.item?.value)
     const coord = parseWktPoint(r.coord?.value)
     const kinds = kindsOf(r.kind?.value)
-    if (!qid || !coord || !kinds.length || REJECTED_QIDS.includes(qid)) { dropped++; continue }
-    const pair = String(r.country?.value || '')
-    const cut = pair.indexOf('|')
-    const countryQid = /^Q\d+$/.test(cut >= 0 ? pair.slice(0, cut) : '') ? pair.slice(0, cut) : ''
+    const labelKo = clean(r.label_ko?.value), labelEn = clean(r.label_en?.value), labelOther = clean(r.label_other?.value)
+    if (!qid || !coord || !kinds.length || !(labelKo || labelEn || labelOther) || NEVER_SHOW_QIDS.includes(qid)) { dropped++; continue }
+    const [countryQid, countryLabel] = splitPair(r.country?.value)
+    const { cityQid, city, district } = cityOf(r)
     const sitelinks = Number(r.sitelinks?.value)
     items.push({
       qid,
-      labelKo: clean(r.label_ko?.value), labelEn: clean(r.label_en?.value),
+      labelKo, labelEn, labelOther,
       descKo: clean(r.desc_ko?.value, 500), descEn: clean(r.desc_en?.value, 500),
       coord,
       image: (fileFromFilePath(r.image?.value) || '').slice(0, 240),
       countryQid,
-      countryLabel: countryQid === KOREA_QID ? KOREA_LABEL : clean(cut >= 0 ? pair.slice(cut + 1) : '', 120),
-      admin: clean(r.admin?.value, 120),
+      countryLabel: countryQid === KOREA_QID ? KOREA_LABEL : countryLabel,
+      cityQid, city, district,
       website: httpsURL(r.site?.value),
       kinds,
       sitelinks: Number.isFinite(sitelinks) && sitelinks >= 0 ? Math.floor(sitelinks) : 0,
@@ -353,14 +462,16 @@ export function toPlace(it) {
   const url = WIKIDATA_ITEM + it.qid
   return {
     place_id: 'WD-' + it.qid,
-    name_kr: it.labelKo || it.labelEn || it.qid,
+    name_kr: it.labelKo || it.labelEn || it.labelOther,
     name_en: it.labelEn || '',
     short_description: it.descKo || it.descEn || '',
     primary_category: /** @type {Kind} */ (primaryCategory(it.kinds)),
     categories: it.kinds,
     country: it.countryLabel,
     country_qid: it.countryQid,
-    city: it.admin,
+    city: it.city,
+    city_qid: it.cityQid,
+    district: it.district,
     latitude: it.coord.lat,
     longitude: it.coord.lon,
     coordinate_review_status: 'source',
@@ -389,13 +500,18 @@ export function mergeItems(lists) {
     if (!prev) { byQid.set(it.qid, { ...it, kinds: [...it.kinds], branches: [...it.branches] }); continue }
     prev.kinds = kindsOf([...prev.kinds, ...it.kinds])
     for (const b of it.branches) if (!prev.branches.includes(b)) prev.branches.push(b)
-    for (const k of /** @type {const} */ (['labelKo', 'labelEn', 'descKo', 'descEn', 'image', 'countryQid', 'countryLabel', 'admin', 'website'])) if (!prev[k] && it[k]) prev[k] = it[k]
+    for (const k of /** @type {const} */ (['labelKo', 'labelEn', 'labelOther', 'descKo', 'descEn', 'image', 'countryQid', 'countryLabel', 'website'])) if (!prev[k] && it[k]) prev[k] = it[k]
+    // City, its QID and the district travel together (they come from one P131 walk).
+    if (!prev.city && it.city) { prev.city = it.city; prev.cityQid = it.cityQid; prev.district = it.district }
+    else if (prev.city === it.city && !prev.district && it.district) prev.district = it.district
     // An item that any branch places in South Korea is Korean (Korea branches pin the country; world ones sample one).
     if (it.countryQid === KOREA_QID && prev.countryQid !== KOREA_QID) { prev.countryQid = KOREA_QID; prev.countryLabel = KOREA_LABEL }
     prev.sitelinks = Math.max(prev.sitelinks, it.sitelinks)
   }
-  return [...byQid.values()].map(toPlace).sort((a, b) => b.sitelinks - a.sitelinks || a.name_kr.localeCompare(b.name_kr))
+  return [...byQid.values()].map(toPlace).sort(bySitelinks)
 }
+/** @param {GlobalPlace} a @param {GlobalPlace} b */
+const bySitelinks = (a, b) => b.sitelinks - a.sitelinks || a.name_kr.localeCompare(b.name_kr)
 
 // After a partial failure, keep the previous result's places that only failed branches could have returned,
 // so one timeout does not make half of the catalogue disappear for six hours.
@@ -405,7 +521,7 @@ export function carryOver(previous, current, failedIds) {
   if (!failed.size || !Array.isArray(previous)) return current
   const have = new Set(current.map(p => p.place_id))
   const kept = previous.filter(p => !have.has(p.place_id) && (p.branches || []).some(b => failed.has(b)))
-  return kept.length ? [...current, ...kept].sort((a, b) => b.sitelinks - a.sitelinks || a.name_kr.localeCompare(b.name_kr)) : current
+  return kept.length ? [...current, ...kept].sort(bySitelinks) : current
 }
 
 /**
@@ -476,39 +592,76 @@ export async function syncGlobal({ fetchJSON, now = new Date().toISOString(), br
   }
 }
 
-// Compact storage form (6000 places fit in well under 2 MB of localStorage): one array per place, derived fields
-// (URLs, constants) are rebuilt by expandPlaces.
+// Compact storage form: one array per place; derived fields (URLs, constants) are rebuilt by expandPlaces, branch
+// ids are stored as indexes into a table kept next to the rows.
+// [qid, name_kr, name_en (1 = same as name_kr), description, category codes, country QID, country, city, lat, lon,
+//  image, website, sitelinks, branch indexes, district, city QID]
+export const BRANCH_IDS = BRANCHES.map(b => b.id)
 const CAT_CODE = new Map(CATEGORY_PRIORITY.map((k, i) => [k, i]))
-/** @param {GlobalPlace[]} places @returns {any[][]} */
-export function compactPlaces(places) {
+/** @param {string} text @param {number} max */
+const shorten = (text, max) => max === Infinity || text.length <= max ? text : max <= 1 ? '' : text.slice(0, max - 1).trimEnd() + '…'
+/** @param {GlobalPlace[]} places @param {{branchIds?: string[], descMax?: number}} [options] @returns {any[][]} */
+export function compactPlaces(places, { branchIds = BRANCH_IDS, descMax = Infinity } = {}) {
+  const index = new Map(branchIds.map((id, i) => [id, i]))
   return places.map(p => [
-    p.wikidata, p.name_kr === p.wikidata ? '' : p.name_kr, p.name_en, p.short_description,
+    p.wikidata, p.name_kr, p.name_en && p.name_en === p.name_kr ? 1 : p.name_en, shorten(p.short_description || '', descMax),
     p.categories.map(k => CAT_CODE.get(k)).filter(x => x !== undefined).join(''),
     p.country_qid, p.country, p.city, Math.round(p.latitude * 1e5) / 1e5, Math.round(p.longitude * 1e5) / 1e5,
-    p.image, p.website, p.sitelinks, (p.branches || []).join(' '),
+    p.image, p.website, p.sitelinks, (p.branches || []).map(b => index.get(b)).filter(i => i !== undefined).join(' '),
+    p.district || '', p.city_qid || '',
   ])
 }
-/** @param {any} rows @returns {GlobalPlace[]} */
-export function expandPlaces(rows) {
+/** @param {any} rows @param {string[]} [branchIds] @returns {GlobalPlace[]} sorted most-linked first */
+export function expandPlaces(rows, branchIds = BRANCH_IDS) {
   if (!Array.isArray(rows)) return []
+  const ids = Array.isArray(branchIds) ? branchIds : BRANCH_IDS
   /** @type {GlobalPlace[]} */
   const out = []
   for (const r of rows) {
-    if (!Array.isArray(r) || !/^Q\d+$/.test(r[0]) || REJECTED_QIDS.includes(r[0])) continue
+    if (!Array.isArray(r) || !/^Q\d+$/.test(r[0]) || NEVER_SHOW_QIDS.includes(r[0])) continue
     const kinds = kindsOf([...String(r[4] || '')].map(c => CATEGORY_PRIORITY[Number(c)]))
     const coord = typeof r[8] === 'number' && typeof r[9] === 'number' && Math.abs(r[8]) <= 90 && Math.abs(r[9]) <= 180 ? { lat: r[8], lon: r[9] } : null
-    if (!kinds.length || !coord) continue
+    const name = String(r[1] || '').trim()
+    if (!kinds.length || !coord || !name) continue
     out.push(toPlace({
-      qid: r[0], labelKo: String(r[1] || ''), labelEn: String(r[2] || ''), descKo: String(r[3] || ''), descEn: '', coord,
-      image: String(r[10] || ''), countryQid: /^Q\d+$/.test(r[5]) ? r[5] : '', countryLabel: String(r[6] || ''), admin: String(r[7] || ''),
-      website: httpsURL(r[11]), kinds, sitelinks: Number(r[12]) || 0, branches: String(r[13] || '').split(' ').filter(Boolean),
+      qid: r[0], labelKo: name, labelEn: r[2] === 1 ? name : String(r[2] || ''), labelOther: '', descKo: String(r[3] || ''), descEn: '', coord,
+      image: String(r[10] || ''), countryQid: /^Q\d+$/.test(r[5]) ? r[5] : '', countryLabel: String(r[6] || ''),
+      city: String(r[7] || ''), district: String(r[14] || ''), cityQid: /^Q\d+$/.test(r[15]) ? r[15] : '',
+      website: httpsURL(r[11]), kinds, sitelinks: Number(r[12]) || 0,
+      branches: String(r[13] ?? '').split(' ').filter(Boolean).map(i => ids[Number(i)]).filter(Boolean),
     }))
   }
-  return out
+  return out.sort(bySitelinks)
 }
 
-// Keys used to hide a synced Korean place that duplicates a curated one (same name, or the curated project's
-// host building), for when the live photo sync has not linked the curated place to a QID yet.
+// Packs places for browser storage within maxChars. What must survive goes first: every place the user has saved,
+// planned or recorded (keepIds), then every place in South Korea, then the rest by sitelinks. When everything does
+// not fit, descriptions are shortened (then left out) before any place is dropped; truncated says places were dropped.
+/**
+ * @param {GlobalPlace[]} places @param {{maxChars: number, keepIds?: Set<string>}} options
+ * @returns {{rows: any[][], branchIds: string[], truncated: boolean, shortened: boolean}}
+ */
+export function packPlaces(places, { maxChars, keepIds = new Set() }) {
+  const rank = (/** @type {GlobalPlace} */ p) => keepIds.has(p.place_id) ? 2 : p.scope === 'korea' ? 1 : 0
+  const ordered = [...places].sort((a, b) => rank(b) - rank(a) || bySitelinks(a, b))
+  const branchIds = [...new Set([...BRANCH_IDS, ...places.flatMap(p => p.branches || [])])]
+  /** @type {any[][]} */
+  let rows = []
+  /** @type {number[]} */
+  let sizes = []
+  for (const descMax of [Infinity, 60, 0]) {
+    rows = compactPlaces(ordered, { branchIds, descMax })
+    sizes = rows.map(r => JSON.stringify(r).length + 1)
+    if (sizes.reduce((a, b) => a + b, 0) <= maxChars) return { rows, branchIds, truncated: false, shortened: descMax !== Infinity }
+  }
+  let total = 0, n = 0
+  while (n < rows.length && total + sizes[n] <= maxChars) total += sizes[n++]
+  return { rows: rows.slice(0, n), branchIds, truncated: true, shortened: true }
+}
+
+// Hiding a synced place that duplicates a curated one: by QID first (the curated seed's verified "wikidata", which
+// covers host buildings such as 반포대교 for 반포대교 달빛무지개분수), then, for Korean places, by name or the curated
+// project's host-building name.
 /** @param {any} name */
 export const nameKey = name => String(name || '').normalize('NFKC').toLowerCase().replace(/[\s()（）\[\]·.,'"’\-–—/]+/g, '')
 /** @param {{name_kr?: string, name_en?: string}[]} curated @returns {Set<string>} */
@@ -516,6 +669,16 @@ export function curatedNameKeys(curated) {
   const keys = new Set()
   for (const p of curated) for (const n of [p.name_kr, p.name_en]) for (const v of [...nameVariants(n), ...hostVariants(n)]) { const k = nameKey(v); if (k.length >= 2) keys.add(k) }
   return keys
+}
+/** @param {{name_kr?: string, name_en?: string, wikidata?: string}[]} curated @returns {{qids: Set<string>, names: Set<string>}} */
+export function curatedIndex(curated) {
+  return { qids: new Set(curated.map(placeQid).filter(q => q !== null)), names: curatedNameKeys(curated) }
+}
+/** @param {{wikidata?: string, scope?: string, name_kr?: string, name_en?: string}} p @param {{qids: Set<string>, names: Set<string>}} index */
+export function isCuratedDuplicate(p, index) {
+  if (p?.wikidata && index.qids.has(p.wikidata)) return true
+  if (p?.scope !== 'korea') return false
+  return index.names.has(nameKey(p.name_kr)) || (!!p.name_en && index.names.has(nameKey(p.name_en)))
 }
 
 // Lazy rights check for the P18 images of places on screen. Returns one verdict per file; cleared files carry an
@@ -536,7 +699,7 @@ export async function checkImages(items, { fetchJSON, now = new Date().toISOStri
     const ii = page?.imageinfo?.[0]
     if (!page || page.missing || !ii?.url) { out.set(it.image, { ok: false, reasons: ['missing'], row: null }); continue }
     const license = stripHtml(ii.extmetadata?.LicenseShortName?.value || ii.extmetadata?.UsageTerms?.value)
-    const verdict = assessRights({ license, mime: ii.mime, templates: page.templates }, policy)
+    const verdict = assessRights({ license, mime: ii.mime, templates: page.templates, templatesComplete: page.templatesComplete !== false }, policy)
     if (!verdict.ok) { out.set(it.image, { ok: false, reasons: verdict.reasons, row: null }); continue }
     const row = toMediaRow(it.place_id, it.image.replace(/_/g, ' ').trim(), page, { qid: it.wikidata, krFop: verdict.krFop, now })
     row.caption = 'Wikidata 항목의 대표 사진(P18) · 촬영 당시 모습이며 현재 상태와 다를 수 있습니다'
