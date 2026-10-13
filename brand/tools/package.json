@@ -1,0 +1,14 @@
+{
+  "name": "light-architecture-brand-tools",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Regenerates the 빛의 건축 brand assets (outlined Pretendard wordmarks, icons, OG image). Not part of the app build.",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "opentype.js": "2.0.0",
+    "pretendard": "1.3.9"
+  }
+}
