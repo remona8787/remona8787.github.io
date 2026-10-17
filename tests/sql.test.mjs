@@ -7,6 +7,8 @@ import {PGlite} from '@electric-sql/pglite';
 const root=new URL('../',import.meta.url);
 const sql=async f=>(await readFile(new URL(f,root),'utf8')).replace(/create extension if not exists "?pgcrypto"?[^;]*;/gi,'');
 const DISCOVERED='supabase/migrations/20261013000000_discovered_places.sql';
+// The first released version of DISCOVERED (v0.15.0): the current one must upgrade it in place.
+const DISCOVERED_V0150='tests/sql/discovered_places_v0.15.0.sql';
 const PARTIAL=['supabase/01_schema.sql','supabase/02_seed_seoul50.sql','supabase/03_storage.sql','supabase/05_live_data_schema.sql','supabase/08_hybrid_media_pipeline.sql','supabase/10_global_discovery_engine.sql'];
 const FRESH=['supabase/01_schema.sql','supabase/02_seed_seoul50.sql','supabase/03_storage.sql','supabase/04_flutterflow_rpc.sql','supabase/05_live_data_schema.sql','supabase/07_audited_corrections.sql','supabase/08_hybrid_media_pipeline.sql','supabase/10_global_discovery_engine.sql','supabase/12_seed_countries_cities.sql','supabase/13_admin_review_console.sql','supabase/15_discovery_hardening.sql','supabase/17_user_sync_and_operations.sql','supabase/18_discovery_rotation.sql','supabase/migrations/20261010160920_archive_media_and_editorial.sql',DISCOVERED];
 async function database(files){const db=new PGlite();await db.exec(await sql('tests/sql/supabase-stubs.sql'));for(const f of files)await db.exec(await sql(f)).catch(e=>{throw Error(`${f}: ${e.message}`)});return db}
@@ -26,6 +28,12 @@ test('complete-backend.sql is idempotent on the reported partial state',async()=
 });
 test('fresh project: numbered SQL + migration apply in order, then complete-backend is a no-op',async()=>{
  const fresh=await database(FRESH);await fresh.exec(await sql('release/launch/complete-backend.sql'));await fresh.close();
+});
+test('a backend completed with v0.15.0 (first discovered_places version) is upgraded by complete-backend.sql, twice',async()=>{
+ const old=await database(FRESH.map(f=>f===DISCOVERED?DISCOVERED_V0150:f));
+ for(let i=0;i<2;i++)await old.exec(await sql('release/launch/complete-backend.sql'));
+ const [{n}]=await rows(old,`select count(*)::int n from information_schema.columns where table_schema='public' and table_name='discovered_places' and column_name in ('place_block','image_block')`);assert.equal(n,2);
+ await old.close();
 });
 test('every public table has RLS enabled',async()=>{
  const r=await rows(db,`select c.relname from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relkind='r' and not c.relrowsecurity`);
@@ -108,7 +116,9 @@ test('discovered places: anon and signed-in users read the view only; they canno
    `update public.discovered_places set sitelinks=99`,`delete from public.discovered_places`,
    `update public.public_discovered_places set sitelinks=99`,`delete from public.public_discovered_places`,
    `select public.apply_discovered_places('[]'::jsonb,now())`,`select public.prune_discovered_places(now(),'{}')`,
-   `select public.discovered_images_due(10,now(),true)`,`select public.set_discovered_media('[]'::jsonb,now(),true)`])
+   `select public.discovered_images_due(10,now(),true)`,`select public.set_discovered_media('[]'::jsonb,now(),true)`,
+   `select public.discovered_branch_counts(now())`,`select public.claim_discovered_sync('sync-global-places','x',60,true)`,`select public.release_discovered_sync('sync-global-places','x')`,
+   `select * from public.discovered_sync_locks`,`delete from public.discovered_sync_locks`])
    await assert.rejects(as(dp,role,null,tx=>tx.query(q)),/permission denied/,`${role}: ${q}`);
  }
  const [{rls}]=await rows(dp,`select relrowsecurity rls from pg_class where oid='public.discovered_places'::regclass`);assert.equal(rls,true);
@@ -174,6 +184,96 @@ test('discovered places: photos due — never checked first, then another FoP po
  assert.deepEqual(await due(2),['Q20','Q23']);
  assert.deepEqual(await due(10,false),['Q20','Q21','Q22','Q24'],'policy off: every photo checked with it on is due (oldest first); Q23 is not');
  assert.deepEqual(await due(0),[]);
+ await d.close();
+});
+test('discovered places: the run lock — one holder at a time, it expires, force takes it, only its owner releases it',async()=>{
+ const d=new PGlite();await d.exec(await sql('tests/sql/supabase-stubs.sql'));await d.exec(await sql(DISCOVERED));
+ const claim=(owner,secs=190,force=false,job='sync-global-places')=>svc(d,tx=>rows(tx,`select public.claim_discovered_sync($1,$2,$3,$4) r`,[job,owner,secs,force])).then(r=>r[0].r);
+ const release=(owner,job='sync-global-places')=>svc(d,tx=>rows(tx,`select public.release_discovered_sync($1,$2) r`,[job,owner])).then(r=>r[0].r);
+ assert.deepEqual(await claim('run-a'),{ok:true,owner:'run-a'});
+ const busy=await claim('run-b');
+ assert.deepEqual([busy.ok,busy.owner],[false,'run-a'],'the cron and a manual run: only the first gets it');
+ assert.ok(Date.parse(busy.expires_at)-Date.parse(busy.locked_at)===190e3,'lease = the requested seconds');
+ assert.equal((await claim('run-a')).ok,true,'its owner may renew it');
+ assert.equal((await claim('other',190,false,'another-job')).ok,true,'locks are per job');
+ assert.equal(await release('run-b'),false,'only the owner releases');
+ assert.equal((await claim('run-c',190,true)).ok,true,'force takes a lock that is still held');
+ assert.equal(await release('run-a'),false,'the run whose lock was taken releases nothing');
+ assert.equal((await claim('run-d')).ok,false);
+ assert.equal(await release('run-c'),true);
+ assert.equal((await claim('run-d')).ok,true,'free again after release');
+ // A run the platform stopped never releases: its lock expires by itself.
+ await d.exec(`update public.discovered_sync_locks set expires_at=now()-interval '1 second' where owner='run-d'`);
+ assert.deepEqual(await claim('run-e'),{ok:true,owner:'run-e'});
+ // The lease is bounded (at most an hour) and needs a job and an owner.
+ await claim('run-e',999999);
+ const [{secs}]=await rows(d,`select extract(epoch from expires_at-locked_at)::int secs from public.discovered_sync_locks where job_name='sync-global-places'`);assert.equal(secs,3600);
+ await assert.rejects(claim('',60),/p_job and p_owner are required/);
+ await d.close();
+});
+test('discovered places: an older run that overlaps a newer one never puts back older rows or verdicts',async()=>{
+ const d=new PGlite();await d.exec(await sql('tests/sql/supabase-stubs.sql'));await d.exec(await sql(DISCOVERED));
+ const t=Date.now(),older=iso(t-H),newer=iso(t);
+ assert.equal(await apply(d,[dpRow('Q30',{image:'new.jpg',name:'새',branches:['world:seeds','world:genres']})],newer),1);
+ assert.equal(await setMedia(d,[{qid:'Q30',image_file:'new.jpg',status:'cleared',reasons:[],media:media('Q30','new.jpg')}],newer),1);
+ // The older run's upsert arrives last: it changes nothing (not the record, branches, photo file or verdict).
+ assert.equal(await apply(d,[dpRow('Q30',{image:'old.jpg',name:'옛',branches:['world:seeds']}),dpRow('Q31')],older),1,'only the place the newer run has not written');
+ const [r]=await rows(d,`select record->>1 name,branches,image_file,image_status,last_seen_at from public.discovered_places where qid='Q30'`);
+ assert.deepEqual([r.name,r.branches,r.image_file,r.image_status,new Date(r.last_seen_at).toISOString()],['새',['world:seeds','world:genres'],'new.jpg','cleared',newer]);
+ // An older verdict for the same file is ignored; the same or a newer one is stored.
+ assert.equal(await setMedia(d,[{qid:'Q30',image_file:'new.jpg',status:'blocked',reasons:['missing'],media:[]}],older),0);
+ assert.equal(await setMedia(d,[{qid:'Q30',image_file:'new.jpg',status:'blocked',reasons:['missing'],media:[]}],iso(t+1000)),1);
+ // The older run's prune cannot remove what the newer run saw.
+ assert.equal((await svc(d,tx=>rows(tx,`select public.prune_discovered_places($1,'{}') n`,[older])))[0].n,0);
+ await d.close();
+});
+test('discovered places: editorial blocks last — the view, the due list, verdicts and prune all respect them',async()=>{
+ const d=new PGlite();await d.exec(await sql('tests/sql/supabase-stubs.sql'));await d.exec(SUPABASE_DEFAULT_GRANTS);await d.exec(await sql(DISCOVERED));
+ const t=Date.now(),before=iso(t-6*H),now=iso(t);
+ await apply(d,['Q40','Q41','Q42'].map(q=>dpRow(q,{image:q+'.jpg'})),before);
+ const ok=q=>({qid:q,image_file:q+'.jpg',status:'cleared',reasons:[],media:media(q,q+'.jpg')});
+ assert.equal(await setMedia(d,[ok('Q40'),ok('Q41'),ok('Q42')],iso(t-30*H)),3);
+ await d.exec(`update public.discovered_places set image_block='rights complaint 2026-10-17' where qid='Q40'; update public.discovered_places set place_block='not a light place' where qid='Q41'`);
+ await assert.rejects(d.exec(`update public.discovered_places set image_block='  ' where qid='Q42'`),/check constraint/,'a block needs a reason');
+ const v=Object.fromEntries((await view(d)).map(r=>[r.qid,r]));
+ assert.equal(v.Q41,undefined,'a blocked place is not in the view');
+ assert.deepEqual([v.Q40.image_status,v.Q40.image_reasons,v.Q40.media],['blocked',['editorial_block'],[]],'the reason text itself is not shown');
+ const [{at}]=await as(d,'anon',null,tx=>rows(tx,`select media_checked_at at from public.public_discovered_places where qid='Q40'`));
+ assert.ok(Math.abs(new Date(at).getTime()-Date.now())<60e3,'a block is a current verdict at every read');
+ // Never due, never overwritten by a verdict, even when the file changes.
+ const due=async()=>(await svc(d,tx=>rows(tx,`select public.discovered_images_due(10,$1,true) d`,[iso(t-5*H)])))[0].d.map(x=>x.qid);
+ assert.deepEqual(await due(),['Q42']);
+ assert.equal(await setMedia(d,[ok('Q40'),ok('Q41')],now),0);
+ await apply(d,[dpRow('Q40',{image:'other.jpg'})],now);
+ assert.deepEqual((await view(d)).find(r=>r.qid==='Q40').image_reasons,['editorial_block'],'a new P18 file is blocked too');
+ // This run did not see them and their branch answered: only the unblocked Q42 is pruned.
+ assert.equal((await svc(d,tx=>rows(tx,`select public.prune_discovered_places($1,'{}') n`,[now])))[0].n,1);
+ assert.deepEqual((await rows(d,`select qid,place_block is not null p,image_block is not null i from public.discovered_places order by qid`)).map(r=>[r.qid,r.p,r.i]),[['Q40',false,true],['Q41',true,false]]);
+ // Nobody but the operator (and service_role) can set or clear a block.
+ await assert.rejects(as(d,'authenticated',null,tx=>tx.query(`update public.discovered_places set image_block=null`)),/permission denied/);
+ await d.close();
+});
+test('discovered places: stored places per branch, over the rows seen in the 72 hours before the run',async()=>{
+ const d=new PGlite();await d.exec(await sql('tests/sql/supabase-stubs.sql'));await d.exec(await sql(DISCOVERED));
+ const t=Date.now();
+ await apply(d,[dpRow('Q50',{branches:['korea:classes','korea:seeds']}),dpRow('Q51',{branches:['korea:classes']})],iso(t-H));
+ await apply(d,[dpRow('Q52',{branches:['korea:classes']})],iso(t-80*H));
+ const counts=at=>svc(d,tx=>rows(tx,`select public.discovered_branch_counts($1) c`,[at])).then(r=>r[0].c);
+ assert.deepEqual(await counts(iso(t)),{'korea:classes':2,'korea:seeds':1},'Q52 unseen for 80 hours does not count');
+ assert.deepEqual(await counts(iso(t-60*H)),{'korea:classes':3,'korea:seeds':1});
+ assert.deepEqual(await counts(iso(t+80*H)),{});
+ await d.close();
+});
+test('discovered places: the current migration upgrades the v0.15.0 one in place, keeping rows and verdicts',async()=>{
+ const d=new PGlite();await d.exec(await sql('tests/sql/supabase-stubs.sql'));await d.exec(SUPABASE_DEFAULT_GRANTS);await d.exec(await sql(DISCOVERED_V0150));
+ const t=Date.now();
+ await apply(d,[dpRow('Q60',{image:'a.jpg'}),dpRow('Q61')],iso(t));
+ await setMedia(d,[{qid:'Q60',image_file:'a.jpg',status:'cleared',reasons:[],media:media('Q60','a.jpg')}],iso(t));
+ await d.exec(await sql(DISCOVERED));await d.exec(await sql(DISCOVERED));
+ assert.deepEqual((await view(d)).map(r=>[r.qid,r.image_status]),[['Q60','cleared'],['Q61','none']]);
+ for(const q of [`select * from public.discovered_sync_locks`,`select public.claim_discovered_sync('j','x',60)`,`select public.discovered_branch_counts(now())`])
+  await assert.rejects(as(d,'anon',null,tx=>tx.query(q)),/permission denied/,q);
+ assert.equal((await svc(d,tx=>rows(tx,`select public.claim_discovered_sync('j','x',60) r`)))[0].r.ok,true);
  await d.close();
 });
 test.after(()=>Promise.all([db?.close(),dp?.close()]));
