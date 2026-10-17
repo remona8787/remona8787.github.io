@@ -11,7 +11,8 @@
     "android:aab": "cd android && ./gradlew bundleRelease",
     "ios:open": "npx cap open ios",
     "launch:check": "node scripts/launch-check.mjs",
-    "e2e": "npm run build && playwright test"
+    "e2e": "npm run build && playwright test",
+    "build:preview": "npm run build && node scripts/build-preview.mjs"
   },
   "dependencies": {
     "@capacitor/android": "8.5.3",
