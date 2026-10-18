@@ -361,3 +361,41 @@ mirrors its keys in check constraints, and `tests/archive-sql.test.mjs` compares
 
 E2E ports, so tracks can run Playwright at the same time: main 4173, db 4311, collector 4312, admin 4313, client 4314,
 QA 4315–4317 (set `AOL_TEST_PORT`).
+
+## 8. Ingest item contract (collector → `archive_ingest(p_run_id, p_items)`)
+
+```js
+item = {
+  provider: 'gdelt'|'rss'|'websub'|'naver_news'|'naver_blog'|'brave'|'wikidata',
+  rule_id: uuid|null, external_id: string|null,
+  url: string, canonical_url: string,            // http(s) only, ≤2000 chars
+  title: string (≤500, HTML stripped), excerpt: string|null (≤300), publisher: string|null (≤200),
+  language: string|null (BCP-47 or ISO 639-1), published_at: ISO-8601|null,
+  source_kind: <source_kind>, reliability: 0..100,
+  classification: { score: 0..100, label: <candidate_label>, reasons: string[] (≤20), version: string },
+  detected: { name: string|null, country_iso2: string|null, city: string|null, latitude: number|null, longitude: number|null },
+  keys: { normalized_name: string|null, story_key: string, wikidata_qid: string|null, alias_project_id: uuid|null },
+  raw: object (≤4 kB serialized; API fields only, never article bodies)
+}
+```
+
+`archive_ingest` validates every item and skips invalid items. A skipped item counts in `ignored` and is logged as
+an error with stage `validate`. It returns:
+
+```js
+{ kept, new_candidates, matched_projects, duplicates, ignored,
+  items: [{ canonical_url, outcome: 'new_candidate'|'attached_candidate'|'matched_project'|'duplicate_hit'|'ignored', candidate_id?, project_id? }] }
+```
+
+The SQL side is idempotent:
+
+- The same (provider, canonical_url) again only bumps `last_seen_at` and `seen_count`.
+- Items whose classification label is `auto_ignored` (score below `auto_ignore_below`) become candidates with
+  status `auto_ignored`; they are never shown in the queue by default.
+- A `matched_project` hit creates or extends one open `archive_project_updates` row of kind `new_source` per
+  project.
+
+Seeds: the collector track owns the rule and keyword seeds in `edge-functions/_shared/archive/seed-rules.mjs`.
+`scripts/archive-seed-sql.mjs` generates `release/launch/archive-seed.sql` from them as idempotent upserts keyed
+by (kind, name) and by (term, language). The db migration creates the tables and the settings row only; its tests
+insert their own rules and keywords.
