@@ -16,7 +16,12 @@
     </style>
 
 
+    <!-- Launch: navy field with the mark (brand/tools/build.mjs writes splash_mark, splash_launch and
+         splash_background). core-splashscreen draws the icon on the background on every API level;
+         splash_launch is a layer-list, so the window background is never stretched to the screen. -->
     <style name="AppTheme.NoActionBarLaunch" parent="Theme.SplashScreen">
-        <item name="android:background">@drawable/splash</item>
+        <item name="android:background">@drawable/splash_launch</item>
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/splash_mark</item>
     </style>
 </resources>

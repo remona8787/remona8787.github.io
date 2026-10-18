@@ -1,9 +1,12 @@
 // Regenerates every 빛의 건축 brand asset from one geometry and one palette:
 //   brand/                          symbols, lockups, app icon, PNGs, OG image
-//   site-public-cleared/assets/     web symbol, favicon, PWA / Apple icons, OG image
+//   site-public-cleared/assets/     web symbols + compact lockups, favicon, PWA / Apple icons, OG image
 //   android/…/res/mipmap-*/         launcher icons (legacy, round, adaptive foreground)
 //   ios/…/AppIcon.appiconset/       1024 App Store / home-screen icon
+//   android/…/res/drawable*/splash.png, drawable/splash_{mark,launch}.xml, values/splash_background.xml
+//   ios/…/Splash.imageset/          launch screens: navy field, dark mark centred in a crop-safe area
 // Wordmarks are Pretendard (OFL-1.1) glyph outlines, so no SVG depends on an installed font.
+// Text is shaped by HarfBuzz (as in Chromium) so the font's GPOS kerning applies; opentype.js outlines.
 // PNGs are rasterised by Chromium from the app's @playwright/test devDependency.
 //
 // Usage, from light-architecture/:  npm ci && (cd brand/tools && npm ci) && node brand/tools/build.mjs
@@ -12,6 +15,7 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import opentype from 'opentype.js';
+import * as hb from 'harfbuzzjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, '..', '..');
@@ -19,6 +23,7 @@ const BRAND = join(ROOT, 'brand');
 const ASSETS = join(ROOT, 'site-public-cleared', 'assets');
 const ANDROID_RES = join(ROOT, 'android', 'app', 'src', 'main', 'res');
 const IOS_ICON = join(ROOT, 'ios', 'App', 'App', 'Assets.xcassets', 'AppIcon.appiconset');
+const IOS_SPLASH = join(ROOT, 'ios', 'App', 'App', 'Assets.xcassets', 'Splash.imageset');
 const FONT_DIR = join(HERE, 'node_modules', 'pretendard', 'dist', 'public', 'static');
 const SVG_ONLY = process.argv.includes('--svg');
 
@@ -40,47 +45,82 @@ const SCHEME = {
 
 // ---------------------------------------------------------------- mark geometry (64-unit grid)
 // Vault: outer R24 / inner R12 about (32,36), piers x8–20 and x44–56, floor y60, top y12.
-// A skylight slot is cut through the vault at ~69°; the beam starts flush with the inner radius
-// (it leaves the slot) and spreads to a 14-unit pool centred under the opening; the vermilion
-// source sits on the slot axis above the vault.
-const MARK = {
-  arch: 'M8 60V36A24 24 0 0 1 36.18 12.37L33.47 24.09A12 12 0 0 0 20 36V60Z' +
-        'M43.31 14.83A24 24 0 0 1 56 36V60H44V36A12 12 0 0 0 40.39 27.42Z',
-  beam: 'M33.47 24.09A12 12 0 0 1 40.39 27.42L38 60H24Z',
-  // one-colour version: beam offset 2.5 units down its axis so it stays separate from the vault
-  beamMono: 'M33.04 26.55L39.96 29.88L38 60H24Z',
-  dot: { cx: 41.2, cy: 7.2, r: 5.6 },
-};
-const BOX = { x0: 8, x1: 56, y0: 1.6, y1: 60, archTop: 12, floor: 60 }; // ink bounds of the mark
-const PIER = 12; // clear-space unit: pier width = 12/64 of the symbol box
-
+// A skylight slot is cut through the vault's right shoulder: its centre (on the mid radius, R18) sits
+// at 55° and both walls run parallel to a 66° beam, so the light rakes through the vault from the upper
+// right. The beam starts flush with the inner radius (it leaves the slot); its left edge continues the
+// slot's left wall down to the floor at x21, and it pools at x21–33 between the piers. The vermilion
+// source sits on the slot axis above the vault. (Variant V2 of the "ni / ñ" study; V0 had the slot at
+// 69° with 77° walls and a near-vertical beam, which read as the letters 'ni' / 'ñ'.)
 const f2 = v => String(Math.round(v * 100) / 100);
 const pt = p => `${f2(p[0])} ${f2(p[1])}`;
 const add = (a, b, k = 1) => [a[0] + b[0] * k, a[1] + b[1] * k];
+const RAD = Math.PI / 180, VC = [32, 36]; // vault centre
+const deg = (a, b) => Math.atan2(a[1] - b[1], b[0] - a[0]) / RAD; // direction of a→b, counter-clockwise from +x
 function lineCircle(p0, d, c, R) {
   const ox = p0[0] - c[0], oy = p0[1] - c[1];
   const b = ox * d[0] + oy * d[1], disc = b * b - (ox * ox + oy * oy - R * R);
   const s = Math.sqrt(disc); return [-b - s, -b + s];
 }
-
-// 16/24 px favicon cut: same vault on the 64 grid (4 units = 1 px at 16 px), slot widened to
-// 8 units (2 px) at the outer edge, beam floor 24–36, dot r6 at (42,6) = a 3 px dot.
-function favCut() {
-  const c = [32, 36], R = 24, r = 12, rad = Math.PI / 180;
-  const pc = [c[0] + 18 * Math.cos(69 * rad), c[1] - 18 * Math.sin(69 * rad)]; // slot centre, mid radius
-  const dirDeg = 76.98; // same cut direction as the full mark (parallel slot walls)
-  const d = [Math.cos(dirDeg * rad), -Math.sin(dirDeg * rad)], n = [-d[1], d[0]];
+// Slot through the vault: centre at slotDeg on the mid radius, parallel walls along cutDeg, `chord` =
+// opening measured along the outer edge. L / Rt = left / right wall, O / I = outer / inner end.
+function cutSlot({ slotDeg, cutDeg, chord }) {
+  const pc = [VC[0] + 18 * Math.cos(slotDeg * RAD), VC[1] - 18 * Math.sin(slotDeg * RAD)];
+  const d = [Math.cos(cutDeg * RAD), -Math.sin(cutDeg * RAD)], n = [-d[1], d[0]];
   const edges = w => [add(pc, n, -w / 2), add(pc, n, w / 2)].map(p0 => ({
-    O: add(p0, d, lineCircle(p0, d, c, R)[1]), I: add(p0, d, lineCircle(p0, d, c, r)[1]),
+    O: add(p0, d, lineCircle(p0, d, VC, 24)[1]), I: add(p0, d, lineCircle(p0, d, VC, 12)[1]),
   })).sort((a, b) => a.O[0] - b.O[0]);
-  let w = 8; // solve the perpendicular width that gives an 8-unit chord at the outer edge
-  for (let i = 0; i < 30; i++) { const [L, Rt] = edges(w); w *= 8 / Math.hypot(Rt.O[0] - L.O[0], Rt.O[1] - L.O[1]); }
+  let w = chord; // solve the perpendicular width that gives `chord` at the outer edge
+  for (let i = 0; i < 40; i++) { const [L, Rt] = edges(w); w *= chord / Math.hypot(Rt.O[0] - L.O[0], Rt.O[1] - L.O[1]); }
   const [L, Rt] = edges(w);
+  return { L, Rt, pc, d, atY: y => [pc[0] + (pc[1] - y) * d[0] / -d[1], y] }; // atY: point on the slot axis
+}
+const archD = (L, Rt) => `M8 60V36A24 24 0 0 1 ${pt(L.O)}L${pt(L.I)}A12 12 0 0 0 20 36V60Z` +
+  `M${pt(Rt.O)}A24 24 0 0 1 56 36V60H44V36A12 12 0 0 0 ${pt(Rt.I)}Z`;
+const SLOT = cutSlot({ slotDeg: 55, cutDeg: 66, chord: 7.54 });
+const POOL = [21, 33]; // 21 = where the left wall, continued at 66°, meets the floor
+const MARK = {
+  arch: archD(SLOT.L, SLOT.Rt),
+  beam: `M${pt(SLOT.L.I)}A12 12 0 0 1 ${pt(SLOT.Rt.I)}L${POOL[1]} 60H${POOL[0]}Z`,
+  beamMono: (() => {
+    // One-colour version: the beam stays 2.5 units clear of the vault so it reads as a separate shape
+    // without a colour change. Its top chord slides down the beam's centre line until the right corner
+    // is 2.5 units inside the inner radius, and its left foot moves 1.5 units right (2.5 from the pier).
+    const top = [(SLOT.L.I[0] + SLOT.Rt.I[0]) / 2, (SLOT.L.I[1] + SLOT.Rt.I[1]) / 2];
+    const ax = [(POOL[0] + POOL[1]) / 2 - top[0], 60 - top[1]], u = ax.map(v => v / Math.hypot(...ax));
+    const q = [SLOT.Rt.I[0] - VC[0], SLOT.Rt.I[1] - VC[1]], b = q[0] * u[0] + q[1] * u[1];
+    const t = -b - Math.sqrt(b * b - (q[0] ** 2 + q[1] ** 2 - 9.5 ** 2)); // first t with |Rt.I + t·u − VC| = 12 − 2.5
+    return `M${pt(add(SLOT.L.I, u, t))}L${pt(add(SLOT.Rt.I, u, t))}L${POOL[1]} 60H${POOL[0] + 1.5}Z`;
+  })(),
+  dot: { cx: +SLOT.atY(8.2)[0].toFixed(2), cy: 8.2, r: 5.6 },
+};
+// ink bounds of the mark (the dot's top is the highest ink)
+const BOX = { x0: 8, x1: 56, y0: +(MARK.dot.cy - MARK.dot.r).toFixed(2), y1: 60, archTop: 12, floor: 60 };
+const PIER = 12; // clear-space unit: pier width = 12/64 of the symbol box
+const BEAM_DEG = { left: deg(SLOT.L.I, [POOL[0], 60]) + 180, right: deg(SLOT.Rt.I, [POOL[1], 60]) + 180 }; // edge angles, 66° / 72.4°
+
+// 16 px cut (favicons, tabs), also snapped at 32 and 48 px: the same vault on the 64 grid, where 4 units
+// are 1 px at 16, 2 px at 32 and 3 px at 48. Piers, crown (y12), inner crown (y24), floor, the beam pool
+// x20–32 (the full mark's 21–33 on the grid) and the dot's box sit on 4-unit lines.
+// The slot walls are the lines 2x + y = 92 and 104: slope-2 diagonals (63.4°, the pixel-grid neighbour of
+// 66°) through grid points, so at every size each wall steps exactly half a pixel per pixel row and the
+// slot is 6 units (1.5 px at 16) across every row. V2's own slot drawn at 16 px (right wall meeting the
+// outer edge at 49° and the inner edge at 29°) leaves the right shoulder a 3-px pier with a rounded top:
+// it detaches from the vault as a block and, with the dot above it, reads as an 'i'. Here the right wall
+// meets the outer edge at 59° and the inner edge at 55°, so the shoulder keeps the vault's curve on both
+// edges and overhangs the opening by a pixel, while the left wall stays at 72° / 81°: the slot reads as a
+// raking cut through one vault. The beam fills the inner opening and rakes to x20–32; the dot r6 at
+// (46,6) is a 3-px dot centred on the slot axis 2x + y = 98.
+const CUT_WALLS = [92, 104];
+function favCut() {
+  const meet = (k, R) => { const m = k - 100, x = 32 + (2 * m + Math.sqrt(5 * R * R - m * m)) / 5; return [x, k - 2 * x]; }; // upper point of 2x + y = k on the circle R about (32,36)
+  const L = { O: meet(CUT_WALLS[0], 24), I: meet(CUT_WALLS[0], 12) }, Rt = { O: meet(CUT_WALLS[1], 24), I: meet(CUT_WALLS[1], 12) };
+  const dot = { cx: 46, cy: 6, r: 6 };
+  if (CUT_WALLS.some(k => k % 4)) throw Error('16 px cut: a slot wall misses the 4-unit grid points');
+  if (2 * dot.cx + dot.cy !== (CUT_WALLS[0] + CUT_WALLS[1]) / 2) throw Error('16 px cut: the dot is off the slot axis');
   return {
-    arch: `M8 60V36A24 24 0 0 1 ${pt(L.O)}L${pt(L.I)}A12 12 0 0 0 20 36V60Z` +
-          `M${pt(Rt.O)}A24 24 0 0 1 56 36V60H44V36A12 12 0 0 0 ${pt(Rt.I)}Z`,
-    beam: `M${pt(L.I)}A12 12 0 0 1 ${pt(Rt.I)}L36 60H24Z`,
-    dot: { cx: 42, cy: 6, r: 6 },
+    arch: archD(L, Rt),
+    beam: `M${pt(L.I)}A12 12 0 0 1 ${pt(Rt.I)}L32 60H20Z`,
+    dot,
   };
 }
 const FAV = favCut();
@@ -95,7 +135,15 @@ const svgDoc = (vb, body, label, attrs = '') =>
 const NAME = '빛의 건축 Architecture of Light';
 
 // ---------------------------------------------------------------- text → outlines (Pretendard)
-const loadFont = w => { const b = readFileSync(join(FONT_DIR, `Pretendard-${w}.otf`)); return opentype.parse(b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength)); };
+// HarfBuzz shapes (GPOS kern, calt, ccmp: what Chromium applies), opentype.js outlines the shaped
+// glyph ids. opentype.js 2.0.0's own kerning reads 0 for Pretendard's PairPos-in-Extension lookups,
+// which left 'rc', 're' and 'te' in "Architecture" about 0.017 em too loose.
+const loadFont = w => {
+  const b = readFileSync(join(FONT_DIR, `Pretendard-${w}.otf`));
+  const font = opentype.parse(b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength));
+  font.hb = new hb.Font(new hb.Face(new hb.Blob(b)));
+  return font;
+};
 const FONT = { Bold: loadFont('Bold'), SemiBold: loadFont('SemiBold') };
 // own serialiser: every contour explicitly closed, 2-decimal coordinates
 function toD(cmds) {
@@ -109,20 +157,30 @@ function toD(cmds) {
   }
   return open ? d + 'Z' : d;
 }
-const ink = (font, str, size, ls) => font.getPath(str, 0, 0, size, { kerning: true, letterSpacing: ls }).getBoundingBox();
+// Shaped outline of `str` with its pen starting at (x, y); `ls` is tracking in em added after every glyph.
+function shapedPath(font, str, x, y, size, ls = 0) {
+  const buf = new hb.Buffer(); buf.addText(str); buf.guessSegmentProperties(); hb.shape(font.hb, buf);
+  const k = size / font.unitsPerEm, pos = buf.getGlyphPositions(), path = new opentype.Path();
+  buf.getGlyphInfos().forEach((g, i) => {
+    path.extend(font.glyphs.get(g.codepoint).getPath(x + pos[i].xOffset * k, y - pos[i].yOffset * k, size, {}, font));
+    x += pos[i].xAdvance * k; x += ls * size;
+  });
+  return path;
+}
+const ink = (font, str, size, ls) => shapedPath(font, str, 0, 0, size, ls).getBoundingBox();
 // Place a string so that its ink box starts at (x, top) — or, with {cy}, is centred on cy.
 function text(font, str, size, ls, { x, top, cy, baseline, cx }) {
   const b = ink(font, str, size, ls);
   const ox = cx !== undefined ? cx - (b.x1 + b.x2) / 2 : x - b.x1;
   const oy = baseline !== undefined ? baseline : top !== undefined ? top - b.y1 : cy - (b.y1 + b.y2) / 2;
-  const p = font.getPath(str, ox, oy, size, { kerning: true, letterSpacing: ls });
+  const p = shapedPath(font, str, ox, oy, size, ls);
   return { d: toD(p.commands), bb: p.getBoundingBox() };
 }
 const KO = '빛의 건축', KO_LS = -0.025, SUB = 'ARCHITECTURE OF LIGHT', SUB_LS = 0.14, EN = 'Architecture of Light', EN_LS = -0.012;
 // sub-line keeps 0.14em tracking; its size is solved so it runs exactly the Korean wordmark's width
 const subSizeFor = koWidth => { const b = ink(FONT.SemiBold, SUB, 1, SUB_LS); return koWidth / (b.x2 - b.x1); };
 
-const M4 = 4; // inner margin of every lockup viewBox (the dot top at 1.6 → viewBox y starts at -2.4)
+const M4 = 4; // inner margin of every lockup viewBox (the dot top at 2.6 → viewBox y starts at -1.4)
 const vbOf = (x0, y0, x1, y1) => `${f2(x0 - M4)} ${f2(y0 - M4)} ${f2(x1 - x0 + 2 * M4)} ${f2(y1 - y0 + 2 * M4)}`;
 const metrics = {};
 
@@ -176,15 +234,16 @@ function enVertical(col) {
 }
 
 // ---------------------------------------------------------------- icons
-// App icon: flat navy field, mark ink box centred horizontally and lifted ~6 px for optical centre.
-// Furthest point (pier corners) ≈ 392 px from centre < 409.6 px maskable safe circle.
-const ICON_T = { x: 176, y: 182, s: 10.5 };
+// App icon: flat navy field, mark ink box centred horizontally and lifted ~6 px for optical centre
+// (ink box y 2.6–60 → 204.3–807 px, centre 505.65). Furthest point (pier corners) ≈ 388 px from the
+// centre < 409.6 px maskable safe circle.
+const ICON_T = { x: 176, y: 177, s: 10.5 };
 const iconMark = `<g transform="translate(${ICON_T.x} ${ICON_T.y}) scale(${ICON_T.s})">${markDark}</g>`;
 const appIconSvg = svgDoc('0 0 1024 1024', `<rect width="1024" height="1024" fill="${P.navy}"/>${iconMark}`, '빛의 건축 app icon');
 {
   const far = [[8, 60], [56, 60], [8, 36], [56, 36]].map(([x, y]) => Math.hypot(ICON_T.x + x * ICON_T.s - 512, ICON_T.y + y * ICON_T.s - 512));
   const dotFar = Math.hypot(ICON_T.x + MARK.dot.cx * ICON_T.s - 512, ICON_T.y + MARK.dot.cy * ICON_T.s - 512) + MARK.dot.r * ICON_T.s;
-  metrics.appIcon = { maxDistance: f2(Math.max(...far, dotFar)), dotExtremity: f2(dotFar), safeRadius: 409.6 };
+  metrics.appIcon = { maxDistance: f2(Math.max(...far, dotFar)), dotExtremity: f2(dotFar), safeRadius: 409.6, inkCentreAbove: f2(512 - (ICON_T.y + (BOX.y0 + BOX.y1) / 2 * ICON_T.s)) };
   if (Math.max(...far, dotFar) > 409.6) throw Error('app icon mark leaves the maskable safe circle');
 }
 // Superellipse (n=5) tile, the shape used for "any"-purpose and legacy launcher icons.
@@ -220,6 +279,60 @@ function paddedSvg(col) {
   return svgDoc(`${f2(cx - side / 2)} ${f2(cy - side / 2)} ${f2(side)} ${f2(side)}`, shapes(MARK, col), NAME);
 }
 
+// ---------------------------------------------------------------- launch splash (native)
+// Every splash is the navy field with the app-icon composition (dark mark at ICON_T) centred, so the
+// launcher icon, Android 12+'s system splash and the splash rasters show one picture.
+// Android (core-splashscreen, every API level) draws windowSplashScreenAnimatedIcon = splash_mark.xml on
+// windowSplashScreenBackground = Navy. splash_mark is the launcher-foreground composition as a vector at
+// 288 dp, masked to a 192 dp circle, so the mark is 504/1024 × 192 ≈ 94.5 dp wide: ≈ 23% of a 411 dp
+// phone. The rasters keep that share of the short side a 9:19.5 phone shows after centre-cropping.
+const SPLASH_K = 0.23;
+const MARK_INK = [BOX.x0, BOX.y0, BOX.x1, BOX.y1].map((v, i) => (i % 2 ? ICON_T.y : ICON_T.x) + v * ICON_T.s); // in the 1024 composition
+function splashSvg(w, h, orient) {
+  const k = SPLASH_K * Math.min(w, h, Math.max(w, h) * 9 / 19.5) / (MARK_INK[2] - MARK_INK[0]);
+  const tx = w / 2 - 512 * k, ty = h / 2 - 512 * k, pad = PIER * ICON_T.s * k;
+  // Crop-safe: the ink box plus one pier width stays inside what a centre crop keeps on every screen
+  // from 9:21 to 21:9 (drawable-port-* is only used in portrait, drawable-land-* only in landscape).
+  const aMin = orient === 'land' ? 1 : 9 / 21, aMax = orient === 'port' ? 1 : 21 / 9;
+  const visW = Math.min(w, h * aMin), visH = Math.min(h, w / aMax);
+  const [x0, y0, x1, y1] = MARK_INK.map((v, i) => (i % 2 ? ty : tx) + v * k + (i < 2 ? -pad : pad));
+  if (x0 < (w - visW) / 2 || x1 > (w + visW) / 2 || y0 < (h - visH) / 2 || y1 > (h + visH) / 2) throw Error(`splash ${w}×${h} leaves the crop-safe area`);
+  return svgDoc(`0 0 ${w} ${h}`, `<rect width="${w}" height="${h}" fill="${P.navy}"/><g transform="translate(${f2(tx)} ${f2(ty)}) scale(${+k.toFixed(5)})">${iconMark}</g>`, '빛의 건축');
+}
+// Capacitor's splash.png slots, same sizes as before (drawable/ has no orientation qualifier).
+const ANDROID_SPLASH = {
+  drawable: [480, 320], 'drawable-land-mdpi': [480, 320], 'drawable-land-hdpi': [800, 480], 'drawable-land-xhdpi': [1280, 720],
+  'drawable-land-xxhdpi': [1600, 960], 'drawable-land-xxxhdpi': [1920, 1280], 'drawable-port-mdpi': [320, 480],
+  'drawable-port-hdpi': [480, 800], 'drawable-port-xhdpi': [720, 1280], 'drawable-port-xxhdpi': [960, 1600], 'drawable-port-xxxhdpi': [1280, 1920],
+};
+const splashOrient = dir => (dir.match(/-(port|land)-/) || [])[1];
+const IOS_SPLASH_FILES = ['splash-2732x2732.png', 'splash-2732x2732-1.png', 'splash-2732x2732-2.png']; // 3x, 2x, 1x (Contents.json)
+for (const [dir, [w, h]] of Object.entries(ANDROID_SPLASH)) splashSvg(w, h, splashOrient(dir)); // fail fast, also with --svg
+splashSvg(2732, 2732);
+// Vector form of the launcher foreground: the 1024 composition maps onto the central 72 of 108 units.
+const FG = { s: ICON_T.s * 72 / 1024, x: 18 + ICON_T.x * 72 / 1024, y: 18 + ICON_T.y * 72 / 1024 };
+const circleD = ({ cx, cy, r }) => `M${f2(cx - r)} ${f2(cy)}A${r} ${r} 0 1 0 ${f2(cx + r)} ${f2(cy)}A${r} ${r} 0 1 0 ${f2(cx - r)} ${f2(cy)}Z`;
+const splashMarkXml = `<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated by brand/tools/build.mjs: the launcher-foreground composition as a vector (108-unit canvas,
+     mark inside the central 72). Used as windowSplashScreenAnimatedIcon and by splash_launch.xml. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="288dp" android:height="288dp" android:viewportWidth="108" android:viewportHeight="108">
+    <group android:translateX="${FG.x}" android:translateY="${FG.y}" android:scaleX="${FG.s}" android:scaleY="${FG.s}">
+        <path android:fillColor="${SCHEME.dark.beam}" android:pathData="${MARK.beam}"/>
+        <path android:fillColor="${SCHEME.dark.arch}" android:pathData="${MARK.arch}"/>
+        <path android:fillColor="${SCHEME.dark.dot}" android:pathData="${circleD(MARK.dot)}"/>
+    </group>
+</vector>
+`;
+const splashLaunchXml = `<?xml version="1.0" encoding="utf-8"?>
+<!-- Generated by brand/tools/build.mjs: the launch theme's android:background. A navy field with the
+     mark centred at its own size, so it is never stretched to the window's aspect ratio. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/splash_background"/>
+    <item android:drawable="@drawable/splash_mark" android:gravity="center" android:width="288dp" android:height="288dp"/>
+</layer-list>
+`;
+
 // ---------------------------------------------------------------- write SVGs
 const out = (path, data) => { mkdirSync(dirname(path), { recursive: true }); writeFileSync(path, data); };
 const svgs = {
@@ -227,6 +340,7 @@ const svgs = {
   'symbol-dark.svg': svgDoc('0 0 64 64', markDark, NAME),
   'symbol-mono.svg': svgDoc('0 0 64 64', shapes(MARK, { arch: 'currentColor', beam: 'currentColor', dot: 'currentColor' }, MARK.beamMono), NAME),
   'symbol-16.svg': favLight,
+  'symbol-16-dark.svg': svgDoc('0 0 64 64', shapes(FAV, SCHEME.dark), '빛의 건축'),
   'symbol-padded.svg': paddedSvg(SCHEME.light),
   'symbol-padded-dark.svg': paddedSvg(SCHEME.dark),
   'app-icon.svg': appIconSvg,
@@ -242,11 +356,14 @@ const svgs = {
   'logo-en-dark-vertical.svg': enVertical(SCHEME.dark),
 };
 for (const [name, svg] of Object.entries(svgs)) out(join(BRAND, name), svg);
-out(join(ASSETS, 'symbol.svg'), svgs['symbol.svg']);
-out(join(ASSETS, 'symbol-dark.svg'), svgs['symbol-dark.svg']);
+const WEB_SVGS = ['symbol.svg', 'symbol-dark.svg', 'logo-ko-light-compact.svg', 'logo-ko-dark-compact.svg']; // app header + placeholders
+for (const name of WEB_SVGS) out(join(ASSETS, name), svgs[name]);
 out(join(ASSETS, 'favicon.svg'), favAdaptive);
+out(join(ANDROID_RES, 'drawable', 'splash_mark.xml'), splashMarkXml);
+out(join(ANDROID_RES, 'drawable', 'splash_launch.xml'), splashLaunchXml);
+out(join(ANDROID_RES, 'values', 'splash_background.xml'), `<resources><color name="splash_background">${P.navy}</color></resources>\n`);
 console.log('metrics', JSON.stringify(metrics));
-console.log('wrote', Object.keys(svgs).length, 'brand SVGs + 3 web SVGs');
+console.log('wrote', Object.keys(svgs).length, 'brand SVGs +', WEB_SVGS.length + 1, 'web SVGs + 3 Android splash resources');
 if (SVG_ONLY) process.exit(0);
 
 // ---------------------------------------------------------------- OG image (1200×630)
@@ -254,20 +371,22 @@ const lockupDark = svgs['logo-ko-dark-horizontal.svg'];
 function ogHtml() {
   const [, , vw, vh] = lockupDark.match(/viewBox="([^"]+)"/)[1].split(' ').map(Number);
   const h = 196, w = h * vw / vh; // lockup stays inside the centred 630×630 square crop
-  // A soft shaft of light falls at the mark's beam angle from beyond the top edge and pools on a
-  // faint floor line. The beam layer overhangs the canvas so its blur never fades at the edges.
+  // A soft shaft of light falls at the mark's beam angles (left edge 66°, right edge 72.4°) from beyond
+  // the top-right corner and pools on a faint floor line at y548, clear of the lockup. The beam layer
+  // overhangs the canvas on every side so its blur never fades at the edges.
+  const shaftX = (footX, a) => footX + (548 + 120) / Math.tan(a * RAD); // x at y = -120 of an edge rising from the floor
   return `<!doctype html><html><head><meta charset="utf-8"><style>
 html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:${P.navy}}
 .stage{position:relative;width:1200px;height:630px;overflow:hidden;
  background:radial-gradient(120% 95% at 50% 42%, ${P.navy} 52%, ${P.ink} 100%)}
-.beam{position:absolute;left:0;top:-120px;width:1200px;height:870px;filter:blur(24px)}
+.beam{position:absolute;left:-120px;top:-120px;width:1440px;height:870px;filter:blur(24px)}
 .floor{position:absolute;left:0;right:0;top:548px;height:1px;background:linear-gradient(90deg,transparent,${P.lilacWhite}1c 25%,${P.lilacWhite}1c 75%,transparent)}
 .pool{position:absolute;left:720px;top:512px;width:500px;height:76px;border-radius:50%;background:radial-gradient(closest-side,${P.purpleOnDark}40,transparent);filter:blur(8px)}
 .lock{position:absolute;left:${f2(600 - w / 2)}px;top:${f2(315 - h / 2 - 4)}px;width:${f2(w)}px;height:${f2(h)}px}
 </style></head><body><div class="stage">
-<svg class="beam" viewBox="0 -120 1200 870" width="1200" height="870"><defs><linearGradient id="g" x1="0" y1="-120" x2="0" y2="548" gradientUnits="userSpaceOnUse">
+<svg class="beam" viewBox="-120 -120 1440 870" width="1440" height="870"><defs><linearGradient id="g" x1="0" y1="-120" x2="0" y2="548" gradientUnits="userSpaceOnUse">
 <stop offset="0" stop-color="${P.purpleOnDark}" stop-opacity=".34"/><stop offset=".55" stop-color="${P.purple}" stop-opacity=".17"/><stop offset="1" stop-color="${P.purple}" stop-opacity=".06"/></linearGradient></defs>
-<path d="M1040 -120L1135 -100L1080 548H800Z" fill="url(#g)"/></svg>
+<path d="M${f2(shaftX(800, BEAM_DEG.left))} -120L${f2(shaftX(1080, BEAM_DEG.right))} -120L1080 548H800Z" fill="url(#g)"/></svg>
 <div class="pool"></div><div class="floor"></div>
 <img class="lock" src="data:image/svg+xml;base64,${Buffer.from(lockupDark).toString('base64')}" alt="">
 </div></body></html>`;
@@ -299,6 +418,8 @@ save(join(BRAND, 'og-image.png'), og);
 
 // web
 save(join(ASSETS, 'og-image.png'), og);
+// favicon PNGs are the 16 px cut, which is snapped to whole pixels at 16, 32 and 48
+for (const s of [16, 32]) save(join(ASSETS, `favicon-${s}.png`), await png(favLight, s));
 save(join(ASSETS, 'favicon.png'), await png(favLight, 48));
 for (const s of [192, 512, 1024]) save(join(ASSETS, `icon-${s}.png`), await png(tileSvg('squircle'), s));
 save(join(ASSETS, 'icon-maskable-512.png'), await png(appIconSvg, 512, 512, { opaque: true }));
@@ -316,6 +437,12 @@ out(join(ANDROID_RES, 'values', 'ic_launcher_background.xml'), `<resources><colo
 
 // iOS: one 1024 universal icon, opaque (App Store rejects alpha)
 save(join(IOS_ICON, 'AppIcon-512@2x.png'), await png(appIconSvg, 1024, 1024, { opaque: true }));
+
+// Launch splash rasters: Android splash.png (Capacitor's SplashScreen.show(), androidScaleType CENTER_CROP)
+// and iOS Splash.imageset (LaunchScreen.storyboard, scaleAspectFill). All opaque.
+for (const [dir, [w, h]] of Object.entries(ANDROID_SPLASH)) save(join(ANDROID_RES, dir, 'splash.png'), await png(splashSvg(w, h, splashOrient(dir)), w, h, { opaque: true }));
+const iosSplash = await png(splashSvg(2732, 2732), 2732, 2732, { opaque: true });
+for (const f of IOS_SPLASH_FILES) save(join(IOS_SPLASH, f), iosSplash);
 
 await browser.close();
 console.log('wrote', written.length, 'PNGs');
