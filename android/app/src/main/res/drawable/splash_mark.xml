@@ -3,9 +3,9 @@
      mark inside the central 72). Used as windowSplashScreenAnimatedIcon and by splash_launch.xml. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="288dp" android:height="288dp" android:viewportWidth="108" android:viewportHeight="108">
-    <group android:translateX="30.375" android:translateY="30.796875" android:scaleX="0.73828125" android:scaleY="0.73828125">
-        <path android:fillColor="#A08CFF" android:pathData="M33.47 24.09A12 12 0 0 1 40.39 27.42L38 60H24Z"/>
-        <path android:fillColor="#F4F1FF" android:pathData="M8 60V36A24 24 0 0 1 36.18 12.37L33.47 24.09A12 12 0 0 0 20 36V60ZM43.31 14.83A24 24 0 0 1 56 36V60H44V36A12 12 0 0 0 40.39 27.42Z"/>
-        <path android:fillColor="#FF5A3D" android:pathData="M35.6 7.2A5.6 5.6 0 1 0 46.8 7.2A5.6 5.6 0 1 0 35.6 7.2Z"/>
+    <group android:translateX="30.375" android:translateY="30.4453125" android:scaleX="0.73828125" android:scaleY="0.73828125">
+        <path android:fillColor="#A08CFF" android:pathData="M36.61 24.92A12 12 0 0 1 42.46 30.12L33 60H21Z"/>
+        <path android:fillColor="#F4F1FF" android:pathData="M8 60V36A24 24 0 0 1 41.49 13.96L36.61 24.92A12 12 0 0 0 20 36V60ZM47.86 17.99A24 24 0 0 1 56 36V60H44V36A12 12 0 0 0 42.46 30.12Z"/>
+        <path android:fillColor="#FF5A3D" android:pathData="M42.54 8.2A5.6 5.6 0 1 0 53.74 8.2A5.6 5.6 0 1 0 42.54 8.2Z"/>
     </group>
 </vector>
