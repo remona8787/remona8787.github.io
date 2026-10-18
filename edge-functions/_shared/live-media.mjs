@@ -212,17 +212,19 @@ const normTitle = t => String(t || '').replace(/^File:/i, '').replace(/_/g, ' ')
 // Fetches Commons metadata for files in batches of 50, following continuation (a file transcludes dozens of
 // templates, so the template list of a batch usually spans several responses). Returns Map(file → page); a page whose
 // template list was still incomplete when the round limit was reached carries templatesComplete: false.
-/** @param {string[]} files @param {(url: string, init?: RequestInit) => Promise<any>} fetchJSON */
-export async function fetchCommonsPages(files, fetchJSON, { maxRounds = MAX_COMMONS_ROUNDS } = {}) {
+// With a signal, every request carries it and no further round starts once it is aborted (the call then throws).
+/** @param {string[]} files @param {(url: string, init?: RequestInit) => Promise<any>} fetchJSON @param {{maxRounds?: number, signal?: AbortSignal}} [options] */
+export async function fetchCommonsPages(files, fetchJSON, { maxRounds = MAX_COMMONS_ROUNDS, signal } = {}) {
   const pages = new Map()
   const unique = [...new Set(files.map(normTitle))]
   for (let i = 0; i < unique.length; i += 50) {
     const batch = unique.slice(i, i + 50)
     let cont = {}, done = false
     for (let round = 0; round < maxRounds; round++) {
+      if (signal?.aborted) throw signal.reason instanceof Error ? signal.reason : Error('aborted')
       const params = commonsInfoParams(batch)
       for (const [k, v] of Object.entries(cont)) params.set(k, String(v))
-      const json = await fetchJSON(`${COMMONS_API}?${params}`)
+      const json = signal ? await fetchJSON(`${COMMONS_API}?${params}`, { signal }) : await fetchJSON(`${COMMONS_API}?${params}`)
       if (!Array.isArray(json?.query?.pages)) throw Error('invalid_commons_payload')
       for (const pg of json.query.pages) {
         const key = normTitle(pg.title)

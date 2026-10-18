@@ -20,3 +20,13 @@
 ## 남은 일 (운영자)
 - SQL 적용(`complete-backend.sql` 또는 마이그레이션 파일), 함수 배포(9개), `install-six-hour-sync.sql` 재실행, 첫 실행 결과 확인(LAUNCH.md 7단계 "전국·세계 장소 서버 동기화").
 - 실제 Wikidata에서의 갈래별 시간, 130초 예산 안에 확인되는 사진 수, Edge Function CPU 제한(2초)은 이 환경에서 확인할 수 없었다(외부 접속 차단). 첫 실행의 응답과 `sync_runs`로 확인.
+
+## 검토 후 수정 (2026-10-17, 서버 동기화)
+- **마감 시간 보장**: 사진 확인의 Commons 요청마다(이어받기 단계 포함) 실행 마감에 끊기는 신호를 걸고, 마감이 지나면 다음 요청을 시작하지 않음(`checkDueImages`). 느린 Commons도 실행을 마감 넘어 붙잡지 못함(Node: 실제 시간 400 ms 마감·가상 시계 25 s 단계 / Deno: 함수 전체를 2 s 마감으로 실행해 확인). DB 요청도 하나당 20초 제한.
+- **사진 단계 분리**: `{"phase": "images"}` 실행과 예약 `aol-global-places-images-3h`(3시간마다, 장소 실행 30분 뒤와 그 3시간 뒤). 재확인 간격 5시간 → 12시간, 공개 보기의 24시간은 그대로. 사진 실행이 3번 연달아 미루면 경보(`metadata.alerts`).
+- **갈래 순서**: 서버에서는 비싼 `korea:name-keywords`를 맨 먼저 따로 시작하고, 나머지는 실행마다 한 칸씩 돌림(`serverBranchOrder`). 같은 갈래가 3번 연달아 실패하면 경보.
+- **급감한 갈래**: 저장된 수(최근 72시간, `discovered_branch_counts`)의 절반 미만을 돌려준 갈래는 prune에서 실패로 취급(`suspect`), 실행은 `partial`.
+- **동시 실행**: SELECT 후 INSERT 대신 원자적 잠금(`discovered_sync_locks`, `claim/release_discovered_sync`, 예산+60초 뒤 자동 만료, 두 단계 공용). `apply_discovered_places`는 더 새 실행이 쓴 행을, `set_discovered_media`는 더 새 판정을 덮어쓰지 않음.
+- **예산 상한**: `budget_ms`는 최대 130000(150초 게이트웨이 504 때문, 요금제 무관). LAUNCH.md의 380000 안내 삭제.
+- **편집 차단**: `discovered_places.place_block`(장소 숨김)·`image_block`(사진 차단, 파일이 바뀌어도 유지). 공개 보기·`discovered_images_due`·`set_discovered_media`·prune이 모두 따름.
+- **테스트**: Deno 스텁이 잠금을 실제처럼 흉내 내고 sync_runs 조회는 요청의 필터대로만 답함(필터를 망가뜨리면 실패). SQL: 잠금·겹친 실행·편집 차단·갈래 수·v0.15.0 마이그레이션에서의 업그레이드(`tests/sql/discovered_places_v0.15.0.sql`).

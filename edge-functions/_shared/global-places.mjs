@@ -556,13 +556,15 @@ function withTimeout(run, ms, outer) {
 
 // One full discovery run. fetchJSON(url, init) must return parsed JSON or throw.
 // Branches run two at a time, each with its own timeout. Throws only if EVERY branch fails. Aborting `signal`
-// (e.g. the page is being closed) cancels the running branches and starts no new ones.
+// (e.g. the page is being closed) cancels the running branches and starts no new ones. The expensive branch starts
+// last unless keepOrder is set (then branches start in the order given: the server sync picks its own order, see
+// serverBranchOrder in global-places-server.mjs). The branch report lists the branches in the order they started.
 /**
- * @param {{fetchJSON: FetchJSON, now?: string, branches?: Branch[], concurrency?: number, timeoutMs?: number, signal?: AbortSignal}} options
+ * @param {{fetchJSON: FetchJSON, now?: string, branches?: Branch[], concurrency?: number, timeoutMs?: number, signal?: AbortSignal, keepOrder?: boolean}} options
  * @returns {Promise<{places: GlobalPlace[], branches: BranchResult[], stats: {fetchedAt: string, places: number, korea: number, world: number, branchesOk: number, branchesFailed: number, dropped: number}}>}
  */
-export async function syncGlobal({ fetchJSON, now = new Date().toISOString(), branches = BRANCHES, concurrency = 2, timeoutMs = 60000, signal }) {
-  const ordered = [...branches.filter(b => !b.expensive), ...branches.filter(b => b.expensive)]
+export async function syncGlobal({ fetchJSON, now = new Date().toISOString(), branches = BRANCHES, concurrency = 2, timeoutMs = 60000, signal, keepOrder = false }) {
+  const ordered = keepOrder ? [...branches] : [...branches.filter(b => !b.expensive), ...branches.filter(b => b.expensive)]
   let dropped = 0
   const results = await mapLimited(ordered, concurrency, async branch => {
     const started = Date.now()
@@ -684,14 +686,15 @@ export function isCuratedDuplicate(p, index) {
 
 // Lazy rights check for the P18 images of places on screen. Returns one verdict per file; cleared files carry an
 // attributed media row (same shape as the live photo sync), rejected ones carry the reasons.
+// Aborting `signal` stops the check before its next Commons request (it then throws; no verdict is returned).
 /**
  * @param {{place_id: string, wikidata: string, image: string}[]} items
- * @param {{fetchJSON: FetchJSON, now?: string, policy?: {krFopDisplay: boolean, maxImagesPerPlace: number}}} options
+ * @param {{fetchJSON: FetchJSON, now?: string, policy?: {krFopDisplay: boolean, maxImagesPerPlace: number}, signal?: AbortSignal}} options
  * @returns {Promise<Map<string, {ok: boolean, reasons: string[], row: Record<string, any>|null}>>}
  */
-export async function checkImages(items, { fetchJSON, now = new Date().toISOString(), policy = DEFAULT_POLICY }) {
+export async function checkImages(items, { fetchJSON, now = new Date().toISOString(), policy = DEFAULT_POLICY, signal }) {
   const files = [...new Set(items.map(x => x.image).filter(Boolean))]
-  const pages = files.length ? await fetchCommonsPages(files, fetchJSON) : new Map()
+  const pages = files.length ? await fetchCommonsPages(files, fetchJSON, signal ? { signal } : {}) : new Map()
   /** @type {Map<string, {ok: boolean, reasons: string[], row: Record<string, any>|null}>} */
   const out = new Map()
   for (const it of items) {

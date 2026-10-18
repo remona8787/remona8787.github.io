@@ -5,8 +5,11 @@
 -- Place photos: every published place is re-matched against Wikidata each run (one query); up to 60 images
 -- are checked per run and unchanged files are not re-downloaded. Discovery/rights jobs stay bounded batches.
 -- Nationwide/worldwide places (sync-global-places, needs migrations/20261013000000_discovered_places.sql, which
--- complete-backend.sql includes): the Wikidata branch queries run once per run for every visitor, the photos due are
--- rights-checked within the run's time budget, and the result is served by the view public_discovered_places.
+-- complete-backend.sql includes): every 6 hours the Wikidata branch queries run once for every visitor (phase
+-- "places", the time left goes to photo checks); every 3 hours (30 minutes after each place run and 3 hours after
+-- that) the photos due are rights-checked with a run of their own (phase "images"), so every photo is re-checked well
+-- within the 24 hours its verdict is shown. The result is served by the view public_discovered_places. Both phases share one run
+-- lock, and each run finishes within 130 s (Supabase answers a request still open after 150 s with 504).
 begin;
 create extension if not exists pg_cron;
 create extension if not exists pg_net;
@@ -53,10 +56,19 @@ select cron.schedule('aol-global-places-6h','53 3,9,15,21 * * *', $job$
  select net.http_post(
   url := (select decrypted_secret from vault.decrypted_secrets where name='project_url') || '/functions/v1/sync-global-places',
   headers := jsonb_build_object('Content-Type','application/json','apikey',(select decrypted_secret from vault.decrypted_secrets where name='publishable_key'),'x-aol-cron-secret',(select decrypted_secret from vault.decrypted_secrets where name='media_cron_secret')),
-  body := '{"budget_ms": 130000, "image_limit": 3000}'::jsonb, timeout_milliseconds := 150000
+  body := '{"phase": "places", "budget_ms": 130000, "image_limit": 3000}'::jsonb, timeout_milliseconds := 150000
+ );
+$job$);
+
+select cron.schedule('aol-global-places-images-3h','23 1,4,7,10,13,16,19,22 * * *', $job$
+ select net.http_post(
+  url := (select decrypted_secret from vault.decrypted_secrets where name='project_url') || '/functions/v1/sync-global-places',
+  headers := jsonb_build_object('Content-Type','application/json','apikey',(select decrypted_secret from vault.decrypted_secrets where name='publishable_key'),'x-aol-cron-secret',(select decrypted_secret from vault.decrypted_secrets where name='media_cron_secret')),
+  body := '{"phase": "images", "budget_ms": 130000, "image_limit": 3000}'::jsonb, timeout_milliseconds := 150000
  );
 $job$);
 commit;
 -- Observe cron.job_run_details AND ingestion_jobs / sync_runs / media_sync_log
--- (sync-global-places: select status, error_message, metadata->'branches' from sync_runs where job_name='sync-global-places' order by started_at desc limit 4).
+-- (sync-global-places: select job_name, status, error_message, metadata->'alerts', metadata->'images' from sync_runs
+--  where job_name in ('sync-global-places','sync-global-places-images') order by started_at desc limit 8).
 -- A queued HTTP request alone is not successful ingestion.
