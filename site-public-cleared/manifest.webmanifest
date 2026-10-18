@@ -1,24 +1,47 @@
 {
+  "id": "./",
   "name": "빛의 건축 · Architecture of Light",
   "short_name": "빛의 건축",
+  "description": "빛의 장소 탐색, 답사 코스와 현장 기록",
+  "lang": "ko",
+  "dir": "ltr",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#F8F8FC",
-  "theme_color": "#151B3F",
-  "lang": "ko",
+  "orientation": "any",
+  "background_color": "#1C1F4A",
+  "theme_color": "#1C1F4A",
+  "categories": ["travel", "lifestyle", "education"],
   "icons": [
     {
       "src": "./assets/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "./assets/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icon-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "./assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
     }
-  ],
-  "id": "./",
-  "description": "빛의 장소 탐색, 답사 코스와 현장 기록"
+  ]
 }
