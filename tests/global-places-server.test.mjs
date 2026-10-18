@@ -69,6 +69,20 @@ test('server rows round-trip into exactly the places the browser sync builds', (
   for (const c of ['qid', 'record', 'branches', 'image_file', 'image_status', 'image_reasons', 'media', 'media_checked_at', 'last_seen_at']) assert.ok(SERVER_COLUMNS.split(',').includes(c), c)
 })
 
+// v0.16: the record carries the Wikidata archive facts; rows a v0.15 server wrote (16-field records) still read.
+test('server rows carry the archive facts; v0.15 rows without them still read', () => {
+  const places = browserPlaces()
+  const seen = iso(Date.now())
+  const rows = toServerRows(places).map(r => ({ ...r, image_status: 'pending', image_reasons: [], media: [], media_checked_at: null, last_seen_at: seen }))
+  const vivid = fromServerRows(rows).places.find(p => p.wikidata === WORLD.vivid.qid)
+  assert.deepEqual([vivid.year_completed, vivid.country_iso2, vivid.operating_status, vivid.credits.map(c => c.role + ':' + c.name)], [2009, 'AU', 'operating', ['operator:Destination NSW']])
+  assert.equal(vivid.field_status.year_completed.state, 'source_reported')
+  const old = fromServerRows(rows.map(r => ({ ...r, record: r.record.slice(0, 16) }))).places
+  assert.deepEqual(old.map(p => p.place_id), places.map(p => p.place_id))
+  const oldVivid = old.find(p => p.wikidata === WORLD.vivid.qid)
+  assert.deepEqual([oldVivid.year_completed, oldVivid.country_iso2, oldVivid.credits], [null, null, []])
+})
+
 test('photo verdicts: cleared rows carry the attribution for their place, blocked rows their reasons; KR FoP follows the env', async () => {
   const items = [{ qid: WORLD.vivid.qid, image_file: 'Vivid Sydney 2019.jpg' }, { qid: WORLD.lyon.qid, image_file: 'Fete des Lumieres Lyon.jpg' }, { qid: WORLD.graz.qid, image_file: 'Kunsthaus Graz.jpg' },
     { qid: KOREA.jinju.qid, image_file: 'Jinju lantern festival.jpg' }, { qid: 'Q99999999', image_file: 'Vivid Sydney 2019.jpg' }, { qid: 'Q99999998', image_file: 'Gone.jpg' }]
@@ -368,6 +382,9 @@ test('end to end on the real SQL: two runs six hours apart, the app reads the vi
   assert.deepEqual(app.places.map(p => p.place_id).sort(), browserPlaces().map(p => p.place_id).sort())
   assert.equal(app.fetchedAt, iso(t0))
   assert.deepEqual(app.verdicts.filter(v => v.ok).map(v => v.file).sort(), ['Gwangan Bridge night.jpg', 'Jinju lantern festival.jpg', 'Vivid Sydney 2019.jpg'])
+  // The archive facts survive the jsonb record column.
+  const graz = app.places.find(p => p.wikidata === WORLD.graz.qid)
+  assert.deepEqual([graz.year_completed, graz.country_iso2, graz.credits.map(c => c.name)], [2003, 'AT', ['Peter Cook', 'Colin Fournier']])
   // Six hours later: world:seeds fails and korea:classes no longer returns BUSAN X the SKY (2 of its 3: not a sharp drop).
   const rows = { ...BRANCH_ROWS, 'korea:classes': BRANCH_ROWS['korea:classes'].filter(x => x.qid !== KOREA.busanSky.qid) }
   const r2 = await runServerSync({ fetchWdqs: fakeWdqs({ rows, failing: { 'world:seeds': 'http500' } }), fetchCommons: fakeCommons({ calls: commons }), store, now: iso(t1) })

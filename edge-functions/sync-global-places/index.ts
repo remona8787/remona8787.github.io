@@ -9,6 +9,8 @@
 // One run at a time: both phases take the same lock (claim_discovered_sync), which expires by itself a minute after
 // the budget. Every run is logged to sync_runs (job sync-global-places or sync-global-places-images) with the status
 // of each branch, the photo counts and alerts (the same branch failing, or photos deferred, 3 runs in a row).
+// Since v0.16 each stored record (compactPlaces, record version 2) also carries the archive facts Wikidata states:
+// inception year, country ISO code, architect / creator / operator and state of use (field state source_reported).
 // Body (all optional): {"phase": "places"|"images", "budget_ms": 130000, "image_limit": 3000, "branch_timeout_ms": 60000, "force": false}
 import { authorizedSecret } from "../_shared/auth.mjs"
 import { createClient, type SupabaseClient } from "npm:@supabase/supabase-js@2"

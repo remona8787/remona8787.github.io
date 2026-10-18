@@ -20,7 +20,7 @@ test('every branch query is valid SPARQL 1.1', () => {
   for (const b of BRANCHES) {
     const parsed = parser.parse(buildBranchQuery(b))
     assert.equal(parsed.queryType, 'SELECT', b.id)
-    assert.deepEqual(parsed.variables.map(v => v.variable?.value || v.value), ['item', 'label_ko', 'label_en', 'label_other', 'desc_ko', 'desc_en', 'coord', 'image', 'country', 'city', 'district', 'site', 'kind', 'sitelinks'], b.id)
+    assert.deepEqual(parsed.variables.map(v => v.variable?.value || v.value), ['item', 'label_ko', 'label_en', 'label_other', 'desc_ko', 'desc_en', 'coord', 'image', 'country', 'city', 'district', 'site', 'kind', 'sitelinks', 'inception', 'country_iso', 'architects', 'creators', 'operators', 'state_of_use'], b.id)
   }
 })
 
@@ -85,4 +85,41 @@ test('branch queries run end to end: cities, districts, fallback labels and drop
   assert.equal(by.Q5295847.scope, 'korea'); assert.equal(by.Q4167.scope, 'world')
   assert.equal(by.Q5295847.sitelinks, 30); assert.equal(by.Q5295847.image, 'DDP night.jpg'); assert.equal(by.Q5295847.website, 'https://ddp.or.kr/')
   assert.equal(by.Q5295847.short_description, '서울 중구의 복합문화공간')
+})
+
+// v0.16 archive facts, as the archive layer reads them (docs/ARCHIVE_SPEC.md §6, field state source_reported).
+test('archive facts: inception year, country ISO code, people and state of use', async () => {
+  const fetchJSON = async (url, init) => run(new URLSearchParams(init.body).get('query'))
+  const r = await syncGlobal({ fetchJSON, now: '2026-10-18T00:00:00.000Z' })
+  const by = Object.fromEntries(r.places.map(p => [p.wikidata, p]))
+  // DDP (a Korean seed): inception at day precision, the country's ISO code, its architect and operator, in use.
+  assert.equal(by.Q5295847.year_completed, 2014)
+  assert.equal(by.Q5295847.country_iso2, 'KR')
+  assert.deepEqual(by.Q5295847.credits, [{ role: 'architect', name: '자하 하디드', qid: 'Q47701' }, { role: 'operator', name: '서울디자인재단', qid: 'Q99500001' }])
+  assert.equal(by.Q5295847.operating_status, 'operating')
+  assert.deepEqual(by.Q5295847.state_of_use, ['Q55654238'])
+  assert.equal(by.Q5295847.official_url, 'https://ddp.or.kr/')
+  assert.deepEqual(Object.keys(by.Q5295847.field_status).sort(), ['country_iso2', 'credits', 'official_url', 'operating_status', 'year_completed'])
+  assert.ok(Object.values(by.Q5295847.field_status).every(s => s.state === 'source_reported'))
+  // A century is not a year; a deprecated statement does not count.
+  assert.equal(by.Q4167.year_completed, null)
+  assert.equal(by.Q4167.country_iso2, 'FR')
+  assert.equal(by.Q4167.field_status.year_completed, undefined)
+  // People: a "mul" label names a creator; one without any label is left out (never a bare QID).
+  assert.deepEqual(by.Q99400010.credits, [{ role: 'creator', name: 'teamLab', qid: 'Q99500002' }])
+  assert.equal(by.Q99400010.country_iso2, 'JP')
+  // Two states of use that disagree map to nothing; the QIDs are kept.
+  assert.equal(by.Q99400010.operating_status, null)
+  assert.deepEqual([...by.Q99400010.state_of_use].sort(), ['Q104664889', 'Q55654238'])
+  // Year precision (preferred rank); a value outside the verified list stays unmapped.
+  assert.equal(by.Q99400011.year_completed, 2005)
+  assert.equal(by.Q99400011.operating_status, null)
+  assert.deepEqual(by.Q99400011.state_of_use, ['Q55570340'])
+  assert.equal(by.Q99400011.field_status.operating_status, undefined)
+  // An item in two countries: the ISO code is the one of the country it is reported in.
+  assert.equal({ 프랑스: 'FR', 독일: 'DE' }[by.Q99400014.country], by.Q99400014.country_iso2)
+  // Items without these statements get empty values, not guesses.
+  assert.equal(by.Q99400012.year_completed, null)
+  assert.deepEqual(by.Q99400012.credits, [])
+  assert.equal(by.Q99400012.country_iso2, 'JP')
 })

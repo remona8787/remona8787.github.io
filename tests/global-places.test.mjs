@@ -8,6 +8,7 @@ import {
   BRANCHES, NEVER_QUERY_QIDS, NEVER_SHOW_QIDS, CITY_CLASSES, KOREA_CITY_CLASSES, CATEGORY_PRIORITY, KOREA_QID, buildBranchQuery, branchIdOf, parseWktPoint,
   parseBranch, mergeItems, primaryCategory, kindsOf, syncGlobal, carryOver, compactPlaces, expandPlaces, packPlaces, checkImages,
   curatedNameKeys, curatedIndex, isCuratedDuplicate, nameKey, httpsURL, cityName, KOREA_SEEDS,
+  STATE_OF_USE, RECORD_VERSION, RECORD_LENGTH, yearOf, peopleOf, operatingStatus,
 } from '../edge-functions/_shared/global-places.mjs'
 import { assessRights, commonsInfoParams, fetchCommonsPages, foreignNoFop, syncLive, DEFAULT_POLICY, WDQS_URL, COMMONS_API } from '../edge-functions/_shared/live-media.mjs'
 import { wdqsBranch, commonsPage, commonsResponse, KOREA, WORLD, JAPAN, FILES } from './fixtures/global-places-fixtures.mjs'
@@ -248,6 +249,77 @@ test('compact storage round-trips the places and stays small', () => {
   assert.deepEqual(back.find(p => p.wikidata === 'Q485443').branches, ['world:seeds', 'korea:classes'], 'branch ids survive as indexes')
   assert.ok(JSON.stringify(rows).length / places.length < 200, 'well under 200 characters a place')
   assert.deepEqual(expandPlaces([['Q104383619', 'x', '', '', '1', '', '', '', 1, 1, '', '', 0, ''], ['Q5', '', '', '', '1', '', '', '', 1, 1, '', '', 0, ''], 'junk', ['bad']]), [], 'never-show QIDs, nameless rows and junk never come back from storage')
+})
+
+// v0.16: the archive facts Wikidata states (docs/ARCHIVE_SPEC.md §6), each with field state source_reported.
+test('archive facts are parsed from the query columns, merged across branches and labelled source_reported', () => {
+  const [vivid] = parseBranch(wdqsBranch([WORLD.vivid]), 'world:seeds').items
+  assert.equal(vivid.inception, 2009)
+  assert.equal(vivid.countryIso, 'AU')
+  assert.deepEqual(vivid.operators, [{ qid: 'Q99500010', name: 'Destination NSW' }])
+  assert.deepEqual(vivid.stateOfUse, ['Q55654238'])
+  const [p] = mergeItems([[vivid]])
+  assert.equal(p.year_completed, 2009)
+  assert.equal(p.country_iso2, 'AU')
+  assert.deepEqual(p.credits, [{ role: 'operator', name: 'Destination NSW', qid: 'Q99500010' }])
+  assert.equal(p.operating_status, 'operating')
+  assert.equal(p.official_url, 'https://www.vividsydney.com/')
+  assert.deepEqual(p.field_status, { year_completed: { state: 'source_reported' }, country_iso2: { state: 'source_reported' }, credits: { state: 'source_reported' }, operating_status: { state: 'source_reported' }, official_url: { state: 'source_reported' } })
+  // The ISO code must belong to the item's reported country, never to a second P17 value.
+  const [two] = parseBranch(wdqsBranch([{ ...WORLD.graz, iso: 'Q183|DE Q40|AT' }]), 'world:seeds').items
+  assert.equal(two.countryIso, 'AT')
+  const [other] = parseBranch(wdqsBranch([{ ...WORLD.graz, iso: 'Q183|DE' }]), 'world:seeds').items
+  assert.equal(other.countryIso, '', 'no code for the reported country: none')
+  // Nothing stated, nothing filled: no guessed year, status or people.
+  const [plain] = mergeItems([parseBranch(wdqsBranch([KOREA.jinju]), 'korea:seeds').items])
+  assert.deepEqual([plain.year_completed, plain.country_iso2, plain.credits, plain.operating_status, plain.official_url, plain.field_status], [null, null, [], null, null, {}])
+  // Merging: the first non-empty value wins; states of use are unioned; a Korean branch pins the Korean code.
+  const merged = mergeItems([
+    parseBranch(wdqsBranch([{ ...WORLD.graz, stateOfUse: ['Q55654238'] }]), 'world:seeds').items,
+    parseBranch(wdqsBranch([{ ...WORLD.graz, inception: '1999-01-01T00:00:00Z', architects: ['Q1|Someone else'], stateOfUse: ['Q104664889'] }]), 'world:parts').items,
+  ])[0]
+  assert.equal(merged.year_completed, 2003)
+  assert.deepEqual(merged.credits.map(c => c.name), ['Peter Cook', 'Colin Fournier'])
+  assert.deepEqual(merged.state_of_use, ['Q55654238', 'Q104664889'])
+  assert.equal(merged.operating_status, null, 'in use and permanently closed disagree')
+  const korean = mergeItems([
+    parseBranch(wdqsBranch([{ ...KOREA.gwangan, country: 'Q17|일본', iso: 'Q17|JP' }]), 'world:classes-art').items,
+    parseBranch(wdqsBranch([{ ...KOREA.gwangan, iso: 'Q884|KR' }]), 'korea:classes').items,
+  ])[0]
+  assert.deepEqual([korean.country, korean.country_iso2], ['대한민국', 'KR'])
+})
+
+test('archive fact helpers: years, people and the verified state-of-use map', () => {
+  assert.equal(yearOf('2014-03-21T00:00:00Z'), 2014)
+  assert.equal(yearOf('+2014-03-21T00:00:00Z'), 2014)
+  assert.equal(yearOf('-0500-01-01T00:00:00Z'), -500)
+  for (const bad of ['', null, 'soon', '2014', 'http://x/2014-01-01']) assert.equal(yearOf(bad), null, String(bad))
+  assert.deepEqual(peopleOf('Q1|A\tQ2|\tbad|B\tQ1|A again\tQ3|<b>C</b>'), [{ qid: 'Q1', name: 'A' }, { qid: 'Q3', name: 'C' }])
+  assert.deepEqual(Object.keys(STATE_OF_USE).sort(), ['Q104664889', 'Q55570821', 'Q55653430', 'Q55654238', 'Q56556915'], 'only values checked on wikidata.org')
+  const allowed = new Set(require('../site-public-cleared/archive-taxonomy.js').keys('operating_status'))
+  for (const v of Object.values(STATE_OF_USE)) assert.ok(allowed.has(v), v)
+  assert.equal(operatingStatus(['Q55570340']), null, 'closed to the public is not mapped')
+  assert.equal(operatingStatus(['Q55654238', 'Q55570821']), 'operating', 'two values with the same status')
+  assert.equal(operatingStatus([]), null)
+})
+
+test('the compact record is versioned: v2 round-trips the archive facts, v1 records from v0.15 still load', () => {
+  const places = mergeItems([parseBranch(wdqsBranch([WORLD.vivid, WORLD.graz, KOREA.jinju]), 'world:seeds').items])
+  const rows = compactPlaces(places)
+  assert.equal(RECORD_VERSION, 2)
+  assert.ok(rows.every(r => r.length === RECORD_LENGTH[2]))
+  assert.deepEqual(expandPlaces(JSON.parse(JSON.stringify(rows))), places)
+  // A v0.15 record (16 fields), as stored in browsers and in discovered_places before this version.
+  const v1 = rows.map(r => r.slice(0, RECORD_LENGTH[1]))
+  const old = expandPlaces(v1)
+  assert.deepEqual(old.map(p => p.wikidata), places.map(p => p.wikidata))
+  assert.deepEqual(old.map(p => [p.name_kr, p.country, p.city, p.latitude, p.longitude, p.website]), places.map(p => [p.name_kr, p.country, p.city, p.latitude, p.longitude, p.website]))
+  for (const p of old) assert.deepEqual([p.year_completed, p.country_iso2, p.credits, p.operating_status], [null, null, [], null])
+  assert.equal(old.find(p => p.wikidata === 'Q7937834').official_url, 'https://www.vividsydney.com/', 'the website was already stored')
+  // Junk in the new positions is ignored, never shown.
+  const junk = [...rows[0].slice(0, 16), 'x', 'korea', [['bad', 'A'], ['Q1', '']], 'no', null, 'Q1 bad']
+  const [j] = expandPlaces([junk])
+  assert.deepEqual([j.year_completed, j.country_iso2, j.credits, j.state_of_use], [null, null, [], ['Q1']])
 })
 
 test('storage packing keeps every Korean and every saved place, shortening descriptions before dropping anything', () => {

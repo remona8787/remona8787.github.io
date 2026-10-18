@@ -8,12 +8,18 @@
 @prefix schema: <http://schema.org/> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix p: <http://www.wikidata.org/prop/> .
+@prefix psv: <http://www.wikidata.org/prop/statement/value/> .
+@prefix wds: <http://www.wikidata.org/entity/statement/> .
+@prefix wdv: <http://www.wikidata.org/value/> .
 
 # Countries
 wd:Q884 rdfs:label "대한민국"@ko, "South Korea"@en .
 wd:Q17 rdfs:label "일본"@ko, "Japan"@en .
 wd:Q142 rdfs:label "프랑스"@ko, "France"@en .
 wd:Q183 rdfs:label "독일"@ko, "Germany"@en .
+# ISO 3166-1 alpha-2 codes (P297)
+wd:Q884 wdt:P297 "KR" . wd:Q17 wdt:P297 "JP" . wd:Q142 wdt:P297 "FR" . wd:Q183 wdt:P297 "DE" .
 
 # City-level units (P31 in CITY_CLASSES) and the units around them
 # Seoul also carries a generic class, and its 중구 the generic "big city" (as an editor might add by population): the
@@ -68,3 +74,27 @@ wd:Q99400013 wdt:P31 wd:Q1823448 ; wdt:P17 wd:Q17 ; wdt:P625 "Point(135.5 34.7)"
 wd:Q104383619 wdt:P31 wd:Q63442021 ; wdt:P17 wd:Q17 ; wdt:P131 wd:Q190088 ; wdt:P625 "Point(139.7454 35.6604)"^^geo:wktLiteral ;
   rdfs:label "teamLab Borderless"@en .
 wd:Q10957 wdt:P31 wd:Q124414048 ; wdt:P17 wd:Q142 ; wdt:P625 "Point(4.8 45.7)"^^geo:wktLiteral ; rdfs:label "Lumière Festival"@en .
+
+# Archive facts (v0.16): inception statements with precision and rank, people with labels in ko/en/mul (or none), and
+# state of use (P5817) values, mapped or not. Q47701 is Zaha Hadid; the other people are fictional.
+wd:Q5295847 p:P571 wds:S1 ; wdt:P84 wd:Q47701 ; wdt:P137 wd:Q99500001 ; wdt:P5817 wd:Q55654238 .
+wds:S1 psv:P571 wdv:V1 ; wikibase:rank wikibase:NormalRank .
+wdv:V1 wikibase:timeValue "2014-03-21T00:00:00Z"^^xsd:dateTime ; wikibase:timePrecision "11"^^xsd:integer .
+wd:Q47701 rdfs:label "자하 하디드"@ko, "Zaha Hadid"@en .
+wd:Q99500001 rdfs:label "서울디자인재단"@ko .
+# A century (precision 7) is not a year, and a deprecated statement does not count.
+wd:Q4167 p:P571 wds:S2, wds:S3 .
+wds:S2 psv:P571 wdv:V2 ; wikibase:rank wikibase:NormalRank .
+wdv:V2 wikibase:timeValue "1801-01-01T00:00:00Z"^^xsd:dateTime ; wikibase:timePrecision "7"^^xsd:integer .
+wds:S3 psv:P571 wdv:V3 ; wikibase:rank wikibase:DeprecatedRank .
+wdv:V3 wikibase:timeValue "1852-01-01T00:00:00Z"^^xsd:dateTime ; wikibase:timePrecision "9"^^xsd:integer .
+# Two creators: one named only in "mul", one without any label (dropped); two states of use that disagree (unmapped).
+wd:Q99400010 wdt:P170 wd:Q99500002, wd:Q99500003 ; wdt:P5817 wd:Q55654238, wd:Q104664889 .
+wd:Q99500002 rdfs:label "teamLab"@mul .
+# Year precision; a state of use that is not mapped (closed to the public).
+wd:Q99400011 p:P571 wds:S4 ; wdt:P5817 wd:Q55570340 .
+wds:S4 psv:P571 wdv:V4 ; wikibase:rank wikibase:PreferredRank .
+wdv:V4 wikibase:timeValue "2005-01-01T00:00:00Z"^^xsd:dateTime ; wikibase:timePrecision "9"^^xsd:integer .
+# An installation in two countries: the ISO code always belongs to the country reported.
+wd:Q99400014 wdt:P31 wd:Q1823448 ; wdt:P17 wd:Q142, wd:Q183 ; wdt:P625 "Point(7.59 47.59)"^^geo:wktLiteral ;
+  rdfs:label "국경의 빛"@ko .
