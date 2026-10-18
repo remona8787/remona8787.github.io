@@ -254,7 +254,11 @@ Indexes: `pg_trgm` GIN on the project names and aliases; btree on `country_iso2`
 - `archive_log_error(p_run_id uuid, p_rule_id uuid, p_stage text, p_http int, p_message text, p_url text)`
 - `archive_links_due(p_limit int) → setof jsonb` / `archive_record_link_checks(p_results jsonb)`
 - `archive_alias_index() → setof jsonb`: project id plus all names and aliases, for known-project matching.
-- `archive_websub_*`: subscription upsert, lookup by topic and secret check helpers.
+- `archive_websub_upsert(p_topic text, p_hub text, p_secret text, p_state text, p_lease_seconds int, p_rule_id uuid) → uuid`
+- `archive_websub_get(p_topic text) → jsonb` (`{topic, hub, secret, state, lease_expires_at, rule_id}`; service only)
+- `archive_websub_due(p_within_hours int) → setof jsonb` (active subscriptions expiring soon, plus failed ones to retry)
+- `archive_record_project_update(p_project_id uuid, p_kind text, p_detail jsonb) → uuid` (Wikidata change detection
+  and the link checker; it reuses an open row of the same kind)
 - `archive_prune()`: deletes `auto_ignored` candidates older than 30 days and runs older than 180 days.
 
 Cron (in `release/launch/install-six-hour-sync.sql`, through pg_net with the Vault secret, as the existing jobs do):
