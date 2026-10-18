@@ -8,11 +8,11 @@ import path from 'node:path';
 // Regular weight. Keep sorted by role so additions are easy to review.
 export const REGULAR=[
  // navigation and shell
- 'house','compass','map-trifold','heart','user-circle','magnifying-glass','arrow-left','arrow-right','arrow-up-right','arrow-up','arrow-down','caret-right','caret-down','x','plus','check','gear-six','wifi-slash',
+ 'house','compass','map-trifold','heart','user-circle','user','magnifying-glass','arrow-left','arrow-right','arrow-up-right','arrow-up','arrow-down','caret-left','caret-right','caret-down','x','plus','check','gear-six','wifi-slash','globe',
  // actions
- 'share-network','link','arrows-clockwise','download-simple','upload-simple','trash','printer','copy','calendar-plus','note-pencil','camera','images','sliders-horizontal','crosshair','list','device-mobile','shield-check','list-checks','sign-in',
+ 'share-network','link','arrows-clockwise','download-simple','upload-simple','trash','printer','copy','calendar-plus','note-pencil','camera','images','sliders-horizontal','crosshair','navigation-arrow','list','rows','squares-four','pencil-simple','device-mobile','shield-check','list-checks','sign-in','sign-out','lock-key','cloud-check','dots-three',
  // content
- 'map-pin','path','calendar-blank','notebook','book-open-text','globe-hemisphere-east','info','warning','star','sun','moon','circle-half','clock',
+ 'map-pin','path','calendar-blank','notebook','book-open-text','globe-hemisphere-east','info','warning','star','sun','moon','circle-half','clock','seal-check','lifebuoy','file-text','scroll',
  // categories (catalog.js)
  'buildings','sparkle','monitor-play','lightbulb-filament','moon-stars','shapes','frame-corners','confetti'
 ];

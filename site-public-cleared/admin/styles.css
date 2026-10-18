@@ -11,3 +11,13 @@ button,input,select,textarea{font:inherit}.app{max-width:1480px;margin:auto;padd
 .detail h2{margin-top:0}.kv{display:grid;grid-template-columns:110px 1fr;gap:6px;font-size:12px;margin:5px 0}.kv b{color:#ADA9CB}.actions{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}.meta{white-space:pre-wrap;word-break:break-word;background:#0D0F26;border-radius:10px;padding:10px;color:#CBC6F2;font:11px/1.5 ui-monospace,monospace;max-height:280px;overflow:auto}
 .discovery{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.jobs{margin-top:16px}.notice{padding:10px;border:1px solid #5c4a29;background:#201a10;color:#efd59f;border-radius:10px;margin:10px 0}
 @media(max-width:980px){.grid{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,1fr)}.filters{grid-template-columns:1fr 1fr}.app{padding:12px}}
+
+/* Header bar shared with the app's static pages: logo, section tag, way back to the app. */
+.admin-bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:12px;min-height:60px;margin:-24px -24px 24px;padding:0 24px;background:#0D0F26E6;border-bottom:1px solid var(--line);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.admin-home{display:inline-flex;align-items:center;min-height:44px}.admin-home img{display:block;height:28px;width:auto}
+.admin-tag{padding:3px 10px;border-radius:999px;background:#2A2366;color:#D3CAFF;font-size:12px;font-weight:600}
+.admin-back{display:inline-flex;align-items:center;gap:6px;margin-left:auto;min-height:44px;padding:0 12px;border-radius:999px;color:var(--accent);font-weight:600;text-decoration:none}.admin-back:hover{background:#1D2044}
+.eyebrow{margin:0 0 4px;color:var(--accent);font-size:13px;font-weight:600}.muted{color:var(--muted)}
+.login label{display:block;margin-top:8px;color:var(--muted);font-size:13px;font-weight:600}.login .btn.primary{min-height:44px;padding:0 20px}
+.btn{min-height:40px}.btn:focus-visible,.login input:focus-visible,.admin-back:focus-visible,.admin-home:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(max-width:980px){.admin-bar{margin:-12px -12px 16px;padding:0 12px}}

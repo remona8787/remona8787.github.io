@@ -36,7 +36,7 @@ test('every icon the app renders exists in the built sprite, and no unicode glyp
  await t.click({save:'SEOUL002'});t.eval("newRoute(['SEOUL001'])");t.nodes.get('#newRouteForm').onsubmit({preventDefault(){},target:{data:{name:'코스',date:''}}});
  t.eval("visitForm('SEOUL001')");t.nodes.get('#visitForm').onsubmit({preventDefault(){},target:{data:{placeId:'SEOUL001',date:'2026-01-01',rating:'3',note:'메모'}}});
  const rid=JSON.parse(t.saved[C.KEY]).routes[0].id;
- for(const page of ['home','explore','map','saved','my','routes','route/'+rid,'curation/CUR01','journal','calendar','settings','audit','magazine','place/SEOUL001','place/WD-Q7937834','missing']){t.context.location.hash='#'+page;t.eval('render()');collect(t.nodes.get('#view').innerHTML);collect(t.nodes.get('#navigation').innerHTML)}
+ for(const page of ['home','explore','map','saved','my','routes','route/'+rid,'curation/CUR001','journal','calendar','settings','audit','magazine','place/SEOUL001','place/WD-Q7937834','missing']){t.context.location.hash='#'+page;t.eval('render()');collect(t.nodes.get('#view').innerHTML);collect(t.nodes.get('#navigation').innerHTML)}
  t.context.location.hash='#home';t.eval('render()');const home=t.nodes.get('#view').innerHTML;
  assert.ok(/<button type="button" class="image-credit" data-credit="SEOUL001"><span class="sr-only">사진 출처 <\/span>© Kim · CC BY-SA 4\.0<\/button>/.test(home),'credit pill on the photo');
  await t.click({credit:'SEOUL001'});const sheet=t.nodes.get('#modal').innerHTML;collect(sheet);assert.ok(sheet.includes('© Kim · CC BY-SA 4.0')&&sheet.includes('https://commons.wikimedia.org/wiki/File:A.jpg')&&sheet.includes('https://creativecommons.org/licenses/by-sa/4.0'));

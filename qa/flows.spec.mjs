@@ -46,6 +46,18 @@ test.describe('system dark',()=>{
   await expect(page.locator('.sidebar .brand-logo.logo-dark')).toBeHidden();
  });
 });
+// Editorial courses (seed curation ids CUR001…): the page lists the stops in order and copies into my courses.
+test('a curated course lists its stops and copies into my courses',async({page})=>{
+ await page.goto('/#curation/CUR001');
+ await expect(page.locator('#view h1')).toHaveText('오늘 밤 무료로 보는 빛');
+ await expect(page.locator('.timeline .stop-row')).toHaveCount(6);
+ await expect(page.locator('.timeline .stop-number').first()).toHaveText('1');
+ await page.getByRole('button',{name:'내 코스로 복사'}).click();
+ await page.locator('#newRouteForm button[type=submit]').click();
+ await expect(page).toHaveURL(/#route\//);
+ await expect(page.locator('#view h1')).toHaveText('오늘 밤 무료로 보는 빛');
+ await expect(page.locator('.timeline .stop-row')).toHaveCount(6);
+});
 test('search with no match shows an empty state',async({page})=>{
  await page.goto('/#home');await page.locator('#homeSearch input').fill('zzzz존재하지않음');await page.locator('#homeSearch button').click();
  await expect(page.locator('#view')).toContainText(/없습니다|찾지 못|결과가 없/);
@@ -69,4 +81,38 @@ test('self-hosted map library loads under the production CSP',async({page})=>{
  await expect(page.locator('.leaflet-container')).toBeVisible();
  expect(await page.evaluate(()=>typeof window.L?.map)).toBe('function');
  expect(violations).toEqual([]);
+});
+// A cleared photo that cannot load (offline, removed upstream) becomes the branded placeholder in place of the image
+// only: the page layout, the title and the photo credit stay as they were.
+test('a photo that fails to load keeps the layout and its credit',async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await page.route(/^https:\/\/(upload|thumb)\.wikimedia\.org\//,r=>r.fulfill({status:404,body:''}));
+ await page.goto('/#place/SEOUL031');
+ await expect(page.locator('.detail-hero .photo-failed')).toBeVisible();
+ await expect(page.locator('.detail-hero .image-credit')).toBeVisible();
+ await expect(page.locator('#view h1')).toBeInViewport();
+ // The gallery's failed photo stays inside its own frame instead of covering the page. (Retried as a block: a
+ // background sync result may re-render the page while it is measured.)
+ await expect(async()=>{
+  const gallery=page.locator('#detailPhotos .gallery-photo').first();await gallery.scrollIntoViewIfNeeded({timeout:2000});
+  await expect(gallery.locator('.photo-failed')).toBeVisible({timeout:2000});
+  const [frame,ph]=await Promise.all([gallery.boundingBox(),gallery.locator('.photo-failed').boundingBox()]);
+  expect(Math.abs(ph.height-frame.height)).toBeLessThan(2);expect(Math.abs(ph.y-frame.y)).toBeLessThan(2);
+ }).toPass({timeout:15000});
+});
+// Phones: the map list is a bottom sheet with three detents. At the tallest one it stops below the floating search and
+// chips, so its handle can still be reached to bring it back down.
+test('map sheet detents stay below the floating search on phones',async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await page.goto('/#map');
+ const handle=page.locator('#mapHandle'),height=()=>page.locator('.map-list').evaluate(e=>Math.round(e.getBoundingClientRect().height));
+ const seen=[];
+ for(let i=0;i<3;i++){await handle.click();await page.waitForTimeout(350);seen.push(await height())}
+ expect(new Set(seen).size).toBe(3);
+ const tallest=Math.max(...seen);while(await height()!==tallest){await handle.click();await page.waitForTimeout(350)}
+ const [head,grip]=await Promise.all([page.locator('.map-head').boundingBox(),handle.boundingBox()]);
+ expect(grip.y).toBeGreaterThanOrEqual(head.y+head.height);
+ // Background data re-rendering the screen keeps the sheet where the user left it.
+ await page.evaluate(()=>AOLApp.softRender());expect(await height()).toBe(tallest);
+ await handle.click();await page.waitForTimeout(350);expect(await height()).toBeLessThan(tallest);
 });

@@ -124,7 +124,7 @@ test('a server without rows, or failing, makes the browser run the Wikidata quer
  // The browser's own result is cached as such; "지금 동기화" asks the server again first, then falls back once more.
  server.fail=503;
  await page.getByRole('button',{name:'지금 동기화'}).click();
- await expect(page.locator('#toast')).toContainText('동기화했습니다');
+ await expect(page.locator('#toast')).toContainText('동기화했어요');
  expect(calls.list.length).toBe(2);
  expect(calls.branches).toBe(2*BRANCHES.length);
  // Photos of the browser-synced places are checked on Commons as before.

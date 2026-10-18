@@ -64,11 +64,11 @@ test('home: 전국의 빛 and 세계의 빛 rails, curated duplicates hidden, ph
  // with the curated ones (not under their district), and Busan's districts make one city.
  await expect(page.locator('[data-country-link="일본"]')).toContainText('일본 · 31곳');
  const curated=await page.evaluate(()=>AOLApp.places().length);
- await expect(page.locator('.region-card[data-city-link="서울"]')).toContainText(`${curated+1}개 프로젝트`);
- await expect(page.locator('.region-card[data-city-link="부산"]')).toContainText('2개 프로젝트');
+ await expect(page.locator('.region-card[data-city-link="서울"]')).toContainText(`${curated+1}곳`);
+ await expect(page.locator('.region-card[data-city-link="부산"]')).toContainText('2곳');
  for(const district of ['중구','수영구','해운대구'])await expect(page.locator(`.region-card[data-city-link="${district}"]`)).toHaveCount(0);
  await expect(page.locator('.category-tile[data-discover-category="Festival"]')).toContainText('빛 축제');
- await expect(page.locator('.category-tile[data-discover-category="Festival"]')).toContainText('4개 프로젝트');
+ await expect(page.locator('.category-tile[data-discover-category="Festival"]')).toContainText('4곳');
  // Entity-encoded markup in a label is shown as text, never run.
  await expect(world).toContainText('<img src=x onerror="window.__xss=1">빛');
  expect(await page.evaluate(()=>window.__xss)).toBeUndefined();
@@ -82,13 +82,18 @@ test('explore: country and city filters from all places, 24 results per page, se
  const country=page.locator('select[data-search-filter="country"]');
  for(const c of ['대한민국','일본','오스트레일리아','프랑스','오스트리아'])await expect(country.locator('option',{hasText:c})).toHaveCount(1);
  await country.selectOption('일본');
- await expect(page.locator('.result-meta')).toHaveText('31개 프로젝트 · 24개 표시');
+ await expect(page.locator('.result-meta')).toHaveText('일본 · 31곳');
+ await expect(page.locator('.more-row')).toContainText('31곳 중 24곳');
+ // The filter sheet updates the results live and closes with its live count.
+ await page.getByRole('button',{name:'31곳 보기'}).click();
+ await expect(page.locator('.advanced-filters')).not.toHaveAttribute('open','');
  await expect(page.locator('#placeResults .place-card')).toHaveCount(24);
  await page.getByRole('button',{name:'더 보기'}).click();
  await expect(page.locator('#placeResults .place-card')).toHaveCount(31);
  await expect(page.getByRole('button',{name:'더 보기'})).toHaveCount(0);
+ await page.locator('.advanced-filters summary').click();
  await page.locator('select[data-search-filter="city"]').selectOption('미나토구');
- await expect(page.locator('.result-meta')).toContainText('30개 프로젝트');
+ await expect(page.locator('.result-meta')).toHaveText('일본 · 미나토구 · 30곳');
  await page.getByRole('button',{name:'초기화'}).click();
  await page.locator('#placeSearch').fill('시드니');
  await expect(page.locator('#placeResults .place-card')).toHaveCount(1);
@@ -101,7 +106,22 @@ test('explore: country and city filters from all places, 24 results per page, se
  // The 세계의 빛 rail's "전체 보기" lists every place outside Korea.
  await page.goto('/#home');
  await rail(page,'세계의 빛').getByRole('button',{name:'전체 보기'}).click();
- await expect(page.locator('.result-meta')).toContainText(`${WORLD_SHOWN}개 프로젝트 · 24개 표시`);
+ await expect(page.locator('.result-meta')).toContainText(`${WORLD_SHOWN}곳`);
+ await expect(page.locator('.more-row')).toContainText(`${WORLD_SHOWN}곳 중 24곳`);
+});
+
+// 내 주변: the nearest places with coordinates, as in-app rows that open the place here (not a new tab).
+test('map: nearby lists the closest places as in-app rows',async({page,context})=>{
+ await context.grantPermissions(['geolocation']);await context.setGeolocation({latitude:35.15,longitude:129.12});
+ await mockApis(page);
+ await page.goto('/#map');
+ await expect.poll(()=>status(page)).toBe('partial');
+ await page.locator('.map-consent [data-nearby]').click();
+ const first=page.locator('#mapMessage .map-list-item').first();
+ await expect(first).toContainText('광안대교');
+ await expect(first).toHaveAttribute('href',/^#place\/WD-Q485443$/);
+ expect(await first.getAttribute('target')).toBeNull();
+ await first.click();await expect(page.locator('#view h1')).toHaveText('광안대교');
 });
 
 test('map: Wikidata coordinates are counted apart and drawn as circles on one canvas that name their source',async({page})=>{
@@ -195,7 +215,7 @@ test('a saved, planned and recorded Wikidata place survives a reload without the
  await page.getByRole('button',{name:'기록',exact:true}).click();
  await page.locator('#visitForm textarea[name=note]').fill('유등이 강 위에 떠 있다');
  await page.locator('#visitForm button[type=submit]').click();
- await expect(page.locator('#toast')).toContainText('현장 기록을 저장했습니다');
+ await expect(page.locator('#toast')).toContainText('현장 기록을 저장했어요');
  // The sync result is gone and every query fails: the user's own records still show the place.
  state.failAll=true;
  await page.evaluate(()=>{localStorage.removeItem('aol_global_v1');localStorage.removeItem('aol_global_media_v1')});
@@ -229,7 +249,7 @@ test('a failing branch does not break the others; settings shows counts, failure
  await page.getByRole('button',{name:'지금 동기화'}).click();
  await expect.poll(()=>calls.branches.length).toBe(before.branches+BRANCHES.length);
  await expect.poll(()=>calls.live).toBe(before.live+1);
- await expect(page.locator('#toast')).toContainText('동기화했습니다');
+ await expect(page.locator('#toast')).toContainText('동기화했어요');
 });
 
 test('results are cached for 6 hours; a failed refresh keeps the last good result',async({page})=>{
@@ -277,7 +297,7 @@ test('a list too big for storage keeps every Korean and saved place; the cut cop
  const n=calls.branches.length;
  await page.getByRole('button',{name:'지금 동기화'}).click();
  await expect.poll(()=>calls.branches.length).toBe(n+BRANCHES.length);
- await expect(page.locator('#toast')).toContainText('동기화했습니다');
+ await expect(page.locator('#toast')).toContainText('동기화했어요');
  const before=await page.evaluate(()=>{const s=localStorage.getItem('aol_global_v1'),v=JSON.parse(s);return {all:AOL_GLOBAL.places.length,korea:AOL_GLOBAL.places.filter(p=>p.scope==='korea').length,chars:s.length,rows:v.rows.length,truncated:v.truncated}});
  expect(before.all).toBe(6400);expect(before.korea).toBe(400);
  expect(before.truncated,'this list does not fit even with short descriptions').toBe(true);
