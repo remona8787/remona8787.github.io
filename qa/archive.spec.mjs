@@ -361,6 +361,8 @@ test('research data page: statistics of the filtered set; CSV and JSON exports c
  expect(Date.now()-Date.parse(json.meta.generated_at)).toBeLessThan(60000);
  expect(json.meta.filters).toEqual({region:['europe']});
  expect(json.meta.count).toBe(europe.length);
+ expect(json.meta.app_version).toMatch(/^\d+\.\d+\.\d+$/);
+ await expect(page.locator('.sidebar .version')).toHaveText('빛의 건축 v'+json.meta.app_version);
  expect(json.meta.warning).toBe(X.WARNING.ko);
  expect(json.meta.licenses.wikidata).toContain('CC0');
  expect(json.meta.licenses.commons).toContain('파일마다 다름');

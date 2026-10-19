@@ -179,7 +179,7 @@ const S={
  'data.csv':['CSV 내려받기 (Excel)','Download CSV (Excel)'],'data.json':['JSON 내려받기','Download JSON'],
  'data.exportFormat':['CSV는 UTF-8(BOM)이라 Excel에서 바로 열려요. 첫 줄은 #으로 시작하는 주의 문구예요(pandas: comment=\'#\'). JSON에는 생성 시각, 필터, 데이터 사전, 출처별 라이선스 안내가 meta에 들어가요.','The CSV is UTF-8 with a BOM, so Excel opens it directly. Its first line is a note starting with # (pandas: comment=\'#\'). The JSON carries the time it was made, the filters, the data dictionary and licence notes per source in meta.'],
  'data.dictionary':['데이터 사전','Data dictionary'],'data.field':['열','Column'],'data.type':['형식','Type'],'data.description':['설명','Description'],
- 'data.licWikidata':['CC0 1.0 · 출처 표시 없이 쓸 수 있어요','CC0 1.0, free to use without attribution'],'data.licCommons':['파일마다 다름 · 각 파일 페이지의 라이선스와 저작자 표시를 따르세요 (내보내기에는 이미지가 들어 있지 않아요)','Per file: follow each file page’s licence and attribution (exports contain no images)'],
+ 'data.licTitle':['라이선스','Licences'],'data.licWikidata':['CC0 1.0 · 출처 표시 없이 쓸 수 있어요','CC0 1.0, free to use without attribution'],'data.licCommons':['파일마다 다름 · 각 파일 페이지의 라이선스와 저작자 표시를 따르세요 (내보내기에는 이미지가 들어 있지 않아요)','Per file: follow each file page’s licence and attribution (exports contain no images)'],
  'data.licEditorialLabel':['편집부 텍스트·분류','Editorial text and classifications'],'data.licEditorial':['운영자 확정 필요','to be confirmed by the operator'],'data.licSources':['출처 링크는 원문을 가리켜요. 원문의 권리는 각 발행처에 있어요.','Source links point to the original publications; their rights stay with each publisher.'],
  'data.exported':['{n}곳을 내려받았어요','Downloaded {n} places'],
  'data.citeText':['빛의 건축 아카이브 데이터, {n}곳, {date} 내려받음, {url}.','Architecture of Light archive data, {n} places, downloaded {date}, {url}.'],
