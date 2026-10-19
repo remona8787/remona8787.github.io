@@ -41,7 +41,7 @@ sources → discover → classify/type → resolve entities → dedupe/merge →
 1. **Wikidata SPARQL.**
    - Items that are instances of (P31/P279*) a verified set of classes: media facade, projection mapping (works and events), light art, light installation, light festival, media art installation, interactive art installation, digital art installation, video mapping festival, LED building facade if a class exists, and illuminated architecture only through the more specific classes.
    - The class list is data: `pipeline/config/classes.json` holds QIDs plus a `type` mapping. A discovery query reports candidate classes with counts into `review/`, so the list can grow.
-   - Also items with property P8705? **No.** Do not guess property ids. Every QID and PID used must be confirmed by a live query whose result is logged in `review/`.
+   - Never guess an id: every QID and PID used must be confirmed by a live query whose result is logged in `review/`.
 2. **Wikimedia Commons categories.**
    - Use category search (namespace 14) for configured seed terms ("media facade", "media façade", "projection mapping", "light installation", "light art", "light festival", "video mapping", "LED facade", and native-language forms), plus configured root categories.
    - Walk subcategories breadth-first with a depth and count limit. Record each category's linked Wikidata item (`pageprops.wikibase_item`) and its coordinates (category or file `coordinates`).
