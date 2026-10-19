@@ -1,0 +1,15 @@
+// Live discovery: which Wikidata classes and Commons categories hold media facade / media art projects, and how many.
+import {writeFile} from 'node:fs/promises';
+const UA='LightArchitectureArchive/0.17 (+https://remona8787.github.io/; remona56@hanmail.net)';
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+async function get(url,accept='application/json'){for(let i=0;i<3;i++){const r=await fetch(url,{headers:{'User-Agent':UA,Accept:accept}});if(r.ok)return r.json();await sleep(3000*(i+1))}throw Error('failed '+url)}
+const sparql=q=>get('https://query.wikidata.org/sparql?format=json&query='+encodeURIComponent(q),'application/sparql-results+json');
+const out={at:new Date().toISOString(),terms:{},classes:{},commons:{}};
+const terms=['media facade','media façade','projection mapping','video mapping','light art','light installation','light festival','festival of lights','media art','digital art installation','interactive art installation','LED facade','media wall','light sculpture','illuminated building','light show','sound and light show','immersive art','미디어파사드','プロジェクションマッピング','Medienfassade'];
+for(const t of terms){const lang=/[가-힣]/.test(t)?'ko':/[ぁ-ン]/.test(t)?'ja':/ß|ä|Medien/.test(t)?'de':'en';
+ try{const s=await get(`https://www.wikidata.org/w/api.php?action=wbsearchentities&format=json&language=${lang}&uselang=en&limit=8&search=${encodeURIComponent(t)}`);out.terms[t]=(s.search||[]).map(x=>({id:x.id,label:x.label,description:x.description}))}catch(e){out.terms[t]={error:String(e)}}await sleep(500)}
+const ids=[...new Set(Object.values(out.terms).flatMap(v=>Array.isArray(v)?v.map(x=>x.id):[]))];
+for(const id of ids){try{const r=await sparql(`SELECT (COUNT(DISTINCT ?i) AS ?n) (COUNT(DISTINCT ?c) AS ?nc) (COUNT(DISTINCT ?k) AS ?nk) WHERE { ?i wdt:P31/wdt:P279* wd:${id} . OPTIONAL { ?i wdt:P625 ?c } OPTIONAL { ?i wdt:P17 wd:Q884 . BIND(?i AS ?k) } }`);const b=r.results.bindings[0];out.classes[id]={instances:+b.n.value,with_coords:+b.nc.value,in_korea:+b.nk.value}}catch(e){out.classes[id]={error:String(e).slice(0,200)}}await sleep(1500)}
+const cterms=['media facade','media facades','media façade','projection mapping','video mapping','light art','light installations','light festivals','festival of lights','LED facades','media art','illuminated buildings','light shows','Medienfassade','미디어파사드'];
+for(const t of cterms){try{const s=await get(`https://commons.wikimedia.org/w/api.php?action=query&format=json&list=search&srnamespace=14&srlimit=20&srsearch=${encodeURIComponent(t)}`);out.commons[t]=[];for(const h of s.query.search){const info=await get(`https://commons.wikimedia.org/w/api.php?action=query&format=json&prop=categoryinfo|pageprops&titles=${encodeURIComponent(h.title)}`);const p=Object.values(info.query.pages)[0];out.commons[t].push({title:h.title,subcats:p.categoryinfo?.subcats||0,files:p.categoryinfo?.files||0,qid:p.pageprops?.wikibase_item||null});await sleep(200)}}catch(e){out.commons[t]={error:String(e)}}await sleep(500)}
+await writeFile('explore/discovery.json',JSON.stringify(out,null,1));console.log('done',ids.length,'classes');
