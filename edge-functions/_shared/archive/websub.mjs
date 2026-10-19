@@ -47,7 +47,8 @@ export async function sendSubscription(sub, policy = {}) {
   const req = subscriptionRequest(sub)
   try {
     const res = await fetchWithPolicy(req.url, { ...policy, method: 'POST', headers: req.headers, body: req.body, retries: 1, maxBytes: 64 * 1024 })
-    return { ok: res.status === 202 || res.status === 204 || (res.status >= 200 && res.status < 300), status: res.status, error: res.ok ? null : `hub answered HTTP ${res.status}` }
+    // Hubs answer 202 Accepted (some 204); verification of intent follows asynchronously.
+    return { ok: res.ok, status: res.status, error: res.ok ? null : `hub answered HTTP ${res.status}` }
   } catch (e) {
     return { ok: false, status: null, error: String(/** @type {any} */ (e)?.message || e).slice(0, 300) }
   }

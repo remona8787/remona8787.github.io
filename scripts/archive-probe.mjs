@@ -11,9 +11,8 @@ import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import path from 'node:path'
 import { SEED_RULES } from '../edge-functions/_shared/archive/seed-rules.mjs'
 import { collectRule, collectorLimiter, labelCounts } from '../edge-functions/_shared/archive/pipeline.mjs'
-import { defaultKeywords } from '../edge-functions/_shared/archive/classify.mjs'
+import { defaultKeywords, statusForScore } from '../edge-functions/_shared/archive/classify.mjs'
 import { USER_AGENT } from '../edge-functions/_shared/archive/http.mjs'
-import { statusForScore } from '../edge-functions/_shared/archive/classify.mjs'
 
 const root = path.resolve(import.meta.dirname, '..')
 const arg = (/** @type {string} */ name) => { const i = process.argv.indexOf(name); return i > 0 ? process.argv[i + 1] : null }
