@@ -66,15 +66,16 @@ export function storyKey(title) {
 const GENERIC_TAIL = /\s*(media\s?fa[cç]ade|led\s?fa[cç]ade|projection\s?mapping|medienfassade|fa[cç]ade\s?m[eé]dia\w*|미디어\s?파사드|미디어\s?월|프로젝션\s?매핑|メディアファサード|プロジェクションマッピング|媒体立面|媒体幕墙|灯光秀)$/i
 
 /**
- * Normalized project name for dedupe rule 4 (same normalized name, country and city): folded, generic medium words
- * at the end removed, spaces removed. Null when nothing is left.
+ * Normalized project name for dedupe rule 4 (same normalized name, country and city): NFKC, lower case, generic
+ * medium words at the end removed, whitespace and punctuation removed. Diacritics are KEPT: the SQL compares it with
+ * archive_norm_name() of the project names, which keeps them ("zürich" ≠ "zurich" there too).
  * @param {unknown} name @returns {string|null}
  */
 export function normalizedName(name) {
   if (name == null) return null
   const base = String(name).normalize('NFKC').trim().replace(GENERIC_TAIL, '')
-  const key = fold(base).replace(/ /g, '')
-  return key ? key.slice(0, 200) : null
+  const key = base.toLowerCase().replace(/[\s\p{P}\p{S}]+/gu, '')
+  return key ? [...key].slice(0, 200).join('') : null
 }
 
 /**

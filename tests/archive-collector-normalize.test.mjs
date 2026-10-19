@@ -94,6 +94,7 @@ test('detected names from titles (a hint for editors), null when the title names
   assert.equal(extractName('上海中心大厦灯光秀'), '上海中心大厦')
   assert.equal(extractName("미디어파사드 '서울라이트' 개막"), '서울라이트')
   assert.equal(extractName('LED screen rental for events'), null)
+  assert.equal(extractName('Band announces projection mapping concert tour'), null, 'a capitalised first word is not a name')
   assert.equal(extractName('서울 미디어파사드 축제'), null, 'a city is not a project name')
 })
 
@@ -107,6 +108,7 @@ test('dedupe keys: tokens, Jaccard, stable story_key, normalized_name', () => {
   assert.match(storyKey('x'), /^st:[0-9a-f]{16}$/)
   assert.equal(normalizedName('롯데월드타워 미디어파사드'), normalizedName('롯데월드타워'))
   assert.equal(normalizedName('Kunsthaus  Graz'), 'kunsthausgraz')
+  assert.equal(normalizedName('Zürich Tower (Main)'), 'zürichtowermain', 'like archive_norm_name: diacritics kept, punctuation gone')
   assert.equal(normalizedName('Media Facade'), null)
   assert.equal(normalizedName(null), null)
 })

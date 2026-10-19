@@ -359,8 +359,9 @@ export function extractName(rawTitle) {
         // "Seoul's Lotte World Tower …": the possessive place is not part of the name.
         if (lead.length > 1 && /[’']s$/.test(lead[0])) lead.shift()
         while (lead.length && CONNECTORS.has(lead[lead.length - 1].toLowerCase())) lead.pop()
+        // One capitalised word is only the start of a sentence ("Band announces …"); a name has two or more.
         const text = lead.join(' ').replace(/[’']s$/, '')
-        if (lead.length && !(lead.length === 1 && isPlaceName(text))) return text
+        if (lead.length >= 2) return text
       }
       return null
     }

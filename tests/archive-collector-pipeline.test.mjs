@@ -56,9 +56,9 @@ test('GDELT rule → valid §8 items: classified, located, clustered (same story
   const guardian = by['https://theguardian.com/artanddesign/2026/oct/14/fixture-media-facade-london']
   assert.deepEqual([guardian.classification.label, guardian.detected.city, guardian.detected.country_iso2], ['facade_project', 'London', 'GB'])
   const asahi = by['https://asahi.com/articles/ASR_FIXTURE.html']
-  assert.deepEqual([asahi.detected.city, asahi.detected.name, asahi.language], ['Tokyo', '東京都庁', 'ja'])
+  assert.deepEqual([asahi.detected.city, asahi.detected.name, asahi.language, asahi.classification.label], ['Tokyo', '東京都庁', 'ja', 'facade_project'])
   assert.equal(r.items.every((i) => i.detected.latitude === null && i.detected.longitude === null), true, 'no invented coordinates')
-  assert.deepEqual(labelCounts(r.items), { facade_project: 3, event_program: 0, ad_screen: 0, product_vendor: 1, irrelevant: 3, uncertain: 0 })
+  assert.deepEqual(labelCounts(r.items), { facade_project: 4, event_program: 0, ad_screen: 0, product_vendor: 1, irrelevant: 2, uncertain: 0 })
 })
 
 test('GDELT requests from one invocation are 5 s apart (shared limiter); a plain-text refusal is a parse error', async () => {

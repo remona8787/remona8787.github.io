@@ -4,7 +4,7 @@
 -- (term, language); missing rows are inserted. Operator state is kept: rules keep enabled, verified_at and their
 -- schedule; keywords keep enabled. Every source starts unverified (verified_at null) and keyed or metered sources
 -- (NAVER, Brave) start disabled.
--- 26 rules, 1179 keywords.
+-- 26 rules, 1185 keywords.
 
 begin;
 
@@ -358,11 +358,17 @@ with seed(term, language, polarity, weight) as (values
   ('ファサード', 'ja', 'context', 6),
   ('建築', 'ja', 'context', 6),
   ('庁舎', 'ja', 'context', 6),
+  ('都庁', 'ja', 'context', 6),
+  ('県庁', 'ja', 'context', 6),
+  ('市役所', 'ja', 'context', 6),
   ('ランドマーク', 'ja', 'context', 6),
   ('大聖堂', 'ja', 'context', 6),
   ('駅舎', 'ja', 'context', 6),
   ('美術館', 'ja', 'context', 6),
   ('博物館', 'ja', 'context', 6),
+  ('劇場', 'ja', 'context', 6),
+  ('神社', 'ja', 'context', 6),
+  ('寺院', 'ja', 'context', 6),
   ('広場', 'ja', 'context', 5),
   ('公開', 'ja', 'context', 5),
   ('設置', 'ja', 'context', 5),
