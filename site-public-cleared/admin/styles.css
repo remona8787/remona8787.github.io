@@ -173,6 +173,9 @@ kbd{display:inline-flex;align-items:center;justify-content:center;min-width:22px
 /* Tables */
 .table-scroll{position:relative;overflow-x:auto;border:1px solid var(--line);border-radius:12px}
 table{width:100%;border-collapse:collapse;font-size:14px}
+/* Tables keep their natural width and scroll inside .table-scroll instead of breaking words into letters. */
+.table-scroll table{width:max-content;min-width:100%}
+th,td{overflow-wrap:normal}
 th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 tbody tr:last-child td{border-bottom:0}
 th{background:var(--panel);color:var(--text-muted);font-size:13px;font-weight:600;white-space:nowrap}
