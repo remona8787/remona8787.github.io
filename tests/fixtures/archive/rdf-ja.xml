@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns="http://purl.org/rss/1.0/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xml:lang="ja">
+  <channel rdf:about="https://fixture-ja.example/index.rdf">
+    <title>フィクスチャ建築ニュース</title>
+    <link>https://fixture-ja.example/</link>
+    <description>建築とデザインのニュース</description>
+    <dc:language>ja</dc:language>
+    <dc:date>2026-10-15T18:00:00+09:00</dc:date>
+    <items>
+      <rdf:Seq>
+        <rdf:li rdf:resource="https://fixture-ja.example/2026/10/15/1.html" />
+        <rdf:li rdf:resource="https://fixture-ja.example/2026/10/15/2.html" />
+      </rdf:Seq>
+    </items>
+  </channel>
+  <item rdf:about="https://fixture-ja.example/2026/10/15/1.html">
+    <title>東京都庁舎のプロジェクションマッピング、新作を公開</title>
+    <link>https://fixture-ja.example/2026/10/15/1.html</link>
+    <description>都庁第一本庁舎の外壁で、新しいプロジェクションマッピング作品の上映が始まった。</description>
+    <dc:date>2026-10-15T18:00:00+09:00</dc:date>
+    <dc:subject>建築</dc:subject>
+  </item>
+  <item rdf:about="https://fixture-ja.example/2026/10/15/2.html">
+    <title>LEDビジョン レンタル 格安 見積無料</title>
+    <link>https://fixture-ja.example/2026/10/15/2.html</link>
+    <description>イベント用LEDビジョンのレンタル。価格はお問い合わせください。</description>
+    <dc:date>2026-10-15 09:00:00</dc:date>
+  </item>
+</rdf:RDF>
