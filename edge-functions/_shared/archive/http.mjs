@@ -341,8 +341,17 @@ export async function fetchWithPolicy(input, o = {}) {
   }
 }
 
-/** @param {unknown} e */
-export const errorText = (e) => String(/** @type {any} */ (e)?.message || e).slice(0, 300)
+/**
+ * A short error text. fetch() reports most network failures as "fetch failed" and keeps the reason (DNS, refused,
+ * TLS) in error.cause, which is what an operator needs to see.
+ * @param {unknown} e
+ */
+export function errorText(e) {
+  const err = /** @type {any} */ (e)
+  const base = String(err?.message || e)
+  const cause = err?.cause ? String(err.cause.message || err.cause.code || err.cause) : ''
+  return (cause && !base.includes(cause) ? `${base} (${cause})` : base).slice(0, 300)
+}
 
 /**
  * fetchWithPolicy for callers that need a 2xx body: anything else becomes an HttpError('http_status').

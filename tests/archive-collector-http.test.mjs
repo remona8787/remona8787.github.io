@@ -72,8 +72,8 @@ test('4xx other than 429 is not retried; network errors are retried', async () =
   assert.equal(notFound.calls.length, 1)
   const flaky = harness(({ n }) => { if (n === 1) throw new TypeError('fetch failed'); return new Response('ok') })
   assert.equal((await fetchWithPolicy('https://example.org/', flaky)).text, 'ok')
-  const dead = harness(() => { throw new TypeError('getaddrinfo ENOTFOUND example.org') })
-  await assert.rejects(fetchWithPolicy('https://example.org/', dead), (e) => e instanceof HttpError && e.code === 'network' && /ENOTFOUND/.test(e.message))
+  const dead = harness(() => { throw new TypeError('fetch failed', { cause: Object.assign(new Error('getaddrinfo ENOTFOUND example.org'), { code: 'ENOTFOUND' }) }) })
+  await assert.rejects(fetchWithPolicy('https://example.org/', dead), (e) => e instanceof HttpError && e.code === 'network' && e.message === 'network error: fetch failed (getaddrinfo ENOTFOUND example.org)')
   assert.equal(dead.calls.length, 3)
 })
 
