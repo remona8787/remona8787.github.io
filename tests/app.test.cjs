@@ -6,7 +6,7 @@ function setup(){
  const base=['#view','#navigation','#networkStatus','#quickSearch','#modal','#toast'];base.forEach(k=>nodes.set(k,new Node()));
  const document={title:'',querySelector(s){if(base.includes(s))return nodes.get(s);const id=s.slice(1);if([...nodes.values()].some(n=>n.innerHTML.includes('id="'+id+'"'))){if(!nodes.has(s))nodes.set(s,new Node());return nodes.get(s)}return null},addEventListener(k,f){events[k]=f},createElement(){return {click(){},remove(){}}},body:{appendChild(){}}};
  const context={window:null,document,navigator:{onLine:true},location:{hash:'',protocol:'https:',href:'https://example.com/'},localStorage:{getItem:k=>saved[k]??null,setItem:(k,v)=>saved[k]=v},setTimeout(){return 1},clearTimeout(){},URL,Blob,Intl,Date,TextEncoder,console,crypto:require('node:crypto').webcrypto,FormData:class{constructor(form){this.data=form.data}get(k){return this.data[k]}},addEventListener(k,f){windowEvents[k]=f},scrollTo(){},AOLCore:C};context.window=context;
- vm.createContext(context);for(const f of ['assets/seed.js','catalog.js','app.js'])vm.runInContext(fs.readFileSync(__dirname+'/../site-public-cleared/'+f,'utf8'),context,{filename:f});
+ vm.createContext(context);for(const f of ['assets/seed.js','archive-taxonomy.js','i18n.js','catalog.js','app.js'])vm.runInContext(fs.readFileSync(__dirname+'/../site-public-cleared/'+f,'utf8'),context,{filename:f});
  return {context,nodes,events,saved,eval:s=>vm.runInContext(s,context),click:async dataset=>events.click({target:{closest:()=>({dataset,disabled:false})}})};
 }
 test('every top-level page renders without a dependency on external scripts',()=>{const t=setup();for(const page of ['home','explore','routes','saved','journal','calendar','settings','audit','map','my','magazine','missing']){t.context.location.hash='#'+page;t.eval('render()');assert.ok(t.nodes.get('#view').innerHTML.length>100,page);assert.ok(!t.nodes.get('#view').innerHTML.includes('undefined'),page)}});
@@ -51,4 +51,34 @@ test('theme: follows the system by default; an explicit choice in 설정 persist
  const t=setup();t.context.location.hash='#settings';t.eval('render()');const html=t.nodes.get('#view').innerHTML;
  for(const v of ['system','light','dark'])assert.ok(html.includes(`data-theme-set="${v}"`),v);assert.ok(html.includes('aria-checked="true" tabindex="0" data-theme-set="system"'));
  await t.click({themeSet:'dark'});assert.equal(JSON.parse(t.saved[C.KEY]).preferences.theme,'dark');t.eval('render()');assert.ok(t.nodes.get('#view').innerHTML.includes('aria-checked="true" tabindex="0" data-theme-set="dark"'));
+});
+// The media facade archive (client/archive.js publishes window.AOL_ARCHIVE): merged into allPlaces() with the dedupe
+// rules of docs/ARCHIVE_SPEC.md §6, and saved projects survive without the archive list.
+async function archiveFixture(){const {fromArchiveRows}=await import('../client/archive-rows.mjs');const {ARCHIVE_ROWS,LINKED_TO_CURATED,SYNC_DUPLICATE_QIDS}=await import('./fixtures/archive-app-rows.mjs');return {...fromArchiveRows(ARCHIVE_ROWS,{publicURL:'https://light.example.org'}),LINKED_TO_CURATED,SYNC_DUPLICATE_QIDS}}
+test('archive projects: linked ones enrich curated places, Wikidata duplicates are dropped by QID, the rest are listed',async()=>{
+ const t=setup(),a=await archiveFixture();
+ t.context.AOL_ARCHIVE={status:'ok',projects:a.projects,fetchedAt:'2026-10-18T00:00:00.000Z'};t.context.AOL_ARCHIVE_MEDIA=a.media;
+ t.context.AOL_GLOBAL={status:'ok',branches:[],places:[synced(),synced({place_id:'WD-Q597137',wikidata:'Q597137',name_kr:'쿤스트하우스 그라츠'}),synced({place_id:'WD-Q4167',wikidata:'Q4167',name_kr:'빛의 축제'}),synced({place_id:'WD-Q99600013',wikidata:'Q99600013',name_kr:'심포니 오브 라이츠'}),synced({place_id:'WD-Q12618343',wikidata:'Q12618343',name_kr:'진주남강유등축제',scope:'korea',country:'대한민국'})]};
+ t.context.AOLGlobal={curatedMatch:()=>false,wantImages(){}};
+ const list=t.eval('allPlaces()'),ids=list.map(p=>p.place_id);
+ for(const [slug,cid] of Object.entries(a.LINKED_TO_CURATED)){assert.ok(!ids.includes('AR-'+slug),slug+' is not listed twice');const c=list.find(p=>p.place_id===cid);assert.equal(c.archive_place_id,'AR-'+slug,cid+' carries its archive record');assert.equal(t.eval(`place('AR-${slug}')`).place_id,cid,'the archive id opens the curated place')}
+ const coex=list.find(p=>p.place_id==='SEOUL007');assert.equal(coex.project_type,'urban_screen','the archive value replaces the derived one');assert.equal(coex.field_status.project_type.state,'editor_verified');assert.equal(coex.display_area_m2,1620);assert.equal(coex.name_kr,'코엑스 K-POP 스퀘어 WAVE','curated text stays');
+ assert.equal(list.find(p=>p.place_id==='SEOUL006').envelope_type,'metal_mesh','linked by QID');assert.equal(list.find(p=>p.place_id==='SEOUL009').installation_method,'led_backlit_cladding','linked by name and city');
+ for(const q of [...a.SYNC_DUPLICATE_QIDS,'Q99600013'])assert.ok(!ids.includes('WD-'+q),'synced duplicate of an archive project: '+q);
+ assert.ok(ids.includes('WD-Q12618343'));
+ assert.equal(list.filter(p=>p.origin==='archive').length,a.projects.length-Object.keys(a.LINKED_TO_CURATED).length);
+ assert.equal(new Set(ids).size,ids.length,'one entry per id');
+ // Curated places keep their derived archive fields (seed.js) with the derived state.
+ const seoul001=list.find(p=>p.place_id==='SEOUL001');assert.deepEqual([seoul001.project_type,seoul001.region,seoul001.country_iso2,seoul001.field_status.project_type.state],['media_facade','east_asia','KR','derived']);
+ assert.equal(list.find(p=>p.place_id==='SEOUL003').project_type,undefined,'Media Art implies no project type');
+});
+test('a saved archive project keeps a validated record and is shown when the archive list is unavailable',async()=>{
+ const t=setup(),a=await archiveFixture();
+ t.context.AOL_ARCHIVE={status:'ok',projects:a.projects};
+ await t.click({save:'AR-crown-fountain'});
+ let d=JSON.parse(t.saved[C.KEY]);assert.deepEqual(d.saved,['AR-crown-fountain']);const rec=d.candidates[0];
+ assert.deepEqual([rec.origin,rec.name_kr,rec.country_iso2,rec.project_type,rec.coordinate_review_status],['archive','Crown Fountain','US','media_wall','verified']);
+ t.context.AOL_ARCHIVE={status:'unavailable',projects:[]};t.eval("db=C.validate(JSON.parse(localStorage.getItem(C.KEY)),D.places.map(p=>p.place_id))");
+ t.context.location.hash='#saved';t.eval('render()');assert.ok(t.nodes.get('#view').innerHTML.includes('Crown Fountain'));
+ await t.click({save:'AR-crown-fountain'});d=JSON.parse(t.saved[C.KEY]);assert.deepEqual([d.saved,d.candidates],[[],[]],'unsaved and unused: the record is dropped');
 });
