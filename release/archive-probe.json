@@ -1,0 +1,1007 @@
+{
+  "generated_at": "2026-10-19T05:41:55.793Z",
+  "environment": {
+    "node": "v22.22.0",
+    "ci": false,
+    "github_run": null,
+    "naver_keys": false,
+    "brave_key": false
+  },
+  "user_agent": "LightArchitectureArchive/0.16 (+https://github.com/ymin02/medieval_era_project; remona56@hanmail.net)",
+  "classifier_version": "aol-kw-2026.10.1",
+  "ms": 229121,
+  "note": "Dry run without a database: nothing was stored. A rule with status success read its live source; verified_at in the database is set only by an operator after reviewing a report like this one.",
+  "totals": {
+    "rules": 26,
+    "success": 0,
+    "partial": 0,
+    "error": 22,
+    "skipped": 4,
+    "fetched": 0,
+    "items": 0,
+    "labels": {
+      "facade_project": 0,
+      "event_program": 0,
+      "ad_screen": 0,
+      "product_vendor": 0,
+      "irrelevant": 0,
+      "uncertain": 0
+    }
+  },
+  "reachable": [],
+  "unreachable": [
+    {
+      "name": "GDELT en · media facade",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)"
+    },
+    {
+      "name": "GDELT ko · media facade",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)"
+    },
+    {
+      "name": "GDELT ja · media facade",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)"
+    },
+    {
+      "name": "GDELT zh · media facade",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)"
+    },
+    {
+      "name": "GDELT de · media facade",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)"
+    },
+    {
+      "name": "GDELT fr · media facade",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)"
+    },
+    {
+      "name": "GDELT es · media facade",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)"
+    },
+    {
+      "name": "GDELT it · media facade",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)"
+    },
+    {
+      "name": "GDELT pt · media facade",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)"
+    },
+    {
+      "name": "GDELT nl · media facade",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)"
+    },
+    {
+      "name": "GDELT pl · media facade",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)"
+    },
+    {
+      "name": "GDELT ru · media facade",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)"
+    },
+    {
+      "name": "GDELT ar · media facade",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)"
+    },
+    {
+      "name": "GDELT tr · media facade",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)"
+    },
+    {
+      "name": "Dezeen",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND www.dezeen.com)"
+    },
+    {
+      "name": "designboom",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND www.designboom.com)"
+    },
+    {
+      "name": "ArchDaily",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND feeds.feedburner.com)"
+    },
+    {
+      "name": "Archinect",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND archinect.com)"
+    },
+    {
+      "name": "Creative Applications Network",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND www.creativeapplications.net)"
+    },
+    {
+      "name": "Media Architecture Institute",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND mediaarchitecture.org)"
+    },
+    {
+      "name": "Designboom Korea",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND www.designboom.com)"
+    },
+    {
+      "name": "Wikidata · archive project changes",
+      "error": "network error: fetch failed (getaddrinfo ENOTFOUND query.wikidata.org)"
+    }
+  ],
+  "top_candidates": [],
+  "rules": [
+    {
+      "name": "GDELT en · media facade",
+      "kind": "gdelt",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "status": "error",
+      "reason": null,
+      "ms": 10010,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aenglish&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "GDELT ko · media facade",
+      "kind": "gdelt",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "status": "error",
+      "reason": null,
+      "ms": 14997,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Akorean&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "GDELT ja · media facade",
+      "kind": "gdelt",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "status": "error",
+      "reason": null,
+      "ms": 15003,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Ajapanese&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "GDELT zh · media facade",
+      "kind": "gdelt",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "status": "error",
+      "reason": null,
+      "ms": 14997,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Achinese&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "GDELT de · media facade",
+      "kind": "gdelt",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "status": "error",
+      "reason": null,
+      "ms": 15001,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Agerman&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "GDELT fr · media facade",
+      "kind": "gdelt",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "status": "error",
+      "reason": null,
+      "ms": 14998,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Afrench&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "GDELT es · media facade",
+      "kind": "gdelt",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "status": "error",
+      "reason": null,
+      "ms": 15000,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aspanish&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "GDELT it · media facade",
+      "kind": "gdelt",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "status": "error",
+      "reason": null,
+      "ms": 15000,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aitalian&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "GDELT pt · media facade",
+      "kind": "gdelt",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "status": "error",
+      "reason": null,
+      "ms": 15001,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aportuguese&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "GDELT nl · media facade",
+      "kind": "gdelt",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "status": "error",
+      "reason": null,
+      "ms": 14999,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Adutch&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "GDELT pl · media facade",
+      "kind": "gdelt",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "status": "error",
+      "reason": null,
+      "ms": 15000,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Apolish&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "GDELT ru · media facade",
+      "kind": "gdelt",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "status": "error",
+      "reason": null,
+      "ms": 15001,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Arussian&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "GDELT ar · media facade",
+      "kind": "gdelt",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "status": "error",
+      "reason": null,
+      "ms": 14999,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aarabic&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "GDELT tr · media facade",
+      "kind": "gdelt",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "status": "error",
+      "reason": null,
+      "ms": 14998,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND api.gdeltproject.org)",
+          "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aturkish&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "Dezeen",
+      "kind": "rss",
+      "url": "https://www.dezeen.com/feed/",
+      "status": "error",
+      "reason": null,
+      "ms": 3015,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND www.dezeen.com)",
+          "url": "https://www.dezeen.com/feed/"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "designboom",
+      "kind": "rss",
+      "url": "https://www.designboom.com/feed/",
+      "status": "error",
+      "reason": null,
+      "ms": 3014,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND www.designboom.com)",
+          "url": "https://www.designboom.com/feed/"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "ArchDaily",
+      "kind": "rss",
+      "url": "https://feeds.feedburner.com/Archdaily",
+      "status": "error",
+      "reason": null,
+      "ms": 3009,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND feeds.feedburner.com)",
+          "url": "https://feeds.feedburner.com/Archdaily"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "Archinect",
+      "kind": "rss",
+      "url": "https://archinect.com/feed/1/news",
+      "status": "error",
+      "reason": null,
+      "ms": 3010,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND archinect.com)",
+          "url": "https://archinect.com/feed/1/news"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "Creative Applications Network",
+      "kind": "rss",
+      "url": "https://www.creativeapplications.net/feed/",
+      "status": "error",
+      "reason": null,
+      "ms": 3011,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND www.creativeapplications.net)",
+          "url": "https://www.creativeapplications.net/feed/"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "Media Architecture Institute",
+      "kind": "rss",
+      "url": "https://mediaarchitecture.org/feed/",
+      "status": "error",
+      "reason": null,
+      "ms": 3009,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND mediaarchitecture.org)",
+          "url": "https://mediaarchitecture.org/feed/"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "Designboom Korea",
+      "kind": "rss",
+      "url": "https://www.designboom.com/tag/korea/feed/",
+      "status": "error",
+      "reason": null,
+      "ms": 3010,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND www.designboom.com)",
+          "url": "https://www.designboom.com/tag/korea/feed/"
+        }
+      ],
+      "top": []
+    },
+    {
+      "name": "NAVER 뉴스 · 미디어파사드",
+      "kind": "naver_news",
+      "url": null,
+      "status": "skipped",
+      "reason": "naver_keys_not_set",
+      "ms": 0,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [],
+      "top": []
+    },
+    {
+      "name": "NAVER 뉴스 · 프로젝션 매핑 건물",
+      "kind": "naver_news",
+      "url": null,
+      "status": "skipped",
+      "reason": "naver_keys_not_set",
+      "ms": 0,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [],
+      "top": []
+    },
+    {
+      "name": "NAVER 블로그 · 미디어파사드",
+      "kind": "naver_blog",
+      "url": null,
+      "status": "skipped",
+      "reason": "naver_keys_not_set",
+      "ms": 0,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [],
+      "top": []
+    },
+    {
+      "name": "Brave · media facade",
+      "kind": "brave",
+      "url": "https://api.search.brave.com/res/v1/web/search",
+      "status": "skipped",
+      "reason": "brave_key_not_set",
+      "ms": 0,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [],
+      "top": []
+    },
+    {
+      "name": "Wikidata · archive project changes",
+      "kind": "wikidata",
+      "url": "https://query.wikidata.org/sparql",
+      "status": "error",
+      "reason": null,
+      "ms": 3013,
+      "fetched": 0,
+      "items": 0,
+      "dropped": {
+        "prefilter": 0,
+        "invalid": 0,
+        "duplicate_url": 0
+      },
+      "labels": {
+        "facade_project": 0,
+        "event_program": 0,
+        "ad_screen": 0,
+        "product_vendor": 0,
+        "irrelevant": 0,
+        "uncertain": 0
+      },
+      "statuses": {},
+      "websub_hub": null,
+      "project_updates": [],
+      "errors": [
+        {
+          "stage": "fetch",
+          "http_status": null,
+          "message": "network error: fetch failed (getaddrinfo ENOTFOUND query.wikidata.org)",
+          "url": "https://query.wikidata.org/sparql"
+        }
+      ],
+      "top": []
+    }
+  ]
+}

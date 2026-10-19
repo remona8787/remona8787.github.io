@@ -2,7 +2,11 @@
 # Deploys the production Edge Functions to Supabase and sets their shared secrets.
 # Needs: Node 22+, a Supabase personal access token (Dashboard → Account → Access Tokens).
 #   SUPABASE_ACCESS_TOKEN=sbp_... ./scripts/deploy-edge-functions.sh [project-ref]
-# Secrets: MEDIA_CRON_SECRET / MEDIA_ADMIN_SECRET are taken from the environment, or generated.
+# Secrets: MEDIA_CRON_SECRET / MEDIA_ADMIN_SECRET are taken from the environment, or generated. The archive collector
+# (archive-collect, archive-check-links) reuses MEDIA_CRON_SECRET; archive-websub is public and checks HMAC signatures.
+# Optional archive source keys are passed on only when set in the environment (never generated): NAVER_API_KEY_ID,
+# NAVER_API_KEY, NAVER_API_MODE (hub|legacy), BRAVE_API_KEY. WEBSUB_CALLBACK_URL defaults to this project's
+# archive-websub URL. See docs/ARCHIVE_COLLECTOR.md.
 # Generated values are written to .secrets/edge-secrets.env (git-ignored) so the cron secret can be
 # copied into Vault (see release/launch/LAUNCH.md step 4). Nothing secret is printed to the terminal.
 set -euo pipefail
@@ -11,7 +15,7 @@ REF="${1:-refwrdfxbhcsguweicle}"
 CLI="npx --yes supabase@2.116.0"
 : "${SUPABASE_ACCESS_TOKEN:?Set SUPABASE_ACCESS_TOKEN (Supabase Dashboard → Account → Access Tokens)}"
 # Scaffolds that only return 501 (refresh-live-place, sync-korea-open-data, sync-ticketmaster, sync-wikidata) are not deployed.
-FUNCTIONS=(delete-account discover-city-candidates sync-place-media refresh-media-rights cache-commons-media promote-candidate admin-discovery-command sync-seoul-cultural-events sync-global-places)
+FUNCTIONS=(delete-account discover-city-candidates sync-place-media refresh-media-rights cache-commons-media promote-candidate admin-discovery-command sync-seoul-cultural-events sync-global-places archive-collect archive-websub archive-check-links)
 
 work="$(mktemp -d)"; trap 'rm -rf "$work"' EXIT
 mkdir -p "$work/supabase/functions"
@@ -29,6 +33,12 @@ secrets_file=.secrets/edge-secrets.env
 MEDIA_CRON_SECRET="${MEDIA_CRON_SECRET:-$(node -e "console.log(require('crypto').randomBytes(32).toString('hex'))")}"
 MEDIA_ADMIN_SECRET="${MEDIA_ADMIN_SECRET:-$(node -e "console.log(require('crypto').randomBytes(32).toString('hex'))")}"
 umask 077; printf 'MEDIA_CRON_SECRET=%s\nMEDIA_ADMIN_SECRET=%s\n' "$MEDIA_CRON_SECRET" "$MEDIA_ADMIN_SECRET" > "$secrets_file"
+WEBSUB_CALLBACK_URL="${WEBSUB_CALLBACK_URL:-https://$REF.supabase.co/functions/v1/archive-websub}"
+printf 'WEBSUB_CALLBACK_URL=%s\n' "$WEBSUB_CALLBACK_URL" >> "$secrets_file"
+for name in NAVER_API_KEY_ID NAVER_API_KEY NAVER_API_MODE BRAVE_API_KEY; do
+  # Keyed or metered sources stay off unless the operator supplies the key (ARCHIVE_SPEC §1 rule 6).
+  if [ -n "${!name:-}" ]; then printf '%s=%s\n' "$name" "${!name}" >> "$secrets_file"; fi
+done
 
 echo "Setting function secrets on $REF…"
 $CLI secrets set --project-ref "$REF" --env-file "$secrets_file" --workdir "$work"
