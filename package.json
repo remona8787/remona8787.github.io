@@ -12,7 +12,9 @@
     "ios:open": "npx cap open ios",
     "launch:check": "node scripts/launch-check.mjs",
     "e2e": "npm run build && playwright test",
-    "build:preview": "npm run build && node scripts/build-preview.mjs"
+    "build:preview": "npm run build && node scripts/build-preview.mjs",
+    "archive:probe": "node scripts/archive-probe.mjs",
+    "archive:seed-sql": "node scripts/archive-seed-sql.mjs"
   },
   "dependencies": {
     "@capacitor/android": "8.5.3",
