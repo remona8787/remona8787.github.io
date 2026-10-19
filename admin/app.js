@@ -249,7 +249,7 @@ const failing=r=>r.failure_count>0||r.last_status==='error'||!!until(r.backoff_u
 function attention(list){
  const bad=list.filter(failing);
  if(!bad.length)return html`<p class="muted">실패하거나 재시도를 기다리는 규칙이 없어요.</p>`;
- return html`<ul class="picklist">${bad.map(r=>html`<li><div><b>${r.name}</b> <span class="muted small">${lbl('rule_kind',r.kind)} · 연속 실패 ${num(r.failure_count||0)}회${until(r.backoff_until)?` · ${until(r.backoff_until)} 재시도`:''}</span></div>${can('admin')?html`<button type="button" class="btn" data-act="rule-retry" data-id="${r.id}">다시 시도</button>`:''}</li>`)}</ul><div data-result aria-live="polite"></div>`;
+ return html`<ul class="picklist">${bad.map(r=>html`<li><div><b>${r.name}</b> <span class="muted small">${lbl('rule_kind',r.kind)} · 연속 실패 ${num(r.failure_count||0)}회${until(r.backoff_until)?` · ${until(r.backoff_until)} 재시도`:''}</span></div>${can('admin')&&r.enabled?html`<button type="button" class="btn" data-act="rule-retry" data-id="${r.id}">다시 시도</button>`:''}</li>`)}</ul><div data-result aria-live="polite"></div>`;
 }
 async function loadDashboard(){
  put($('#dashTiles'),html`<p class="muted">불러오는 중…</p>`);
@@ -588,6 +588,7 @@ acts['project-merge']=async el=>{if(!armed(el,'한 번 더 누르면 합쳐요')
 
 // ---- 변경 감지 ----
 const fmtVal=v=>v==null||v===''?'미확인':typeof v==='object'?JSON.stringify(v):String(v);
+const DETAIL_KEY={consecutive_failures:'연속 실패',link_state:'링크 상태',checked_at:'점검 시각',last_checked_at:'마지막 점검',media_id:'미디어',source_id:'출처',qid:'Wikidata',wikidata_qid:'Wikidata',reason:'사유',count:'개수',note:'메모'};
 function detailView(d){
  if(!d||typeof d!=='object')return '';
  const changes=rows(d.changes||(d.field?[d]:[])),srcs=rows(d.sources||d.hits||(d.url?[d]:[]));
@@ -595,7 +596,7 @@ function detailView(d){
  const rest=Object.entries(d).filter(([k])=>!used.includes(k));
  return html`${changes.length?html`<ul class="changes">${changes.map(c=>html`<li><b>${F[c.field]?.[0]||c.field}</b>: <span class="old">${fmtVal(c.old??c.before)}</span> → <span class="new">${fmtVal(c.new??c.after)}</span></li>`)}</ul>`:''}
  ${srcs.length?html`<ul class="hits">${srcs.map(s=>html`<li>${link(s.url||s.canonical_url,s.title||s.url)}${s.publisher?html` <span class="muted small">${s.publisher}</span>`:''}${s.http_status?html` <span class="muted small">HTTP ${s.http_status}</span>`:''}</li>`)}</ul>`:''}
- ${rest.length?html`<dl class="facts small">${rest.map(([k,v])=>html`<div><dt>${k}</dt><dd>${fmtVal(v)}</dd></div>`)}</dl>`:''}`;
+ ${rest.length?html`<dl class="facts small">${rest.map(([k,v])=>html`<div><dt>${DETAIL_KEY[k]||F[k]?.[0]||k}</dt><dd>${k==='link_state'?lbl('link_state',v):fmtVal(v)}</dd></div>`)}</dl>`:''}`;
 }
 async function loadUpdates(){
  const box=$('#updateList');put(box,html`<p class="muted">불러오는 중…</p>`);
@@ -610,7 +611,7 @@ acts['update-resolve']=async el=>{await rpc('archive_admin_resolve_update',{p_id
 function ruleHealth(list){
  if(!list.length)return html`<p class="muted">규칙이 없어요.</p>`;
  const admin=can('admin');
- return html`<div class="table-scroll" tabindex="0" role="region" aria-label="규칙 상태 표"><table><thead><tr><th scope="col">규칙</th><th scope="col">종류</th><th scope="col">사용</th><th scope="col">마지막 상태</th><th scope="col">마지막 실행</th><th scope="col">다음 실행</th><th scope="col" class="n">연속 실패</th><th scope="col">재시도 대기</th>${admin?html`<th scope="col"><span class="sr-only">작업</span></th>`:''}</tr></thead><tbody>${list.map(r=>{const wait=until(r.backoff_until);return html`<tr${on(failing(r),'class="warn-row"')}><td>${r.name}</td><td>${lbl('rule_kind',r.kind)}</td><td>${r.enabled?'켜짐':'꺼짐'}</td><td>${r.last_status?pill(lbl('run_status',r.last_status),RUN_TONE[r.last_status]):'—'}</td><td>${when(r.last_run_at)}</td><td>${when(r.next_run_at)}</td><td class="n">${num(r.failure_count||0)}</td><td>${wait?html`${wait} <span class="muted small">${when(r.backoff_until)}</span>`:'—'}</td>${admin?html`<td><button type="button" class="btn" data-act="rule-retry" data-id="${r.id}">다시 시도</button></td>`:''}</tr>`})}</tbody></table></div><div data-result aria-live="polite"></div>`;
+ return html`<div class="table-scroll" tabindex="0" role="region" aria-label="규칙 상태 표"><table><thead><tr><th scope="col">규칙</th><th scope="col">종류</th><th scope="col">사용</th><th scope="col">마지막 상태</th><th scope="col">마지막 실행</th><th scope="col">다음 실행</th><th scope="col" class="n">연속 실패</th><th scope="col">재시도 대기</th>${admin?html`<th scope="col"><span class="sr-only">작업</span></th>`:''}</tr></thead><tbody>${list.map(r=>{const wait=until(r.backoff_until);return html`<tr${on(failing(r),'class="warn-row"')}><td>${r.name}</td><td>${lbl('rule_kind',r.kind)}</td><td>${r.enabled?'켜짐':'꺼짐'}</td><td>${r.last_status?pill(lbl('run_status',r.last_status),RUN_TONE[r.last_status]):'—'}</td><td>${when(r.last_run_at)}</td><td>${when(r.next_run_at)}</td><td class="n">${num(r.failure_count||0)}</td><td>${wait?html`${wait} <span class="muted small">${when(r.backoff_until)}</span>`:'—'}</td>${admin?html`<td>${r.enabled?html`<button type="button" class="btn" data-act="rule-retry" data-id="${r.id}">다시 시도</button>`:''}</td>`:''}</tr>`})}</tbody></table></div><div data-result aria-live="polite"></div>`;
 }
 const errorList=list=>list.length?html`<ul class="errors">${list.map(e=>html`<li><p><b>${ruleName(e)}</b> · ${e.stage||'—'}${e.http_status?` · HTTP ${e.http_status}`:''} · <span class="muted small">${when(e.at)}</span></p><p class="err-msg">${e.message||''}</p>${e.url?html`<p class="small">${link(e.url)}</p>`:''}</li>`)}</ul>`:html`<p class="muted">최근 오류가 없어요.</p>`;
 async function loadRuns(){

@@ -212,6 +212,8 @@ export async function signIn(page,role='admin',hash=''){
  await expect(page.locator('#nav')).toBeVisible();
 }
 export const TAB_LABELS={dashboard:'대시보드',queue:'검수 대기열',projects:'프로젝트',updates:'변경 감지',runs:'수집 작업',rules:'수집 규칙·키워드',settings:'설정',research:'연구자 평가',magazine:'매거진',places:'장소 후보'};
+// An element that exists once a tab has rendered its data (networkidle does not wait for in-page tab switches).
+export const READY={dashboard:'#dashRuns table',queue:'#queueList .qitem',projects:'#projectList .pitem',updates:'#updateList .update',runs:'#errorList li',rules:'#kwTable table',settings:'#settingsBox form',research:'#researchList .pitem',magazine:'#articleForm',places:'#legacyJobs table'};
 export const TABS_BY_ROLE={
  admin:['dashboard','queue','projects','updates','runs','rules','settings','research','magazine','places'],
  editor:['dashboard','queue','projects','updates','runs','rules','research','magazine','places'],

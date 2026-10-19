@@ -2,21 +2,18 @@
 // The exact RPC names and parameter objects asserted here are the console's half of ARCHIVE_SPEC §4.
 import {test,expect} from './fixtures.mjs';
 import AxeBuilder from '@axe-core/playwright';
-import {mockSupabase,signIn,seed,token,USERS,ID,KEY,PASSWORD,XSS,XSS_SCRIPT,XSS_ATTR,TAB_LABELS,TABS_BY_ROLE} from './admin-fixtures.mjs';
+import {mockSupabase,signIn,token,USERS,ID,KEY,PASSWORD,XSS,XSS_SCRIPT,XSS_ATTR,TAB_LABELS,TABS_BY_ROLE,READY} from './admin-fixtures.mjs';
 
 const tab=(page,id)=>page.locator('#nav').getByRole('link',{name:TAB_LABELS[id],exact:true});
-async function openTab(page,id){
+async function openTab(page,id,ready=true){
  await tab(page,id).click();
- await expect(page.locator('#view-'+id)).toBeVisible();
  await expect(page.locator('#view-'+id+' h1')).toBeVisible();
+ if(ready)await expect(page.locator(READY[id]).first()).toBeVisible();
 }
 const drawer=page=>page.locator('#drawer');
 // Fails the test on any script dialog: an XSS payload that ran would open one.
 const noDialogs=page=>page.on('dialog',d=>{throw Error('unexpected dialog: '+d.message())});
-async function noErrorsShown(page,id){
- await page.waitForLoadState('networkidle');
- await expect(page.locator(`#view-${id} .notice.error`)).toHaveCount(0);
-}
+const noErrorsShown=(page,id)=>expect(page.locator(`#view-${id} .notice.error`)).toHaveCount(0);
 
 test.describe('sign-in',()=>{
  test('a wrong password shows a plain error and keeps the login screen',async({page})=>{
@@ -80,7 +77,8 @@ for(const role of ['admin','editor','researcher'])test(`every tab renders for ${
   await expect(page.locator('#dashRules')).toContainText('Archinect RSS');
   await expect(page.locator('#dashRuns tbody tr')).toHaveCount(4);
   await openTab(page,'runs');
-  await expect(page.getByRole('button',{name:'다시 시도'})).toHaveCount(role==='admin'?5:0);
+  // Retry is offered for enabled rules only, and only to admins.
+  await expect(page.locator('#ruleHealth').getByRole('button',{name:'다시 시도'})).toHaveCount(role==='admin'?3:0);
  }
  expect(errors).toEqual([]);
 });
@@ -453,10 +451,10 @@ test('error states are shown in place with a plain explanation',async({page})=>{
  await page.getByRole('button',{name:'수집 실행'}).click();
  await expect(page.locator('#runResult .notice.error')).toContainText('수집을 실행하지 못했어요.');
  await expect(page.locator('#runResult .notice.error')).toContainText('upstream timeout');
- await openTab(page,'queue');
+ await openTab(page,'queue',false);
  await expect(page.locator('#queueList .notice.error')).toContainText('후보를 불러오지 못했어요.');
  await expect(page.locator('#queueList .notice.error')).toContainText('connection reset');
- await openTab(page,'updates');
+ await openTab(page,'updates',false);
  await expect(page.locator('#updateList .notice.error')).toContainText('서버에 이 기능이 아직 없어요.');
 });
 
@@ -600,9 +598,7 @@ test.describe('layout',()=>{
   expect(await overflow()).toBeLessThanOrEqual(0);
   await signIn(page,'admin');
   for(const id of TABS_BY_ROLE.admin){
-   await page.locator('#nav').getByRole('link',{name:TAB_LABELS[id],exact:true}).click();
-   await expect(page.locator('#view-'+id+' h1')).toBeVisible();
-   await page.waitForLoadState('networkidle');
+   await openTab(page,id);
    expect(await overflow(),id).toBeLessThanOrEqual(0);
   }
   await page.locator('#nav').getByRole('link',{name:'검수 대기열'}).click();
@@ -637,9 +633,7 @@ for(const scheme of ['light','dark'])test.describe(`a11y ${scheme}`,()=>{
   expect(await scan(page),'login').toEqual([]);
   await signIn(page,'admin');
   for(const id of TABS_BY_ROLE.admin){
-   await page.locator('#nav').getByRole('link',{name:TAB_LABELS[id],exact:true}).click();
-   await expect(page.locator('#view-'+id+' h1')).toBeVisible();
-   await page.waitForLoadState('networkidle');
+   await openTab(page,id);
    if(id==='queue'){await page.locator('#queueList .qitem').first().click();await drawer(page).getByRole('button',{name:'새 프로젝트로 승인'}).click()}
    if(id==='projects')await page.locator('#projectList .pitem').first().click();
    if(id==='research')await page.locator('#researchList .pitem').first().click();

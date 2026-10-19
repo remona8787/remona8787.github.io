@@ -116,7 +116,9 @@ legend{padding:0;font-weight:600;font-size:14px}
 .radios{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:center}
 .radios legend{width:100%;margin-bottom:4px}
 .inline{display:flex;gap:8px;align-items:center}
-.inline input,.inline select{flex:1;min-width:0}
+/* width:0 keeps a long option from setting the row's minimum width; flex fills the space. */
+.inline input,.inline select{flex:1;min-width:0;width:0}
+.card-head>.inline{flex:1 1 260px;max-width:440px}
 .actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .filters{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;padding:16px;background:var(--surface);border:1px solid var(--line);border-radius:14px}
 .filters .f{display:flex;flex-direction:column;gap:4px;min-width:150px}
@@ -169,7 +171,7 @@ kbd{display:inline-flex;align-items:center;justify-content:center;min-width:22px
 .raw{margin:8px 0 0;padding:12px;max-height:280px;overflow:auto;border-radius:10px;background:var(--panel);color:var(--text);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;white-space:pre-wrap;word-break:break-all}
 
 /* Tables */
-.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.table-scroll{position:relative;overflow-x:auto;border:1px solid var(--line);border-radius:12px}
 table{width:100%;border-collapse:collapse;font-size:14px}
 th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
 tbody tr:last-child td{border-bottom:0}
@@ -190,15 +192,18 @@ tr.warn-row td:first-child{box-shadow:inset 3px 0 0 var(--vermilion-strong)}
 .qitem:hover,.pitem:hover{background:var(--panel)}
 .qitem[aria-current],.pitem[aria-current]{background:var(--accent-soft);box-shadow:inset 3px 0 0 var(--accent)}
 .qitem[aria-current] .qi-meta,.qitem[aria-current] .qi-nums,.qitem[aria-current] .qi-nums b,.pitem[aria-current] .muted{color:var(--accent-on-soft)}
+.qitem[aria-current] .pill,.pitem[aria-current] .pill{box-shadow:0 0 0 1px var(--surface)}
+.qitem[aria-current] .tone-accent,.pitem[aria-current] .tone-accent,.qitem[aria-current] .tone-muted,.pitem[aria-current] .tone-muted{background:var(--surface)}
 .qi-title,.pi-title{font-weight:700;font-size:15px;line-height:1.4}
 .qi-nums{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:14px;color:var(--text-muted)}
 .qi-nums b{color:var(--text);font-variant-numeric:tabular-nums}
 .qi-meta{font-size:13px;color:var(--text-muted)}
 .drawer,.detail-pane{display:flex;flex-direction:column;gap:18px;padding:20px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow-1);min-width:0}
 .drawer{position:sticky;top:80px;max-height:calc(100vh - 100px);overflow-y:auto}
-.drawer-head,.editor-head{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:10px}
+.drawer-head{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:10px}
 .drawer-head h2{flex:1;min-width:0}
-.editor-head{flex-direction:column;align-items:stretch}
+/* No flex-wrap here: a wrapping column flexbox measures the facts grid at its narrowest and leaves tall empty rows. */
+.editor-head{display:flex;flex-direction:column;align-items:stretch;gap:10px}
 .back{display:none!important;align-self:flex-start}
 .drawer section,.detail-pane section{display:flex;flex-direction:column;gap:10px}
 .facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px 16px;margin:0}
@@ -221,6 +226,7 @@ tr.warn-row td:first-child{box-shadow:inset 3px 0 0 var(--vermilion-strong)}
 .panel-form{display:flex;flex-direction:column;gap:10px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
 .panel-form>.btn,.panel-form>.actions{align-self:flex-start}
 .panel-form h3{margin-bottom:2px}
+.drawer .fields{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
 
 /* Editor fields */
 .fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px 16px}
@@ -240,7 +246,7 @@ fieldset.field>.field-meta{margin-bottom:4px}
 #creditRows{display:flex;flex-direction:column;gap:10px}
 #creditRows:empty{display:none}
 #creditRows+.btn{align-self:flex-start}
-.savebar{position:sticky;bottom:0;z-index:5;display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:12px 0;background:linear-gradient(to bottom,transparent,var(--bg) 30%)}
+.savebar{position:sticky;bottom:12px;z-index:5;display:flex;align-items:center;justify-content:flex-end;gap:12px;padding:10px 12px 10px 16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);box-shadow:var(--shadow-dialog)}
 .sources,.media,.rules,.errors,.cards{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
 .source,.media-item,.rule,.errors li{display:flex;flex-direction:column;gap:6px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
 .source>.btn{align-self:flex-start}
