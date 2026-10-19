@@ -62,7 +62,7 @@ test('home: 전국의 빛 and 세계의 빛 rails, curated duplicates hidden, ph
  for(const name of ['빛의 축제','쿤스트하우스 그라츠'])await expect(world.locator('.place-card',{hasText:name}).locator('img[data-place-photo]')).toHaveCount(0);
  // Region section: countries and cities with counts; Festival is a category. Synced Seoul places count under 서울
  // with the curated ones (not under their district), and Busan's districts make one city.
- await expect(page.locator('[data-country-link="일본"]')).toContainText('일본 · 31곳');
+ await expect(page.locator('[data-country-link="JP"]')).toContainText('일본 · 31곳');
  const curated=await page.evaluate(()=>AOLApp.places().length);
  await expect(page.locator('.region-card[data-city-link="서울"]')).toContainText(`${curated+1}곳`);
  await expect(page.locator('.region-card[data-city-link="부산"]')).toContainText('2곳');
@@ -85,7 +85,7 @@ test('explore: country and city filters from all places, 24 results per page, se
  await expect(page.locator('.result-meta')).toHaveText('일본 · 31곳');
  await expect(page.locator('.more-row')).toContainText('31곳 중 24곳');
  // The filter sheet updates the results live and closes with its live count.
- await page.getByRole('button',{name:'31곳 보기'}).click();
+ await page.getByRole('button',{name:'31개 결과 보기'}).click();
  await expect(page.locator('.advanced-filters')).not.toHaveAttribute('open','');
  await expect(page.locator('#placeResults .place-card')).toHaveCount(24);
  await page.getByRole('button',{name:'더 보기'}).click();
@@ -94,7 +94,7 @@ test('explore: country and city filters from all places, 24 results per page, se
  await page.locator('.advanced-filters summary').click();
  await page.locator('select[data-search-filter="city"]').selectOption('미나토구');
  await expect(page.locator('.result-meta')).toHaveText('일본 · 미나토구 · 30곳');
- await page.getByRole('button',{name:'초기화'}).click();
+ await page.locator('#filterPanel').getByRole('button',{name:'모두 지우기'}).click();
  await page.locator('#placeSearch').fill('시드니');
  await expect(page.locator('#placeResults .place-card')).toHaveCount(1);
  await expect(page.locator('#placeResults')).toContainText('비비드 시드니');

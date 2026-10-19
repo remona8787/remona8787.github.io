@@ -85,8 +85,9 @@ function sorter(f,ctx,scores){const s=f.sort,y=p=>yearOf(p),name=p=>ctx&&ctx.nam
  return (a,b)=>scores.get(b)-scores.get(a)}
 function search(places,f={},today,ctx){const words=queryWords(f);const out=places.filter(p=>match(p,f,today,ctx,words));const s=SORTS.includes(f.sort)?f.sort:'relevance';if(s==='relevance'&&!words.length)return out;const scores=new Map(words.length&&s==='relevance'?out.map(p=>[p,rank(p,f.q)]):[]);return out.sort(sorter({...f,sort:s},ctx,scores))}
 // Option counts for the filter panel: for each facet, the places matching every other filter, by value; plus the
-// countries (and the cities of the chosen country) with every filter but those two.
-function facetCounts(places,f={},today,ctx){const words=queryWords(f),out={};for(const k of FACET_KEYS){const c={};for(const p of places)if(match(p,f,today,ctx,words,k))for(const v of FACETS[k](p))if(v)c[v]=(c[v]||0)+1;out[k]=c}
+// countries (and the cities of the chosen country) with every filter but those two. only: just these facets.
+function facetCounts(places,f={},today,ctx,only){const words=queryWords(f),out={};for(const k of only||FACET_KEYS){if(!FACETS[k])continue;const c={};for(const p of places)if(match(p,f,today,ctx,words,k))for(const v of FACETS[k](p))if(v)c[v]=(c[v]||0)+1;out[k]=c}
+ if(only)return out;
  const loose={...f,country:'',city:''},countries={},cities={};for(const p of places){if(!match(p,loose,today,ctx,words))continue;const r=region(p);if(r.countryKey)countries[r.countryKey]=(countries[r.countryKey]||0)+1;if(r.cityKey&&(!f.country||r.countryKey===f.country||r.country===f.country))cities[r.cityKey]=(cities[r.cityKey]||0)+1}
  out.country=countries;out.city=cities;return out}
 function activeFacets(f){return FACET_KEYS.flatMap(k=>listOf(f[k]).map(v=>[k,v]))}

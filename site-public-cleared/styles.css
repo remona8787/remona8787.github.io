@@ -745,7 +745,8 @@ button.image-credit:focus-visible{outline-color:#FFFFFF;outline-offset:1px}
    bottom sheet on phones and a 400px drawer from 768px. */
 .explore-head{position:sticky;top:calc(var(--topbar-h) + env(safe-area-inset-top));z-index:30;margin:0 calc(-1 * var(--gutter));padding:var(--s-2) var(--gutter) 0;background:var(--bg);transition:top var(--dur-sheet) var(--ease-standard)}
 :root[data-scroll-dir=down] .explore-head:not(:has(.advanced-filters[open])){top:calc(var(--topbar-h) - 150px)}
-.explore-head:has(.advanced-filters[open]),.map-head:has(.advanced-filters[open]){z-index:160}
+.explore-head:has(.type-chips){padding-bottom:0}
+.explore-head:has(.advanced-filters[open]:not(.inline)),.map-head:has(.advanced-filters[open]:not(.inline)){z-index:160}
 .explore-head .chips{margin-top:var(--s-3);margin-bottom:0;padding-bottom:var(--s-3)}
 .search-row{display:flex;gap:var(--s-2);align-items:center}
 .advanced-filters>summary{list-style:none}
@@ -755,7 +756,7 @@ button.image-credit:focus-visible{outline-color:#FFFFFF;outline-offset:1px}
 .filter-button .count-badge{position:absolute;top:-3px;right:-3px;box-shadow:0 0 0 2px var(--bg)}
 .filter-label{display:none}
 @media (min-width:600px){.filter-label{display:inline}.filter-button{padding:0 var(--s-4)}.filter-button .count-badge{position:static;box-shadow:none}}
-html:has(.advanced-filters[open]){overflow:hidden}
+html:has(.advanced-filters[open]:not(.inline)){overflow:hidden}
 .filter-sheet{position:fixed;inset:0;z-index:170;display:flex;align-items:flex-end}
 .filter-backdrop{position:absolute;inset:0;width:100%;height:100%;background:var(--backdrop);cursor:default}
 @media (prefers-reduced-motion:no-preference){.filter-backdrop{animation:fade-in var(--dur-sheet) var(--ease-decel)}.filter-panel{animation:sheet-in var(--dur-sheet) var(--ease-decel)}}
@@ -779,6 +780,42 @@ html:has(.advanced-filters[open]){overflow:hidden}
   .filter-panel{width:400px;max-height:none;height:100%;border-radius:var(--r-sheet) 0 0 var(--r-sheet);box-shadow:var(--shadow-dialog)}
 }
 @media (min-width:768px) and (prefers-reduced-motion:no-preference){.filter-panel{animation:drawer-in var(--dur-sheet) var(--ease-decel)}}
+/* Archive filters (v0.16). The sheet's header (close · title · clear all) and footer (live result count) stay put while
+   its body scrolls; on phones the sheet fills the screen. Facets are chip groups with counts. From 1360px the explore
+   page shows the same panel inline, next to the results, always open and without the footer. */
+.sheet-head{position:relative;gap:var(--s-2);min-height:60px;padding:var(--s-2) var(--s-3);border-bottom:1px solid var(--line)}
+.sheet-head h2{display:flex;align-items:center;gap:var(--s-2);flex:1;min-width:0}
+.sheet-head .count-badge{background:var(--accent-soft);color:var(--accent-on-soft)}
+.sheet-clear{min-height:44px;padding:0 var(--s-2);font-size:var(--fs-label)}
+.sheet-clear:disabled{color:var(--text-muted);cursor:default;text-decoration:none!important}
+.filter-subgroup{margin:0 0 var(--s-4)}
+.filter-subgroup:last-child{margin-bottom:0}
+.filter-subgroup h4{margin:0 0 var(--s-2);color:var(--text-muted);font-size:var(--fs-caption);line-height:var(--lh-caption);font-weight:600}
+.filter-group .facet-chips{margin:0;gap:6px}
+.facet-chips .chip,.filter-group .chips .chip{min-height:40px}
+.chip.active .chip-count{color:inherit}
+.chip .chip-count{margin-left:2px}
+.filter-group .field-grid+.facet-chips,.filter-subgroup+.field-grid{margin-top:var(--s-3)}
+.year-range input{display:block;width:100%;margin-top:6px}
+.filter-note{margin:var(--s-2) 0 0;color:var(--text-muted);font-size:var(--fs-caption);line-height:var(--lh-caption)}
+.sheet-foot .button{flex:1}
+@media (max-width:767px){
+  .filter-sheet{align-items:stretch}
+  .filter-panel{height:100%;max-height:none;border-radius:0;padding-top:env(safe-area-inset-top)}
+}
+.type-chips{scroll-padding:0 var(--gutter)}
+.results-foot{display:flex;justify-content:center;margin:var(--s-6) 0 0}
+.results-foot .text-link{font-size:var(--fs-label);gap:var(--s-1)}
+.explore-body.with-filters{display:grid;grid-template-columns:288px minmax(0,1fr);gap:var(--s-8);align-items:start}
+.filter-aside{position:sticky;top:calc(var(--topbar-h) + var(--s-4));margin-top:var(--s-3)}
+.advanced-filters.inline>summary{display:none}
+.advanced-filters.inline .filter-sheet{position:static;display:block}
+.advanced-filters.inline .filter-panel{max-height:calc(100dvh - var(--topbar-h) - var(--s-8));height:auto;width:auto;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface);box-shadow:none;animation:none}
+.advanced-filters.inline .sheet-head{padding:var(--s-2) var(--s-3) var(--s-2) var(--s-5)}
+.advanced-filters.inline .sheet-body{padding:0 var(--s-5) var(--s-2)}
+.explore-body.with-filters .grid.results:not(.rows){grid-template-columns:repeat(auto-fill,minmax(232px,1fr))}
+.explore-body.with-filters .grid.rows{grid-template-columns:minmax(0,1fr)}
+@media (min-width:1500px){.explore-body.with-filters .grid.rows{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .result-bar{display:flex;align-items:center;justify-content:space-between;gap:var(--s-2);min-height:44px;margin:var(--s-3) 0 var(--s-3)}
 .result-meta{margin:0;min-width:0;color:var(--text-muted);font-size:var(--fs-label);line-height:var(--lh-label);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .result-meta b{color:var(--text)}
