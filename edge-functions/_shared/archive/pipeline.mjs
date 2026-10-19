@@ -356,8 +356,9 @@ export function backoffUntil(failureCount, now, retryAfterMs = null) {
 }
 
 /**
- * p_rule_state for archive_finish_run: conditional-GET validators, the failure count and backoff computed by the
- * spec formula, the next run time, and a hub the feed advertised.
+ * p_rule_state for archive_finish_run: conditional-GET validators (RSS only) and the next run time, which the SQL
+ * uses; plus, for the run log and the probe, the failure count and backoff by the spec formula (the SQL computes its
+ * own with the same formula), Retry-After and a hub the feed advertised.
  * @param {Rule} rule @param {RuleResult} result @param {number} now
  */
 export function ruleState(rule, result, now) {
@@ -367,9 +368,10 @@ export function ruleState(rule, result, now) {
   const backoff_until = failed ? backoffUntil(failure_count, now, result.validators.retry_after_ms) : null
   const cadence = Math.max(1, Number(rule.cadence_hours) || 6) * 3600e3
   const next = new Date(now + cadence).toISOString()
+  // Only feeds have conditional-GET validators; archive_finish_run overwrites them whenever the keys are present.
+  const validators = rule.kind === 'rss' ? { etag: result.validators.etag, last_modified: result.validators.last_modified } : {}
   return {
-    etag: result.validators.etag,
-    last_modified: result.validators.last_modified,
+    ...validators,
     not_modified: result.not_modified,
     failed,
     failure_count,
