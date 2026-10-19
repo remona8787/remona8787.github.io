@@ -1,7 +1,7 @@
 // WCAG 2.1 A/AA automated scan (axe-core) of the main screens.
 import {test,expect} from './fixtures.mjs';
 import AxeBuilder from '@axe-core/playwright';
-for(const r of ['home','explore','map','saved','my','journal','routes','calendar','settings','account','place/SEOUL001','curation/CUR001'])
+for(const r of ['home','explore','map','saved','my','journal','routes','calendar','settings','account','data','place/SEOUL001','curation/CUR001'])
  for(const width of [390,1440])test(`a11y #${r} @${width}`,async({page})=>{
   await page.setViewportSize({width,height:900});await page.goto('/#'+r);await page.waitForLoadState('networkidle');
   const {violations}=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
@@ -10,7 +10,7 @@ for(const r of ['home','explore','map','saved','my','journal','routes','calendar
 // The same scan with the system set to dark: the dark tokens must pass on the real screens too.
 test.describe('dark theme',()=>{
  test.use({colorScheme:'dark'});
- for(const r of ['home','explore','map','saved','my','settings','account','place/SEOUL001','curation/CUR001'])
+ for(const r of ['home','explore','map','saved','my','settings','account','data','place/SEOUL001','curation/CUR001'])
   for(const width of [390,1440])test(`a11y dark #${r} @${width}`,async({page})=>{
    await page.setViewportSize({width,height:900});await page.goto('/#'+r);await page.waitForLoadState('networkidle');
    expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(13, 15, 38)');

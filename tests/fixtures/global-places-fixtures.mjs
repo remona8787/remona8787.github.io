@@ -10,7 +10,9 @@ const lit = (value, lang) => ({ type: 'literal', value, ...(lang ? { 'xml:lang':
 // as "Q…|label" ('' when the walk found none) and district the unit below it (or, without a city, the item's own admin
 // unit). They are written in the query's ranked form: ?city "<rank>Q…|label", ?district "<rank>Q…|name".
 // other is the fallback label (?label_other: "mul", ja, zh, de, fr or es) for items with neither ko nor en.
-export function wdqsRow({ qid, ko, en, other, dko, den, coord, image, country, city, district, site, kind, sitelinks = 0 }) {
+// v0.16 archive facts: inception ("2014-03-21T00:00:00Z"), iso ("Q…|CC" pairs, space separated), architects /
+// creators / operators (["Q…|name", …]) and stateOfUse (["Q…", …]), as the query's columns report them.
+export function wdqsRow({ qid, ko, en, other, dko, den, coord, image, country, city, district, site, kind, sitelinks = 0, inception, iso, architects, creators, operators, stateOfUse }) {
   const rank = city ? '6' : '0'
   return {
     item: { type: 'uri', value: `http://www.wikidata.org/entity/${qid}` },
@@ -29,12 +31,18 @@ export function wdqsRow({ qid, ko, en, other, dko, den, coord, image, country, c
     ...(site ? { site: { type: 'uri', value: site } } : {}),
     ...(kind ? { kind: lit(kind) } : {}),
     sitelinks: { datatype: 'http://www.w3.org/2001/XMLSchema#integer', type: 'literal', value: String(sitelinks) },
+    ...(inception ? { inception: lit(inception) } : {}),
+    ...(iso ? { country_iso: lit(iso) } : {}),
+    ...(architects?.length ? { architects: lit(architects.join('\t')) } : {}),
+    ...(creators?.length ? { creators: lit(creators.join('\t')) } : {}),
+    ...(operators?.length ? { operators: lit(operators.join('\t')) } : {}),
+    ...(stateOfUse?.length ? { state_of_use: lit(stateOfUse.join(' ')) } : {}),
   }
 }
 
 export function wdqsBranch(rows) {
   return {
-    head: { vars: ['item', 'label_ko', 'label_en', 'label_other', 'desc_ko', 'desc_en', 'coord', 'image', 'country', 'city', 'district', 'site', 'kind', 'sitelinks'] },
+    head: { vars: ['item', 'label_ko', 'label_en', 'label_other', 'desc_ko', 'desc_en', 'coord', 'image', 'country', 'city', 'district', 'site', 'kind', 'sitelinks', 'inception', 'country_iso', 'architects', 'creators', 'operators', 'state_of_use'] },
     results: { bindings: rows.map(wdqsRow) },
   }
 }
@@ -58,11 +66,12 @@ export const KOREA = {
   busanSky: { qid: 'Q109905495', en: 'BUSAN X the SKY', coord: 'Point(129.1604 35.1587)', country: KR, city: BUSAN, district: '해운대구', kind: 'Nightscape', sitelinks: 2 },
 }
 
-// Places in other countries. Coordinates are WKT, longitude first (Sydney is lon 151, lat -33).
+// Places in other countries. Coordinates are WKT, longitude first (Sydney is lon 151, lat -33). The QIDs of people
+// and organisations (Q995000xx) are fictional.
 export const WORLD = {
-  vivid: { qid: 'Q7937834', ko: '비비드 시드니', en: 'Vivid Sydney', dko: '시드니에서 열리는 빛·음악·아이디어 축제', coord: 'Point(151.2093 -33.8688)', image: 'Vivid Sydney 2019.jpg', country: 'Q408|오스트레일리아', city: 'Q3130|시드니', site: 'https://www.vividsydney.com/', kind: 'Festival', sitelinks: 25 },
+  vivid: { qid: 'Q7937834', ko: '비비드 시드니', en: 'Vivid Sydney', dko: '시드니에서 열리는 빛·음악·아이디어 축제', coord: 'Point(151.2093 -33.8688)', image: 'Vivid Sydney 2019.jpg', country: 'Q408|오스트레일리아', city: 'Q3130|시드니', site: 'https://www.vividsydney.com/', kind: 'Festival', sitelinks: 25, inception: '2009-01-01T00:00:00Z', iso: 'Q408|AU', operators: ['Q99500010|Destination NSW'], stateOfUse: ['Q55654238'] },
   lyon: { qid: 'Q4167', ko: '빛의 축제', en: 'Festival of Lights', dko: '프랑스 리옹의 빛 축제', coord: 'Point(4.8357 45.7640)', image: 'Fete des Lumieres Lyon.jpg', country: 'Q142|프랑스', city: 'Q456|리옹', kind: 'Festival', sitelinks: 30 },
-  graz: { qid: 'Q597137', ko: '쿤스트하우스 그라츠', en: 'Kunsthaus Graz', coord: 'Point(15.4339 47.0713)', image: 'Kunsthaus Graz.jpg', country: 'Q40|오스트리아', city: 'Q13298|그라츠', kind: 'Media Facade', sitelinks: 20 },
+  graz: { qid: 'Q597137', ko: '쿤스트하우스 그라츠', en: 'Kunsthaus Graz', coord: 'Point(15.4339 47.0713)', image: 'Kunsthaus Graz.jpg', country: 'Q40|오스트리아', city: 'Q13298|그라츠', kind: 'Media Facade', sitelinks: 20, inception: '2003-01-01T00:00:00Z', iso: 'Q40|AT', architects: ['Q99500011|Peter Cook', 'Q99500012|Colin Fournier'] },
   // Labels are plain text: tags are stripped, but entity-encoded markup decodes to literal "<img …>" text that the
   // app must escape when it renders it.
   xss: { qid: 'Q99100099', ko: '&lt;img src=x onerror="window.__xss=1"&gt;빛', en: 'Test <script>alert(1)</script>', dko: '<b>굵게</b> 설명', coord: 'Point(2.35 48.85)', country: 'Q142|프랑스', city: 'Q90|파리', kind: 'Light Art', sitelinks: 1 },

@@ -11,6 +11,8 @@ function freshness(p,date=today()){
  const checked=p.verified_at,age=validDate(checked)?days(checked,date):null,ttl=Number(p.refresh_days)||30;
  if(p.origin==='wikidata')return {key:'unverified',label:'검색 후보 · 미검토',tone:'warn',age:null};
  if(p.origin==='wikidata-sync')return {key:'synced',label:'Wikidata 공동 편집 데이터',tone:'info',age:null};
+ // Archive projects: the editor's review state first; a broken official link is said before anything else.
+ if(p.origin==='archive'){if(p.update_status==='link_broken')return {key:'archive_link_broken',label:'링크 오류 · 확인 중',tone:'warn',age:null};if(p.review_status==='researcher_assessed')return {key:'archive_assessed',label:'연구자 평가',tone:'ok',age:null};if(p.review_status==='editor_verified')return {key:'archive_verified',label:'편집 검수',tone:'ok',age:null};if(p.record_origin==='curated')return {key:'archive_curated',label:'편집부 수록',tone:'ok',age:null};return {key:'archive_unreviewed',label:'자동 수집 · 미검수',tone:'warn',age:null}}
  if(validDate(p.program_end)&&p.program_end<date)return {key:'ended',label:'수록 프로그램 종료',tone:'off',age};
  if(validDate(p.program_start)&&p.program_start>date)return {key:'upcoming',label:'수록 일정상 예정',tone:'info',age};
  if(/ENDED|BETWEEN/.test(p.live_operation_state||''))return {key:'ended',label:'수록 프로그램 종료',tone:'off',age};
@@ -22,6 +24,17 @@ function freshness(p,date=today()){
 function coords(p){const a=p.latitude,b=p.longitude;return typeof a==='number'&&typeof b==='number'&&Number.isFinite(a)&&Number.isFinite(b)&&Math.abs(a)<=90&&Math.abs(b)<=180?[a,b]:null}
 function filterPlaces(ps,f={}){const q=(f.q||'').normalize('NFKC').toLowerCase().trim();return ps.filter(p=>(!q||[p.name_kr,p.name_en,p.district,p.address,p.short_description].some(x=>String(x||'').normalize('NFKC').toLowerCase().includes(q)))&&(!f.category||f.category==='전체'||p.primary_category===f.category)&&(!f.district||f.district==='전체'||p.district===f.district)&&(!f.free||p.free===true)&&(!f.indoor||p.indoor===true)&&(!f.saved||f.saved.has(p.place_id))&&(!f.upcoming||freshness(p).key==='upcoming'))}
 function empty(){return {schema:VERSION,saved:[],visits:[],routes:[],candidates:[],legacyVisits:{},preferences:{}}}
+// A project of the media facade archive (origin 'archive', AR-<slug>) that the user saved, planned or recorded: the
+// fields needed to show it while the archive list is not available (offline, expired cache). Keys are checked for
+// shape only (labels come from the taxonomy when shown); links must be https and coordinates valid.
+const ARCHIVE_ID=/^AR-[A-Za-z0-9][A-Za-z0-9._-]{0,159}$/,KEY_RE=/^[a-z][a-z0-9_]{0,39}$/;
+function archiveRecord(c){
+ if(!checkText(c.name_kr,300)||!c.name_kr.trim()||!checkText(c.short_description||'',2000))return null;
+ const t=(v,n)=>checkText(v,n)?v:'',k=v=>typeof v==='string'&&KEY_RE.test(v)?v:null,yr=v=>Number.isInteger(v)&&v>=1000&&v<=2100?v:null,https=v=>/^https:/.test(safeURL(v))?safeURL(v):'';
+ const a={place_id:c.place_id,origin:'archive',archive_slug:c.place_id.slice(3),name_kr:c.name_kr,name_en:t(c.name_en,300),name_original:t(c.name_original,300)||null,short_description:c.short_description||'',primary_category:typeof c.primary_category==='string'&&/^[A-Za-z ]{1,40}$/.test(c.primary_category)?c.primary_category:null,project_type:k(c.project_type),region:k(c.region),country_iso2:typeof c.country_iso2==='string'&&/^[A-Z]{2}$/.test(c.country_iso2)?c.country_iso2:null,country:t(c.country,120),city:t(c.city,120),district:t(c.district,120),year_installed:yr(c.year_installed),year_completed:yr(c.year_completed),record_origin:k(c.record_origin),review_status:k(c.review_status)||'unreviewed',website:https(c.website),source_url:https(c.source_url),scope:c.scope==='korea'?'korea':'world',latitude:null,longitude:null};
+ if(c.latitude!=null||c.longitude!=null){if(!coords(c))return null;const src=https(c.coordinate_source_url);if(src&&['verified','source'].includes(c.coordinate_review_status))Object.assign(a,{latitude:c.latitude,longitude:c.longitude,coordinate_review_status:c.coordinate_review_status,coordinate_source:'archive',coordinate_source_url:src})}
+ return a;
+}
 function id(){return typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+'-'+Math.random().toString(36).slice(2)}
 function checkText(v,max=4000){return typeof v==='string'&&v.length<=max}
 function validate(data,knownIds=[]){
@@ -30,6 +43,7 @@ function validate(data,knownIds=[]){
  const out=empty(),known=new Set(knownIds);
  const seenCandidates=new Set();
  for(const c of data.candidates){
+  if(c&&ARCHIVE_ID.test(c.place_id||'')&&c.origin==='archive'&&!seenCandidates.has(c.place_id)){const a=archiveRecord(c);if(!a)throw Error('아카이브 프로젝트 데이터가 잘못되었습니다.');seenCandidates.add(a.place_id);known.add(a.place_id);out.candidates.push(a);continue}
   if(!c||!/^WD-Q\d+$/.test(c.place_id)||seenCandidates.has(c.place_id)||!checkText(c.name_kr,300)||!checkText(c.short_description||'',2000))throw Error('세계 장소 데이터가 잘못되었습니다.');
   if((c.latitude!=null||c.longitude!=null)&&!coords(c))throw Error('좌표가 잘못되었습니다.');
   seenCandidates.add(c.place_id);known.add(c.place_id);

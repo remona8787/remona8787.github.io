@@ -41,7 +41,15 @@ import { WDQS_URL, SYNC_INTERVAL_MS, SEOUL_QID, DEFAULT_POLICY, fileFromFilePath
  * @property {Kind[]} kinds
  * @property {number} sitelinks
  * @property {string[]} branches
+ * @property {number|null} [inception]  year of P571 (inception) at year precision or finer
+ * @property {string} [countryIso]      ISO 3166-1 alpha-2 code (P297) of the country above ('' when none)
+ * @property {Person[]} [architects]    P84
+ * @property {Person[]} [creators]      P170
+ * @property {Person[]} [operators]     P137
+ * @property {string[]} [stateOfUse]    P5817 value QIDs
  */
+/** @typedef {{qid: string, name: string}} Person */
+/** @typedef {{role: 'architect'|'creator'|'operator', name: string, qid: string}} Credit */
 /**
  * @typedef {object} GlobalPlace
  * @property {string} place_id               "WD-Q…"
@@ -70,6 +78,13 @@ import { WDQS_URL, SYNC_INTERVAL_MS, SEOUL_QID, DEFAULT_POLICY, fileFromFilePath
  * @property {number} sitelinks
  * @property {Scope} scope
  * @property {string[]} branches             branch ids that returned the item (used to keep it when only those fail)
+ * @property {number|null} year_completed    archive fields (docs/ARCHIVE_SPEC.md §6) that Wikidata states, each with
+ * @property {string|null} country_iso2      the field state source_reported in field_status: P571, P17 → P297,
+ * @property {Credit[]} credits              P84 / P170 / P137, P5817 (mapped only through STATE_OF_USE), P856
+ * @property {string|null} operating_status
+ * @property {string[]} state_of_use         the raw P5817 QIDs
+ * @property {string|null} official_url
+ * @property {Record<string, {state: 'source_reported'}>} field_status
  */
 /** @typedef {{id: string, ok: boolean, count: number, error: string|null, ms: number}} BranchResult */
 /** @typedef {(url: string, init?: RequestInit) => Promise<any>} FetchJSON */
@@ -240,6 +255,18 @@ export const NEVER_SHOW_QIDS = [
   'Q7765824', // The Sphere (rental network), mistaken for Sphere in Las Vegas (Q60749353)
 ]
 
+// P5817 (state of use) values that map to the archive's operating_status, each checked on wikidata.org. Any other value
+// (e.g. Q55570340 "closed to the public": a facade can still be seen from the street) is kept as a QID but not mapped,
+// and so are items whose values map to different statuses.
+/** @type {Record<string, 'operating'|'inactive'|'ended'|'demolished'>} */
+export const STATE_OF_USE = {
+  Q55654238: 'operating', // in use
+  Q55570821: 'operating', // open to the public
+  Q55653430: 'inactive', // temporarily closed
+  Q104664889: 'ended', // permanently closed
+  Q56556915: 'demolished', // demolished or destroyed
+}
+
 const values = (/** @type {[string, Kind, string][]} */ rows, /** @type {string} */ v) =>
   `VALUES (${v} ?k) {\n${rows.map(([q, k, note]) => `      (wd:${q} "${k}") # ${note.replace(/\n/g, ' ')}`).join('\n')}\n    }`
 const IN_KOREA = `{ ?item wdt:P17 wd:${KOREA_QID} . } UNION { ?item wdt:P276/wdt:P17 wd:${KOREA_QID} . }`
@@ -271,6 +298,11 @@ const KOREA_CITY_IN = `(${KOREA_CITY_CLASSES.map(q => 'wd:' + q).join(', ')})`
 const labelsOf = (/** @type {string} */ v, indent = '      ') =>
   `OPTIONAL { ?${v} rdfs:label ?${v}ko . FILTER(LANG(?${v}ko) = "ko") }\n${indent}OPTIONAL { ?${v} rdfs:label ?${v}en . FILTER(LANG(?${v}en) = "en") }`
 const entityPair = (/** @type {string} */ v, /** @type {string} */ name) => `CONCAT(STRAFTER(STR(?${v}), "/entity/"), "|", ${name})`
+// People (architect, creator, operator): "Q…|label" per value, the label in ko, en or mul ('' when none; the parser
+// drops those, a bare QID is never shown as a name). GROUP_CONCAT skips items without the property.
+const PEOPLE = /** @type {const} */ ([['P84', 'arch', 'architects'], ['P170', 'crea', 'creators'], ['P137', 'oper', 'operators']])
+const personOf = (/** @type {string} */ p, /** @type {string} */ v) =>
+  `OPTIONAL { ?item wdt:${p} ?${v} .\n    ${['ko', 'en', 'mul'].map(l => `OPTIONAL { ?${v} rdfs:label ?${v}${l} . FILTER(LANG(?${v}${l}) = "${l}") }`).join('\n    ')}\n    BIND(${entityPair(v, `COALESCE(?${v}ko, ?${v}en, ?${v}mul, "")`)} AS ?${v}Pair) }`
 
 // One small query per branch. No wikibase:label service (too slow on large sets): labels come from rdfs:label, one
 // OPTIONAL per language (each binds at most one value, so rows never multiply).
@@ -283,11 +315,17 @@ const entityPair = (/** @type {string} */ v, /** @type {string} */ name) => `CON
 // ?district columns lead with that digit, ?district also with the city's QID, so MAX over an item's rows picks the best
 // city and the district of that same city (parseBranch strips the prefixes). Without a city-level unit the item's own
 // admin unit is reported as the district and parseBranch uses it as the city, like before.
+// Archive facts (v0.16, field state source_reported): inception (P571) only at year precision or finer (a "19th
+// century" value is not a year) and not deprecated; the country's ISO code (P297) as "Q…|CC" so the parser can check it
+// belongs to the same country as ?country; architect, creator and operator (see PEOPLE); state of use (P5817, best
+// rank). Each is one OPTIONAL lookup per item; an item without them costs nothing more.
 /** @param {Branch} branch */
 export function buildBranchQuery(branch) {
   return `${BRANCH_MARKER}${branch.id}
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX psv: <http://www.wikidata.org/prop/statement/value/>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX schema: <http://schema.org/>
@@ -297,6 +335,9 @@ SELECT ?item
   (SAMPLE(?c) AS ?coord) (SAMPLE(?img) AS ?image)
   (SAMPLE(?ctryPair) AS ?country) (MAX(?cityKey) AS ?city) (MAX(?districtKey) AS ?district) (SAMPLE(?web) AS ?site)
   (GROUP_CONCAT(DISTINCT ?k; separator="|") AS ?kind) (MAX(?sl) AS ?sitelinks)
+  (MIN(STR(?inc)) AS ?inception) (GROUP_CONCAT(DISTINCT ?isoPair; separator=" ") AS ?country_iso)
+  ${PEOPLE.map(([, v, name]) => `(GROUP_CONCAT(DISTINCT ?${v}Pair; separator="\\t") AS ?${name})`).join(' ')}
+  (GROUP_CONCAT(DISTINCT STRAFTER(STR(?use), "/entity/"); separator=" ") AS ?state_of_use)
 WHERE {
   {
     SELECT DISTINCT ?item ?k WHERE {
@@ -317,12 +358,22 @@ ${FALLBACK_LABEL_LANGS.map(l => `  OPTIONAL { ?item rdfs:label ?l_${l} . FILTER(
   OPTIONAL { ?item wdt:P18 ?img . }
   ${branch.scope === 'korea' ? `BIND(wd:${KOREA_QID} AS ?ctry)
   OPTIONAL { ?ctry rdfs:label ?cko . FILTER(LANG(?cko) = "ko") }
-  OPTIONAL { ?ctry rdfs:label ?cen . FILTER(LANG(?cen) = "en") }` : `OPTIONAL {
+  OPTIONAL { ?ctry rdfs:label ?cen . FILTER(LANG(?cen) = "en") }
+  OPTIONAL { ?ctry wdt:P297 ?iso . }` : `OPTIONAL {
     { ?item wdt:P17 ?ctry . } UNION { ?item wdt:P276/wdt:P17 ?ctry . FILTER NOT EXISTS { ?item wdt:P17 ?ownCountry . } }
     OPTIONAL { ?ctry rdfs:label ?cko . FILTER(LANG(?cko) = "ko") }
     OPTIONAL { ?ctry rdfs:label ?cen . FILTER(LANG(?cen) = "en") }
+    OPTIONAL { ?ctry wdt:P297 ?iso . }
   }`}
   BIND(CONCAT(STRAFTER(STR(?ctry), "/entity/"), "|", COALESCE(?cko, ?cen, "")) AS ?ctryPair)
+  BIND(CONCAT(STRAFTER(STR(?ctry), "/entity/"), "|", ?iso) AS ?isoPair)
+  OPTIONAL {
+    ?item p:P571 ?incSt . ?incSt psv:P571 ?incV ; wikibase:rank ?incRank .
+    ?incV wikibase:timeValue ?inc ; wikibase:timePrecision ?incPrec .
+    FILTER(?incPrec >= 9 && ?incRank != wikibase:DeprecatedRank)
+  }
+  ${PEOPLE.map(([p, v]) => personOf(p, v)).join('\n  ')}
+  OPTIONAL { ?item wdt:P5817 ?use . }
   OPTIONAL {
     { ?item wdt:P131 ?a1 . BIND(true AS ?viaAdmin) } UNION { ?item wdt:P276 ?a1 . FILTER NOT EXISTS { ?item wdt:P131 ?ownAdmin . } }
     ${labelsOf('a1', '    ')}
@@ -422,6 +473,43 @@ function cityOf(r) {
   return { cityQid, city, district }
 }
 
+// "2014-03-21T00:00:00Z" → 2014 (also "+2014-…" and negative years); anything else → null.
+/** @param {any} v @returns {number|null} */
+export function yearOf(v) {
+  const m = /^([+-]?)(\d{1,6})-\d\d-\d\d/.exec(String(v || '').trim())
+  if (!m) return null
+  const y = Number(m[2]) * (m[1] === '-' ? -1 : 1)
+  return Number.isInteger(y) && y >= -9999 && y <= 9999 ? y : null
+}
+// "Q…|label<TAB>Q…|label" → [{qid, name}] (values without a name are dropped), at most 5.
+/** @param {any} v @returns {Person[]} */
+export function peopleOf(v) {
+  /** @type {Person[]} */
+  const out = []
+  for (const part of String(v || '').split('\t')) {
+    const [qid, name] = splitPair(part, 200)
+    if (qid && name && !out.some(x => x.qid === qid)) out.push({ qid, name })
+  }
+  return out.slice(0, 5)
+}
+// The ISO code that belongs to the item's own country QID (a country with several P17 values has one pair each).
+/** @param {any} v @param {string} countryQid */
+function isoOf(v, countryQid) {
+  for (const part of String(v || '').split(' ')) {
+    const [qid, code] = part.split('|')
+    if (qid && qid === countryQid && /^[A-Z]{2}$/.test(code || '')) return code
+  }
+  return ''
+}
+/** @param {any} v @returns {string[]} */
+const qidList = v => [...new Set(String(v || '').split(/\s+/).filter(q => /^Q\d+$/.test(q)))].slice(0, 5)
+// One operating_status for the item's P5817 values, or null when none maps or they disagree.
+/** @param {string[]} qids */
+export function operatingStatus(qids) {
+  const mapped = new Set((qids || []).map(q => STATE_OF_USE[q]).filter(Boolean))
+  return mapped.size === 1 ? [...mapped][0] : null
+}
+
 // Parses one branch's SPARQL JSON. Rows without a QID, a usable coordinate, a known category or any label are dropped
 // (a bare QID is never shown as a name), and so are the few NEVER_SHOW_QIDS.
 /** @param {any} json @param {string} branchId @returns {{items: RawItem[], dropped: number}} */
@@ -453,6 +541,10 @@ export function parseBranch(json, branchId) {
       kinds,
       sitelinks: Number.isFinite(sitelinks) && sitelinks >= 0 ? Math.floor(sitelinks) : 0,
       branches: [branchId],
+      inception: yearOf(r.inception?.value),
+      countryIso: isoOf(r.country_iso?.value, countryQid),
+      architects: peopleOf(r.architects?.value), creators: peopleOf(r.creators?.value), operators: peopleOf(r.operators?.value),
+      stateOfUse: qidList(r.state_of_use?.value),
     })
   }
   return { items, dropped }
@@ -461,6 +553,19 @@ export function parseBranch(json, branchId) {
 /** @param {RawItem} it @returns {GlobalPlace} */
 export function toPlace(it) {
   const url = WIKIDATA_ITEM + it.qid
+  const year = Number.isInteger(it.inception) ? /** @type {number} */ (it.inception) : null
+  const iso = /^[A-Z]{2}$/.test(it.countryIso || '') ? /** @type {string} */ (it.countryIso) : null
+  const stateOfUse = [...(it.stateOfUse || [])]
+  /** @type {Credit[]} */
+  const credits = [
+    ...(it.architects || []).map(x => ({ role: /** @type {const} */ ('architect'), name: x.name, qid: x.qid })),
+    ...(it.creators || []).map(x => ({ role: /** @type {const} */ ('creator'), name: x.name, qid: x.qid })),
+    ...(it.operators || []).map(x => ({ role: /** @type {const} */ ('operator'), name: x.name, qid: x.qid })),
+  ]
+  const status = operatingStatus(stateOfUse)
+  /** @type {Record<string, {state: 'source_reported'}>} */
+  const field_status = {}
+  for (const [k, v] of /** @type {[string, any][]} */ ([['year_completed', year], ['country_iso2', iso], ['credits', credits.length ? credits : null], ['operating_status', status], ['official_url', it.website || null]])) if (v !== null) field_status[k] = { state: 'source_reported' }
   return {
     place_id: 'WD-' + it.qid,
     name_kr: it.labelKo || it.labelEn || it.labelOther,
@@ -487,6 +592,13 @@ export function toPlace(it) {
     sitelinks: it.sitelinks,
     scope: it.countryQid === KOREA_QID ? 'korea' : 'world',
     branches: it.branches,
+    year_completed: year,
+    country_iso2: iso,
+    credits,
+    operating_status: status,
+    state_of_use: stateOfUse,
+    official_url: it.website || null,
+    field_status,
   }
 }
 
@@ -498,7 +610,7 @@ export function mergeItems(lists) {
   const byQid = new Map()
   for (const list of lists) for (const it of list) {
     const prev = byQid.get(it.qid)
-    if (!prev) { byQid.set(it.qid, { ...it, kinds: [...it.kinds], branches: [...it.branches] }); continue }
+    if (!prev) { byQid.set(it.qid, { ...it, kinds: [...it.kinds], branches: [...it.branches], stateOfUse: [...(it.stateOfUse || [])] }); continue }
     prev.kinds = kindsOf([...prev.kinds, ...it.kinds])
     for (const b of it.branches) if (!prev.branches.includes(b)) prev.branches.push(b)
     for (const k of /** @type {const} */ (['labelKo', 'labelEn', 'labelOther', 'descKo', 'descEn', 'image', 'countryQid', 'countryLabel', 'website'])) if (!prev[k] && it[k]) prev[k] = it[k]
@@ -506,7 +618,12 @@ export function mergeItems(lists) {
     if (!prev.city && it.city) { prev.city = it.city; prev.cityQid = it.cityQid; prev.district = it.district }
     else if (prev.city === it.city && !prev.district && it.district) prev.district = it.district
     // An item that any branch places in South Korea is Korean (Korea branches pin the country; world ones sample one).
-    if (it.countryQid === KOREA_QID && prev.countryQid !== KOREA_QID) { prev.countryQid = KOREA_QID; prev.countryLabel = KOREA_LABEL }
+    if (it.countryQid === KOREA_QID && prev.countryQid !== KOREA_QID) { prev.countryQid = KOREA_QID; prev.countryLabel = KOREA_LABEL; prev.countryIso = it.countryIso || '' }
+    // The ISO code travels with its country.
+    if (!prev.countryIso && it.countryIso && it.countryQid === prev.countryQid) prev.countryIso = it.countryIso
+    if (!Number.isInteger(prev.inception) && Number.isInteger(it.inception)) prev.inception = it.inception
+    for (const k of /** @type {const} */ (['architects', 'creators', 'operators'])) if (!prev[k]?.length && it[k]?.length) prev[k] = it[k]
+    for (const q of it.stateOfUse || []) if (!prev.stateOfUse?.includes(q)) (prev.stateOfUse ||= []).push(q)
     prev.sitelinks = Math.max(prev.sitelinks, it.sitelinks)
   }
   return [...byQid.values()].map(toPlace).sort(bySitelinks)
@@ -596,13 +713,23 @@ export async function syncGlobal({ fetchJSON, now = new Date().toISOString(), br
 }
 
 // Compact storage form: one array per place; derived fields (URLs, constants) are rebuilt by expandPlaces, branch
-// ids are stored as indexes into a table kept next to the rows.
-// [qid, name_kr, name_en (1 = same as name_kr), description, category codes, country QID, country, city, lat, lon,
-//  image, website, sitelinks, branch indexes, district, city QID]
+// ids are stored as indexes into a table kept next to the rows. The record is positional and versioned by its length:
+// v1 (v0.15, 16 fields) [qid, name_kr, name_en (1 = same as name_kr), description, category codes, country QID,
+//   country, city, lat, lon, image, website, sitelinks, branch indexes, district, city QID]
+// v2 (v0.16, 22 fields) adds [inception year ('' = none), country ISO code, architects, creators, operators
+//   (each [[QID, name], …]), state-of-use QIDs (space separated)].
+// A v1 record (browser caches and server rows written before v0.16) still expands: its archive fields are empty
+// until the next sync rewrites it.
+export const RECORD_VERSION = 2
+export const RECORD_LENGTH = { 1: 16, 2: 22 }
 export const BRANCH_IDS = BRANCHES.map(b => b.id)
 const CAT_CODE = new Map(CATEGORY_PRIORITY.map((k, i) => [k, i]))
 /** @param {string} text @param {number} max */
 const shorten = (text, max) => max === Infinity || text.length <= max ? text : max <= 1 ? '' : text.slice(0, max - 1).trimEnd() + '…'
+/** @param {Credit[]} credits @param {string} role */
+const peopleRecord = (credits, role) => (credits || []).filter(c => c.role === role).map(c => [c.qid, c.name])
+/** @param {any} v @returns {Person[]} */
+const peopleFromRecord = v => Array.isArray(v) ? v.filter(x => Array.isArray(x) && /^Q\d+$/.test(x[0]) && typeof x[1] === 'string' && x[1].trim()).slice(0, 5).map(x => ({ qid: x[0], name: x[1].slice(0, 200) })) : []
 /** @param {GlobalPlace[]} places @param {{branchIds?: string[], descMax?: number}} [options] @returns {any[][]} */
 export function compactPlaces(places, { branchIds = BRANCH_IDS, descMax = Infinity } = {}) {
   const index = new Map(branchIds.map((id, i) => [id, i]))
@@ -612,6 +739,9 @@ export function compactPlaces(places, { branchIds = BRANCH_IDS, descMax = Infini
     p.country_qid, p.country, p.city, Math.round(p.latitude * 1e5) / 1e5, Math.round(p.longitude * 1e5) / 1e5,
     p.image, p.website, p.sitelinks, (p.branches || []).map(b => index.get(b)).filter(i => i !== undefined).join(' '),
     p.district || '', p.city_qid || '',
+    Number.isInteger(p.year_completed) ? p.year_completed : '', p.country_iso2 || '',
+    peopleRecord(p.credits, 'architect'), peopleRecord(p.credits, 'creator'), peopleRecord(p.credits, 'operator'),
+    (p.state_of_use || []).join(' '),
   ])
 }
 /** @param {any} rows @param {string[]} [branchIds] @returns {GlobalPlace[]} sorted most-linked first */
@@ -632,6 +762,10 @@ export function expandPlaces(rows, branchIds = BRANCH_IDS) {
       city: String(r[7] || ''), district: String(r[14] || ''), cityQid: /^Q\d+$/.test(r[15]) ? r[15] : '',
       website: httpsURL(r[11]), kinds, sitelinks: Number(r[12]) || 0,
       branches: String(r[13] ?? '').split(' ').filter(Boolean).map(i => ids[Number(i)]).filter(Boolean),
+      inception: Number.isInteger(r[16]) && Math.abs(r[16]) <= 9999 ? r[16] : null,
+      countryIso: /^[A-Z]{2}$/.test(r[17] || '') ? r[17] : '',
+      architects: peopleFromRecord(r[18]), creators: peopleFromRecord(r[19]), operators: peopleFromRecord(r[20]),
+      stateOfUse: qidList(r[21]),
     }))
   }
   return out.sort(bySitelinks)

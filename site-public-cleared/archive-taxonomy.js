@@ -49,5 +49,22 @@ const fields={
  technical:['installation_method','envelope_type','technology','display_area_m2','resolution_text','pixel_pitch_mm','content_type','interactive'],
  context:['viewing_points','spatial_context','urban_context']
 };
-return {vocab,keys,valid,label,regionOf,regionByIso,fields};
+// [field, Korean, English] labels of archive fields (project page, exports, data dictionary). Added by the app track.
+const fieldLabels=Object.fromEntries([
+ ['name_original','원어 이름','Original name'],['name_original_lang','원어','Original language'],['name_en','영문 이름','English name'],['name_ko','한국어 이름','Korean name'],['aliases','다른 이름','Other names'],
+ ['country_iso2','국가','Country'],['region','권역','Region'],['city','도시','City'],['district','구역','District'],['address','주소','Address'],['latitude','위도','Latitude'],['longitude','경도','Longitude'],['location_precision','위치 정밀도','Location precision'],
+ ['year_installed','설치 연도','Year installed'],['year_completed','완공·개시 연도','Year completed or opened'],['year_operating_since','운영 시작 연도','Operating since'],['year_ended','운영 종료 연도','Year ended'],['operating_status','운영 상태','Operating status'],
+ ['building_name','건물','Building'],['project_type','프로젝트 유형','Project type'],['credits','참여자','Credits'],
+ ['installation_method','설치 방식','Installation method'],['envelope_type','건축 외피','Building envelope'],['technology','기술','Technology'],['display_area_m2','표시 면적(㎡)','Display area (m²)'],['resolution_text','해상도','Resolution'],['pixel_pitch_mm','픽셀 피치(mm)','Pixel pitch (mm)'],['content_type','콘텐츠 유형','Content type'],['interactive','인터랙션','Interactive'],
+ ['viewing_points','관람 위치','Viewing points'],['spatial_context','공간 맥락','Spatial context'],['urban_context','도시 맥락','Urban context'],
+ ['summary_ko','요약(한국어)','Summary (Korean)'],['summary_en','요약(영어)','Summary (English)'],['wikidata_qid','Wikidata','Wikidata'],['official_url','공식 웹사이트','Official website'],
+ ['record_origin','기록 출처','Record origin'],['review_status','검수 상태','Review status'],['update_status','갱신 상태','Update status'],['field_status','항목별 상태','Field states'],
+ ['first_collected_at','처음 수집','First collected'],['last_collected_at','마지막 수집','Last collected'],['last_verified_at','마지막 검수','Last verified']
+].map(([k,ko,en])=>[k,[ko,en]]));
+const groupLabels={basic:['기본 정보','Basic information'],technical:['기술·건축 정보','Technical and architectural'],context:['맥락','Context']};
+function fieldLabel(key,lang){const v=fieldLabels[key];return v?(lang==='en'?v[1]:v[0]):key}
+// Country names come from the runtime's own locale data (Intl.DisplayNames), so no list of names is kept here.
+const names={};
+function countryName(iso2,lang){const c=String(iso2||'').toUpperCase();if(!/^[A-Z]{2}$/.test(c))return '';const l=lang==='en'?'en':'ko';try{const d=names[l]||(names[l]=new Intl.DisplayNames([l],{type:'region'}));const n=d.of(c);return n&&n!==c?n:c}catch{return c}}
+return {vocab,keys,valid,label,regionOf,regionByIso,fields,fieldLabels,groupLabels,fieldLabel,countryName};
 });

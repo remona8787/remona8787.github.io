@@ -183,6 +183,10 @@ Deno.test({ name: "a cron run takes the lock, queries each branch with a descrip
   // Places: every one the branches that answered found, in one batch; stored counts read first; prune told which branches failed.
   assert(state.places.has(WORLD.vivid.qid) && state.places.has(KOREA.jinju.qid) && !state.places.has("Q104383619"), "places upserted, never-show items left out")
   assert(callIndex("discovered_branch_counts") < callIndex("apply_discovered_places"), "stored counts are read before the upsert")
+  // v0.16: each record is the 22-field form with the Wikidata archive facts (inception, ISO code, people, state of use).
+  const stored = state.places.get(WORLD.vivid.qid) as unknown as { record: unknown[] }
+  assertEquals(stored.record.length, 22)
+  assertEquals(stored.record.slice(16), [2009, "AU", [], [], [["Q99500010", "Destination NSW"]], "Q55654238"])
   const prune = rpcCalls("prune_discovered_places")
   assertEquals(prune.length, 1)
   assertEquals(prune[0].p_failed_branches.sort(), Object.keys(FAILING).sort())

@@ -45,6 +45,7 @@ const pairs=[
  ...each(['line-strong'],['bg','surface','elevated'],UI,'input and switch borders'),
  ...each(['chip-on-bg'],['bg','surface'],UI,'selected chip against its container'),
  ['accent','accent-soft',UI,'icon in a tinted square, active tab indicator'],
+ ...each(['chart-bar'],['surface','elevated','panel'],UI,'data-page chart bars'),
 ];
 for(const [name,t] of Object.entries(themes))for(const [fg,bg,min,label,under] of pairs)
  test(`${name}: ${label} — ${fg} on ${bg}${under?' over '+under:''} ≥ ${min}`,()=>{const r=ratio(t,fg,bg,under);assert.ok(r>=min,`${r.toFixed(2)}:1`)});
