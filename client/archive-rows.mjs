@@ -158,7 +158,9 @@ export function rowToPlace(row, { publicURL = '' } = {}) {
   const slug = typeof row?.slug === 'string' && /^[A-Za-z0-9][A-Za-z0-9._-]{0,159}$/.test(row.slug) ? row.slug : null
   if (!slug) return null
   const nameKo = text(row.name_ko), nameEn = text(row.name_en), nameOriginal = text(row.name_original)
-  const name = nameKo || nameOriginal || nameEn
+  // Korean, else English, else the original: an English name is easier to read for most Korean readers than an
+  // original in Arabic, Cyrillic or Thai script. The original name is always shown next to it.
+  const name = nameKo || nameEn || nameOriginal
   if (!name) return null
   const id = 'AR-' + slug
   const code = typeof row.country_iso2 === 'string' ? row.country_iso2.toUpperCase() : '', iso = T.regionOf(code) ? code : null

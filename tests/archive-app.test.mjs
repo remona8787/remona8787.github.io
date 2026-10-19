@@ -49,8 +49,9 @@ test('rows become archive places with every §6 field; unusable rows are dropped
   // Names: decomposed unicode is kept as given (search normalizes it), Arabic names stay intact.
   assert.equal(by['fete-des-lumieres'].name_original, 'Fête des Lumières')
   assert.equal(by['burj-khalifa-led'].name_original, 'برج خليفة')
-  // A Korean name first, else the original, else English.
-  assert.equal(by['greenpix-media-wall'].name_kr, '绿色像素零能耗媒体墙')
+  // A Korean name first, else English, else the original.
+  assert.equal(by['greenpix-media-wall'].name_kr, 'GreenPix Zero Energy Media Wall')
+  assert.equal(rowToPlace({ slug: 'x', name_original: 'برج' }).name_kr, 'برج')
   assert.equal(by['piccadilly-lights'].name_kr, '피카딜리 라이츠')
   assert.equal(by['spectra-marina-bay'].name_kr, 'Spectra – A Light & Water Show')
   assert.equal(by['vivid-sydney'].scope, 'world'); assert.equal(by['busan-cinema-center-big-roof'].scope, 'korea')

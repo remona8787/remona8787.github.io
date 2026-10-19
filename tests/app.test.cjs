@@ -1,11 +1,11 @@
 // DOM-contract tests in a VM, not a browser or visual layout test.
 const {test}=require('node:test');const assert=require('node:assert/strict');const vm=require('node:vm');const fs=require('node:fs');const C=require('../site-public-cleared/core.js');
-function setup(){
+function setup(hash=''){
  const nodes=new Map(),events={},windowEvents={},saved={};
  class Node{constructor(){this.innerHTML='';this.textContent='';this.value='';this.dataset={};this.classList={add(){},remove(){}};this.open=false;this.isConnected=true}focus(){}querySelector(){return new Node()}querySelectorAll(){return []}showModal(){this.open=true}close(){this.open=false}}
  const base=['#view','#navigation','#networkStatus','#quickSearch','#modal','#toast'];base.forEach(k=>nodes.set(k,new Node()));
  const document={title:'',querySelector(s){if(base.includes(s))return nodes.get(s);const id=s.slice(1);if([...nodes.values()].some(n=>n.innerHTML.includes('id="'+id+'"'))){if(!nodes.has(s))nodes.set(s,new Node());return nodes.get(s)}return null},addEventListener(k,f){events[k]=f},createElement(){return {click(){},remove(){}}},body:{appendChild(){}}};
- const context={window:null,document,navigator:{onLine:true},location:{hash:'',protocol:'https:',href:'https://example.com/'},localStorage:{getItem:k=>saved[k]??null,setItem:(k,v)=>saved[k]=v},setTimeout(){return 1},clearTimeout(){},URL,Blob,Intl,Date,TextEncoder,console,crypto:require('node:crypto').webcrypto,FormData:class{constructor(form){this.data=form.data}get(k){return this.data[k]}},addEventListener(k,f){windowEvents[k]=f},scrollTo(){},AOLCore:C};context.window=context;
+ const context={window:null,document,navigator:{onLine:true},location:{hash,protocol:'https:',href:'https://example.com/'},localStorage:{getItem:k=>saved[k]??null,setItem:(k,v)=>saved[k]=v},setTimeout(){return 1},clearTimeout(){},URL,Blob,Intl,Date,TextEncoder,console,crypto:require('node:crypto').webcrypto,FormData:class{constructor(form){this.data=form.data}get(k){return this.data[k]}},addEventListener(k,f){windowEvents[k]=f},scrollTo(){},AOLCore:C};context.window=context;
  vm.createContext(context);for(const f of ['assets/seed.js','archive-taxonomy.js','i18n.js','catalog.js','app.js'])vm.runInContext(fs.readFileSync(__dirname+'/../site-public-cleared/'+f,'utf8'),context,{filename:f});
  return {context,nodes,events,saved,eval:s=>vm.runInContext(s,context),click:async dataset=>events.click({target:{closest:()=>({dataset,disabled:false})}})};
 }
@@ -82,3 +82,18 @@ test('a saved archive project keeps a validated record and is shown when the arc
  t.context.location.hash='#saved';t.eval('render()');assert.ok(t.nodes.get('#view').innerHTML.includes('Crown Fountain'));
  await t.click({save:'AR-crown-fountain'});d=JSON.parse(t.saved[C.KEY]);assert.deepEqual([d.saved,d.candidates],[[],[]],'unsaved and unused: the record is dropped');
 });
+test('archive project pages: archive sections, unknown fields, sources, citation and similar projects render escaped',async()=>{
+ const t=setup(),a=await archiveFixture();t.context.AOL_ARCHIVE={status:'ok',projects:a.projects};t.context.AOL_ARCHIVE_MEDIA=a.media;
+ for(const p of a.projects){t.context.location.hash='#place/'+(a.LINKED_TO_CURATED[p.archive_slug]||p.place_id);t.eval('render()');const html=t.nodes.get('#view').innerHTML;assert.ok(!html.includes('undefined'),p.place_id);assert.ok(html.includes('id="detailArchive"')&&html.includes('id="detailSources"')&&html.includes('id="detailCite"')&&html.includes('id="detailStatus"'),p.place_id)}
+ t.context.location.hash='#place/AR-cairo-tower-show';t.eval('render()');const cairo=t.nodes.get('#view').innerHTML;
+ assert.ok(cairo.includes('<h1><bdi>Cairo Tower light show</bdi></h1>'),'English before an Arabic original in Korean mode');assert.ok(cairo.includes('<bdi lang="ar">برج القاهرة</bdi>'),'the original name, isolated');
+ assert.match(cairo,/미확인 항목 \d+개/);assert.ok(cairo.includes('자동 수집 · 미검수'));
+ assert.ok(cairo.includes('자동으로 수집한 기록이며 편집 검수 전이에요.'));
+ // Synced Wikidata places get the archive sections from what Wikidata states.
+ t.context.AOL_GLOBAL={status:'ok',branches:[],places:[synced({year_completed:2009,country_iso2:'AU',credits:[{role:'operator',name:'Destination NSW',qid:'Q1'}],field_status:{year_completed:{state:'source_reported'},country_iso2:{state:'source_reported'},credits:{state:'source_reported'}}})]};
+ t.context.location.hash='#place/WD-Q7937834';t.eval('render()');const vivid=t.nodes.get('#view').innerHTML;
+ assert.ok(vivid.includes('운영기관: Destination NSW'));assert.ok(vivid.includes('state-source_reported'));assert.ok(vivid.includes('분류 추정'),'the type derived from the category says so');
+ assert.ok(vivid.includes('Wikidata 공동 편집 데이터 · 6시간마다 자동 갱신 · 방문 전 공식 정보 확인'));
+});
+// The first render runs while app.js is still loading: every page must render then (no late declarations in use).
+test('the app boots straight into every page',()=>{for(const page of ['home','explore','map','place/SEOUL001','place/SEOUL007','saved','settings','data','calendar']){const t=setup('#'+page);assert.ok(t.nodes.get('#view').innerHTML.length>100,page)}});

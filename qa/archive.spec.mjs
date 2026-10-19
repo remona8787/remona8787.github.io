@@ -52,7 +52,7 @@ test('the archive is read once with the publishable key, in pages, and its proje
  await expect(page.locator('#placeResults .place-card')).toHaveCount(1);
  await expect(page.locator('#placeResults')).toContainText('코엑스 K-POP 스퀘어 WAVE');
  // Every language and alias, best match first: decomposed unicode, Arabic, Japanese, an acronym, a credit.
- for(const [q,name] of [['fête','리옹 빛의 축제'],['برج خليفة','부르즈 할리파 LED 파사드'],['渋谷','渋谷スクランブル交差点の大型ビジョン'],['AEC','아르스 일렉트로니카 센터'],['Plensa','Crown Fountain']]){
+ for(const [q,name] of [['fête','리옹 빛의 축제'],['برج خليفة','부르즈 할리파 LED 파사드'],['渋谷','Shibuya Crossing screens'],['AEC','아르스 일렉트로니카 센터'],['Plensa','Crown Fountain']]){
   await page.locator('#placeSearch').fill(q);
   await expect(page.locator('#placeResults h3').first()).toHaveText(name);
  }
@@ -235,4 +235,79 @@ test('without a backend there is no archive request and the status says so',asyn
  await expect(page.locator('#archiveSyncCount')).toHaveText('서버에 연결되지 않아 편집부 수록 장소와 Wikidata 장소만 보여요');
  await page.waitForLoadState('networkidle');
  expect(requests).toEqual([]);
+});
+
+test('archive detail: archive record by group, the 미확인 disclosure, sources, data status, assessments, citation, similar projects',async({page,context})=>{
+ await context.grantPermissions(['clipboard-read','clipboard-write']);
+ await page.setViewportSize({width:1440,height:900});
+ await archiveMode(page);
+ await page.goto('/#place/AR-ars-electronica-center');
+ await expect(page.locator('#view h1')).toHaveText('아르스 일렉트로니카 센터');
+ const info=page.locator('#detailArchive');
+ await expect(info.locator('.field-group h3')).toHaveText(['기본 정보','기술·건축 정보','맥락']);
+ await expect(info.locator('.kv',{hasText:'설치 연도'})).toContainText('2009');
+ await expect(info.locator('.kv',{hasText:'설치 연도'}).locator('.state-badge')).toHaveText('편집 확인');
+ await expect(info.locator('.kv',{hasText:'표시 면적'})).toContainText('5,100 ㎡');
+ await expect(info.locator('.kv',{hasText:'표시 면적'}).locator('.state-badge')).toHaveText('출처 기재');
+ await expect(info.locator('.kv',{hasText:'인터랙션'}).locator('.state-badge')).toHaveText('연구자 평가');
+ await expect(info.locator('.kv',{hasText:'참여자'})).toContainText('건축가: Treusch architecture');
+ // Unknown fields are listed apart, collapsed, and never filled in.
+ const unknown=info.locator('.unknown-fields');
+ await expect(unknown.locator('summary')).toHaveText('미확인 항목 3개');
+ await expect(unknown.locator('li').first()).toBeHidden();
+ await unknown.locator('summary').click();
+ await expect(unknown.locator('li')).toHaveText(['운영 시작 연도','해상도','픽셀 피치(mm)']);
+ // Sources: publisher, kind, licence, dates, link state, reliability, supported fields.
+ const sources=page.locator('#detailSources .source-item');
+ await expect(sources).toHaveCount(2);
+ await expect(sources.first()).toContainText('Ars Electronica');
+ await expect(sources.first().locator('.pill')).toHaveText(['공식','신뢰도 높음 90']);
+ await expect(sources.first()).toContainText('2026-09-01');
+ await expect(sources.first()).toContainText('2026-10-15 · 정상');
+ await expect(sources.first()).toContainText('위도, 경도, 설치 연도, 운영 상태');
+ await expect(sources.nth(1)).toContainText('CC BY 4.0');
+ await expect(sources.first().locator('a')).toHaveAttribute('href','https://ars.electronica.art/center/');
+ // Data status: record origin, review, collected and verified times, update state, in plain words.
+ const status=page.locator('#detailStatus');
+ await expect(status).toContainText('편집부 등록');await expect(status).toContainText('연구자 평가');await expect(status).toContainText('2026. 10. 10.');
+ await expect(status).toContainText('6시간마다 자동 갱신돼요');
+ // Researcher assessments are labelled as interpretation.
+ await expect(page.locator('#detailAssess .assess-label')).toHaveText('연구자의 해석이에요. 수집된 데이터와 따로 보여드려요.');
+ await expect(page.locator('#detailAssess .assess-item')).toContainText('확신 보통');
+ // Citation with the record URL and today's access date; the copy button copies exactly that text.
+ const cite=page.locator('#citationText');
+ const today=await page.evaluate(()=>AOLCore.today());
+ await expect(cite).toHaveText(`빛의 건축 아카이브, 「아르스 일렉트로니카 센터」, 편집 검수, https://light-architecture-jihyun.peppydegu2.chatgpt.site/#place/AR-ars-electronica-center (${today} 접속).`);
+ await page.getByRole('button',{name:'인용문 복사'}).click();
+ await expect(page.locator('#toast')).toContainText('인용문을 복사했어요');
+ expect(await page.evaluate(()=>navigator.clipboard.readText())).toBe(await cite.textContent());
+ // Similar projects with the reasons they are similar.
+ const similar=page.locator('#detailRelated .similar-item');
+ const expected=X.similar(projects.find(p=>p.archive_slug==='ars-electronica-center'),listed).length;
+ expect(expected).toBeGreaterThan(2);
+ await expect(similar.first().locator('.similar-why span').first()).toHaveText('같은 유형: 미디어파사드');
+ await expect(page.locator('#detailRelated .similar-item',{hasText:'쿤스트하우스 그라츠 BIX 파사드'}).locator('.similar-why span')).toHaveText(['같은 유형: 미디어파사드','같은 권역: 유럽','같은 연대: 2000년대']);
+ // A broken official link and a broken source are said as such, never linked.
+ await page.goto('/#place/AR-al-bahr-towers');
+ await expect(page.locator('#view h1')).toHaveText('Al Bahr Towers');
+ await expect(page.locator('.detail-sub bdi')).toHaveText('أبراج البحر');
+ await expect(page.locator('#detailSources .link-broken')).toContainText('링크 연결 안 됨');
+ await expect(page.locator('#detailSources a[href="https://albahr.example/"]')).toHaveCount(0);
+ await expect(page.locator('.detail-pills .pill').first()).toHaveText('링크 오류 · 확인 중');
+ // A failed image falls back to the placeholder and keeps its credit; an unlicensed one is never shown.
+ await page.goto('/#place/AR-burj-khalifa-led');
+ await expect(page.locator('.detail-hero .photo-failed')).toBeVisible();
+ await expect(page.locator('.detail-hero .image-credit')).toContainText('Gulf Photo · CC BY 4.0');
+ await page.goto('/#place/AR-shibuya-crossing-screens');
+ await expect(page.locator('img[data-place-photo]')).toHaveCount(0);
+ await expect(page.locator('#detailPhotos')).toContainText('권리가 확인된 사진이 아직 없어요.');
+ // A curated place enriched by its archive record shows the archive sections with the archive's states.
+ await page.goto('/#place/SEOUL007');
+ await expect(page.locator('#detailArchive .kv',{hasText:'프로젝트 유형'})).toContainText('도시 대형 스크린');
+ await expect(page.locator('#detailArchive .kv',{hasText:'프로젝트 유형'}).locator('.state-badge')).toHaveText('편집 확인');
+ await expect(page.locator('#detailStatus')).toContainText('편집부 수록');
+ // A very long title wraps inside the page.
+ await page.setViewportSize({width:320,height:700});
+ await page.goto('/#place/AR-convention-centre-north-atrium-interactive-facade-phase-two');
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth)).toBe(0);
 });
