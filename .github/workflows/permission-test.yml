@@ -9,5 +9,9 @@ jobs:
     permissions:
       contents: write
     steps:
-      - run: curl -s -o /dev/null -w "wikidata %{http_code}\n" "https://query.wikidata.org/sparql?query=ASK%7B%7D" -H "User-Agent: LightArchitectureArchive/0.16 (remona56@hanmail.net)"
-      - run: curl -s -o /dev/null -w "github.io %{http_code}\n" https://remona8787.github.io/
+      - name: reach data sources and the live site
+        run: |
+          UA="LightArchitectureArchive/0.16 (remona56@hanmail.net)"
+          for u in "https://query.wikidata.org/sparql?query=ASK%7B%7D" "https://commons.wikimedia.org/w/api.php?action=query&format=json" "https://api.gdeltproject.org/api/v2/doc/doc?query=%22media%20facade%22&mode=ArtList&format=json&maxrecords=3" "https://www.dezeen.com/feed/" "https://remona8787.github.io/"; do
+            printf '%s -> ' "$u"; curl -s -o /dev/null -m 20 -A "$UA" -w '%{http_code}\n' "$u"
+          done
