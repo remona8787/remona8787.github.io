@@ -1,7 +1,13 @@
 name: permission test
-on: workflow_dispatch
+on:
+  push:
+    branches: [ci-permission-test]
+  workflow_dispatch:
 jobs:
   t:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - run: echo ok
+      - run: curl -s -o /dev/null -w "wikidata %{http_code}\n" "https://query.wikidata.org/sparql?query=ASK%7B%7D" -H "User-Agent: LightArchitectureArchive/0.16 (remona56@hanmail.net)"
+      - run: curl -s -o /dev/null -w "github.io %{http_code}\n" https://remona8787.github.io/
