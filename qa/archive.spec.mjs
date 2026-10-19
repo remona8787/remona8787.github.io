@@ -3,6 +3,7 @@
 // coordinates, broken media, unicode, Arabic and very long names). Expectations are derived from the same rows through
 // the app's own mapping (client/archive-rows.mjs) and catalogue (catalog.js), never counted by hand.
 import {test,expect} from './fixtures.mjs';
+import AxeBuilder from '@axe-core/playwright';
 import {readFileSync} from 'node:fs';
 import {createRequire} from 'node:module';
 import {ARCHIVE_ROWS,LINKED_TO_CURATED} from '../tests/fixtures/archive-app-rows.mjs';
@@ -310,4 +311,95 @@ test('archive detail: archive record by group, the 미확인 disclosure, sources
  await page.setViewportSize({width:320,height:700});
  await page.goto('/#place/AR-convention-centre-north-atrium-interactive-facade-phase-two');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth)).toBe(0);
+});
+
+// CSV as the app writes it: every cell quoted, CRLF, a BOM, a '#' warning line before the header.
+const parseCSV=text=>text.replace(/^﻿/,'').split('\r\n').filter(Boolean).map(line=>line.startsWith('#')?line:[...line.matchAll(/"((?:[^"]|"")*)"/g)].map(m=>m[1].replace(/""/g,'"')));
+test('research data page: statistics of the filtered set; CSV and JSON exports carry provenance, the dictionary and licences',async({page})=>{
+ await page.setViewportSize({width:1440,height:900});
+ await archiveMode(page);
+ await page.goto('/#explore');
+ await expect.poll(()=>status(page)).toBe('ok');
+ await page.locator('.filter-aside [data-facet="region"][data-value="europe"]').click();
+ const europe=listed.filter(p=>p.region==='europe');
+ await expect.poll(()=>count(page)).toBe(europe.length);
+ await page.getByRole('link',{name:'이 결과의 통계와 내보내기'}).click();
+ await expect(page).toHaveURL(/#data$/);
+ await expect(page.locator('#view h1')).toHaveText('연구 데이터');
+ await expect(page.locator('.data-scope-line')).toContainText(`${europe.length}곳`);
+ await expect(page.locator('.data-scope .chip')).toHaveText(['유럽']);
+ // Statistics: the same set, counted per value, every bar labelled with its number.
+ const st=X.stats(europe);
+ await expect(page.locator('#chartRegion .bars li')).toHaveCount(1);
+ await expect(page.locator('#chartRegion .bars li')).toHaveText([`유럽${europe.length}`]);
+ await expect(page.locator('#chartType .bar-value')).toHaveText(st.project_type.rows.map(r=>String(r[1])));
+ await expect(page.locator('#chartTech .bar-value')).toHaveText(st.technology.rows.map(r=>String(r[1])));
+ await expect(page.locator('#chartCountry .bar-label')).toHaveText(st.country.rows.map(r=>({AT:'오스트리아',DE:'독일',ES:'스페인',GB:'영국',FR:'프랑스'})[r[0]]));
+ await expect(page.locator('#chartDecade small')).toContainText(`미확인 ${st.decade.unknown}곳`);
+ for(const id of ['chartRegion','chartCountry','chartDecade','chartType','chartMethod','chartTech','chartOrigin'])await expect(page.locator('#'+id+' figcaption h3')).toBeVisible();
+ // CSV: BOM, the warning line, the header from the data dictionary, one row per place with provenance.
+ const [csvDownload]=await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:'CSV 내려받기 (Excel)'}).click()]);
+ expect(csvDownload.suggestedFilename()).toMatch(/^빛의건축_아카이브_\d{4}-\d{2}-\d{2}\.csv$/);
+ const csv=readFileSync(await csvDownload.path(),'utf8');
+ expect(csv.charCodeAt(0)).toBe(0xFEFF);
+ const [warning,header,...rows]=parseCSV(csv);
+ expect(warning).toBe('# '+X.WARNING.ko);
+ expect(header).toEqual(X.EXPORT_FIELDS.map(f=>f[0]));
+ expect(rows.length).toBe(europe.length);
+ const col=k=>header.indexOf(k),ars=rows.find(r=>r[0]==='AR-ars-electronica-center');
+ expect([ars[col('project_type')],ars[col('project_type_label')],ars[col('region')],ars[col('country_iso2')],ars[col('coordinate_source')],ars[col('data_origin')],ars[col('review_status')]]).toEqual(['media_facade','미디어파사드','europe','AT','verified','editor_verified','researcher_assessed']);
+ expect(ars[col('field_states')]).toContain('latitude=editor_verified');
+ expect(ars[col('source_urls')]).toContain('https://ars.electronica.art/center/');
+ expect(ars[col('record_url')]).toBe('https://light-architecture-jihyun.peppydegu2.chatgpt.site/#place/AR-ars-electronica-center');
+ const fete=rows.find(r=>r[0]==='AR-fete-des-lumieres');
+ expect([fete[col('latitude')],fete[col('coordinate_source')]]).toEqual(['','']);
+ // JSON: meta with the time, the filters, the dictionary, licence notes per source and the warning.
+ const [jsonDownload]=await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:'JSON 내려받기'}).click()]);
+ expect(jsonDownload.suggestedFilename()).toMatch(/^빛의건축_아카이브_\d{4}-\d{2}-\d{2}\.json$/);
+ const json=JSON.parse(readFileSync(await jsonDownload.path(),'utf8'));
+ expect(Object.keys(json)).toEqual(['meta','projects']);
+ expect(Date.now()-Date.parse(json.meta.generated_at)).toBeLessThan(60000);
+ expect(json.meta.filters).toEqual({region:['europe']});
+ expect(json.meta.count).toBe(europe.length);
+ expect(json.meta.warning).toBe(X.WARNING.ko);
+ expect(json.meta.licenses.wikidata).toContain('CC0');
+ expect(json.meta.licenses.commons).toContain('파일마다 다름');
+ expect(json.meta.licenses.editorial).toContain('운영자 확정 필요');
+ expect(json.meta.data_dictionary.map(d=>d.field)).toEqual(X.EXPORT_FIELDS.map(f=>f[0]));
+ expect(json.meta.citation).toContain(`${europe.length}곳`);
+ expect(json.projects.map(p=>p.place_id).sort()).toEqual(europe.map(p=>p.place_id).sort());
+ // Methodology: sources, cadence, classification, review, field states and how to cite.
+ const method=page.locator('#methodology');
+ for(const h of ['출처','갱신 주기','분류','검수','항목별 상태','지도 표시 기준','인용 방법'])await expect(method.locator('h3',{hasText:h})).toHaveCount(1);
+ await expect(method).toContainText('6시간마다 자동 갱신돼요');
+ await expect(method).toContainText('웹·뉴스에서 찾은 후보는 편집 검수 후 공개돼요');
+ await expect(method.locator('.state-list .state-badge')).toHaveText(['검증 전','출처 기재','분류 추정','편집 확인','연구자 평가']);
+});
+
+// No horizontal scroll on the archive screens at every width, in both themes; WCAG A/AA scans with archive data.
+const SCREENS=['home','explore','map','data','place/AR-ars-electronica-center','place/AR-convention-centre-north-atrium-interactive-facade-phase-two','place/AR-burj-khalifa-led','place/SEOUL007','settings'];
+for(const colorScheme of ['light','dark'])test.describe(colorScheme,()=>{
+ test.use({colorScheme});
+ test(`no horizontal scroll at 320, 390, 768, 1024 and 1440 px (${colorScheme})`,async({page})=>{
+  test.setTimeout(120000);
+  await archiveMode(page);
+  await page.goto('/#explore');await expect.poll(()=>status(page)).toBe('ok');
+  for(const width of [320,390,768,1024,1440]){
+   await page.setViewportSize({width,height:width<500?800:900});
+   for(const r of SCREENS){
+    await page.goto('/#'+r);await expect(page.locator('#view h1').first()).toBeVisible();
+    if(r==='explore'&&width<1360){await page.locator('.advanced-filters summary').click();await expect(page.locator('#filterPanel')).toBeVisible();await page.locator('#filterPanel').evaluate(e=>Promise.all(e.getAnimations().map(a=>a.finished)))}
+    const over=await page.evaluate(()=>({x:document.documentElement.scrollWidth-document.documentElement.clientWidth,wide:[...document.querySelectorAll('#view *')].filter(e=>{const b=e.getBoundingClientRect();return b.width>0&&e.checkVisibility()&&b.right>document.documentElement.clientWidth+1&&!e.closest('[class*=scroll],.chips,.rail,.carousel,.section-tabs,.leaflet-container')}).slice(0,3).map(e=>e.tagName+'.'+e.className)}));
+    expect(over,`${r} @${width}`).toEqual({x:0,wide:[]});
+   }
+  }
+ });
+ for(const r of ['explore','map','data','place/AR-ars-electronica-center','place/AR-al-bahr-towers'])for(const width of [390,1440])test(`a11y ${colorScheme} #${r} @${width} with archive data`,async({page})=>{
+  await page.setViewportSize({width,height:900});
+  await archiveMode(page);
+  await page.goto('/#'+r);await expect.poll(()=>status(page)).toBe('ok');await page.waitForLoadState('networkidle');
+  if(r==='explore'&&width<1360){await page.locator('.advanced-filters summary').click();await expect(page.locator('#filterPanel')).toBeVisible();await page.locator('#filterPanel').evaluate(e=>Promise.all(e.getAnimations().map(a=>a.finished)))}
+  const {violations}=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
+  expect(violations.map(v=>`${v.id} (${v.impact}): ${v.nodes.slice(0,3).map(n=>n.target.join(' ')).join(' | ')}`)).toEqual([]);
+ });
 });

@@ -56,6 +56,7 @@
   --shadow-2:0 6px 20px #12143A1F;
   --shadow-3:0 -8px 32px #12143A29;
   --shadow-dialog:0 24px 64px #12143A3D;
+  --chart-bar:#6B52DE;
 }
 :root[data-theme=dark]{
     color-scheme:dark;
@@ -106,6 +107,7 @@
     --shadow-2:0 8px 24px #00000073;
     --shadow-3:0 -8px 32px #00000080;
     --shadow-dialog:0 24px 64px #00000099;
+    --chart-bar:#8F7BFF;
 }
 /* The system setting applies unless the person picked a theme in 설정 (data-theme=light|dark). Same values as above;
    tests/contrast.test.cjs fails if the two dark blocks drift apart. */
@@ -159,6 +161,7 @@
     --shadow-2:0 8px 24px #00000073;
     --shadow-3:0 -8px 32px #00000080;
     --shadow-dialog:0 24px 64px #00000099;
+    --chart-bar:#8F7BFF;
   }
 }
 
@@ -1146,6 +1149,49 @@ details>summary{min-height:32px;display:flex;align-items:center;cursor:pointer}
 .similar-why{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
 .similar-why span{padding:1px 6px;border-radius:var(--r-xs);background:var(--accent-soft);color:var(--accent-on-soft);font-size:var(--fs-micro);line-height:var(--lh-micro);font-weight:600}
 .archive-detail .detail-title h1{overflow-wrap:anywhere}
+
+/* ===== Research data page =====
+   One series per chart: horizontal bars in --chart-bar (checked against both surfaces with the dataviz palette
+   validator), 12px thick with a 4px rounded end, growing from one hairline baseline; the value sits at each bar's tip
+   in a text colour, never the bar colour. Every chart is an ordered list, so it reads as "label, count". */
+.data-scope{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2) var(--s-4);margin:0 0 var(--s-4)}
+.data-scope-line{margin:0;color:var(--text-muted);font-size:var(--fs-label);font-weight:600}
+.data-scope-line b{color:var(--text)}
+.data-scope .active-filters{flex-basis:100%;margin:0}
+.data-scope .text-link{font-size:var(--fs-label);gap:var(--s-1)}
+.stat-strip.data-stats{grid-auto-flow:row;grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:0}
+@media (min-width:768px){.stat-strip.data-stats{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media (max-width:767px){.data-stats .stat:nth-child(3n+1){border-left:0}.data-stats .stat:nth-child(n+4){border-top:1px solid var(--line)}}
+.data-section{margin-top:var(--section-gap)}
+.data-section>h2{margin-bottom:var(--s-2)}
+.chart-grid{display:grid;gap:var(--s-4)}
+@media (min-width:1024px){.chart-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-5)}}
+.chart{margin:0;padding:var(--s-5);border:1px solid var(--card-border);border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--shadow-1);min-width:0}
+.chart figcaption h3{margin:0;font-size:var(--fs-body2);line-height:var(--lh-body2);font-weight:700}
+.chart figcaption small{display:block;margin-top:2px;color:var(--text-muted)}
+.bars{display:grid;gap:4px;margin:var(--s-4) 0 0;padding:0;list-style:none}
+.bars li{display:grid;grid-template-columns:minmax(84px,38%) minmax(0,1fr) minmax(3ch,auto);align-items:center;gap:var(--s-3);min-height:26px}
+.bar-label{font-size:var(--fs-caption);line-height:var(--lh-caption);color:var(--text);overflow-wrap:anywhere}
+.bar-track{display:flex;align-items:center;height:20px;border-left:1px solid var(--line-strong)}
+.bar{display:block;height:12px;border-radius:0 4px 4px 0;background:var(--chart-bar)}
+.bar-value{color:var(--text-muted);font-size:var(--fs-caption);font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+@media (forced-colors:active){.bar{background:CanvasText}}
+.year-details{margin-top:var(--s-4);padding:0 var(--s-4);border-radius:var(--r-md);background:var(--panel)}
+.year-details>summary{display:flex;align-items:center;min-height:48px;font-size:var(--fs-label);font-weight:600;cursor:pointer}
+.year-details .chart{margin-bottom:var(--s-4)}
+.export-actions{margin:var(--s-3) 0}
+.dict-table{width:100%;border-collapse:collapse;font-size:var(--fs-caption);line-height:var(--lh-caption)}
+.dict-table th,.dict-table td{padding:var(--s-2) var(--s-3) var(--s-2) 0;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.dict-table th{color:var(--text-muted);font-weight:600}
+.dict-table code{font-size:var(--fs-micro);overflow-wrap:anywhere}
+.dictionary .table-scroll{margin-bottom:var(--s-3)}
+.licence-list{margin-top:var(--s-4)}
+.licence-list .kv{grid-template-columns:132px minmax(0,1fr)}
+.methodology h3{margin:var(--s-5) 0 var(--s-2);font-size:var(--fs-body1);line-height:var(--lh-body1)}
+.methodology p{max-width:72ch;color:var(--text);line-height:var(--lh-body1)}
+.state-list{display:grid;gap:var(--s-3);margin:0}
+.state-list>div{display:grid;grid-template-columns:96px minmax(0,1fr);gap:var(--s-3);align-items:baseline}
+.state-list dd{margin:0;font-size:var(--fs-label);line-height:var(--lh-label)}
 
 /* ===== Lists, key-value rows, timelines ===== */
 .list{display:grid;gap:var(--s-2)}
