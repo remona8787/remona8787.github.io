@@ -14,11 +14,13 @@
 begin;
 
 create schema if not exists extensions;
--- Name search and dedupe rules 5 and 6 use pg_trgm, which Supabase ships. A Postgres without it still gets the whole
--- schema: the trigram indexes are skipped and the functions that compare names raise when they reach that step.
+-- pg_trgm is REQUIRED (Supabase ships it): dedupe rules 5 and 6 of archive_ingest, archive_search and the candidate
+-- list's suggested matches call it. The schema still installs where it is missing, only so the release bundle can be
+-- checked on a bare Postgres: the trigram indexes are then skipped, and those calls fail with 42883 (undefined_function);
+-- archive_ingest logs that per item (stage 'ingest') and counts the item as ignored.
 do $$ begin
  if exists(select 1 from pg_available_extensions where name='pg_trgm') then create extension if not exists pg_trgm with schema extensions;
- else raise warning 'pg_trgm is not available: archive trigram indexes are skipped'; end if;
+ else raise warning 'pg_trgm is not available but the archive requires it: archive_ingest (dedupe rules 5-6), archive_search and archive_admin_list_candidates will fail with 42883 until it is installed'; end if;
 end $$;
 
 -- ---- roles ---------------------------------------------------------------------------------------------------

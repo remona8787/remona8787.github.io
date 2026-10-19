@@ -82,6 +82,10 @@ test('schema: applies twice over the legacy SQL and complete-backend.sql (which 
  await d.close();
  const plain=new PGlite();await plain.exec(await sql('tests/sql/supabase-stubs.sql'));await plain.exec(await sql(ARCHIVE));await plain.exec(await sql(ARCHIVE));
  assert.equal((await rows(plain,`select count(*)::int n from pg_indexes where indexname like 'archive%trgm'`))[0].n,0,'trigram indexes are skipped without pg_trgm');
+ // pg_trgm is required: an item that reaches the trigram rules is ignored and logged with 42883, the call survives.
+ const [{r}]=await svc(plain,`select public.archive_ingest(null,$1::jsonb) r`,[J([item({detected:{name:'Any Wall',latitude:1,longitude:1}})])]);
+ assert.deepEqual([r.ignored,r.kept,r.items[0].outcome],[1,0,'ignored']);
+ assert.match((await rows(plain,`select stage||' '||message m from public.archive_run_errors`))[0].m,/^ingest 42883 /);
  await plain.close();
  assert.equal((await rows(db,`select count(*)::int n from pg_indexes where indexname in ('archive_projects_names_trgm','archive_candidate_hits_title_trgm')`))[0].n,2);
  assert.equal((await rows(db,`select n.nspname s from pg_extension e join pg_namespace n on n.oid=e.extnamespace where extname='pg_trgm'`))[0].s,'extensions');
