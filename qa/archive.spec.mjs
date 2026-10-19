@@ -376,6 +376,76 @@ test('research data page: statistics of the filtered set; CSV and JSON exports c
  await expect(method.locator('.state-list .state-badge')).toHaveText(['검증 전','출처 기재','분류 추정','편집 확인','연구자 평가']);
 });
 
+// The interface language: a compact switch in the top bar and a choice in settings, kept with the user's preferences,
+// <html lang> follows. Covered screens switch fully (tests/i18n.test.cjs checks every string); data stays as recorded.
+test('KO/EN: the top-bar switch and the settings choice change the interface, <html lang>, exports, and survive a reload',async({page})=>{
+ await page.setViewportSize({width:1440,height:900});
+ await archiveMode(page);
+ await page.goto('/#explore');await expect.poll(()=>status(page)).toBe('ok');
+ const html=page.locator('html'),toggle=page.locator('#langToggle'),total=await curatedCount(page)+listed.length;
+ await expect(html).toHaveAttribute('lang','ko');
+ await expect(toggle).toHaveText('EN');await expect(toggle).toHaveAttribute('aria-label','Show in English');await expect(toggle).toHaveAttribute('lang','en');
+ await toggle.click();
+ await expect(html).toHaveAttribute('lang','en');
+ // The switch names the other language, in that language.
+ await expect(toggle).toHaveText('KO');await expect(toggle).toHaveAttribute('aria-label','한국어로 보기');await expect(toggle).toHaveAttribute('lang','ko');
+ // Explore: title, navigation, search, count, filters, the link to the data page; the results are unchanged.
+ await expect(page.locator('#view h1')).toHaveText('Explore');
+ await expect(page).toHaveTitle('Explore · Architecture of Light');
+ await expect(page.getByRole('link',{name:'Map',exact:true}).first()).toBeVisible();
+ await expect(page.locator('#placeSearch')).toHaveAttribute('placeholder','Search names, cities, artists, buildings');
+ await expect(page.locator('#placeResults .result-meta')).toContainText(`${total} places`);
+ await expect(page.locator('#filterPanel')).toContainText('Filters');
+ await page.locator('.filter-aside [data-facet="region"][data-value="europe"]').click();
+ const europe=listed.filter(p=>p.region==='europe');
+ await expect(page.locator('#placeResults .result-meta')).toContainText(`${europe.length} places`);
+ await expect(page.locator('.active-filters .chip')).toHaveText(['Europe']);
+ // A place page: English names first, archive groups, unknown fields, citation.
+ await page.goto('/#place/AR-ars-electronica-center');
+ await expect(page.locator('#view h1')).toHaveText('Ars Electronica Center');
+ await expect(page.locator('#detailArchive .field-group h3')).toHaveText(['Basic information','Technical and architectural','Context']);
+ await expect(page.locator('#detailArchive .unknown-fields summary')).toHaveText('3 unknown fields');
+ await expect(page.locator('#detailSources h2')).toHaveText('Sources');
+ await expect(page.locator('#detailStatus h2')).toHaveText('Data status');
+ await expect(page.locator('#citationText')).toHaveText(/^Architecture of Light archive, “Ars Electronica Center,” .+ \(accessed \d{4}-\d{2}-\d{2}\)\.$/);
+ await expect(page.getByRole('button',{name:'Copy citation'})).toBeVisible();
+ await expect(page.locator('#detailRelated h2')).toHaveText('Similar projects');
+ // The data page and its export in English: the warning and the dictionary follow the language.
+ await page.goto('/#data');
+ await expect(page.locator('#view h1')).toHaveText('Research data');
+ const [csvDownload]=await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:'Download CSV (Excel)'}).click()]);
+ expect(csvDownload.suggestedFilename()).toMatch(/^architecture-of-light-archive_\d{4}-\d{2}-\d{2}\.csv$/);
+ const [warning,header]=parseCSV(readFileSync(await csvDownload.path(),'utf8'));
+ expect(warning).toBe('# '+X.WARNING.en);expect(header).toEqual(X.EXPORT_FIELDS.map(f=>f[0]));
+ const [jsonDownload]=await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:'Download JSON'}).click()]);
+ const json=JSON.parse(readFileSync(await jsonDownload.path(),'utf8'));
+ expect(json.meta.warning).toBe(X.WARNING.en);
+ expect(json.meta.data_dictionary.find(d=>d.field==='country_iso2').description).toBe('Country code');
+ // Settings: the language choice, each option in its own language; kept across a reload.
+ await page.goto('/#settings');
+ await expect(page.locator('#view h1')).toHaveText('Settings');
+ await expect(page.getByRole('radio',{name:'English'})).toHaveAttribute('aria-checked','true');
+ await expect(page.getByRole('radio',{name:'한국어'})).toHaveAttribute('lang','ko');
+ await page.reload();
+ await expect(html).toHaveAttribute('lang','en');await expect(page.locator('#view h1')).toHaveText('Settings');
+ expect(await page.evaluate(()=>JSON.parse(localStorage.getItem(AOLCore.KEY)).preferences.language)).toBe('en');
+ // On a phone the switch stays in the top bar and the filter sheet speaks English.
+ await page.setViewportSize({width:390,height:844});
+ await page.goto('/#explore');await expect.poll(()=>status(page)).toMatch(/^(ok|cached)$/);
+ await expect(toggle).toBeVisible();
+ await page.locator('.advanced-filters summary').click();
+ await expect(page.locator('#filterPanel')).toBeVisible();
+ await expect(page.locator('#filterPanel').getByRole('button',{name:/^Show \d+ results$/})).toBeVisible();
+ await expect(page.locator('#filterPanel').getByRole('button',{name:'Clear all'})).toBeVisible();
+ await page.keyboard.press('Escape');
+ // Back to Korean from settings.
+ await page.goto('/#settings');
+ await page.getByRole('radio',{name:'한국어'}).click();
+ await expect(html).toHaveAttribute('lang','ko');await expect(page.locator('#view h1')).toHaveText('설정');await expect(toggle).toHaveText('EN');
+ await page.reload();
+ await expect(html).toHaveAttribute('lang','ko');await expect(page.locator('#view h1')).toHaveText('설정');
+});
+
 // No horizontal scroll on the archive screens at every width, in both themes; WCAG A/AA scans with archive data.
 const SCREENS=['home','explore','map','data','place/AR-ars-electronica-center','place/AR-convention-centre-north-atrium-interactive-facade-phase-two','place/AR-burj-khalifa-led','place/SEOUL007','settings'];
 for(const colorScheme of ['light','dark'])test.describe(colorScheme,()=>{
