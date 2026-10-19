@@ -337,7 +337,9 @@ main:focus{outline:none}
    sticky action bar replaces the tab bar. The map page is full-bleed. Each page fades in on navigation. */
 .topbar-title{transition:opacity var(--dur-fast) var(--ease-standard)}
 :root[data-large]:not([data-scrolled]) .topbar-title{opacity:0}
-@media (prefers-reduced-motion:no-preference){#view.view-enter>*{animation:view-in 240ms var(--ease-decel) both}}
+/* backwards, not both: a finished animation must not leave a transform behind, or position:fixed sheets inside the
+   page (the filter sheet) would be placed relative to the animated block instead of the viewport. */
+@media (prefers-reduced-motion:no-preference){#view.view-enter>*{animation:view-in 240ms var(--ease-decel) backwards}}
 @keyframes view-in{from{opacity:0;transform:translateY(6px)}}
 :root[data-page=map] main{max-width:none;padding:0;min-height:0}
 :root[data-page=map] .site-footer{display:none}
@@ -775,6 +777,7 @@ html:has(.advanced-filters[open]:not(.inline)){overflow:hidden}
 .sheet-foot .button{flex:1;min-height:52px;border-radius:var(--r-md)}
 .sheet-foot .button:last-child{flex:2}
 @keyframes drawer-in{from{transform:translateX(100%)}}
+.advanced-filters.settled .filter-panel,.advanced-filters.settled .filter-backdrop{animation:none!important}
 @media (min-width:768px){
   .filter-sheet{justify-content:flex-end;align-items:stretch}
   .filter-panel{width:400px;max-height:none;height:100%;border-radius:var(--r-sheet) 0 0 var(--r-sheet);box-shadow:var(--shadow-dialog)}
@@ -895,6 +898,20 @@ html:has(.advanced-filters[open]:not(.inline)){overflow:hidden}
 .map-list-item:focus-visible{outline-offset:-2px}
 .map-item-icon{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:12px;background:var(--navy);color:var(--navy-ink)}
 .map-item-icon.wd{background:var(--accent-soft);color:var(--accent)}
+.map-item-icon.src{background:var(--surface);color:var(--accent);box-shadow:inset 0 0 0 2px var(--accent)}
+/* Map legend: the three coordinate classes (pin, filled circle, ring) and the rule behind them. */
+.map-legend{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-1) var(--s-3);margin:0 var(--s-1) var(--s-3);padding:var(--s-2) var(--s-3);border-radius:var(--r-md);background:var(--panel);font-size:var(--fs-micro);line-height:var(--lh-micro);color:var(--text-muted)}
+.legend-item{display:inline-flex;align-items:center;gap:6px;min-height:24px;color:var(--text)}
+.legend-mark{flex:none;width:14px;height:14px;border-radius:50%}
+.legend-mark.pin{background:var(--surface);box-shadow:0 0 0 1px var(--line-strong),0 0 0 3px var(--surface),0 0 0 4px var(--line)}
+.legend-mark.pin::after{content:'';display:block;width:6px;height:6px;margin:4px;border-radius:50%;background:var(--accent)}
+.legend-mark.wd{background:#6B52DE;box-shadow:0 0 0 2px #FFFFFF,0 0 0 3px var(--line)}
+.legend-mark.src{background:#FFFFFF;box-shadow:inset 0 0 0 3px #6B52DE}
+.legend-rule{flex-basis:100%}
+.legend-rule summary{display:inline-flex;align-items:center;min-height:32px;color:var(--accent-strong);font-weight:600;cursor:pointer}
+.legend-rule p{margin:var(--s-1) 0 var(--s-1);color:var(--text-muted)}
+#mapResults .result-meta .map-off{display:flex;flex-wrap:wrap;align-items:center;gap:0 var(--s-2)}
+#mapResults .result-meta .map-off .text-link{min-height:32px;font-size:var(--fs-micro)}
 .map-item-text{display:grid;gap:1px;flex:1;min-width:0}
 .map-item-text b{font-size:var(--fs-body2);line-height:var(--lh-body2);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .map-item-text small{color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
