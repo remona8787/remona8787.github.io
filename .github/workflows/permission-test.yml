@@ -2,6 +2,7 @@ name: permission test
 on:
   push:
     branches: [ci-permission-test]
+    paths: ['.github/workflows/permission-test.yml']
   workflow_dispatch:
 jobs:
   t:
@@ -9,9 +10,15 @@ jobs:
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
       - name: reach data sources and the live site
         run: |
           UA="LightArchitectureArchive/0.16 (remona56@hanmail.net)"
-          for u in "https://query.wikidata.org/sparql?query=ASK%7B%7D" "https://commons.wikimedia.org/w/api.php?action=query&format=json" "https://api.gdeltproject.org/api/v2/doc/doc?query=%22media%20facade%22&mode=ArtList&format=json&maxrecords=3" "https://www.dezeen.com/feed/" "https://remona8787.github.io/"; do
-            printf '%s -> ' "$u"; curl -s -o /dev/null -m 20 -A "$UA" -w '%{http_code}\n' "$u"
+          for u in "https://query.wikidata.org/sparql?query=ASK%7B%7D" "https://commons.wikimedia.org/w/api.php?action=query&format=json" "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Example.jpg/120px-Example.jpg" "https://api.gdeltproject.org/api/v2/doc/doc?query=%22media%20facade%22&mode=ArtList&format=json&maxrecords=3" "https://www.dezeen.com/feed/" "https://www.archdaily.com/feed" "https://overpass-api.de/api/status" "https://remona8787.github.io/"; do
+            printf '%s -> ' "$u" >> reach.txt; curl -s -o /dev/null -m 20 -A "$UA" -w '%{http_code}\n' "$u" >> reach.txt || echo fail >> reach.txt
           done
+          curl -s -m 20 -A "$UA" "https://api.gdeltproject.org/api/v2/doc/doc?query=%22media%20facade%22&mode=ArtList&format=json&maxrecords=5" | head -c 1500 >> reach.txt
+      - name: commit result
+        run: |
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reach.txt && git commit -m "reachability result" && git push
