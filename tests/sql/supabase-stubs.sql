@@ -13,3 +13,4 @@ create function storage.foldername(name text) returns text[] language sql immuta
 create function storage.extension(name text) returns text language sql immutable as $$ select lower(split_part(name,'.',-1)) $$;
 create publication supabase_realtime;
 grant usage on schema auth, storage to anon, authenticated, service_role;
+grant usage on schema extensions to anon, authenticated, service_role;

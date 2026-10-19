@@ -67,8 +67,40 @@ select cron.schedule('aol-global-places-images-3h','23 1,4,7,10,13,16,19,22 * * 
   body := '{"phase": "images", "budget_ms": 130000, "image_limit": 3000}'::jsonb, timeout_milliseconds := 150000
  );
 $job$);
+
+-- Media facade archive (v0.16; needs migrations/20261018000000_media_facade_archive.sql, which complete-backend.sql
+-- includes, and the rules of release/launch/archive-seed.sql). archive-collect runs every hour at minute 17: each rule
+-- keeps its own cadence and backoff, and one call runs at most 6 due rules. Link and image checks run once a day at
+-- 03:20 KST. Pruning (auto-ignored candidates after 30 days, run logs after 180 days) is plain SQL.
+do $$ begin
+ if to_regclass('public.archive_collection_rules') is null then
+   raise exception 'Apply release/launch/complete-backend.sql first (it creates the archive tables for archive-collect)';
+ end if;
+end $$;
+
+select cron.schedule('aol-archive-collect-hourly','17 * * * *', $job$
+ select net.http_post(
+  url := (select decrypted_secret from vault.decrypted_secrets where name='project_url') || '/functions/v1/archive-collect',
+  headers := jsonb_build_object('Content-Type','application/json','apikey',(select decrypted_secret from vault.decrypted_secrets where name='publishable_key'),'x-aol-cron-secret',(select decrypted_secret from vault.decrypted_secrets where name='media_cron_secret')),
+  body := '{"max_rules": 6}'::jsonb, timeout_milliseconds := 150000
+ );
+$job$);
+
+select cron.schedule('aol-archive-check-links-daily','20 18 * * *', $job$
+ select net.http_post(
+  url := (select decrypted_secret from vault.decrypted_secrets where name='project_url') || '/functions/v1/archive-check-links',
+  headers := jsonb_build_object('Content-Type','application/json','apikey',(select decrypted_secret from vault.decrypted_secrets where name='publishable_key'),'x-aol-cron-secret',(select decrypted_secret from vault.decrypted_secrets where name='media_cron_secret')),
+  body := '{}'::jsonb, timeout_milliseconds := 150000
+ );
+$job$);
+
+select cron.schedule('aol-archive-prune-daily','47 19 * * *', $job$
+ select public.archive_prune();
+$job$);
 commit;
 -- Observe cron.job_run_details AND ingestion_jobs / sync_runs / media_sync_log
 -- (sync-global-places: select job_name, status, error_message, metadata->'alerts', metadata->'images' from sync_runs
 --  where job_name in ('sync-global-places','sync-global-places-images') order by started_at desc limit 8).
+-- (archive: select r.started_at, k.name, r.status, r.fetched, r.new_candidates, r.matched_projects, r.errors from archive_runs r
+--  left join archive_collection_rules k on k.id = r.rule_id order by r.started_at desc limit 20; then archive_run_errors.)
 -- A queued HTTP request alone is not successful ingestion.
