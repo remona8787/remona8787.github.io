@@ -201,6 +201,7 @@ test('export: CSV with a BOM, the warning line and provenance columns; JSON with
   assert.match(json.meta.licenses.editorial, /운영자 확정 필요/)
   assert.deepEqual(json.meta.data_dictionary.map(d => d.field), X.EXPORT_FIELDS.map(f => f[0]))
   assert.ok(json.meta.data_dictionary.every(d => d.type && d.description))
+  assert.ok(json.meta.data_dictionary.every(d => !/[가-힣]/.test(d.type + d.description)), 'the English dictionary is English; types are language-neutral')
   assert.deepEqual(json.meta.field_states.map(s => s.state), T.keys('field_state'))
   assert.equal(json.projects.length, projects.length)
   assert.equal(json.projects.find(r => r.place_id === 'AR-kunsthaus-graz-bix').source_licenses, 'CC0 1.0; Wikidata: CC0 1.0')

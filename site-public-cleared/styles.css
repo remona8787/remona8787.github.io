@@ -274,6 +274,10 @@ main:focus{outline:none}
 .top-search-text,.top-search kbd{display:none}
 .top-actions{display:flex;align-items:center;gap:var(--s-2);padding-right:var(--s-2)}
 .avatar{display:none}
+/* The compact language switch in the top bar (설정 has the full control). */
+.lang-toggle{display:inline-grid;place-items:center;min-width:44px;height:36px;padding:0 10px;border-radius:var(--r-pill);background:var(--panel);color:var(--text);font-size:var(--fs-micro);font-weight:700;letter-spacing:.04em;transition:background-color var(--dur-fast) var(--ease-standard)}
+.lang-toggle:hover{background:var(--panel-strong)}
+@media (max-width:767px){:root[data-page=place]:not([data-scrolled]) .lang-toggle{visibility:hidden}}
 .network{display:inline-flex;align-items:center;gap:var(--s-1);height:28px;padding:0 var(--s-3);border-radius:var(--r-pill);background:var(--warning-bg);color:var(--warning-ink);font-size:var(--fs-micro);font-weight:600;white-space:nowrap}
 .network:empty{display:none}
 .network .icon{width:16px;height:16px}
@@ -302,6 +306,7 @@ main:focus{outline:none}
   .top-search-text{display:block;flex:1;text-align:left;color:var(--text-muted)}
   .top-search kbd{display:grid;place-items:center;min-width:24px;height:24px;border-radius:var(--r-xs);background:var(--surface);color:var(--text-muted);font-size:var(--fs-micro);font-weight:600;border:1px solid var(--line)}
   .top-search:hover{background:var(--panel-strong)}
+  .lang-toggle{height:40px}
   .avatar{display:grid;place-items:center;width:40px;height:40px;border-radius:50%;background:var(--panel);color:var(--text-muted)}
   .avatar .icon{width:24px;height:24px}
   .avatar:hover{color:var(--text)}
