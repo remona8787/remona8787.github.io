@@ -356,6 +356,16 @@ was verified against **recorded fixtures**; no live result is claimed.
   - `verify-live.mjs` was run against it, served locally: 12 pages loaded and screenshotted, and LCP and transfer sizes were recorded.
   - The images failed to load because Commons is unreachable from this machine.
   - The v0.17 base UI did not yet read `/data/` and still showed internal labels. The checker reported both, which is what it is for.
+- **The three jobs in sequence against a local bare repository.** The setup:
+  - `main` held the files of `deploy/pages-repo/`, and `source` the project tree.
+  - Each job ran in a fresh shallow clone, with the same scripts and arguments as `archive.yml`.
+  - Only two things differed: `run.mjs --fixtures` replaced the network, and a local static server replaced Pages.
+
+  What it showed:
+  - The first run created the `data` branch and committed collect, deploy and verify as github-actions[bot].
+  - The deploy kept README.md, `.github` and `.nojekyll` on main.
+  - `review/live/` reached the data branch.
+  - The second run kept the same build id and byte-identical `site-data/` (publish `unchanged`). It deployed only the new admin report and `deploy.json`.
 
 **Needs the first live run** (Actions → archive → Run workflow):
 
