@@ -1,5 +1,5 @@
 {
- "at": "2026-10-20T12:17:43.935Z",
+ "at": "2026-10-20T12:25:08.557Z",
  "projects": [
   {
    "candidates": [
@@ -335,6 +335,74 @@
     },
     {
      "evidence": [],
+     "file": "Lotte World Tower near Cheongdam Bridge crop.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": false,
+     "reasons": [
+      "too_small",
+      "extreme_aspect"
+     ],
+     "source": "depicts",
+     "tier": null,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "Lotte World Tower near Cheongdam Bridge.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": {
+      "bright_share": 0.5618,
+      "colourfulness": 12.82,
+      "dark_share": 0.0014,
+      "height": 155,
+      "mean_luminance": 0.6534,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "Olympic Bridge, Seoul seen from Southeast Han Gang shore.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "Seoul Aerial Shot 01.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    },
+    {
+     "evidence": [],
      "file": "Happy New Year (25557794478).jpg",
      "home_ok": false,
      "media": 0,
@@ -437,16 +505,7 @@
      "reasons": [],
      "source": "category",
      "tier": 4,
-     "visual": {
-      "bright_share": 0.0459,
-      "colourfulness": 28.2,
-      "dark_share": 0.8499,
-      "height": 427,
-      "mean_luminance": 0.1295,
-      "saturated_bright": 0.0057,
-      "visual": 0,
-      "width": 320
-     }
+     "visual": null
     },
     {
      "evidence": [],
@@ -809,6 +868,185 @@
   {
    "candidates": [
     {
+     "evidence": [],
+     "file": "N Seoul Tower Panorama Night (cropped).jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 30,
+     "night_terms": [
+      "night"
+     ],
+     "ok": false,
+     "reasons": [
+      "extreme_aspect"
+     ],
+     "source": "depicts",
+     "tier": null,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "N Seoul Tower Panorama Night.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 30,
+     "night_terms": [
+      "night"
+     ],
+     "ok": false,
+     "reasons": [
+      "extreme_aspect"
+     ],
+     "source": "depicts",
+     "tier": null,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "Seoul Night Skyline 2022.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 30,
+     "night_terms": [
+      "night"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "N-Seoul tower from Itaewon bridge pinhole.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 30,
+     "night_terms": [
+      "night"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": {
+      "bright_share": 0.003,
+      "colourfulness": 12.22,
+      "dark_share": 0.5903,
+      "height": 480,
+      "mean_luminance": 0.2397,
+      "saturated_bright": 0.0018,
+      "visual": 0,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "Panoramic view of Seoul, South Korea.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "Seoul Aerial Shot 07.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "Seoul Aerial Shot 08.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "Seoul Aerial Shot 13.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "계동에서 남산을 향해 바라본 도심.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": false,
+     "reasons": [
+      "rights:license_not_allowed"
+     ],
+     "source": "depicts",
+     "tier": null,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "서울역 앞 대우빌딩 전경.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "정동에서 남산을 바라본 도심 전경.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": false,
+     "reasons": [
+      "rights:license_not_allowed"
+     ],
+     "source": "depicts",
+     "tier": null,
+     "visual": null
+    },
+    {
      "evidence": [
       "own_category_of_light_work"
      ],
@@ -897,7 +1135,16 @@
      "reasons": [],
      "source": "category",
      "tier": 3,
-     "visual": null
+     "visual": {
+      "bright_share": 0.6589,
+      "colourfulness": 44.4,
+      "dark_share": 0.011,
+      "height": 213,
+      "mean_luminance": 0.7475,
+      "saturated_bright": 0.0249,
+      "visual": 0,
+      "width": 320
+     }
     },
     {
      "evidence": [
@@ -913,226 +1160,19 @@
      "reasons": [],
      "source": "category",
      "tier": 3,
-     "visual": null
-    },
-    {
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "file": "Korea Namsan NTower 07 (13238642655).jpg",
-     "home_ok": false,
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 3,
-     "visual": null
-    },
-    {
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "file": "Korea Namsan NTower 08 (13238639995).jpg",
-     "home_ok": false,
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 3,
-     "visual": null
-    },
-    {
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "file": "N Seoul Tower (13952097192).jpg",
-     "home_ok": true,
-     "media": 40,
-     "media_terms": [],
-     "night": 45,
-     "night_terms": [
-      "night",
-      "blue hour"
-     ],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 3,
      "visual": {
-      "bright_share": 0.0522,
-      "colourfulness": 113.1,
-      "dark_share": 0.3422,
-      "height": 213,
-      "mean_luminance": 0.3328,
-      "saturated_bright": 0.4257,
-      "visual": 39,
-      "width": 320
-     }
-    },
-    {
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "file": "N Seoul Tower - 20260929.jpg",
-     "home_ok": false,
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 3,
-     "visual": null
-    },
-    {
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "file": "N Seoul Tower from far.jpg",
-     "home_ok": false,
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 3,
-     "visual": null
-    },
-    {
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "file": "Namsan Seoul Tower bike parking.png",
-     "home_ok": false,
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": false,
-     "reasons": [
-      "too_small"
-     ],
-     "source": "category",
-     "tier": null,
-     "visual": null
-    },
-    {
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "file": "Namsan Seoul Tower bus stop crop.png",
-     "home_ok": false,
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 3,
-     "visual": null
-    },
-    {
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "file": "Namsan Seoul Tower bus stop.png",
-     "home_ok": false,
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": false,
-     "reasons": [
-      "too_small"
-     ],
-     "source": "category",
-     "tier": null,
-     "visual": null
-    },
-    {
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "file": "Namsan Tower sunset, Seoul.jpg",
-     "home_ok": false,
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 3,
-     "visual": null
-    },
-    {
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "file": "Namsan Tower, Seoul - Namsan2299.jpg",
-     "home_ok": false,
-     "media": 40,
-     "media_terms": [],
-     "night": 55,
-     "night_terms": [
-      "at night",
-      "night",
-      "illuminated"
-     ],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 3,
-     "visual": {
-      "bright_share": 0.0238,
-      "colourfulness": 35.37,
-      "dark_share": 0.7112,
-      "height": 427,
-      "mean_luminance": 0.1639,
-      "saturated_bright": 0.0186,
-      "visual": 31,
-      "width": 320
-     }
-    },
-    {
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "file": "Nanta Cooking Teddy Bears.JPG",
-     "home_ok": true,
-     "media": 70,
-     "media_terms": [
-      "show"
-     ],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 1,
-     "visual": {
-      "bright_share": 0.0476,
-      "colourfulness": 54.6,
-      "dark_share": 0.591,
-      "height": 480,
-      "mean_luminance": 0.2252,
-      "saturated_bright": 0.075,
-      "visual": 57,
+      "bright_share": 0.1938,
+      "colourfulness": 107.14,
+      "dark_share": 0.1563,
+      "height": 187,
+      "mean_luminance": 0.4867,
+      "saturated_bright": 0.319,
+      "visual": 0,
       "width": 320
      }
     }
    ],
-   "card": "Nanta Cooking Teddy Bears.JPG",
+   "card": "Goong Teddy Bears.JPG",
    "hero": null,
    "hero_decisions": [],
    "name": "N Seoul Tower",
@@ -1198,6 +1238,20 @@
       "visual": 0,
       "width": 320
      }
+    },
+    {
+     "evidence": [],
+     "file": "Seventeen Burstday Stage Bridge.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
     },
     {
      "evidence": [
@@ -1432,22 +1486,6 @@
       "own_category_of_light_work"
      ],
      "file": "20141026제1회 잠수교 에코브릿지페스티벌5.jpg",
-     "home_ok": false,
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 3,
-     "visual": null
-    },
-    {
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "file": "20141026제1회 잠수교 에코브릿지페스티벌6.jpg",
      "home_ok": false,
      "media": 40,
      "media_terms": [],
@@ -1844,6 +1882,20 @@
     },
     {
      "evidence": [],
+     "file": "ECK 6291.png",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    },
+    {
+     "evidence": [],
      "file": "20230801 별마당도서관 장식물.jpg",
      "home_ok": false,
      "media": 0,
@@ -2072,20 +2124,6 @@
     {
      "evidence": [],
      "file": "Starfield Library(Suwon) (55204681319).jpg",
-     "home_ok": false,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 4,
-     "visual": null
-    },
-    {
-     "evidence": [],
-     "file": "Starfield Library(Suwon) (55204681344).jpg",
      "home_ok": false,
      "media": 0,
      "media_terms": [],
@@ -2875,6 +2913,29 @@
     },
     {
      "evidence": [],
+     "file": "20250105 여의도지하벙커.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": {
+      "bright_share": 0.1676,
+      "colourfulness": 18.01,
+      "dark_share": 0.176,
+      "height": 427,
+      "mean_luminance": 0.4541,
+      "saturated_bright": 0.0032,
+      "visual": 0,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
      "file": "Korea-Seoul Museum of Art-01.jpg",
      "home_ok": false,
      "media": 0,
@@ -3117,8 +3178,161 @@
    "type": "media_architecture"
   },
   {
-   "candidates": [],
-   "card": null,
+   "candidates": [
+    {
+     "evidence": [],
+     "file": "Oil storage Facility Memorial Board.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": {
+      "bright_share": 0.064,
+      "colourfulness": 33.41,
+      "dark_share": 0.4687,
+      "height": 144,
+      "mean_luminance": 0.2704,
+      "saturated_bright": 0.0034,
+      "visual": 0,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "문화비축기지 T1.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": {
+      "bright_share": 0.1994,
+      "colourfulness": 20.79,
+      "dark_share": 0.4276,
+      "height": 287,
+      "mean_luminance": 0.3769,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "문화비축기지 T2.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": {
+      "bright_share": 0.2796,
+      "colourfulness": 54.17,
+      "dark_share": 0.1025,
+      "height": 320,
+      "mean_luminance": 0.5039,
+      "saturated_bright": 0.002,
+      "visual": 0,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "문화비축기지 T3.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": {
+      "bright_share": 0.2165,
+      "colourfulness": 76.34,
+      "dark_share": 0.0925,
+      "height": 320,
+      "mean_luminance": 0.51,
+      "saturated_bright": 0.1779,
+      "visual": 0,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "문화비축기지 T4.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": {
+      "bright_share": 0.2558,
+      "colourfulness": 66.9,
+      "dark_share": 0.1074,
+      "height": 320,
+      "mean_luminance": 0.5163,
+      "saturated_bright": 0.0982,
+      "visual": 0,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "문화비축기지 T5.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": {
+      "bright_share": 0.1131,
+      "colourfulness": 78.1,
+      "dark_share": 0.0722,
+      "height": 320,
+      "mean_luminance": 0.4999,
+      "saturated_bright": 0.2824,
+      "visual": 0,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "문화비축기지 T6.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    }
+   ],
+   "card": "Oil storage Facility Memorial Board.jpg",
    "hero": null,
    "hero_decisions": [],
    "name": "Oil Tank Culture Park T4/T5",
@@ -3289,6 +3503,154 @@
     },
     {
      "evidence": [],
+     "file": "Leader Tower in Saint Petersburg 01.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": {
+      "bright_share": 0.0509,
+      "colourfulness": 10.1,
+      "dark_share": 0.1214,
+      "height": 240,
+      "mean_luminance": 0.35,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "Leader Tower in Saint Petersburg 03.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": {
+      "bright_share": 0.0193,
+      "colourfulness": 12.57,
+      "dark_share": 0.0557,
+      "height": 240,
+      "mean_luminance": 0.3762,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "Leader Tower in Saint Petersburg 04.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": {
+      "bright_share": 0.0639,
+      "colourfulness": 16.01,
+      "dark_share": 0.1457,
+      "height": 240,
+      "mean_luminance": 0.3758,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "Leader Tower in Saint Petersburg 05.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": {
+      "bright_share": 0.1115,
+      "colourfulness": 13.47,
+      "dark_share": 0.0221,
+      "height": 240,
+      "mean_luminance": 0.4714,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "Leader Tower in Saint Petersburg 06.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "Leader Tower in Saint Petersburg 07.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "Leader Tower in Saint Petersburg 08.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "Leader Tower in Saint Petersburg 09.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    },
+    {
+     "evidence": [],
      "file": "Constitution Tower.jpg",
      "home_ok": false,
      "media": 0,
@@ -3345,16 +3707,7 @@
      "reasons": [],
      "source": "category",
      "tier": 4,
-     "visual": {
-      "bright_share": 0.1098,
-      "colourfulness": 22.64,
-      "dark_share": 0.3391,
-      "height": 427,
-      "mean_luminance": 0.3382,
-      "saturated_bright": 0.001,
-      "visual": 0,
-      "width": 320
-     }
+     "visual": null
     },
     {
      "evidence": [],
@@ -3368,16 +3721,7 @@
      "reasons": [],
      "source": "category",
      "tier": 4,
-     "visual": {
-      "bright_share": 0.0961,
-      "colourfulness": 21.84,
-      "dark_share": 0.3129,
-      "height": 427,
-      "mean_luminance": 0.342,
-      "saturated_bright": 0.0012,
-      "visual": 0,
-      "width": 320
-     }
+     "visual": null
     },
     {
      "evidence": [],
@@ -3391,16 +3735,7 @@
      "reasons": [],
      "source": "category",
      "tier": 4,
-     "visual": {
-      "bright_share": 0.0973,
-      "colourfulness": 25.44,
-      "dark_share": 0.3646,
-      "height": 427,
-      "mean_luminance": 0.3305,
-      "saturated_bright": 0.0012,
-      "visual": 0,
-      "width": 320
-     }
+     "visual": null
     },
     {
      "evidence": [],
@@ -3414,16 +3749,7 @@
      "reasons": [],
      "source": "category",
      "tier": 4,
-     "visual": {
-      "bright_share": 0.0712,
-      "colourfulness": 12.45,
-      "dark_share": 0.1462,
-      "height": 427,
-      "mean_luminance": 0.4984,
-      "saturated_bright": 0,
-      "visual": 0,
-      "width": 320
-     }
+     "visual": null
     },
     {
      "evidence": [],
@@ -3438,121 +3764,9 @@
      "source": "category",
      "tier": 4,
      "visual": null
-    },
-    {
-     "evidence": [],
-     "file": "Saint Petersburg Lider-tower building (27872078683).jpg",
-     "home_ok": false,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 4,
-     "visual": null
-    },
-    {
-     "evidence": [],
-     "file": "Vews of Saint Petersburg (June 2015) - 0 10.jpg",
-     "home_ok": false,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 4,
-     "visual": null
-    },
-    {
-     "evidence": [],
-     "file": "Башня Конституции.jpg",
-     "home_ok": false,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 4,
-     "visual": null
-    },
-    {
-     "evidence": [],
-     "file": "Башня Лидер.jpg",
-     "home_ok": false,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 4,
-     "visual": null
-    },
-    {
-     "evidence": [],
-     "file": "Верхушка Лидер-тауэра.jpg",
-     "home_ok": false,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 4,
-     "visual": null
-    },
-    {
-     "evidence": [],
-     "file": "Главный вход в Лидер-тауэр.jpg",
-     "home_ok": false,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 4,
-     "visual": null
-    },
-    {
-     "evidence": [],
-     "file": "Главный фасад Лидер-тауэра.jpg",
-     "home_ok": false,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 4,
-     "visual": null
-    },
-    {
-     "evidence": [],
-     "file": "Задняя часть Лидер-тауэра.jpg",
-     "home_ok": false,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 4,
-     "visual": null
     }
    ],
-   "card": "Constitution Tower.jpg",
+   "card": "Leader Tower in Saint Petersburg 01.jpg",
    "hero": null,
    "hero_decisions": [],
    "name": "Leader Tower",
@@ -3708,6 +3922,20 @@
     },
     {
      "evidence": [],
+     "file": "Hackyeah-2017---first-day 25003020367 o.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    },
+    {
+     "evidence": [],
      "file": "20231027 201419 Chodź na pole - Tauron Arena Kraków - crop.jpg",
      "home_ok": false,
      "media": 0,
@@ -3841,20 +4069,6 @@
     {
      "evidence": [],
      "file": "20240509 112514 Tier Mobility electric bike parked at Tauron Arena Kraków 02.jpg",
-     "home_ok": false,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 4,
-     "visual": null
-    },
-    {
-     "evidence": [],
-     "file": "20240509 112514 Tier Mobility electric bike parked at Tauron Arena Kraków 03.jpg",
      "home_ok": false,
      "media": 0,
      "media_terms": [],
@@ -13245,6 +13459,20 @@
      "visual": null
     },
     {
+     "evidence": [],
+     "file": "Mitte Wilhelmstraße Denkzeichen.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": null
+    },
+    {
      "evidence": [
       "own_category_of_light_work"
      ],
@@ -13513,22 +13741,6 @@
       "own_category_of_light_work"
      ],
      "file": "Escultura para Georg Elser, Berlín.jpg",
-     "home_ok": false,
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "category",
-     "tier": 3,
-     "visual": null
-    },
-    {
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "file": "Gedenktafel An der Kolonnade 2 (Mitte) Georg Elser.jpg",
      "home_ok": false,
      "media": 40,
      "media_terms": [],
@@ -15341,6 +15553,31 @@
       "visual": 0,
       "width": 320
      }
+    },
+    {
+     "evidence": [],
+     "file": "Paderborn Rathausplatz 19 (1).jpg",
+     "home_ok": false,
+     "media": 40,
+     "media_terms": [
+      "light art"
+     ],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 3,
+     "visual": {
+      "bright_share": 0.3863,
+      "colourfulness": 17.24,
+      "dark_share": 0.1374,
+      "height": 256,
+      "mean_luminance": 0.5351,
+      "saturated_bright": 0.0013,
+      "visual": 0,
+      "width": 320
+     }
     }
    ],
    "card": "Paderborn Rathausplatz 19 (2).jpg",
@@ -15378,11 +15615,351 @@
       "visual": 29,
       "width": 320
      }
+    },
+    {
+     "evidence": [],
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (01).jpg",
+     "home_ok": true,
+     "media": 40,
+     "media_terms": [
+      "lichtinstallation"
+     ],
+     "night": 30,
+     "night_terms": [
+      "abend"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 3,
+     "visual": {
+      "bright_share": 0.0346,
+      "colourfulness": 46.01,
+      "dark_share": 0.7182,
+      "height": 354,
+      "mean_luminance": 0.1834,
+      "saturated_bright": 0.0256,
+      "visual": 39,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (02).jpg",
+     "home_ok": true,
+     "media": 40,
+     "media_terms": [
+      "lichtinstallation"
+     ],
+     "night": 30,
+     "night_terms": [
+      "abend"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 1,
+     "visual": {
+      "bright_share": 0.0297,
+      "colourfulness": 54.29,
+      "dark_share": 0.6697,
+      "height": 343,
+      "mean_luminance": 0.2018,
+      "saturated_bright": 0.0692,
+      "visual": 60,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (03).jpg",
+     "home_ok": true,
+     "media": 40,
+     "media_terms": [
+      "lichtinstallation"
+     ],
+     "night": 30,
+     "night_terms": [
+      "abend"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 1,
+     "visual": {
+      "bright_share": 0.0233,
+      "colourfulness": 59.23,
+      "dark_share": 0.6839,
+      "height": 343,
+      "mean_luminance": 0.1929,
+      "saturated_bright": 0.0849,
+      "visual": 73,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (04).jpg",
+     "home_ok": true,
+     "media": 40,
+     "media_terms": [
+      "lichtinstallation"
+     ],
+     "night": 30,
+     "night_terms": [
+      "abend"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 1,
+     "visual": {
+      "bright_share": 0.0204,
+      "colourfulness": 54.03,
+      "dark_share": 0.6959,
+      "height": 343,
+      "mean_luminance": 0.1895,
+      "saturated_bright": 0.0649,
+      "visual": 61,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (05).jpg",
+     "home_ok": true,
+     "media": 40,
+     "media_terms": [
+      "lichtinstallation"
+     ],
+     "night": 30,
+     "night_terms": [
+      "abend"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 1,
+     "visual": {
+      "bright_share": 0.0223,
+      "colourfulness": 63.33,
+      "dark_share": 0.7206,
+      "height": 342,
+      "mean_luminance": 0.1831,
+      "saturated_bright": 0.0758,
+      "visual": 73,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (06).jpg",
+     "home_ok": false,
+     "media": 40,
+     "media_terms": [
+      "lichtinstallation"
+     ],
+     "night": 30,
+     "night_terms": [
+      "abend"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 3,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (07).jpg",
+     "home_ok": false,
+     "media": 40,
+     "media_terms": [
+      "lichtinstallation"
+     ],
+     "night": 30,
+     "night_terms": [
+      "abend"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 3,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (08).jpg",
+     "home_ok": false,
+     "media": 40,
+     "media_terms": [
+      "lichtinstallation"
+     ],
+     "night": 30,
+     "night_terms": [
+      "abend"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 3,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (09).jpg",
+     "home_ok": false,
+     "media": 40,
+     "media_terms": [
+      "lichtinstallation"
+     ],
+     "night": 30,
+     "night_terms": [
+      "abend"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 3,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (10).jpg",
+     "home_ok": false,
+     "media": 40,
+     "media_terms": [
+      "lichtinstallation"
+     ],
+     "night": 30,
+     "night_terms": [
+      "abend"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 3,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (11).jpg",
+     "home_ok": false,
+     "media": 40,
+     "media_terms": [
+      "lichtinstallation"
+     ],
+     "night": 30,
+     "night_terms": [
+      "abend"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 3,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (12).jpg",
+     "home_ok": false,
+     "media": 40,
+     "media_terms": [
+      "lichtinstallation"
+     ],
+     "night": 30,
+     "night_terms": [
+      "abend"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 3,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (13).jpg",
+     "home_ok": false,
+     "media": 40,
+     "media_terms": [
+      "lichtinstallation"
+     ],
+     "night": 30,
+     "night_terms": [
+      "abend"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 3,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (14).jpg",
+     "home_ok": false,
+     "media": 40,
+     "media_terms": [
+      "lichtinstallation"
+     ],
+     "night": 30,
+     "night_terms": [
+      "abend"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 3,
+     "visual": null
+    },
+    {
+     "evidence": [],
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (15).jpg",
+     "home_ok": false,
+     "media": 40,
+     "media_terms": [
+      "lichtinstallation"
+     ],
+     "night": 30,
+     "night_terms": [
+      "abend"
+     ],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 3,
+     "visual": null
     }
    ],
-   "card": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (23).jpg",
+   "card": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (03).jpg",
    "hero": null,
-   "hero_decisions": [],
+   "hero_decisions": [
+    {
+     "allowlisted": false,
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (03).jpg",
+     "hero_candidate": true,
+     "reasons": []
+    },
+    {
+     "allowlisted": false,
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (05).jpg",
+     "hero_candidate": true,
+     "reasons": []
+    },
+    {
+     "allowlisted": false,
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (04).jpg",
+     "hero_candidate": true,
+     "reasons": []
+    },
+    {
+     "allowlisted": false,
+     "file": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (02).jpg",
+     "hero_candidate": true,
+     "reasons": []
+    }
+   ],
    "name": null,
    "project": "Q136085207",
    "type": "light_art"
@@ -21718,6 +22295,29 @@
     },
     {
      "evidence": [],
+     "file": "Meow Wolf Convergence Station May 2022.jpg",
+     "home_ok": true,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 3,
+     "visual": {
+      "bright_share": 0.0208,
+      "colourfulness": 54.52,
+      "dark_share": 0.5872,
+      "height": 427,
+      "mean_luminance": 0.2099,
+      "saturated_bright": 0.0631,
+      "visual": 56,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
      "file": "Convergence Station Meow Wolf Denver 01.jpg",
      "home_ok": false,
      "media": 0,
@@ -21809,7 +22409,7 @@
      }
     }
    ],
-   "card": "Convergence Station Meow Wolf Denver 03.jpg",
+   "card": "Meow Wolf Convergence Station May 2022.jpg",
    "hero": null,
    "hero_decisions": [],
    "name": "Convergence Station",

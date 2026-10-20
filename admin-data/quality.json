@@ -217,7 +217,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261020T121743Z-cbf00ae8",
+ "build_id": "20261020T122508Z-dbe51fe7",
  "coordinate_checks": [],
  "excluded": [
   {
@@ -3025,6 +3025,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -4936,6 +4937,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5855,6 +5857,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "class_requires_coordinates"
    ]
   },
@@ -6249,6 +6252,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6298,6 +6302,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6334,6 +6339,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6527,6 +6533,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6681,6 +6688,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6730,6 +6738,7 @@
    "qid": "Q325698",
    "reasons": [
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6742,6 +6751,7 @@
    "qid": "Q33133506",
    "reasons": [
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6768,6 +6778,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6781,6 +6792,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6794,6 +6806,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -7002,6 +7015,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -8195,6 +8209,7 @@
    "qid": "Q95204866",
    "reasons": [
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -8208,6 +8223,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -8712,13 +8728,13 @@
    ]
   }
  ],
- "generated_at": "2026-10-20T12:17:43.935Z",
+ "generated_at": "2026-10-20T12:25:08.557Z",
  "image_rejections": {
-  "extreme_aspect": 5,
+  "extreme_aspect": 8,
   "interior_unrelated_to_work": 3,
   "rights:foreign_no_freedom_of_panorama": 4,
-  "rights:license_not_allowed": 11,
-  "too_small": 12
+  "rights:license_not_allowed": 13,
+  "too_small": 11
  },
  "low_confidence_types": [
   {
@@ -9846,12 +9862,6 @@
   },
   {
    "country_iso2": "KR",
-   "id": "SEOUL033",
-   "name": "Oil Tank Culture Park T4/T5",
-   "project_type": "media_architecture"
-  },
-  {
-   "country_iso2": "KR",
    "id": "SEOUL034",
    "name": "Photography Seoul Museum of Art",
    "project_type": "other"
@@ -9933,10 +9943,6 @@
    "id": "Q107265489"
   },
   {
-   "best_tier": 4,
-   "id": "Q108139453"
-  },
-  {
    "best_tier": 3,
    "id": "Q110264446"
   },
@@ -10003,10 +10009,6 @@
   {
    "best_tier": 3,
    "id": "Q135289104"
-  },
-  {
-   "best_tier": 3,
-   "id": "Q136085207"
   },
   {
    "best_tier": 4,
@@ -10099,6 +10101,10 @@
   {
    "best_tier": 3,
    "id": "SEOUL027"
+  },
+  {
+   "best_tier": 4,
+   "id": "SEOUL033"
   },
   {
    "best_tier": 4,
