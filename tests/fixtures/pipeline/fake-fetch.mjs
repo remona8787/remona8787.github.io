@@ -189,18 +189,35 @@ function linkCheck(u, method) {
  * Response | Error | null to inject faults (an Error is thrown like a network failure).
  */
 export function fixtureEnvironment({ start = Date.parse('2026-10-20T06:17:00Z'), latencyMs = 40, fail = null } = {}) {
-  let t = start
+  // Virtual time as a discrete-event clock: sleep() registers a timer, and time advances to the next timer only from
+  // setImmediate, i.e. when every task is waiting. Concurrent tasks therefore see one consistent timeline.
+  let t = start, seq = 0, pumping = false
+  const timers = []
   const requests = []
   const state = { templateRounds: 0 }
   const clock = () => t
-  const sleep = async (ms) => { t += Math.max(0, Math.round(ms)) }
+  const pump = () => {
+    if (pumping) return
+    pumping = true
+    const step = () => {
+      if (!timers.length) { pumping = false; return }
+      timers.sort((a, b) => a.at - b.at || a.seq - b.seq)
+      const next = timers.shift()
+      if (next.at > t) t = next.at
+      next.resolve()
+      setImmediate(step)
+    }
+    setImmediate(step)
+  }
+  const sleep = (ms) => new Promise((resolve) => { timers.push({ at: t + Math.max(0, Math.round(Number(ms) || 0)), seq: seq++, resolve }); pump() })
   async function fetch(input, init = {}) {
     const url = String(input)
     const u = new URL(url)
     const method = (init.method || 'GET').toUpperCase()
     const headers = new Headers(init.headers || {})
-    requests.push({ at: t, method, url, host: u.host, ua: headers.get('user-agent'), if_none_match: headers.get('if-none-match') })
-    t += latencyMs
+    const sparqlKind = u.host === 'query.wikidata.org' ? /#aol:([a-z-]+(?: Q\d+)?)/.exec(new URLSearchParams(String(init.body || '')).get('query') || '')?.[1] ?? null : null
+    requests.push({ at: t, method, url, host: u.host, ua: headers.get('user-agent'), if_none_match: headers.get('if-none-match'), sparql: sparqlKind })
+    await sleep(latencyMs)
     const injected = fail ? fail(url, init) : null
     if (injected instanceof Error) throw injected
     if (injected) return injected

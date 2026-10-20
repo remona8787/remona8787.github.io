@@ -167,7 +167,7 @@ export async function runPipeline(o) {
       if (S.commons?.enabled === false) { status('commons', { status: 'disabled', items: 0, errors: [] }); return }
       const t = clock()
       try {
-        categories = await discoverCategories(client, cfg.categories, { cache, ttlHours: ttl.commons_category ?? 72 })
+        categories = await discoverCategories(client, cfg.categories, { cache, ttlHours: ttl.commons_category ?? 72, classQids: (cfg.classes.classes || []).map((c) => c.qid) })
         const n = [...categories.categories.values()].filter((c) => c.decision === 'candidate').length
         status('commons', { status: categories.partial ? 'partial' : categories.errors.length ? (n ? 'partial' : 'error') : 'ok', items: n, errors: categories.errors, warnings: categories.warnings, duration_ms: clock() - t })
       } catch (x) { err('commons', x); status('commons', { status: 'error', items: 0, errors: [{ message: msg(x) }], duration_ms: clock() - t }) }

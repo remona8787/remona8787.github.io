@@ -160,8 +160,10 @@ export async function searchFiles(client, term, { limit = 100, cache, ttlHours =
  * Category discovery: searches and walks. Returns {categories: Map(title → {info, decision, reason, root, parent,
  * project_type, place_hint, night_subcats[], editions[]}), errors, partial}.
  */
-export async function discoverCategories(client, config, { cache, ttlHours = 72, log = () => {} } = {}) {
+export async function discoverCategories(client, config, { cache, ttlHours = 72, log = () => {}, classQids = [] } = {}) {
   const rules = categoryRules(config)
+  const rootTitles = new Set((config.roots || []).map((r) => categoryTitle(r.title)))
+  const classSet = new Set(classQids)
   const walk = config.walk || {}
   const maxCategories = walk.max_categories ?? 2500
   const seen = new Map()
@@ -194,7 +196,9 @@ export async function discoverCategories(client, config, { cache, ttlHours = 72,
       const info = await categoryInfo(client, searched.map((s) => s.title), { cache, ttlHours })
       for (const s of searched) {
         const i = info.get(categoryTitle(s.title))
-        if (!i || !i.exists || seen.has(i.title)) continue
+        if (!i || !i.exists || seen.has(i.title) || rootTitles.has(i.title)) continue
+        // The category of a whole class ("Projection mapping" ↔ Q776483) is a topic, never one project.
+        if (i.qid && classSet.has(i.qid)) { record(i, { decision: 'aggregate', reason: 'topic_category_of_a_class' }, { root: s.root.title, parent: null, project_type: s.root.project_type ?? null, place_hint: null }); continue }
         // A name search also returns loosely related categories ("Facades" for "media facade"): the searched phrase
         // must be in the category name itself. (Categories of files named with the phrase are exempt.)
         if (!s.via_file && s.term && !termPattern(s.term).test(name(i.title))) { record(i, { decision: 'rejected', reason: 'term_not_in_name' }, { root: s.root.title, parent: null, project_type: null, place_hint: null }); continue }
@@ -255,7 +259,7 @@ export async function discoverCategories(client, config, { cache, ttlHours = 72,
     }
     // A configured root that does not exist is a configuration warning, not a source failure.
     if (!rootInfo?.exists) { log({ kind: 'root_missing', root: root.title }); warnings.push({ stage: 'commons_root', root: root.title, message: 'category does not exist' }); continue }
-    if (!seen.has(rootInfo.title)) record(rootInfo, { decision: 'aggregate', reason: 'configured_root' }, { root: root.title, parent: null, project_type: root.project_type ?? null, place_hint: null })
+    record(rootInfo, { decision: 'aggregate', reason: 'configured_root' }, { root: root.title, parent: null, project_type: root.project_type ?? null, place_hint: null })
     await walkFrom(root, rootInfo, root.depth ?? 2)
   }
   for (const s of searched) {

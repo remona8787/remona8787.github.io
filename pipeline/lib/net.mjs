@@ -8,7 +8,35 @@
 //  - the run's time budget: no request starts after the deadline (BudgetError);
 //  - optional caching with a TTL and ETag revalidation (state/cache/);
 //  - per-host counters for report.json (requests, errors, statuses, bytes, time).
-import { fetchWithPolicy, checkUrl, readCapped, parseRetryAfter, retryable, HttpError, createRateLimiter, defaultSleep, errorText } from '../../edge-functions/_shared/archive/http.mjs'
+import { fetchWithPolicy, checkUrl, readCapped, parseRetryAfter, retryable, HttpError, defaultSleep, errorText } from '../../edge-functions/_shared/archive/http.mjs'
+
+/**
+ * Strict per-host spacing: a caller returns only when at least the host's interval has passed since the previous
+ * caller returned (measured when it actually proceeds, so a late request never lets the next one come early).
+ * Concurrent callers of one host queue in order.
+ */
+export function createStrictLimiter({ clock = Date.now, sleep = defaultSleep, defaultIntervalMs = 1000, intervals = {} } = {}) {
+  const last = new Map(), queues = new Map()
+  const intervalOf = (key) => intervals[key] ?? (/\.wikipedia\.org$/.test(key) ? intervals['*.wikipedia.org'] ?? defaultIntervalMs : defaultIntervalMs)
+  return {
+    last,
+    intervalOf,
+    wait(host) {
+      const key = String(host || '').toLowerCase()
+      const prev = queues.get(key) || Promise.resolve()
+      const turn = prev.then(async () => {
+        const interval = intervalOf(key)
+        for (;;) {
+          const now = clock(), at = (last.get(key) ?? -Infinity) + interval
+          if (now >= at) { last.set(key, now); return }
+          await sleep(at - now)
+        }
+      })
+      queues.set(key, turn.catch(() => {}))
+      return turn
+    },
+  }
+}
 
 export const USER_AGENT = 'LightArchitectureArchive/0.17 (+https://remona8787.github.io/; remona56@hanmail.net)'
 export const MAXLAG = 5
@@ -33,7 +61,7 @@ export const isMediaWikiApi = (url) => { try { const u = new URL(url); return ME
  *   intervals?: Record<string, number>, cache?: import('./cache.mjs').Cache|null, deadline?: number, log?: (e: object) => void}} [o]
  */
 export function createClient({ fetch = globalThis.fetch, clock = Date.now, sleep = defaultSleep, userAgent = USER_AGENT, intervals = HOST_INTERVALS, cache = null, deadline = Infinity, log = () => {} } = {}) {
-  const limiter = createRateLimiter({ clock, sleep, defaultIntervalMs: 1000, intervals })
+  const limiter = createStrictLimiter({ clock, sleep, defaultIntervalMs: 1000, intervals })
   /** @type {Record<string, {requests: number, ok: number, errors: number, not_modified: number, cached: number, bytes: number, ms: number, statuses: Record<string, number>, last_error: string|null}>} */
   const stats = {}
   const hostStats = (host) => (stats[host] ||= { requests: 0, ok: 0, errors: 0, not_modified: 0, cached: 0, bytes: 0, ms: 0, statuses: {}, last_error: null })

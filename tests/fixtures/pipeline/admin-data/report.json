@@ -1,0 +1,760 @@
+{
+ "cache": {
+  "hits": 3,
+  "misses": 352,
+  "sizes": {
+   "commons-category": 14,
+   "commons-files": 17,
+   "commons-members": 24,
+   "commons-search": 40,
+   "entities": 27,
+   "entities-aux": 42,
+   "links": 95,
+   "overpass": 12,
+   "sparql": 28,
+   "visual": 13,
+   "wiki-pages": 9,
+   "wiki-search": 31
+  },
+  "stale": 0,
+  "writes": 352
+ },
+ "changes": {
+  "carried_over": [],
+  "changed": [],
+  "merges": [
+   {
+    "a": "Q18391691",
+    "b": "Q15140473",
+    "rule": "editorial_merge"
+   }
+  ],
+  "new": [
+   "ED-fixture-light-pavilion",
+   "Q125715",
+   "Q15140473",
+   "Q2001578",
+   "Q4167",
+   "Q5447104",
+   "Q56089114",
+   "Q7715933",
+   "Q7899954",
+   "Q99000101",
+   "Q99000103",
+   "SEOUL001",
+   "SEOUL002",
+   "SEOUL003",
+   "SEOUL004",
+   "SEOUL005",
+   "SEOUL006",
+   "SEOUL007",
+   "SEOUL008",
+   "SEOUL009",
+   "SEOUL010",
+   "SEOUL011",
+   "SEOUL012",
+   "SEOUL013",
+   "SEOUL014",
+   "SEOUL015",
+   "SEOUL016",
+   "SEOUL017",
+   "SEOUL018",
+   "SEOUL019",
+   "SEOUL020",
+   "SEOUL021",
+   "SEOUL022",
+   "SEOUL023",
+   "SEOUL024",
+   "SEOUL025",
+   "SEOUL026",
+   "SEOUL027",
+   "SEOUL028",
+   "SEOUL029",
+   "SEOUL030",
+   "SEOUL031",
+   "SEOUL032",
+   "SEOUL033",
+   "SEOUL034",
+   "SEOUL035",
+   "SEOUL036",
+   "SEOUL037",
+   "SEOUL038",
+   "SEOUL039",
+   "SEOUL040",
+   "SEOUL041",
+   "SEOUL043",
+   "SEOUL044",
+   "SEOUL045",
+   "SEOUL046",
+   "SEOUL047",
+   "SEOUL048",
+   "SEOUL049",
+   "SEOUL050"
+  ],
+  "removed": []
+ },
+ "counts": {
+  "candidates_awaiting_review": 2,
+  "carried_over": 0,
+  "changed": 0,
+  "excluded": 4,
+  "hero_candidates_awaiting_review": 5,
+  "merged": 1,
+  "new": 60,
+  "observations": 75,
+  "observations_kept": 74,
+  "projects_built": 64,
+  "published": 60,
+  "removed": 0,
+  "stale": 0,
+  "with_hero": 3,
+  "with_images": 10
+ },
+ "decisions": [
+  {
+   "action": "merge",
+   "at": "2026-10-01T09:00:00Z",
+   "by": "fixture-editor",
+   "file": "2026-10-01T09-00-00Z-merge.json",
+   "note": "Fixture: the Commons category item and the festival item are the same Signal Festival.",
+   "project": "Q15140473",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q18391691"
+  },
+  {
+   "action": "edit",
+   "at": "2026-10-02T09:00:00Z",
+   "by": "fixture-editor",
+   "file": "2026-10-02T09-00-00Z-edit.json",
+   "note": "Fixture: Korean name.",
+   "project": "Q7715933",
+   "reasons": [
+    "unknown_field:unknown_field"
+   ],
+   "status": "applied",
+   "target": "Q7715933"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-03T09:00:00Z",
+   "by": "fixture-editor",
+   "file": "2026-10-03T09-00-00Z-hide.json",
+   "note": "Fixture: an advertising neon sign, not light art.",
+   "project": "Q99000108",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q99000108"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-10-04T09:00:00Z",
+   "by": "fixture-editor",
+   "file": "2026-10-04T09-00-00Z-block_image.json",
+   "note": "Fixture: shows the bridge, not the work.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q7715933"
+  },
+  {
+   "action": "set_hero",
+   "at": "2026-10-05T09:00:00Z",
+   "by": "fixture-editor",
+   "file": "2026-10-05T09-00-00Z-set_hero.json",
+   "note": "Fixture: projection visibly running, reviewed on the contact sheet.",
+   "project": "Q4167",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q4167"
+  },
+  {
+   "action": "approve",
+   "at": "2026-10-06T09:00:00Z",
+   "by": "fixture-editor",
+   "created_id": "ED-fixture-light-pavilion",
+   "file": "2026-10-06T09-00-00Z-approve.json",
+   "note": "Fixture: an editor-created record.",
+   "reasons": [],
+   "status": "applied",
+   "target": "new:fixture-light-pavilion"
+  },
+  {
+   "action": "approve",
+   "at": "2026-10-07T09:00:00Z",
+   "by": "fixture-editor",
+   "file": "2026-10-07T09-00-00Z-approve.json",
+   "note": "Fixture: a candidate id that does not exist.",
+   "reasons": [],
+   "status": "target_not_found",
+   "target": "cand-0000000"
+  },
+  {
+   "action": "delete",
+   "at": "2026-10-08T09:00:00Z",
+   "by": "fixture-editor",
+   "file": "2026-10-08T09-00-00Z-delete.json",
+   "note": "Fixture: not an action.",
+   "reasons": [
+    "unknown_action"
+   ],
+   "status": "invalid",
+   "target": "Q7715933"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-09T09:00:00Z",
+   "by": "fixture-editor",
+   "file": "2026-10-09T09-00-00Z-hide.json",
+   "note": "Fixture: hidden, then shown again by the next decision.",
+   "reasons": [
+    "later_decision:2026-10-10T09-00-00Z-unhide.json"
+   ],
+   "status": "superseded",
+   "target": "SEOUL050"
+  },
+  {
+   "action": "unhide",
+   "at": "2026-10-10T09:00:00Z",
+   "by": "fixture-editor",
+   "file": "2026-10-10T09-00-00Z-unhide.json",
+   "note": "Fixture: the later decision wins.",
+   "project": "SEOUL050",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL050"
+  }
+ ],
+ "errors": [],
+ "hero_list": [
+  {
+   "image": "The Bay Lights at night 2013.jpg",
+   "note": "Fixture: LED installation visibly running at night (contact sheet reviewed).",
+   "project": "Q7715933",
+   "reasons": [],
+   "status": "hero"
+  },
+  {
+   "image": "Lotte World Tower media facade at night.jpg",
+   "note": "Fixture: media facade running at night.",
+   "project": "SEOUL018",
+   "reasons": [],
+   "status": "hero"
+  },
+  {
+   "image": "Urban Light LACMA daytime.jpg",
+   "note": "Fixture: an allowlisted daytime photo; the visual gate must still refuse it as a hero.",
+   "project": "Q7899954",
+   "reasons": [
+    "not_home_ok",
+    "no_night_evidence",
+    "no_media_evidence",
+    "visual_below_threshold"
+   ],
+   "status": "not_eligible"
+  }
+ ],
+ "http": {
+  "ar.wikipedia.org": {
+   "bytes": 146,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 1040,
+   "not_modified": 0,
+   "ok": 2,
+   "requests": 2,
+   "statuses": {
+    "200": 2
+   }
+  },
+  "commons.wikimedia.org": {
+   "bytes": 55770,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 84000,
+   "not_modified": 0,
+   "ok": 87,
+   "requests": 87,
+   "statuses": {
+    "200": 87
+   }
+  },
+  "de.wikipedia.org": {
+   "bytes": 692,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 2040,
+   "not_modified": 0,
+   "ok": 3,
+   "requests": 3,
+   "statuses": {
+    "200": 3
+   }
+  },
+  "en.wikipedia.org": {
+   "bytes": 3999,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 4040,
+   "not_modified": 0,
+   "ok": 5,
+   "requests": 5,
+   "statuses": {
+    "200": 5
+   }
+  },
+  "es.wikipedia.org": {
+   "bytes": 219,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 2040,
+   "not_modified": 0,
+   "ok": 3,
+   "requests": 3,
+   "statuses": {
+    "200": 3
+   }
+  },
+  "fr.wikipedia.org": {
+   "bytes": 219,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 2040,
+   "not_modified": 0,
+   "ok": 3,
+   "requests": 3,
+   "statuses": {
+    "200": 3
+   }
+  },
+  "it.wikipedia.org": {
+   "bytes": 146,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 1040,
+   "not_modified": 0,
+   "ok": 2,
+   "requests": 2,
+   "statuses": {
+    "200": 2
+   }
+  },
+  "ja.wikipedia.org": {
+   "bytes": 73,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 40,
+   "not_modified": 0,
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
+  },
+  "ko.wikipedia.org": {
+   "bytes": 775,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 2040,
+   "not_modified": 0,
+   "ok": 3,
+   "requests": 3,
+   "statuses": {
+    "200": 3
+   }
+  },
+  "nl.wikipedia.org": {
+   "bytes": 73,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 40,
+   "not_modified": 0,
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
+  },
+  "overpass-api.de": {
+   "bytes": 470,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 40,
+   "not_modified": 0,
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
+  },
+  "pl.wikipedia.org": {
+   "bytes": 146,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 1040,
+   "not_modified": 0,
+   "ok": 2,
+   "requests": 2,
+   "statuses": {
+    "200": 2
+   }
+  },
+  "pt.wikipedia.org": {
+   "bytes": 219,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 2040,
+   "not_modified": 0,
+   "ok": 3,
+   "requests": 3,
+   "statuses": {
+    "200": 3
+   }
+  },
+  "query.wikidata.org": {
+   "bytes": 20125,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 28080,
+   "not_modified": 0,
+   "ok": 30,
+   "requests": 30,
+   "statuses": {
+    "200": 30
+   }
+  },
+  "ru.wikipedia.org": {
+   "bytes": 73,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 40,
+   "not_modified": 0,
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
+  },
+  "tr.wikipedia.org": {
+   "bytes": 146,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 1040,
+   "not_modified": 0,
+   "ok": 2,
+   "requests": 2,
+   "statuses": {
+    "200": 2
+   }
+  },
+  "upload.wikimedia.org": {
+   "bytes": 85091,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 520,
+   "not_modified": 0,
+   "ok": 13,
+   "requests": 13,
+   "statuses": {
+    "200": 13
+   }
+  },
+  "www.wikidata.org": {
+   "bytes": 48933,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 2080,
+   "not_modified": 0,
+   "ok": 4,
+   "requests": 4,
+   "statuses": {
+    "200": 4
+   }
+  },
+  "zh.wikipedia.org": {
+   "bytes": 219,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 2040,
+   "not_modified": 0,
+   "ok": 3,
+   "requests": 3,
+   "statuses": {
+    "200": 3
+   }
+  }
+ },
+ "images": {
+  "candidates": 17,
+  "contact_sheets": [
+   "hero-candidates-01.jpg",
+   "cards-01.jpg"
+  ],
+  "kept_previous": 0,
+  "measure_errors": 0,
+  "measured": 13,
+  "none": 50,
+  "processed": 60,
+  "rejected": {
+   "interior_unrelated_to_work": 1,
+   "rights:foreign_no_freedom_of_panorama": 1,
+   "rights:license_not_allowed": 1
+  },
+  "thumbnails_fetched": 13
+ },
+ "reachability": {
+  "ar.wikipedia.org": "reachable",
+  "commons.wikimedia.org": "reachable",
+  "de.wikipedia.org": "reachable",
+  "en.wikipedia.org": "reachable",
+  "es.wikipedia.org": "reachable",
+  "fr.wikipedia.org": "reachable",
+  "it.wikipedia.org": "reachable",
+  "ja.wikipedia.org": "reachable",
+  "ko.wikipedia.org": "reachable",
+  "nl.wikipedia.org": "reachable",
+  "overpass-api.de": "reachable",
+  "pl.wikipedia.org": "reachable",
+  "pt.wikipedia.org": "reachable",
+  "query.wikidata.org": "reachable",
+  "ru.wikipedia.org": "reachable",
+  "tr.wikipedia.org": "reachable",
+  "upload.wikimedia.org": "reachable",
+  "www.wikidata.org": "reachable",
+  "zh.wikipedia.org": "reachable"
+ },
+ "review_queue": {
+  "candidates": 2,
+  "hero_candidates": 5
+ },
+ "run": {
+  "budget_minutes": 25,
+  "build_id": "20261020T061700Z-81a92c46",
+  "drop_guard": null,
+  "duration_ms": 184400,
+  "finished_at": "2026-10-20T06:20:04.400Z",
+  "number": 1,
+  "publish": "published",
+  "started_at": "2026-10-20T06:17:00.000Z",
+  "status": "ok",
+  "user_agent": "LightArchitectureArchive/0.17 (+https://remona8787.github.io/; remona56@hanmail.net)",
+  "validation_errors": []
+ },
+ "schema": 1,
+ "sources": {
+  "commons": {
+   "consecutive_failures": 0,
+   "duration_ms": 58040,
+   "errors": [],
+   "items": 10,
+   "last_success": "2026-10-20T06:17:00.000Z",
+   "status": "ok",
+   "warnings": [
+    {
+     "message": "category does not exist",
+     "root": "Category:Light installations",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Light festivals",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Sound and light shows",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Light shows",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Media art",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Illuminated buildings by country",
+     "stage": "commons_root"
+    }
+   ]
+  },
+  "curated": {
+   "consecutive_failures": 0,
+   "errors": [],
+   "items": 49,
+   "last_success": "2026-10-20T06:17:00.000Z",
+   "status": "ok"
+  },
+  "editorial": {
+   "consecutive_failures": 0,
+   "errors": [],
+   "items": 1,
+   "last_success": "2026-10-20T06:17:00.000Z",
+   "status": "ok"
+  },
+  "enrich": {
+   "consecutive_failures": 0,
+   "duration_ms": 2080,
+   "errors": [],
+   "items": 17,
+   "last_success": "2026-10-20T06:17:00.000Z",
+   "status": "ok"
+  },
+  "links": {
+   "consecutive_failures": 0,
+   "errors": [],
+   "from_cache": 0,
+   "items": 95,
+   "last_success": "2026-10-20T06:17:00.000Z",
+   "status": "ok",
+   "unchecked": 0
+  },
+  "overpass": {
+   "consecutive_failures": 0,
+   "errors": [],
+   "items": 12,
+   "last_success": "2026-10-20T06:17:00.000Z",
+   "status": "ok"
+  },
+  "web": {
+   "consecutive_failures": 0,
+   "duration_ms": 80,
+   "errors": [],
+   "items": 3,
+   "last_success": "2026-10-20T06:17:00.000Z",
+   "rules": [
+    {
+     "dropped": {
+      "duplicate_url": 0,
+      "invalid": 0,
+      "prefilter": 0
+     },
+     "errors": 0,
+     "fetched": 2,
+     "kept": 2,
+     "key": "gdelt:GDELT en · media facade",
+     "kind": "gdelt",
+     "not_modified": false,
+     "reason": null,
+     "status": "success"
+    },
+    {
+     "dropped": {
+      "duplicate_url": 0,
+      "invalid": 0,
+      "prefilter": 1
+     },
+     "errors": 0,
+     "fetched": 2,
+     "kept": 1,
+     "key": "rss:Dezeen",
+     "kind": "rss",
+     "not_modified": false,
+     "reason": null,
+     "status": "success"
+    }
+   ],
+   "status": "ok"
+  },
+  "wikidata": {
+   "consecutive_failures": 0,
+   "duration_ms": 28080,
+   "errors": [],
+   "items": 10,
+   "last_success": "2026-10-20T06:17:00.000Z",
+   "status": "ok"
+  },
+  "wikipedia": {
+   "consecutive_failures": 0,
+   "duration_ms": 4040,
+   "errors": [],
+   "items": 9,
+   "last_success": "2026-10-20T06:17:00.000Z",
+   "status": "ok"
+  }
+ },
+ "stages": {
+  "contact_sheets": {
+   "duration_ms": 0,
+   "status": "ok"
+  },
+  "enrich": {
+   "duration_ms": 2080,
+   "status": "ok"
+  },
+  "images": {
+   "duration_ms": 28080,
+   "status": "ok"
+  },
+  "links": {
+   "duration_ms": 96160,
+   "status": "ok"
+  },
+  "overpass": {
+   "duration_ms": 40,
+   "status": "ok"
+  },
+  "resolve": {
+   "duration_ms": 0,
+   "status": "ok"
+  },
+  "sources": {
+   "duration_ms": 58040,
+   "status": "ok"
+  }
+ },
+ "warnings": [
+  {
+   "message": "category does not exist",
+   "root": "Category:Light installations",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Light festivals",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Sound and light shows",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Light shows",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Media art",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Illuminated buildings by country",
+   "stage": "commons_root"
+  }
+ ]
+}

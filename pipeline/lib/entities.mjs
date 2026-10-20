@@ -207,7 +207,9 @@ export function buildProject(obs, facts, ctx = {}) {
   for (const o of obs) for (const s of o.sources || []) add(s)
   if (p.qid) add({ id: 'wikidata', kind: 'wikidata', title: host ? `Wikidata ${p.qid} (building)` : `Wikidata ${p.qid}`, url: wikidataPage(p.qid), publisher: 'Wikidata' })
   if (f && !host) {
-    for (const [wiki, s] of Object.entries(f.sitelinks || {})) {
+    // Fixed order (Korean, English, then by code): cached entities come back with sorted keys, fresh ones do not.
+    const rank = (w) => { const i = ['kowiki', 'enwiki'].indexOf(w); return i < 0 ? 9 : i }
+    for (const [wiki, s] of Object.entries(f.sitelinks || {}).sort(([a], [b]) => rank(a) - rank(b) || (a < b ? -1 : a > b ? 1 : 0))) {
       if (wiki === 'commonswiki' || !s.url) continue
       const lang = wiki.replace(/wiki$/, '')
       if (['ko', 'en', p.name_original_lang].includes(lang)) add({ id: 'wikipedia:' + lang, kind: 'wikipedia', title: s.title, url: s.url, publisher: `Wikipedia (${lang})` })

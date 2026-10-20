@@ -1,0 +1,74 @@
+{
+ "build_id": "20261020T061700Z-81a92c46",
+ "counts": {
+  "by_country": {
+   "AT": 1,
+   "AU": 1,
+   "CZ": 1,
+   "DE": 2,
+   "FR": 1,
+   "KR": 50,
+   "NL": 1,
+   "US": 3
+  },
+  "by_region": {
+   "east_asia": 50,
+   "europe": 6,
+   "north_america": 3,
+   "oceania": 1
+  },
+  "by_type": {
+   "festival_program": 3,
+   "light_art": 11,
+   "media_architecture": 8,
+   "media_facade": 19,
+   "media_wall": 2,
+   "other": 16,
+   "projection_mapping": 1
+  },
+  "projects": 60,
+  "with_hero": 3,
+  "with_images": 10
+ },
+ "credits": {
+  "data": "Wikidata (CC0 1.0), Wikipedia (CC BY-SA 4.0, article links), Wikimedia Commons (each image carries its own licence and author), curated records of the archive.",
+  "images": "Every image object names its licence and author; keep them with the image."
+ },
+ "files": {
+  "home": "home.json",
+  "index": "index.json",
+  "shards": [
+   "projects/000.json"
+  ],
+  "stats": "stats.json"
+ },
+ "generated_at": "2026-10-20T06:17:00.000Z",
+ "schema": 1,
+ "sources": {
+  "commons": {
+   "items": 10,
+   "last_success": "2026-10-20T06:17:00.000Z",
+   "status": "ok"
+  },
+  "curated": {
+   "items": 49,
+   "last_success": "2026-10-20T06:17:00.000Z",
+   "status": "ok"
+  },
+  "web": {
+   "items": 3,
+   "last_success": "2026-10-20T06:17:00.000Z",
+   "status": "ok"
+  },
+  "wikidata": {
+   "items": 10,
+   "last_success": "2026-10-20T06:17:00.000Z",
+   "status": "ok"
+  },
+  "wikipedia": {
+   "items": 9,
+   "last_success": "2026-10-20T06:17:00.000Z",
+   "status": "ok"
+  }
+ }
+}
