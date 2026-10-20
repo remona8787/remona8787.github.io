@@ -1,0 +1,3144 @@
+{
+ "accept_score": 50,
+ "at": "2026-10-20T11:45:17.714Z",
+ "entity_decisions": [
+  {
+   "accepted": true,
+   "entity_reasons": [],
+   "lang": "en",
+   "p31_labels": [
+    "skyscraper"
+   ],
+   "qid": "Q626425",
+   "reasons": [
+    "term_in_lead",
+    "term_repeated_in_lead",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 75,
+   "term": "media facade",
+   "url": "https://en.wikipedia.org/wiki/King_Road_Tower"
+  },
+  {
+   "accepted": true,
+   "entity_reasons": [],
+   "lang": "en",
+   "p31_labels": [
+    "art museum",
+    "training facility",
+    "serviced office"
+   ],
+   "qid": "Q96055560",
+   "reasons": [
+    "term_in_lead",
+    "term_repeated_in_lead",
+    "building_context"
+   ],
+   "score": 65,
+   "term": "media facade",
+   "url": "https://en.wikipedia.org/wiki/Etopia_Centre_for_Arts_%26_Technology"
+  },
+  {
+   "accepted": true,
+   "entity_reasons": [],
+   "lang": "en",
+   "p31_labels": [
+    "building"
+   ],
+   "qid": "Q15076316",
+   "reasons": [
+    "term_in_lead",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 65,
+   "term": "LED facade",
+   "url": "https://en.wikipedia.org/wiki/Tower_Infinity"
+  },
+  {
+   "accepted": false,
+   "entity_reasons": [
+    "excluded_class:enterprise",
+    "not_a_place"
+   ],
+   "lang": "en",
+   "p31_labels": [
+    "enterprise"
+   ],
+   "qid": "Q116871512",
+   "reasons": [
+    "term_in_lead",
+    "building_context"
+   ],
+   "score": 55,
+   "term": "media facade",
+   "url": "https://en.wikipedia.org/wiki/Expolight"
+  },
+  {
+   "accepted": true,
+   "entity_reasons": [],
+   "lang": "en",
+   "p31_labels": [
+    "tower block",
+    "shopping center"
+   ],
+   "qid": "Q7422981",
+   "reasons": [
+    "term_in_lead",
+    "building_context"
+   ],
+   "score": 55,
+   "term": "media facade",
+   "url": "https://en.wikipedia.org/wiki/Sarajevo_City_Center"
+  },
+  {
+   "accepted": true,
+   "entity_reasons": [],
+   "lang": "de",
+   "p31_labels": [
+    "display device",
+    "light installation"
+   ],
+   "qid": "Q796012",
+   "reasons": [
+    "term_in_title",
+    "term_in_lead",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 85,
+   "term": "Medienfassade",
+   "url": "https://de.wikipedia.org/wiki/BIX_Medienfassade"
+  },
+  {
+   "accepted": true,
+   "entity_reasons": [],
+   "lang": "de",
+   "p31_labels": [
+    "office building"
+   ],
+   "qid": "Q2494975",
+   "reasons": [
+    "term_in_lead",
+    "term_repeated_in_lead",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 75,
+   "term": "Medienfassade",
+   "url": "https://de.wikipedia.org/wiki/Uniqa_Tower"
+  },
+  {
+   "accepted": true,
+   "entity_reasons": [],
+   "lang": "de",
+   "p31_labels": [
+    "multi-purpose hall"
+   ],
+   "qid": "Q15014400",
+   "reasons": [
+    "term_in_lead",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 65,
+   "term": "LED-Fassade",
+   "url": "https://de.wikipedia.org/wiki/Tauron_Arena_Krak%C3%B3w"
+  },
+  {
+   "accepted": false,
+   "entity_reasons": [
+    "no_coordinates_or_country"
+   ],
+   "lang": "ko",
+   "p31_labels": [
+    "architectural element",
+    "type of work of art"
+   ],
+   "qid": "Q183061",
+   "reasons": [
+    "term_in_lead",
+    "building_context"
+   ],
+   "score": 55,
+   "term": "미디어 파사드",
+   "url": "https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%82%AC%EB%93%9C"
+  },
+  {
+   "accepted": true,
+   "entity_reasons": [],
+   "lang": "es",
+   "p31_labels": [
+    "building",
+    "museum"
+   ],
+   "qid": "Q5839725",
+   "reasons": [
+    "term_in_lead",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 65,
+   "term": "fachada mediática",
+   "url": "https://es.wikipedia.org/wiki/Centro_de_Creaci%C3%B3n_Contempor%C3%A1nea_de_Andaluc%C3%ADa"
+  },
+  {
+   "accepted": true,
+   "entity_reasons": [],
+   "lang": "ru",
+   "p31_labels": [
+    "building"
+   ],
+   "qid": "Q13668707",
+   "reasons": [
+    "term_in_lead",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 65,
+   "term": "медиафасад",
+   "url": "https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D0%B4%D0%B5%D1%80-%D1%82%D0%B0%D1%83%D1%8D%D1%80"
+  },
+  {
+   "accepted": false,
+   "entity_reasons": [
+    "excluded_class:business",
+    "not_a_place"
+   ],
+   "lang": "ru",
+   "p31_labels": [
+    "business"
+   ],
+   "qid": "Q64547378",
+   "reasons": [
+    "term_in_lead",
+    "building_context"
+   ],
+   "score": 55,
+   "term": "медиафасад",
+   "url": "https://ru.wikipedia.org/wiki/Maer"
+  }
+ ],
+ "hits": [
+  {
+   "lang": "en",
+   "lead": "King Road Tower is a 34-story office tower that is located in Jeddah, Saudi Arabia. The tower contains the world largest advertisement LED screen, making it a valued landmark for the city. The screen measures almost 10,000 sq m and was designed, built and installed by French company Citiled, a world",
+   "qid": "Q626425",
+   "reasons": [
+    "term_in_lead",
+    "term_repeated_in_lead",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 75,
+   "snippet": "largest Media Façade in the world installed on an inhabited building. It took more than 6 months to produce the 10,000 sq metres of this media façade , occupying",
+   "term": "media facade",
+   "title": "King Road Tower",
+   "url": "https://en.wikipedia.org/wiki/King_Road_Tower"
+  },
+  {
+   "lang": "en",
+   "lead": "Etopia Centre for Arts & Technology is a public facility opened in 2013 within the Digital Mile area in the city of Zaragoza (Aragon, Spain) designed to house and promote projects in the fields of multimedia, art, video games and design. With an area of more than 16,000 m2 it works as a center for c",
+   "qid": "Q96055560",
+   "reasons": [
+    "term_in_lead",
+    "term_repeated_in_lead",
+    "building_context"
+   ],
+   "score": 65,
+   "snippet": "training space in the intersection of art and technology. Etopia's « Media Facade » is a large scale urban screen of two sections of 20 meters wide, aimed",
+   "term": "media facade",
+   "title": "Etopia Centre for Arts & Technology",
+   "url": "https://en.wikipedia.org/wiki/Etopia_Centre_for_Arts_%26_Technology"
+  },
+  {
+   "lang": "en",
+   "lead": "Cheongna City Tower, Tower Infinity or Ecoprism Tower is a tower to be constructed near the Incheon Airport just outside Seoul, South Korea. The tower is dubbed as the \"world's first invisible tower\". The invisibility illusion will be achieved with an LED facade system. The tower is built primarily ",
+   "qid": "Q15076316",
+   "reasons": [
+    "term_in_lead",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 65,
+   "snippet": "invisible tower\". The invisibility illusion will be achieved with an LED facade system. The tower is built primarily for leisure activities. The building",
+   "term": "LED facade",
+   "title": "Tower Infinity",
+   "url": "https://en.wikipedia.org/wiki/Tower_Infinity"
+  },
+  {
+   "lang": "en",
+   "lead": "Expolight is a Ukrainian lighting design and media art studio founded by Mykola Kabluka in 2000 in Dnipro. The studio specializes in architectural lighting, light installations, media art, media façades, and participatory projects.",
+   "qid": "Q116871512",
+   "reasons": [
+    "term_in_lead",
+    "building_context"
+   ],
+   "score": 55,
+   "snippet": "2019) lighting design for the Smartass sports club (Kyiv, 2019) the media façade and lighting design for the interiors and landscape areas of the Tetris",
+   "term": "media facade",
+   "title": "Expolight",
+   "url": "https://en.wikipedia.org/wiki/Expolight"
+  },
+  {
+   "lang": "en",
+   "lead": "Sarajevo City Center (SCC) is a business complex and shopping center in downtown Sarajevo, Bosnia and Herzegovina, that consists of three main parts: a shopping mall and leisure complex; a five star hotel tower; and a commercial offices tower, with a common 4-story underground parking area with more",
+   "qid": "Q7422981",
+   "reasons": [
+    "term_in_lead",
+    "building_context"
+   ],
+   "score": 55,
+   "snippet": "enables access to the old town of the city in about five minutes. The SCC Media facade , used for broadcasting advertising, the news, latest in sport, weather",
+   "term": "media facade",
+   "title": "Sarajevo City Center",
+   "url": "https://en.wikipedia.org/wiki/Sarajevo_City_Center"
+  },
+  {
+   "lang": "en",
+   "lead": "A Symphony of Lights (Chinese: 幻彩詠香江) is a daily light and sound show across the Victoria Harbour in Hong Kong. It is the world's largest permanent light and sound show, according to Guinness World Records. As of 2017, there were 42 participating buildings in the show.",
+   "qid": "Q1068874",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "exactly midnight, with lighting effects synchronized with pyrotechnics. The LED facade of the M+ museum was used as the countdown clock on 31 December 2021,",
+   "term": "LED facade",
+   "title": "A Symphony of Lights",
+   "url": "https://en.wikipedia.org/wiki/A_Symphony_of_Lights"
+  },
+  {
+   "lang": "en",
+   "lead": "The new Ahmad bin Ali Stadium (Arabic: ملعب أحمد بن علي, romanized: Malʿab ʾAḥmad bin ʿAliyy), popularly known as Al-Rayyan Stadium, is an association football stadium located in the district of Rawdat Al Jahhaniya, Qatar, around 9 kilometres (5.6 miles) northwest from the centre of Al Rayyan. It is",
+   "qid": "Q401643",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "World Cup, which was hosted by Qatar. The renovation includes a huge ' media facade ' with a membrane that will act as a screen for projections, news, commercials",
+   "term": "media facade",
+   "title": "Ahmad bin Ali Stadium",
+   "url": "https://en.wikipedia.org/wiki/Ahmad_bin_Ali_Stadium"
+  },
+  {
+   "lang": "en",
+   "lead": "Ak Bars Arena (Russian: «Ак Барс Арена»; Tatar: Ак Барс Арена, formerly known as Kazan Arena (Russian: «Казань Арена»; Tatar: Казан Арена)) is a stadium in Kazan, Russia.  It was completed in July 2013, and hosts football matches, especially FC Rubin Kazan's home games in the Russian Premier League.",
+   "qid": "Q33993",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "Stadium as Kazan's main football stadium. General view of the stadium Media Facade General view during construction Stadium at the Universiade 2013 opening",
+   "term": "media facade",
+   "title": "Ak Bars Arena",
+   "url": "https://en.wikipedia.org/wiki/Ak_Bars_Arena"
+  },
+  {
+   "lang": "en",
+   "lead": "Arena Kraków, known as Tauron Arena Kraków for sponsorship reasons, is an indoor arena located in Kraków, Poland. It has a seating capacity of 15,030 for sporting events. It hosted the 2014 FIVB Volleyball Men's World Championship tournament, 2016 European League of Legends Championship Finals and 2",
+   "qid": "Q15014400",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "number of spectators being 22,000. The Arena boasts Poland's largest LED media façade , with a total surface of 5,200 m2 of LED strip lighting, wrapping around",
+   "term": "media facade",
+   "title": "Arena Kraków",
+   "url": "https://en.wikipedia.org/wiki/Arena_Krak%C3%B3w"
+  },
+  {
+   "lang": "en",
+   "lead": "Bugis+ (pronounced as Bugis Plus), formerly Iluma, is a 10-storey shopping mall located 5 minutes from Bugis MRT station. It is located within the Bugis district of Singapore and opened on 28 March 2009.",
+   "qid": "Q2927720",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "light and illumination, having high-tech features such as a light- and media facade designed by WOHA in conjunction with Berlin based media artists realities:united [de]",
+   "term": "media facade",
+   "title": "Bugis+",
+   "url": "https://en.wikipedia.org/wiki/Bugis%2B"
+  },
+  {
+   "lang": "en",
+   "lead": "The Deutsches Haus Ho Chi Minh City (English translation German House Ho Chi Minh City) is a building complex in Ho Chi Minh City, Vietnam, which was opened 2017. The 25-story building complex was initiated under a bilateral government agreement between Germany and Vietnam, with the purpose of setti",
+   "qid": "Q23786328",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "Technical details Material Reinforced concrete, Steel, Glass, Double-skin facade, LED facade Floor count 25 (+4 below ground floors) Floor area 40,000 m2 Design and",
+   "term": "LED facade",
+   "title": "Deutsches Haus Ho Chi Minh City",
+   "url": "https://en.wikipedia.org/wiki/Deutsches_Haus_Ho_Chi_Minh_City"
+  },
+  {
+   "lang": "en",
+   "lead": "The Gulliver multifunctional complex is a state-owned 35-story mixed-use skyscraper in Kyiv, the capital of Ukraine.\nIt is located at the very center of the city near Palats Sportu metro station (municipal address: 1, Sportyvna Sq). It is the second-highest building and the highest office building i",
+   "qid": "Q2333736",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "installed the 4000 m² screen onto the mall that became Ukraine's largest media facade . As a part of 2014 Kyiv Day celebrations 'I ♥ Kyiv' photo zone had been",
+   "term": "media facade",
+   "title": "Gulliver (building)",
+   "url": "https://en.wikipedia.org/wiki/Gulliver_(building)"
+  },
+  {
+   "lang": "en",
+   "lead": "International Plaza is a high-rise commercial and residential building at 10 Anson Road in Tanjong Pagar, within the Downtown Core of Singapore, next to Tanjong Pagar MRT station on the East West line.\nIt currently houses the Honorary Consulate of Malta on the 15th floor and the Honorary Consulate o",
+   "qid": "Q6052468",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "Plaza's refurbishment cost S$15 million. The building had an elaborate LED facade installed, as part of the Singapore Government's plan to light up buildings",
+   "term": "LED facade",
+   "title": "International Plaza (Singapore)",
+   "url": "https://en.wikipedia.org/wiki/International_Plaza_(Singapore)"
+  },
+  {
+   "lang": "en",
+   "lead": "The Kunsthaus Graz, Grazer Kunsthaus, or Graz Art Museum was built as part of the European Capital of Culture celebrations in 2003 and has since become an architectural landmark in Graz, Austria. Its exhibition program specializes in contemporary art from the 1960s onwards. The museum does not trans",
+   "qid": "Q597137",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "\"Kunsthaus Graz\". arcspace.com. Retrieved 20 December 2018. \"BIX Light and Media Façade Added to Moma's Permanent Collection\". archlighting.com. Retrieved 20",
+   "term": "media facade",
+   "title": "Kunsthaus Graz",
+   "url": "https://en.wikipedia.org/wiki/Kunsthaus_Graz"
+  },
+  {
+   "lang": "en",
+   "lead": "Mercury City Tower (Russian: Меркурий Сити Тауэр, romanized: Merkuriy Siti Tauer) is a supertall skyscraper located on plot 14 in the Moscow International Business Center (MIBC), in Moscow, Russia. Occupying a total area of 173,960 square metres (1,872,500 ft2), the mixed-use building houses offices",
+   "qid": "Q59483",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "colleagues. A media facade of two million LEDs was installed on the exterior of the 67th and 68th floors of the building, the tallest media facade in Europe",
+   "term": "media facade",
+   "title": "Mercury City Tower",
+   "url": "https://en.wikipedia.org/wiki/Mercury_City_Tower"
+  },
+  {
+   "lang": "en",
+   "lead": "The Palazzo dell'Arengario is an early-20th century complex of two symmetrical buildings in Piazza del Duomo, the central piazza of Milan, Italy. It was completed in the 1950s and currently houses the Museo del Novecento, a museum dedicated to 20th-century art. The word \"arengario\" refers to its ori",
+   "qid": "Q1107168",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "unique collection of Futurist paintings. During the restoration works, a \" media façade \" (i.e., a 487 m2 LED screen displaying news on upcoming events, advertising",
+   "term": "media facade",
+   "title": "Palazzo dell'Arengario",
+   "url": "https://en.wikipedia.org/wiki/Palazzo_dell'Arengario"
+  },
+  {
+   "lang": "en",
+   "lead": "The Port Authority Bus Terminal (colloquially known as the Port Authority and by its acronym PABT) is a bus terminal located in Manhattan in New York City. It is the busiest bus terminal in the world by volume of traffic, serving about 8,000 buses and 225,000 people on an average weekday and more th",
+   "qid": "Q1190614",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "2011). \"NYC Port Authority Bus Terminal Now Boasts World's Largest LED Media Facade \". Inhabitat. Archived from the original on January 17, 2013. Retrieved",
+   "term": "media facade",
+   "title": "Port Authority Bus Terminal",
+   "url": "https://en.wikipedia.org/wiki/Port_Authority_Bus_Terminal"
+  },
+  {
+   "lang": "en",
+   "lead": "The Sydney Football Stadium, commercially known as Allianz Stadium and previously Aussie Stadium, was a football stadium in the suburb of Moore Park in the Eastern Suburbs of Sydney, New South Wales, Australia. Built in 1988 next to the Sydney Cricket Ground, the stadium was Sydney's premier rectang",
+   "qid": "Q1053447",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "development of the SFS would have included a new fully covered roof and a new LED facade mesh for the stadium which would allow the exterior to change colours",
+   "term": "LED facade",
+   "title": "Sydney Football Stadium (1988)",
+   "url": "https://en.wikipedia.org/wiki/Sydney_Football_Stadium_(1988)"
+  },
+  {
+   "lang": "en",
+   "lead": "Uber Arena (previously branded as O2 World and Mercedes-Benz Arena) is a multipurpose indoor arena in the Friedrichshain neighborhood of Berlin, Germany, which opened in 2008. The venue became known as Uber Arena following a long-term deal with venue operators AEG Europe in 2024.\nWith a maximum capa",
+   "qid": "Q265463",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "in late 2011. In October 2013, the artist Jakob Kupfer transformed the LED facade of the O2 World Berlin into a giant art installation. On 31 May 2014 UFC",
+   "term": "LED facade",
+   "title": "Uber Arena",
+   "url": "https://en.wikipedia.org/wiki/Uber_Arena"
+  },
+  {
+   "lang": "en",
+   "lead": "101 Tower is a 27-story high skyscraper in Kyiv, Ukraine, completed in 2012. The building was among the most prestigious office centers in Kyiv and included among its tenets the headquarters of Samsung in Ukraine and the visa department of the German Embassy.\nIn October 2022 the building was serious",
+   "qid": "Q4086502",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "floors were planned to have a media facade . In May 2011 first facade panels began to be installed. Instead of media facade the parking received the decorative",
+   "term": "media facade",
+   "title": "101 Tower (Kyiv)",
+   "url": "https://en.wikipedia.org/wiki/101_Tower_(Kyiv)"
+  },
+  {
+   "lang": "en",
+   "lead": "Art+Com (stylized as ART+COM) is a German design agency based in Berlin. The company describes itself as a studio for media communication in space and creates interactive installations, media spaces, and architectures.",
+   "qid": "Q2632380",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "Otto Bock Science Center, for which the interactive exhibits and the media facade were designed and developed, were completed in 2009. The following year",
+   "term": "media facade",
+   "title": "ART+COM",
+   "url": "https://en.wikipedia.org/wiki/ART%2BCOM"
+  },
+  {
+   "lang": "en",
+   "lead": "Belgrade Tower (Serbian: Кула Београд, romanized: Kula Beograd), officially known as Kula Belgrade, is a 42-floor, 168-meter (551 ft) tall skyscraper as part of the Belgrade Waterfront project in Belgrade, Serbia. It was topped out in 2021 and ceremonially opened in 2024.\nIts lower and upper floor p",
+   "qid": "Q28224747",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "of 2022, important dates and events have been regularly marked on the media facade of Kula Belgrade. In January 2022, Orthodox New Year was celebrated with",
+   "term": "media facade",
+   "title": "Belgrade Tower",
+   "url": "https://en.wikipedia.org/wiki/Belgrade_Tower"
+  },
+  {
+   "lang": "en",
+   "lead": "Christian Moeller (born December 2, 1959) is a sculpture and installation artist, professor and Chair of the Department of Design Media Arts at University of California, Los Angeles UCLA He was born in Frankfurt am Main, Germany where he lived and worked until moving to the United States in 2001. Hi",
+   "qid": "Q5109933",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "moving images. A pioneer in this field, he created novel works like the media facade “Kinetic Light Sculpture” in 1992 in collaboration with the architect",
+   "term": "media facade",
+   "title": "Christian Moeller",
+   "url": "https://en.wikipedia.org/wiki/Christian_Moeller"
+  },
+  {
+   "lang": "en",
+   "lead": "Emaar Properties (or simply Emaar) is an Emirati real estate development company located in the United Arab Emirates. The two largest shareholders are Dubai ruler Mohammed bin Rashid Al Maktoum and the UAE's sovereign wealth fund Investment Corporation of Dubai.\nIt is a public joint-stock company, l",
+   "qid": "Q1153463",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "Week. Retrieved 19 February 2015. \"Breathtaking fireworks spectacle and LED facade on Burj Khalifa for 2015\". Arabian Gazette. 31 December 2014. Archived",
+   "term": "LED facade",
+   "title": "Emaar Properties",
+   "url": "https://en.wikipedia.org/wiki/Emaar_Properties"
+  },
+  {
+   "lang": "en",
+   "lead": "Kraków, officially the Royal Capital City of Kraków, is the second-largest and one of the oldest cities in Poland. Situated on the Vistula River in Lesser Poland Voivodeship, the city has a population of 816,614 (2025), with 1,428,363 people living in the Kraków metropolitan area. Kraków was the off",
+   "qid": "Q31487",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "number of spectators being 22,000. The Arena boasts Poland's largest LED media façade , with a total surface of 5,200 m2 of LED strip lighting, wrapping around",
+   "term": "media facade",
+   "title": "Kraków",
+   "url": "https://en.wikipedia.org/wiki/Krak%C3%B3w"
+  },
+  {
+   "lang": "en",
+   "lead": "Taman Anggrek Mall (Indonesian: Mal Taman Anggrek; literally \"Orchid Garden Mall\"), commonly known as Mall Taman Anggrek, abbreviated as MTA, is a shopping mall in Grogol Petamburan, West Jakarta, Indonesia. The mall is named after a real orchid garden within the now-demolished Orchid Hotel site, wh",
+   "qid": "Q2195759",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "square metres (93,380 sq ft) LED facade , which once held the Guinness World Record for the world's largest illuminated LED facade when completed in 2012. In",
+   "term": "LED facade",
+   "title": "Mall Taman Anggrek",
+   "url": "https://en.wikipedia.org/wiki/Mall_Taman_Anggrek"
+  },
+  {
+   "lang": "en",
+   "lead": "Maurice Benayoun (born 29 March 1957), also known as MoBen (Chinese: 莫奔), is a French new-media artist, curator, and theorist whose work has been presented internationally in the context of media art and digital culture since the late 1980s. His practice addresses the ways in which emerging technolo",
+   "qid": "Q3300395",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "Project (2014–2016) — Large-scale urban media platform presented on the LED façade of Hong Kong’s International Commerce Centre. Brain Factory and Value",
+   "term": "LED facade",
+   "title": "Maurice Benayoun",
+   "url": "https://en.wikipedia.org/wiki/Maurice_Benayoun"
+  },
+  {
+   "lang": "en",
+   "lead": "The Medialab Matadero, formerly known as Medialab Prado, is a cultural space and citizen lab in Madrid (Spain). It was created by the Madrid City Council in 2000, growing since then into a leading center for citizen innovation. It follows a participatory approach, using collective intelligence metho",
+   "qid": "Q6008551",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "Media Facade of Medialab-Prado",
+   "term": "media facade",
+   "title": "Medialab Matadero",
+   "url": "https://en.wikipedia.org/wiki/Medialab_Matadero"
+  },
+  {
+   "lang": "en",
+   "lead": "Movie theaters have existed in what is now South Korea for over a century now. The earliest theaters arrived in the peninsula beginning in the late Joseon period. The first known dedicated theater was Ae Kwan Theater, which was founded in 1895 and is still in operation as of 2023. Other notable earl",
+   "qid": "Q65091123",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "Communication and the private company KT. It offered a 270-degree view media facade . Some theaters target specific audiences. \"Silver Cinemas\" cater to the",
+   "term": "media facade",
+   "title": "Movie theaters in South Korea",
+   "url": "https://en.wikipedia.org/wiki/Movie_theaters_in_South_Korea"
+  },
+  {
+   "lang": "en",
+   "lead": "The Uniqa Tower (owner's spelling: UNIQA Tower) is an office building on the Danube Canal in Leopoldstadt, the 2nd district of Vienna. The building received the European Union Green Building label. It is the first building in Austria and one of the first buildings in Europe to bear the label.",
+   "qid": "Q2494975",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "building. The more than 7,000 square meter facade was designed as a media facade with a dot matrix of LEDs. It consists of more than 40,000 pixels, based",
+   "term": "media facade",
+   "title": "Uniqa Tower",
+   "url": "https://en.wikipedia.org/wiki/Uniqa_Tower"
+  },
+  {
+   "lang": "en",
+   "lead": "WOHA, formerly WH Architects, is a Singaporean architectural and industrial design firm. Established in 1994 by Wong Mun Summ and Richard Hassell, its name is derived from the first two letters of the founders' surnames. Based in Singapore, the firm has designed and completed projects throughout the",
+   "qid": "Q944660",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "Commons has media related to WOHA. WOHA WOHA on Archdaily WOHA on YouTube Media Facade Video Wong Mun Summ Lectures at World Architecture Festival 2013 in Singapore",
+   "term": "media facade",
+   "title": "WOHA",
+   "url": "https://en.wikipedia.org/wiki/WOHA"
+  },
+  {
+   "lang": "en",
+   "lead": "ION Orchard (pronounced as I-On), formerly known as the Orchard Turn Development or Orchard Turn Site, is a shopping mall in Singapore, next to Orchard MRT station. It is the retail component of an integrated retail and residential development by Orchard Turn Developments Pte Ltd, a joint venture be",
+   "qid": "Q3146786",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates",
+    "lead_describes_non_place"
+   ],
+   "score": 5,
+   "snippet": "Construction Co., Ltd. in 2010. Layered across the walls of ION Orchard, the Media Facade is a multi-sensory canvas media wall. A 5,600 sq ft (520 m2) art and",
+   "term": "media facade",
+   "title": "ION Orchard",
+   "url": "https://en.wikipedia.org/wiki/ION_Orchard"
+  },
+  {
+   "lang": "en",
+   "lead": "Ben van Berkel (born January 25, 1957) is a Dutch architect. He is the founder and principal architect of the architectural practice UNStudio. With his studio he designed, among others, the Erasmus Bridge in Rotterdam, the Moebius House in the Netherlands, the Mercedes-Benz Museum in Stuttgart, Germ",
+   "qid": "Q565390",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "lead_describes_non_place"
+   ],
+   "score": 0,
+   "snippet": "several projects, including the Mercedes-Benz Museum in Stuttgart, an LED media façade (designed with Rogier van der Heide) and interior renovation for the",
+   "term": "media facade",
+   "title": "Ben van Berkel",
+   "url": "https://en.wikipedia.org/wiki/Ben_van_Berkel"
+  },
+  {
+   "lang": "en",
+   "lead": "LED film, also called LED-embedded light film is a technology of surface-mount light-emitting diodes (LEDs) on flexible transparent conductive polymer films. This technology is based on the use of a cold curing pick-and-place process on transparent conductive plastics.",
+   "qid": "Q6457611",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "lead_describes_non_place"
+   ],
+   "score": 0,
+   "snippet": "\"powerglass - technology\". \"Artikel of Baunetzwissen about realised Media Facade of Subaru Building\". Archived from the original on 2012-08-11. \"Peter",
+   "term": "media facade",
+   "title": "LED film",
+   "url": "https://en.wikipedia.org/wiki/LED_film"
+  },
+  {
+   "lang": "de",
+   "lead": "Die BIX Medienfassade ist eine Matrix aus 930 konventionellen Leuchtstofflampen, die in der Ostfassade des Grazer Kunsthauses integriert sind. Dadurch, dass die Leuchtenhelligkeiten der einzelnen Lampen mit einer Frequenz von 20 Bildern pro Sekunde einzeln und stufenlos ansteuerbar sind, können in g",
+   "qid": "Q796012",
+   "reasons": [
+    "term_in_title",
+    "term_in_lead",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 85,
+   "snippet": "Die BIX Medienfassade ist eine Matrix aus 930 konventionellen Leuchtstofflampen, die in der Ostfassade des Grazer Kunsthauses integriert sind. Dadurch",
+   "term": "Medienfassade",
+   "title": "BIX Medienfassade",
+   "url": "https://de.wikipedia.org/wiki/BIX_Medienfassade"
+  },
+  {
+   "lang": "de",
+   "lead": "Eine Medienfassade ist eine flächige, animierte Lichtinstallation, typischerweise an großstädtischen Geschäfts- und Kulturbauten, die Zwecken der Werbung, der Information oder der Kunst dient.\nMedienfassaden sind alle Fassaden, die neben dem bauphysikalischen und gestalterischen Gebäudeabschluss ein",
+   "qid": "Q17158007",
+   "reasons": [
+    "term_in_title",
+    "term_in_lead",
+    "term_repeated_in_lead"
+   ],
+   "score": 75,
+   "snippet": "Eine Medienfassade ist eine flächige, animierte Lichtinstallation, typischerweise an großstädtischen Geschäfts- und Kulturbauten, die Zwecken der Werbung",
+   "term": "Medienfassade",
+   "title": "Medienfassade",
+   "url": "https://de.wikipedia.org/wiki/Medienfassade"
+  },
+  {
+   "lang": "de",
+   "lead": "Der Uniqa Tower (Schreibweise des Eigentümers: UNIQA Tower) ist ein in Kletterbauweise errichtetes Bürogebäude in Wien-Leopoldstadt, dem 2. Wiener Gemeindebezirk.\nEr befindet sich an der Aspernbrückengasse, Ecke Untere Donaustraße bzw. Ferdinandstraße, am Ufer des hier von der Aspernbrücke überquert",
+   "qid": "Q2494975",
+   "reasons": [
+    "term_in_lead",
+    "term_repeated_in_lead",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 75,
+   "snippet": "entspricht. Die mehr als 7.000 Quadratmeter große Fassade wurde als Medienfassade mit einer Punktmatrix aus LEDs gestaltet. Sie besteht aus mehr als 40",
+   "term": "Medienfassade",
+   "title": "Uniqa Tower",
+   "url": "https://de.wikipedia.org/wiki/Uniqa_Tower"
+  },
+  {
+   "lang": "de",
+   "lead": "Die Tauron Arena Kraków ist eine Mehrzweckarena im Stadtbezirk Czyżyny der polnischen Stadt Krakau. Sie ist die größte Veranstaltungshalle des Landes und besitzt mit einer Fläche von 5100 m² die größte LED-Fassade Polens, sowie mit einer Fläche von 540 m² einen der größten LED-Bildschirme Europas. D",
+   "qid": "Q15014400",
+   "reasons": [
+    "term_in_lead",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 65,
+   "snippet": "Veranstaltungshalle des Landes und besitzt mit einer Fläche von 5100 m² die größte LED - Fassade Polens, sowie mit einer Fläche von 540 m² einen der größten LED-Bildschirme",
+   "term": "LED-Fassade",
+   "title": "Tauron Arena Kraków",
+   "url": "https://de.wikipedia.org/wiki/Tauron_Arena_Krak%C3%B3w"
+  },
+  {
+   "lang": "de",
+   "lead": "Die Arena Ciudad de México (deutsch Arena Mexiko-Stadt, kurz: Arena CDMX) ist eine Mehrzweckhalle im nördlichen Bezirk Azcapotzalco der mexikanischen Hauptstadt Mexiko-Stadt. Der Bauherr der privatfinanzierten Veranstaltungshalle ist die Grupo Avalanz, ein Konsortium aus Monterrey. Sie wird von Zign",
+   "qid": "Q6826206",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "ist 180 Meter lang und 135 Meter breit sowie 45 Meter hoch. Die LED- Medienfassade hat eine Fläche von 6500 m². Auf einer Grundfläche von 300.000 m² wurden",
+   "term": "Medienfassade",
+   "title": "Arena Ciudad de México",
+   "url": "https://de.wikipedia.org/wiki/Arena_Ciudad_de_M%C3%A9xico"
+  },
+  {
+   "lang": "de",
+   "lead": "Chemnitz Hauptbahnhof ist der größte Bahnhof der sächsischen Stadt Chemnitz.\nEröffnet wurde die erste Chemnitzer Bahnstation 1852, danach entwickelte sich der Bahnhof recht bald zu einem wichtigen überregionalen Bahnknotenpunkt. Neben dem Personenverkehr war der Bahnhof auch im Güterverkehr lange wi",
+   "qid": "Q564795",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "Die Fassade der Bahnsteighalle ist teilweise eine mit LEDs bestückte Medienfassade , und zwar an der Ecke Georgstr./Mauerstr. Diese wurde bis November 2017",
+   "term": "Medienfassade",
+   "title": "Chemnitz Hauptbahnhof",
+   "url": "https://de.wikipedia.org/wiki/Chemnitz_Hauptbahnhof"
+  },
+  {
+   "lang": "de",
+   "lead": "John Dekron (* 1967 in Hof) ist ein deutscher Künstler. \nNach seinem Studium der Physik widmete er sich der Videokunst, dem bewegten Bild und der Musik. Er arbeitet mit eigener Software und nutzt das realtime video processing in der Verbindung mit multimedialen Inhalten als Kunstform.\nDie Live-Inter",
+   "qid": "Q1699791",
+   "reasons": [
+    "term_in_lead"
+   ],
+   "score": 45,
+   "snippet": "Werke wie das AMICO Projekt im Auftrag des Bauhauses Dessau, die BIX Medienfassade am Kunsthaus Graz oder SPOTS einer großen Licht- und Medieninstallation",
+   "term": "Medienfassade",
+   "title": "John Dekron",
+   "url": "https://de.wikipedia.org/wiki/John_Dekron"
+  },
+  {
+   "lang": "de",
+   "lead": "Das Kunsthaus Graz wurde im Rahmen des Kulturhauptstadtjahres 2003 errichtet und gilt seither als neues architektonisches Wahrzeichen der Stadt Graz. Das Bauwerk, dessen Ausstellungsprogramm die zeitgenössische Kunst der letzten fünf Jahrzehnte umfasst, ist Teil des Universalmuseums Joanneum.\n\n",
+   "qid": "Q597137",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "(2006) Blick vom NO, vom Lendkai-Radweg am rechten Murufer (2016) BIX Medienfassade , Pixel aus weißen Leuchtringen (2004) Blick vom Schlossberg auf das",
+   "term": "Medienfassade",
+   "title": "Kunsthaus Graz",
+   "url": "https://de.wikipedia.org/wiki/Kunsthaus_Graz"
+  },
+  {
+   "lang": "de",
+   "lead": "Leverkusen [ˈleˑvɐkuːzn̩] ist eine kreisfreie Stadt und Mittelzentrum im südlichen Nordrhein-Westfalen, gehört zum Regierungsbezirk Köln, liegt geographisch im Bergischen Land und gehört somit zum Rheinland. In Leverkusen mündet die Wupper in den Rhein.\nDie Stadt liegt unmittelbar nordöstlich von Kö",
+   "qid": "Q2938",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "2009 zu einer Medienfassade umgebaut worden. Aufgrund technischer Probleme ist dieses Projekt aber 2011 aufgegeben worden ( Medienfassade (Bayer-Hochhaus))",
+   "term": "Medienfassade",
+   "title": "Leverkusen",
+   "url": "https://de.wikipedia.org/wiki/Leverkusen"
+  },
+  {
+   "lang": "de",
+   "lead": "Die Medienfassade, auch Bayer Medienskulptur, war eine Multimedia-Installation an der Fassade des Bayer-Hochhauses, der ehemaligen Konzernzentrale der Bayer AG in Leverkusen.\nAuf Grund anhaltender Probleme hat Bayer am 20. Januar 2011 den Abriss des Gebäudes bekannt gegeben.\n\n",
+   "qid": "Q1916349",
+   "reasons": [
+    "term_in_title",
+    "term_in_lead",
+    "building_context",
+    "page_has_coordinates",
+    "lead_describes_non_place"
+   ],
+   "score": 45,
+   "snippet": "Die Medienfassade , auch Bayer Medienskulptur, war eine Multimedia-Installation an der Fassade des Bayer-Hochhauses, der ehemaligen Konzernzentrale der",
+   "term": "Medienfassade",
+   "title": "Medienfassade (Bayer-Hochhaus)",
+   "url": "https://de.wikipedia.org/wiki/Medienfassade_(Bayer-Hochhaus)"
+  },
+  {
+   "lang": "de",
+   "lead": "Die VR Bank Westfalen-Lippe eG ist eine Genossenschaftsbank für Privatkunden und Firmenkunden mit Sitz in Lippstadt.",
+   "qid": "Q1411273",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "größeren Nutzfläche. Die Eröffnung erfolgte am 18. Juni 2008. Eine Medienfassade in Form von 220.000 LED und einer Auflösung von 45.000 Pixeln fungiert",
+   "term": "Medienfassade",
+   "title": "VR Bank Westfalen-Lippe",
+   "url": "https://de.wikipedia.org/wiki/VR_Bank_Westfalen-Lippe"
+  },
+  {
+   "lang": "de",
+   "lead": "Die Ak Bars Arena (russisch Ак Барс Арена) ist ein Fußballstadion im Nordosten der russischen Stadt Kasan, autonome Republik Tatarstan. Die Arena liegt am Ufer der Kasanka und bietet den Besuchern zu Fußballspielen 45.093 Sitzplätze. Die Arena ersetzte das Zentralstadion von 1960 als Heimspielstätte",
+   "qid": "Q33993",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "das Stadion aus. Ein weiteres prägnantes Merkmal ist die große LED- Medienfassade in HD-Qualität. Mit einer Breite von 150 Metern und, am höchsten Punkt",
+   "term": "Medienfassade",
+   "title": "Ak Bars Arena",
+   "url": "https://de.wikipedia.org/wiki/Ak_Bars_Arena"
+  },
+  {
+   "lang": "de",
+   "lead": "Die Arena Milano (offiziell Unipol Dome, auch PalaItalia oder PalaItalia Santa Giulia genannt) ist eine Mehrzweckhalle in der italienischen Metropole Mailand. Sie steht im von Foster + Partners 2006 als Masterplan neugestalteten Stadtteil Santa Giulia, Municipio 4, im Südosten der Stadt. Hier finden",
+   "qid": "Q64825395",
+   "reasons": [
+    "term_in_snippet",
+    "page_has_coordinates"
+   ],
+   "score": 35,
+   "snippet": "Giuseppe Sala und 250 Gäste, beleuchtet. Es wird mit 7257 m² die größte Medienfassade Europas. Es wurden 144 km DMX-Signalkabel und 2.401.998 LEDs verbaut",
+   "term": "Medienfassade",
+   "title": "Arena Milano",
+   "url": "https://de.wikipedia.org/wiki/Arena_Milano"
+  },
+  {
+   "lang": "de",
+   "lead": "Als Bayer-Kreuz ist das übergroße Logo des Unternehmens Bayer in Leverkusen bekannt; es ist die weltweit größte Leuchtreklame. Auf anderen Werksgeländen des Konzerns gibt es weitere, kleinere Bayer-Kreuze (z. B. in Dormagen).\nDas Bayer-Kreuz gilt den meisten Leverkusenern als das bedeutendste Symbol",
+   "qid": "Q549165",
+   "reasons": [
+    "term_in_snippet",
+    "page_has_coordinates"
+   ],
+   "score": 35,
+   "snippet": "wurde das Bayer-Kreuz generalüberholt. Nach der Fertigstellung der Medienfassade des Bayer-Hochhauses im Jahr 2009 war beabsichtigt, das Bayerkreuz zu",
+   "term": "Medienfassade",
+   "title": "Bayer-Kreuz",
+   "url": "https://de.wikipedia.org/wiki/Bayer-Kreuz"
+  },
+  {
+   "lang": "de",
+   "lead": "Das Deutsche Schifffahrtsmuseum (DSM) in Bremerhaven ist das nationale Schifffahrtsmuseum in Deutschland. Es gehört als Leibniz-Institut für Maritime Geschichte zur Leibniz-Gemeinschaft und vereinigt als eines von acht Forschungsmuseen der Gemeinschaft Ausstellungs- und Forschungstätigkeiten.\nDas zw",
+   "qid": "Q455354",
+   "reasons": [
+    "term_in_snippet",
+    "page_has_coordinates"
+   ],
+   "score": 35,
+   "snippet": "Abgerufen am 27. August 2024. Bremerhavens Nachtansicht – The Frame – Medienfassade für das DSM. Abgerufen am 2. Oktober 2020. Deutsches Schifffahrtsmuseum",
+   "term": "Medienfassade",
+   "title": "Deutsches Schifffahrtsmuseum",
+   "url": "https://de.wikipedia.org/wiki/Deutsches_Schifffahrtsmuseum"
+  },
+  {
+   "lang": "de",
+   "lead": "Das Diapolyekran, auch Polyekran, war eine mediale Installation, die vom tschechoslowakischen Bühnenbildner Josef Svoboda entwickelt wurde.\nVarianten wurden seit 1958 in den tschechoslowakischen Pavillons verschiedener Weltausstellungen vorgeführt.\nBesondere Aufmerksamkeit fand die Präsentation The ",
+   "qid": "Q29345791",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "der Information als auf der künstlerischen Animation. Split Screen Medienfassade Film im tschechoslowakischen Pavillon. In: Der Baumeister, Heft 7/1967",
+   "term": "Medienfassade",
+   "title": "Diapolyekran",
+   "url": "https://de.wikipedia.org/wiki/Diapolyekran"
+  },
+  {
+   "lang": "de",
+   "lead": "Die Fassade (von französisch façade, über italienisch facciata, ursprünglich von lateinisch facies  ‚Angesicht/Gesicht‘) ist ein gestalteter, oft repräsentativer Teil der sichtbaren Hülle (Gebäudehülle oder Außenhaut) eines Gebäudes.",
+   "qid": "Q183061",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "Eberswalde, Herzog & de Meuron Der Neue Zollhof, Düsseldorf, Frank Gehry Medienfassade am Kunsthaus Graz Fassade aus Glasbausteinen (Hermès Store, Tokyo) Nichtorthogonale",
+   "term": "Medienfassade",
+   "title": "Fassade",
+   "url": "https://de.wikipedia.org/wiki/Fassade"
+  },
+  {
+   "lang": "de",
+   "lead": "Eine Leuchtreklame ist eine elektrisch (auch elektronisch gesteuerte) beleuchtete Lichtwerbung, die von spezialisierten Schildermachern hergestellt wird. Sie ist eine Form der Außenwerbung, bei der weißes und farbiges elektrisches Licht eingesetzt wird. Meist handelt es sich dabei um die textliche o",
+   "qid": "Q253655",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "am Iduna-Hochhaus mit einer Höhe über drei Stockwerke; es ist eine Medienfassade , über die neben Werbung auch Nachrichten und die Wettervorhersage laufen",
+   "term": "Medienfassade",
+   "title": "Leuchtreklame",
+   "url": "https://de.wikipedia.org/wiki/Leuchtreklame"
+  },
+  {
+   "lang": "de",
+   "lead": "Die Taipei Arena (chinesisch 臺北小巨蛋) ist eine Mehrzweckhalle im zentralen Bezirk Songshan in der taiwanischen Hauptstadt Taipeh.",
+   "qid": "Q710183",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "Dezember des Jahres wurde die Arena eröffnet. 2006 entstand eine LED- Medienfassade , die zu den größten der Welt gehört. Zu den internationalen gastierenden",
+   "term": "Medienfassade",
+   "title": "Taipei Arena",
+   "url": "https://de.wikipedia.org/wiki/Taipei_Arena"
+  },
+  {
+   "lang": "de",
+   "lead": "Thomas Baumann (* 30. März 1967 in Altenmarkt im Pongau) ist ein österreichischer bildender Künstler und Filmemacher. Sein Werk umfasst Skulptur, Installation, Film und Medienkunst.",
+   "qid": "Q47544763",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "Tinguely, Basel; Kunsthaus Graz (2005) 2012 Plot:Bach, Kunsthaus Graz, Bix Medienfassade 2013 Suicide Narcissus The Renaissance Society at the University of",
+   "term": "Medienfassade",
+   "title": "Thomas Baumann (Künstler)",
+   "url": "https://de.wikipedia.org/wiki/Thomas_Baumann_(K%C3%BCnstler)"
+  },
+  {
+   "lang": "de",
+   "lead": "Das Universalmuseum Joanneum, ehemals Landesmuseum Joanneum, ist eine Museumsorganisation mit (2026) 20 Museen und einem Zoo mit Standorten in Graz und in der übrigen Steiermark. Benannt wurde es nach Erzherzog Johann, dem Gründer des Museums. Es ist das älteste und nach dem Kunsthistorischen Museum",
+   "qid": "Q623017",
+   "reasons": [
+    "term_in_snippet",
+    "page_has_coordinates"
+   ],
+   "score": 35,
+   "snippet": "zeigt es österreichische und internationale Kunst seit 1960. Die BIX Medienfassade des Kunsthauses Graz, gestaltet von den Berliner Designern „realities:united“",
+   "term": "Medienfassade",
+   "title": "Universalmuseum Joanneum",
+   "url": "https://de.wikipedia.org/wiki/Universalmuseum_Joanneum"
+  },
+  {
+   "lang": "de",
+   "lead": "Die Zeil ist eine Straße in der nördlichen Innenstadt von Frankfurt am Main. Seit dem Ende des 19. Jahrhunderts gilt sie als eine der bekanntesten und umsatzstärksten Einkaufsstraßen in Deutschland. Zuvor war sie vor allem für ihre prächtigen Gasthöfe und Palais aus der Zeit des Barock und Klassizis",
+   "qid": "Q177120",
+   "reasons": [
+    "term_in_snippet",
+    "page_has_coordinates"
+   ],
+   "score": 35,
+   "snippet": "Die Zeit, 5. März 1971, Nr. 10. Rainer Schulze: Architektur. Eine „ Medienfassade “ für die Zeilgalerie. (Memento vom 1. August 2012 im Webarchiv archive",
+   "term": "Medienfassade",
+   "title": "Zeil",
+   "url": "https://de.wikipedia.org/wiki/Zeil"
+  },
+  {
+   "lang": "de",
+   "lead": "Die Zeilgalerie war ein im September 1992 eröffnetes Einkaufszentrum auf der Einkaufsstraße Zeil in Frankfurt am Main. Unter dem Namen Les Facettes galt es als eines der Prestigeobjekte des in Konkurs gegangenen Bauunternehmers Jürgen Schneider. 2016 wurde das Einkaufszentrum abgerissen und durch de",
+   "qid": "Q184921",
+   "reasons": [
+    "term_in_snippet",
+    "page_has_coordinates"
+   ],
+   "score": 35,
+   "snippet": "Neue Medienfassade der Zeilgalerie bei Nacht (2011)",
+   "term": "Medienfassade",
+   "title": "Zeilgalerie",
+   "url": "https://de.wikipedia.org/wiki/Zeilgalerie"
+  },
+  {
+   "lang": "de",
+   "lead": "Art+Com (Eigenschreibweise ART+COM) ist eine deutsche Designagentur mit Sitz in Berlin. Das Unternehmen versteht sich als Studio für mediale Kommunikation im Raum und gestaltet interaktive Installationen, mediale Räume und Architekturen.",
+   "qid": "Q2632380",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "Otto Bock Science Center, für die die interaktiven Exponate sowie die Medienfassade gestaltet und entwickelt wurden, wurden im Jahre 2009 fertiggestellt",
+   "term": "Medienfassade",
+   "title": "ART+COM",
+   "url": "https://de.wikipedia.org/wiki/ART%2BCOM"
+  },
+  {
+   "lang": "de",
+   "lead": "In diesem Architektur-Glossar sind Fachbegriffe aus dem Bereich der Architektur gesammelt.",
+   "qid": "Q2748335",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "Synagogen: Eine Vorrichtung zur räumlichen Trennung der Geschlechter. Medienfassade Sammelbegriff für flächige animierte Lichtinstallationen, die für Werbe-",
+   "term": "Medienfassade",
+   "title": "Architektur-Glossar",
+   "url": "https://de.wikipedia.org/wiki/Architektur-Glossar"
+  },
+  {
+   "lang": "de",
+   "lead": "Das Bayer-Hochhaus (Bayer-interne Bezeichnung: W1) war ein 122 Meter hohes Verwaltungsgebäude der Bayer AG in Leverkusen. Es wurde vom Düsseldorfer Architekturbüro Hentrich, Petschnigg & Partner entworfen und 1960–1963 errichtet. Nach dem gescheiterten Versuch, das Haus in eine große Medienfassade u",
+   "qid": "Q328491",
+   "reasons": [
+    "term_in_lead",
+    "building_context",
+    "page_has_coordinates",
+    "lead_describes_non_place"
+   ],
+   "score": 25,
+   "snippet": "1960–1963 errichtet. Nach dem gescheiterten Versuch, das Haus in eine große Medienfassade umzubauen, wurde am 20. Januar 2011 bekannt, dass es abgerissen werden",
+   "term": "Medienfassade",
+   "title": "Bayer-Hochhaus",
+   "url": "https://de.wikipedia.org/wiki/Bayer-Hochhaus"
+  },
+  {
+   "lang": "de",
+   "lead": "Der Bibliotheksindex (BIX) wurde 1999 als Kooperationsprojekt des Deutschen Bibliotheksverbandes (dbv) und der Bertelsmann Stiftung initiiert. Ziel des BIX war es, die Leistung von sowohl öffentlichen als auch wissenschaftlichen Bibliotheken auf nationaler Ebene vergleichbar zu machen. 2015 wurde de",
+   "qid": "Q856596",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "eingeordnet. Deutsche Bibliotheksstatistik Bibliometrie Gleiche Bezeichnung: Medienfassade BIX am Grazer Kunsthaus BIX – der Bibliotheksindex. 10 Fragen von Bruno",
+   "term": "Medienfassade",
+   "title": "Bibliotheksindex",
+   "url": "https://de.wikipedia.org/wiki/Bibliotheksindex"
+  },
+  {
+   "lang": "de",
+   "lead": "Digitale Medien, seltener auch als Computermedien bezeichnet, sind im weitesten Sinne bereitgestellte, elektronische Präsentations- und Darstellungsformate, in denen Informationen in digitaler Form verarbeitet und übertragen werden und die entsprechend digital codiert sind. Den Gegensatz dazu bilden",
+   "qid": "Q1076968",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "Interaktive Architektur (vor allem Kommunikation im öffentlichen Raum): Medienfassade Und weitere interaktive Medien. → Hauptartikel: Digitale Revolution",
+   "term": "Medienfassade",
+   "title": "Digitale Medien",
+   "url": "https://de.wikipedia.org/wiki/Digitale_Medien"
+  },
+  {
+   "lang": "de",
+   "lead": "Georg F. Klein (* 1. März 1964 in Öhringen) ist ein deutscher Komponist, Klang- und Medienkünstler. Er ist Professor für Klangkunst und Direktor des Studiengangs „Sound Studies and Sonic Arts“ an der Universität der Künste Berlin.",
+   "qid": "Q108556",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "in Los Angeles die Performance Venture Doll in Supermärkten. An der Medienfassade der O2 World Berlin präsentierte er seine ebenfalls konsumkritische",
+   "term": "Medienfassade",
+   "title": "Georg Klein (Komponist)",
+   "url": "https://de.wikipedia.org/wiki/Georg_Klein_(Komponist)"
+  },
+  {
+   "lang": "de",
+   "lead": "Heike Baranowsky (* 1966 in Augsburg) ist eine deutsche Fotografin, Videokünstlerin und Professorin für Freie Kunst.",
+   "qid": "Q997477",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "Collection, Deichtorhallen, Hamburg 2011: Mondfahrt 2001, Seoul Square Medienfassade , Gana Art, Seoul 2013: Heike Baranowsky, Lentos Kunstmuseum Linz, Linz",
+   "term": "Medienfassade",
+   "title": "Heike Baranowsky",
+   "url": "https://de.wikipedia.org/wiki/Heike_Baranowsky"
+  },
+  {
+   "lang": "de",
+   "lead": "Jinran Kim (kor.: 김진란; * 31. Dezember 1968 in Seoul) ist eine koreanische Künstlerin, die in Berlin und Seoul arbeitet. Ausgebildet als Bildhauerin, tangieren ihre Werke mehrere künstlerische Disziplinen: Malerei, Objekt- und Konzeptkunst, Installationen, Kunst im öffentlichen Raum sowie Medienkunst",
+   "qid": "Q113464262",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "2018: Medienprojekt Sulhaewon, Korea 2020: Medienfassade Kunstwerk Sungnyemun, Coex, Korea 2021: Medienfassade Kunstwerk Suwon Hwasung, Korea 2022: Medienkunstwerk",
+   "term": "Medienfassade",
+   "title": "Jinran Kim",
+   "url": "https://de.wikipedia.org/wiki/Jinran_Kim"
+  },
+  {
+   "lang": "de",
+   "lead": "Jonathan Monk (* 1969 in Leicester) ist ein britischer Künstler.",
+   "qid": "Q1281182",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "Lights Without Sound or Wall of Sound Without Lights Piece“ auf der Medienfassade SPOTS. „Art Expedition Berlin“ – Kurzfilm: mit Jonathan Monk durch Berlin",
+   "term": "Medienfassade",
+   "title": "Jonathan Monk",
+   "url": "https://de.wikipedia.org/wiki/Jonathan_Monk"
+  },
+  {
+   "lang": "de",
+   "lead": "Norbert Nowotsch (* 1948 in Herten, Westfalen) ist ein deutscher Medienwissenschaftler, Mediendesigner und Autor. Bis 2013 war er Professor am Fachbereich Design der Fachhochschule Münster.",
+   "qid": "Q1247019",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "Interaktionsgestaltung, in: LOTTA, Wege des Gedenkens, Band 42, 2011, S. 86–91. Medienfassade PSD Münster 3.0. - in: Andreas Bienert u. a., Konferenzband EVA 2011",
+   "term": "Medienfassade",
+   "title": "Norbert Nowotsch",
+   "url": "https://de.wikipedia.org/wiki/Norbert_Nowotsch"
+  },
+  {
+   "lang": "de",
+   "lead": "Sandra Becker (* 1967 in Freiburg im Breisgau) ist eine deutsche Videokünstlerin, die auch unter dem Künstlernamen sandrabecker01 ausstellt.",
+   "qid": "Q6451257",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "Stiftung Starke, Löwenpalais, Berlin 2013: sehen und gesehen werden, Medienfassade HTW 2013: Muster – Patterns, Haus Schwarzenberg Berlin 2017: Fragmentierte",
+   "term": "Medienfassade",
+   "title": "Sandra Becker",
+   "url": "https://de.wikipedia.org/wiki/Sandra_Becker"
+  },
+  {
+   "lang": "de",
+   "lead": "Sissa Micheli (* 1975 in Bruneck, Italien) ist eine Kunstfotografin und Medienkünstlerin. In ihren Arbeiten verbindet sie Fotografie, Video, Objektkunst sowie Installationen.",
+   "qid": "Q49842062",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "Bäckerstraße 4 – Plattform für junge Kunst, Wien (Österreich) 2014 Medienfassade Museion Bozen (Italien) 2014 Künstlerhaus (KM–) Halle für Kunst & Medien",
+   "term": "Medienfassade",
+   "title": "Sissa Micheli",
+   "url": "https://de.wikipedia.org/wiki/Sissa_Micheli"
+  },
+  {
+   "lang": "de",
+   "lead": "Suse Wiegand (* 12. September 1958 in Düsseldorf) ist eine deutsche Zeichnerin und Objektkünstlerin.",
+   "qid": "Q94491023",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "gekennzeichnet, Installationen mit „(I)“ 2016: bilder mit dabei, PSD- Medienfassade , Münster (E) 2015: bislang – gut ding will bild sein, Marstall Ahrensburg",
+   "term": "Medienfassade",
+   "title": "Suse Wiegand",
+   "url": "https://de.wikipedia.org/wiki/Suse_Wiegand"
+  },
+  {
+   "lang": "de",
+   "lead": "Terrence „Terry“ Vance Gilliam [ˈɡɪliəm] (* 22. November 1940 in Minneapolis, Minnesota) ist ein amerikanisch-britischer Filmregisseur, Drehbuchautor, Komiker und Schauspieler. Bekannt wurde er als Mitbegründer der Gruppe Monty Python. Er ist auch als Künstler tätig.",
+   "qid": "Q25078",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "aus einzelnen Teilgesichtern gemorphte „Big faces“ auf der Licht- und Medienfassade gezeigt. Ziel seiner Arbeit war es, die Passanten mit der Geschichte",
+   "term": "Medienfassade",
+   "title": "Terry Gilliam",
+   "url": "https://de.wikipedia.org/wiki/Terry_Gilliam"
+  },
+  {
+   "lang": "de",
+   "lead": "Das Estadio Ramón Sánchez Pizjuán ist ein Fußballstadion im Barrio Nervión der südspanischen Stadt Sevilla in der Autonomen Gemeinschaft Andalusien. Es bietet 43.833 Sitzplätze für die Zuschauer und ist seit 1958 die sportliche Heimat des Fußballvereins FC Sevilla.",
+   "qid": "Q275429",
+   "reasons": [
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 20,
+   "snippet": "Gestalt an (Memento vom 18. Februar 2018 im Internet Archive) Video: LED - Fassade am Sevilla-Stadion (Memento vom 17. Februar 2018 im Internet Archive)",
+   "term": "LED-Fassade",
+   "title": "Estadio Ramón Sánchez Pizjuán",
+   "url": "https://de.wikipedia.org/wiki/Estadio_Ram%C3%B3n_S%C3%A1nchez_Pizju%C3%A1n"
+  },
+  {
+   "lang": "de",
+   "lead": "Die Sphere at The Venetian Resort (kurz Sphere, The Sphere oder MSG Sphere) ist eine kugelförmige Mehrzweckhalle. Sie steht östlich des Venetian Resort Hotels nahe dem Las Vegas Strip im US-Bundesstaat Nevada.\nMit einem Durchmesser von 157 Meter und 81.300 m² Außenfläche hätte The Sphere die Avicii ",
+   "qid": "Q60749353",
+   "reasons": [
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 20,
+   "snippet": "Wellenfeldsynthese-Technologien nutzt, montiert sind. und hinter der LED - Fassade montiert sind. Das Grundstück verfügt über 304 Parkplätze. Zusätzliche",
+   "term": "LED-Fassade",
+   "title": "Sphere at The Venetian Resort",
+   "url": "https://de.wikipedia.org/wiki/Sphere_at_The_Venetian_Resort"
+  },
+  {
+   "lang": "de",
+   "lead": "Das T-Center ist ein Bürogebäude im Stadtteil Sankt Marx im 3. Wiener Gemeindebezirk Landstraße, das in den Jahren 2002 bis 2004 nach Entwürfen der österreichischen Architekten Günther Domenig, Hermann Eisenköck und Herfried Peyker für die Deutsche Telekom erbaut wurde.",
+   "qid": "Q206226",
+   "reasons": [
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 20,
+   "snippet": "T-Center die mit einer Fläche von 16.000 m² und 34.000 LEDs drittgrößte LED - Fassade der Welt eingeweiht. Aufgrund der unkonventionellen Form und der Nutzung",
+   "term": "LED-Fassade",
+   "title": "T-Center",
+   "url": "https://de.wikipedia.org/wiki/T-Center"
+  },
+  {
+   "lang": "de",
+   "lead": "Jürgen Haßler (* 23. April 1960 in Seeheim-Jugenheim) ist ein deutscher Szenograph. Er entwickelt Design- und Konzeptentwürfe für TV, Architektur- und Live-Events. Die Emotionalisierung von Marken steht im Zentrum seines Schaffens.",
+   "qid": "Q56493048",
+   "reasons": [
+    "building_context"
+   ],
+   "score": 10,
+   "snippet": "Christian Mikunda die Dramaturgie, die Technik und die Bespielung der LED - Fassade des Stadion Center Wien, die zu einer der ersten 3D-Medienfassaden weltweit",
+   "term": "LED-Fassade",
+   "title": "Jürgen Haßler",
+   "url": "https://de.wikipedia.org/wiki/J%C3%BCrgen_Ha%C3%9Fler"
+  },
+  {
+   "lang": "de",
+   "lead": "Der Novartis-Pavillon ist ein öffentliches Gebäude für Ausstellungen und Veranstaltungen in der Schweizer Stadt Basel. Das Gebäude liegt im südlichen Teil des Novartis Campus im Stadtteil Basel-St. Johann. In seiner Nähe steht die Dreirosenbrücke. Die Eröffnung erfolgte am 30. April 2022.",
+   "qid": "Q112042914",
+   "reasons": [
+    "building_context"
+   ],
+   "score": 10,
+   "snippet": "Der Novartis-Pavillon ist ein öffentliches Gebäude für Ausstellungen und Veranstaltungen in der Schweizer Stadt Basel. Das Gebäude liegt im südlichen Teil",
+   "term": "Medienfassade",
+   "title": "Novartis-Pavillon",
+   "url": "https://de.wikipedia.org/wiki/Novartis-Pavillon"
+  },
+  {
+   "lang": "de",
+   "lead": "Die Vector Foiltec Gruppe ist ein international tätiges Unternehmen im Bauen mit Folienkonstruktionen für Dächer und Fassaden. Die Stammfirma, die Vector Foiltec GmbH (früher: Foiltec GmbH) hat ihren Sitz in Bremen.\nAm 1. Mai 2025 wurden die Vermögenswerte der Vector Foitec GmbH im Rahmen eines Mana",
+   "qid": "Q1595004",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates",
+    "lead_describes_non_place"
+   ],
+   "score": 5,
+   "snippet": "flexipix wurden zeitweise Folienkissen mit integriertem Großdisplay als Medienfassade für Gebäude gefertigt. Zu den realisierten Projekten gehören unter anderem",
+   "term": "Medienfassade",
+   "title": "Vector Foiltec",
+   "url": "https://de.wikipedia.org/wiki/Vector_Foiltec"
+  },
+  {
+   "lang": "de",
+   "lead": "Magenta Telekom (auch: Magenta oder Magenta T), in ihrer Rechtsform T-Mobile Austria GmbH, ist ein österreichisches Telekommunikationsunternehmen und eine hundertprozentige Tochtergesellschaft der Deutschen Telekom AG.\nGegründet als max.mobil. wurde das Unternehmen nach der Übernahme durch die Deuts",
+   "qid": "Q63537385",
+   "reasons": [
+    "building_context",
+    "lead_describes_non_place"
+   ],
+   "score": 0,
+   "snippet": "Wien mit einer Fläche von 16.000 m² und 34.000 LEDs die drittgrößte LED - Fassade der Welt eingeweiht. Das Netz der Magenta Telekom erreicht laut eigenen",
+   "term": "LED-Fassade",
+   "title": "Magenta Telekom",
+   "url": "https://de.wikipedia.org/wiki/Magenta_Telekom"
+  },
+  {
+   "lang": "ko",
+   "lead": "미디어 파사드(영어: Media facade)는 건축물 외면의 가장 중심을 가리키는 '파사드(Facade)'와 '미디어(Media)'의 합성어로, 건물 외벽 등에 LED 조명을 설치해 미디어 기능을 구현하는 것을 말한다. 도시 건축물의 시각적 아름다움 뿐만 아니라 정보를 전달하는 매개물로 사용하기 때문에 디지털 사이니지(Digital Signage)의 한 형태이며, 조명·영상·정보기술(IT)을 결합한 21세기 건축의 새 트렌드로서, 덕수궁 석조정에 도입된 것이 효시로 꼽힌다.\n\n프로젝션 맵핑과의 차이점은 미디어 파사드가 건물 외벽 ",
+   "qid": "Q17158007",
+   "reasons": [
+    "term_in_title",
+    "term_in_lead",
+    "term_repeated_in_lead",
+    "building_context"
+   ],
+   "score": 85,
+   "snippet": "불법인 LED 전광판 등 디지털광고물이 합법화되는 등 옥외 광고물 시장이 획기적으로 변화될 전망이다. 프로젝션 맵핑 네이버 지식백과 미디어파사드 (매일경제, 매경닷컴) http://makeprocessing.com/mapping_forum 국가법령정보센터 옥외광고물 등 관리법",
+   "term": "미디어파사드",
+   "title": "미디어 파사드",
+   "url": "https://ko.wikipedia.org/wiki/%EB%AF%B8%EB%94%94%EC%96%B4_%ED%8C%8C%EC%82%AC%EB%93%9C"
+  },
+  {
+   "lang": "ko",
+   "lead": "파사드(프랑스어: Façade)는 건물의 출입구로 이용되는 정면 외벽 부분을 가리키는 말이다. 한글화하여 순화하려면 '정면'(正面)이 무난할 것으로 여겨진다. 건축에서 파사드의 궁극적 목적은 '소통'이다.\n건물의 입면이 다양해지면서 파사드는 건물 외피 전체를 의미하기도 한다.\n건축의 관점에서 파사드는 종종 그 건물에서 가장 중요한 디자인적 요소가 된다. 그리하여 파사드가 그 건물의 나머지 부분의 색채, 톤을 잡아준다. 이런 측면에서 '파사드'라는 개념은 은유적으로 사용될 수 있는데, 거시적 관점과 미시적 관점에 대해 사유할 여지를 ",
+   "qid": "Q183061",
+   "reasons": [
+    "term_in_lead",
+    "building_context"
+   ],
+   "score": 55,
+   "snippet": "파사드는 역사적인 구조물이며, 지역 법률에 의하여 그 변경이 크게 제한되어 있으며, 가끔 파사드의 변경은 거부감을 발생시킨다. ' 미디어 파사드 '는 '파사드(Facade)'와 '미디어(Media)'의 합성어로, 건물 외벽 등에 LED 조명을 설치해 미디어 기능을 구현하는",
+   "term": "미디어 파사드",
+   "title": "파사드",
+   "url": "https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%82%AC%EB%93%9C"
+  },
+  {
+   "lang": "ko",
+   "lead": "삼례문화예술촌은 전북특별자치도 완주군 삼례읍 후정리에 있는 옛 삼례농협이 관리했던 곡물 저장창고를 예술공간으로 리모델링한 장소이다. 원래 농협중앙회에서 곡물창고로 관리운영하였다가 현재는 완주군에서 관리하고 있다.\n2023년을 맞아 예술촌 메인 잔디광장, 주변 둘레길 조성을 비롯해 「클래식 명화 체험 전시전」, 「지역작가 공모전시전」, 「디지털 미디어파사드」, 「지역공동체 공예전시전」, 다채로운 문화 공연과 세미나 개최 등 다양한 예술마을로 자리하고 있다.",
+   "qid": "Q85980356",
+   "reasons": [
+    "term_in_lead"
+   ],
+   "score": 45,
+   "snippet": "2023년을 맞아 예술촌 메인 잔디광장, 주변 둘레길 조성을 비롯해 「클래식 명화 체험 전시전」, 「지역작가 공모전시전」, 「디지털 미디어파사드 」, 「지역공동체 공예전시전」, 다채로운 문화 공연과 세미나 개최 등 다양한 예술마을로 자리하고 있다. 일제강점기 때 호남지역의 쌀과",
+   "term": "미디어파사드",
+   "title": "삼례문화예술촌",
+   "url": "https://ko.wikipedia.org/wiki/%EC%82%BC%EB%A1%80%EB%AC%B8%ED%99%94%EC%98%88%EC%88%A0%EC%B4%8C"
+  },
+  {
+   "lang": "ko",
+   "lead": "서울스퀘어(영어: SEOUL SQUARE)는 대한민국 서울특별시 중구 남대문로5가에 있는 사무용 빌딩으로, 현 소유주는 NH투자증권이다. 한때 대우그룹의 본사로서 대우센터빌딩 (대우빌딩)이라는 이름이었으나, 대우그룹 해체 후 매각과 리모델링을 거쳐 2009년에 현재의 이름이 되었다. 서울역 버스환승센터와 한강대로를 사이에 두고 있으며, 건물 오른편에는 서울남대문경찰서가 있다.\n과거에는 서울역 바로 앞에 위치한 입지로 인해 서울의 상징적인 관문이라는 이미지를 지니고 있었으며, 대한민국의 고도 성장기를 상징하는 건물이기도 했다. 또한 ",
+   "qid": "Q55730869",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "간주되어, 주변 부지를 매입해 기부채납을 해야 한다는 점으로 인해 무산되었다. 이후 리모델링 방식은 LED 소자를 전면부에 박아 미디어 파사드 형태를 구현하는 방식으로 바뀌었다. 건물 외관뿐만 아니라 내부에도 딱딱한 이미지를 없애기 위해 노력하였는데, 당시 설계를 맡은",
+   "term": "미디어 파사드",
+   "title": "서울스퀘어",
+   "url": "https://ko.wikipedia.org/wiki/%EC%84%9C%EC%9A%B8%EC%8A%A4%ED%80%98%EC%96%B4"
+  },
+  {
+   "lang": "ko",
+   "lead": null,
+   "qid": null,
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "no_wikidata_item"
+   ],
+   "score": 35,
+   "snippet": "알려져 있다. 건물 외벽, 공공시설, 상업시설 등 공간을 대상으로 벽화 프로젝트의 기획·디자인·시공을 수행한다. LED 디스플레이, 미디어파사드 , 전시 미디어월 등 디지털 매체 기반의 영상·모션·3D 콘텐츠를 제작하며, 프로젝트에 따라 현장 설치 및 운영 지원을 포함할 수",
+   "term": "미디어파사드",
+   "title": "더그림컴퍼니",
+   "url": "https://ko.wikipedia.org/wiki/%EB%8D%94%EA%B7%B8%EB%A6%BC%EC%BB%B4%ED%8D%BC%EB%8B%88"
+  },
+  {
+   "lang": "ko",
+   "lead": "수성범어W 또는 수성범어 더블유(영어: Suseong Beomeo W)는 대한민국 대구광역시 수성구 범어동에 위치한 아파트 단지이다. 2019년에 착공하여 2023년 12월에 완공된 아파트의 층수는 59층이고 190m 높이의 마천루이다. 총 5개 동으로 구성되어 있고 대구광역시 최고층 아파트다. 아파트와 오피스텔으로 구성되어 있는데 오피스텔은 저층에 있고 피난안전구역이 있다. 수성 SK 리더스 뷰(57층) 완공 후 대구에서 최고층 아파트가 완공되었다.",
+   "qid": "Q97421299",
+   "reasons": [
+    "term_in_snippet",
+    "page_has_coordinates"
+   ],
+   "score": 35,
+   "snippet": "한다. 수성범어지역주택조합 사업이 있다. 아이에스동서는 대구에 최고층 아파트를 짓는다고 한다. 2019년에 분양 후 착공하였고 미디어 파사드 등을 설치했고 2023년 12월에 완공했다. 아파트 위에 점등식이 열렸다. 같은 해 27일에 개장 후 입주가 시작되었다. 입주지정기간과",
+   "term": "미디어 파사드",
+   "title": "수성범어W",
+   "url": "https://ko.wikipedia.org/wiki/%EC%88%98%EC%84%B1%EB%B2%94%EC%96%B4W"
+  },
+  {
+   "lang": "ko",
+   "lead": "이석(李晳, 활동명 LISEOK)은 대한민국의 미디어 아티스트이자 비주얼 디렉터이다. 프로젝션 매핑, 영상, LED, 레이저, 라이브 비주얼과 사진을 주요 매체로 사용하며, 자연과 인간의 개입, 빛과 공간, 현실과 디지털 이미지의 관계를 다룬다. 2018년부터 자연환경에 인공적인 빛을 투사하고 이를 사진과 영상으로 기록하는 대지미술 연작 《FRAME》을 진행하고 있다.\n2014년 이탈리아 로마의 MAXXI 국립21세기미술관에서 열린 《The Future Is Now!》 연계 특별 프로그램에서 멀티미디어 퍼포먼스를 선보였으며, 이후 ",
+   "qid": null,
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "no_wikidata_item"
+   ],
+   "score": 35,
+   "snippet": "서울뉴욕포토페스티벌 입선 2016 — Dove Chocolate 《Half and Half》 프로젝트 참여·출연 2017 — 인대구 미디어파사드 페스티벌, 대구문화예술회관 2017 — CNN 계열 Great Big Story의 SHINLIART 다큐멘터리 출연 기록 2017~2018",
+   "term": "미디어파사드",
+   "title": "이석 (예술가)",
+   "url": "https://ko.wikipedia.org/wiki/%EC%9D%B4%EC%84%9D_(%EC%98%88%EC%88%A0%EA%B0%80)"
+  },
+  {
+   "lang": "ko",
+   "lead": "케이헤르쯔는 대한민국의 작곡가다.",
+   "qid": "Q113489890",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "아트센터 ‘파우스트’ 2023 - 사운드디자인 - Media Facade sound design @울돌목페스티벌 2022 이순신상 미디어파사드 - Media Facade sound design ‘할미꽃’ @Cosmo40 - Media Facade sound design @인천서구구청",
+   "term": "미디어파사드",
+   "title": "케이헤르쯔",
+   "url": "https://ko.wikipedia.org/wiki/%EC%BC%80%EC%9D%B4%ED%97%A4%EB%A5%B4%EC%AF%94"
+  },
+  {
+   "lang": "ko",
+   "lead": "프로젝션 매핑(Projection Mapping)은 대상물의 표면에 빛으로 이루어진 영상을 투사하여 변화를 줌으로써, 현실에 존재하는 대상이 다른 성격을 가진 것처럼 보이도록 하는 기술이다.\n기본적으로 프로젝션 매핑을 구현하기 위해서는 2D, 3D의 디지털 이미지 혹은 영상을 제작하거나, 사물의 실제 크기를 변환하는 소프트웨어와 프로젝터, 컴퓨터 등의 하드웨어가 필요하다.",
+   "qid": "Q776483",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "영상예술의 재현양상이 3차원의 실제 공간으로 확장되고 있음을 보여준다. 역동적인 멀티미디어 콘텐츠를 건축물의 정면부에 디스플레이하는 미디어 파사드 (media façade)와 디지털 매체를 기반으로 한 공간 매핑 기술인 프로젝션 매핑(projection mapping)은 프로젝션",
+   "term": "미디어 파사드",
+   "title": "프로젝션 매핑",
+   "url": "https://ko.wikipedia.org/wiki/%ED%94%84%EB%A1%9C%EC%A0%9D%EC%85%98_%EB%A7%A4%ED%95%91"
+  },
+  {
+   "lang": "ko",
+   "lead": "《숨터》는 매주 수요일 ~ 토요일 오전 11시 55분에 방송된 다큐멘터리 프로그램이다.\n\n",
+   "qid": "Q18648323",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "368회 12월 8일 가을에 물든 마음 369회 12월 9일 미디어 파사드 (1) 무등산 지질여행 370회 12월 10일 미디어 파사드 (2) 춘천에서 만난 제주 수성화산 371회 12월 11일 미디어 파사드 (3) 대청·소청 지질여행 372회 12월 15일 늦가을 - 내소사",
+   "term": "미디어 파사드",
+   "title": "숨터",
+   "url": "https://ko.wikipedia.org/wiki/%EC%88%A8%ED%84%B0"
+  },
+  {
+   "lang": "ko",
+   "lead": "아크 바르스 아레나(러시아어: Ак Барс Арена)는 러시아 카잔에 위치한 경기장으로 2013년 7월에 개장했다. FC 루빈 카잔의 홈 구장으로 사용되고 있으며 수용 인원은 45,379명이다. 2013년 하계 유니버시아드, 2017년 FIFA 컨페더레이션스컵, 2018년 FIFA 월드컵 경기가 열린 곳이기도 하다. 그리고 2018년 FIFA 월드컵에서 대한민국이 독일을 꺾으며 그 독일을 월드컵 조별리그에서 탈락시킨 사건을 비롯하여 아르헨티나와 브라질이 그 곳에서 치른 월드컵 결선 토너먼트 경기에서 차례로 패배해 떨어지는 사건까",
+   "qid": "Q33993",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "경기에서 차례로 패배해 떨어지는 사건까지 줄줄이 일어났던 까닭에 한때 강팀들의 무덤이라는 별칭까지 붙기도 했다. 경기장 전경 미디어 파사드 2013 유니버시아드 개막식 경기장 Pools at the arena during the World Water Sports Championship",
+   "term": "미디어 파사드",
+   "title": "아크 바르스 아레나",
+   "url": "https://ko.wikipedia.org/wiki/%EC%95%84%ED%81%AC_%EB%B0%94%EB%A5%B4%EC%8A%A4_%EC%95%84%EB%A0%88%EB%82%98"
+  },
+  {
+   "lang": "ko",
+   "lead": "이영경(1966~)은 대한민국 일러스트레이터이며 2020년부터 2024년까지 그림책협회 회장을 역임했다. 2022년에 아스트리드 린트그렌 추모상(ALMA) 한국 후보에 이름을 올렸다. 대표작으로는 <아씨방 일곱 동무>, <넉 점 반>, <콩숙이와 팥숙이>, <봉지공주와 봉투왕자>, <묘생이란 무엇인가> 등의 그림책이 있다.",
+   "qid": "Q97420367",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "<아씨방 일곱 동무> 원화전, ‘키조그림책마을’ 초청 전시 2020 김병하,이영경 작가 원화전시회, 소월 아트홀 2020 문화비축기지 미디어파사드 디지털 영상전시회 2020 <두번째 봄 雨水이야기> 그룹전, 갤러리 우물 2019 그림책작가 2인전 (정승각, 이영경), ‘키즈그림책마을’",
+   "term": "미디어파사드",
+   "title": "이영경",
+   "url": "https://ko.wikipedia.org/wiki/%EC%9D%B4%EC%98%81%EA%B2%BD"
+  },
+  {
+   "lang": "ko",
+   "lead": "탑정저수지는 충청남도 논산시 부적면 신풍리에 있는 저수지이다. 1941년에 착공하여 1944년에 준공되었으며, 한국농어촌공사에서 관리하고 있다.\n충청남도에서 두 번째로 큰 저수지로서 어족자원이 풍부하다. 깨끗한 수질과 겨울철에도 잘 얼지 않고, 주변의 논산평야 등 대규모 농경지가 위치해 풍부한 먹이로 철새들의 서식에 적당하여 겨울철새들의 월동지로 이용되고 있다.\n한국농어촌공사는 탑정호를 계획적으로 개발하는 수변개발사업을 2012년부터 추진하고 있다.\n\n",
+   "qid": "Q12620929",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "000명을 동시에 수용 가능하며, 초속 60m 강풍에도 견딜 수 있게 설계되었다. 다리 전체를 스크린 삼아 각양각색의 장면을 연출하는 미디어파사드 분수쇼, 150m 규모의 음악 분수 스크린에 실사 영상과 각종 글자를 표출하는 레이저쇼 등 음악과 영상이 한데 어우러진 화려한 볼거리를",
+   "term": "미디어파사드",
+   "title": "탑정저수지",
+   "url": "https://ko.wikipedia.org/wiki/%ED%83%91%EC%A0%95%EC%A0%80%EC%88%98%EC%A7%80"
+  },
+  {
+   "lang": "ko",
+   "lead": "2018년 제1차 남북정상회담(문화어: 2018년 북남수뇌상봉)은 대한민국과 조선민주주의인민공화국 간의 세 번째 정상회담이다. 2018년 4월 27일 판문점 공동경비구역 남측 구역 내에 있는 평화의 집에서 열렸으며, 대한민국 대통령 문재인과 조선민주주의인민공화국 국무위원장 김정은, 그리고 양측 대표단이 회담에 참석하였다.",
+   "qid": "Q50396447",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "서로 손을 맞잡고 레드카펫을 따라 부감대에 올랐다. \"하나의 봄\"은 평화의 집 전면을 바탕으로 입체 영상이 투사되며 진행되는 미디어 파사드 쇼로 진행되었다. 영상쇼에는 \"역사의 현장이 될 판문점 평화의집에 한반도의 어제와 오늘, 그리고 내일\"을 영상과 음악으로 표현했으며",
+   "term": "미디어 파사드",
+   "title": "2018년 제1차 남북정상회담",
+   "url": "https://ko.wikipedia.org/wiki/2018%EB%85%84_%EC%A0%9C1%EC%B0%A8_%EB%82%A8%EB%B6%81%EC%A0%95%EC%83%81%ED%9A%8C%EB%8B%B4"
+  },
+  {
+   "lang": "ko",
+   "lead": "{정리 필요|날짜=2026-06-03}}\n\n주식회사 벡트로보틱스(VECT Robotics)는 대한민국의 코스닥 상장기업으로, 프로젝터·전자칠판·전자교탁·LED 전광판 등을 이용한 디지털 사이니지와 스마트러닝 관련 제품 및 솔루션을 제공한다. 2026년 9월 기존 사명인 '벡트'에서 '벡트로보틱스'로 상호를 변경하고, 피지컬 인공지능 기반 로봇 시스템 및 로봇 자동화 사업으로의 확장을 추진하고 있다.\n사명 'VECT'는 'Virtual Experience ConnecTivity'의 약자로, 기술을 통한 가상 체험의 연결 및 확장이라는",
+   "qid": "Q131187995",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "lead_describes_non_place"
+   ],
+   "score": 0,
+   "snippet": "2024년 12월 16일 코스닥 시장에 상장되었다. 2025년 11월 중앙대학교 국제메타버스페스티벌 행사 기획 및 인공지능 미디어 파사드 관련 산학협력 성과를 발표했다. 2026년 9월 28일 임시주주총회를 거쳐 사명을 벡트로보틱스로 변경했다. 같은 시기 정관에 로봇",
+   "term": "미디어 파사드",
+   "title": "벡트로보틱스",
+   "url": "https://ko.wikipedia.org/wiki/%EB%B2%A1%ED%8A%B8%EB%A1%9C%EB%B3%B4%ED%8B%B1%EC%8A%A4"
+  },
+  {
+   "lang": "ja",
+   "lead": "アフメド・ビン＝アリー・スタジアム（英語: Ahmed bin Ali Stadium, アラビア語:  ملعب أحمد بن علي, 別名アル・ライヤーン・スタジアム）は、カタール・ライヤーンのウンム・アル＝アファーイーにある多目的競技場である。\n主にサッカーの試合に用いられているが、陸上競技用のトラックもある。名前はカタールの首長（アミール）であったアフマド・ビン・アリー・アール＝サーニーに因む。\n総合スポーツクラブで、カタール・スターズリーグに所属するサッカーチームも擁するアル・ライヤーンSCとアル・スィーリーヤSCが本拠地としている。",
+   "qid": "Q401643",
+   "reasons": [
+    "page_has_coordinates"
+   ],
+   "score": 10,
+   "snippet": "されたが、最終的に全面改築が選択された。外周のファサード部分全体に膜を張りめぐらせ、最新の試合状況、試合結果、ニュース、広告などを投影する「 メディア ・ ファ サード 」とする計画になっている。客席は見晴らしがよくかつ日陰になるよう設計される予定である。 スタジアムの落成式は、2020年12月18日のカタールの建国記念日であり、同国が2022",
+   "term": "メディアファサード",
+   "title": "アフメド・ビン＝アリー・スタジアム",
+   "url": "https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%95%E3%83%A1%E3%83%89%E3%83%BB%E3%83%93%E3%83%B3%EF%BC%9D%E3%82%A2%E3%83%AA%E3%83%BC%E3%83%BB%E3%82%B9%E3%82%BF%E3%82%B8%E3%82%A2%E3%83%A0"
+  },
+  {
+   "lang": "zh",
+   "lead": "中国共产党成立100周年庆祝活动是指中国共产党在2021年为了庆祝建党100周年举行的一系列庆祝活动。庆祝活动主要包括：2021年7月1日中国共产党诞生纪念日举行庆祝大会；开展“七一勋章”评选颁授和全国优秀党员、全国优秀党务工作者、全国先进基层党组织评选表彰；开展党史学习教育；举办大型主题展览；举办文艺演出；召开理论研讨会和座谈会；创作推出一批文艺作品和出版物；开展群众性主题宣传教育活动；首次頒發光荣在党50年纪念章。",
+   "qid": "Q106829136",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "产党成立100周年交响音乐会”在广州星海音乐厅举行。同日晚，广州“七一”主题灯光演绎活动正式亮灯，广州一带（沿江路24栋建筑 媒体 立 面 、琶洲人工智能和数字经济试验区建筑 媒体 立 面 、海心沙、九座桥梁）、两轴（旧中轴-海珠广场、新中轴-轴线上所有媒体建筑）、三节点（广州塔、中信广场、北京路电子屏幕）联动亮灯。",
+   "term": "媒体立面",
+   "title": "中国共产党成立100周年庆祝活动",
+   "url": "https://zh.wikipedia.org/wiki/%E4%B8%AD%E5%9B%BD%E5%85%B1%E4%BA%A7%E5%85%9A%E6%88%90%E7%AB%8B100%E5%91%A8%E5%B9%B4%E5%BA%86%E7%A5%9D%E6%B4%BB%E5%8A%A8"
+  },
+  {
+   "lang": "zh",
+   "lead": "立面（源自法語：façade，经義大利語：facciata，最初源自拉丁語：facies，意为“面容/脸庞”）是指建筑物可见外围护结构中经过设计、通常具有代表性的一部分。",
+   "qid": "Q183061",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "批评：当“装饰性立面”一词被贬义使用时，其目的是为了谴责建筑的布景式特征及其面具般的性质。从技术意义上讲，假立面也指覆盖在现有立面外层的新立面。 媒体 立 面 将各种媒体整合到立面内部或外部。自20世纪90年代以来，借助新的印刷技术，人们开始在立面上悬挂“立面横幅”或“建筑海报”。有时，脚手架也被用作广告",
+   "term": "媒体立面",
+   "title": "立面",
+   "url": "https://zh.wikipedia.org/wiki/%E7%AB%8B%E9%9D%A2"
+  },
+  {
+   "lang": "zh",
+   "lead": "杭州城市阳台是位于杭州市钱江新城核心区中轴线上的一个景观平台。它以钱塘江堤岸为底线，外挑江面80米，宽320米，建筑面积约2万平米，两翼副阳台全长2.3公里。是一个集休闲、观潮、游憩、放松心情等多种功能于一体的现代城市公园。",
+   "qid": "Q11102456",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "远看市民中心与大剧院 江面 主题表演以楼面灯光表演为主要内容，将临江近2公里长共40座建筑外立面串联在一起，用点光源灯具组成 媒体 立 面 ，作为播放动画的载体。表演每周二、五、六进行两场约30分钟，分为“水之灵”、“城之魂”和“光之影”三个篇章，意在体现杭州“城”、“水”、“光”、“影”的城市特点。",
+   "term": "媒体立面",
+   "title": "杭州城市阳台",
+   "url": "https://zh.wikipedia.org/wiki/%E6%9D%AD%E5%B7%9E%E5%9F%8E%E5%B8%82%E9%98%B3%E5%8F%B0"
+  },
+  {
+   "lang": "zh",
+   "lead": "钱江新城是杭州市的中央商务区，定位为杭州政治、经济、文化新中心，位于杭州市上城区的东南部，钱塘江西北岸，距西湖风景区约4.5公里，距萧山国际机场约18公里。\n钱江新城核心区4.02km²，总面积（规划范围）21km²。核心区范围为东靠钱塘江，西、南以秋石高架路为界（接西兴大桥跨江），北至庆春东路（接庆春隧道跨江），已于2008年建成开放；核心区东北依次为江河汇、钱江新城二期两个区块，二期部分区域仍处建设中，主攻高端金融和高端商务功能，范围东达七堡和睦港。\n在钱江新城核心区，发展主轴线以市民中心（行政中心，市政府坐落于此）为中点，南侧依次为市民广场（文化中心，杭州大剧院、杭州国际会议中心坐落广场",
+   "qid": "Q15907415",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "2016年2月开始表演，最佳观赏地点为城市阳台。主题表演以楼面灯光表演为主要内容，将临江近2公里长共40座建筑外立面串联在一起，用点光源灯具组成 媒体 立 面 ，作为播放动画的载体。表演每周二、五、六进行两场约30分钟，分为“水之灵”、“城之魂”和“光之影”三个篇章，意在体现杭州“城”、“水”、“光”、“影”的城市特点。",
+   "term": "媒体立面",
+   "title": "钱江新城",
+   "url": "https://zh.wikipedia.org/wiki/%E9%92%B1%E6%B1%9F%E6%96%B0%E5%9F%8E"
+  },
+  {
+   "lang": "fr",
+   "lead": "ART+COM est une agence de design allemande basée à Berlin. L'entreprise se veut un studio de communication médiatique dans l'espace et conçoit des installations interactives, des espaces médiatiques et des architectures.",
+   "qid": "Q2632380",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "Science Center, pour lesquels les expositions interactives et la façade médiatique ont été conçues et développées, ont été achevées en 2009. L'année",
+   "term": "façade médiatique",
+   "title": "ART+COM",
+   "url": "https://fr.wikipedia.org/wiki/ART%2BCOM"
+  },
+  {
+   "lang": "fr",
+   "lead": "Italo Rota, né le 2 octobre 1953 à Milan et mort dans la même ville le 6 avril 2024, est un architecte et designer italien dont le travail se situe à la croisée de l'architecture, du design et de la scénographie. Formé au Politecnico di Milano, il développe au cours de sa carrière une pratique carac",
+   "qid": "Q3804443",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "bateaux retournées, évoquant les vagues de la mer et du désert. La façade multimédia est réalisée à partir de deux millions de bouteilles en plastique",
+   "term": "façade multimédia",
+   "title": "Italo Rota",
+   "url": "https://fr.wikipedia.org/wiki/Italo_Rota"
+  },
+  {
+   "lang": "fr",
+   "lead": "Primary est un film documentaire américain réalisé par Robert Drew en 1960.",
+   "qid": "Q2299721",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "politique de Kennedy, dans la mesure où il est très présent sur la façade médiatique et qu’il doit démontrer sa crédibilité à son auditoire. Cela est perçu",
+   "term": "façade médiatique",
+   "title": "Primary (film)",
+   "url": "https://fr.wikipedia.org/wiki/Primary_(film)"
+  },
+  {
+   "lang": "es",
+   "lead": "El Centro de Creación Contemporánea de Andalucía o C3A;​ antes denominado Espacio Andaluz de Creación Contemporánea, Centro de Creación Contemporánea de Córdoba,​ es un museo y centro de creación artística, dedicado al arte contemporáneo, situado en Córdoba (España). El diseño del edificio, de nueva",
+   "qid": "Q5839725",
+   "reasons": [
+    "term_in_lead",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 65,
+   "snippet": "cuenta con 4 plantas, incluyendo el sótano y la cubierta, y con una fachada mediática orientada hacia el río que a través de sistemas de iluminación y vídeo",
+   "term": "fachada mediática",
+   "title": "Centro de Creación Contemporánea de Andalucía",
+   "url": "https://es.wikipedia.org/wiki/Centro_de_Creaci%C3%B3n_Contempor%C3%A1nea_de_Andaluc%C3%ADa"
+  },
+  {
+   "lang": "es",
+   "lead": "La propaganda en Internet patrocinada por el Estado es la manipulación de Internet y la propaganda que cuenta con el financiamiento de un Estado. Los Estados han utilizado Internet, particularmente las redes sociales, para influir en elecciones, sembrar desconfianza en las instituciones, difundir ru",
+   "qid": "Q16135450",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "desinformación en línea, incluyendo la creación de una organización fachada mediática en Occidente, contratación de escritores independientes en todo el",
+   "term": "fachada mediática",
+   "title": "Propaganda en Internet patrocinada por el Estado",
+   "url": "https://es.wikipedia.org/wiki/Propaganda_en_Internet_patrocinada_por_el_Estado"
+  },
+  {
+   "lang": "es",
+   "lead": "Staring 5 (en español: El 5 inicial) es una serie documental estadounidense creada por la plataforma Netflix. La primera temporada se lanzó en octubre de 2024​ y la segunda en octubre de 2025.​",
+   "qid": "Q130971947",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "equipo de Starting 5 «rodó los episodios con la intención de romper la fachada mediática de los jugadores para encontrar el subtexto emocional subyacente»",
+   "term": "fachada mediática",
+   "title": "Starting 5",
+   "url": "https://es.wikipedia.org/wiki/Starting_5"
+  },
+  {
+   "lang": "ru",
+   "lead": "Медиафасад — дисплей произвольного размера и формы, органично встроенный в архитектурный облик здания и предназначенный для трансляции медиаданных (текстовых сообщений, графики, анимации и видео). Устанавливается на наружной либо, в случае прозрачных конструкций, на внутренней поверхности фасада. Ка",
+   "qid": "Q4287692",
+   "reasons": [
+    "term_in_title",
+    "term_in_lead",
+    "term_repeated_in_lead",
+    "building_context"
+   ],
+   "score": 85,
+   "snippet": "Медиафасад — дисплей произвольного размера и формы, органично встроенный в архитектурный облик здания и предназначенный для трансляции медиаданных (текстовых",
+   "term": "медиафасад",
+   "title": "Медиафасад",
+   "url": "https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D0%B4%D0%B8%D0%B0%D1%84%D0%B0%D1%81%D0%B0%D0%B4"
+  },
+  {
+   "lang": "ru",
+   "lead": "Башня «Лидер» (в просторечии Башня «Конституция») — 42-этажный небоскрёб на юге Санкт-Петербурга.  Высота здания, по сообщениям застройщика, составила 145,5 м (высота первого и второго этажей 4,5 метра, типовых этажей 3,4 метра). Первое здание в городе (и второе после Петербургской телебашни сооруже",
+   "qid": "Q13668707",
+   "reasons": [
+    "term_in_lead",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 65,
+   "snippet": "название. Строительство завершено в 2013 году. Башня покрыта светящимся медиафасадом , используемым для рекламных трансляций. Строительство башни началось",
+   "term": "медиафасад",
+   "title": "Лидер-тауэр",
+   "url": "https://ru.wikipedia.org/wiki/%D0%9B%D0%B8%D0%B4%D0%B5%D1%80-%D1%82%D0%B0%D1%83%D1%8D%D1%80"
+  },
+  {
+   "lang": "ru",
+   "lead": "Maer — российская компания, один из крупнейших операторов наружной рекламы. Специализируется на цифровых конструкциях среднего (суперсайты) и крупного сегмента (медиафасады, крышные конструкции).",
+   "qid": "Q64547378",
+   "reasons": [
+    "term_in_lead",
+    "building_context"
+   ],
+   "score": 55,
+   "snippet": "на цифровых конструкциях среднего (суперсайты) и крупного сегмента ( медиафасады , крышные конструкции). Компания основана в 2003 году в Екатеринбурге",
+   "term": "медиафасад",
+   "title": "Maer",
+   "url": "https://ru.wikipedia.org/wiki/Maer"
+  },
+  {
+   "lang": "ru",
+   "lead": "«Ак Барс Арена», до 7 ноября 2019 года — «Казань Арена» (тат. Казан Арена) — футбольный стадион в Казани. Один из самых вместительных стадионов России, рассчитанный на 45 379 человек. Домашняя арена казанского футбольного клуба «Рубин». Стадион наивысшей четвёртой категории УЕФА. Стадион является мн",
+   "qid": "Q33993",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "расположенные в зоне «Последней мили») Футбольное поле: 9000 м2, 105 м х 68 м Медиафасад Full HD: 3 700 м² Архитектурная концепция сооружения в форме водяной лилии",
+   "term": "медиафасад",
+   "title": "Ак Барс Арена",
+   "url": "https://ru.wikipedia.org/wiki/%D0%90%D0%BA_%D0%91%D0%B0%D1%80%D1%81_%D0%90%D1%80%D0%B5%D0%BD%D0%B0"
+  },
+  {
+   "lang": "ru",
+   "lead": "Ба́шня Мерку́рий (Меркурий-Сити-Тауэр, «золотая башня») — многофункциональный деловой комплекс, входящий в Московский международный деловой центр «Москва-Сити».",
+   "qid": "Q59483",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "67—68 этажей здания был установлен медиафасад , собранный из 2 миллионов светодиодов. Это самый высокий медиафасад в Европе. Проект башни Меркурий был",
+   "term": "медиафасад",
+   "title": "Башня Меркурий",
+   "url": "https://ru.wikipedia.org/wiki/%D0%91%D0%B0%D1%88%D0%BD%D1%8F_%D0%9C%D0%B5%D1%80%D0%BA%D1%83%D1%80%D0%B8%D0%B9"
+  },
+  {
+   "lang": "ru",
+   "lead": "АО «Проектно-изыскательский и научно-исследовательский институт „Гидропроект“ имени С. Я. Жука» — российская проектная организация, специализирующаяся на гидроэнергетических и водохозяйственных сооружениях. Институт расположен в Москве и имеет филиалы в других городах России. По проектам, разработан",
+   "qid": "Q1810796",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "сентября 2024 года. Альтима | Наружная реклама. Самый большой медиафасад в Европе. Медиафасад на здании \"Гидропроект\" (24 декабря 2022). Дата обращения:",
+   "term": "медиафасад",
+   "title": "Гидропроект",
+   "url": "https://ru.wikipedia.org/wiki/%D0%93%D0%B8%D0%B4%D1%80%D0%BE%D0%BF%D1%80%D0%BE%D0%B5%D0%BA%D1%82"
+  },
+  {
+   "lang": "ru",
+   "lead": "«Евразия» — небоскрёб высотой 309 м, расположенный в Москве на 12-м участке Московского международного делового центра.\nПроект представляет собой офисно-рекреационный комплекс на трёхэтажном подиуме, в котором разместятся фитнес-центр и магазины. Также планируется разместить в здании офисы, которые ",
+   "qid": "Q1374287",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "светодиодных медиафасадов . Верхний медиафасад имеет размер 145,5 Х 8,2 метра, установлен на верхней части здания. На восточном фасаде установлен медиафасад размером",
+   "term": "медиафасад",
+   "title": "Евразия (Москва-Сити)",
+   "url": "https://ru.wikipedia.org/wiki/%D0%95%D0%B2%D1%80%D0%B0%D0%B7%D0%B8%D1%8F_(%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0-%D0%A1%D0%B8%D1%82%D0%B8)"
+  },
+  {
+   "lang": "ru",
+   "lead": "Телебашня «Коктобе́» (каз. \"Көктөбе\" теледидар мұнарасы, прежнее наименование — «Телевизионная башня») — телевизионная и радиовещательная башня, расположенная в городе Алматы на склонах горы Коктобе.",
+   "qid": "Q960515",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "специалистами из России установлена светодиодная точечная подсветка телебашни и медиафасад за 1,2 миллиарда тенге. Вид на башню Коктобе ночью Список самых высоких",
+   "term": "медиафасад",
+   "title": "Коктобе (телебашня)",
+   "url": "https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D0%BA%D1%82%D0%BE%D0%B1%D0%B5_(%D1%82%D0%B5%D0%BB%D0%B5%D0%B1%D0%B0%D1%88%D0%BD%D1%8F)"
+  },
+  {
+   "lang": "ru",
+   "lead": "«Космос» — гостиница в Алексеевском районе Северо-Восточного административного округа города Москвы.",
+   "qid": "Q1976786",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "июня 2018 года на фасадной части здания гостиницы \"Космос\" установлен медиафасад общей площадью 876,6 кв. м. Росписи восьми лифтовых холлов гостиницы авторства",
+   "term": "медиафасад",
+   "title": "Космос (гостиница, Москва)",
+   "url": "https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D1%81%D0%BC%D0%BE%D1%81_(%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%B8%D1%86%D0%B0%2C_%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0)"
+  },
+  {
+   "lang": "ru",
+   "lead": "Кунстхаус в городе Грац (неофициально англ. the friendly alien — дружественный инопланетянин) — музей, галерея современного искусства, открытый в рамках программы «Культурная столица Европы» в 2003(2003) году. Концепт здания разработали лондонские архитекторы Питер Кук и Колин Фурнье (англ. Colin Fo",
+   "qid": "Q597137",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "Медиафасад .",
+   "term": "медиафасад",
+   "title": "Кунстхаус (Грац)",
+   "url": "https://ru.wikipedia.org/wiki/%D0%9A%D1%83%D0%BD%D1%81%D1%82%D1%85%D0%B0%D1%83%D1%81_(%D0%93%D1%80%D0%B0%D1%86)"
+  },
+  {
+   "lang": "ru",
+   "lead": "Национальная библиотека Беларуси (полное название — Государственное учреждение «Национальная библиотека Беларуси», бел. Дзяржаўная ўстанова «Нацыянальная бібліятэка Беларусі») — главная универсальная научная библиотека Беларуси. Генеральным директором библиотеки является Вадим Францевич Гигин.\n\n",
+   "qid": "Q971450",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "от 5 до 10 кг. Подсветка здания представляет собой многоцветный экран ( медиафасад ) площадью 1985 м² на основе светодиодных кластеров, который включается",
+   "term": "медиафасад",
+   "title": "Национальная библиотека Беларуси",
+   "url": "https://ru.wikipedia.org/wiki/%D0%9D%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D0%B1%D0%B8%D0%B1%D0%BB%D0%B8%D0%BE%D1%82%D0%B5%D0%BA%D0%B0_%D0%91%D0%B5%D0%BB%D0%B0%D1%80%D1%83%D1%81%D0%B8"
+  },
+  {
+   "lang": "ru",
+   "lead": "Оста́нкинская телеба́шня (прежнее название — «Общесою́зная радиотелевизио́нная передаю́щая ста́нция им. 50-ле́тия Октября́») — телевизионная и радиовещательная башня, расположенная в Останкинском районе Москвы. Высота сооружения — 540,1 м. По состоянию на весну 2022 года телебашня — 15-е по высоте с",
+   "qid": "Q181324",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "медиафасадов во время ежегодного фестиваля «Круг света» в октябре 2014 года. По окончании фестиваля было решено продолжить использование медиафасада для",
+   "term": "медиафасад",
+   "title": "Останкинская телебашня",
+   "url": "https://ru.wikipedia.org/wiki/%D0%9E%D1%81%D1%82%D0%B0%D0%BD%D0%BA%D0%B8%D0%BD%D1%81%D0%BA%D0%B0%D1%8F_%D1%82%D0%B5%D0%BB%D0%B5%D0%B1%D0%B0%D1%88%D0%BD%D1%8F"
+  },
+  {
+   "lang": "ru",
+   "lead": "«Элин» — название первого в мире  уличного видеоэкрана, установленного в 1972 году на брандмауэрной стене дома № 17 по проспекту Калинина (ныне — Новый Арбат, 7, ). Название является акронимом от «электронный информатор».",
+   "qid": "Q4531231",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "году этот экран был демонтирован и вместо него установлен светодиодный медиафасад , который работает под управлением оператора «Эйчди». В 2022 г. к 50-летию",
+   "term": "медиафасад",
+   "title": "Элин",
+   "url": "https://ru.wikipedia.org/wiki/%D0%AD%D0%BB%D0%B8%D0%BD"
+  },
+  {
+   "lang": "ru",
+   "lead": "Бегущая строка — электронное устройство, предназначенное для отображения текстовой и графической информации. В самом простом варианте текст просто «бежит», двигаясь справа налево. Отображающая матрица (светодиодный модуль) обычно состоит из светодиодов. Очень часто помимо простого текста бегущие стр",
+   "qid": "Q4080570",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "актуально звуковое дублирование информации, для слабослышащих - отображение на табло. Матричный индикатор Светодиодный графический экран Медиафасад Светодиод",
+   "term": "медиафасад",
+   "title": "Бегущая строка",
+   "url": "https://ru.wikipedia.org/wiki/%D0%91%D0%B5%D0%B3%D1%83%D1%89%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%BE%D0%BA%D0%B0"
+  },
+  {
+   "lang": "ru",
+   "lead": "Вывеска — пластина с надписью или рисунком, указывающая на то, что находится рядом с ней. Исторически: доска, щит с надписью или изображением, который вывешивался снаружи здания.\nНаименования в надписях на вывесках являются назывными предложениями, которые характеризуются отсутствием глаголов. Вывес",
+   "qid": "Q107309375",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "алгоритмам, что позволяло её использовать даже в образовательных целях. Медиафасад Вывеска // Шведова Н.Ю. (ред.) Русский семантический словарь. Толковый",
+   "term": "медиафасад",
+   "title": "Вывеска",
+   "url": "https://ru.wikipedia.org/wiki/%D0%92%D1%8B%D0%B2%D0%B5%D1%81%D0%BA%D0%B0"
+  },
+  {
+   "lang": "ru",
+   "lead": "История Санкт-Петербурга в начале XXI века охватывает постсоветский период развития Санкт-Петербурга в начале XXI века, в период правления Владимира Путина, который продолжается по сей день.\nОсновные изменения в городе были обусловлены его развитием в условиях рыночной экономики после распада СССР. ",
+   "qid": "Q132396691",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "другие важные памятники — Лидер Тауэр на Площади конституции, имеющий медиафасад , демонстрирующий рекламную продукцию, головой офис банка «Санкт-Петербург»",
+   "term": "медиафасад",
+   "title": "История Санкт-Петербурга начала XXI века",
+   "url": "https://ru.wikipedia.org/wiki/%D0%98%D1%81%D1%82%D0%BE%D1%80%D0%B8%D1%8F_%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3%D0%B0_%D0%BD%D0%B0%D1%87%D0%B0%D0%BB%D0%B0_XXI_%D0%B2%D0%B5%D0%BA%D0%B0"
+  },
+  {
+   "lang": "ru",
+   "lead": "«Московский дом книги» (Акционерное общество «Объединённый центр „Московский дом книги“») — единственная государственная книготорговая сеть в России. Центральным магазином сети является «Московский Дом Книги на Новом Арбате» — крупнейший книжный магазин в России.",
+   "qid": "Q48950742",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "В январе 2017 года на здании «Московского дома книги» был установлен медиафасад , что значительно преобразовало архитектурный облик строения. С 2022 года",
+   "term": "медиафасад",
+   "title": "Московский дом книги",
+   "url": "https://ru.wikipedia.org/wiki/%D0%9C%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9_%D0%B4%D0%BE%D0%BC_%D0%BA%D0%BD%D0%B8%D0%B3%D0%B8"
+  },
+  {
+   "lang": "ru",
+   "lead": "ФГУП «Московский эндокринный завод» — российское фармацевтическое предприятие, производитель препаратов и лекарственных средств, широко применяемых в эндокринологии, гинекологии, кардиологии, психиатрии, оториноларингологии, офтальмологии. Полное наименование — Федеральное государственное унитарное ",
+   "qid": "Q19910163",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "года изготовлена и установлена светодинамическая крышная установка и медиафасад для Московского эндокринного завода «ЭНДОФАРМ». Конструкция светодинамической",
+   "term": "медиафасад",
+   "title": "Московский эндокринный завод",
+   "url": "https://ru.wikipedia.org/wiki/%D0%9C%D0%BE%D1%81%D0%BA%D0%BE%D0%B2%D1%81%D0%BA%D0%B8%D0%B9_%D1%8D%D0%BD%D0%B4%D0%BE%D0%BA%D1%80%D0%B8%D0%BD%D0%BD%D1%8B%D0%B9_%D0%B7%D0%B0%D0%B2%D0%BE%D0%B4"
+  },
+  {
+   "lang": "ru",
+   "lead": "Нару́жная рекла́ма — графическая, текстовая, либо иная информация рекламного характера, которая размещается на специальных временных или стационарных конструкциях, расположенных на открытой местности, а также на внешних поверхностях зданий, сооружений, на элементах уличного оборудования, над проезже",
+   "qid": "Q587743",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "оформление на период проведения праздничных, тематических мероприятий. Медиафасад на зданиях — это светодиодный экран, дисплей или поверхность любого размера",
+   "term": "медиафасад",
+   "title": "Наружная реклама",
+   "url": "https://ru.wikipedia.org/wiki/%D0%9D%D0%B0%D1%80%D1%83%D0%B6%D0%BD%D0%B0%D1%8F_%D1%80%D0%B5%D0%BA%D0%BB%D0%B0%D0%BC%D0%B0"
+  },
+  {
+   "lang": "ru",
+   "lead": "«Октя́брь» — киноконцертный зал в Москве на Новом Арбате.",
+   "qid": "Q21643609",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "кинофестиваль. В 2017 году на фасаде здания кинотеатра «Октябрь» установлен медиафасад , транслирующий в реальном времени премьеры и информацию кинотеатра. Вид",
+   "term": "медиафасад",
+   "title": "Октябрь (кинотеатр, Москва)",
+   "url": "https://ru.wikipedia.org/wiki/%D0%9E%D0%BA%D1%82%D1%8F%D0%B1%D1%80%D1%8C_(%D0%BA%D0%B8%D0%BD%D0%BE%D1%82%D0%B5%D0%B0%D1%82%D1%80%2C_%D0%9C%D0%BE%D1%81%D0%BA%D0%B2%D0%B0)"
+  },
+  {
+   "lang": "ru",
+   "lead": "«Росто́в Аре́на», или «Росто́в-Аре́на» — футбольный стадион в Ростове-на-Дону, построенный в 2018 году специально для проведения матчей чемпионата мира (согласно решению ФИФА от 2 декабря 2010 года, вынесенному на основании официальной заявки России).\nПервый тестовый матч на арене прошёл 15 апреля 2",
+   "qid": "Q4439101",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "изменён: фасад по всему периметру сплошной и выполнен по технологии медиафасада . Во время матча Уругвай — Саудовская Аравия Панорама стадиона с трибуны",
+   "term": "медиафасад",
+   "title": "Ростов Арена",
+   "url": "https://ru.wikipedia.org/wiki/%D0%A0%D0%BE%D1%81%D1%82%D0%BE%D0%B2_%D0%90%D1%80%D0%B5%D0%BD%D0%B0"
+  },
+  {
+   "lang": "ru",
+   "lead": "Светодио́д или светоизлуча́ющий дио́д (СД, СИД; англ. light-emitting diode, LED) — полупроводниковый прибор с электронно-дырочным переходом, создающий оптическое излучение при пропускании через него электрического тока в прямом направлении.\nИзлучаемый светодиодом свет лежит в узком диапазоне спектра",
+   "qid": "Q25504",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "светодиодов используется в больших уличных экранах, в бегущих строках, в медиафасадах , информационных табло. Такие массивы часто называют светодиодными кластерами",
+   "term": "медиафасад",
+   "title": "Светодиод",
+   "url": "https://ru.wikipedia.org/wiki/%D0%A1%D0%B2%D0%B5%D1%82%D0%BE%D0%B4%D0%B8%D0%BE%D0%B4"
+  },
+  {
+   "lang": "ru",
+   "lead": "Светодиодный экран (LED screen, LED display) — устройство отображения и передачи визуальной информации (дисплей, монитор, телевизор*), в котором каждой точкой — пикселем — является один или несколько полупроводниковых светодиодов (LED).",
+   "qid": "Q9197445",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "рекордов Гиннесса». Светодиодные кластеры Светодиодные знаки Медиавывеска Медиафасад Бегущая строка Электронное табло Светодиодный пилон ГОСТ Р 52870—2007",
+   "term": "медиафасад",
+   "title": "Светодиодный графический экран",
+   "url": "https://ru.wikipedia.org/wiki/%D0%A1%D0%B2%D0%B5%D1%82%D0%BE%D0%B4%D0%B8%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9_%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9_%D1%8D%D0%BA%D1%80%D0%B0%D0%BD"
+  },
+  {
+   "lang": "ru",
+   "lead": "Светодиодный пилон (также LED-пилон, видеопилон) - отдельно стоящее устройство отображения информации, выполненное в виде вертикального корпуса со встроенным светодиодным экраном. Относится к средствам цифровой визуальной коммуникации и используется для показа информационных, навигационных, рекламны",
+   "qid": null,
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "no_wikidata_item"
+   ],
+   "score": 35,
+   "snippet": "относят видеопилоны к одному из видов светодиодных решений наряду с медиафасадами , информационными табло, бегущими строками, гибкими и прозрачными экранами",
+   "term": "медиафасад",
+   "title": "Светодиодный пилон",
+   "url": "https://ru.wikipedia.org/wiki/%D0%A1%D0%B2%D0%B5%D1%82%D0%BE%D0%B4%D0%B8%D0%BE%D0%B4%D0%BD%D1%8B%D0%B9_%D0%BF%D0%B8%D0%BB%D0%BE%D0%BD"
+  },
+  {
+   "lang": "ru",
+   "lead": "Си́ний светодио́д — светоизлучающий оптоэлектронный полупроводниковый прибор с синим цветом свечения.\nСветодиоды красного, зелёного и синего цветов позволяют синтезировать всё видимое излучение (включая белый свет). При этом синий светодиод отличается от первых двух сложностью конструкции.",
+   "qid": "Q18658426",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "«мятные» и «цвета лайма» . Синие светодиоды без люминофора применяются в медиафасадах , светодиодных экранах, в декоративной RGB-подсветке. Кроме того, синие",
+   "term": "медиафасад",
+   "title": "Синий светодиод",
+   "url": "https://ru.wikipedia.org/wiki/%D0%A1%D0%B8%D0%BD%D0%B8%D0%B9_%D1%81%D0%B2%D0%B5%D1%82%D0%BE%D0%B4%D0%B8%D0%BE%D0%B4"
+  },
+  {
+   "lang": "ru",
+   "lead": "УГМК-Арена — многофункциональная ледовая арена в Екатеринбурге, строившаяся в 2019—2024 годах. Принимает спортивные соревнования федерального и международного уровня по 11 видам спорта, являясь домашней ареной хоккейного клуба «Автомобилист».",
+   "qid": "Q107997314",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "сетчатый металлический каркас медного оттенка, в который будут интегрированы медиафасад и медиаэкран. Металлоконструкции куполообразной крыши ледовой арены предусмотрены",
+   "term": "медиафасад",
+   "title": "УГМК-Арена",
+   "url": "https://ru.wikipedia.org/wiki/%D0%A3%D0%93%D0%9C%D0%9A-%D0%90%D1%80%D0%B5%D0%BD%D0%B0"
+  },
+  {
+   "lang": "ru",
+   "lead": "Фаса́д (фр. façade — передний, лицевая сторона здания) — наружная лицевая сторона здания.\nТакже фасадом называют чертёж ортогональной проекции здания на вертикальную плоскость.\nФормы, пропорции, декор фасада определяются назначением архитектурного сооружения, его конструктивными особенностями, стили",
+   "qid": "Q183061",
+   "reasons": [
+    "term_in_snippet",
+    "building_context"
+   ],
+   "score": 35,
+   "snippet": "мозаичные декоративные штукатурки структурная штукатурка камешковая штукатурка «короед» Медиафайлы на Викискладе Медиафасад Потёмкинские деревни Фасадизм",
+   "term": "медиафасад",
+   "title": "Фасад",
+   "url": "https://ru.wikipedia.org/wiki/%D0%A4%D0%B0%D1%81%D0%B0%D0%B4"
+  },
+  {
+   "lang": "tr",
+   "lead": "İn Amenas rehine krizi, 16-19 Ocak 2013 tarihleri arasında Cezayir'in İn Amenas kasabası yakınlarındaki Tiganturin doğalgaz tesisinde El-Kaide bağlantılı militanlar tarafından gerçekleştirilen bir rehine krizidir.\nMilitanların baskınından dört gün sonra Cezayir güvenlik güçleri tesise operasyon düze",
+   "qid": "Q3211577",
+   "reasons": [
+    "term_in_snippet",
+    "page_has_coordinates"
+   ],
+   "score": 35,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "İn Amenas rehine krizi",
+   "url": "https://tr.wikipedia.org/wiki/%C4%B0n_Amenas_rehine_krizi"
+  },
+  {
+   "lang": "tr",
+   "lead": "2002 Bali saldırıları, 12 Ekim 2002'de, Endonezya'nın Bali ilindeki üç ayrı noktada gerçekleştirilen bombalı saldırılar. İslam Cemaati ve el-Kaide bağlantılı kişilerce, Kuta ilçesindeki iki gece kulübü ile Denpasar'daki Amerika Birleşik Devletleri diplomatik temsilciliğine düzenlenen saldırılarda 20",
+   "qid": "Q86584",
+   "reasons": [
+    "term_in_snippet",
+    "page_has_coordinates"
+   ],
+   "score": 35,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "2002 Bali saldırıları",
+   "url": "https://tr.wikipedia.org/wiki/2002_Bali_sald%C4%B1r%C4%B1lar%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "2006 el-Askeri Camii saldırısı, 22 Şubat 2006'da, Irak'ın Samarra şehrinde bulunan ve Şii inancına göre kutsal kabul edilen el-Askeri Camii'ne düzenlenen bombalı saldırıdır. Saldırıda ölen ya da yaralanan olmazken, patlama sebebiyle yapıda hasar meydana geldi. Saldırının sorumluluğunu hiçbir örgüt ü",
+   "qid": "Q2918175",
+   "reasons": [
+    "term_in_snippet",
+    "page_has_coordinates"
+   ],
+   "score": 35,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "2006 el-Askeri Camii saldırısı",
+   "url": "https://tr.wikipedia.org/wiki/2006_el-Askeri_Camii_sald%C4%B1r%C4%B1s%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "İslamcı militan grup Ensar eş-Şeriat üyeleri, 11 Eylül 2012'de Libya'nın Bingazi kentindeki iki ABD hükûmeti tesisine karşı koordineli bir saldırı gerçekleştirdi. Yerel saatle 21.40'ta, Ensar eş-Şeriat üyeleri Bingazi'deki Amerikan diplomatik yerleşkesine saldırdı ve bu saldırı sonucunda Libya'daki ",
+   "qid": "Q199416",
+   "reasons": [
+    "term_in_snippet",
+    "page_has_coordinates"
+   ],
+   "score": 35,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "2012 Bingazi saldırısı",
+   "url": "https://tr.wikipedia.org/wiki/2012_Bingazi_sald%C4%B1r%C4%B1s%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "El-Griba sinagogu saldırısı, Tunus'taki El-Griba Sinagogu'na Niser bin Muhammad Nasar Navar tarafından gerçekleştirilen bombalı saldırıdır.\n11 Nisan 2002'de, patlayıcı yüklü bir doğalgaz kamyonu Tunus'un Cerbe adasındaki El-Griba Sinagogu'nun güvenlik bariyerlerini ezip geçti. Sinagogun önünde patla",
+   "qid": "Q2869975",
+   "reasons": [
+    "term_in_snippet",
+    "page_has_coordinates"
+   ],
+   "score": 35,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "El-Griba sinagogu saldırısı",
+   "url": "https://tr.wikipedia.org/wiki/El-Griba_sinagogu_sald%C4%B1r%C4%B1s%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "El-Huber Kuleleri saldırısı, 25 Haziran 1996'da, Suudi Arabistan'ın el-Huber şehrinde yer alan ve Güney Nöbeti Harekâtı'na katılan koalisyon güçlerinin konakladığı konut kompleksine yapılan bombalı saldırı. Patlamada 19 Amerikan askeri ile belirsiz sayıda sivil hayatını kaybederken, 400'den fazla ki",
+   "qid": "Q2869983",
+   "reasons": [
+    "term_in_snippet",
+    "page_has_coordinates"
+   ],
+   "score": 35,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "El-Huber Kuleleri saldırısı",
+   "url": "https://tr.wikipedia.org/wiki/El-Huber_Kuleleri_sald%C4%B1r%C4%B1s%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "Northwest Airlines'ın 253 sayılı uçuşu, Amerika Birleşik Devletleri'ndeki Detroit Metropoliten Havalimanı'na gitmek üzere Hollanda'daki Amsterdam Schiphol Havalimanı'ndan kalkan ve 25 Aralık 2009'da, bir el-Kaide mensubu tarafından başarısızlıkla sonuçlanan bir bombalı saldırı girişimi yapılan North",
+   "qid": "Q1427012",
+   "reasons": [
+    "term_in_snippet",
+    "page_has_coordinates"
+   ],
+   "score": 35,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Northwest Airlines'ın 253 sayılı uçuşu",
+   "url": "https://tr.wikipedia.org/wiki/Northwest_Airlines'%C4%B1n_253_say%C4%B1l%C4%B1_u%C3%A7u%C5%9Fu"
+  },
+  {
+   "lang": "tr",
+   "lead": "USS Cole saldırısı, Yemen'in Aden şehri limanında demirlenen güdümlü füze taşıma kapasiteli bir Amerikan muhribi olan USS Cole (DDG-67)'a 12 Ekim 2000 tarihinde el-Kaide tarafından düzenlenen saldırıdır. Bu saldırı sonucunda 17 denizci ölmüş, 39'u ise yaralanmıştır. Muhripte ise ciddi bir hasar meyd",
+   "qid": "Q612086",
+   "reasons": [
+    "term_in_snippet",
+    "page_has_coordinates"
+   ],
+   "score": 35,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "USS Cole saldırısı",
+   "url": "https://tr.wikipedia.org/wiki/USS_Cole_sald%C4%B1r%C4%B1s%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "11 Eylül saldırıları (İngilizce: September 11 attacks), radikal İslamcı silahlı grup El-Kaide'nin 11 Eylül 2001 Salı günü sabah saatlerinde Amerika Birleşik Devletleri'ne karşı gerçekleştirdiği koordineli bir dizi intihar saldırısıydı. O sabah 19 terörist, ABD'nin kuzeydoğu eyaletlerinden Kaliforniy",
+   "qid": "Q10806",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "11 Eylül saldırıları",
+   "url": "https://tr.wikipedia.org/wiki/11_Eyl%C3%BCl_sald%C4%B1r%C4%B1lar%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "1992 Yemen'deki otel saldırıları, 29 Aralık 1992'de, Yemen'in Aden şehrindeki Gold Mohur Hotel ile Mövenpick Hotel'e el-Kaide tarafından düzenlenen bombalı saldırılar. Somali'deki Umut Harekâtı'na katılacak 100 kadar Amerikan deniz piyadesinin konakladığı otellere eş zamanlı olarak düzenlenen saldır",
+   "qid": "Q16146803",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "1992 Yemen'deki otel saldırıları",
+   "url": "https://tr.wikipedia.org/wiki/1992_Yemen'deki_otel_sald%C4%B1r%C4%B1lar%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "1993 Dünya Ticaret Merkezi saldırısı, 26 Şubat 1993 tarihinde, Amerika Birleşik Devletleri'nin New York şehrindeki Dünya Ticaret Merkezi'nin Kuzey Binası'na bomba yüklü kamyonetle gerçekleştirilen saldırı. Esas amacı, taşıdığı 606 kg üre nitrat-hidrojen bileşimi gaz hâlindeki patlayıcıyla Kuzey Kule",
+   "qid": "Q11240",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "1993 Dünya Ticaret Merkezi saldırısı",
+   "url": "https://tr.wikipedia.org/wiki/1993_D%C3%BCnya_Ticaret_Merkezi_sald%C4%B1r%C4%B1s%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "1998 Amerika Birleşik Devletleri büyükelçilikleri saldırıları, 7 Ağustos 1998'de, Amerika Birleşik Devletleri'nin Tanzanya'nın başkenti Darüsselam ile Kenya'nın başkenti Nairobi'deki büyükelçiliklerine birkaç dakika arayla bomba yüklü kamyonetlerle düzenlenen saldırılar. Saldırılar sonucunda 224 kiş",
+   "qid": "Q876206",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "1998 Amerika Birleşik Devletleri büyükelçilikleri saldırıları",
+   "url": "https://tr.wikipedia.org/wiki/1998_Amerika_Birle%C5%9Fik_Devletleri_b%C3%BCy%C3%BCkel%C3%A7ilikleri_sald%C4%B1r%C4%B1lar%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "2000 milenyum saldırıları planı, 1 Ocak 2000 veya yakınındaki bir tarihte el-Kaide ile bağlantılı kişilerce gerçekleştirilmesi planlanan ancak çeşitli sebeplerden ötürü gerçekleşmeyen saldırılardır. Amman'daki Radisson Hotel, İsrail-Ürdün sınırı, Hristiyanlar için kutsal sayılan Nebo Dağı ve Yahya'n",
+   "qid": "Q4598087",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "2000 milenyum saldırıları planı",
+   "url": "https://tr.wikipedia.org/wiki/2000_milenyum_sald%C4%B1r%C4%B1lar%C4%B1_plan%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "15 ve 20 Kasım 2003 tarihlerinde İstanbul'un dört noktasında, her iki günde de ikişer patlayıcı yüklü kamyonetin infilak ettirilmesiyle dört intihar saldırısı gerçekleştirildi. 15 Kasım'da saat 9.30 (UTC+02.00) civarında Şişli'deki Bet İsrael Sinagogu, saat 9.34 civarında ise Beyoğlu'ndaki Neve Şalo",
+   "qid": "Q1254917",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "2003 İstanbul saldırıları",
+   "url": "https://tr.wikipedia.org/wiki/2003_%C4%B0stanbul_sald%C4%B1r%C4%B1lar%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "9 Mart 2004'te, İstanbul'un Kartal ilçesindeki Hür ve Kabul Edilmiş Masonlar Büyük Locası binasına giren iki saldırganın güvenlik görevlisini yaralaması sonrasında üzerindeki patlayıcıları infilak ettirmesiyle bir intihar saldırısı gerçekleştirildi. El-Kaide'nin Türkiye yapılanması mensubu Engin Vur",
+   "qid": "Q118946663",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "2004 Hür ve Kabul Edilmiş Masonlar Büyük Locası saldırısı",
+   "url": "https://tr.wikipedia.org/wiki/2004_H%C3%BCr_ve_Kabul_Edilmi%C5%9F_Masonlar_B%C3%BCy%C3%BCk_Locas%C4%B1_sald%C4%B1r%C4%B1s%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "2005 Amman saldırıları, 9 Kasım 2005'te, Ürdün'ün başkenti Amman'daki üç otele, birkaç dakika arayla düzenlenen intihar saldırılarıdır. Irak el-Kaidesi militanlarınca yapılan saldırılarda üç saldırgan dahil 62 kişi öldü, en az 155 kişi yaralandı.\n20.50 (UTC+02.00) civarında gerçekleşen saldırıların ",
+   "qid": "Q2474047",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "2005 Amman saldırıları",
+   "url": "https://tr.wikipedia.org/wiki/2005_Amman_sald%C4%B1r%C4%B1lar%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "2005 Hanekin saldırıları, 18 Kasım 2005'te, Irak'ın Hanekin şehrindeki iki Şii camisine bombalı araçlarla düzenlenen intihar saldırıları.\nSaldırılar, cuma namazı çıkışında gerçekleştirildi. CNN'de yer alan haberde Iraklı hastane yetkililerin açıklamalarına göre saldırı en az 90 kişinin ölümüne yol a",
+   "qid": "Q4604469",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "2005 Hanekin saldırıları",
+   "url": "https://tr.wikipedia.org/wiki/2005_Hanekin_sald%C4%B1r%C4%B1lar%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "2008 Kerbela saldırısı, 17 Mart 2008'de, Irak'ın Kerbela şehrindeki İmam Hüseyin Türbesi yakınlarındaki bir kafede düzenlenen intihar saldırısı. \nSağlık çalışanlarının ifadelerine göre saldırı, 7'si İranlı olmak üzere en az 42 kişinin ölümüne ve yaklaşık 58 kişinin yaralanmasına yol açtı. Amerika Bi",
+   "qid": "Q4611364",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "2008 Kerbela saldırısı",
+   "url": "https://tr.wikipedia.org/wiki/2008_Kerbela_sald%C4%B1r%C4%B1s%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "2015 Bamako otel saldırısı, Mali'nin başkenti Bamako'daki Radisson Blu isimli otelin 7. katında 20 Kasım 2015 tarihinde düzenlenen saldırı.\nSaldırıda eylemcilerle güvenlik güçleri arasında silahlı çatışma çıktı. Saldırı başladığında saldırganlar 170 kişiyi rehin aldı. Çoğunlukla yabancılar ve özelli",
+   "qid": "Q21516923",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "2015 Bamako otel saldırısı",
+   "url": "https://tr.wikipedia.org/wiki/2015_Bamako_otel_sald%C4%B1r%C4%B1s%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "7 Temmuz 2005 Londra saldırıları, Londra bombalamaları olarak da bilinen ve 7 Temmuz 2005 günü Londra'da meydana gelen, 52 kişinin ölümü ve 784'ünün de yaralanmasıyla sonuçlanan bombalı saldırılardır. Sorumluluğunu El-Kaide'nin üstlendiği saldırılar otobüs durağı, metro istasyonu gibi şehrin toplu t",
+   "qid": "Q10818",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "7 Temmuz 2005 Londra saldırıları",
+   "url": "https://tr.wikipedia.org/wiki/7_Temmuz_2005_Londra_sald%C4%B1r%C4%B1lar%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "Abdullah Azzam Tugayları ya da Lübnan El-Kaidesi (Arapça: كتائب عبد الله عزام‎), El-Kaide’nin Lübnan kolu. Örgüt 2009 yılında Suudi Salih el-Karavi ve Mısır, Irak, Ürdün, Suriye, Gazze Şeridi ve Lübnan’da onunla bağlantılı olan yerel gruplar tarafından kuruldu.\nİsmini, Ürdün ve Filistinli uyruklu, v",
+   "qid": "Q2000803",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Abdullah Azzam Tugayları",
+   "url": "https://tr.wikipedia.org/wiki/Abdullah_Azzam_Tugaylar%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "Afganistan İç Savaşı'nın 1989-1992 yılları arasındaki kısmı, 1978'den beri devam eden Afganistan Savaşı'nın, Sovyetler Birliği'nin Afganistan'a yaptığı askerî müdahalenin ardından ülkedeki güçlerini çekmesinin sona erdiği 15 Şubat 1989'dan, Peşaver Anlaşması'nın uygulamaya konulması sonrasında, Afga",
+   "qid": "Q2405009",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Afganistan İç Savaşı (1989-1992)",
+   "url": "https://tr.wikipedia.org/wiki/Afganistan_%C4%B0%C3%A7_Sava%C5%9F%C4%B1_(1989-1992)"
+  },
+  {
+   "lang": "tr",
+   "lead": "Afganistan İç Savaşı, Taliban'ın 1996 yılında Afganistan'ın tamamını ve başkent Kabil'i denetimi altına almasıyla başlayan ve 2001 yılındaki Amerikan işgaline kadar süren, Kuzey İttifakı ile Taliban arasında süren savaştır.",
+   "qid": "Q12302518",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Afganistan İç Savaşı (1996-2001)",
+   "url": "https://tr.wikipedia.org/wiki/Afganistan_%C4%B0%C3%A7_Sava%C5%9F%C4%B1_(1996-2001)"
+  },
+  {
+   "lang": "tr",
+   "lead": "Afganistan Savaşı, 2001 Ekim'inin 7. gününde başlamıştır. Amerika Birleşik Devletleri tarafından 11 Eylül saldırıları gerekçesi ile yapılmıştır. ABD Başkanı George W. Bush'un \"terörle mücadele\" politikası kapsamında yaptığı bir savaştır. Harekât Usame bin Ladin'in yakalanmasına değin sürecekti. Aynı",
+   "qid": "Q182865",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Afganistan Savaşı (2001-2021)",
+   "url": "https://tr.wikipedia.org/wiki/Afganistan_Sava%C5%9F%C4%B1_(2001-2021)"
+  },
+  {
+   "lang": "tr",
+   "lead": "Ahmed Hüseyin eş-Şara (d. 29 Ekim 1982, Riyad), Suriyeli siyasetçi ve askerî komutan. 29 Ocak 2025'ten bu yana Suriye cumhurbaşkanı olarak görev yapmaktadır. 2017'den 2025'e kadar Hey'etu Tahrîri'ş-Şâm'ın (HTŞ) lideri olarak Esad rejiminin düşmesine ve Suriye geçiş hükûmetinin kurulmasına yol açan 2",
+   "qid": "Q7934206",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Ahmed eş-Şara",
+   "url": "https://tr.wikipedia.org/wiki/Ahmed_e%C5%9F-%C5%9Eara"
+  },
+  {
+   "lang": "tr",
+   "lead": "Anwar al-Awlaki (Arapça: أنور العولقي; Türkçe kaynaklarda Enver el-Evlaki; 21 Nisan 1971 – 30 Eylül 2011), Amerikalı-Yemenli imam, vaiz ve yazardır. Amerika Birleşik Devletleri tarafından El-Kaide'nin operasyonel liderlerinden biri olarak değerlendirildi.",
+   "qid": "Q200964",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Anwar al-Awlaki",
+   "url": "https://tr.wikipedia.org/wiki/Anwar_al-Awlaki"
+  },
+  {
+   "lang": "tr",
+   "lead": "Arap Yarımadası el-Kaidesi (Arapça: تنظيم القاعدة في جزيرة العرب‎ - Tanzim el-Kaide fi Cezire el-Arab), Yemen ve Suudi Arabistan hükümetlerini devirmeyi amaçlayan Selefi-cihatçı bir militan örgüttür. Grup, Yemen’de merkezlenmiş ve esas olarak bu ülkede faaliyet gösterirken, Suudi Arabistan’da da ope",
+   "qid": "Q2635866",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Arap Yarımadası el-Kaidesi",
+   "url": "https://tr.wikipedia.org/wiki/Arap_Yar%C4%B1madas%C4%B1_el-Kaidesi"
+  },
+  {
+   "lang": "tr",
+   "lead": "Cemal İbrahim Eştiyuvi el-Mısrati veya bilinen adıyla Atiye Abdurrahman (Arapça: عطية عبد الرحمن‎‎; 1968/1969 - 22 Ağustos 2011), Libyalı üst düzey el-Kaide yöneticisi. Amerika Birleşik Devletleri Dışişleri Bakanlığı tarafından paylaşılan bilgilere göre Libya İslami Savaş Grubu'nun üst düzey yönetic",
+   "qid": "Q755858",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Atiye Abdurrahman",
+   "url": "https://tr.wikipedia.org/wiki/Atiye_Abdurrahman"
+  },
+  {
+   "lang": "tr",
+   "lead": "Belucistan Çatışması, İran'ın güneydoğusu ve Pakistan'ın batısında yer alan oldukça büyük bir toprak parçası olan Belucistan bölgesinin kurtarılması için 1948 yılından beri devam eden çatışmalardır. Pakistan bu ayrılıkçı harekete çok sert müdahale etmektedir. Çünkü Belucistan'ın Pakistan bölgesi Pak",
+   "qid": "Q590605",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Belucistan Çatışması",
+   "url": "https://tr.wikipedia.org/wiki/Belucistan_%C3%87at%C4%B1%C5%9Fmas%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "Bosna-Hersek el-Kaidesi, el-Kaide'ye bağlı olarak Bosna-Hersek'te faaliyet gösteren yasa dışı silahlı cihatçı Selefi örgüt.\n2006 yılında Amerikan ve Hırvat istihbarat birimlerince yürütülen ve Associated Press'in elde ederek bilgiler sunduğu rapora göre Bosna-Hersek'teki el-Kaide yapılanması, 1992'd",
+   "qid": "Q19428976",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Bosna-Hersek el-Kaidesi",
+   "url": "https://tr.wikipedia.org/wiki/Bosna-Hersek_el-Kaidesi"
+  },
+  {
+   "lang": "tr",
+   "lead": "Bazı kesimler, Sovyetler Birliği'nin Afganistan'a askerî müdahalesi sırasında Sovyet güçlerine karşı savaşan Afgan mücahitlere Siklon Operasyonu kapsamında eğitim, para ve silah desteği veren CIA'in, Usame bin Ladin'in de aralarında bulunduğu gönüllü Arap mücahitleri de destekleyerek bin Ladin'in li",
+   "qid": "Q5011563",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "CIA'in Usame bin Ladin'i desteklediği iddiaları",
+   "url": "https://tr.wikipedia.org/wiki/CIA'in_Usame_bin_Ladin'i_destekledi%C4%9Fi_iddialar%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "Charlie Hebdo saldırısı, 7 Ocak 2015 tarihinde, yerel saatle 11.30 OAS (10:30 UTC) Said ve Cherif Kouachi'nin Fransızca yayın yapan hiciv dergisi Charlie Hebdo'nun Paris'teki ofisine yaptığı saldırı. Saldırı tüfeği ve diğer silahlarla yapılan saldırıda 11 kişi hayatını kaybetmiş, 11 kişi yaralanmışt",
+   "qid": "Q18718876",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Charlie Hebdo saldırısı",
+   "url": "https://tr.wikipedia.org/wiki/Charlie_Hebdo_sald%C4%B1r%C4%B1s%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "Hareket eş-Şebab el-Mücahidin, kısaca Eş-Şebab veya devlet adıyla Somali İslam Emirliği, Somali merkezli ve Doğu Afrika'nın başka yerlerinde aktif olan ulusötesi bir Selefi Cihatçı askeri ve siyasi örgüttür. İslamcı bir grup olarak devam etmekte olan Somali İç Savaşı'na aktif olarak katılmakta ve So",
+   "qid": "Q309998",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Eş-Şebab",
+   "url": "https://tr.wikipedia.org/wiki/E%C5%9F-%C5%9Eebab"
+  },
+  {
+   "lang": "tr",
+   "lead": "Ebu Ömer el-Bağdadi, (Arapça: حميد داود محمد خليل الزاوي‎, d. 1959, Irak Krallığı - ö. 18 Nisan 2010 Tikrit, Irak) Ebu Hamza el-Bağdadi veya doğum adı olan Hamid Dawud Mohamed Khalil al Zawi adlarıyla da bilinir. 7 islamcı örgütün birleşerek oluşturduğu Mücahit Şura Meclisinde liderlik yapan kişiler",
+   "qid": "Q2213632",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Ebu Ömer el-Bağdadi",
+   "url": "https://tr.wikipedia.org/wiki/Ebu_%C3%96mer_el-Ba%C4%9Fdadi"
+  },
+  {
+   "lang": "tr",
+   "lead": "Ebu Bekir el-Bağdadi (Arapça: أَبُو بَكْر الْبَغْدَادِي, ʾAbū Bakr al-Baḡdādī) veya doğum ismiyle İbrahim Avvad İbrahim Ali el-Bedri el-Samarai (إِبْرَاهِيم عَوَّاد إِبْرَاهِيم عَلِيّ مُحَمَّد الْبَدْرِي السَّامَّرائِي, ʾIbrāhīm ʿAwwād ʾIbrāhīm ʿAlī Muḥammad al-Badrī as-Sāmarrāʾī; 28 Temmuz 1971 – 2",
+   "qid": "Q2821724",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Ebu Bekir el-Bağdadi",
+   "url": "https://tr.wikipedia.org/wiki/Ebu_Bekir_el-Ba%C4%9Fdadi"
+  },
+  {
+   "lang": "tr",
+   "lead": "Ebu Eyyub el-Mısri (Arapça: أبو أيّوب المصري) veya diğer tanınan adıyla Ebu Hamza el-Muhacir (Arapça: أبو حمزة المهاجر; d. 1968 - 18 Nisan 2010, Hadise), Irak el-Kaidesi, Mücahit Şura Meclisi ve Irak İslam Devleti'nde yöneticilik yapan Mısırlı İslamcı.\nMüslüman Kardeşler ve sonrasında Mısır İslam Ci",
+   "qid": "Q334821",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Ebu Eyyub el-Mısri",
+   "url": "https://tr.wikipedia.org/wiki/Ebu_Eyyub_el-M%C4%B1sri"
+  },
+  {
+   "lang": "tr",
+   "lead": "Mustafa Ferec Muhammed Muhammed Mesud el-Cedid el-Uzeybi veya tanınan adıyla Ebu Ferec el-Libi (Arapça: أبو الفرج الليبي; d. 1970, Trablus), Guantanamo Kampı'nda tutuklu bulunan Libyalı üst düzey el-Kaide yöneticisi. Pakistan'ın ulusal istihbarat teşkilatı Servislerarası İstihbarat (ISI) tarafından ",
+   "qid": "Q334987",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Ebu Ferec el-Libi",
+   "url": "https://tr.wikipedia.org/wiki/Ebu_Ferec_el-Libi"
+  },
+  {
+   "lang": "tr",
+   "lead": "Ebu Hafsa el-Mısri Tugayları (Arapça: كتائب أبو حفص المصري), köktendinci İslamcı örgüt el-Kaide ile bağlantılı oluşum. Adını, gerçek adı Muhammed Atıf olan Mısır İslam Cihadı üyelerinden Ebu Hafsa el-Mısri'den almaktadır.",
+   "qid": "Q3644630",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Ebu Hafsa el-Mısri Tugayları",
+   "url": "https://tr.wikipedia.org/wiki/Ebu_Hafsa_el-M%C4%B1sri_Tugaylar%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "Ebu Musab ez-Zerkavi (Arapça: أبو مصعب الزرقاوي; 30 Ekim 1966, Zerka - 7 Haziran 2006, Hibhib) ya da gerçek adıyla Ahmed Fadıl en-Nazal el-Haleyle (Arapça: أحمد فضيل النزال الخلايلة), çeşitli İslamcı ve cihatçı silahlı örgütlerin üyeliğini, kuruculuğunu ve liderliğini yapmış Ürdünlüdür. Çeşitli devl",
+   "qid": "Q181049",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Ebu Musab ez-Zerkavi",
+   "url": "https://tr.wikipedia.org/wiki/Ebu_Musab_ez-Zerkavi"
+  },
+  {
+   "lang": "tr",
+   "lead": "Ali Emin el-Raşidi (Arapça: علي أمين الرشيدي; Mayıs 1950 - 23 Mayıs 1996) veya kullandığı takma adlarıyla Ebu Ubeyde el-Benşiri (Arapça: أبو عبيدة البنشير‎), Adil Habib ve Celal, Mısırlı el-Kaide yöneticisi. Örgütün kurucuları arasında yer almaktadır.",
+   "qid": "Q335439",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Ebu Ubeyde el-Benşiri",
+   "url": "https://tr.wikipedia.org/wiki/Ebu_Ubeyde_el-Ben%C5%9Firi"
+  },
+  {
+   "lang": "tr",
+   "lead": "Halid Mustafa Halife el-Aruri (Arapça: خالد مصطفى خليفة العاروري; 25 Temmuz 1967, Ramallah - 14 Haziran 2020, İdlib), bilinen diğer adlarıyla Ebu el-Kassam, Ebu Eşref ya da Ebu Cebel, Filistin kökenli Ürdünlü el-Kaide üyesidir.\nFarklı kaynaklara göre Afganistan'da, Sovyet güçlerine karşı mücadele et",
+   "qid": "Q22005790",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Ebu el-Kassam",
+   "url": "https://tr.wikipedia.org/wiki/Ebu_el-Kassam"
+  },
+  {
+   "lang": "tr",
+   "lead": "El-Kaide (Arapça: القاعدة, Türkçe: Kural), dünya çapında faaliyet gösteren radikal İslamcı ve Selefî silahlı örgüt. Kökenleri Sovyetler Birliği'nin Afganistan'a müdahalede bulunduğu döneme dayanan örgüt, 1988 yılında kuruldu. BMGK, NATO, Avrupa Birliği gibi uluslararası kuruluşlar ile birçok ülke ta",
+   "qid": "Q34490",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "El-Kaide",
+   "url": "https://tr.wikipedia.org/wiki/El-Kaide"
+  },
+  {
+   "lang": "tr",
+   "lead": "El-Kaide'nin Türkiye yapılanması, Türk el-Kaidesi ya da Türkiye el-Kaidesi (Arapça: القاعدة في تركيا), el-Kaide'ye bağlı olarak Türkiye'de faaliyet gösteren yasa dışı silahlı cihatçı Selefî yapılanmadır.",
+   "qid": "Q111223218",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "El-Kaide'nin Türkiye yapılanması",
+   "url": "https://tr.wikipedia.org/wiki/El-Kaide'nin_T%C3%BCrkiye_yap%C4%B1lanmas%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "El-Kaide Kürt Taburları (Arapça: تنظيم القاعدة الكتائب الكردية), Irak'taki Kürdistan Bölgesel Yönetimi'nde, el-Kaide'ye bağlı bir şekilde faaliyet gösteren silahlı Kürt-cihatçı Selefi örgüt. Mart 2007'de kurulmuş olup, Amerika Birleşik Devletleri Dışişleri Bakanlığı ve Kanada hükûmeti tarafından ter",
+   "qid": "Q4703056",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "El-Kaide Kürt Taburları",
+   "url": "https://tr.wikipedia.org/wiki/El-Kaide_K%C3%BCrt_Taburlar%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "El-Murabitun (Arapça: المرابطون), el-Kaide'nin Mağrip'teki kolu Mağrip el-Kaidesi'ne bağlı olarak Batı Afrika'da faaliyet gösteren yasa dışı silahlı cihatçı Selefi grup. Ağustos 2013'te kurulmuş olup, Aralık 2015'te yayınladığı bildiriyle el-Kaide'ye bağlılığını ilan etmiştir.",
+   "qid": "Q16525650",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "El-Murabitun (Batı Afrika)",
+   "url": "https://tr.wikipedia.org/wiki/El-Murabitun_(Bat%C4%B1_Afrika)"
+  },
+  {
+   "lang": "tr",
+   "lead": "El-Nusra Cephesi (Arapça: جبهة النصرة - Cebhet'ün-Nusra ya da uzun adıyla جبهة النصرة لأهل الشام - Cebhet'ün-Nusra li-Ehl'üş-Şam - Şam Halkına Destek Cephesi), silahlı cihatçı Selefi örgüt. Amacı Suriye'de Beşşar Esad hükûmetini devirerek bölgede bir İslam devleti kurmaktır. Birçok ülke tarafından t",
+   "qid": "Q32748",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "El-Nusra Cephesi",
+   "url": "https://tr.wikipedia.org/wiki/El-Nusra_Cephesi"
+  },
+  {
+   "lang": "tr",
+   "lead": "Eymen ez-Zevahiri (Arapça: أيمن محمد ربيع الظواهري; 19 Haziran 1951 - 31 Temmuz 2022), Mısırlı bir ilahiyatçı, genel cerrahi uzmanı ve tıp doktoru. 2011-2022 yılları arasında el-Kaide'nin lideriydi. Daha önceden Mısır İslami Cihadı'nın emiriydi. Eşi ve altı çocuğundan üçü Afganistan'da 11 Eylül sald",
+   "qid": "Q186316",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Eymen ez-Zevahiri",
+   "url": "https://tr.wikipedia.org/wiki/Eymen_ez-Zevahiri"
+  },
+  {
+   "lang": "tr",
+   "lead": "Fehd el-Kuso (12 Kasım 1974, Aden - 6 Mayıs 2012), bilinen diğer adlarıyla Ebu Huzeyfe veya Ebu Huzeyfe el-Yemeni, el-Kaide'ye bağlı olarak faaliyet gösteren Yemen el-Kaidesi ile daha sonrasında kurulan Arap Yarımadası el-Kaidesi'nin üst düzey yöneticilerinden olan Yemenli İslamcı. FBI'ın oluşturduğ",
+   "qid": "Q3064458",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Fehd el-Kuso",
+   "url": "https://tr.wikipedia.org/wiki/Fehd_el-Kuso"
+  },
+  {
+   "lang": "tr",
+   "lead": "Halid Şeyh Muhammed (Arapça: خالد شيخ محمد; d. 1 Mart 1964 veya 14 Nisan 1965), arasında sivillere yönelik saldırıların da bulunduğu çeşitli eylemler sebebiyle terörizm suçlamasıyla Amerika Birleşik Devletleri'ne bağlı Guantanamo Kampı'nda tutulan Pakistanlı tutukludur. El-Kaide'nin üst düzey yöneti",
+   "qid": "Q319068",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Halid Şeyh Muhammed",
+   "url": "https://tr.wikipedia.org/wiki/Halid_%C5%9Eeyh_Muhammed"
+  },
+  {
+   "lang": "tr",
+   "lead": "Mustafa Hacı Muhammed Han veya tanınan adıyla Hasan Gül (Arapça: حسان غول‎, ö. 2012), milliyeti farklı kaynaklara göre Suudi Arabistanlı, Yemenli, Pakistanlı veya Mısırlı olarak belirtilen üst düzey el-Kaide yöneticisi.\n23 Ocak 2004'te Irak-İran sınırında, güvenlik güçleri tarafından yakalandı. Adın",
+   "qid": "Q14943024",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Hasan Gül (el-Kaide üyesi)",
+   "url": "https://tr.wikipedia.org/wiki/Hasan_G%C3%BCl_(el-Kaide_%C3%BCyesi)"
+  },
+  {
+   "lang": "tr",
+   "lead": "Hint Altkıtası el-Kaidesi Arapça: جماعة قاعدة الجهاد في شبه القارة الهندية - Cemaat Kaide el-Cihad fi Şib el-Karra el-Hindiye), el-Kaide'ye bağlı olarak Hint altkıtasında faaliyet gösteren silahlı cihatçı Selefi örgüt. Eylül 2014'te kurulmuş olup, liderliğini Asım Ömer yapmaktadır.",
+   "qid": "Q17899406",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Hint Altkıtası el-Kaidesi",
+   "url": "https://tr.wikipedia.org/wiki/Hint_Altk%C4%B1tas%C4%B1_el-Kaidesi"
+  },
+  {
+   "lang": "tr",
+   "lead": "Irak İslam Devleti (Arapça: دولة العراق الإسلامية, romanize: Devlet el-Irak el-İslamiye), Irak Direnişi sırasında ABD liderliğindeki koalisyon güçlerine karşı savaşan Selefi cihatçı bir militan örgüttü. Irak Direnişi sırasında ABD liderliğindeki koalisyon güçleriyle savaştı. Örgütün amacı Irak feder",
+   "qid": "Q18206631",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Irak İslam Devleti",
+   "url": "https://tr.wikipedia.org/wiki/Irak_%C4%B0slam_Devleti"
+  },
+  {
+   "lang": "tr",
+   "lead": "Irak İslam Ordusu (Arapça: الجيش الإسلامي في العراق, romanize:  el-Ceyşü'l-İslâmî fi'l-'Irâk, abbr.) Irak'ın 2003 yılında ABD öncülüğündeki Koalisyon güçleri tarafından işgal edilmesinin ardından Irak'ta kurulan yeraltı İslamcı militan bir örgüttü ve ardından Saddam Hüseyin liderliğindeki Baas rejim",
+   "qid": "Q787623",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "Ensar ül-Mücahid ve el-Fida İslamî Ağı'ndan ve ayrıca Küresel İslamî Medya Cephesi , İslamî Medya Merkezi ve İslamî Cihat Ordusu'nun medya merkezinden farklı",
+   "term": "medya cephesi",
+   "title": "Irak İslam Ordusu",
+   "url": "https://tr.wikipedia.org/wiki/Irak_%C4%B0slam_Ordusu"
+  },
+  {
+   "lang": "tr",
+   "lead": "Irak Savaşı, 20 Mart 2003'te Amerika Birleşik Devletleri ve Birleşik Krallık önderliğinde oluşturulmuş Çok Uluslu Koalisyon Kuvvetleri'nin bir askerî harekâtla Irak'a girmesiyle başlayan ve devam eden savaş. Ayrıca İkinci Körfez Savaşı, Irak'ın İşgali ve koalisyon ülkelerince Irak'ı Özgürleştirme Op",
+   "qid": "Q545449",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Irak Savaşı",
+   "url": "https://tr.wikipedia.org/wiki/Irak_Sava%C5%9F%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "Irak el-Kaidesi (Arapça: القاعدة في العراق) veya diğer kullanımıyla Tanzim Kaide el-Cihad fi Bilad er-Rafideyn (Arapça: تنظيم قاعدة الجهاد في بلاد الرافدين‎‎), el-Kaide'ye bağlı olarak Irak'ta faaliyet gösteren yasa dışı silahlı cihatçı Selefi grup.\nTevhit ve Cihat Cemaati lideri Ebu Musab ez-Zerkav",
+   "qid": "Q1076058",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Irak el-Kaidesi",
+   "url": "https://tr.wikipedia.org/wiki/Irak_el-Kaidesi"
+  },
+  {
+   "lang": "tr",
+   "lead": "Irak ve Şam İslam Devleti (kısaca IŞİD; Arapça: الدولة الاسلامية في العراق والشام, ed-Devletü'l-İslâmiyye fi'l-Irak ve'ş-Şam) veya 2014'ten beri kullandığı resmî isimle İslam Devleti (kısaca İD; Arapça: الدولة الإسلامية ed-Devletü'l-İslâmiyye), ağırlıklı olarak Afrika'da, ayrıca Irak ve Suriye'de de",
+   "qid": "Q2429253",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Irak ve Şam İslam Devleti",
+   "url": "https://tr.wikipedia.org/wiki/Irak_ve_%C5%9Eam_%C4%B0slam_Devleti"
+  },
+  {
+   "lang": "tr",
+   "lead": "Kasım 2006 Medine es-Sadr saldırıları, 23 Kasım 2006'da, Irak'ın başkenti Bağdat'ta, Şii nüfusun yoğun olarak yaşadığı Medine es-Sadr semtinde gerçekleştirilen altı bombalı araç ve iki havan saldırısı. Irak İslam Devleti militanlarınca düzenlendiği belirtilen saldırılarda en az 215 kişi öldü, 250'de",
+   "qid": "Q4631578",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Kasım 2006 Medine es-Sadr saldırıları",
+   "url": "https://tr.wikipedia.org/wiki/Kas%C4%B1m_2006_Medine_es-Sadr_sald%C4%B1r%C4%B1lar%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "Kasım Muhammed Mehdi er-Rimi (Arapça: قاسم محمد مهدي الريمي; 5 Haziran 1978, Rayima - 29 Ocak 2020, el-Beyda), tanınan diğer adlarıyla Ebu Hüreyre veya Ebu Hüreyre el-Sanai, silahlı İslamcı örgüt Arap Yarımadası el-Kaidesi'nin lideri olan Yemenli İslamcı.\n1990'larda Yemen'den Afganistan'a hareket ed",
+   "qid": "Q7267019",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Kasım er-Rimi",
+   "url": "https://tr.wikipedia.org/wiki/Kas%C4%B1m_er-Rimi"
+  },
+  {
+   "lang": "tr",
+   "lead": "Mücahit Şura Meclisi (Arapça: مجلس شورى المجاهدين في العراق‎‎), Irak Direnişi sırasında ortaya çıkan, en az altı Sünni cihatçı Selefi ayaklanmacı grubun oluşturduğu yasa dışı silahlı çatı örgüt.\n15 Ocak 2006'da, Irak el-Kaidesi sözcüsü Ebu Meysere el-Iraki tarafından, \"Irak'ı işgalden kurtarmak, tüm",
+   "qid": "Q2993709",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Mücahit Şura Meclisi (Irak)",
+   "url": "https://tr.wikipedia.org/wiki/M%C3%BCcahit_%C5%9Eura_Meclisi_(Irak)"
+  },
+  {
+   "lang": "tr",
+   "lead": "Mısır İslam Cihadı, Mısır İslami Cihat (Arapça: الجهاد الإسلامي المصري) veya el-Cihad, Mısır'da faaliyet gösteren yasa dışı silahlı cihatçı ve Selefi örgüt. Müslüman Kardeşler üyesi olan Muhammed Abdülselam Ferec tarafından, örgütün 1970'lerin sonunda silahlı mücadeleyi bırakması üzerine 1979'da Kah",
+   "qid": "Q310214",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Mısır İslam Cihadı",
+   "url": "https://tr.wikipedia.org/wiki/M%C4%B1s%C4%B1r_%C4%B0slam_Cihad%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "Mağrip İsyanı, 2002 yılından beri cihatçı Selefi silahlı grup Vaaz ve Savaş için Selefi Grup (GSPC) tarafından yönetilen isyanın konusudur. GSPC Cezayir hükûmetine karşı olan el-Kaide organizasyonu ile birliktir. Bu birlik kendi içinde Free Salafist Group u (GSL)'yi oluşturdu. Bu çatışma 2002 yılınd",
+   "qid": "Q632787",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Mağrip İsyanı (2002-günümüz)",
+   "url": "https://tr.wikipedia.org/wiki/Ma%C4%9Frip_%C4%B0syan%C4%B1_(2002-g%C3%BCn%C3%BCm%C3%BCz)"
+  },
+  {
+   "lang": "tr",
+   "lead": "Mağrip el-Kaidesi (Arapça: تنظيم القاعدة في بلاد المغرب الإسلامي‎ - Tanzim el-Kaide fi Bilad el-Mağrib el-İslami), ‎el-Kaide'ye bağlı olarak Mağrip'te faaliyet gösteren yasa dışı silahlı cihatçı Selefi grup.\nEylül 2006'da el-Kaide'ye bağlılığını açıklayan Vaaz ve Savaş için Selefi Grup'un, Ocak 2007",
+   "qid": "Q2635966",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Mağrip el-Kaidesi",
+   "url": "https://tr.wikipedia.org/wiki/Ma%C4%9Frip_el-Kaidesi"
+  },
+  {
+   "lang": "tr",
+   "lead": "Muhammed Atıf el-Mısri (Arapça: محمد عاطف المصرى), tanınan diğer adlarıyla Ebu Hafsa el-Mısri, El-Hebir, Teysir Abdullah, Ebu Hadice veya Subhi Ebu Sitta (1944, 1951 veya 1956, Menuf, veya Buheyre - 14-15 Kasım 2001, Kâbil), Mısırlı el-Kaide askerî yöneticisi. Örgütün, Eymen ez-Zevahiri ile birlikte",
+   "qid": "Q1387765",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Muhammed Atıf",
+   "url": "https://tr.wikipedia.org/wiki/Muhammed_At%C4%B1f"
+  },
+  {
+   "lang": "tr",
+   "lead": "Nasır Abdulkerim Abdullah el-Vuheyşi (Arapça: ناصر عبد الكريم عبدهللا الوحيشي‎‎; d. 1 Ekim 1976 - 12 Haziran 2015, el-Mukelle), diğer bilinen adlarıyla Ebu Beşir veya Ebu Beşir el-Yemeni, silahlı İslamcı örgüt Arap Yarımadası el-Kaidesi'nin kurucusu ve ilk lideri olan Yemenli İslamcı.\n1996 veya 1998",
+   "qid": "Q6967154",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Nasır el-Vuheyşi",
+   "url": "https://tr.wikipedia.org/wiki/Nas%C4%B1r_el-Vuhey%C5%9Fi"
+  },
+  {
+   "lang": "tr",
+   "lead": "Seyfül Adil (Arapça: سيف العدل; Seyfü'l Adl, d. 11 Nisan 1960/63, Minufiye), gerçek adıyla Muhammed İbrahim Mekkevi ya da bilinen diğer adıyla İbrahim el-Medeni, çeşitli İslamcı örgütler çatısı altında faaliyet göstermiş Mısırlı İslamcıdır. Mısır Kara Kuvvetlerine bağlı eski subaylardan olup önce Mı",
+   "qid": "Q929300",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Seyfü'l Adl",
+   "url": "https://tr.wikipedia.org/wiki/Seyf%C3%BC'l_Adl"
+  },
+  {
+   "lang": "tr",
+   "lead": "Sina Yarımadası el-Kaidesi, el-Kaide'ye bağlı olarak Mısır'daki Sina Yarımadası'nda faaliyet gösteren yasa dışı silahlı cihatçı Selefi örgüt.\nTemmuz 2011'de, el-Ariş'teki bir polis merkezi ile petrol boru hattına, maskeli kişiler tarafından saldırı düzenlendi. Saldırı sonrasında kendilerini Sina Yar",
+   "qid": "Q22947425",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Sina Yarımadası el-Kaidesi",
+   "url": "https://tr.wikipedia.org/wiki/Sina_Yar%C4%B1madas%C4%B1_el-Kaidesi"
+  },
+  {
+   "lang": "tr",
+   "lead": "Somali İç Savaşı Somali'de 1988'den bu yana sürmekte olan bir silahlı çatışmadır.",
+   "qid": "Q243620",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Somali İç Savaşı",
+   "url": "https://tr.wikipedia.org/wiki/Somali_%C4%B0%C3%A7_Sava%C5%9F%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "Sovyetler Birliği'nin Afganistan'a müdahalesi veya Sovyet-Afgan Savaşı, Sovyet kontrolündeki Afganistan Demokratik Cumhuriyeti'nde (DRA) 1979'dan 1989'a kadar süren uzun süreli bir silahlı çatışmaydı. Savaş, Soğuk Savaş'ın büyük bir çatışmasıydı, çünkü DRA, Sovyetler Birliği ve müttefik paramiliter ",
+   "qid": "Q83085",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Sovyetler Birliği'nin Afganistan'a müdahalesi",
+   "url": "https://tr.wikipedia.org/wiki/Sovyetler_Birli%C4%9Fi'nin_Afganistan'a_m%C3%BCdahalesi"
+  },
+  {
+   "lang": "tr",
+   "lead": "Suriye İç Savaşı (Arapça: الحرب الأهلية السورية, el-Harb'ül-ehliyye es-Suriyye), Mart 2011'de Suriye devlet başkanı Beşşar Esed'in Baas rejimine karşı Arap Baharı protestolarının bir parçası olarak ülke genelinde düzenlenen büyük ölçekli gösteriler ve demokrasi yanlısı mitingler ile başlamıştır. Sur",
+   "qid": "Q178810",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Suriye İç Savaşı",
+   "url": "https://tr.wikipedia.org/wiki/Suriye_%C4%B0%C3%A7_Sava%C5%9F%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "Suriye İç Savaşı'ndaki isyancılar arasındaki çatışmalar, Suriye İç Savaşı'nda hükûmete karşı silahlı savaş veren isyancı gruplar arasındaki çatışmaları ifade eder. Özgür Suriye Ordusu ile müttefikleri, el-Kaide'ye bağlı gruplar ile müttefikleri ve Irak ve Şam İslam Devleti'nin başını çektiği bu grup",
+   "qid": "Q15303938",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Suriye İç Savaşı'ndaki isyancılar arasındaki çatışmalar",
+   "url": "https://tr.wikipedia.org/wiki/Suriye_%C4%B0%C3%A7_Sava%C5%9F%C4%B1'ndaki_isyanc%C4%B1lar_aras%C4%B1ndaki_%C3%A7at%C4%B1%C5%9Fmalar"
+  },
+  {
+   "lang": "tr",
+   "lead": "Usame bin Muhammed bin Avad bin Ladin (Arapça: أسامة بن محمد بن عوض بن لادن‎; 10 Mart 1957, Riyad - 2 Mayıs 2011, Abbottabad), İslamcı silahlı örgüt el-Kaide'nin kurucu lideriydi. 1994 yılında vatandaşlıktan çıkarılıp vatansız kalıncaya kadar Suudi Arabistan vatandaşı olan bin Ladin, bin Ladin ailes",
+   "qid": "Q1317",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Usame bin Ladin",
+   "url": "https://tr.wikipedia.org/wiki/Usame_bin_Ladin"
+  },
+  {
+   "lang": "tr",
+   "lead": "Usame bin Ladin 1990'ların sonlarında iki fetva yazdı. İlki Ağustos 1996'da, ikincisi Şubat 1998'de yayınlandı. O zamanlar bin Ladin, memleketi Suudi Arabistan dışında hiçbir ülkede aranan bir adam değildi ve henüz uluslararası terör örgütü El-Kaide'nin lideri olarak bilinmiyordu. Bu nedenle, bu fet",
+   "qid": "Q5437340",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Usame bin Ladin'in fetvası",
+   "url": "https://tr.wikipedia.org/wiki/Usame_bin_Ladin'in_fetvas%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "11 Eylül saldırıları sonrasında halka açık alanlarda görünmeyen Usame bin Ladin'in, farklı kanallar aracılığıyla birtakım ses kayıtları ve videoları yayınladı. Bu ses kayıtları ve videolar, yayınlandığı tarihe göre şu şekildedir:",
+   "qid": "Q7928042",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Usame bin Ladin'in ses kayıtları ve videoları",
+   "url": "https://tr.wikipedia.org/wiki/Usame_bin_Ladin'in_ses_kay%C4%B1tlar%C4%B1_ve_videolar%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "Veziristan Savaşı ya da Kuzeybatı Pakistan Ayaklanması, Pakistan Ordusunun, radikal örgütler Pakistan Talibanı, Cundullah, Laşkari İslam, İslam Hukukunun Uygulanması Hareketi, El-Kaide ve DEAŞ'a karşı yürüttüğü savaştır.",
+   "qid": "Q179275",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Veziristan Savaşı",
+   "url": "https://tr.wikipedia.org/wiki/Veziristan_Sava%C5%9F%C4%B1"
+  },
+  {
+   "lang": "tr",
+   "lead": "Yemen'deki el-Kaide ayaklanması, el-Kaide'ye bağlı olarak faaliyet gösteren Arap Yarımadası el-Kaidesi'nin, Yemen'deki hükûmetine karşı ayaklanması ve taraflar arasında yaşanan silahlı çatışmalar. 1998 yılında başlaya ayaklanmaya Aralık 2014'te üçüncü bir taraf olarak Irak ve Şam İslam Devleti de da",
+   "qid": "Q286436",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "el-Cihad Uluslararası Hayırseverler Vakfı Kaide el-Cihad Küresel İslami Medya Cephesi Video ve ses Usame bin Ladin'in ses kayıtları ve videoları Eymen ez-Zevahiri'nin",
+   "term": "medya cephesi",
+   "title": "Yemen'deki el-Kaide ayaklanması",
+   "url": "https://tr.wikipedia.org/wiki/Yemen'deki_el-Kaide_ayaklanmas%C4%B1"
+  },
+  {
+   "lang": "ar",
+   "lead": "البوابة الإعلامية بسلطنة عمان؛ تعد البوابة الإعلامية لوزارة الإعلام ممثلة بالمديرية العامة للإعلام الإلكتروني واجهة إعلامية تعزز الحضور العماني في مختلف مجالاته السياسية والاقتصادية والاجتماعية والثقافية والسياحية، وتسلط الضوء على الأدوار التكاملية التي تقوم بها مؤسسات الدولة في قوالب تفاعلية لجمهور",
+   "qid": "Q131590120",
+   "reasons": [
+    "term_in_lead"
+   ],
+   "score": 45,
+   "snippet": "الإعلامية لوزارة الإعلام ممثلة بالمديرية العامة للإعلام الإلكتروني واجهة إعلامية تعزز الحضور العماني في مختلف مجالاته السياسية والاقتصادية والاجتماعية",
+   "term": "واجهة إعلامية",
+   "title": "البوابة الإعلامية (عمان)",
+   "url": "https://ar.wikipedia.org/wiki/%D8%A7%D9%84%D8%A8%D9%88%D8%A7%D8%A8%D8%A9_%D8%A7%D9%84%D8%A5%D8%B9%D9%84%D8%A7%D9%85%D9%8A%D8%A9_(%D8%B9%D9%85%D8%A7%D9%86)"
+  },
+  {
+   "lang": "ar",
+   "lead": "شركة الغد للخدمات الإعلامية هي شركة إعلامية ليبية تحظى بدعم سيف الإسلام معمر القذافي نجل الزعيم الليبي، وهي واجهة إعلامية لمشروع سيف الإسلام المسمى «ليبيا الغد» والذي وصف آنذاك «بالإصلاحي»، وتكمن رؤية الشركة بحسب ما تقول في النهوض بالإعلام القادر على العرض، إخبارا وتحليلا وتفسيرا، الملتزم بالحرفية و",
+   "qid": "Q12218624",
+   "reasons": [
+    "term_in_lead"
+   ],
+   "score": 45,
+   "snippet": "إعلامية ليبية تحظى بدعم سيف الإسلام معمر القذافي نجل الزعيم الليبي، وهي واجهة إعلامية لمشروع سيف الإسلام المسمى «ليبيا الغد» والذي وصف آنذاك «بالإصلاحي»،",
+   "term": "واجهة إعلامية",
+   "title": "شركة الغد للخدمات الإعلامية",
+   "url": "https://ar.wikipedia.org/wiki/%D8%B4%D8%B1%D9%83%D8%A9_%D8%A7%D9%84%D8%BA%D8%AF_%D9%84%D9%84%D8%AE%D8%AF%D9%85%D8%A7%D8%AA_%D8%A7%D9%84%D8%A5%D8%B9%D9%84%D8%A7%D9%85%D9%8A%D8%A9"
+  },
+  {
+   "lang": "ar",
+   "lead": "يعمل مركز التواصل الحكومي بدولة الكويت تحت مظلة عمل مشتركة بين جميع وزاراة وجهات الدولة ليكون واجهة إعلامية واحدة للتواصل المباشر والفعال بين المواطنين والمقيمين عبر شبكات التواصل الاجتماعي، ويرأس إدارته الناطق الرسمي طارق المزرم.",
+   "qid": "Q97347140",
+   "reasons": [
+    "term_in_lead"
+   ],
+   "score": 45,
+   "snippet": "بدولة الكويت تحت مظلة عمل مشتركة بين جميع وزاراة وجهات الدولة ليكون واجهة إعلامية واحدة للتواصل المباشر والفعال بين المواطنين والمقيمين عبر شبكات التواصل",
+   "term": "واجهة إعلامية",
+   "title": "مركز التواصل الحكومي (الكويت)",
+   "url": "https://ar.wikipedia.org/wiki/%D9%85%D8%B1%D9%83%D8%B2_%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84_%D8%A7%D9%84%D8%AD%D9%83%D9%88%D9%85%D9%8A_(%D8%A7%D9%84%D9%83%D9%88%D9%8A%D8%AA)"
+  },
+  {
+   "lang": "ar",
+   "lead": "ملعب أحمد بن علي المونديالي يُعرف باسم ملعب الريان يقع في منطقة أم الأفاعي في الريان غرب الدوحة عاصمة قطر، والملعب يتبع نادي الريان، وهو ملعب متعدد الأغراض، ويستخدم غالبًا في مباريات كرة القدم، تمت تسمية الملعب على اسم أحمد بن علي آل ثاني أمير قطر من عام 1960 حتى 1972. الملعب السابق الذي تم بناؤه وا",
+   "qid": "Q401643",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "الملعب الجديد لبطولة كأس العالم 2022، التي تستضيفها قطر. يتضمن التجديد « واجهة إعلامية » ضخمة مع غشاء سيكون بمثابة شاشة للأخبار والإعلانات التجارية والتحديثات",
+   "term": "واجهة إعلامية",
+   "title": "ملعب أحمد بن علي",
+   "url": "https://ar.wikipedia.org/wiki/%D9%85%D9%84%D8%B9%D8%A8_%D8%A3%D8%AD%D9%85%D8%AF_%D8%A8%D9%86_%D8%B9%D9%84%D9%8A"
+  },
+  {
+   "lang": "ar",
+   "lead": "وكالة الأنباء العمانية (أونا)؛ وتعرف اختصار بـ «العمانية» هي وكالة الأنباء الرسمية في سلطنة عمان.\n\n",
+   "qid": "Q12251170",
+   "reasons": [
+    "term_in_snippet"
+   ],
+   "score": 25,
+   "snippet": "تحديث الموقع الإلكتروني للوكالة في تعزيز جودة خدمات الموقع باعتباره واجهة إعلامية عُمانية مهمة، كما ساهم في تصويب الخدمات الإلكترونية المقدمة. تشير الدراسات",
+   "term": "واجهة إعلامية",
+   "title": "وكالة الأنباء العمانية",
+   "url": "https://ar.wikipedia.org/wiki/%D9%88%D9%83%D8%A7%D9%84%D8%A9_%D8%A7%D9%84%D8%A3%D9%86%D8%A8%D8%A7%D8%A1_%D8%A7%D9%84%D8%B9%D9%85%D8%A7%D9%86%D9%8A%D8%A9"
+  }
+ ],
+ "schema": 1
+}
