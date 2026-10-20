@@ -1,132 +1,392 @@
 {
- "at": "2026-10-20T12:25:08.557Z",
- "errors": [],
+ "at": "2026-10-20T21:39:52.134Z",
+ "errors": [
+  {
+   "http_status": null,
+   "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
+   "rule": "gdelt:GDELT en · media facade",
+   "stage": "web_fetch",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aenglish&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+  },
+  {
+   "http_status": null,
+   "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
+   "rule": "gdelt:GDELT ja · media facade",
+   "stage": "web_fetch",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Ajapanese&mode=ArtList&format=json&maxrecords=250&timespan=12h&sort=DateDesc"
+  },
+  {
+   "http_status": null,
+   "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
+   "rule": "gdelt:GDELT de · media facade",
+   "stage": "web_fetch",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Agerman&mode=ArtList&format=json&maxrecords=250&timespan=12h&sort=DateDesc"
+  },
+  {
+   "http_status": null,
+   "message": "no answer within 20000 ms",
+   "rule": "gdelt:GDELT es · media facade",
+   "stage": "web_fetch",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aspanish&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+  },
+  {
+   "http_status": 429,
+   "message": "HTTP 429",
+   "rule": "gdelt:GDELT pt · media facade",
+   "stage": "web_fetch",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aportuguese&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+  },
+  {
+   "http_status": 429,
+   "message": "HTTP 429",
+   "rule": "gdelt:GDELT nl · media facade",
+   "stage": "web_fetch",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Adutch&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+  },
+  {
+   "http_status": 429,
+   "message": "HTTP 429",
+   "rule": "gdelt:GDELT ar · media facade",
+   "stage": "web_fetch",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aarabic&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+  },
+  {
+   "http_status": 429,
+   "message": "HTTP 429",
+   "rule": "gdelt:GDELT tr · media facade",
+   "stage": "web_fetch",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aturkish&mode=ArtList&format=json&maxrecords=250&timespan=3m&sort=DateDesc"
+  },
+  {
+   "http_status": 200,
+   "message": "response exceeded the 2097152-byte cap while streaming",
+   "rule": "rss:Dezeen",
+   "stage": "web_fetch",
+   "url": "https://www.dezeen.com/feed/"
+  },
+  {
+   "http_status": 404,
+   "message": "HTTP 404",
+   "rule": "rss:Designboom Korea",
+   "stage": "web_fetch",
+   "url": "https://www.designboom.com/tag/korea/feed/"
+  }
+ ],
  "rules": [
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
    "key": "gdelt:GDELT en · media facade",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-10-20T12:45:53.556Z"
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 0,
+   "fetched": 0,
+   "kept": 0,
    "key": "gdelt:GDELT ko · media facade",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-10-20T12:46:27.896Z"
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
    "key": "gdelt:GDELT ja · media facade",
-   "next_run_at": "2026-10-20T17:46:54.792Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 0,
+   "fetched": 1,
+   "kept": 1,
    "key": "gdelt:GDELT zh · media facade",
-   "next_run_at": "2026-10-20T17:47:09.388Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
    "key": "gdelt:GDELT de · media facade",
-   "next_run_at": "2026-10-20T17:47:46.018Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 0,
+   "fetched": 0,
+   "kept": 0,
    "key": "gdelt:GDELT fr · media facade",
-   "next_run_at": "2026-10-20T17:48:01.457Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
    "key": "gdelt:GDELT es · media facade",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-10-20T12:48:35.478Z"
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 0,
+   "fetched": 0,
+   "kept": 0,
    "key": "gdelt:GDELT it · media facade",
-   "next_run_at": "2026-10-20T17:49:08.146Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
    "key": "gdelt:GDELT pt · media facade",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-10-20T12:49:36.737Z"
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
    "key": "gdelt:GDELT nl · media facade",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-10-20T12:50:01.236Z"
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 0,
+   "fetched": 0,
+   "kept": 0,
    "key": "gdelt:GDELT pl · media facade",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-10-20T12:50:15.239Z"
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 0,
+   "fetched": 5,
+   "kept": 5,
    "key": "gdelt:GDELT ru · media facade",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-10-20T12:50:38.469Z"
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
    "key": "gdelt:GDELT ar · media facade",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-10-20T12:51:13.072Z"
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
    "key": "gdelt:GDELT tr · media facade",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-10-20T12:51:47.236Z"
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
    "key": "rss:Dezeen",
-   "next_run_at": "2026-10-20T17:51:47.425Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 10
+   },
+   "errors": 0,
+   "fetched": 10,
+   "kept": 0,
    "key": "rss:designboom",
-   "next_run_at": "2026-10-20T17:51:48.144Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 24
+   },
+   "errors": 0,
+   "fetched": 24,
+   "kept": 0,
    "key": "rss:ArchDaily",
-   "next_run_at": "2026-10-20T17:51:48.354Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 30
+   },
+   "errors": 0,
+   "fetched": 30,
+   "kept": 0,
    "key": "rss:Archinect",
-   "next_run_at": "2026-10-20T17:51:48.547Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 1
+   },
+   "errors": 0,
+   "fetched": 1,
+   "kept": 0,
    "key": "rss:Creative Applications Network",
-   "next_run_at": "2026-10-20T17:51:48.821Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 3
+   },
+   "errors": 0,
+   "fetched": 10,
+   "kept": 7,
    "key": "rss:Media Architecture Institute",
-   "next_run_at": "2026-10-20T17:51:49.926Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
    "key": "rss:Designboom Korea",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-10-20T12:51:50.566Z"
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
   }
  ],
  "schema": 1
