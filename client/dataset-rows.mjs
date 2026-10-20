@@ -63,6 +63,8 @@ export function image(m) {
     thumb, src: src || thumb, page: https(m.page) || https(m.page_url), license, license_url: https(m.license_url), author, attribution,
     role: text(m.role, 40), tier: tierOf(m), width: w && w > 0 ? Math.round(w) : null, height: h && h > 0 ? Math.round(h) : null,
     focal: fx !== null && fy !== null && fx >= 0 && fy >= 0 ? { x: fx, y: fy } : null, caption: i18n(m.caption, 300), taken: text(m.date || m.taken, 40),
+    // The pipeline's verdict for the home page (a dark frame with saturated light); absent means not judged.
+    home_ok: m.home_ok === true ? true : m.home_ok === false ? false : null,
   }
 }
 /** @param {any} v */
@@ -90,7 +92,8 @@ export function toPlace(r, { publicURL = '' } = {}) {
   const record = String(publicURL || '').replace(/\/+$/, '')
   const coordURL = wd ? 'https://www.wikidata.org/wiki/' + wd : record.startsWith('https:') ? record + '/#place/' + placeId : null
   const located = lat !== null && lng !== null && !(lat === 0 && lng === 0) && !!coordURL
-  const thumb = https(r.thumb), rank = Number(r.visual_rank)
+  // visual_rank: the pipeline's 0–100 score of the card image (0 = no image); card_tier, when given, its tier.
+  const thumb = https(r.thumb), rank = num(r.visual_rank, 100), ct = Number(r.card_tier)
   const cur = typeof r.curated_place_id === 'string' && CURATED.test(r.curated_place_id) ? r.curated_place_id : CURATED.test(id) ? id : null
   return {
     place_id: placeId, origin: 'archive', dataset: true, dataset_id: id, archive_slug: id, shard: shardName(r.shard),
@@ -103,7 +106,8 @@ export function toPlace(r, { publicURL = '' } = {}) {
     year_installed: year(r.year ?? r.year_installed), year_completed: year(r.year_completed),
     review_status: 'unreviewed', record_origin: 'auto_collected', field_status: {}, credits: [], sources: [], assessments: [], technologies: [], content_types: [], spatial_context: [],
     curated_place_id: cur, wikidata: wd, website: '', official_url: null, source_url: wd ? 'https://www.wikidata.org/wiki/' + wd : '',
-    thumb, visual_rank: Number.isInteger(rank) && rank >= 1 && rank <= 5 ? rank : thumb ? 4 : null,
+    thumb, visual_rank: rank !== null && rank >= 0 ? Math.round(rank) : thumb ? 1 : 0,
+    card_tier: thumb ? (Number.isInteger(ct) && ct >= 1 && ct <= 4 ? ct : rank === null ? 4 : rank >= 70 ? 1 : rank >= 50 ? 2 : rank >= 30 ? 3 : 4) : null,
     first_collected_at: time(r.added_at ?? r.added ?? r.first_seen), created_at: time(r.added_at ?? r.added ?? r.first_seen),
     scope: iso === 'KR' ? 'korea' : 'world',
   }
@@ -129,7 +133,8 @@ export function cardMedia(/** @type {any} */ p, /** @type {any} */ img) {
   const m = img ? image(img) : null
   if (m) return mediaRow(p.place_id, m, 0)
   if (!p.thumb) return null
-  return { place_code: p.place_id, provider: 'dataset', provider_asset_id: 'dataset:' + p.thumb, display_url: p.thumb, original_file_url: '', clearance_status: 'cleared', review_required: false, creator: '', license_code: '', license_url: '', source_url: '', tier: p.visual_rank && p.visual_rank <= 4 ? p.visual_rank : 4, role: null, credit_pending: true, shard: p.shard }
+  // An index thumbnail: shown on explore cards (any tier there), its author and licence read with the record.
+  return { place_code: p.place_id, provider: 'dataset', provider_asset_id: 'dataset:' + p.thumb, display_url: p.thumb, original_file_url: '', clearance_status: 'cleared', review_required: false, creator: '', license_code: '', license_url: '', source_url: '', tier: p.card_tier || 4, home_ok: false, role: null, credit_pending: true, shard: p.shard }
 }
 /** An image record → the app's media row (the same fields as the Commons photos). */
 export function mediaRow(/** @type {string} */ placeId, /** @type {ReturnType<typeof image>} */ m, /** @type {number} */ i) {
@@ -138,7 +143,7 @@ export function mediaRow(/** @type {string} */ placeId, /** @type {ReturnType<ty
     // No fallback to the original file (it may be many megabytes); the full file stays one link away (full_url).
     place_code: placeId, provider: 'dataset', provider_asset_id: 'dataset:' + m.src, display_url: m.thumb, original_file_url: '', full_url: m.src,
     clearance_status: 'cleared', review_required: false, creator: m.author || m.attribution || '', attribution: m.attribution, license_code: m.license, license_url: m.license_url || '',
-    source_url: m.page || m.src, caption: '', caption_i18n: m.caption, captured_at: m.taken || '', tier: m.tier, role: m.role, width: m.width, height: m.height, focal: m.focal, order: i,
+    source_url: m.page || m.src, caption: '', caption_i18n: m.caption, captured_at: m.taken || '', tier: m.tier, home_ok: m.home_ok, role: m.role, width: m.width, height: m.height, focal: m.focal, order: i,
   }
 }
 

@@ -15,7 +15,7 @@ await cp(path.join(root,'site-public-cleared'),out,{recursive:true});
 console.log('Built static app from site-public-cleared →',path.relative(root,out)||'.');
 
 const {build}=await import('esbuild');
-await build({entryPoints:[path.join(root,'client/cloud.js'),path.join(root,'client/native.js'),path.join(root,'client/supabase.js'),path.join(root,'client/live-media.js'),path.join(root,'client/global-places.js'),path.join(root,'client/archive.js')],bundle:true,minify:true,format:'esm',target:'es2022',outdir:path.join(out,'assets')});
+await build({entryPoints:[path.join(root,'client/cloud.js'),path.join(root,'client/native.js'),path.join(root,'client/supabase.js'),path.join(root,'client/live-media.js'),path.join(root,'client/global-places.js'),path.join(root,'client/archive.js'),path.join(root,'client/dataset.js'),path.join(root,'client/led-facade.js')],bundle:true,minify:true,format:'esm',target:'es2022',outdir:path.join(out,'assets')});
 // Third-party browser libraries are self-hosted (pinned by package-lock) instead of loaded from public CDNs.
 const leaflet=path.join(root,'node_modules/leaflet/dist');
 await mkdir(path.join(out,'assets/vendor/leaflet'),{recursive:true});

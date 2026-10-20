@@ -67,7 +67,7 @@ function image(id, kind, i) {
     src: orig, page: `https://commons.wikimedia.org/wiki/File:${file}`,
     license: i % 3 === 0 ? 'CC BY-SA 4.0' : i % 3 === 1 ? 'CC BY 2.0' : 'CC0 1.0',
     license_url: i % 3 === 0 ? 'https://creativecommons.org/licenses/by-sa/4.0' : i % 3 === 1 ? 'https://creativecommons.org/licenses/by/2.0' : 'https://creativecommons.org/publicdomain/zero/1.0/',
-    author: 'Fixture Photographer ' + (i + 1), attribution: null, role: ROLE[kind], tier: TIER[kind], width: 4000, height: kind === 'day' ? 2667 : 3000,
+    author: 'Fixture Photographer ' + (i + 1), attribution: null, role: ROLE[kind], tier: TIER[kind], home_ok: TIER[kind] <= 3, width: 4000, height: kind === 'day' ? 2667 : 3000,
   }
 }
 const shardOf = i => String(Math.floor(i / 15)).padStart(3, '0')
@@ -97,7 +97,7 @@ const card = r => { const b = best(r); return { id: r.id, name_ko: r.name_ko, na
 export function siteData(records, { buildId = BUILD_ID, generatedAt = at } = {}) {
   const count = (f) => records.reduce((o, r) => { const k = f(r); if (k) o[k] = (o[k] || 0) + 1; return o }, {})
   const shards = [...new Set(records.map(r => r.shard))]
-  const index = { fields: INDEX_FIELDS, rows: records.map(r => { const b = best(r); return [r.id, r.name_ko, r.name_en, r.name_original, r.country_iso2, r.city, r.lat, r.lng, r.project_type, r.year_installed, b?.thumb || null, b?.tier || null, r.shard, r.added_at] }) }
+  const index = { fields: INDEX_FIELDS, rows: records.map(r => { const b = best(r); return [r.id, r.name_ko, r.name_en, r.name_original, r.country_iso2, r.city, r.lat, r.lng, r.project_type, r.year_installed, b?.thumb || null, b ? ({ 1: 85, 2: 60, 3: 40, 4: 15 })[b.tier] - (r.id.length % 10) : 0, r.shard, r.added_at] }) }
   const lit = records.filter(r => best(r) && best(r).tier <= 3)
   const heroRecs = records.filter(r => r.images.some(i => i.role === 'hero'))
   const byRegion = count(r => REGION[r.country_iso2]), byType = count(r => r.project_type), byCountry = count(r => r.country_iso2)
