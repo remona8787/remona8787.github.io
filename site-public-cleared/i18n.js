@@ -98,7 +98,7 @@ const S={
  'filter.years':['연도','Year'],'filter.yearFrom':['부터','From'],'filter.yearTo':['까지','To'],
  'filter.yearNote':['설치 연도, 없으면 완공·개시 연도, 프로젝트 연도, 프로그램 시작 연도 순으로 봐요. 연도를 정하면 연도가 없는 곳은 빠져요.','Uses the year installed, else completed or opened, the project year or the programme’s start year. Places without a year drop out once a year is set.'],
  'filter.yearsChip':['{from}–{to}년','{from}–{to}'],'filter.yearFromChip':['{from}년부터','From {from}'],'filter.yearToChip':['{to}년까지','Until {to}'],'filter.hasPhoto':['사진 있음','With photos'],'filter.schedule':['일정과 구분','Schedule and kind'],'filter.state':['일정 상태','Schedule'],'filter.kind':['콘텐츠 구분','Kind'],'filter.conditions':['조건','Conditions'],'filter.free':['무료','Free'],'filter.indoor':['실내','Indoor'],
- 'state.ongoing':['수록 일정상 진행 중','On now (as listed)'],'state.upcoming':['개막 예정','Opening soon'],'state.ended':['종료','Ended'],'state.permanent':['상설','Permanent'],
+ 'state.ongoing':['진행 중','On now (as listed)'],'state.upcoming':['개막 예정','Opening soon'],'state.ended':['종료','Ended'],'state.permanent':['상설','Permanent'],
  'stateChip.ongoing':['진행 중','On now'],'stateChip.upcoming':['개막 예정','Opening soon'],'stateChip.ended':['종료','Ended'],'stateChip.permanent':['상설','Permanent'],
  'kind.permanent':['상설','Permanent'],'kind.temporary':['기간형','Temporary'],
  // sync status (설정): honest wording, nothing here is live

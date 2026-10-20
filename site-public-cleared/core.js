@@ -14,7 +14,7 @@ function freshness(p,date=today()){
  // Archive projects: the editor's review state first; a broken official link is said before anything else.
  if(p.origin==='archive'){if(p.update_status==='link_broken')return {key:'archive_link_broken',label:'링크 오류 · 확인 중',tone:'warn',age:null};if(p.review_status==='researcher_assessed')return {key:'archive_assessed',label:'연구자 평가',tone:'ok',age:null};if(p.review_status==='editor_verified')return {key:'archive_verified',label:'편집 검수',tone:'ok',age:null};if(p.record_origin==='curated')return {key:'archive_curated',label:'편집부 수록',tone:'ok',age:null};return {key:'archive_unreviewed',label:'자동 수집 · 미검수',tone:'warn',age:null}}
  if(validDate(p.program_end)&&p.program_end<date)return {key:'ended',label:'수록 프로그램 종료',tone:'off',age};
- if(validDate(p.program_start)&&p.program_start>date)return {key:'upcoming',label:'수록 일정상 예정',tone:'info',age};
+ if(validDate(p.program_start)&&p.program_start>date)return {key:'upcoming',label:'예정',tone:'info',age};
  if(/ENDED|BETWEEN/.test(p.live_operation_state||''))return {key:'ended',label:'수록 프로그램 종료',tone:'off',age};
  if(age===null||age<0)return {key:'unverified',label:'확인일 검토 필요',tone:'warn',age};
  if(age>=ttl)return {key:'stale',label:'재확인 시점 경과',tone:'warn',age};
