@@ -1,0 +1,653 @@
+{
+ "schema": 1,
+ "site": "https://remona8787.github.io/",
+ "started_at": "2026-10-20T12:28:46.055Z",
+ "finished_at": "2026-10-20T12:29:26.779Z",
+ "expected": {
+  "build_id": "20261020T122508Z-dbe51fe7",
+  "deploy_id": "71f609fbb5d6"
+ },
+ "wait": {
+  "ok": true,
+  "waited_ms": 284,
+  "attempts": 1,
+  "live": {
+   "deploy_id": "71f609fbb5d6",
+   "deployed_at": "2026-10-20T12:28:05.698Z",
+   "source": "46f5691d2970facf07ac07218f68d7dd0172a6ab",
+   "dataset": "data_branch",
+   "build_id": "20261020T122508Z-dbe51fe7",
+   "generated_at": "2026-10-20T12:25:08.557Z",
+   "counts": {
+    "projects": 262,
+    "with_images": 126,
+    "with_hero": 10
+   }
+  }
+ },
+ "detail_project": "CAT-14IPYSX",
+ "viewports": [
+  {
+   "name": "mobile",
+   "width": 390,
+   "height": 844,
+   "device_scale_factor": 2
+  },
+  {
+   "name": "desktop",
+   "width": 1440,
+   "height": 900,
+   "device_scale_factor": 1
+  }
+ ],
+ "summary": {
+  "pages": 12,
+  "loaded": 12,
+  "console_errors": 0,
+  "failed_requests": 0,
+  "http_errors": 0,
+  "broken_images": 0,
+  "internal_terms": [],
+  "max_lcp_ms": 2152,
+  "lcp_ms": {
+   "mobile-home": 2152,
+   "mobile-explore": 716,
+   "mobile-map": 108,
+   "mobile-detail": 108,
+   "mobile-data": 100,
+   "mobile-admin": 372,
+   "desktop-home": 680,
+   "desktop-explore": 688,
+   "desktop-map": 140,
+   "desktop-detail": 308,
+   "desktop-data": 136,
+   "desktop-admin": 164
+  },
+  "transfer_bytes": {
+   "mobile-home": 1362944,
+   "mobile-explore": 2154299,
+   "mobile-map": 3654322,
+   "mobile-detail": 572930,
+   "mobile-data": 694122,
+   "mobile-admin": 271879,
+   "desktop-home": 1310518,
+   "desktop-explore": 2104555,
+   "desktop-map": 3500623,
+   "desktop-detail": 572979,
+   "desktop-data": 694080,
+   "desktop-admin": 271853
+  },
+  "home_loads_index": false,
+  "ok": true
+ },
+ "pages": [
+  {
+   "page": "home",
+   "viewport": "mobile",
+   "url": "https://remona8787.github.io/",
+   "status": 200,
+   "ok": true,
+   "title": "빛이 건축이 되는 순간들 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 2152,
+    "size": 166500,
+    "element": "img.hero-img",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Gabriel_Poirier-Galarneau_et_Vincent_Bilodeau%2C_9X-MTL-%2C_2015_%2818433093181%29.jpg/500px-Gabriel_Poirier-Galarneau_et_Vincent_Bilodeau%2C_9X-MTL-%2C_2015_%2818433093181%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_con"
+   },
+   "timings": {
+    "ttfb_ms": 130,
+    "dom_content_loaded_ms": 1887,
+    "load_ms": 1888
+   },
+   "transfer": {
+    "total_bytes": 1362944,
+    "requests": 52,
+    "by_type": {
+     "document": 15037,
+     "stylesheet": 45192,
+     "image": 685746,
+     "script": 224948,
+     "font": 386113,
+     "fetch": 5908
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/home.json",
+     "bytes": 5908
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "mobile-home.jpg",
+   "error": null
+  },
+  {
+   "page": "explore",
+   "viewport": "mobile",
+   "url": "https://remona8787.github.io/#explore",
+   "status": 200,
+   "ok": true,
+   "title": "발견 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 716,
+    "size": 29929,
+    "element": "img",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Banpo_Bridge_Moonlight_Rainbow_Fountain_at_night_-_2023-08-14.jpg/500px-Banpo_Bridge_Moonlight_Rainbow_Fountain_at_night_-_2023-08-14.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+   },
+   "timings": {
+    "ttfb_ms": 22,
+    "dom_content_loaded_ms": 409,
+    "load_ms": 409
+   },
+   "transfer": {
+    "total_bytes": 2154299,
+    "requests": 65,
+    "by_type": {
+     "document": 15034,
+     "stylesheet": 45125,
+     "image": 1515056,
+     "script": 224696,
+     "font": 337212,
+     "fetch": 17176
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 16006
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1170
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "mobile-explore.jpg",
+   "error": null
+  },
+  {
+   "page": "map",
+   "viewport": "mobile",
+   "url": "https://remona8787.github.io/#map",
+   "status": 200,
+   "ok": true,
+   "title": "지도에서 만나는 빛 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 108,
+    "size": 16944,
+    "element": "p.footer-note",
+    "url": null
+   },
+   "timings": {
+    "ttfb_ms": 33,
+    "dom_content_loaded_ms": 352,
+    "load_ms": 352
+   },
+   "transfer": {
+    "total_bytes": 3654322,
+    "requests": 72,
+    "by_type": {
+     "document": 15034,
+     "image": 2926007,
+     "stylesheet": 49243,
+     "script": 268354,
+     "font": 378522,
+     "fetch": 17162
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 15991
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1171
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "mobile-map.jpg",
+   "error": null
+  },
+  {
+   "page": "detail",
+   "viewport": "mobile",
+   "url": "https://remona8787.github.io/#place/CAT-14IPYSX",
+   "status": 200,
+   "ok": true,
+   "title": "페이지를 찾을 수 없어요 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 108,
+    "size": 16944,
+    "element": "p.footer-note",
+    "url": null
+   },
+   "timings": {
+    "ttfb_ms": 27,
+    "dom_content_loaded_ms": 253,
+    "load_ms": 253
+   },
+   "transfer": {
+    "total_bytes": 572930,
+    "requests": 35,
+    "by_type": {
+     "document": 15035,
+     "stylesheet": 45125,
+     "image": 3495,
+     "script": 224744,
+     "font": 207927,
+     "fetch": 76604
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 15992
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1173
+    },
+    {
+     "path": "data/projects/000.json",
+     "bytes": 59439
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "mobile-detail.jpg",
+   "error": null
+  },
+  {
+   "page": "data",
+   "viewport": "mobile",
+   "url": "https://remona8787.github.io/#data",
+   "status": 200,
+   "ok": true,
+   "title": "연구 데이터 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 100,
+    "size": 16944,
+    "element": "p.footer-note",
+    "url": null
+   },
+   "timings": {
+    "ttfb_ms": 24,
+    "dom_content_loaded_ms": 327,
+    "load_ms": 396
+   },
+   "transfer": {
+    "total_bytes": 694122,
+    "requests": 41,
+    "by_type": {
+     "document": 15035,
+     "stylesheet": 45129,
+     "image": 3522,
+     "script": 224682,
+     "font": 388590,
+     "fetch": 17164
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 15992
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1172
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "mobile-data.jpg",
+   "error": null
+  },
+  {
+   "page": "admin",
+   "viewport": "mobile",
+   "url": "https://remona8787.github.io/admin/",
+   "status": 200,
+   "ok": true,
+   "title": "운영 콘솔 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 372,
+    "size": 24288,
+    "element": "div.notice.error",
+    "url": null
+   },
+   "timings": {
+    "ttfb_ms": 118,
+    "dom_content_loaded_ms": 368,
+    "load_ms": 368
+   },
+   "transfer": {
+    "total_bytes": 271879,
+    "requests": 16,
+    "by_type": {
+     "document": 5149,
+     "stylesheet": 19732,
+     "image": 2429,
+     "script": 36674,
+     "font": 207895
+    }
+   },
+   "data_files": [],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "mobile-admin.jpg",
+   "error": null
+  },
+  {
+   "page": "home",
+   "viewport": "desktop",
+   "url": "https://remona8787.github.io/",
+   "status": 200,
+   "ok": true,
+   "title": "빛이 건축이 되는 순간들 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 680,
+    "size": 166500,
+    "element": "img.hero-img",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Gabriel_Poirier-Galarneau_et_Vincent_Bilodeau%2C_9X-MTL-%2C_2015_%2818433093181%29.jpg/500px-Gabriel_Poirier-Galarneau_et_Vincent_Bilodeau%2C_9X-MTL-%2C_2015_%2818433093181%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_con"
+   },
+   "timings": {
+    "ttfb_ms": 23,
+    "dom_content_loaded_ms": 462,
+    "load_ms": 462
+   },
+   "transfer": {
+    "total_bytes": 1310518,
+    "requests": 51,
+    "by_type": {
+     "document": 15035,
+     "stylesheet": 45103,
+     "image": 633538,
+     "script": 224690,
+     "font": 386244,
+     "fetch": 5908
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/home.json",
+     "bytes": 5908
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "desktop-home.jpg",
+   "error": null
+  },
+  {
+   "page": "explore",
+   "viewport": "desktop",
+   "url": "https://remona8787.github.io/#explore",
+   "status": 200,
+   "ok": true,
+   "title": "발견 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 688,
+    "size": 47126,
+    "element": "img",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/Night_View_in_Seoullo_7017_02.jpg/500px-Night_View_in_Seoullo_7017_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+   },
+   "timings": {
+    "ttfb_ms": 29,
+    "dom_content_loaded_ms": 437,
+    "load_ms": 437
+   },
+   "transfer": {
+    "total_bytes": 2104555,
+    "requests": 65,
+    "by_type": {
+     "document": 15035,
+     "stylesheet": 45125,
+     "image": 1465466,
+     "script": 224756,
+     "font": 337008,
+     "fetch": 17165
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 15992
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1173
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "desktop-explore.jpg",
+   "error": null
+  },
+  {
+   "page": "map",
+   "viewport": "desktop",
+   "url": "https://remona8787.github.io/#map",
+   "status": 200,
+   "ok": true,
+   "title": "지도에서 만나는 빛 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 140,
+    "size": 15960,
+    "element": "p.footer-note",
+    "url": null
+   },
+   "timings": {
+    "ttfb_ms": 28,
+    "dom_content_loaded_ms": 374,
+    "load_ms": 374
+   },
+   "transfer": {
+    "total_bytes": 3500623,
+    "requests": 70,
+    "by_type": {
+     "document": 15035,
+     "stylesheet": 49036,
+     "image": 2772340,
+     "script": 268077,
+     "font": 378970,
+     "fetch": 17165
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 15993
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1172
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "desktop-map.jpg",
+   "error": null
+  },
+  {
+   "page": "detail",
+   "viewport": "desktop",
+   "url": "https://remona8787.github.io/#place/CAT-14IPYSX",
+   "status": 200,
+   "ok": true,
+   "title": "페이지를 찾을 수 없어요 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 308,
+    "size": 15960,
+    "element": "p.footer-note",
+    "url": null
+   },
+   "timings": {
+    "ttfb_ms": 115,
+    "dom_content_loaded_ms": 1299,
+    "load_ms": 1300
+   },
+   "transfer": {
+    "total_bytes": 572979,
+    "requests": 35,
+    "by_type": {
+     "document": 15035,
+     "stylesheet": 45282,
+     "image": 3248,
+     "script": 224688,
+     "font": 208137,
+     "fetch": 76589
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 15993
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1171
+    },
+    {
+     "path": "data/projects/000.json",
+     "bytes": 59425
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "desktop-detail.jpg",
+   "error": null
+  },
+  {
+   "page": "data",
+   "viewport": "desktop",
+   "url": "https://remona8787.github.io/#data",
+   "status": 200,
+   "ok": true,
+   "title": "연구 데이터 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 136,
+    "size": 15960,
+    "element": "p.footer-note",
+    "url": null
+   },
+   "timings": {
+    "ttfb_ms": 26,
+    "dom_content_loaded_ms": 357,
+    "load_ms": 418
+   },
+   "transfer": {
+    "total_bytes": 694080,
+    "requests": 41,
+    "by_type": {
+     "document": 15034,
+     "stylesheet": 45126,
+     "image": 3398,
+     "script": 224615,
+     "font": 388733,
+     "fetch": 17174
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 16002
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1172
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "desktop-data.jpg",
+   "error": null
+  },
+  {
+   "page": "admin",
+   "viewport": "desktop",
+   "url": "https://remona8787.github.io/admin/",
+   "status": 200,
+   "ok": true,
+   "title": "운영 콘솔 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 164,
+    "size": 21440,
+    "element": "div.notice.error",
+    "url": null
+   },
+   "timings": {
+    "ttfb_ms": 30,
+    "dom_content_loaded_ms": 150,
+    "load_ms": 150
+   },
+   "transfer": {
+    "total_bytes": 271853,
+    "requests": 16,
+    "by_type": {
+     "document": 5149,
+     "stylesheet": 19686,
+     "image": 2283,
+     "script": 36726,
+     "font": 208009
+    }
+   },
+   "data_files": [],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "desktop-admin.jpg",
+   "error": null
+  }
+ ]
+}
