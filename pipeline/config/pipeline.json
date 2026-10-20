@@ -40,7 +40,8 @@
     "wiki_search": 72,
     "wiki_pages": 168,
     "links": 168,
-    "overpass": 720
+    "overpass": 720,
+    "commons_depicts": 336
   },
   "wikipedia": {
     "about": "Media-facade discovery: phrase searches of the local terms in each Wikipedia; each hit is mapped to its Wikidata item and accepted only by the rules in lib/wikipedia.mjs (score and reasons in review/wikipedia.json).",
@@ -254,8 +255,11 @@
     "max_subcategories": 3,
     "members_per_category": 200,
     "files_per_subcategory": 40,
+    "depicts": true,
+    "depicts_max_per_run": 80,
+    "depicts_per_project": 30,
     "public_thumb_width": 500,
-    "about": "thumb_width: the Commons thumbnail read for scoring (330 px, a standard step); score_width: the size measured (320 px); public_thumb_width: the card thumbnail published (500 px). A home image needs mean luminance <= home_max_mean_luminance, saturated bright share >= home_min_saturated_bright and colourfulness >= home_min_colourfulness; a hero also needs visual >= hero_visual_threshold, an original >= hero_min_width and the reviewed allowlist."
+    "about": "thumb_width: the Commons thumbnail read for scoring (330 px, a standard step); score_width: the size measured (320 px); public_thumb_width: the card thumbnail published (500 px). A home image needs mean luminance <= home_max_mean_luminance, saturated bright share >= home_min_saturated_bright and colourfulness >= home_min_colourfulness; a hero also needs visual >= hero_visual_threshold, an original >= hero_min_width and the reviewed allowlist. depicts: files whose structured data says they depict the item (P180, haswbstatement search), asked only for projects without a candidate named with both night and media evidence; at most depicts_max_per_run new searches per run, cached two weeks."
   },
   "links": {
     "max_per_run": 400,

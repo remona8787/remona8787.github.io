@@ -157,6 +157,16 @@ export async function searchFiles(client, term, { limit = 100, cache, ttlHours =
 }
 
 /**
+ * Files whose structured data says they depict the item (P180 "depicts"), found with one CirrusSearch query
+ * (haswbstatement:P180=<QID>, namespace 6). Cached per item.
+ */
+export async function depictsFiles(client, qid, { limit = 30, cache, ttlHours = 336 } = {}) {
+  if (!/^Q[1-9]\d*$/.test(String(qid))) return []
+  const json = await client.json(api({ action: 'query', list: 'search', srsearch: `haswbstatement:P180=${qid}`, srnamespace: '6', srlimit: String(Math.min(50, limit)), srprop: 'size' }), { stage: 'images', cache: cache ? { ns: 'commons-depicts', key: qid, ttlMs: ttlHours * HOUR } : null })
+  return (json?.query?.search || []).filter((s) => s.ns === 6).map((s) => bareFile(s.title))
+}
+
+/**
  * Category discovery: searches and walks. Returns {categories: Map(title → {info, decision, reason, root, parent,
  * project_type, place_hint, night_subcats[], editions[]}), errors, partial}.
  */

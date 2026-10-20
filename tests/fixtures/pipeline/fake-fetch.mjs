@@ -105,6 +105,12 @@ const catPage = (title, props) => {
 
 function commons(p, state) {
   const props = (p.get('prop') || '').split('|')
+  if (p.get('list') === 'search' && /^haswbstatement:P180=Q\d+$/.test(p.get('srsearch') || '')) {
+    // Structured-data search: files that depict an item (namespace 6).
+    const qid = p.get('srsearch').split('=')[1]
+    const list = (FIX.search.depicts?.[qid] || []).map((title, i) => ({ ns: 6, title, pageid: FIX.files.get(title.replace(/^File:/, ''))?.page.pageid ?? 3000 + i, size: 2400000 }))
+    return jsonRes({ batchcomplete: true, query: { searchinfo: { totalhits: list.length }, search: list } })
+  }
   if (p.get('list') === 'search') {
     const term = /intitle:"(.+)"/.exec(p.get('srsearch') || '')?.[1] || ''
     const list = (FIX.search.category[term] || []).map((title, i) => ({ ns: 14, title, pageid: FIX.categories.get(title)?.page.pageid ?? 1000 + i, size: 0, wordcount: 0, snippet: '', timestamp: '2025-01-01T00:00:00Z' }))

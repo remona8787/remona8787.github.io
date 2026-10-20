@@ -1,10 +1,11 @@
 {
  "cache": {
   "hits": 3,
-  "misses": 352,
+  "misses": 388,
   "sizes": {
    "commons-category": 14,
-   "commons-files": 17,
+   "commons-depicts": 16,
+   "commons-files": 19,
    "commons-members": 24,
    "commons-search": 40,
    "entities": 27,
@@ -12,12 +13,12 @@
    "links": 95,
    "overpass": 12,
    "sparql": 28,
-   "visual": 13,
+   "visual": 15,
    "wiki-pages": 9,
    "wiki-search": 31
   },
   "stale": 0,
-  "writes": 352
+  "writes": 372
  },
  "changes": {
   "carried_over": [],
@@ -98,7 +99,7 @@
   "carried_over": 0,
   "changed": 0,
   "excluded": 4,
-  "hero_candidates_awaiting_review": 5,
+  "hero_candidates_awaiting_review": 6,
   "merged": 1,
   "new": 60,
   "observations": 75,
@@ -108,7 +109,7 @@
   "removed": 0,
   "stale": 0,
   "with_hero": 3,
-  "with_images": 10
+  "with_images": 11
  },
  "decisions": [
   {
@@ -268,16 +269,16 @@
    }
   },
   "commons.wikimedia.org": {
-   "bytes": 55770,
+   "bytes": 61677,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 84000,
+   "ms": 101760,
    "not_modified": 0,
-   "ok": 87,
-   "requests": 87,
+   "ok": 105,
+   "requests": 105,
    "statuses": {
-    "200": 87
+    "200": 105
    }
   },
   "de.wikipedia.org": {
@@ -463,16 +464,16 @@
    }
   },
   "upload.wikimedia.org": {
-   "bytes": 85091,
+   "bytes": 97077,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 520,
+   "ms": 600,
    "not_modified": 0,
-   "ok": 13,
-   "requests": 13,
+   "ok": 15,
+   "requests": 15,
    "statuses": {
-    "200": 13
+    "200": 15
    }
   },
   "www.wikidata.org": {
@@ -503,22 +504,23 @@
   }
  },
  "images": {
-  "candidates": 17,
+  "candidates": 19,
   "contact_sheets": [
    "hero-candidates-01.jpg",
    "cards-01.jpg"
   ],
+  "depicts_searches": 16,
   "kept_previous": 0,
   "measure_errors": 0,
-  "measured": 13,
-  "none": 50,
+  "measured": 15,
+  "none": 49,
   "processed": 60,
   "rejected": {
    "interior_unrelated_to_work": 1,
    "rights:foreign_no_freedom_of_panorama": 1,
    "rights:license_not_allowed": 1
   },
-  "thumbnails_fetched": 13
+  "thumbnails_fetched": 15
  },
  "reachability": {
   "ar.wikipedia.org": "reachable",
@@ -543,14 +545,14 @@
  },
  "review_queue": {
   "candidates": 2,
-  "hero_candidates": 5
+  "hero_candidates": 6
  },
  "run": {
   "budget_minutes": 25,
-  "build_id": "20261020T061700Z-550f0bd3",
+  "build_id": "20261020T061700Z-e4924ffe",
   "drop_guard": null,
-  "duration_ms": 184400,
-  "finished_at": "2026-10-20T06:20:04.400Z",
+  "duration_ms": 202400,
+  "finished_at": "2026-10-20T06:20:22.400Z",
   "number": 1,
   "publish": "published",
   "started_at": "2026-10-20T06:17:00.000Z",
@@ -705,7 +707,7 @@
    "status": "ok"
   },
   "images": {
-   "duration_ms": 28080,
+   "duration_ms": 46080,
    "status": "ok"
   },
   "links": {

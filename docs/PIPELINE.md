@@ -128,7 +128,7 @@ full URL.
 |---|---|---|---|
 | Wikidata Query Service `query.wikidata.org/sparql` | class counts and instances (`?item wdt:P31/wdt:P279* wd:<class>`, LIMIT 5000), auxiliary labels, ISO codes, P131 chains | 1 request/s, cached 24 h (counts, instances) and 30 days (aux) | data CC0; WDQS user-agent policy and 60 s query limit |
 | Wikidata API `www.wikidata.org/w/api.php` | `wbgetentities`, 25 items per request: labels (ko, en, original language), P17, P131, P625, P571, P580, P582, P84, P170, P137, P856, P373, P18, P301, sitelinks | 1 request/s, `maxlag=5`, cached 72 h | CC0 |
-| Wikimedia Commons API | category search (namespace 14), file search (namespace 6) for "media facade" terms, category walk, members, `imageinfo` + `extmetadata`, templates (deletion, NoFoP, Korean FoP) | 1 request/s, `maxlag=5`; categories 72 h, file metadata 14 days | each file's own licence; attribution is always published with the image |
+| Wikimedia Commons API | category search (namespace 14), file search (namespace 6) for "media facade" terms, P180 depicts search, category walk, members, `imageinfo` + `extmetadata`, templates (deletion, NoFoP, Korean FoP) | 1 request/s, `maxlag=5`; categories 72 h, depicts and file metadata 14 days | each file's own licence; attribution is always published with the image |
 | `upload.wikimedia.org` | 330 px thumbnails for visual scoring | 5 requests/s, ≤ 1,800 per run, standard thumbnail steps only, the score cached a year by file and sha1 | as above; thumbnails are measured, never re-hosted |
 | Wikipedia APIs (14 wikis: en de ko ja zh fr es it nl pl ru pt tr ar) | `list=search` phrase queries, `pageprops` (wikibase_item), lead extracts, coordinates | 1 request/s per wiki (the wikis in parallel), `maxlag=5`; search 72 h, pages 7 days | CC BY-SA 4.0: only the article URL is published, as a source; snippets stay in `review/` |
 | GDELT DOC 2.0 | news candidates | 1 request per 5 s | free; candidates only |
@@ -190,7 +190,10 @@ Candidates for each project:
 
 - the item's P18;
 - files of the project category and of its "at night", illuminated and event subcategories;
-- night subcategories found by the walk.
+- night subcategories found by the walk;
+- files whose structured data depicts the item (P180, one `haswbstatement:P180=<QID>` search per project). This is
+  only for projects none of whose candidates names both night and media evidence, at most 80 new searches per run
+  (`images.depicts_max_per_run`), and cached two weeks, so the searches reach every project over a few runs.
 
 Rights are checked with `edge-functions/_shared/live-media.mjs`:
 

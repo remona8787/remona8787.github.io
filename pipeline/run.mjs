@@ -27,7 +27,7 @@ import { createClient, USER_AGENT } from './lib/net.mjs'
 import { Cache, HOUR } from './lib/cache.mjs'
 import { readJSON, writeJSON, writeFileAtomic, swapDir, listFiles } from './lib/io.mjs'
 import { discoverClasses, classInstances, fetchEntities, fetchAux, auxRefs, auxNext, factsOf } from './lib/wikidata.mjs'
-import { discoverCategories, categoryRules, isNightCategory, isEventCategory, nightParent, fileInfo, categoryMembers, categoryFiles } from './lib/commons.mjs'
+import { discoverCategories, categoryRules, isNightCategory, isEventCategory, nightParent, fileInfo, categoryMembers, categoryFiles, depictsFiles } from './lib/commons.mjs'
 import { discoverWikipedia, acceptEntity } from './lib/wikipedia.mjs'
 import { webRules, collectWeb, mergeCandidates } from './lib/web.mjs'
 import { checkCoordinates } from './lib/overpass.mjs'
@@ -362,7 +362,7 @@ export async function runPipeline(o) {
   }
   const typeOrder = ['media_facade', 'projection_mapping', 'media_wall', 'urban_screen', 'interactive_installation', 'light_art', 'media_architecture', 'festival_program', 'other']
   const order = [...published].sort((a, b) => (b.curated_id ? 1 : 0) - (a.curated_id ? 1 : 0) || (prev.records.get(b.id)?.images?.length ? 1 : 0) - (prev.records.get(a.id)?.images?.length ? 1 : 0) || typeOrder.indexOf(a.project_type) - typeOrder.indexOf(b.project_type) || (b.p18.length ? 1 : 0) - (a.p18.length ? 1 : 0) || compareStrings(a.id, b.id))
-  let thumbsFetched = 0
+  let thumbsFetched = 0, depictsAsked = 0
   const heroOutcome = new Map()
   const imageStats = { processed: 0, kept_previous: 0, none: 0, candidates: 0, rejected: {}, measured: 0, measure_errors: 0 }
   await st.run('images', async () => {
@@ -420,7 +420,16 @@ export async function runPipeline(o) {
         for (const f of await categoryFiles(client, s, { cache, ttlHours: ttl.commons_members ?? 72, limit: IC.files_per_subcategory ?? 40 })) add(f, isNightCategory(s, catRulesLite) ? 'night_category' : 'event_category', s)
       }
     }
-    const bonus = { p18: 15, night_category: 40, event_category: 20, part_category: 10, category: 0 }
+    // Files whose structured data depicts the item (P180), only for a project none of whose candidates names both
+    // night and media evidence: one search per project, at most depicts_max_per_run new searches, cached two weeks.
+    if (p.qid && IC.depicts !== false && !out.some((c) => { const n = nameEvidence(c.file); return n.night >= 30 && n.media >= 30 })) {
+      const cached = cache.fresh('commons-depicts', p.qid) !== undefined
+      if (cached || depictsAsked < (IC.depicts_max_per_run ?? 80)) {
+        if (!cached) depictsAsked++
+        for (const f of await depictsFiles(client, p.qid, { cache, ttlHours: ttl.commons_depicts ?? 336, limit: IC.depicts_per_project ?? 30 })) add(f, 'depicts')
+      }
+    }
+    const bonus = { p18: 15, night_category: 40, event_category: 20, part_category: 10, depicts: 5, category: 0 }
     const ranked = out.map((c) => { const n = nameEvidence(c.file); return { ...c, pre: n.night + n.media + (bonus[c.source] ?? 0) } }).sort((a, b) => b.pre - a.pre || compareStrings(a.file, b.file))
     imageStats.candidates += ranked.length
     return ranked.slice(0, IC.max_candidates_per_project ?? 16)
@@ -651,7 +660,7 @@ export async function runPipeline(o) {
     reachability: Object.fromEntries(Object.entries(client.stats).map(([host, s]) => [host, s.ok + s.not_modified + s.cached > 0 ? 'reachable' : s.requests ? 'failed' : 'not_used'])),
     cache: { sizes: cache.sizes(), ...cache.stats },
     counts,
-    images: { ...imageStats, thumbnails_fetched: thumbsFetched, contact_sheets: sheets.map((s) => s.sheet) },
+    images: { ...imageStats, thumbnails_fetched: thumbsFetched, depicts_searches: depictsAsked, contact_sheets: sheets.map((s) => s.sheet) },
     changes: { new: newIds.slice(0, 200), changed: changed.slice(0, 200), removed: track.removed, carried_over: track.carried, merges: [...merges, ...ed.merges.filter((m) => m.entry.status === 'applied').map((m) => ({ rule: 'editorial_merge', a: m.from, b: m.into }))] },
     decisions,
     hero_list: heroList,

@@ -10,7 +10,7 @@ years, files and links, and QIDs `Q99000xxx` do not exist on Wikidata. Never pub
 | `wikidata/sparql/class-count-<QID>.json`, `class-instances-<QID>.json` | `query.wikidata.org` SPARQL JSON results (`head.vars`, `results.bindings`) |
 | `commons/categories.json` | Commons category pages (`formatversion=2`: `pageprops.wikibase_item`, `categoryinfo`, `coordinates`) and their `categorymembers` |
 | `commons/files.json` | Commons file pages: `imageinfo` (sizes, sha1, thumb URLs, `extmetadata` with licence and author) and `templates` |
-| `commons/search.json` | category (namespace 14) and file (namespace 6) name search results |
+| `commons/search.json` | category (namespace 14) and file (namespace 6) name search results, and `haswbstatement:P180=<QID>` (depicts) results |
 | `wikipedia/<lang>.json` | `list=search` hits (with `searchmatch` snippets) and `prop=pageprops|extracts|coordinates` pages |
 | `web/gdelt.json`, `web/feed.xml` | a GDELT DOC 2.0 `ArtList` answer and an RSS 2.0 feed (served with an ETag) |
 | `links.json`, `overpass.json` | link-check and `robots.txt` answers per host; an Overpass `out center tags` answer |

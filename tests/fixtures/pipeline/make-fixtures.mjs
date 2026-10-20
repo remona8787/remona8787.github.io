@@ -156,6 +156,9 @@ const FILES = [
   ['Uniqa Tower media facade colourful day.jpg', 'colourful_day', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 16', ['Uniqa Tower'], 'Uniqa Tower on a sunny day'],
   ['Festival of Lights Berlin 2013 Brandenburg Gate.jpg', 'night_projection', 3000, 2000, 'CC BY-SA 3.0', 'Fixture Photographer 17', ['Festival of Lights (Berlin, 2013)'], 'Projection on the Brandenburg Gate'],
   ['Bradford Garden of Light lanterns.jpg', 'night_dim', 2000, 1333, 'CC BY-SA 4.0', 'Fixture Photographer 18', ['Bradford Garden of Light'], 'Garden of light'],
+  // Found only through structured data (P180 depicts Q5295847): the building has no P18 and no Commons category.
+  ['Seoul Light DDP 2019 media facade night.jpg', 'night_led2', 4000, 2250, 'CC BY-SA 4.0', 'Fixture Photographer 19', ['Seoul Light'], 'Seoul Light DDP media facade on the building at night'],
+  ['Dongdaemun Design Plaza exterior daytime.jpg', 'day', 4000, 2667, 'CC BY-SA 4.0', 'Fixture Photographer 20', ['Dongdaemun Design Plaza'], 'Dongdaemun Design Plaza in daylight'],
 ]
 const COMMON_TEMPLATES = ['Template:Information', 'Template:Own', 'Template:Self', 'Template:Cc-by-sa-4.0', 'Template:Location', 'Template:Taken on', 'Template:Lang', 'Template:Description']
 const files = FILES.map(([file, kind, width, height, license, author, cats, description, extraTemplates = []]) => ({
@@ -227,6 +230,8 @@ const categories = CATS.map(([title, qid, coord, subcats, members]) => ({
 const search = {
   category: { 'media facade': ['Category:Media Facade', 'Category:Facades'], 'projection mapping': ['Category:Projection mapping', 'Category:Projection mapping in Prague'], 'light festival': ['Category:Festivals of lights'] },
   file: { 'media facade': [{ title: 'File:Uniqa Tower media facade colourful day.jpg', categories: ['Category:Uniqa Tower'] }] },
+  // haswbstatement:P180=<QID> answers (files whose structured data depicts the item).
+  depicts: { Q5295847: ['File:Dongdaemun Design Plaza exterior daytime.jpg', 'File:Seoul Light DDP 2019 media facade night.jpg'] },
 }
 
 // ---------------------------------------------------------------- Wikipedia

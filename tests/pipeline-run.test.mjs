@@ -140,6 +140,14 @@ test('dry run: images follow the per-surface rules', needSharp, async () => {
   assert.ok(data.home.hero.length >= 2)
   for (const h of data.home.hero) assert.equal(h.image.tier, 1)
   assert.equal(data.home.projects.Q7899954?.image ?? null, null)
+  // P180 depicts: a building without P18 or a Commons category gets images through structured data, scored like any
+  // other candidate: the media facade at night is the card, the daytime exterior only a tier-4 detail image.
+  const ddp = r('SEOUL006')
+  assert.equal(ddp.images[0].role, 'card')
+  assert.equal(ddp.images[0].tier, 1)
+  assert.match(ddp.images[0].page, /Seoul_Light_DDP_2019_media_facade_night\.jpg$/)
+  assert.deepEqual(ddp.images.filter((i) => /exterior_daytime/.test(i.page)).map((i) => [i.role, i.tier]), [['detail', 4]])
+  assert.match(data.home.projects.SEOUL006?.image?.page || '', /media_facade_night/)
   // Every published image names its licence and its author.
   for (const rec of data.records.values()) for (const i of rec.images) assert.ok(i.license && (i.author || i.attribution) && i.page.startsWith('https://commons.wikimedia.org/'), rec.id)
   // An allowlisted daytime photo is refused by the visual gates and reported.
@@ -275,6 +283,23 @@ test('the drop guard keeps the previous dataset when more than half would disapp
   const kept = await readJSON(path.join(copy, 'site-data', m.files.shards[0]))
   assert.equal(kept.projects.length, shard.projects.length, 'site-data is untouched')
   assert.equal((await readJSON(path.join(copy, 'state/tracker.json'))).projects.Q99100000.missing_runs, 2, 'the tracker does not advance on a kept run')
+})
+
+test('P180 depicts searches: only for projects without named night and media evidence, capped per run, then cached', needSharp, async () => {
+  const depicts = (env) => env.requests.filter((q) => /haswbstatement/.test(decodeURIComponent(q.url))).map((q) => decodeURIComponent(q.url).match(/P180=(Q\d+)/)[1])
+  const { result } = await firstRun()
+  const all = depicts(result.env)
+  assert.equal(result.report.images.depicts_searches, all.length)
+  assert.ok(all.includes('Q5295847'))
+  assert.ok(!all.includes('Q494895'), 'Lotte World Tower already has "media facade at night" in a file name')
+  assert.equal(new Set(all).size, all.length, 'one search per item')
+  const dir = await tmp()
+  const capped = await run(dir, { pipeline: { images: { depicts_max_per_run: 3 } } })
+  assert.deepEqual(depicts(capped.env), all.slice(0, 3), 'the cap counts new searches, in the image stage order')
+  assert.equal(capped.report.images.depicts_searches, 3)
+  // The next run continues with the items not asked yet; the answers of the first three come from the cache.
+  const next = await run(dir, { start: START + 6 * HOUR, pipeline: { images: { depicts_max_per_run: 3 } } })
+  assert.deepEqual(depicts(next.env), all.slice(3, 6))
 })
 
 test('a short time budget gives partial but consistent output', needSharp, async () => {
