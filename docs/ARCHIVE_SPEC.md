@@ -99,7 +99,8 @@ fetch (adapter) → parse → keyword prefilter → classify → normalize → d
   Candidate `confidence` = round(0.6 × classifier score + 0.4 × best source reliability).
 - **Retries:**
   - Per request: up to 2 retries on 429 or 5xx, honouring `Retry-After`; 20 s timeout; 2 MB response cap.
-  - Per rule: `failure_count`, then `backoff_until` = now + min(48 h, 1 h × 2^(failures−1)).
+  - Per rule: `failure_count`, then `backoff_until` = now + min(48 h, 1 h × 2^(failures−1)), or a later time derived
+    from `Retry-After`, never beyond 48 h.
   - Every error is written to `archive_run_errors`.
 - **Link and image checks:**
   - Daily batch of the oldest-checked URLs. HEAD request, falling back to `GET Range: bytes=0-0`; at most 3
@@ -234,12 +235,12 @@ Indexes: `pg_trgm` GIN on the project names and aliases; btree on `country_iso2`
 | `archive_admin_upsert_project(p_project jsonb) → uuid` (validates vocabularies, updates `field_status`, writes the audit log) | editor+ |
 | `archive_admin_set_visibility(p_project_id uuid, p_visibility text, p_note text)` | editor+ |
 | `archive_admin_merge_projects(p_keep uuid, p_drop uuid) → uuid` (moves sources, credits, media, aliases; drop → hidden + alias) | editor+ |
-| `archive_admin_add_source(p_project_id uuid, p_source jsonb, p_supports text[]) → uuid` | editor+ |
+| `archive_admin_add_source(p_project_id uuid, p_source jsonb, p_supports text[]) → uuid` / `archive_admin_remove_source(p_project_id uuid, p_source_id uuid) → boolean` | editor+ |
 | `archive_admin_set_media(p_project_id uuid, p_media jsonb) → uuid` / `archive_admin_remove_media(p_media_id uuid)` | editor+ |
 | `archive_admin_list_projects(p_q text, p_visibility text, p_limit int, p_offset int) → setof jsonb` | editor+ |
 | `archive_admin_list_updates(p_status text, p_limit int) → setof jsonb` / `archive_admin_resolve_update(p_id uuid, p_action text)` | editor+ |
 | `archive_admin_list_runs(p_limit int, p_rule_id uuid) → setof jsonb` / `archive_admin_list_errors(p_limit int)` | editor+ |
-| `archive_admin_list_rules() → setof jsonb` / `archive_admin_upsert_rule(p_rule jsonb) → uuid` / `archive_admin_list_keywords()` / `archive_admin_upsert_keyword(p_kw jsonb)` | admin (list: editor+) |
+| `archive_admin_list_rules() → setof jsonb` / `archive_admin_upsert_rule(p_rule jsonb) → uuid` / `archive_admin_list_keywords()` / `archive_admin_upsert_keyword(p_kw jsonb)` / `archive_admin_delete_keyword(p_term text, p_language text) → boolean` | admin (list: editor+) |
 | `archive_admin_set_settings(p_settings jsonb)` | admin |
 | `archive_research_add_assessment(p_project_id uuid, p_attribute text, p_value jsonb, p_confidence text, p_method text, p_note text) → uuid` | researcher, editor, admin |
 
@@ -270,15 +271,16 @@ Cron (in `release/launch/install-six-hour-sync.sql`, through pg_net with the Vau
 ## 5. Edge Functions
 
 - `archive-collect` (POST)
-  - Authorization: either the cron shared secret (the `authorizedSecret` pattern of the existing functions; this
-    also keeps `scripts/check.mjs` passing), or an editor+ user JWT with `{rule_id}` for "지금 실행".
+  - Authorization: either the cron shared secret, `MEDIA_CRON_SECRET` sent as header `x-aol-cron-secret` (the
+    `authorizedSecret` pattern of the existing functions; there is no separate archive secret, and this also keeps
+    `scripts/check.mjs` passing), or an editor+ user JWT with `{rule_id}` for "지금 실행".
   - Body: `{rule_ids?, max_rules?, dry_run?}`.
   - Renews WebSub subscriptions that expire within 48 h.
 - `archive-websub`
   - GET: hub verification. Echo `hub.challenge` only for a known pending or active topic.
   - POST: check `X-Hub-Signature-256` (or sha1) as an HMAC with the subscription secret, using a timing-safe
     comparison, then parse and ingest with trigger `websub`. Body limit 2 MB.
-- `archive-check-links`: cron secret only.
+- `archive-check-links`: cron secret only (`MEDIA_CRON_SECRET`, header `x-aol-cron-secret`).
 
 Shared code is plain `.mjs` in `edge-functions/_shared/archive/`, imported by both Deno and Node tests:
 `adapters/{gdelt,rss,naver,brave,wikidata}.mjs`, `classify.mjs`, `normalize.mjs`, `dedupe.mjs`, `reliability.mjs`,

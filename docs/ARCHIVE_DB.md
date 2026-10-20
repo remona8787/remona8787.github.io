@@ -180,6 +180,7 @@ archive_admin_upsert_project(p_project jsonb) → uuid
 archive_admin_set_visibility(p_project_id uuid, p_visibility text, p_note text DEFAULT NULL) → jsonb
 archive_admin_merge_projects(p_keep uuid, p_drop uuid) → uuid
 archive_admin_add_source(p_project_id uuid, p_source jsonb, p_supports text[] DEFAULT '{}') → uuid
+archive_admin_remove_source(p_project_id uuid, p_source_id uuid) → boolean
 archive_admin_set_media(p_project_id uuid, p_media jsonb) → uuid
 archive_admin_remove_media(p_media_id uuid) → boolean
 archive_admin_list_projects(p_q text DEFAULT NULL, p_visibility text DEFAULT NULL, p_limit integer DEFAULT 50,
@@ -192,6 +193,7 @@ archive_admin_list_rules() → SETOF jsonb
 archive_admin_upsert_rule(p_rule jsonb) → uuid                                    -- admin
 archive_admin_list_keywords() → SETOF jsonb
 archive_admin_upsert_keyword(p_kw jsonb) → uuid                                   -- admin
+archive_admin_delete_keyword(p_term text, p_language text) → boolean              -- admin
 archive_admin_set_settings(p_settings jsonb) → jsonb                              -- admin
 archive_research_add_assessment(p_project_id uuid, p_attribute text, p_value jsonb, p_confidence text,
                                 p_method text DEFAULT NULL, p_note text DEFAULT NULL) → uuid   -- researcher, editor, admin
@@ -266,6 +268,12 @@ Validation:
   published_at?, license?, excerpt?, reliability?}`. The source is upserted by `canonical_url`, and reliability
   defaults to the base score of its kind (§3). `p_supports` are field names; see field_status above. It returns the
   source id.
+- **`remove_source(project, source)`** unlinks a source from a project and returns false when there was no such link.
+  A `field_status` entry that cited it moves to another linked source that supports the field. Otherwise a
+  `source_reported` entry is removed (the field reads as unverified again), and any other state keeps its state and
+  loses only `source_id`. Credits citing the source lose the pointer. The `archive_sources` row is deleted only when no
+  project and no image refers to it any more, so link checks stop for a URL nobody uses. Audit action
+  `project.remove_source`.
 - **`set_media`**: `p_media` is `{id?, url, page_url?, commons_file?, license?, license_url?, author?, attribution?,
   rights_status?, is_primary?, source_id?}`, matched by id, else by (project, url). A changed URL resets its link
   state. `cleared` needs a licence and an author or attribution. Setting `is_primary` unsets the others.
@@ -288,6 +296,8 @@ Validation:
   - Changing the url or query, or re-enabling a rule, clears its failures, backoff and validators.
 - **`upsert_keyword`**: `{id?, term, language, polarity, weight?, enabled?}`, keyed by (term, language). `language`
   is required.
+- **`delete_keyword(term, language)`** deletes that keyword and returns false when it does not exist. Both arguments
+  are required (22023 otherwise). Audit action `keyword.delete`. Running `archive-seed.sql` again restores a seeded term.
 - **`set_settings`**: any of `auto_list_structured`, `auto_ignore_below`, `review_threshold`, where
   `auto_ignore_below` may not exceed `review_threshold`. It returns the settings.
 
@@ -337,7 +347,9 @@ See [Ingest](#ingest-archive_ingest).
   now + `cadence_hours`, or `p_rule_state.next_run_at` limited to now..now+30 days. `etag` and `last_modified` are set
   when present in `p_rule_state`, so an absent key keeps the stored validator.
 - **Backoff.** On `error`: `failure_count + 1`, and `backoff_until = next_run_at = now + min(48 h, 1 h × 2^(failures −
-  1))`, which gives 1, 2, 4, 8, 16, 32, 48, 48 h.
+  1))`, which gives 1, 2, 4, 8, 16, 32, 48, 48 h. A `p_rule_state.backoff_until` the collector derived from a
+  `Retry-After` wins when it is later, never beyond now + 48 h: `least(now + 48 h, greatest(formula, given))`. An
+  unreadable value is ignored.
 - **Runs that skip scheduling.** `websub` and `probe` runs leave the schedule alone.
 - **Idempotent.** A second call returns `{already_finished: true}` and changes nothing.
 - **Returns** `{run_id, status, rule: {id, failure_count, backoff_until, next_run_at}}`.
@@ -568,3 +580,7 @@ All are additive or fill gaps in ARCHIVE_SPEC §4; no fixed name changed.
     `archive_public_stats().settings.auto_list_structured` is false.
 12. **`publish` requires `last_verified_at`** (an editor review), not `review_status <> 'unreviewed'`, so a researcher
     assessment alone never makes a project publishable.
+13. **Integration (v0.17).** Two RPCs the admin console needs: `archive_admin_remove_source(p_project_id,
+    p_source_id)` (editor+) and `archive_admin_delete_keyword(p_term, p_language)` (admin), both audit-logged.
+    `archive_finish_run` honours a later `p_rule_state.backoff_until` (Retry-After), capped at 48 h.
+    `scripts/archive-bundle-sql.mjs` (`npm run archive:bundle-sql`) copies the migration into `complete-backend.sql`.

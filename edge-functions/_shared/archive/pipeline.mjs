@@ -356,9 +356,10 @@ export function backoffUntil(failureCount, now, retryAfterMs = null) {
 }
 
 /**
- * p_rule_state for archive_finish_run: conditional-GET validators (RSS only) and the next run time, which the SQL
- * uses; plus, for the run log and the probe, the failure count and backoff by the spec formula (the SQL computes its
- * own with the same formula), Retry-After and a hub the feed advertised.
+ * p_rule_state for archive_finish_run: conditional-GET validators (RSS only), the next run time and, after an error,
+ * backoff_until (the spec formula or a longer Retry-After, at most 48 h), which the SQL uses (it backs off until the
+ * later of its own formula and this, capped at 48 h); plus, for the run log and the probe, the failure count,
+ * Retry-After and a hub the feed advertised.
  * @param {Rule} rule @param {RuleResult} result @param {number} now
  */
 export function ruleState(rule, result, now) {

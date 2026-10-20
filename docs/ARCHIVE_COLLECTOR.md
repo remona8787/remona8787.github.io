@@ -296,10 +296,10 @@ track's migration as of its commit e70c08d, checked on PGlite):
 1. `archive_claim_due_rules` takes `p_rule_ids uuid[] default null` (added by the db track); editor runs use it.
 2. `archive_finish_run`: counts given there **replace** what `archive_ingest` accumulated, so the collector passes only
    `fetched` and `errors` as counts and its other figures as detail keys. Of `p_rule_state` the SQL uses `etag`,
-   `last_modified` (sent for RSS rules only, since the SQL overwrites them whenever the keys are present) and
-   `next_run_at`; it computes failures and backoff itself with the spec formula. The collector's own
-   `failure_count`/`backoff_until`/`retry_after_seconds` are informational: **a long `Retry-After` is not honoured
-   by the SQL backoff** (it uses 1 h × 2^(n−1) only).
+   `last_modified` (sent for RSS rules only, since the SQL overwrites them whenever the keys are present),
+   `next_run_at` and, on an error, `backoff_until`. The SQL computes failures and the spec formula itself and backs
+   off until the later of the two, at most 48 h, so a long `Retry-After` is honoured (integration, v0.17). The
+   collector's `failure_count` and `retry_after_seconds` are informational (run detail and the probe).
 3. The link checker does not call `archive_record_project_update`: `archive_record_link_checks` opens and closes the
    `link_broken` / `image_broken` updates itself (spec §4 listed the link checker as a caller).
 4. `archive_log_error` is called with `p_run_id = null` for rejected WebSub pushes (no run is started for them).

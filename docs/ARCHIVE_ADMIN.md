@@ -164,8 +164,8 @@ archive_admin_upsert_rule         {p_rule: {id, enabled}}                       
                                   {p_rule: {id, enabled, cadence_hours, query, url, terms_url, notes}}         (edit)
                                   {p_rule: {kind, name, language, region_hint, enabled, cadence_hours, query, url, terms_url, notes}}  (new)
 archive_admin_list_keywords       {}
-archive_admin_upsert_keyword      {p_kw: {id?, term, language: text|null, polarity, weight: 0..100, enabled}}
-archive_admin_delete_keyword      {p_term, p_language: text|null}                     -- contract change 2
+archive_admin_upsert_keyword      {p_kw: {id?, term, language, polarity, weight: 0..100, enabled}}
+archive_admin_delete_keyword      {p_term, p_language}                                -- contract change 2
 archive_admin_set_settings        {p_settings: {auto_list_structured, auto_ignore_below, review_threshold}}
 archive_search                    {p_q: text|null, p_filters: {}, p_sort: 'relevance'|'updated', p_limit: 50, p_offset: 0}
 archive_research_add_assessment   {p_project_id, p_attribute, p_value: json, p_confidence: 'low'|'medium'|'high', p_method, p_note: text|null}
@@ -284,7 +284,8 @@ Recorded for the integration step; the rest of ARCHIVE_SPEC §4 is used as writt
    `archive_project_sources` row; the `archive_sources` row may stay for other projects.
 2. **New RPC `archive_admin_delete_keyword(p_term text, p_language text)`**, admin. The spec has only
    `archive_admin_upsert_keyword`, and the brief asks for deleting keywords. Keywords are keyed by
-   `(term, language)`, as in the seed upserts; `p_language` null means the language-neutral row.
+   `(term, language)`, as in the seed upserts. `archive_keywords.language` is NOT NULL, so both arguments are
+   required and the keyword form always sends a language (an English term applies to items in every language).
 3. **`archive_admin_upsert_project(p_project)` is a partial update.**
    - With `id`: only the keys present are written, and absent keys stay unchanged.
    - Each written field gets `field_status[field] = {state:'editor_verified', at}`. A key set to `null` clears the

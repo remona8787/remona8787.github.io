@@ -679,7 +679,7 @@ function kwForm(k){
  const edit=k.term!=null,lock=edit&&!k.id;
  return html`<form data-form="kw-save" class="panel-form kwform" novalidate><h3>${edit?'키워드 고치기':'키워드 추가'}</h3><input type="hidden" name="id" value="${k.id||''}"><div class="fields">
  <div class="field"><label for="kwTerm">낱말</label><input id="kwTerm" name="term" value="${k.term||''}"${on(lock,'readonly')}></div>
- <div class="field"><label for="kwLang">언어</label><select id="kwLang" name="language"${on(lock,'disabled')}>${options(langOptions(),k.language||'','모든 언어')}</select>${lock?html`<input type="hidden" name="language" value="${k.language||''}">`:''}</div>
+ <div class="field"><label for="kwLang">언어</label><select id="kwLang" name="language" aria-describedby="kwLangHint"${on(lock,'disabled')}>${options(langOptions(),k.language||'en',null)}</select>${lock?html`<input type="hidden" name="language" value="${k.language||''}">`:''}<p id="kwLangHint" class="muted small">영어(en) 낱말은 모든 언어의 글에 적용돼요.</p></div>
  <div class="field"><label for="kwPol">성격</label><select id="kwPol" name="polarity">${options(vocab('polarity'),k.polarity||'positive',null)}</select></div>
  <div class="field"><label for="kwWeight">가중치 (0~100)</label><input id="kwWeight" name="weight" type="number" min="0" max="100" step="1" value="${k.weight??10}"></div></div>
  <label class="check toggle"><input type="checkbox" name="enabled" value="1"${on(k.enabled!==false,'checked')}> 사용</label>
@@ -697,14 +697,16 @@ forms['kw-save']=async(f,fd)=>{
  const term=String(fd.get('term')||'').trim(),weight=Number(fd.get('weight'));
  if(!term)throw formErr('term','낱말을 적어 주세요.');
  if(!Number.isFinite(weight)||weight<0||weight>100)throw formErr('weight','가중치는 0~100 사이로 적어 주세요.');
- const kw={term,language:String(fd.get('language')||'')||null,polarity:String(fd.get('polarity')),weight,enabled:f.elements.namedItem('enabled').checked};
+ const language=String(fd.get('language')||'');
+ if(!language)throw formErr('language','언어를 골라 주세요.');
+ const kw={term,language,polarity:String(fd.get('polarity')),weight,enabled:f.elements.namedItem('enabled').checked};
  if(fd.get('id'))kw.id=String(fd.get('id'));
  await rpc('archive_admin_upsert_keyword',{p_kw:kw});
  toast('키워드를 저장했어요.');put($('#kwEdit'),kwForm({}));await loadRules();
 };
 acts['kw-edit']=el=>{put($('#kwEdit'),kwForm(S.kw.items[Number(el.dataset.i)]));$('#kwEdit').scrollIntoView({block:'nearest'});$('#kwWeight').focus()};
 acts['kw-cancel']=()=>put($('#kwEdit'),kwForm({}));
-acts['kw-delete']=async el=>{const k=S.kw.items[Number(el.dataset.i)];if(!k||!armed(el,'한 번 더 누르면 지워요'))return;await rpc('archive_admin_delete_keyword',{p_term:k.term,p_language:k.language??null});toast('키워드를 지웠어요.');await loadRules()};
+acts['kw-delete']=async el=>{const k=S.kw.items[Number(el.dataset.i)];if(!k||!armed(el,'한 번 더 누르면 지워요'))return;await rpc('archive_admin_delete_keyword',{p_term:k.term,p_language:k.language});toast('키워드를 지웠어요.');await loadRules()};
 
 // ---- 설정 (admin) ----
 async function loadSettings(){

@@ -2197,6 +2197,41 @@ begin
  return v_sid;
 end $$;
 
+-- Unlinks a source from a project (admin console, contract change). A field that cited it moves to another linked
+-- source that supports it; otherwise a source-reported field loses its state (unverified again) and any other state
+-- only loses the pointer. Credits citing it lose the pointer. The archive_sources row stays while another project or
+-- an image still refers to it, so link checks stop for a URL nobody uses. False when the link did not exist.
+create or replace function public.archive_admin_remove_source(p_project_id uuid,p_source_id uuid) returns boolean
+language plpgsql security definer set search_path=public,pg_temp as $$
+declare v_pid uuid; v_link public.archive_project_sources; v_fs jsonb; v_out jsonb:='{}'; v_k text; v_v jsonb; v_alt uuid; v_deleted boolean:=false;
+begin
+ perform public.archive_require(array['admin','editor']);
+ v_pid:=public.archive_project_target(p_project_id);
+ if v_pid is null then raise exception 'unknown project %',p_project_id using errcode='22023'; end if;
+ select field_status into v_fs from public.archive_projects where id=v_pid for update;
+ delete from public.archive_project_sources ps where ps.project_id=v_pid and ps.source_id=p_source_id returning * into v_link;
+ if v_link.source_id is null then return false; end if;
+ for v_k,v_v in select key,value from jsonb_each(v_fs) loop
+  if v_v->>'source_id'=p_source_id::text then
+   select ps.source_id into v_alt from public.archive_project_sources ps where ps.project_id=v_pid and v_k=any(ps.supports) order by ps.added_at,ps.source_id limit 1;
+   if v_alt is not null then v_v:=jsonb_set(v_v,'{source_id}',to_jsonb(v_alt));
+   elsif v_v->>'state'='source_reported' then continue;
+   else v_v:=v_v-'source_id';
+   end if;
+  end if;
+  v_out:=v_out||jsonb_build_object(v_k,v_v);
+ end loop;
+ update public.archive_projects set field_status=v_out,updated_by=auth.uid() where id=v_pid and field_status is distinct from v_out;
+ update public.archive_credits set source_id=null where project_id=v_pid and source_id=p_source_id;
+ if not exists(select 1 from public.archive_project_sources where source_id=p_source_id) and not exists(select 1 from public.archive_media where source_id=p_source_id) then
+  delete from public.archive_sources where id=p_source_id; v_deleted:=true;
+ end if;
+ perform public.archive_audit('project.remove_source','archive_projects',v_pid::text,
+  jsonb_build_object('source_id',p_source_id,'supports',v_link.supports,'field_status',v_fs),
+  jsonb_build_object('source_id',p_source_id,'source_deleted',v_deleted,'field_status',v_out));
+ return true;
+end $$;
+
 -- p_media: {id?, url, page_url?, commons_file?, license?, license_url?, author?, attribution?, rights_status?,
 -- is_primary?, source_id?}; matched by id, else by (project, url). A new URL is unchecked again.
 create or replace function public.archive_admin_set_media(p_project_id uuid,p_media jsonb) returns uuid language plpgsql security definer set search_path=public,pg_temp as $$
@@ -2416,6 +2451,20 @@ begin
  perform public.archive_audit(case when v_before is null then 'keyword.create' else 'keyword.update' end,'archive_keywords',v_old.id::text,v_before,
   (select to_jsonb(k) from public.archive_keywords k where k.id=v_old.id));
  return v_old.id;
+end $$;
+
+-- Deletes the keyword keyed by (term, language) (admin console, contract change). Every keyword has a language, so
+-- p_language is required. False when no such keyword exists. The seed (archive-seed.sql) would add a seeded term back.
+create or replace function public.archive_admin_delete_keyword(p_term text,p_language text) returns boolean language plpgsql security definer set search_path=public,pg_temp as $$
+declare v_before jsonb;
+begin
+ perform public.archive_require(array['admin']);
+ if nullif(btrim(p_term),'') is null then raise exception 'p_term is required' using errcode='22023'; end if;
+ if nullif(btrim(p_language),'') is null then raise exception 'p_language is required (keywords are keyed by term and language)' using errcode='22023'; end if;
+ delete from public.archive_keywords k where k.term=btrim(p_term) and k.language=btrim(p_language) returning to_jsonb(k) into v_before;
+ if v_before is null then return false; end if;
+ perform public.archive_audit('keyword.delete','archive_keywords',v_before->>'id',v_before,null);
+ return true;
 end $$;
 
 -- p_settings: any of auto_list_structured, auto_ignore_below, review_threshold. Returns the settings.
@@ -2669,13 +2718,14 @@ end $$;
 
 -- p_counts: {fetched, kept, new_candidates, matched_projects, duplicates, ignored, errors, …}; a given count
 -- replaces what archive_ingest accumulated, other keys go to detail. p_rule_state: {etag?, last_modified?,
--- next_run_at?}. Success, partial and skipped reset the failures and schedule the next run after the rule's cadence
--- (or at next_run_at, at most 30 days ahead); an error backs off for min(48 h, 1 h × 2^(failures − 1)). A second
--- call for the same run changes nothing. WebSub and probe runs leave the poll schedule alone.
+-- next_run_at?, backoff_until?}. Success, partial and skipped reset the failures and schedule the next run after the
+-- rule's cadence (or at next_run_at, at most 30 days ahead); an error backs off for min(48 h, 1 h × 2^(failures − 1)),
+-- or until a later backoff_until the collector derived from Retry-After, never more than 48 h. A second call for
+-- the same run changes nothing. WebSub and probe runs leave the poll schedule alone.
 create or replace function public.archive_finish_run(p_run_id uuid,p_status text,p_counts jsonb default '{}',p_rule_state jsonb default '{}')
 returns jsonb language plpgsql security invoker set search_path=public,pg_temp as $$
 declare r public.archive_runs; c jsonb:=coalesce(p_counts,'{}'); s jsonb:=coalesce(p_rule_state,'{}'); v_next timestamptz; v_rule public.archive_collection_rules;
- v_keys constant text[]:=array['fetched','kept','new_candidates','matched_projects','duplicates','ignored','errors'];
+ v_keys constant text[]:=array['fetched','kept','new_candidates','matched_projects','duplicates','ignored','errors']; v_given timestamptz; v_backoff timestamptz;
 begin
  if p_status is null or p_status not in ('success','partial','error','skipped') then raise exception 'unknown status %',p_status using errcode='22023'; end if;
  if jsonb_typeof(c)<>'object' or jsonb_typeof(s)<>'object' then raise exception 'p_counts and p_rule_state must be JSON objects' using errcode='22023'; end if;
@@ -2695,9 +2745,11 @@ begin
  if r.rule_id is not null and r.trigger not in ('websub','probe') then
   select * into v_rule from public.archive_collection_rules where id=r.rule_id for update;
   if p_status='error' then
-   update public.archive_collection_rules set failure_count=failure_count+1,
-    backoff_until=now()+least(interval '48 hours',interval '1 hour'*power(2,least(failure_count,30))),
-    next_run_at=now()+least(interval '48 hours',interval '1 hour'*power(2,least(failure_count,30))),
+   if jsonb_typeof(s->'backoff_until')='string' then
+    begin v_given:=(s->>'backoff_until')::timestamptz; exception when others then v_given:=null; end;
+   end if;
+   v_backoff:=least(now()+interval '48 hours',greatest(now()+least(interval '48 hours',interval '1 hour'*power(2,least(v_rule.failure_count,30))),v_given));
+   update public.archive_collection_rules set failure_count=failure_count+1,backoff_until=v_backoff,next_run_at=v_backoff,
     last_status='error',last_run_at=now(),claimed_by=null,claimed_at=null
    where id=r.rule_id;
   else
@@ -2899,14 +2951,16 @@ revoke all on function public.archive_admin_dashboard(),public.archive_admin_lis
  public.archive_admin_remove_media(uuid),public.archive_admin_list_projects(text,text,integer,integer),public.archive_admin_list_updates(text,integer),
  public.archive_admin_resolve_update(uuid,text),public.archive_admin_list_runs(integer,uuid),public.archive_admin_list_errors(integer),
  public.archive_admin_list_rules(),public.archive_admin_upsert_rule(jsonb),public.archive_admin_list_keywords(),public.archive_admin_upsert_keyword(jsonb),
- public.archive_admin_set_settings(jsonb),public.archive_research_add_assessment(uuid,text,jsonb,text,text,text) from public,anon;
+ public.archive_admin_set_settings(jsonb),public.archive_research_add_assessment(uuid,text,jsonb,text,text,text),
+ public.archive_admin_remove_source(uuid,uuid),public.archive_admin_delete_keyword(text,text) from public,anon;
 grant execute on function public.archive_admin_dashboard(),public.archive_admin_list_candidates(text,text,integer,integer,integer),
  public.archive_admin_review_candidate(uuid,text,jsonb),public.archive_admin_upsert_project(jsonb),public.archive_admin_set_visibility(uuid,text,text),
  public.archive_admin_merge_projects(uuid,uuid),public.archive_admin_add_source(uuid,jsonb,text[]),public.archive_admin_set_media(uuid,jsonb),
  public.archive_admin_remove_media(uuid),public.archive_admin_list_projects(text,text,integer,integer),public.archive_admin_list_updates(text,integer),
  public.archive_admin_resolve_update(uuid,text),public.archive_admin_list_runs(integer,uuid),public.archive_admin_list_errors(integer),
  public.archive_admin_list_rules(),public.archive_admin_upsert_rule(jsonb),public.archive_admin_list_keywords(),public.archive_admin_upsert_keyword(jsonb),
- public.archive_admin_set_settings(jsonb),public.archive_research_add_assessment(uuid,text,jsonb,text,text,text) to authenticated;
+ public.archive_admin_set_settings(jsonb),public.archive_research_add_assessment(uuid,text,jsonb,text,text,text),
+ public.archive_admin_remove_source(uuid,uuid),public.archive_admin_delete_keyword(text,text) to authenticated;
 -- Service API: the Edge Functions only.
 revoke all on function public.archive_claim_due_rules(integer,text,uuid[]),public.archive_start_run(uuid,text),public.archive_ingest(uuid,jsonb),
  public.archive_finish_run(uuid,text,jsonb,jsonb),public.archive_log_error(uuid,uuid,text,integer,text,text),public.archive_links_due(integer),

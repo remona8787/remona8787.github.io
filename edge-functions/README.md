@@ -12,3 +12,8 @@
 - provider ID는 장기 저장 가능 여부를 약관별로 확인.
 - 외부 변화는 `editorial_review_queue`로 보내고 전문가 해설은 자동 덮어쓰기 금지.
 - 사진은 `media_assets.clearance_status='cleared'`인 것만 앱에 렌더.
+
+## 미디어파사드 아카이브 (v0.16, docs/ARCHIVE_COLLECTOR.md)
+- `archive-collect`: 매시 17분 pg_cron이 `x-aol-cron-secret` 헤더에 `MEDIA_CRON_SECRET`을 실어 호출(별도 아카이브 비밀값 없음). 마감된 규칙을 최대 6개 가져와 수집 → 분류 → `archive_ingest`. 편집자는 관리 콘솔에서 자기 세션으로 규칙을 지정해 실행
+- `archive-check-links`: 하루 한 번, `MEDIA_CRON_SECRET`만 허용. 출처·공식 사이트·이미지 링크 상태 기록
+- `archive-websub`: 공개 주소(허브가 호출). 구독 비밀값으로 HMAC 서명을 확인한 푸시만 수집

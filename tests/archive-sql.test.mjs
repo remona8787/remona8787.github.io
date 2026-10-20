@@ -126,7 +126,8 @@ const ADMIN_FNS=['archive_admin_dashboard()','archive_admin_list_candidates(text
  'archive_admin_upsert_project(jsonb)','archive_admin_set_visibility(uuid,text,text)','archive_admin_merge_projects(uuid,uuid)','archive_admin_add_source(uuid,jsonb,text[])',
  'archive_admin_set_media(uuid,jsonb)','archive_admin_remove_media(uuid)','archive_admin_list_projects(text,text,integer,integer)','archive_admin_list_updates(text,integer)',
  'archive_admin_resolve_update(uuid,text)','archive_admin_list_runs(integer,uuid)','archive_admin_list_errors(integer)','archive_admin_list_rules()','archive_admin_upsert_rule(jsonb)',
- 'archive_admin_list_keywords()','archive_admin_upsert_keyword(jsonb)','archive_admin_set_settings(jsonb)','archive_research_add_assessment(uuid,text,jsonb,text,text,text)'];
+ 'archive_admin_list_keywords()','archive_admin_upsert_keyword(jsonb)','archive_admin_set_settings(jsonb)','archive_research_add_assessment(uuid,text,jsonb,text,text,text)',
+ 'archive_admin_remove_source(uuid,uuid)','archive_admin_delete_keyword(text,text)'];
 const SERVICE_FNS=['archive_claim_due_rules(integer,text,uuid[])','archive_start_run(uuid,text)','archive_ingest(uuid,jsonb)','archive_finish_run(uuid,text,jsonb,jsonb)',
  'archive_log_error(uuid,uuid,text,integer,text,text)','archive_links_due(integer)','archive_record_link_checks(jsonb)','archive_alias_index()',
  'archive_websub_upsert(text,text,text,text,integer,uuid)','archive_websub_get(text)','archive_websub_due(integer)','archive_record_project_update(uuid,text,jsonb)','archive_prune()'];
@@ -180,7 +181,9 @@ test('roles: is_app_admin is admin+editor, archive_role names the role, and the 
   ['upsert_rule',`select public.archive_admin_upsert_rule('{"kind":"rss","name":"Matrix feed","url":"https://feed.example.org/rss"}')`,[],'admin'],
   ['upsert_keyword',`select public.archive_admin_upsert_keyword('{"term":"media facade","language":"en","polarity":"positive"}')`,[],'admin'],
   ['set_settings',`select public.archive_admin_set_settings('{}')`,[],'admin'],
-  ['add_assessment',`select public.archive_research_add_assessment($1,'significance','"high"','high',null,null)`,[Z],'researcher']];
+  ['add_assessment',`select public.archive_research_add_assessment($1,'significance','"high"','high',null,null)`,[Z],'researcher'],
+  ['remove_source',`select public.archive_admin_remove_source($1,$1)`,[Z],'editor'],
+  ['delete_keyword',`select public.archive_admin_delete_keyword('matrix term','en')`,[],'admin']];
  assert.equal(calls.length,ADMIN_FNS.length);
  const allowed={editor:['admin','editor'],admin:['admin'],researcher:['admin','editor','researcher']};
  for(const [name,s,p,min] of calls)for(const [u,role] of [[ADMIN,'admin'],[EDITOR,'editor'],[RESEARCHER,'researcher'],[USER,null]]){
@@ -385,6 +388,57 @@ test('projects: upsert validates input; only submitted fields become editor_veri
  assert.equal((await rows(db,`select reliability from public.archive_sources where id=$1`,[sid]))[0].reliability,85,'base reliability by kind');
 });
 
+test('projects: the admin listing carries credits, sources, media and field states; remove_source unlinks a source honestly',async()=>{
+ const id=await upsert({name_en:'Maas Light Wall',country_iso2:'NL',city:'Rotterdam',building_name:'Maastoren',credits:[{role:'operator',name:'Maas Media'}]});
+ const add=(url,kind,supports)=>ed(`select public.archive_admin_add_source($1,$2::jsonb,$3) id`,[id,J({url,source_kind:kind,title:'Maas'}),supports]).then(r=>r[0].id);
+ const sA=await add('https://a.example.nl/maas','official',['region','name_original','building_name','credits']);
+ const sB=await add('https://b.example.nl/maas','news',['region']);
+ await db.query(`update public.archive_credits set source_id=$2 where project_id=$1`,[id,sA]);
+ const mid=(await ed(`select public.archive_admin_set_media($1,$2::jsonb) id`,[id,J({url:'https://upload.wikimedia.org/maas.jpg',page_url:'https://commons.wikimedia.org/wiki/File:Maas.jpg',
+  commons_file:'Maas.jpg',license:'CC BY 4.0',license_url:'https://creativecommons.org/licenses/by/4.0/',author:'Visser',attribution:'Visser, CC BY 4.0',rights_status:'pending',is_primary:true,source_id:sB})]))[0].id;
+ // Contract change 4 (docs/ARCHIVE_ADMIN.md): the rows the project editor needs.
+ const [row]=(await ed(`select x from public.archive_admin_list_projects($1) x`,[id])).map(r=>r.x);
+ assert.deepEqual(row.credits.map(c=>[c.role,c.name,c.source_id]),[['operator','Maas Media',sA]]);
+ assert.deepEqual(row.sources.map(s=>[s.id,s.source_kind,s.supports]).sort(),[[sA,'official',['building_name','credits','name_original','region']],[sB,'news',['region']]].sort());
+ const m=row.media[0];
+ assert.deepEqual([m.id,m.url,m.page_url,m.commons_file,m.license,m.license_url,m.author,m.attribution,m.rights_status,m.is_primary],
+  [mid,'https://upload.wikimedia.org/maas.jpg','https://commons.wikimedia.org/wiki/File:Maas.jpg','Maas.jpg','CC BY 4.0','https://creativecommons.org/licenses/by/4.0/','Visser','Visser, CC BY 4.0','pending',true]);
+ assert.deepEqual([row.field_status.region.state,row.field_status.region.source_id,row.field_status.name_original.state,row.field_status.building_name.state,row.field_status.building_name.source_id,
+  row.field_status.credits.state,row.field_status.credits.source_id],['source_reported',sA,'source_reported','editor_verified',sA,'editor_verified',sA]);
+ // Removing A: region moves to B (which supports it), name_original (only source-reported) loses its state, building_name
+ // and credits (submitted by the editor, so editor_verified) keep their state and lose only the pointer.
+ assert.equal((await ed(`select public.archive_admin_remove_source($1,$2) r`,[id,sA]))[0].r,true);
+ let p=await project(id);
+ assert.deepEqual(p.field_status.region,{...row.field_status.region,source_id:sB});
+ assert.equal(p.field_status.name_original,undefined);
+ for(const k of ['building_name','credits'])assert.deepEqual([p.field_status[k].state,'source_id' in p.field_status[k]],['editor_verified',false],k);
+ assert.equal((await rows(db,`select source_id from public.archive_credits where project_id=$1`,[id]))[0].source_id,null);
+ assert.equal((await rows(db,`select count(*)::int n from public.archive_sources where id=$1`,[sA]))[0].n,0,'an unused source row goes, so link checks stop');
+ const [a]=await rows(db,`select actor,before,after from public.archive_audit_log where action='project.remove_source' and entity_id=$1`,[id]);
+ assert.deepEqual([a.actor,a.before.source_id,a.after.source_deleted,a.before.supports.length],[EDITOR,sA,true,4]);
+ assert.equal((await ed(`select public.archive_admin_remove_source($1,$2) r`,[id,sA]))[0].r,false,'no such link');
+ // Removing B: the source row stays because an image cites it.
+ assert.equal((await ed(`select public.archive_admin_remove_source($1,$2) r`,[id,sB]))[0].r,true);
+ p=await project(id);assert.equal(p.field_status.region,undefined);
+ assert.equal((await rows(db,`select count(*)::int n from public.archive_sources where id=$1`,[sB]))[0].n,1);
+ assert.deepEqual((await ed(`select x from public.archive_admin_list_projects($1) x`,[id]))[0].x.sources,[]);
+ assert.match(await code(ed(`select public.archive_admin_remove_source($1,$2)`,['00000000-0000-4000-8000-000000000000',sB])),/22023/,'unknown project');
+});
+
+test('keywords: an admin deletes a keyword by term and language, audit-logged; language is required',async()=>{
+ const adm=(s,p=[])=>q(db,'authenticated',ADMIN,s,p);
+ await adm(`select public.archive_admin_upsert_keyword($1::jsonb)`,[J({term:'rooftop screen',language:'en',polarity:'context'})]);
+ await adm(`select public.archive_admin_upsert_keyword($1::jsonb)`,[J({term:'rooftop screen',language:'de',polarity:'context'})]);
+ assert.equal((await adm(`select public.archive_admin_delete_keyword('rooftop screen','en') r`))[0].r,true);
+ assert.deepEqual((await rows(db,`select language from public.archive_keywords where term='rooftop screen'`)).map(r=>r.language),['de'],'only that language');
+ const [a]=await rows(db,`select actor,before,after from public.archive_audit_log where action='keyword.delete'`);
+ assert.deepEqual([a.actor,a.before.term,a.before.language,a.after],[ADMIN,'rooftop screen','en',null]);
+ assert.equal((await adm(`select public.archive_admin_delete_keyword('rooftop screen','en') r`))[0].r,false);
+ for(const [t,l] of [['rooftop screen',null],['rooftop screen',' '],['','de']])assert.equal(await code(adm(`select public.archive_admin_delete_keyword($1,$2)`,[t,l])),'22023',`${t}/${l}`);
+ assert.equal(await code(ed(`select public.archive_admin_delete_keyword('rooftop screen','de')`)),'42501','editors cannot');
+ assert.equal((await rows(db,`select count(*)::int n from public.archive_keywords where term='rooftop screen'`))[0].n,1);
+});
+
 test('projects: merge moves sources, credits, media, assessments and aliases; the merged project is hidden and redirects matches',async()=>{
  const keep=await upsert({name_en:'Galleria Centercity',country_iso2:'KR',city:'Cheonan',credits:[{role:'architect',name:'UNStudio'}]});
  const drop=await upsert({name_original:'갤러리아 센터시티',name_en:'Galleria Centercity Facade',country_iso2:'KR',city:'Cheonan',wikidata_qid:'Q5005',
@@ -551,6 +605,23 @@ test('runs: finish_run applies the backoff formula, etag/last_modified and next_
  const errs=await rows(d,`select run_id,rule_id,stage,http_status,length(message) len from public.archive_run_errors order by at`);
  assert.deepEqual(errs.map(e=>[e.run_id,e.rule_id,e.stage,e.http_status,e.len]),[[push,rule,'fetch',503,1000],[null,null,'unknown',null,12]]);
  assert.equal((await rows(d,`select errors from public.archive_runs where id=$1`,[push]))[0].errors,1);
+ await d.close();
+});
+
+test('runs: an error backs off until a later backoff_until from the collector (Retry-After), never past 48 h',async()=>{
+ const d=await database();
+ await d.query(`insert into public.archive_collection_rules(kind,name,query,cadence_hours) values('gdelt','Busy API','"media facade"',6)`);
+ const [{id:rule}]=await rows(d,`select id from public.archive_collection_rules`);
+ const fail=async state=>{const run=(await svc(d,`select public.archive_start_run($1,'cron') id`,[rule]))[0].id;
+  await svc(d,`select public.archive_finish_run($1,'error','{"errors":1}',$2::jsonb)`,[run,J(state)]);
+  const [s]=await rows(d,`select failure_count f,extract(epoch from backoff_until-now())/3600 b,extract(epoch from next_run_at-now())/3600 nx from public.archive_collection_rules`);
+  assert.equal(Math.round(s.nx),Math.round(s.b));return [s.f,Math.round(s.b)]};
+ const at=h=>new Date(Date.now()+h*H).toISOString();
+ assert.deepEqual(await fail({backoff_until:at(5)}),[1,5],'Retry-After beyond the formula (1 h) wins');
+ assert.deepEqual(await fail({backoff_until:at(1)}),[2,2],'the formula (2 h) beyond Retry-After wins');
+ assert.deepEqual(await fail({backoff_until:at(100)}),[3,48],'capped at 48 h');
+ assert.deepEqual(await fail({backoff_until:'not a date'}),[4,8],'an unreadable value is ignored');
+ assert.deepEqual(await fail({backoff_until:null}),[5,16]);
  await d.close();
 });
 
