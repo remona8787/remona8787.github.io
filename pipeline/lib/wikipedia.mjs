@@ -16,7 +16,8 @@ export const wikiApi = (lang, params) => `https://${lang}.wikipedia.org/w/api.ph
 export function termPattern(term) {
   const t = String(term).trim()
   if (/[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}\p{Script=Arabic}]/u.test(t)) {
-    return new RegExp(t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s*'), 'u')
+    // Spacing varies in Korean compounds (미디어파사드 / 미디어 파사드): optional whitespace between characters.
+    return new RegExp([...t.replace(/\s+/g, '')].map((ch) => ch.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('\\s*'), 'u')
   }
   const body = t.split(/\s+/).map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/[cç]/gi, '[cç]').replace(/[aàá]/gi, '[aàá]').replace(/[eéè]/gi, '[eéè]')).join('[\\s\\-]*')
   // Up to four more letters: plurals and case endings (media facades, медиафасадом, fasadzie medialnej is not covered).

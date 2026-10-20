@@ -95,15 +95,27 @@ export function periodText(period) {
   return null
 }
 
+// Commons thumbnails repeat the file name twice in a ~165-byte URL. Above compactAboveBytes the index stores only
+// "<h>/<hh>/<File_name.jpg>" and names the URL pattern once (thumb_template), which keeps 5,000 rows under 1 MB.
+// Reader rule (docs/PIPELINE.md): a thumb that is not an https URL is template.replace('{path}', thumb)
+// .replace('{file}', last path segment). Below the threshold every thumb is a full https URL.
+export const THUMB_TEMPLATE = 'https://upload.wikimedia.org/wikipedia/commons/thumb/{path}/500px-{file}'
+const COMMONS_THUMB = /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/thumb\/([0-9a-f]\/[0-9a-f]{2}\/([^/]+))\/500px-([^/]+)$/
+export const compactThumb = (url) => { const m = COMMONS_THUMB.exec(url || ''); return m && m[2] === m[3] ? m[1] : url }
+export const expandThumb = (thumb, template) => (thumb && template && !/^https:/.test(thumb) ? template.replace('{path}', thumb).replace('{file}', thumb.slice(thumb.lastIndexOf('/') + 1)) : thumb)
+
 /** index.json: compact rows (the card image's thumbnail and tier: 1 media active at night … 4 context). */
-export function buildIndex(records) {
+export function buildIndex(records, { compactAboveBytes = 512 * 1024 } = {}) {
   const rows = records.map((r) => {
     const card = r.images.find((i) => i.role === 'card') || r.images.find((i) => i.role === 'hero') || null
     return [r.id, r.name_ko, r.name_en, r.name_original && r.name_original !== r.name_en && r.name_original !== r.name_ko ? r.name_original : null,
       r.country_iso2, r.city, r.lat === null ? null : round(r.lat, 4), r.lng === null ? null : round(r.lng, 4), r.project_type, yearOf(r),
       card?.thumb ?? null, card?.tier ?? null, r.shard, r.added_at ? r.added_at.slice(0, 10) : null]
   })
-  return { schema: DATA_SCHEMA, fields: INDEX_FIELDS, rows }
+  const full = { schema: DATA_SCHEMA, fields: INDEX_FIELDS, rows }
+  if (Buffer.byteLength(JSON.stringify(full)) <= compactAboveBytes) return full
+  const t = INDEX_FIELDS.indexOf('thumb')
+  return { schema: DATA_SCHEMA, fields: INDEX_FIELDS, thumb_template: THUMB_TEMPLATE, rows: rows.map((row) => { const c = row.slice(); c[t] = compactThumb(c[t]); return c }) }
 }
 
 const compact = (r, image) => ({

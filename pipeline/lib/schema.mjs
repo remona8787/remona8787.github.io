@@ -2,7 +2,7 @@
 // invalid dataset is never published: the previous site-data stays and report.json says why), and the tests run the
 // same checks on the fixture output. Each validator returns a list of "path: problem" strings (empty = valid).
 import T from '../../site-public-cleared/archive-taxonomy.js'
-import { INDEX_FIELDS } from './output.mjs'
+import { INDEX_FIELDS, THUMB_TEMPLATE, expandThumb } from './output.mjs'
 
 const ID = /^[A-Za-z0-9][A-Za-z0-9._-]{0,156}$/
 const SHARD = /^[A-Za-z0-9_-]{1,40}$/
@@ -62,6 +62,7 @@ export function checkIndex(ix) {
   const { errors, need } = make()
   if (!need(ix && Array.isArray(ix.fields) && Array.isArray(ix.rows), 'index', 'needs fields and rows')) return errors
   need(INDEX_FIELDS.every((f, i) => ix.fields[i] === f), 'index.fields', 'must start with ' + INDEX_FIELDS.join(','))
+  need(ix.thumb_template === undefined || ix.thumb_template === THUMB_TEMPLATE, 'index.thumb_template', 'unknown template')
   const at = Object.fromEntries(ix.fields.map((f, i) => [f, i]))
   const seen = new Set()
   ix.rows.forEach((row, n) => {
@@ -77,7 +78,7 @@ export function checkIndex(ix) {
     need(v('lat') !== null || str(v('city')), p, 'needs coordinates or a city')
     need(T.valid('project_type', v('project_type')), p + '.project_type', 'unknown type')
     need(opt(isInt)(v('year')), p + '.year', 'not a year')
-    need(opt(https)(v('thumb')), p + '.thumb', 'not https')
+    need(opt(https)(expandThumb(v('thumb'), ix.thumb_template)), p + '.thumb', 'not https')
     need(v('visual_rank') === null ? v('thumb') === null : isInt(v('visual_rank')) && v('visual_rank') >= 1 && v('visual_rank') <= 4, p + '.visual_rank', 'tier 1..4 with a thumb, null without')
     need(SHARD.test(v('shard')), p + '.shard', 'bad shard')
     need(opt((d) => /^\d{4}-\d{2}-\d{2}$/.test(d))(v('added_at')), p + '.added_at', 'not a date')
