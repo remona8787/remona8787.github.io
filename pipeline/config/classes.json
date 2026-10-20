@@ -1,0 +1,131 @@
+{
+  "schema": 1,
+  "about": "Wikidata classes the pipeline collects from (instances via wdt:P31/wdt:P279*), with the archive project_type each maps to (site-public-cleared/archive-taxonomy.js keys). 'verified': true only when a web search result URL showed exactly this item with this label (verified_by). Every run also writes the live label and instance counts of every class to review/classes.json; a class is PUBLISHED FROM only when it is verified AND include is true. Unverified or excluded classes are queried for discovery counts only. Blocklist classes remove items (they never add any) and apply whether verified or not; their live labels are logged too.",
+  "verified_at": "2026-10-20",
+  "classes": [
+    {
+      "qid": "Q17158007", "label": "media facade", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q17158007",
+      "include": true, "project_type": "media_facade",
+      "rule": "Instances are media facades. Live discovery on 2026-10-19 found 0 instances: real media facades are buildings without this class, which is why the Wikipedia media-facade discovery exists (config/pipeline.json wikipedia).",
+      "notes": "Q56296727 redirects here."
+    },
+    {
+      "qid": "Q4287692", "label": "mediafacade", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q4287692",
+      "include": true, "project_type": "media_facade",
+      "rule": "Instances are media facades (ruwiki 'Медиафасад'). The item is itself an instance of out-of-home advertising, so items that are only billboards are removed by the billboard blocklist; a building with coordinates is kept.",
+      "notes": "Instance count unknown until the first live run (review/classes.json)."
+    },
+    {
+      "qid": "Q776483", "label": "projection mapping", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q776483",
+      "include": true, "project_type": "projection_mapping",
+      "rule": "Works and shows that are instances of projection mapping (1 instance with coordinates on 2026-10-19). Commons 'Category:Projection mapping' is walked as well (config/categories.json)."
+    },
+    {
+      "qid": "Q1421557", "label": "light art", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q1421557",
+      "include": true, "project_type": "light_art",
+      "rule": "Instances of light art with coordinates or a city (14 instances, 8 with coordinates on 2026-10-19)."
+    },
+    {
+      "qid": "Q1823448", "label": "light installation", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q1823448",
+      "include": true, "project_type": "light_art",
+      "rule": "The largest light class: 138 instances, 94 with coordinates on 2026-10-19 (e.g. Field of Light Q5447104, The Bay Lights Q7715933).",
+      "notes": "Q28777109 redirects here."
+    },
+    {
+      "qid": "Q29885984", "label": "light sculpture", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q29885984",
+      "include": true, "project_type": "light_art",
+      "rule": "Outdoor light sculptures with a location (26 instances, 9 with coordinates)."
+    },
+    {
+      "qid": "Q124414048", "label": "lights festival", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q124414048",
+      "include": true, "project_type": "festival_program",
+      "rule": "Light festivals (23 instances, 3 with coordinates). Religious festivals of lights (Diwali, Hanukkah, Tihar) carry no city or coordinates and fail eligibility; festivals need a city or coordinates."
+    },
+    {
+      "qid": "Q126682969", "label": "new media arts festival", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q126682969",
+      "include": true, "project_type": "festival_program",
+      "rule": "Media art festivals with a host city."
+    },
+    {
+      "qid": "Q126682939", "label": "digital arts festival", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q126682939",
+      "include": true, "project_type": "festival_program",
+      "rule": "Digital art festivals with a host city."
+    },
+    {
+      "qid": "Q1136999", "label": "son et lumière", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q1136999",
+      "include": true, "project_type": "festival_program",
+      "rule": "Sound and light shows on buildings and monuments (e.g. A Symphony of Lights). Commons 'Category:Sound and light shows' links to this item."
+    },
+    {
+      "qid": "Q63442021", "label": "immersive art exhibit", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q63442021",
+      "include": true, "project_type": "media_architecture",
+      "rule": "Immersive media art spaces with a location (5 instances, 1 with coordinates)."
+    },
+    {
+      "qid": "Q110409771", "label": "multimedia immersive exhibition", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q110409771",
+      "include": true, "project_type": "media_architecture",
+      "rule": "Multimedia immersive exhibitions with a location."
+    },
+    {
+      "qid": "Q115452528", "label": "interactive artwork", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q115452528",
+      "include": true, "project_type": "interactive_installation",
+      "rule": "Interactive artworks with coordinates (public interactive installations). The genre item 'interactive art' (Q2394336) is not used as a class: Wikidata asks for this item as the P31 value."
+    },
+    {
+      "qid": "Q378604", "label": "new media art", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q378604",
+      "include": true, "project_type": "other", "low_confidence": true, "require_coordinates": true,
+      "rule": "Broad: 265 instances but only 4 with coordinates on 2026-10-19. Only instances with coordinates are kept, typed 'other' and listed as low-confidence types in quality.json until an editor sets a type."
+    },
+    {
+      "qid": "Q860372", "label": "digital art", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q860372",
+      "include": false, "project_type": "other",
+      "rule": "Discovery only: a subclass of new media art (already covered through P279*), and mostly screen-based works without a site."
+    },
+    {
+      "qid": "Q550484", "label": "video installation", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q550484",
+      "include": false, "project_type": "other",
+      "rule": "Discovery only: gallery video installations rarely have a public site; enable after reviewing review/classes.json."
+    },
+    {
+      "qid": "Q380051", "label": "laser lighting show", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q380051",
+      "include": false, "project_type": "festival_program",
+      "rule": "Discovery only: mostly concert and venue effects, not architecture."
+    },
+    {
+      "qid": "Q60744298", "label": "drone display", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q60744298",
+      "include": false, "project_type": "festival_program",
+      "rule": "Discovery only: shows in the sky, not on architecture."
+    },
+    {
+      "qid": "Q110775916", "label": "media artwork", "verified": false, "verified_by": null,
+      "include": false, "project_type": "other",
+      "rule": "Excluded: 26,875 instances on 2026-10-19 (30 with coordinates), mostly films, series and media files. No search result showed the item page itself, so it stays unverified."
+    },
+    {
+      "qid": "Q116262603", "label": "illuminated building", "verified": false, "verified_by": null,
+      "include": false, "project_type": "media_architecture",
+      "rule": "Discovery only: 0 instances on 2026-10-19 ('state where a building is illuminated'). Architectural lighting enters only through the specific classes above; Commons 'Illuminated buildings' categories are image evidence only (config/categories.json)."
+    }
+  ],
+  "blocklist": [
+    { "qid": "Q39715", "label": "lighthouse", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q39715", "reason": "navigation light, not light art" },
+    { "qid": "Q623149", "label": "billboard", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q623149", "reason": "plain advertising sign" },
+    { "qid": "Q5276042", "label": "digital billboard", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q5276042", "reason": "advertising screen" },
+    { "qid": "Q4830453", "label": "business", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q4830453", "reason": "a company, not a project" },
+    { "qid": "Q783794", "label": "company", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q783794", "reason": "a company, not a project" },
+    { "qid": "Q4167410", "label": "Wikimedia disambiguation page", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q4167410", "reason": "not an entity" },
+    { "qid": "Q13442814", "label": "scholarly article", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q13442814", "reason": "a publication" },
+    { "qid": "Q6546230", "label": "Light show", "verified": true, "verified_by": "https://www.wikidata.org/wiki/Q6546230", "reason": "a disambiguation page ('Category:Light shows' links to it)" },
+    { "qid": "Q5", "label": "human", "verified": false, "verified_by": null, "reason": "a person; also caught by the 'human' class-label rule" },
+    { "qid": "Q4167836", "label": "Wikimedia category", "verified": false, "verified_by": null, "reason": "a category item: the pipeline follows its P301 main topic instead" }
+  ],
+  "properties": {
+    "about": "Every property the pipeline reads. The discovery step fetches their live labels into review/properties.json; a property whose live label does not contain the expected text is not used in that run (reported in report.json).",
+    "P31": "instance of", "P279": "subclass of", "P17": "country", "P297": "ISO 3166-1 alpha-2 code",
+    "P131": "located in the administrative territorial entity", "P625": "coordinate location",
+    "P571": "inception", "P580": "start time", "P582": "end time",
+    "P84": "architect", "P170": "creator", "P137": "operator", "P856": "official website",
+    "P373": "Commons category", "P18": "image", "P301": "category's main topic", "P910": "topic's main category",
+    "P1705": "native label", "P1448": "official name", "P5817": "state of use", "P276": "location"
+  }
+}
