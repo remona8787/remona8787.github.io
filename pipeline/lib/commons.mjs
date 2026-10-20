@@ -203,37 +203,35 @@ export async function discoverCategories(client, config, { cache, ttlHours = 72,
       }
     } catch (e) { if (e?.code === 'budget') partial = true; else errors.push({ stage: 'commons_info', message: String(e?.message || e).slice(0, 300) }) }
   }
-  // 3. Breadth-first walks of the roots.
-  for (const root of config.roots || []) {
-    if (partial) break
-    let rootInfo
-    try { rootInfo = (await categoryInfo(client, [root.title], { cache, ttlHours })).get(root.title) } catch (e) {
-      if (e?.code === 'budget') { partial = true; break }
-      errors.push({ stage: 'commons_root', root: root.title, message: String(e?.message || e).slice(0, 300) }); continue
-    }
-    if (!rootInfo?.exists) { log({ kind: 'root_missing', root: root.title }); errors.push({ stage: 'commons_root', root: root.title, message: 'category does not exist' }); continue }
-    record(rootInfo, { decision: 'aggregate', reason: 'configured_root' }, { root: root.title, parent: null, project_type: root.project_type ?? null, place_hint: null })
-    const queue = [{ info: rootInfo, depth: 0, hint: null }]
+  // 3. Breadth-first walks of the roots, then one level below every category the name searches found (a search hit
+  // such as "Projection mapping in Prague" is an aggregate whose members are the projects).
+  const expanded = new Set()
+  const WALK = new Set(['aggregate', 'candidate', 'evidence', 'part'])
+  async function walkFrom(root, startInfo, maxDepth) {
+    const queue = [{ info: startInfo, depth: 0, hint: seen.get(startInfo.title)?.place_hint ?? null }]
     let count = 0
     while (queue.length && seen.size < maxCategories && count < (walk.max_per_root ?? 600)) {
       const { info, depth, hint } = queue.shift()
       const parentEntry = seen.get(info.title)
-      if (depth >= (root.depth ?? 2) || !info.subcats) continue
+      if (depth >= maxDepth || !info.subcats || expanded.has(info.title)) continue
+      expanded.add(info.title)
       let children
       try { children = await subcategories(client, info.title, { cache, ttlHours }) } catch (e) {
-        if (e?.code === 'budget') { partial = true; break }
+        if (e?.code === 'budget') { partial = true; return }
         errors.push({ stage: 'commons_walk', category: info.title, message: String(e?.message || e).slice(0, 300) }); continue
       }
+      // A place named by an aggregate ancestor ("Projection mapping in Poland") is a location hint for its members.
+      const own = parentEntry?.decision === 'aggregate' ? detectLocation(name(info.title)) : null
+      const placeHint = own?.country_iso2 ? { country_iso2: own.country_iso2, city: own.city, from: info.title } : hint
       for (const child of children) {
         count++
         if (seen.has(child.title)) {
           const prev = seen.get(child.title)
-          if (prev.decision === 'edition' && !prev.parent && parentEntry?.decision === 'candidate') prev.parent = info.title
+          if (prev.decision === 'edition' && !prev.parent && parentEntry?.decision === 'candidate') { prev.parent = info.title; parentEntry.editions = [...(parentEntry.editions || []), child.title] }
+          if (!prev.place_hint && placeHint) prev.place_hint = placeHint
+          if (WALK.has(prev.decision) && !expanded.has(child.title)) queue.push({ info: child, depth: depth + 1, hint: placeHint })
           continue
         }
-        // A place named by an aggregate ancestor ("Projection mapping in Poland") is a location hint for its members.
-        const own = parentEntry?.decision === 'aggregate' ? detectLocation(name(info.title)) : null
-        const placeHint = own?.country_iso2 ? { country_iso2: own.country_iso2, city: own.city, from: info.title } : hint
         const d = classifyCategory(child.title, child, root, rules)
         const entry = record(child, d, { root: root.title, parent: info.title, project_type: root.project_type ?? null, place_hint: placeHint })
         if (d.decision === 'candidate' && parentEntry?.decision === 'candidate') {
@@ -242,13 +240,31 @@ export async function discoverCategories(client, config, { cache, ttlHours = 72,
           parentEntry.parts = [...(parentEntry.parts || []), child.title]
         }
         if (d.decision === 'edition' && parentEntry?.decision === 'candidate') parentEntry.editions = [...(parentEntry.editions || []), child.title]
-        if (entry.decision === 'aggregate' || entry.decision === 'candidate' || entry.decision === 'evidence' || entry.decision === 'part') queue.push({ info: child, depth: depth + 1, hint: placeHint })
+        if (WALK.has(entry.decision)) queue.push({ info: child, depth: depth + 1, hint: placeHint })
         if (seen.size >= maxCategories) break
       }
     }
-    if (partial) break
   }
-  return { categories: seen, errors, partial, rules }
+  const warnings = []
+  for (const root of config.roots || []) {
+    if (partial) break
+    let rootInfo
+    try { rootInfo = (await categoryInfo(client, [root.title], { cache, ttlHours })).get(root.title) } catch (e) {
+      if (e?.code === 'budget') { partial = true; break }
+      errors.push({ stage: 'commons_root', root: root.title, message: String(e?.message || e).slice(0, 300) }); continue
+    }
+    // A configured root that does not exist is a configuration warning, not a source failure.
+    if (!rootInfo?.exists) { log({ kind: 'root_missing', root: root.title }); warnings.push({ stage: 'commons_root', root: root.title, message: 'category does not exist' }); continue }
+    if (!seen.has(rootInfo.title)) record(rootInfo, { decision: 'aggregate', reason: 'configured_root' }, { root: root.title, parent: null, project_type: root.project_type ?? null, place_hint: null })
+    await walkFrom(root, rootInfo, root.depth ?? 2)
+  }
+  for (const s of searched) {
+    if (partial) break
+    const e = seen.get(categoryTitle(s.title))
+    if (!e || e.decision !== 'aggregate' || expanded.has(e.title)) continue
+    await walkFrom({ title: s.root.title, mode: 'candidates', project_type: s.root.project_type }, e, 1)
+  }
+  return { categories: seen, errors, warnings, partial, rules }
 }
 
 // ---- files ----

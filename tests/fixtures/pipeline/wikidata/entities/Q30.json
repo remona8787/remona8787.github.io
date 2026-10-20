@@ -1,0 +1,81 @@
+{
+ "pageid": 30,
+ "ns": 0,
+ "title": "Q30",
+ "lastrevid": 2400000030,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q30",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "United States"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "미국"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "4008c54c8e9f868e1b3f78a897696f20",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 6256,
+       "id": "Q6256"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q30$4008c54c-0000-0000-0000-000000000000",
+    "rank": "normal"
+   },
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "943a75b822239f2bb76b6ab9b6851430",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 3624078,
+       "id": "Q3624078"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q30$943a75b8-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P297": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P297",
+     "hash": "fab8cdde573e9f19df78004e8bfc709f",
+     "datavalue": {
+      "value": "US",
+      "type": "string"
+     },
+     "datatype": "external-id"
+    },
+    "type": "statement",
+    "id": "Q30$fab8cdde-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

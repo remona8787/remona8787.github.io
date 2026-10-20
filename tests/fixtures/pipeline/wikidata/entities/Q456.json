@@ -1,0 +1,66 @@
+{
+ "pageid": 456,
+ "ns": 0,
+ "title": "Q456",
+ "lastrevid": 2400000456,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q456",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Lyon"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "리옹"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "402ce8996d68401018a4bbd8ce798e0d",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 484170,
+       "id": "Q484170"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q456$402ce899-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "b753a5ddf13a022b8419a000fd8671dc",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 142,
+       "id": "Q142"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q456$b753a5dd-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

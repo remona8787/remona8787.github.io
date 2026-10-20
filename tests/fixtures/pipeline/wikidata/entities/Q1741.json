@@ -1,0 +1,66 @@
+{
+ "pageid": 1741,
+ "ns": 0,
+ "title": "Q1741",
+ "lastrevid": 2400001741,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q1741",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Vienna"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "빈"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "8dc6fe20590b8e3811a0348c2f26ad24",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 5119,
+       "id": "Q5119"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q1741$8dc6fe20-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "0933598d826c89abab99424184a321da",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 40,
+       "id": "Q40"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q1741$0933598d-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

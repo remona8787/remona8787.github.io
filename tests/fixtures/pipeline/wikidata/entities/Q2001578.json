@@ -1,0 +1,169 @@
+{
+ "pageid": 2001578,
+ "ns": 0,
+ "title": "Q2001578",
+ "lastrevid": 2400001578,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q2001578",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Tribute in Light"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "art installation in New York City"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "4b32bd1984777521458e958b6d8b2ae0",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1823448,
+       "id": "Q1823448"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q2001578$4b32bd19-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "e6d574a3ee1d69597e4041aa5880449d",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 30,
+       "id": "Q30"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q2001578$e6d574a3-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "2604f48ab71c8bc8c7127c611abc52de",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 60,
+       "id": "Q60"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q2001578$2604f48a-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "deb668187781f42b4fd8e0f37a3e295d",
+     "datavalue": {
+      "value": {
+       "latitude": 40.7115,
+       "longitude": -74.0134,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q2001578$deb66818-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "6f0620dd919b0be55a4e458c61014bba",
+     "datavalue": {
+      "value": {
+       "time": "+2002-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q2001578$6f0620dd-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P18": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P18",
+     "hash": "bc2e9fbf187e8c096001ff2f911ea0b0",
+     "datavalue": {
+      "value": "Tribute in Light 2011.jpg",
+      "type": "string"
+     },
+     "datatype": "commonsMedia"
+    },
+    "type": "statement",
+    "id": "Q2001578$bc2e9fbf-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P373": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P373",
+     "hash": "ccadda0a47d346a54e26f352a07ae5a9",
+     "datavalue": {
+      "value": "Tribute in Light",
+      "type": "string"
+     },
+     "datatype": "string"
+    },
+    "type": "statement",
+    "id": "Q2001578$ccadda0a-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

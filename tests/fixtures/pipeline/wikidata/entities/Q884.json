@@ -1,0 +1,81 @@
+{
+ "pageid": 884,
+ "ns": 0,
+ "title": "Q884",
+ "lastrevid": 2400000884,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q884",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "South Korea"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "대한민국"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "4c125a65d7fac8aaddde1979ed89480f",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 6256,
+       "id": "Q6256"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q884$4c125a65-0000-0000-0000-000000000000",
+    "rank": "normal"
+   },
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "aff5ba8dbb80980fa717c57a5f70bf3e",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 3624078,
+       "id": "Q3624078"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q884$aff5ba8d-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P297": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P297",
+     "hash": "bcfd6f4f720be450ee6b41ef675cc1f0",
+     "datavalue": {
+      "value": "KR",
+      "type": "string"
+     },
+     "datatype": "external-id"
+    },
+    "type": "statement",
+    "id": "Q884$bcfd6f4f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

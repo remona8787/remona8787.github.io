@@ -1,0 +1,152 @@
+{
+ "pageid": 5295847,
+ "ns": 0,
+ "title": "Q5295847",
+ "lastrevid": 2400295847,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q5295847",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Dongdaemun Design Plaza"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "동대문디자인플라자"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "building in Seoul"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "5ddacf599dd8dab3e5f852a20ae0274d",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 41176,
+       "id": "Q41176"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q5295847$5ddacf59-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "8ae09eeb1266ed8053f8286b06651791",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q5295847$8ae09eeb-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "279a1937e466877b890fa435f40b42a5",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000303,
+       "id": "Q99000303"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q5295847$279a1937-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "b293e5f415ca0af5b27b12d1137472fa",
+     "datavalue": {
+      "value": {
+       "latitude": 37.5665,
+       "longitude": 127.0095,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q5295847$b293e5f4-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "5c57a70f2c83d5f1dfa4033186f11c5d",
+     "datavalue": {
+      "value": {
+       "time": "+2014-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q5295847$5c57a70f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "kowiki": {
+   "site": "kowiki",
+   "title": "동대문디자인플라자",
+   "badges": [],
+   "url": "https://ko.wikipedia.org/wiki/%EB%8F%99%EB%8C%80%EB%AC%B8%EB%94%94%EC%9E%90%EC%9D%B8%ED%94%8C%EB%9D%BC%EC%9E%90"
+  },
+  "enwiki": {
+   "site": "enwiki",
+   "title": "Dongdaemun Design Plaza",
+   "badges": [],
+   "url": "https://en.wikipedia.org/wiki/Dongdaemun_Design_Plaza"
+  }
+ }
+}

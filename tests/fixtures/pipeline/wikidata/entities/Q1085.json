@@ -1,0 +1,66 @@
+{
+ "pageid": 1085,
+ "ns": 0,
+ "title": "Q1085",
+ "lastrevid": 2400001085,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q1085",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Prague"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "프라하"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "2b75e2f14c22e38025669517baac53c7",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 5119,
+       "id": "Q5119"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q1085$2b75e2f1-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "88dcd15c2674d989a41acb1bc4e753c2",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 213,
+       "id": "Q213"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q1085$88dcd15c-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

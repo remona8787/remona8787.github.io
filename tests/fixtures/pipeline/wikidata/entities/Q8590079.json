@@ -1,0 +1,62 @@
+{
+ "pageid": 8590079,
+ "ns": 0,
+ "title": "Q8590079",
+ "lastrevid": 2400590079,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q8590079",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Category:Light art"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "91fd2726f3e3fb973ec99a8d670d0845",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 4167836,
+       "id": "Q4167836"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q8590079$91fd2726-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P301": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P301",
+     "hash": "8b0ed6f0c663b2f784cab8c86635f8ff",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1421557,
+       "id": "Q1421557"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q8590079$8b0ed6f0-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

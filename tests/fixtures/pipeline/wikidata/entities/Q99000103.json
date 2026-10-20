@@ -1,0 +1,192 @@
+{
+ "pageid": 99000103,
+ "ns": 0,
+ "title": "Q99000103",
+ "lastrevid": 2400000103,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000103",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Uniqa Tower"
+  },
+  "de": {
+   "language": "de",
+   "value": "Uniqa Tower"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "office building in Vienna"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "3060e6f3cb60caec46ebfa7631032ce1",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 11303,
+       "id": "Q11303"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000103$3060e6f3-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "d31fef22082545d6865b1769a4d49c3b",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 40,
+       "id": "Q40"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000103$d31fef22-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "2477f2cd42899deff3a06f30c63eebb8",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1741,
+       "id": "Q1741"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000103$2477f2cd-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "066c6525a8f16d09985f2603e3afa224",
+     "datavalue": {
+      "value": {
+       "latitude": 48.2117,
+       "longitude": 16.38,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q99000103$066c6525-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "6835a32c7d9e245f87be300a50e373b1",
+     "datavalue": {
+      "value": {
+       "time": "+2004-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q99000103$6835a32c-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P18": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P18",
+     "hash": "b84db4d29c91405065e2acb9ec343900",
+     "datavalue": {
+      "value": "Uniqa Tower Medienfassade Nacht.jpg",
+      "type": "string"
+     },
+     "datatype": "commonsMedia"
+    },
+    "type": "statement",
+    "id": "Q99000103$b84db4d2-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P373": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P373",
+     "hash": "50c792d2c10a50b14cf6b60945fcf702",
+     "datavalue": {
+      "value": "Uniqa Tower",
+      "type": "string"
+     },
+     "datatype": "string"
+    },
+    "type": "statement",
+    "id": "Q99000103$50c792d2-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "enwiki": {
+   "site": "enwiki",
+   "title": "Uniqa Tower",
+   "badges": [],
+   "url": "https://en.wikipedia.org/wiki/Uniqa_Tower"
+  },
+  "dewiki": {
+   "site": "dewiki",
+   "title": "Uniqa Tower",
+   "badges": [],
+   "url": "https://de.wikipedia.org/wiki/Uniqa_Tower"
+  },
+  "commonswiki": {
+   "site": "commonswiki",
+   "title": "Category:Uniqa Tower",
+   "badges": [],
+   "url": "https://commons.wikimedia.org/wiki/Category:Uniqa_Tower"
+  }
+ }
+}

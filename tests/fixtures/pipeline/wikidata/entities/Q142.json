@@ -1,0 +1,81 @@
+{
+ "pageid": 142,
+ "ns": 0,
+ "title": "Q142",
+ "lastrevid": 2400000142,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q142",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "France"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "프랑스"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "454af6a21f3632029ddf0474c4751a2b",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 6256,
+       "id": "Q6256"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q142$454af6a2-0000-0000-0000-000000000000",
+    "rank": "normal"
+   },
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "a2e4e294c7b6534ca8c81481c23f09e9",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 3624078,
+       "id": "Q3624078"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q142$a2e4e294-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P297": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P297",
+     "hash": "0013ab7b08bb4b9af4df370b014cf4e4",
+     "datavalue": {
+      "value": "FR",
+      "type": "string"
+     },
+     "datatype": "external-id"
+    },
+    "type": "statement",
+    "id": "Q142$0013ab7b-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

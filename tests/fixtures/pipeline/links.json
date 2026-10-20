@@ -1,0 +1,16 @@
+{
+ "default": {
+  "status": 200,
+  "robots": "User-agent: *\nAllow: /\n"
+ },
+ "hosts": {
+  "centercity.example": {
+   "status": 404,
+   "robots": ""
+  },
+  "www.signalfestival.com": {
+   "status": 200,
+   "robots": "User-agent: *\nDisallow: /\n"
+  }
+ }
+}

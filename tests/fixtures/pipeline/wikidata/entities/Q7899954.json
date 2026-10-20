@@ -1,0 +1,173 @@
+{
+ "pageid": 7899954,
+ "ns": 0,
+ "title": "Q7899954",
+ "lastrevid": 2400899954,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q7899954",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Urban Light"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "어반 라이트"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "2008 installation by Chris Burden"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "54ac0e9499022404560abd48e8a53cac",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1823448,
+       "id": "Q1823448"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q7899954$54ac0e94-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "9bdca7928951dc7d3cfcda27ee7908b1",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 30,
+       "id": "Q30"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q7899954$9bdca792-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "4a71ff949b56ead0fd0f14b39c023adb",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 65,
+       "id": "Q65"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q7899954$4a71ff94-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "eb0f948092228fd99b374702c1eee33d",
+     "datavalue": {
+      "value": {
+       "latitude": 34.0629,
+       "longitude": -118.3593,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q7899954$eb0f9480-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "c2562ec64c8464ef3d4bc279c58ead35",
+     "datavalue": {
+      "value": {
+       "time": "+2008-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q7899954$c2562ec6-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P18": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P18",
+     "hash": "59c5b491c620e153fae121ce8821fc37",
+     "datavalue": {
+      "value": "Urban Light LACMA daytime.jpg",
+      "type": "string"
+     },
+     "datatype": "commonsMedia"
+    },
+    "type": "statement",
+    "id": "Q7899954$59c5b491-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P373": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P373",
+     "hash": "43e64eb949e790e56b1490abff0d13dd",
+     "datavalue": {
+      "value": "Urban Light",
+      "type": "string"
+     },
+     "datatype": "string"
+    },
+    "type": "statement",
+    "id": "Q7899954$43e64eb9-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

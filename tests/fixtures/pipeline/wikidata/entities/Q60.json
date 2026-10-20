@@ -1,0 +1,66 @@
+{
+ "pageid": 60,
+ "ns": 0,
+ "title": "Q60",
+ "lastrevid": 2400000060,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q60",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "New York City"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "뉴욕"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "2a35f8060932f6473c651db0ccd1e99b",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1093829,
+       "id": "Q1093829"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q60$2a35f806-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "790449de3a339050fda3c6eeff5e48f0",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 30,
+       "id": "Q30"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q60$790449de-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

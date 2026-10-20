@@ -1,0 +1,106 @@
+{
+ "pageid": 99000107,
+ "ns": 0,
+ "title": "Q99000107",
+ "lastrevid": 2400000107,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000107",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Fixture Drone Show"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "ca4a38a228e3fbd87a496995d8e09713",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 60744298,
+       "id": "Q60744298"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000107$ca4a38a2-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "1d8d351f553669aa5ea0ab4532cbb867",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000107$1d8d351f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "5ba73a47a2d8b61f29a00505eb50fe2c",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 8684,
+       "id": "Q8684"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000107$5ba73a47-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "7a958dba10a3a5248aadbe27d90bb80d",
+     "datavalue": {
+      "value": {
+       "latitude": 37.52,
+       "longitude": 126.93,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q99000107$7a958dba-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

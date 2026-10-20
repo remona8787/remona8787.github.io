@@ -169,7 +169,7 @@ export async function runPipeline(o) {
       try {
         categories = await discoverCategories(client, cfg.categories, { cache, ttlHours: ttl.commons_category ?? 72 })
         const n = [...categories.categories.values()].filter((c) => c.decision === 'candidate').length
-        status('commons', { status: categories.partial ? 'partial' : categories.errors.length ? (n ? 'partial' : 'error') : 'ok', items: n, errors: categories.errors, duration_ms: clock() - t })
+        status('commons', { status: categories.partial ? 'partial' : categories.errors.length ? (n ? 'partial' : 'error') : 'ok', items: n, errors: categories.errors, warnings: categories.warnings, duration_ms: clock() - t })
       } catch (x) { err('commons', x); status('commons', { status: 'error', items: 0, errors: [{ message: msg(x) }], duration_ms: clock() - t }) }
     })()
     const wikipediaTask = (async () => {
@@ -363,6 +363,7 @@ export async function runPipeline(o) {
   const typeOrder = ['media_facade', 'projection_mapping', 'media_wall', 'urban_screen', 'interactive_installation', 'light_art', 'media_architecture', 'festival_program', 'other']
   const order = [...published].sort((a, b) => (b.curated_id ? 1 : 0) - (a.curated_id ? 1 : 0) || (prev.records.get(b.id)?.images?.length ? 1 : 0) - (prev.records.get(a.id)?.images?.length ? 1 : 0) || typeOrder.indexOf(a.project_type) - typeOrder.indexOf(b.project_type) || (b.p18.length ? 1 : 0) - (a.p18.length ? 1 : 0) || compareStrings(a.id, b.id))
   let thumbsFetched = 0
+  const heroOutcome = new Map()
   const imageStats = { processed: 0, kept_previous: 0, none: 0, candidates: 0, rejected: {}, measured: 0, measure_errors: 0 }
   await st.run('images', async () => {
     const groups = chunk(order, 6)
@@ -465,12 +466,27 @@ export async function runPipeline(o) {
       candidates: assessed.map((s) => ({ file: s.file, source: s.source, ok: s.a.ok, reasons: s.a.reasons, night: s.a.night ?? null, media: s.a.media ?? null, night_terms: s.a.night_terms, media_terms: s.a.media_terms, evidence: s.a.evidence, visual: s.m ?? null, tier: s.t?.tier ?? null, home_ok: s.t?.home_ok ?? false })),
       hero_decisions: choice.decisions,
     })
+    for (const d of choice.decisions) if (d.allowlisted) heroOutcome.set(p.id + '|' + d.file, { hero: choice.hero?.file === d.file, reasons: d.reasons })
     for (const d of choice.decisions) {
       const s = usable.find((x) => x.file === d.file)
       sheetTiles.hero.push({ project: p.id, file: d.file, tier: s?.t?.tier, visual: s?.m?.visual ?? null, night: s?.a.night, media: s?.a.media, hero_candidate: d.hero_candidate, allowlisted: d.allowlisted, buffer: buffers.get(d.file) || null, thumb: s?.info?.thumburl })
     }
     if (choice.card && choice.card.t.tier <= 3) sheetTiles.cards.push({ project: p.id, file: choice.card.file, tier: choice.card.t.tier, visual: choice.card.m?.visual ?? null, night: choice.card.a.night, media: choice.card.a.media, buffer: buffers.get(choice.card.file) || null, thumb: choice.card.info.thumburl })
   }
+
+  // Hero allowlist outcomes (hero.json entries and set_hero/unset_hero decisions).
+  const publishedIds = new Set(published.map((p) => p.id))
+  for (const [key, v] of ed.heroAllow) {
+    const [project, file] = [key.slice(0, key.indexOf('|')), key.slice(key.indexOf('|') + 1)]
+    if (!publishedIds.has(project)) continue
+    v.entry.status = 'applied'; v.entry.project = project
+    const out = heroOutcome.get(key)
+    if (v.on && !out?.hero) v.entry.reasons.push(out ? 'not_hero:' + out.reasons.join(',') : 'image_not_a_usable_candidate:' + file)
+  }
+  const heroList = ed.heroList.map((h) => {
+    const out = heroOutcome.get(h.project + '|' + h.image)
+    return { project: h.project, image: h.image, note: h.note, status: !publishedIds.has(h.project) ? 'project_not_published' : out?.hero ? 'hero' : out ? 'not_eligible' : imageResults.get(h.project)?.status === 'kept_previous' ? 'not_scored_this_run' : 'image_not_a_usable_candidate', reasons: out?.reasons || [] }
+  })
 
   // ---------------------------------------------------------------- contact sheets (review/contact-sheets/)
   const sheets = []
@@ -600,7 +616,8 @@ export async function runPipeline(o) {
   const heroCandidates = sheetTiles.hero.filter((t) => t.hero_candidate && !t.allowlisted).length
   const candidates = mergeCandidates(state.candidates, webOut?.items || [], { now: clock() })
   const reviewQueue = Object.values(candidates).filter((c) => c.status === 'needs_review' || c.status === 'uncertain').length
-  const dupes = (clusters?.conflicts || []).map((c) => ({ rule: c.reason, qids: c.qids, detail: c.detail ?? null, projects: uniq(c.qids.map((q) => projects.find((p) => (p.all_qids || []).includes(q))?.id)) }))
+  // Suspected duplicates: pairs the merge rules refused to join (two QIDs) that are still separate projects.
+  const dupes = (clusters?.conflicts || []).map((c) => ({ rule: c.reason, qids: c.qids, detail: c.detail ?? null, projects: uniq(c.qids.map((q) => projects.find((p) => (p.all_qids || []).includes(q))?.id)) })).filter((d) => d.projects.length > 1)
   const quality = {
     schema: 1, build_id: buildId, generated_at: startedAt,
     missing_images: records.filter((r) => !r.images.length).map((r) => ({ id: r.id, name: r.name_en || r.name_ko, project_type: r.project_type, country_iso2: r.country_iso2 })),
@@ -611,7 +628,7 @@ export async function runPipeline(o) {
     stale: track.stale,
     low_confidence_types: published.filter((p) => p.type_low_confidence).map((p) => ({ id: p.id, project_type: p.project_type, type_source: p.type_source })),
     excluded: excluded.sort((a, b) => compareStrings(a.id, b.id)),
-    coordinate_checks: overpassRows.filter((r) => r.status !== 'confirmed'),
+    coordinate_checks: overpassRows.filter((r) => r.status === 'mismatch'),
     image_rejections: imageStats.rejected,
   }
   const counts = {
@@ -637,6 +654,8 @@ export async function runPipeline(o) {
     images: { ...imageStats, thumbnails_fetched: thumbsFetched, contact_sheets: sheets.map((s) => s.sheet) },
     changes: { new: newIds.slice(0, 200), changed: changed.slice(0, 200), removed: track.removed, carried_over: track.carried, merges: [...merges, ...ed.merges.filter((m) => m.entry.status === 'applied').map((m) => ({ rule: 'editorial_merge', a: m.from, b: m.into }))] },
     decisions,
+    hero_list: heroList,
+    warnings: categories?.warnings ?? [],
     review_queue: { candidates: reviewQueue, hero_candidates: heroCandidates },
     errors,
   }

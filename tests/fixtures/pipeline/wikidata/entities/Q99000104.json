@@ -1,0 +1,74 @@
+{
+ "pageid": 99000104,
+ "ns": 0,
+ "title": "Q99000104",
+ "lastrevid": 2400000104,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000104",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "ExampleLED"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "LED manufacturer"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "e04dce750a0f0b76fb34ba34532b23d7",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 4830453,
+       "id": "Q4830453"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000104$e04dce75-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "127eca4a5df90f2162d1a3e88d682c96",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 183,
+       "id": "Q183"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000104$127eca4a-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "enwiki": {
+   "site": "enwiki",
+   "title": "ExampleLED",
+   "badges": [],
+   "url": "https://en.wikipedia.org/wiki/ExampleLED"
+  }
+ }
+}

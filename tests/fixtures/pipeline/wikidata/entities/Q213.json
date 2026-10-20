@@ -1,0 +1,81 @@
+{
+ "pageid": 213,
+ "ns": 0,
+ "title": "Q213",
+ "lastrevid": 2400000213,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q213",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Czech Republic"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "체코"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "b1a9c77e00a233bd8b73abc8e5a70d6d",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 6256,
+       "id": "Q6256"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q213$b1a9c77e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   },
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "13233c3561ad9e594d0ff532510adf9c",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 3624078,
+       "id": "Q3624078"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q213$13233c35-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P297": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P297",
+     "hash": "b8cb1c866042367404afcc3960fed254",
+     "datavalue": {
+      "value": "CZ",
+      "type": "string"
+     },
+     "datatype": "external-id"
+    },
+    "type": "statement",
+    "id": "Q213$b8cb1c86-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

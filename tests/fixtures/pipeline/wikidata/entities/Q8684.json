@@ -1,0 +1,66 @@
+{
+ "pageid": 8684,
+ "ns": 0,
+ "title": "Q8684",
+ "lastrevid": 2400008684,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q8684",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Seoul"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "서울"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "db081d7458412a97a7841ac70b123d2b",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 5119,
+       "id": "Q5119"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q8684$db081d74-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "37d8679756782fe44b133351f65d6687",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q8684$37d86797-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

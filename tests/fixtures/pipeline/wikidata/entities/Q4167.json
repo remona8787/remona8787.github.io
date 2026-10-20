@@ -1,0 +1,216 @@
+{
+ "pageid": 4167,
+ "ns": 0,
+ "title": "Q4167",
+ "lastrevid": 2400004167,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q4167",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Festival of Lights"
+  },
+  "fr": {
+   "language": "fr",
+   "value": "Fête des Lumières"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "리옹 빛의 축제"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "celebration on December 8 in Lyon, France"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "4b1f9a0b47a93bac89577bca0eaba834",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 124414048,
+       "id": "Q124414048"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q4167$4b1f9a0b-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "5cabd3b72feb3d08c4313801bbe7b366",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 142,
+       "id": "Q142"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q4167$5cabd3b7-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "83d28f851198c28288e27f35e77c38b6",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 456,
+       "id": "Q456"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q4167$83d28f85-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "fa4b6ab1f71064926534279016f5bf34",
+     "datavalue": {
+      "value": {
+       "latitude": 45.764,
+       "longitude": 4.8357,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q4167$fa4b6ab1-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "55d1835c8bc552937ad66ee64f7eb4f4",
+     "datavalue": {
+      "value": {
+       "time": "+1999-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q4167$55d1835c-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P856": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P856",
+     "hash": "d4e9cf32ec38df052988d1a6e02dc3d9",
+     "datavalue": {
+      "value": "https://www.fetedeslumieres.lyon.fr/",
+      "type": "string"
+     },
+     "datatype": "url"
+    },
+    "type": "statement",
+    "id": "Q4167$d4e9cf32-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P373": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P373",
+     "hash": "099689b2f6249516fcf2cf1fa8f2937f",
+     "datavalue": {
+      "value": "Fête des Lumières",
+      "type": "string"
+     },
+     "datatype": "string"
+    },
+    "type": "statement",
+    "id": "Q4167$099689b2-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P1705": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P1705",
+     "hash": "ef3752d385042e7fbd4cbcda789a13db",
+     "datavalue": {
+      "value": {
+       "text": "Fête des Lumières",
+       "language": "fr"
+      },
+      "type": "monolingualtext"
+     },
+     "datatype": "monolingualtext"
+    },
+    "type": "statement",
+    "id": "Q4167$ef3752d3-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "enwiki": {
+   "site": "enwiki",
+   "title": "Festival of Lights (Lyon)",
+   "badges": [],
+   "url": "https://en.wikipedia.org/wiki/Festival_of_Lights_(Lyon)"
+  },
+  "frwiki": {
+   "site": "frwiki",
+   "title": "Fête des Lumières",
+   "badges": [],
+   "url": "https://fr.wikipedia.org/wiki/F%C3%AAte_des_Lumi%C3%A8res"
+  },
+  "commonswiki": {
+   "site": "commonswiki",
+   "title": "Category:Fête des Lumières",
+   "badges": [],
+   "url": "https://commons.wikimedia.org/wiki/Category:F%C3%AAte_des_Lumi%C3%A8res"
+  }
+ }
+}
