@@ -1,0 +1,189 @@
+# Light Architecture archive: collect → deploy → verify-live.
+# Contract: docs/STATIC_ARCHIVE.md; operations: docs/PIPELINE.md (both on the source branch).
+# Canonical copy: deploy/pages-repo/.github/workflows/archive.yml on the source branch. Copy it here by hand: a
+# GITHUB_TOKEN push may not change workflow files, so the deploy job only warns when the two differ.
+#
+# Branches of remona8787/remona8787.github.io:
+#   main    the built site served by GitHub Pages (Settings → Pages → Deploy from a branch → main, / (root)), plus this
+#           workflow, README.md and .nojekyll. Written only by the deploy job.
+#   source  the light-architecture project at the branch root, plus editorial/. Humans and Claude push here.
+#   data    pipeline output: site-data/ (published at /data/), admin-data/ (published at /data/admin/), review/
+#           (contact sheets, query logs, live checks) and state/ (caches, ETags, failure counters). Written only by
+#           this workflow.
+#
+# Pushes made with GITHUB_TOKEN do not start other workflows, so collect, deploy and verify are jobs of this one.
+# Every commit is made as github-actions[bot]. Every step is idempotent and no job deletes data: a failed collect
+# commits nothing, so deploy publishes the last good dataset; deploy never replaces a valid deployed dataset with an
+# invalid one; an unchanged deploy commits nothing.
+name: archive
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+    inputs:
+      collect:
+        description: Run the collect job (off = build, deploy and verify only)
+        type: boolean
+        default: true
+      budget_minutes:
+        description: Time budget of the collect run, in minutes
+        type: number
+        default: 25
+  push:
+    branches: [source]
+
+concurrency:
+  group: archive
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+env:
+  NODE_VERSION: '22'
+  SITE_URL: https://remona8787.github.io
+
+jobs:
+  collect:
+    # Every schedule; on demand unless switched off; on a push to source only when its commit message contains [collect].
+    if: >-
+      github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.collect) ||
+      (github.event_name == 'push' && contains(github.event.head_commit.message, '[collect]'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    outputs:
+      build_id: ${{ steps.run.outputs.build_id }}
+      status: ${{ steps.run.outputs.status }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          ref: source
+          path: source
+      - name: Check out the repository for the data branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: data
+          fetch-depth: 1
+      - name: Switch to the data branch (created empty on the first run)
+        run: bash source/pipeline/ci/use-branch.sh data data
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: source/pipeline/package-lock.json
+      - name: Install the pipeline dependencies (sharp)
+        run: npm ci --prefix source/pipeline --no-audit --no-fund
+      - name: Collect
+        id: run
+        env:
+          BUDGET_MINUTES: ${{ inputs.budget_minutes || 25 }}
+        run: node source/pipeline/run.mjs --data=data --budget="$BUDGET_MINUTES"
+      - name: Commit to the data branch
+        if: steps.run.outcome == 'success'
+        env:
+          MESSAGE: "Collect ${{ steps.run.outputs.build_id }}: ${{ steps.run.outputs.status }}, ${{ steps.run.outputs.publish }} (run ${{ github.run_id }})"
+        run: bash source/pipeline/ci/commit-push.sh data data "$MESSAGE" 120
+
+  deploy:
+    needs: collect
+    # After collect whatever its result (a failed collect left the data branch as it was), or alone when it was skipped.
+    if: ${{ !cancelled() && github.event.deleted != true }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      deploy_id: ${{ steps.assemble.outputs.deploy_id }}
+      build_id: ${{ steps.assemble.outputs.build_id }}
+      changed: ${{ steps.assemble.outputs.changed }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          ref: source
+          path: source
+      - name: Check out main (the Pages branch)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: site
+          fetch-depth: 1
+      - name: Check out the repository for the data branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: data
+          fetch-depth: 1
+      - name: Switch to the data branch
+        run: bash source/pipeline/ci/use-branch.sh data data
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: source/package-lock.json
+      - name: Build the site (SITE_URL=https://remona8787.github.io)
+        working-directory: source
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+      - name: Assemble main (site, data/ and data/admin/; .github, README.md and .nojekyll kept)
+        id: assemble
+        run: >-
+          node source/pipeline/deploy.mjs --dist=source/dist --data=data --site=site
+          --source-sha="$(git -C source rev-parse HEAD)" --data-sha="$(git -C data rev-parse -q --verify HEAD || true)"
+      - name: Compare this workflow with its canonical copy
+        run: |
+          if ! cmp -s source/deploy/pages-repo/.github/workflows/archive.yml site/.github/workflows/archive.yml; then
+            echo "::warning title=archive.yml differs from its canonical copy::Copy deploy/pages-repo/.github/workflows/archive.yml of the source branch to .github/workflows/archive.yml on main."
+          fi
+      - name: Commit and push main
+        if: steps.assemble.outputs.changed == 'true'
+        env:
+          DEPLOY_ID: ${{ steps.assemble.outputs.deploy_id }}
+          BUILD_ID: ${{ steps.assemble.outputs.build_id }}
+        run: |
+          bash source/pipeline/ci/commit-push.sh site main "Deploy $DEPLOY_ID: data ${BUILD_ID:-none}, source $(git -C source rev-parse --short HEAD)" 120
+
+  verify-live:
+    needs: deploy
+    if: ${{ !cancelled() && needs.deploy.result == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          ref: source
+          path: source
+      - name: Check out the repository for the data branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: data
+          fetch-depth: 1
+      - name: Switch to the data branch
+        run: bash source/pipeline/ci/use-branch.sh data data
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: source/package-lock.json
+      - name: Install Playwright and Chromium
+        working-directory: source
+        run: |
+          npm ci --no-audit --no-fund
+          npx playwright install --with-deps chromium
+      - name: Wait for the deploy, then check the live site at 390×844 and 1440×900
+        id: verify
+        working-directory: source
+        env:
+          BUILD_ID: ${{ needs.deploy.outputs.build_id }}
+          DEPLOY_ID: ${{ needs.deploy.outputs.deploy_id }}
+        run: node pipeline/verify-live.mjs --site="$SITE_URL/" --out=../data/review/live --build-id="$BUILD_ID" --deploy-id="$DEPLOY_ID" --wait-minutes=20
+      - name: Commit review/live to the data branch
+        if: ${{ !cancelled() && steps.verify.outcome != 'skipped' }}
+        env:
+          MESSAGE: "Verify live ${{ needs.deploy.outputs.deploy_id }}: ${{ steps.verify.outcome }} (run ${{ github.run_id }})"
+        run: bash source/pipeline/ci/commit-push.sh data data "$MESSAGE" 120

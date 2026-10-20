@@ -1,16 +1,51 @@
 # 빛의 건축 · Architecture of Light
 
-전 세계 미디어파사드와 빛의 건축을 검색·탐색·비교하는 아카이브 웹앱의 **배포본(빌드 결과물)**입니다.
+A global archive of media facades, projection mapping, light art and media architecture, served at
+**https://remona8787.github.io/**.
 
-- 공개 주소: https://remona8787.github.io/
-- 이 저장소에는 빌드된 정적 파일만 있습니다. 원본 소스는 `light-architecture/` 프로젝트(`npm run build` → `dist/`)에서 만들어집니다.
-- GitHub Pages가 `main` 브랜치 루트를 그대로 공개합니다. `.nojekyll`이 있어 모든 파일이 가공 없이 제공됩니다.
-- GitHub Pages는 서버 응답 헤더를 바꿀 수 없어서, 콘텐츠 보안 정책(CSP)을 각 HTML의 `<meta http-equiv="Content-Security-Policy">`로 넣었습니다.
+전 세계 미디어파사드·프로젝션 매핑·라이트아트·미디어 건축 아카이브입니다. 이 저장소가 곧 운영 백엔드입니다. GitHub Actions가
+6시간마다 공개 출처(Wikidata, Wikimedia Commons, Wikipedia 등)에서 프로젝트를 수집·정리·검증하고, 결과를 정적 데이터로
+GitHub Pages에 배포합니다. 서버 비용은 0원입니다(공개 저장소의 Actions와 Pages는 무료).
 
-## 서버 없이 동작하는 것
-편집부 수록 장소, Wikidata 기반 전국·세계 장소 동기화(브라우저에서 6시간마다 갱신), 권리 확인된 Wikimedia Commons 사진, 지도(OpenStreetMap), 저장·코스·기록·백업(이 기기 안).
+## How it works
 
-## Supabase 서버 연결 후 동작하는 것
-로그인·기기 간 동기화, 자동 수집·편집 검수를 거친 아카이브 프로젝트, 관리자 콘솔, 사진 업로드.
+| branch | content | written by |
+|---|---|---|
+| `main` | the built site served by Pages, `data/` (the published dataset), this README, `.nojekyll` and `.github/workflows/archive.yml` | the `deploy` job only |
+| `source` | the app (static PWA) and the pipeline at the branch root, plus `editorial/` (editor decisions) | people (and Claude) |
+| `data` | pipeline output: `site-data/`, `admin-data/`, `review/` (contact sheets, query logs, live checks), `state/` (caches) | the workflow only |
 
-운영: 김지현 (JIHYUN KIM) · remona56@hanmail.net
+`.github/workflows/archive.yml` runs every 6 hours (at minute 17), on demand, and on every push to `source`:
+
+1. **collect** (every schedule; on a push only when the commit message contains `[collect]`): runs
+   `pipeline/run.mjs` of `source` and commits the result to `data`. A failed source never removes what it found
+   before; a failed run commits nothing.
+2. **deploy**: builds `source` with `SITE_URL=https://remona8787.github.io`, adds `data/` and `data/admin/` from the
+   `data` branch and commits the result to `main` (this README, `.github/` and `.nojekyll` stay). GitHub Pages then
+   publishes `main`.
+3. **verify-live**: waits until the live site serves that deploy (`/deploy.json`, `/data/manifest.json`), opens the
+   main screens at phone and desktop sizes with Playwright and commits screenshots and measurements to
+   `data:review/live/`.
+
+The data comes from Wikidata (CC0), Wikipedia (links to articles), Wikimedia Commons (every image keeps its own
+licence and author) and the archive's curated records. Only facts with a source are published.
+
+## One-time setup
+
+1. Settings → Pages → Build and deployment → Source: **Deploy from a branch**, branch `main`, folder `/ (root)`.
+2. Settings → Actions → General → Workflow permissions: **Read and write permissions**.
+3. Push the project to the `source` branch (the `light-architecture/` folder at the branch root, e.g.
+   `git subtree split --prefix=light-architecture -b source` in the development repository, then
+   `git push <this repository> source:source`).
+4. Copy `deploy/pages-repo/.github/workflows/archive.yml`, `README.md` and `.nojekyll` of `source` to `main`.
+5. Actions → archive → Run workflow (or push to `source` with `[collect]` in the commit message). The first run
+   creates the `data` branch.
+
+## Editing the archive
+
+Editor decisions are JSON files in `editorial/decisions/` on `source` (approve, hide, unhide, merge, edit,
+block_image, set_hero, unset_hero) plus the reviewed hero list `editorial/hero.json`. The admin page
+(https://remona8787.github.io/admin/) prepares a decision and opens GitHub's "create new file" page; only people with
+write access to this repository can commit it. The next collect run applies it. See `docs/PIPELINE.md` on `source`.
+
+The admin data under `/data/admin/` is public, like this repository; it is excluded from indexing in `robots.txt`.
