@@ -45,9 +45,9 @@ Locally, from the project root (`light-architecture/` in the development reposit
 ```
 npm ci --prefix pipeline                       # sharp (image scoring and contact sheets); yaml for the workflow tests
 node pipeline/run.mjs --data=../data           # a real run into ../data (needs internet access to the sources)
-node pipeline/run.mjs --fixtures --data=/tmp/aol --editorial=tests/fixtures/pipeline/editorial   # dry run, no network
+npm run dry-run --prefix pipeline               # dry run over the fixtures into pipeline/.dry-run/ (no network)
 node tests/fixtures/pipeline/make-site-data.mjs                  # regenerate the committed fixture dataset
-npm run build && node pipeline/deploy.mjs --dist=dist --data=/tmp/aol --site=/tmp/site   # assemble a main tree
+npm run build && node pipeline/deploy.mjs --dist=dist --data=pipeline/.dry-run --site=/tmp/site   # assemble a main tree
 node scripts/serve.mjs /tmp/site 4321 & node pipeline/verify-live.mjs --site=http://127.0.0.1:4321/ --out=/tmp/live
 ```
 

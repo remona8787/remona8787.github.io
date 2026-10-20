@@ -9,7 +9,7 @@
   },
   "scripts": {
     "collect": "node run.mjs",
-    "dry-run": "node run.mjs --fixtures --data=../tests/fixtures/pipeline/out --editorial=../tests/fixtures/pipeline/editorial"
+    "dry-run": "node run.mjs --fixtures --data=.dry-run --editorial=../tests/fixtures/pipeline/editorial"
   },
   "dependencies": {
     "sharp": "0.35.5"

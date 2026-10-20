@@ -134,6 +134,7 @@ export async function assemble({ dist, dataDir, siteDir, sourceSha = null, dataS
   if (!result.changed) { log(`deploy ${deployId} is already on main: nothing to change`); return result }
 
   // Replace main's tree: remove everything but KEEP, then write the new files and deploy.json.
+  await mkdir(siteDir, { recursive: true })
   for (const entry of await readdir(siteDir)) if (!KEEP.includes(entry)) await rm(path.join(siteDir, entry), { recursive: true, force: true })
   for (const [p, b] of tree) {
     if (p === '.nojekyll' && existsSync(path.join(siteDir, '.nojekyll'))) continue
