@@ -29,12 +29,15 @@ export async function checkLinks(targets, { client, cache, ttlHours = 168, max =
   for (const url of urls) {
     const hit = cache.fresh('links', url)
     if (hit !== undefined) { results.set(url, hit); fromCache++; continue }
-    if (checked >= max || client.clock() >= deadline) { unchecked++; const old = cache.any('links', url); if (old) results.set(url, old); continue }
+    // A check needs up to three requests to its host (robots.txt, HEAD, GET) at 1 per second: leave a margin.
+    if (checked >= max || client.clock() + 5000 >= deadline) { unchecked++; const old = cache.any('links', url); if (old) results.set(url, old); continue }
     const html = !/\.(pdf|jpe?g|png|webp|gif|svg|json|xml)(\?|$)/i.test(url)
     let r
     try { r = await checkLink({ target: 'project', id: url, url, html }, { policy, robots }) } catch (e) {
       r = { state: 'broken', http_status: null, final_url: null, reason: String(e?.message || e).slice(0, 200) }
     }
+    // Stopped by the time budget, not by the server: that says nothing about the link.
+    if (/time budget exhausted/.test(r.reason || '')) { unchecked++; const old = cache.any('links', url); if (old) results.set(url, old); continue }
     checked++
     const prev = cache.any('links', url)
     const failures = r.state === 'broken' ? (prev?.consecutive_failures || 0) + 1 : 0

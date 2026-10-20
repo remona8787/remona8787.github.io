@@ -30,6 +30,8 @@ export function imageOut(img) {
   }
 }
 
+// Field names of the build step → the public record's names (field_sources names the record's own fields).
+const FIELD_NAME = { latitude: 'lat', longitude: 'lng', description_ko: 'summary_ko', description_en: 'summary_en' }
 const SOURCE_KINDS = new Set(['official', 'public_agency', 'academic', 'specialist_media', 'news', 'blog', 'wikidata', 'wikipedia', 'commons', 'reference', 'search_result'])
 
 /**
@@ -76,7 +78,7 @@ export function publicRecord(p, { shard, addedAt }) {
     images,
     videos: [],
     sources: (p.sources || []).filter((s) => s.url && SOURCE_KINDS.has(s.kind)).map((s) => ({ id: s.id, kind: s.kind, title: s.title ?? null, url: s.url, publisher: s.publisher ?? null })),
-    field_sources: p.field_sources || {},
+    field_sources: Object.fromEntries(Object.entries(p.field_sources || {}).map(([k, v]) => [FIELD_NAME[k] || k, v]).sort(([a], [b]) => compareStrings(a, b))),
     visit: p.visit ? { status: p.visit.status ?? null, note: p.visit.note ?? null, period: periodText(p.visit.period), source: p.visit.source ?? (p.sources || []).find((s) => s.id === 'curated:source')?.url ?? null } : null,
     record_origin: p.record_origin,
     added_at: addedAt,

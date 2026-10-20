@@ -61,7 +61,9 @@ export const isMediaWikiApi = (url) => { try { const u = new URL(url); return ME
  *   intervals?: Record<string, number>, cache?: import('./cache.mjs').Cache|null, deadline?: number, log?: (e: object) => void}} [o]
  */
 export function createClient({ fetch = globalThis.fetch, clock = Date.now, sleep = defaultSleep, userAgent = USER_AGENT, intervals = HOST_INTERVALS, cache = null, deadline = Infinity, log = () => {} } = {}) {
-  const limiter = createStrictLimiter({ clock, sleep, defaultIntervalMs: 1000, intervals })
+  const strict = createStrictLimiter({ clock, sleep, defaultIntervalMs: 1000, intervals })
+  // The budget is checked again after the rate-limit wait, so no request starts after the deadline.
+  const limiter = { last: strict.last, intervalOf: strict.intervalOf, async wait(host) { await strict.wait(host); if (clock() >= until) throw new BudgetError('rate_limit_wait') } }
   /** @type {Record<string, {requests: number, ok: number, errors: number, not_modified: number, cached: number, bytes: number, ms: number, statuses: Record<string, number>, last_error: string|null}>} */
   const stats = {}
   const hostStats = (host) => (stats[host] ||= { requests: 0, ok: 0, errors: 0, not_modified: 0, cached: 0, bytes: 0, ms: 0, statuses: {}, last_error: null })
