@@ -1,0 +1,479 @@
+{
+ "broken_links": [
+  {
+   "checked_at": "2026-10-20T06:18:47.240Z",
+   "consecutive_failures": 1,
+   "field": "official_url",
+   "http_status": 404,
+   "project": "Q99000101",
+   "reason": "HTTP 404",
+   "url": "https://centercity.example/"
+  }
+ ],
+ "build_id": "20261020T061700Z-e4924ffe",
+ "coordinate_checks": [
+  {
+   "distance_m": 6135,
+   "id": "Q7899954",
+   "osm": "node/100000002",
+   "qid": "Q7899954",
+   "status": "mismatch"
+  }
+ ],
+ "excluded": [
+  {
+   "id": "CAT-06VLQHR",
+   "name": "Bradford Garden of Light",
+   "origins": [
+    "commons"
+   ],
+   "qid": null,
+   "reasons": [
+    "no_country",
+    "no_coordinates_or_city"
+   ]
+  },
+  {
+   "id": "Q99000106",
+   "name": "Fixture Net Artwork",
+   "origins": [
+    "wikidata_class"
+   ],
+   "qid": "Q99000106",
+   "reasons": [
+    "no_coordinates_or_city",
+    "class_requires_coordinates"
+   ]
+  },
+  {
+   "id": "Q99000107",
+   "name": "Fixture Drone Show",
+   "origins": [
+    "wikidata_class"
+   ],
+   "qid": "Q99000107",
+   "reasons": [
+    "blocklist:Q60744298"
+   ]
+  },
+  {
+   "id": "Q99000108",
+   "name": "Fixture Neon Sign",
+   "origins": [
+    "wikidata_class"
+   ],
+   "qid": "Q99000108",
+   "reasons": [
+    "hidden_by_editor"
+   ]
+  }
+ ],
+ "generated_at": "2026-10-20T06:17:00.000Z",
+ "image_rejections": {
+  "interior_unrelated_to_work": 1,
+  "rights:foreign_no_freedom_of_panorama": 1,
+  "rights:license_not_allowed": 1
+ },
+ "low_confidence_types": [
+  {
+   "id": "Q56089114",
+   "project_type": "projection_mapping",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "SEOUL005",
+   "project_type": "other",
+   "type_source": "curated_category"
+  },
+  {
+   "id": "SEOUL020",
+   "project_type": "other",
+   "type_source": "curated_category"
+  },
+  {
+   "id": "SEOUL024",
+   "project_type": "other",
+   "type_source": "curated_category"
+  },
+  {
+   "id": "SEOUL025",
+   "project_type": "other",
+   "type_source": "curated_category"
+  },
+  {
+   "id": "SEOUL026",
+   "project_type": "other",
+   "type_source": "curated_category"
+  },
+  {
+   "id": "SEOUL027",
+   "project_type": "other",
+   "type_source": "curated_category"
+  },
+  {
+   "id": "SEOUL028",
+   "project_type": "other",
+   "type_source": "curated_category"
+  },
+  {
+   "id": "SEOUL029",
+   "project_type": "other",
+   "type_source": "curated_category"
+  },
+  {
+   "id": "SEOUL030",
+   "project_type": "other",
+   "type_source": "curated_category"
+  },
+  {
+   "id": "SEOUL031",
+   "project_type": "other",
+   "type_source": "curated_category"
+  },
+  {
+   "id": "SEOUL032",
+   "project_type": "other",
+   "type_source": "curated_category"
+  },
+  {
+   "id": "SEOUL034",
+   "project_type": "other",
+   "type_source": "curated_category"
+  },
+  {
+   "id": "SEOUL035",
+   "project_type": "other",
+   "type_source": "curated_category"
+  },
+  {
+   "id": "SEOUL036",
+   "project_type": "other",
+   "type_source": "curated_category"
+  },
+  {
+   "id": "SEOUL037",
+   "project_type": "other",
+   "type_source": "curated_category"
+  },
+  {
+   "id": "SEOUL039",
+   "project_type": "other",
+   "type_source": "curated_category"
+  }
+ ],
+ "missing_images": [
+  {
+   "country_iso2": "NL",
+   "id": "ED-fixture-light-pavilion",
+   "name": "Fixture Light Pavilion",
+   "project_type": "light_art"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "Q99000101",
+   "name": "Galleria Centercity",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL001",
+   "name": "Atelier Nodeul",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL002",
+   "name": "Atelier Gwanghwa",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL003",
+   "name": "Haechi Madang Media Wall",
+   "project_type": "media_wall"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL004",
+   "name": "Ogansugyo Media Facade",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL005",
+   "name": "Seoullo Media Canvas",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL007",
+   "name": "COEX K-POP Square WAVE",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL008",
+   "name": "Shinsegae Square",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL009",
+   "name": "Galleria Luxury Hall WEST Media Facade",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL010",
+   "name": "Seoul Square Media Canvas",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL011",
+   "name": "KT Square Digital Display",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL012",
+   "name": "K-Vision at Koreana Hotel",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL013",
+   "name": "LUMI Media at Sekwang Building",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL014",
+   "name": "LUUX at Dong-A Ilbo",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL015",
+   "name": "Ilmin Museum Outdoor Media Display",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL016",
+   "name": "Seoul Robot & AI Museum Media Facade",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL017",
+   "name": "Magok LEWEST Media Facade",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL019",
+   "name": "Lotte Town Light",
+   "project_type": "media_facade"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL020",
+   "name": "HiKR Ground",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL021",
+   "name": "Cheonggye Soul Ocean",
+   "project_type": "media_architecture"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL022",
+   "name": "NMK Immersive Digital Gallery",
+   "project_type": "media_architecture"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL023",
+   "name": "Lightroom Seoul",
+   "project_type": "media_architecture"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL024",
+   "name": "Seo-Seoul Museum of Art",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL025",
+   "name": "MMCA Seoul",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL026",
+   "name": "Art Center Nabi",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL027",
+   "name": "Leeum Museum of Art",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL028",
+   "name": "D MUSEUM",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL029",
+   "name": "Platform-L Contemporary Art Center",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL030",
+   "name": "Space K Seoul",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL031",
+   "name": "Culture Station Seoul 284",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL032",
+   "name": "Seoul Hall of Urbanism & Architecture",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL033",
+   "name": "Oil Tank Culture Park T4/T5",
+   "project_type": "media_architecture"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL034",
+   "name": "Photography Seoul Museum of Art",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL035",
+   "name": "SeMA Seosomun Main Building",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL036",
+   "name": "Buk-Seoul Museum of Art",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL037",
+   "name": "Nam June Paik Memorial House",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL038",
+   "name": "Seoul City Hall Seoul-Lim Media Wall",
+   "project_type": "media_wall"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL039",
+   "name": "Piknic",
+   "project_type": "other"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL040",
+   "name": "The Hyundai Seoul ALT.1",
+   "project_type": "media_architecture"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL041",
+   "name": "Ground Seesaw East",
+   "project_type": "media_architecture"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL043",
+   "name": "N Seoul Tower",
+   "project_type": "light_art"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL044",
+   "name": "Some Sevit",
+   "project_type": "light_art"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL045",
+   "name": "Banpo Bridge Moonlight Rainbow Fountain",
+   "project_type": "light_art"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL046",
+   "name": "Seoullo 7017 Night Lighting",
+   "project_type": "light_art"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL047",
+   "name": "Hongje Yuyeon",
+   "project_type": "light_art"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL048",
+   "name": "Starfield Library",
+   "project_type": "media_architecture"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL049",
+   "name": "Seoul Wave Art Center",
+   "project_type": "media_architecture"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "SEOUL050",
+   "name": "Nowon Light Garden",
+   "project_type": "light_art"
+  }
+ ],
+ "no_home_image": [
+  {
+   "best_tier": 4,
+   "id": "Q2001578"
+  },
+  {
+   "best_tier": 4,
+   "id": "Q7899954"
+  }
+ ],
+ "robots_disallowed": [
+  {
+   "project": "Q15140473",
+   "url": "https://www.signalfestival.com/"
+  }
+ ],
+ "schema": 1,
+ "stale": [],
+ "suspected_duplicates": []
+}

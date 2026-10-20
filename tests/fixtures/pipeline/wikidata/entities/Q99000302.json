@@ -1,0 +1,87 @@
+{
+ "pageid": 99000302,
+ "ns": 0,
+ "title": "Q99000302",
+ "lastrevid": 2400000302,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000302",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Songpa District"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "송파구"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "55f3a2f77512142efaf952d6973579ff",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000401,
+       "id": "Q99000401"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000302$55f3a2f7-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "c61f699f747c99370e63bc1130c0a4be",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000302$c61f699f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "c1c23f76f4fc13ec2eb5888199c14ee1",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 8684,
+       "id": "Q8684"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000302$c1c23f76-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

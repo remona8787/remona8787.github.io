@@ -1,0 +1,66 @@
+{
+ "pageid": 3235,
+ "ns": 0,
+ "title": "Q3235",
+ "lastrevid": 2400003235,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q3235",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Northern Territory"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "노던 준주"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "204b18d99eb5b7795fb0b70afdfdd7c9",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000402,
+       "id": "Q99000402"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q3235$204b18d9-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "1c82103d5c759314d1ae158e9ea5d1b6",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 408,
+       "id": "Q408"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q3235$1c82103d-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

@@ -1,0 +1,163 @@
+{
+ "pageid": 125715,
+ "ns": 0,
+ "title": "Q125715",
+ "lastrevid": 2400125715,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q125715",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Festival of Lights"
+  },
+  "de": {
+   "language": "de",
+   "value": "Festival of Lights"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "annual event"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "d64ced971ee48973315154acbad8613c",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 124414048,
+       "id": "Q124414048"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q125715$d64ced97-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "7f26126726c22206c1d4a0531bc09949",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 183,
+       "id": "Q183"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q125715$7f261267-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "a7ca1a0f5d28240ed5d799c1419d9fbd",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 64,
+       "id": "Q64"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q125715$a7ca1a0f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "fed2b7833cddf67b980423aaa6de6f3b",
+     "datavalue": {
+      "value": {
+       "latitude": 52.5163,
+       "longitude": 13.3777,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q125715$fed2b783-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "e5080896d23d3fd47a0e366d73cdc622",
+     "datavalue": {
+      "value": {
+       "time": "+2005-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q125715$e5080896-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P373": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P373",
+     "hash": "ad370ff61d6b59214e243c0edca3a975",
+     "datavalue": {
+      "value": "Festival of Lights (Berlin)",
+      "type": "string"
+     },
+     "datatype": "string"
+    },
+    "type": "statement",
+    "id": "Q125715$ad370ff6-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "commonswiki": {
+   "site": "commonswiki",
+   "title": "Category:Festival of Lights (Berlin)",
+   "badges": [],
+   "url": "https://commons.wikimedia.org/wiki/Category:Festival_of_Lights_(Berlin)"
+  }
+ }
+}

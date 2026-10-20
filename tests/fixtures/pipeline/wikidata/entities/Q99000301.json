@@ -1,0 +1,66 @@
+{
+ "pageid": 99000301,
+ "ns": 0,
+ "title": "Q99000301",
+ "lastrevid": 2400000301,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000301",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Cheonan"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "천안시"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "b363aa0470a09606978e15208b1f3271",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 515,
+       "id": "Q515"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000301$b363aa04-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "fe8d46e2081c4b744b987d722c519905",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000301$fe8d46e2-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

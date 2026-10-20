@@ -1,0 +1,323 @@
+{
+  "schema": 1,
+  "about": "Wikimedia Commons category discovery. 'search_terms' are searched as category names (namespace 14); 'roots' are walked breadth-first. A category becomes a project candidate only when it is about one specific project or place (not an aggregate by country, city, year, type or artist); every decision and its reason is written to review/categories.json. Roots with mode 'evidence' never create projects: their members only add night/illumination image evidence to projects found elsewhere.",
+  "search_terms": [
+    {
+      "term": "media facade",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "media façade",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "media facades",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "Medienfassade",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "LED facade",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "미디어파사드",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "メディアファサード",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "projection mapping",
+      "project_type": "projection_mapping"
+    },
+    {
+      "term": "video mapping",
+      "project_type": "projection_mapping"
+    },
+    {
+      "term": "videomapping",
+      "project_type": "projection_mapping"
+    },
+    {
+      "term": "mapping vidéo",
+      "project_type": "projection_mapping"
+    },
+    {
+      "term": "プロジェクションマッピング",
+      "project_type": "projection_mapping"
+    },
+    {
+      "term": "light installation",
+      "project_type": "light_art"
+    },
+    {
+      "term": "light installations",
+      "project_type": "light_art"
+    },
+    {
+      "term": "Lichtinstallation",
+      "project_type": "light_art"
+    },
+    {
+      "term": "light art",
+      "project_type": "light_art"
+    },
+    {
+      "term": "Lichtkunst",
+      "project_type": "light_art"
+    },
+    {
+      "term": "light festival",
+      "project_type": "festival_program"
+    },
+    {
+      "term": "light festivals",
+      "project_type": "festival_program"
+    },
+    {
+      "term": "festival of lights",
+      "project_type": "festival_program"
+    },
+    {
+      "term": "Lichtfestival",
+      "project_type": "festival_program"
+    },
+    {
+      "term": "fête des lumières",
+      "project_type": "festival_program"
+    },
+    {
+      "term": "sound and light show",
+      "project_type": "festival_program"
+    },
+    {
+      "term": "미디어 파사드",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "Medienfassaden",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "façade média",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "fachada multimedia",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "медиафасад",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "媒体立面",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "light shows",
+      "project_type": "festival_program"
+    }
+  ],
+  "search_limit": 50,
+  "file_search_terms": [
+    "media facade",
+    "media façade",
+    "Medienfassade",
+    "LED facade",
+    "미디어파사드",
+    "メディアファサード",
+    "media facades",
+    "mediafacade",
+    "fachada multimedia",
+    "медиафасад"
+  ],
+  "file_search_limit": 100,
+  "roots": [
+    {
+      "title": "Category:Projection mapping",
+      "qid": "Q776483",
+      "mode": "candidates",
+      "depth": 3,
+      "project_type": "projection_mapping"
+    },
+    {
+      "title": "Category:Light art",
+      "qid": "Q8590079",
+      "mode": "candidates",
+      "depth": 2,
+      "project_type": "light_art"
+    },
+    {
+      "title": "Category:Light installations",
+      "qid": null,
+      "mode": "candidates",
+      "depth": 2,
+      "project_type": "light_art"
+    },
+    {
+      "title": "Category:Festivals of lights",
+      "qid": "Q53170938",
+      "mode": "candidates",
+      "depth": 2,
+      "project_type": "festival_program"
+    },
+    {
+      "title": "Category:Light festivals",
+      "qid": null,
+      "mode": "candidates",
+      "depth": 2,
+      "project_type": "festival_program"
+    },
+    {
+      "title": "Category:Sound and light shows",
+      "qid": "Q1136999",
+      "mode": "candidates",
+      "depth": 2,
+      "project_type": "festival_program"
+    },
+    {
+      "title": "Category:Light shows",
+      "qid": "Q6546230",
+      "mode": "candidates",
+      "depth": 1,
+      "project_type": "festival_program"
+    },
+    {
+      "title": "Category:Media Facade",
+      "qid": null,
+      "mode": "candidates",
+      "depth": 2,
+      "project_type": "media_facade"
+    },
+    {
+      "title": "Category:Media art",
+      "qid": "Q9016899",
+      "mode": "candidates",
+      "depth": 1,
+      "project_type": "other"
+    },
+    {
+      "title": "Category:Illuminated buildings by country",
+      "qid": "Q116262672",
+      "mode": "evidence",
+      "depth": 2
+    },
+    {
+      "title": "Category:Illuminated buildings by city",
+      "qid": "Q116262580",
+      "mode": "evidence",
+      "depth": 2
+    }
+  ],
+  "walk": {
+    "max_categories": 2500,
+    "max_per_root": 600,
+    "members_per_category": 200
+  },
+  "aggregate_patterns": [
+    {
+      "pattern": "\\bby (country|countries|city|cities|year|decade|century|continent|region|state|province|location|place|artist|artists|creator|designer|type|date|month|name|subject|event|festival|colou?r|night|season)\\b",
+      "reason": "aggregate_by"
+    },
+    {
+      "pattern": "^(projection mapping|light art|light installations?|light festivals?|festivals of lights|illuminated buildings|buildings illuminated [a-z]+|light shows|sound and light shows|media art|new media art|media facades?|lichtkunst|lichtinstallationen) (in|of|at|from) ",
+      "reason": "aggregate_topic_in_place"
+    },
+    {
+      "pattern": "^(featured|quality|valued) (pictures|images|videos) of\\b",
+      "reason": "aggregate_quality_set"
+    },
+    {
+      "pattern": "^(videos?|photographs?|photos?|images?|files?|media|scans?|drawings?) (of|by|from|taken|created|uploaded)\\b",
+      "reason": "aggregate_media_set"
+    },
+    {
+      "pattern": "^(light art|light installations?|projection mapping|media art|works?) by\\b",
+      "reason": "aggregate_works_of_artist"
+    },
+    {
+      "pattern": "^(festivals|light festivals|events|exhibitions|installations|artworks|sculptures)$",
+      "reason": "aggregate_generic_plural"
+    },
+    {
+      "pattern": "\\b(stubs?|templates?|maintenance|uncategorized|to be checked|needing|unidentified|categories)\\b",
+      "reason": "maintenance_category"
+    }
+  ],
+  "aggregate_heuristics": {
+    "min_subcats_for_aggregate": 25,
+    "max_files_for_aggregate": 5
+  },
+  "blocklist_patterns": [
+    {
+      "pattern": "\\b(artists?|people|persons?|portraits?|designers?|photographers?)\\b",
+      "reason": "people"
+    },
+    {
+      "pattern": "\\b(logos?|maps?|diagrams?|plans?|signatures?|icons?|symbols?|texts?|documents?|books?|posters?|stamps?|coins?|screenshots?|sound files|audio)\\b",
+      "reason": "not_a_project_image_set"
+    },
+    {
+      "pattern": "\\b(companies|company|manufacturers?|products?|equipment|lamps?|bulbs?|light bulbs|lighting fixtures|luminaires|technology|software|hardware|projectors?|lasers?|monitors|televisions?|billboards?|advertis\\w*)\\b",
+      "reason": "product_or_advertising"
+    },
+    {
+      "pattern": "\\b(painting|light painting|photography techniques?|long exposures?|bokeh|fireworks?|candles?|christmas lights|lanterns?|lighthouses?|street ?lights?|traffic lights?)\\b",
+      "reason": "unrelated_light_topic"
+    },
+    {
+      "pattern": "\\b(institutes?|institutions?|organi[sz]ations?|associations?|foundations?|societies|universities|schools|libraries|archives|databases?|centres? for|centers? for)\\b",
+      "reason": "institution"
+    }
+  ],
+  "night_subcategory_patterns": [
+    "\\bat night\\b",
+    "\\bby night\\b",
+    "\\bnight(time)?\\b",
+    "\\billuminat(ed|ion|ions)\\b",
+    "\\blit\\b",
+    "\\blight(s|ing)? (show|festival|art|installation)s?\\b",
+    "\\bprojection",
+    "\\bmapping\\b",
+    "\\bmedia ?fa[cç]ade\\b",
+    "\\bLED\\b",
+    "\\bnachts?\\b",
+    "\\bde nuit\\b",
+    "\\bdi notte\\b",
+    "\\bde noche\\b",
+    "야경",
+    "夜景",
+    "ライトアップ",
+    "\\bfestival\\b",
+    "\\bluminale\\b"
+  ],
+  "event_subcategory_patterns": [
+    "\\b(1[89]\\d\\d|20\\d\\d)\\b",
+    "\\bedition\\b",
+    "\\bfestival\\b",
+    "\\bshow\\b",
+    "\\bexhibition\\b"
+  ],
+  "subcategory_limit": 8,
+  "files_per_category": 60,
+  "edition_patterns": [
+    {
+      "pattern": "^(1[89]\\d\\d|20\\d\\d)\\b",
+      "reason": "edition_year_first"
+    },
+    {
+      "pattern": "[,(]\\s*(1[89]\\d\\d|20\\d\\d)\\s*\\)$",
+      "reason": "edition_year_in_parentheses"
+    },
+    {
+      "pattern": "\\b(1[89]\\d\\d|20\\d\\d)\\s*(edition|ausgabe|édition|edición)\\b",
+      "reason": "edition_named"
+    }
+  ],
+  "about_roots": "Roots are walked in this order (candidate roots first, evidence roots last, so a short time budget spends itself on project discovery). Category:Media Facade was empty on 2026-10-19; it stays so new files are found."
+}

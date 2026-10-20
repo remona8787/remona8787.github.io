@@ -1,0 +1,66 @@
+{
+ "pageid": 62,
+ "ns": 0,
+ "title": "Q62",
+ "lastrevid": 2400000062,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q62",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "San Francisco"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "샌프란시스코"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "64696247f21765d5403aa47aa0997d27",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1093829,
+       "id": "Q1093829"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q62$64696247-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "e215217ec40066d4c1a014b8f88d8c73",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 30,
+       "id": "Q30"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q62$e215217e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

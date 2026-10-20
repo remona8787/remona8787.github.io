@@ -1,0 +1,190 @@
+{
+ "pageid": 99000101,
+ "ns": 0,
+ "title": "Q99000101",
+ "lastrevid": 2400000101,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000101",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Galleria Centercity"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "갤러리아 센터시티"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "department store in Cheonan"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "841bf6035ffcbbb5fd8e1db0357739f4",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 11315,
+       "id": "Q11315"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000101$841bf603-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "c3a59af8da0d84fa049042481d7d9ae3",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000101$c3a59af8-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "c7344a4f54979cd099948aaddd378f21",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000301,
+       "id": "Q99000301"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000101$c7344a4f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "7370b675ca05958638c90ba690d6717c",
+     "datavalue": {
+      "value": {
+       "latitude": 36.8188,
+       "longitude": 127.1559,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q99000101$7370b675-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "9d65d2c75f6e9c9cea422255f3159ef0",
+     "datavalue": {
+      "value": {
+       "time": "+2010-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q99000101$9d65d2c7-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P84": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P84",
+     "hash": "39d8ef90f145889122f3baa2ea8171f8",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000203,
+       "id": "Q99000203"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000101$39d8ef90-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P856": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P856",
+     "hash": "29b058d321d7bfe63ee55cddee68efdd",
+     "datavalue": {
+      "value": "https://centercity.example/",
+      "type": "string"
+     },
+     "datatype": "url"
+    },
+    "type": "statement",
+    "id": "Q99000101$29b058d3-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "enwiki": {
+   "site": "enwiki",
+   "title": "Galleria Centercity",
+   "badges": [],
+   "url": "https://en.wikipedia.org/wiki/Galleria_Centercity"
+  },
+  "kowiki": {
+   "site": "kowiki",
+   "title": "갤러리아 센터시티",
+   "badges": [],
+   "url": "https://ko.wikipedia.org/wiki/%EA%B0%A4%EB%9F%AC%EB%A6%AC%EC%95%84_%EC%84%BC%ED%84%B0%EC%8B%9C%ED%8B%B0"
+  }
+ }
+}

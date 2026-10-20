@@ -1,0 +1,62 @@
+{
+ "pageid": 99000106,
+ "ns": 0,
+ "title": "Q99000106",
+ "lastrevid": 2400000106,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000106",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Fixture Net Artwork"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "ae8c7d1e9aa286278e31b98fdc3b2494",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 378604,
+       "id": "Q378604"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000106$ae8c7d1e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "8c5fae0c41b46cb8ca811a4203d847c2",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 183,
+       "id": "Q183"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000106$8c5fae0c-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

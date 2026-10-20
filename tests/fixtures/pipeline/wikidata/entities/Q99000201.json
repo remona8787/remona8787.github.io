@@ -1,0 +1,41 @@
+{
+ "pageid": 99000201,
+ "ns": 0,
+ "title": "Q99000201",
+ "lastrevid": 2400000201,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000201",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Leo Villareal"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "caf6f68493108842fd06a0a83daaa20a",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 5,
+       "id": "Q5"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000201$caf6f684-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

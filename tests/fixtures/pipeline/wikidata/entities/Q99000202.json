@@ -1,0 +1,41 @@
+{
+ "pageid": 99000202,
+ "ns": 0,
+ "title": "Q99000202",
+ "lastrevid": 2400000202,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000202",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Bruce Munro"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "ae9a3c5da2647d351f146b6d66438522",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 5,
+       "id": "Q5"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000202$ae9a3c5d-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

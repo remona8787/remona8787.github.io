@@ -1,0 +1,66 @@
+{
+ "pageid": 64,
+ "ns": 0,
+ "title": "Q64",
+ "lastrevid": 2400000064,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q64",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Berlin"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "베를린"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "6a908020765f421f0129e617976060ef",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 5119,
+       "id": "Q5119"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q64$6a908020-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "219d97c43798fbd27587b65fa51ea349",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 183,
+       "id": "Q183"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q64$219d97c4-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

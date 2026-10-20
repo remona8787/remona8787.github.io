@@ -1,0 +1,81 @@
+{
+ "pageid": 40,
+ "ns": 0,
+ "title": "Q40",
+ "lastrevid": 2400000040,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q40",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Austria"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "오스트리아"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "23ac63d1d14736648e9f99c478cec02f",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 6256,
+       "id": "Q6256"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q40$23ac63d1-0000-0000-0000-000000000000",
+    "rank": "normal"
+   },
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "d7735faa228e8a126e8fef8e291b6017",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 3624078,
+       "id": "Q3624078"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q40$d7735faa-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P297": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P297",
+     "hash": "9070a0552b29347d48db88bdb56905c4",
+     "datavalue": {
+      "value": "AT",
+      "type": "string"
+     },
+     "datatype": "external-id"
+    },
+    "type": "statement",
+    "id": "Q40$9070a055-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

@@ -1,0 +1,224 @@
+{
+ "pageid": 7715933,
+ "ns": 0,
+ "title": "Q7715933",
+ "lastrevid": 2400715933,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q7715933",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "The Bay Lights"
+  },
+  "fr": {
+   "language": "fr",
+   "value": "The Bay Lights"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "light installation on the San Francisco–Oakland Bay Bridge"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "7a08465e48e5e6c998d86ed58f89a6eb",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1823448,
+       "id": "Q1823448"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q7715933$7a08465e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "43a87a880841f3f04fd7dedcfdd86109",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 30,
+       "id": "Q30"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q7715933$43a87a88-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "2bed7c99d9410ae369423ff35aa99cc2",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 62,
+       "id": "Q62"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q7715933$2bed7c99-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "50fb1b65b80241c338506e933a8232c2",
+     "datavalue": {
+      "value": {
+       "latitude": 37.7985,
+       "longitude": -122.3778,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q7715933$50fb1b65-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "b00c02a7d7d2646202024583d4f10bb9",
+     "datavalue": {
+      "value": {
+       "time": "+2013-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q7715933$b00c02a7-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P170": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P170",
+     "hash": "96697272c7fa5c0529ada1d2b7fd7b28",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000201,
+       "id": "Q99000201"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q7715933$96697272-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P856": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P856",
+     "hash": "42440fa6c798b8eac60201892b31902f",
+     "datavalue": {
+      "value": "https://thebaylights.org/",
+      "type": "string"
+     },
+     "datatype": "url"
+    },
+    "type": "statement",
+    "id": "Q7715933$42440fa6-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P373": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P373",
+     "hash": "cd7f1f81cf9dea6689b43e8be7e8f133",
+     "datavalue": {
+      "value": "The Bay Lights",
+      "type": "string"
+     },
+     "datatype": "string"
+    },
+    "type": "statement",
+    "id": "Q7715933$cd7f1f81-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P18": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P18",
+     "hash": "abd2458e2ef935b0dee3abab197fed19",
+     "datavalue": {
+      "value": "The Bay Lights at night 2013.jpg",
+      "type": "string"
+     },
+     "datatype": "commonsMedia"
+    },
+    "type": "statement",
+    "id": "Q7715933$abd2458e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "enwiki": {
+   "site": "enwiki",
+   "title": "The Bay Lights",
+   "badges": [],
+   "url": "https://en.wikipedia.org/wiki/The_Bay_Lights"
+  },
+  "commonswiki": {
+   "site": "commonswiki",
+   "title": "Category:The Bay Lights",
+   "badges": [],
+   "url": "https://commons.wikimedia.org/wiki/Category:The_Bay_Lights"
+  }
+ }
+}

@@ -1,0 +1,135 @@
+{
+ "pageid": 18391691,
+ "ns": 0,
+ "title": "Q18391691",
+ "lastrevid": 2400391691,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q18391691",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Signal Festival"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "festival in Prague"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "bac6f91e083eb37ae1b7992e6bad2672",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 132241,
+       "id": "Q132241"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q18391691$bac6f91e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "da816f885da0c431b73ca5fc11e5fd1a",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 213,
+       "id": "Q213"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q18391691$da816f88-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "83760b1aa67f1842133fecc7ce16a8da",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1085,
+       "id": "Q1085"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q18391691$83760b1a-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "a3c9fdb407af23e5c7612ac5bb062598",
+     "datavalue": {
+      "value": {
+       "latitude": 50.0872,
+       "longitude": 14.421,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q18391691$a3c9fdb4-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P373": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P373",
+     "hash": "0ac6833ebab59fb48c9ac96f06831868",
+     "datavalue": {
+      "value": "Signal Festival",
+      "type": "string"
+     },
+     "datatype": "string"
+    },
+    "type": "statement",
+    "id": "Q18391691$0ac6833e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "commonswiki": {
+   "site": "commonswiki",
+   "title": "Category:Signal Festival",
+   "badges": [],
+   "url": "https://commons.wikimedia.org/wiki/Category:Signal_Festival"
+  }
+ }
+}

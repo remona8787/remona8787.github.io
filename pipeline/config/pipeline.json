@@ -1,0 +1,282 @@
+{
+  "schema": 1,
+  "budget_minutes": 25,
+  "stage_shares": {
+    "sources": 0.42,
+    "enrich": 0.16,
+    "images": 0.3,
+    "links": 0.08
+  },
+  "sources": {
+    "wikidata": {
+      "enabled": true
+    },
+    "commons": {
+      "enabled": true
+    },
+    "wikipedia": {
+      "enabled": true
+    },
+    "web": {
+      "enabled": true,
+      "gdelt": true,
+      "rss": true
+    },
+    "overpass": {
+      "enabled": true,
+      "max_items": 50
+    }
+  },
+  "cache_ttl_hours": {
+    "sparql": 24,
+    "class_counts": 24,
+    "entities": 72,
+    "entities_aux": 720,
+    "commons_category": 72,
+    "commons_members": 72,
+    "commons_search": 72,
+    "commons_files": 336,
+    "visual": 8760,
+    "wiki_search": 72,
+    "wiki_pages": 168,
+    "links": 168,
+    "overpass": 720,
+    "commons_depicts": 336
+  },
+  "wikipedia": {
+    "about": "Media-facade discovery: phrase searches of the local terms in each Wikipedia; each hit is mapped to its Wikidata item and accepted only by the rules in lib/wikipedia.mjs (score and reasons in review/wikipedia.json).",
+    "wikis": {
+      "en": [
+        "media facade",
+        "media façade",
+        "LED facade",
+        "media wall facade"
+      ],
+      "de": [
+        "Medienfassade",
+        "LED-Fassade"
+      ],
+      "ko": [
+        "미디어파사드",
+        "미디어 파사드"
+      ],
+      "ja": [
+        "メディアファサード"
+      ],
+      "zh": [
+        "媒体立面",
+        "媒体幕墙",
+        "媒體立面"
+      ],
+      "fr": [
+        "façade média",
+        "façade médiatique",
+        "façade multimédia"
+      ],
+      "es": [
+        "fachada multimedia",
+        "fachada mediática",
+        "fachada de medios"
+      ],
+      "it": [
+        "facciata mediatica",
+        "facciata multimediale"
+      ],
+      "nl": [
+        "mediagevel"
+      ],
+      "pl": [
+        "fasada multimedialna",
+        "fasada medialna"
+      ],
+      "ru": [
+        "медиафасад"
+      ],
+      "pt": [
+        "fachada de mídia",
+        "fachada multimídia",
+        "fachada media"
+      ],
+      "tr": [
+        "medya cephe",
+        "medya cephesi"
+      ],
+      "ar": [
+        "واجهة إعلامية",
+        "واجهة إعلانية رقمية"
+      ]
+    },
+    "max_results_per_term": 200,
+    "accept_score": 50
+  },
+  "entity_rules": {
+    "about": "Label-based checks of an item's P31 classes (no class QIDs needed). A strong exclusion (person, company, product, technology, work type...) removes the item; a weak one (organisation, institution) removes it unless a place class matches too; otherwise a place class or coordinates keep it.",
+    "place_class_pattern": "\\b(building|tower|skyscraper|high-rise|structure|bridge|stadium|arena|museum|gallery|theat(re|er)|opera house|concert hall|hall|hotel|station|terminal|airport|plaza|square|park|church|cathedral|basilica|castle|palace|fort|monument|memorial|landmark|shopping (centre|center|mall)|mall|department store|office|headquarters|library|campus|pavilion|complex|centre|center|venue|facade|façade|installation|sculpture|artwork|work of art|public art|light art|festival|event|show|exhibition|fountain|garden|street|district|waterfront|pier|dam|wall)\\b",
+    "exclude_class_pattern": "\\b(human|person|company|business|enterprise|corporation|brand|product|product model|technology|software|video game|film|television (series|program(me)?)|album|single|song|book|scholarly article|article|website|web page|wikimedia|disambiguation|family name|given name|taxon|profession|occupation|award|genre|art genre|art movement|technique|concept|academic discipline)\\b",
+    "city_class_pattern": "\\b(city|town|municipality|commune|metropolis|megacity|capital|borough|village|urban (district|municipality)|special ward|prefecture-level city|city-state|county seat|urban area)\\b",
+    "weak_exclude_class_pattern": "\\b(organi[sz]ation|institution|institute|association|foundation|society|research)\\b"
+  },
+  "original_language_by_country": {
+    "KR": "ko",
+    "KP": "ko",
+    "JP": "ja",
+    "CN": "zh",
+    "TW": "zh",
+    "HK": "zh",
+    "MO": "zh",
+    "SG": "en",
+    "DE": "de",
+    "AT": "de",
+    "CH": "de",
+    "LI": "de",
+    "FR": "fr",
+    "BE": "nl",
+    "LU": "fr",
+    "MC": "fr",
+    "NL": "nl",
+    "ES": "es",
+    "MX": "es",
+    "AR": "es",
+    "CL": "es",
+    "CO": "es",
+    "PE": "es",
+    "UY": "es",
+    "IT": "it",
+    "PT": "pt",
+    "BR": "pt",
+    "PL": "pl",
+    "RU": "ru",
+    "UA": "uk",
+    "BY": "be",
+    "TR": "tr",
+    "AE": "ar",
+    "SA": "ar",
+    "QA": "ar",
+    "EG": "ar",
+    "KW": "ar",
+    "BH": "ar",
+    "OM": "ar",
+    "JO": "ar",
+    "CZ": "cs",
+    "SK": "sk",
+    "HU": "hu",
+    "RO": "ro",
+    "BG": "bg",
+    "GR": "el",
+    "SE": "sv",
+    "NO": "nb",
+    "DK": "da",
+    "FI": "fi",
+    "EE": "et",
+    "LV": "lv",
+    "LT": "lt",
+    "HR": "hr",
+    "SI": "sl",
+    "RS": "sr",
+    "IL": "he",
+    "IR": "fa",
+    "TH": "th",
+    "VN": "vi",
+    "ID": "id",
+    "MY": "ms",
+    "PH": "en",
+    "US": "en",
+    "GB": "en",
+    "IE": "en",
+    "CA": "en",
+    "AU": "en",
+    "NZ": "en",
+    "IN": "en",
+    "ZA": "en"
+  },
+  "label_languages": [
+    "ko",
+    "en",
+    "de",
+    "fr",
+    "es",
+    "it",
+    "ja",
+    "zh",
+    "nl",
+    "pl",
+    "ru",
+    "pt",
+    "tr",
+    "ar",
+    "cs",
+    "sv",
+    "da",
+    "nb",
+    "fi",
+    "hu",
+    "uk",
+    "he",
+    "el",
+    "th",
+    "vi",
+    "id"
+  ],
+  "sitelink_wikis": [
+    "kowiki",
+    "enwiki",
+    "dewiki",
+    "frwiki",
+    "jawiki",
+    "zhwiki",
+    "eswiki",
+    "itwiki",
+    "nlwiki",
+    "plwiki",
+    "ruwiki",
+    "ptwiki",
+    "trwiki",
+    "arwiki"
+  ],
+  "images": {
+    "max_candidates_per_project": 16,
+    "max_scored_per_project": 6,
+    "max_thumbs_per_run": 1800,
+    "thumb_width": 330,
+    "score_width": 320,
+    "gallery_max": 12,
+    "min_width": 640,
+    "min_height": 400,
+    "hero_min_width": 1600,
+    "visual_media_threshold": 40,
+    "hero_visual_threshold": 45,
+    "home_max_mean_luminance": 0.4,
+    "home_min_saturated_bright": 0.02,
+    "home_min_colourfulness": 20,
+    "rights_policy": {
+      "krFopDisplay": true
+    },
+    "max_categories_per_project": 4,
+    "max_subcategories": 3,
+    "members_per_category": 200,
+    "files_per_subcategory": 40,
+    "depicts": true,
+    "depicts_max_per_run": 80,
+    "depicts_per_project": 30,
+    "public_thumb_width": 500,
+    "about": "thumb_width: the Commons thumbnail read for scoring (330 px, a standard step); score_width: the size measured (320 px); public_thumb_width: the card thumbnail published (500 px). A home image needs mean luminance <= home_max_mean_luminance, saturated bright share >= home_min_saturated_bright and colourfulness >= home_min_colourfulness; a hero also needs visual >= hero_visual_threshold, an original >= hero_min_width and the reviewed allowlist. depicts: files whose structured data says they depict the item (P180, haswbstatement search), asked only for projects without a candidate named with both night and media evidence; at most depicts_max_per_run new searches per run, cached two weeks."
+  },
+  "links": {
+    "max_per_run": 400,
+    "ttl_hours": 168,
+    "skip_hosts": [
+      "www.wikidata.org",
+      "commons.wikimedia.org",
+      "upload.wikimedia.org"
+    ]
+  },
+  "output": {
+    "shard_target": 200,
+    "home_featured": 12,
+    "home_hero_max": 6,
+    "home_collection_items": 6,
+    "stale_after_missing_runs": 3,
+    "max_drop_ratio": 0.5
+  },
+  "editorial_repo": "remona8787/remona8787.github.io"
+}

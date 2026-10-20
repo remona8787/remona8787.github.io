@@ -1,0 +1,158 @@
+{
+ "pageid": 56089114,
+ "ns": 0,
+ "title": "Q56089114",
+ "lastrevid": 2400089114,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q56089114",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Schlosslichtspiele Karlsruhe"
+  },
+  "de": {
+   "language": "de",
+   "value": "Schlosslichtspiele Karlsruhe"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "f9c657a2a15ec15bbed9ca00c320fa72",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 132241,
+       "id": "Q132241"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q56089114$f9c657a2-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "1cab88e6423de18f2136865aa8802650",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 183,
+       "id": "Q183"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q56089114$1cab88e6-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "9bc72a501ac2e93cd3ced441598e1f54",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1040,
+       "id": "Q1040"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q56089114$9bc72a50-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "49241302d14d5a29ac561e6371fe1a13",
+     "datavalue": {
+      "value": {
+       "latitude": 49.0135,
+       "longitude": 8.4044,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q56089114$49241302-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "5b59dd597b25250d5a61d16419ce4021",
+     "datavalue": {
+      "value": {
+       "time": "+2015-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q56089114$5b59dd59-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P373": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P373",
+     "hash": "9b3767024d806b9853cc41e1314fd3c0",
+     "datavalue": {
+      "value": "Schlosslichtspiele Karlsruhe",
+      "type": "string"
+     },
+     "datatype": "string"
+    },
+    "type": "statement",
+    "id": "Q56089114$9b376702-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "commonswiki": {
+   "site": "commonswiki",
+   "title": "Category:Schlosslichtspiele Karlsruhe",
+   "badges": [],
+   "url": "https://commons.wikimedia.org/wiki/Category:Schlosslichtspiele_Karlsruhe"
+  }
+ }
+}

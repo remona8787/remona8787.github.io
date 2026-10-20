@@ -1,0 +1,188 @@
+{
+ "pageid": 15140473,
+ "ns": 0,
+ "title": "Q15140473",
+ "lastrevid": 2400140473,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q15140473",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Signal Festival"
+  },
+  "cs": {
+   "language": "cs",
+   "value": "Signal Festival"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "annual outdoor festival of videomapping in Prague"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "2b92f28713c869d09edfd876ede1e406",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 124414048,
+       "id": "Q124414048"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q15140473$2b92f287-0000-0000-0000-000000000000",
+    "rank": "normal"
+   },
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "128d20c9430c5185413bc96575d2b8d6",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 132241,
+       "id": "Q132241"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q15140473$128d20c9-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "ac5bb19109110416322d3a64788f4ef4",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 213,
+       "id": "Q213"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q15140473$ac5bb191-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "58554635d68bee21e3ddf1d634e15620",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1085,
+       "id": "Q1085"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q15140473$58554635-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "29dc7707f0bf53f8710f4fc31afcd516",
+     "datavalue": {
+      "value": {
+       "latitude": 50.087,
+       "longitude": 14.4208,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q15140473$29dc7707-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "d8cd98a6715c6ad85fe679823e29358b",
+     "datavalue": {
+      "value": {
+       "time": "+2013-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q15140473$d8cd98a6-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P856": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P856",
+     "hash": "9f4084b3b924d524c9e35c11da2540a3",
+     "datavalue": {
+      "value": "https://www.signalfestival.com/",
+      "type": "string"
+     },
+     "datatype": "url"
+    },
+    "type": "statement",
+    "id": "Q15140473$9f4084b3-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "enwiki": {
+   "site": "enwiki",
+   "title": "Signal Festival",
+   "badges": [],
+   "url": "https://en.wikipedia.org/wiki/Signal_Festival"
+  },
+  "cswiki": {
+   "site": "cswiki",
+   "title": "Signal Festival",
+   "badges": [],
+   "url": "https://cs.wikipedia.org/wiki/Signal_Festival"
+  }
+ }
+}

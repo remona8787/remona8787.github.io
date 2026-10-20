@@ -1,0 +1,190 @@
+{
+ "pageid": 5447104,
+ "ns": 0,
+ "title": "Q5447104",
+ "lastrevid": 2400447104,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q5447104",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Field of Light"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "light installation by Bruce Munro"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "7578d9597a10546d4455777fbb51e756",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1823448,
+       "id": "Q1823448"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q5447104$7578d959-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "5b8d4856274398f34878a8ab0966d32d",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 408,
+       "id": "Q408"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q5447104$5b8d4856-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "978a4bd28b7136f4ba215a3ed0b72522",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 3235,
+       "id": "Q3235"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q5447104$978a4bd2-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "8141377ae68cd41c8ac00f54a0b092b8",
+     "datavalue": {
+      "value": {
+       "latitude": -25.3444,
+       "longitude": 131.0369,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q5447104$8141377a-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "af2ce2a355b0eda9bebaa2be7ce80dfe",
+     "datavalue": {
+      "value": {
+       "time": "+2016-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q5447104$af2ce2a3-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P170": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P170",
+     "hash": "61ef807771eafb85e58dfa36097d9362",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000202,
+       "id": "Q99000202"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q5447104$61ef8077-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P18": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P18",
+     "hash": "8e63992b0c1b8f692272f3429c35cffe",
+     "datavalue": {
+      "value": "Field of Light Uluru 2016.jpg",
+      "type": "string"
+     },
+     "datatype": "commonsMedia"
+    },
+    "type": "statement",
+    "id": "Q5447104$8e63992b-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P373": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P373",
+     "hash": "15268734bbadc713c140e22ac4faeaa0",
+     "datavalue": {
+      "value": "Field of Light",
+      "type": "string"
+     },
+     "datatype": "string"
+    },
+    "type": "statement",
+    "id": "Q5447104$15268734-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

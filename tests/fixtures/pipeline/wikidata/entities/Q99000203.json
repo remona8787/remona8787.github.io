@@ -1,0 +1,41 @@
+{
+ "pageid": 99000203,
+ "ns": 0,
+ "title": "Q99000203",
+ "lastrevid": 2400000203,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000203",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "UNStudio"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "e7b23a3fe1f65c6be833e2ab31815ea0",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 4830453,
+       "id": "Q4830453"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000203$e7b23a3f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

@@ -1,0 +1,192 @@
+{
+ "pageid": 494895,
+ "ns": 0,
+ "title": "Q494895",
+ "lastrevid": 2400494895,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q494895",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Lotte World Tower"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "롯데월드타워"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "skyscraper in Seoul, South Korea"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "9ea1711eb9a2bda43b29f3f0e088c157",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 11303,
+       "id": "Q11303"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q494895$9ea1711e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "e8cfa05980a84b0bad5f5d3b920cc17a",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q494895$e8cfa059-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "99799d8f4a95c3809626b970a4fc4e2f",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000302,
+       "id": "Q99000302"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q494895$99799d8f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "225ba8af7a0578b53aa7067810661677",
+     "datavalue": {
+      "value": {
+       "latitude": 37.5125,
+       "longitude": 127.1025,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q494895$225ba8af-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "562c4fcd36229a54ea3f1747b95bf288",
+     "datavalue": {
+      "value": {
+       "time": "+2017-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q494895$562c4fcd-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P373": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P373",
+     "hash": "06b7f68fa758c74ddb83e4e7b8fbc7c2",
+     "datavalue": {
+      "value": "Lotte World Tower",
+      "type": "string"
+     },
+     "datatype": "string"
+    },
+    "type": "statement",
+    "id": "Q494895$06b7f68f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P18": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P18",
+     "hash": "9ff29db5d7bfdcfd6b0b84d0df484623",
+     "datavalue": {
+      "value": "Lotte World Tower daytime 2017.jpg",
+      "type": "string"
+     },
+     "datatype": "commonsMedia"
+    },
+    "type": "statement",
+    "id": "Q494895$9ff29db5-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "kowiki": {
+   "site": "kowiki",
+   "title": "롯데월드타워",
+   "badges": [],
+   "url": "https://ko.wikipedia.org/wiki/%EB%A1%AF%EB%8D%B0%EC%9B%94%EB%93%9C%ED%83%80%EC%9B%8C"
+  },
+  "enwiki": {
+   "site": "enwiki",
+   "title": "Lotte World Tower",
+   "badges": [],
+   "url": "https://en.wikipedia.org/wiki/Lotte_World_Tower"
+  },
+  "commonswiki": {
+   "site": "commonswiki",
+   "title": "Category:Lotte World Tower",
+   "badges": [],
+   "url": "https://commons.wikimedia.org/wiki/Category:Lotte_World_Tower"
+  }
+ }
+}

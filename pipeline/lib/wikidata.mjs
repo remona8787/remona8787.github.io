@@ -1,0 +1,401 @@
+// Wikidata: class discovery (live labels and instance counts of every configured class, into review/classes.json),
+// project instances of the verified classes (wdt:P31/wdt:P279*), and enrichment of project items.
+//  - Projects are read with wbgetentities (labels, descriptions, the configured statements, Wikipedia sitelinks),
+//    25 per request, cached per item; statements are cut to the best rank and to the configured properties.
+//  - Countries, administrative areas, classes and people ("aux" entities) are read with one compact SPARQL query
+//    per 150 items (English/Korean/mul labels, P297, P31, P131, P17), because their full JSON is large.
+// Every query carries a "#aol:<kind>" comment so the review logs and the test fixtures can tell them apart.
+import { chunk, isQid, uniq, QID_RE } from './util.mjs'
+import { DAY, HOUR } from './cache.mjs'
+
+export const WDQS = 'https://query.wikidata.org/sparql'
+export const WD_API = 'https://www.wikidata.org/w/api.php'
+const ENTITY = 'http://www.wikidata.org/entity/'
+const EARTH = 'http://www.wikidata.org/entity/Q2'
+export const PROJECT_BATCH = 25
+export const AUX_BATCH = 150
+export const INSTANCE_LIMIT = 5000
+
+const qidFromUri = (v) => { const s = String(v || ''); const q = s.startsWith(ENTITY) ? s.slice(ENTITY.length) : s; return QID_RE.test(q) ? q : null }
+
+/** POST a SPARQL query; returns the bindings array. */
+export async function sparql(client, query, { cache = null, stage = 'wikidata' } = {}) {
+  const body = new URLSearchParams({ query, format: 'json' }).toString()
+  const json = await client.json(WDQS, {
+    method: 'POST', body, stage, retries: 1, timeoutMs: 65000,
+    headers: { 'content-type': 'application/x-www-form-urlencoded' }, accept: 'application/sparql-results+json',
+    cache,
+  })
+  const rows = json?.results?.bindings
+  if (!Array.isArray(rows)) throw Error('wikidata: unexpected SPARQL answer')
+  return rows
+}
+
+export const classCountQuery = (qid) => `#aol:class-count ${qid}
+SELECT (COUNT(DISTINCT ?item) AS ?instances) (COUNT(DISTINCT ?located) AS ?with_coords) WHERE {
+  ?item wdt:P31/wdt:P279* wd:${qid} .
+  OPTIONAL { ?item wdt:P625 ?coord . BIND(?item AS ?located) }
+}`
+
+export const classInstancesQuery = (qid, limit = INSTANCE_LIMIT) => `#aol:class-instances ${qid}
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31/wdt:P279* wd:${qid} .
+} LIMIT ${limit}`
+
+export const auxQuery = (qids) => `#aol:aux
+SELECT ?e (SAMPLE(?en_) AS ?en) (SAMPLE(?ko_) AS ?ko) (SAMPLE(?mul_) AS ?mul) (SAMPLE(?iso_) AS ?iso)
+  (GROUP_CONCAT(DISTINCT STRAFTER(STR(?c), "/entity/"); separator=" ") AS ?p31)
+  (GROUP_CONCAT(DISTINCT STRAFTER(STR(?a), "/entity/"); separator=" ") AS ?p131)
+  (GROUP_CONCAT(DISTINCT STRAFTER(STR(?k), "/entity/"); separator=" ") AS ?p17) WHERE {
+  VALUES ?e { ${qids.map((q) => 'wd:' + q).join(' ')} }
+  OPTIONAL { ?e rdfs:label ?en_ . FILTER(LANG(?en_) = "en") }
+  OPTIONAL { ?e rdfs:label ?ko_ . FILTER(LANG(?ko_) = "ko") }
+  OPTIONAL { ?e rdfs:label ?mul_ . FILTER(LANG(?mul_) = "mul") }
+  OPTIONAL { ?e wdt:P297 ?iso_ . }
+  OPTIONAL { ?e wdt:P31 ?c . }
+  OPTIONAL { ?e wdt:P131 ?a . }
+  OPTIONAL { ?e wdt:P17 ?k . }
+} GROUP BY ?e`
+
+export function parseCount(rows) {
+  const r = rows[0] || {}
+  const n = (v) => { const x = Number(v?.value); return Number.isInteger(x) && x >= 0 ? x : null }
+  return { instances: n(r.instances), with_coords: n(r.with_coords) }
+}
+export const parseInstances = (rows) => uniq(rows.map((r) => qidFromUri(r.item?.value)))
+
+/** Aux rows → Map(qid → {en, ko, mul, iso, p31[], p131[], p17[]}). */
+export function parseAux(rows) {
+  const out = new Map()
+  const ids = (v) => String(v?.value || '').split(/\s+/).filter((q) => QID_RE.test(q))
+  for (const r of rows) {
+    const q = qidFromUri(r.e?.value)
+    if (!q) continue
+    out.set(q, {
+      en: r.en?.value || null, ko: r.ko?.value || null, mul: r.mul?.value || null,
+      iso: /^[A-Z]{2}$/.test(r.iso?.value || '') ? r.iso.value : null,
+      p31: ids(r.p31), p131: ids(r.p131), p17: ids(r.p17),
+    })
+  }
+  return out
+}
+
+// ---- wbgetentities ----
+
+/** One statement's value, simplified. */
+export function snakValue(snak) {
+  if (!snak || snak.snaktype !== 'value' || !snak.datavalue) return null
+  const { type, value } = snak.datavalue
+  switch (type) {
+    case 'wikibase-entityid': return isQid(value?.id) ? { item: value.id } : null
+    case 'string': return { string: String(value) }
+    case 'monolingualtext': return { text: String(value?.text || ''), language: String(value?.language || '') }
+    case 'time': {
+      const m = /^([+-])(\d{1,16})-(\d\d)-(\d\d)T/.exec(String(value?.time || ''))
+      if (!m || m[1] === '-') return null
+      return { year: Number(m[2]), month: Number(m[3]) || null, day: Number(m[4]) || null, precision: Number(value.precision) }
+    }
+    case 'globecoordinate': {
+      if (value?.globe && value.globe !== EARTH) return null
+      const lat = Number(value?.latitude), lng = Number(value?.longitude)
+      return Number.isFinite(lat) && Number.isFinite(lng) && Math.abs(lat) <= 90 && Math.abs(lng) <= 180 ? { lat, lng, precision: value.precision ?? null } : null
+    }
+    case 'quantity': return { amount: Number(value?.amount) }
+    default: return null
+  }
+}
+
+/** Best-rank values of a property (preferred if any, else normal; deprecated never). */
+export function bestValues(claims, pid) {
+  const list = Array.isArray(claims?.[pid]) ? claims[pid] : []
+  const usable = list.filter((s) => s && s.rank !== 'deprecated')
+  const preferred = usable.filter((s) => s.rank === 'preferred')
+  return (preferred.length ? preferred : usable).map((s) => snakValue(s.mainsnak)).filter(Boolean)
+}
+
+/** A wbgetentities entity cut to what the pipeline reads (this is what is cached). */
+export function trimEntity(e, { properties, languages, wikis }) {
+  if (!e || e.missing !== undefined || !isQid(e.id)) return null
+  const pick = (obj, keys) => { const o = {}; for (const k of keys) if (obj?.[k]?.value) o[k] = obj[k].value; return o }
+  const claims = {}
+  for (const pid of properties) {
+    const vals = bestValues(e.claims, pid)
+    if (vals.length) claims[pid] = vals.slice(0, 12)
+  }
+  const sitelinks = {}
+  for (const w of wikis) {
+    const s = e.sitelinks?.[w]
+    if (s?.title) sitelinks[w] = { title: s.title, url: /^https:\/\//.test(s.url || '') ? s.url : null }
+  }
+  if (e.sitelinks?.commonswiki?.title) sitelinks.commonswiki = { title: e.sitelinks.commonswiki.title, url: e.sitelinks.commonswiki.url || null }
+  return {
+    id: e.id,
+    labels: pick(e.labels, [...languages, 'mul']),
+    descriptions: pick(e.descriptions, ['ko', 'en']),
+    claims,
+    sitelinks,
+    modified: e.modified || null,
+  }
+}
+
+export function entitiesUrl(ids, { languages, props = 'labels|descriptions|claims|sitelinks/urls' }) {
+  const p = new URLSearchParams({ action: 'wbgetentities', format: 'json', ids: ids.join('|'), props, languages: [...languages, 'mul'].join('|'), redirects: 'yes' })
+  return `${WD_API}?${p}`
+}
+
+/**
+ * Project items by QID, cached per item ('entities'). Returns {entities: Map, redirects: Map(from → to), missing: [], errors: []}.
+ */
+export async function fetchEntities(client, qids, { cache, ttlHours = 72, properties, languages, wikis, stage = 'enrich' }) {
+  const entities = new Map(), redirects = new Map(), missing = [], errors = []
+  const want = []
+  for (const q of uniq(qids).filter(isQid).sort()) {
+    const hit = cache?.fresh('entities', q)
+    if (hit !== undefined) {
+      if (hit?.redirect) redirects.set(q, hit.redirect)
+      else if (hit) entities.set(q, hit)
+      else missing.push(q)
+    } else want.push(q)
+  }
+  for (const ids of chunk(want, PROJECT_BATCH)) {
+    let json
+    try { json = await client.json(entitiesUrl(ids, { languages }), { stage }) } catch (e) {
+      if (e?.code === 'budget') throw e
+      errors.push({ stage, ids: ids.join('|'), message: String(e?.message || e).slice(0, 300) })
+      // Stale cache entries stand in for a failed batch.
+      for (const q of ids) { const old = cache?.any('entities', q); if (old && !old.redirect) entities.set(q, old) }
+      continue
+    }
+    const got = json?.entities || {}
+    for (const q of ids) {
+      const raw = got[q]
+      if (!raw || raw.missing !== undefined) { missing.push(q); cache?.set('entities', q, null, { ttlMs: ttlHours * HOUR }); continue }
+      const t = trimEntity(raw, { properties, languages, wikis })
+      if (!t) { missing.push(q); continue }
+      if (t.id !== q) { redirects.set(q, t.id); cache?.set('entities', q, { redirect: t.id }, { ttlMs: ttlHours * HOUR }) }
+      entities.set(t.id, t)
+      cache?.set('entities', t.id, t, { ttlMs: ttlHours * HOUR })
+    }
+  }
+  return { entities, redirects, missing, errors }
+}
+
+/** Aux entities by QID, cached per item ('entities-aux'). Returns Map(qid → aux). */
+export async function fetchAux(client, qids, { cache, ttlHours = 720, stage = 'enrich' }) {
+  const out = new Map(), errors = []
+  const want = []
+  for (const q of uniq(qids).filter(isQid).sort()) {
+    const hit = cache?.fresh('entities-aux', q)
+    if (hit !== undefined) { if (hit) out.set(q, hit) } else want.push(q)
+  }
+  for (const ids of chunk(want, AUX_BATCH)) {
+    let rows
+    try { rows = await sparql(client, auxQuery(ids), { stage }) } catch (e) {
+      if (e?.code === 'budget') throw e
+      errors.push({ stage, message: String(e?.message || e).slice(0, 300), count: ids.length })
+      for (const q of ids) { const old = cache?.any('entities-aux', q); if (old) out.set(q, old) }
+      continue
+    }
+    const parsed = parseAux(rows)
+    for (const q of ids) {
+      const a = parsed.get(q) || null
+      cache?.set('entities-aux', q, a, { ttlMs: ttlHours * HOUR })
+      if (a) out.set(q, a)
+    }
+  }
+  return { aux: out, errors }
+}
+
+/** Live labels of classes and properties (review/classes.json, review/properties.json). */
+export async function fetchLabels(client, ids, { stage = 'discovery' } = {}) {
+  const out = new Map(), errors = []
+  for (const group of chunk(uniq(ids), 50)) {
+    const p = new URLSearchParams({ action: 'wbgetentities', format: 'json', ids: group.join('|'), props: 'labels|descriptions', languages: 'en|ko', redirects: 'yes' })
+    try {
+      const json = await client.json(`${WD_API}?${p}`, { stage })
+      for (const id of group) {
+        const e = json?.entities?.[id]
+        if (!e || e.missing !== undefined) { out.set(id, { missing: true }); continue }
+        out.set(id, { id: e.id, redirect: e.id !== id ? e.id : null, en: e.labels?.en?.value || null, ko: e.labels?.ko?.value || null, description: e.descriptions?.en?.value || null })
+      }
+    } catch (e) {
+      if (e?.code === 'budget') throw e
+      errors.push({ stage, message: String(e?.message || e).slice(0, 300) })
+    }
+  }
+  return { labels: out, errors }
+}
+
+const norm = (s) => String(s || '').toLowerCase().normalize('NFKC').replace(/\s+/g, ' ').trim()
+
+/**
+ * Class discovery: live label, instance counts and the publish decision of every configured class and blocklist
+ * item, and the live labels of every configured property.
+ */
+export async function discoverClasses(client, classesConfig, { cache, ttlHours = 24 }) {
+  const classes = classesConfig.classes || []
+  const block = classesConfig.blocklist || []
+  const props = Object.entries(classesConfig.properties || {}).filter(([k]) => /^P\d+$/.test(k))
+  const errors = []
+  const { labels, errors: e1 } = await fetchLabels(client, [...classes.map((c) => c.qid), ...block.map((b) => b.qid), ...props.map(([p]) => p)])
+  errors.push(...e1)
+  const review = []
+  for (const c of classes) {
+    const live = labels.get(c.qid) || null
+    let counts = { instances: null, with_coords: null }, error = null
+    try {
+      counts = parseCount(await sparql(client, classCountQuery(c.qid), { cache: { ns: 'sparql', key: 'count:' + c.qid, ttlMs: ttlHours * HOUR }, stage: 'discovery' }))
+    } catch (e) {
+      if (e?.code === 'budget') throw e
+      error = String(e?.message || e).slice(0, 300)
+      errors.push({ stage: 'discovery', class: c.qid, message: error })
+    }
+    const labelOk = live && !live.missing ? norm(live.en) === norm(c.label) : null
+    const reasons = []
+    if (!c.verified) reasons.push('not_verified')
+    if (!c.include) reasons.push('excluded_by_config')
+    if (live?.missing) reasons.push('item_missing')
+    if (live?.redirect) reasons.push('redirects_to_' + live.redirect)
+    if (labelOk === false) reasons.push('live_label_differs')
+    const publish = !!(c.verified && c.include && labelOk !== false && !live?.missing && !live?.redirect)
+    review.push({
+      qid: c.qid, configured_label: c.label, live_label: live?.en ?? null, live_label_ko: live?.ko ?? null, live_description: live?.description ?? null,
+      label_matches: labelOk, verified: !!c.verified, include: !!c.include, project_type: c.project_type, publish,
+      reasons, instances: counts.instances, with_coords: counts.with_coords, error,
+    })
+  }
+  const blocklist = block.map((b) => {
+    const live = labels.get(b.qid) || null
+    return { qid: b.qid, configured_label: b.label, live_label: live?.en ?? null, label_matches: live && !live.missing ? norm(live.en) === norm(b.label) : null, verified: !!b.verified, reason: b.reason }
+  })
+  const properties = props.map(([pid, expected]) => {
+    const live = labels.get(pid) || null
+    const ok = live && !live.missing ? norm(live.en).includes(norm(expected)) || norm(expected).includes(norm(live.en)) : null
+    return { pid, expected, live_label: live?.en ?? null, ok }
+  })
+  return { classes: review, blocklist, properties, errors }
+}
+
+/** Instances of the classes that may be published from. Returns {byQid: Map(qid → [class qids]), perClass, errors}. */
+export async function classInstances(client, review, { cache, ttlHours = 24, limit = INSTANCE_LIMIT }) {
+  const byQid = new Map(), perClass = {}, errors = []
+  for (const c of review.filter((x) => x.publish)) {
+    try {
+      const qids = parseInstances(await sparql(client, classInstancesQuery(c.qid, limit), { cache: { ns: 'sparql', key: 'instances:' + c.qid, ttlMs: ttlHours * HOUR }, stage: 'wikidata' }))
+      perClass[c.qid] = qids.length
+      for (const q of qids) byQid.set(q, [...(byQid.get(q) || []), c.qid])
+    } catch (e) {
+      if (e?.code === 'budget') throw e
+      perClass[c.qid] = null
+      errors.push({ stage: 'wikidata', class: c.qid, message: String(e?.message || e).slice(0, 300) })
+    }
+  }
+  return { byQid, perClass, errors }
+}
+
+// ---- facts ----
+
+export const label = (labels, langs) => { for (const l of langs) if (labels?.[l]) return labels[l]; return null }
+
+/**
+ * Walks P131 up from the item (or P276 for events) to find the city: the first ancestor one of whose P31 classes has
+ * an English label matching cityPattern; else the first administrative area. Returns {qid, rule} or null.
+ */
+export function findCity(entity, auxMap, cityPattern) {
+  const start = [...(entity.claims.P131 || []), ...(entity.claims.P276 || [])].map((v) => v.item).filter(Boolean)
+  const seen = new Set()
+  let level = start
+  let first = null
+  for (let depth = 0; depth < 4 && level.length; depth++) {
+    const next = []
+    for (const q of level) {
+      if (seen.has(q)) continue
+      seen.add(q)
+      const a = auxMap.get(q)
+      if (!a) continue
+      first ||= q
+      const classLabels = a.p31.map((c) => auxMap.get(c)?.en || '').filter(Boolean)
+      if (classLabels.some((l) => cityPattern.test(l))) return { qid: q, rule: 'p131_city_class', depth }
+      next.push(...a.p131)
+    }
+    level = next
+  }
+  return first ? { qid: first, rule: 'p131_first_area', depth: 0 } : null
+}
+
+/** QIDs the facts of these entities refer to (for the aux rounds). */
+export function auxRefs(entities) {
+  const out = new Set()
+  for (const e of entities) {
+    for (const p of ['P17', 'P131', 'P276', 'P31', 'P84', 'P170', 'P137', 'P301', 'P5817']) for (const v of e.claims[p] || []) if (v.item) out.add(v.item)
+  }
+  return [...out]
+}
+export function auxNext(auxMap, qids) {
+  const out = new Set()
+  for (const q of qids) { const a = auxMap.get(q); if (!a) continue; for (const x of [...a.p131, ...a.p31, ...a.p17]) if (!auxMap.has(x)) out.add(x) }
+  return [...out]
+}
+
+/**
+ * Facts the archive keeps from a project item; every fact carries its property (field_sources) so the record can
+ * cite Wikidata for it. Unknown facts are null.
+ */
+export function factsOf(entity, auxMap, { cityPattern, originalLanguageByCountry = {}, labelLanguages = ['ko', 'en'] }) {
+  const c = entity.claims
+  const L = entity.labels || {}
+  const aux = (q) => auxMap.get(q) || null
+  const auxName = (q) => { const a = aux(q); return a ? (a.en || a.mul || a.ko || null) : null }
+  // Country: P17 of the item, else of the nearest administrative area.
+  let country = null, countryQid = null
+  for (const v of c.P17 || []) { const iso = aux(v.item)?.iso; if (iso) { country = iso; countryQid = v.item; break } }
+  if (!country) {
+    for (const v of c.P131 || []) { for (const k of aux(v.item)?.p17 || []) { const iso = aux(k)?.iso; if (iso) { country = iso; countryQid = k; break } } if (country) break }
+  }
+  const city = findCity(entity, auxMap, cityPattern)
+  const coord = (c.P625 || [])[0] || null
+  const year = (pid) => { const v = (c[pid] || []).find((t) => t.year && t.precision >= 9); return v ? v.year : null }
+  const people = (pid) => (c[pid] || []).map((v) => v.item).filter(Boolean).map((q) => ({ qid: q, name: aux(q)?.ko || auxName(q), name_en: aux(q)?.en || aux(q)?.mul || null })).filter((p) => p.name || p.name_en)
+  const official = (c.P856 || []).map((v) => v.string).find((u) => /^https?:\/\//i.test(u || '')) || null
+  const commons = (c.P373 || []).map((v) => v.string).find(Boolean) || null
+  const images = (c.P18 || []).map((v) => v.string).filter(Boolean)
+  const lang = originalLanguageByCountry[country] || null
+  const native = [...(c.P1705 || []), ...(c.P1448 || [])].find((v) => v.text) || null
+  const nameOriginal = native?.text || (lang && L[lang]) || null
+  const nameOriginalLang = native?.text ? native.language : (lang && L[lang] ? lang : null)
+  const sitelinks = entity.sitelinks || {}
+  return {
+    qid: entity.id,
+    name_ko: L.ko || null,
+    name_en: L.en || L.mul || null,
+    name_original: nameOriginal,
+    name_original_lang: nameOriginalLang,
+    any_label: label(L, labelLanguages) || L.mul || null,
+    description_ko: entity.descriptions?.ko || null,
+    description_en: entity.descriptions?.en || null,
+    country_iso2: country,
+    country_qid: countryQid,
+    city: city ? (aux(city.qid)?.en || aux(city.qid)?.mul || aux(city.qid)?.ko || null) : null,
+    city_ko: city ? aux(city.qid)?.ko || null : null,
+    city_qid: city?.qid || null,
+    city_rule: city?.rule || null,
+    latitude: coord ? coord.lat : null,
+    longitude: coord ? coord.lng : null,
+    inception: year('P571'),
+    start: year('P580'),
+    end: year('P582'),
+    architects: people('P84'),
+    creators: people('P170'),
+    operators: people('P137'),
+    official_url: official,
+    commons_category: commons ? 'Category:' + commons.replace(/^Category:/i, '') : null,
+    images,
+    p31: (c.P31 || []).map((v) => v.item).filter(Boolean),
+    p31_labels: (c.P31 || []).map((v) => auxName(v.item)).filter(Boolean),
+    p301: (c.P301 || []).map((v) => v.item).filter(Boolean),
+    state_of_use: (c.P5817 || []).map((v) => auxName(v.item)).filter(Boolean),
+    sitelinks,
+  }
+}
+
+export { DAY }

@@ -1,0 +1,66 @@
+{
+ "pageid": 1040,
+ "ns": 0,
+ "title": "Q1040",
+ "lastrevid": 2400001040,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q1040",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Karlsruhe"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "카를스루에"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "f7b3fc3b785395efa0763334a26851b4",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1549591,
+       "id": "Q1549591"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q1040$f7b3fc3b-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "3132706e9dfaeea5b5fb38373470bab7",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 183,
+       "id": "Q183"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q1040$3132706e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

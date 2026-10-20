@@ -1,0 +1,81 @@
+{
+ "pageid": 55,
+ "ns": 0,
+ "title": "Q55",
+ "lastrevid": 2400000055,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q55",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Netherlands"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "네덜란드"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "27a1696e46fee405b2832a54c33faa3b",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 6256,
+       "id": "Q6256"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q55$27a1696e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   },
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "b7c9e81c16ff4027556ced0743125a40",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 3624078,
+       "id": "Q3624078"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q55$b7c9e81c-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P297": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P297",
+     "hash": "c860c373f238d4d9597bda46d5b5f32d",
+     "datavalue": {
+      "value": "NL",
+      "type": "string"
+     },
+     "datatype": "external-id"
+    },
+    "type": "statement",
+    "id": "Q55$c860c373-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

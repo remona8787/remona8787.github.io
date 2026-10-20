@@ -1,0 +1,66 @@
+{
+ "pageid": 65,
+ "ns": 0,
+ "title": "Q65",
+ "lastrevid": 2400000065,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q65",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Los Angeles"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "로스앤젤레스"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "3fecd191e0c5dc17429315b26a84e989",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1093829,
+       "id": "Q1093829"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q65$3fecd191-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "819f98f04b542f51d230883fcb545671",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 30,
+       "id": "Q30"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q65$819f98f0-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

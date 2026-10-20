@@ -1,0 +1,87 @@
+{
+ "pageid": 99000303,
+ "ns": 0,
+ "title": "Q99000303",
+ "lastrevid": 2400000303,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000303",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Jung District"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "중구"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "56e9332e6a88d8cb957f077afe546e75",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000401,
+       "id": "Q99000401"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000303$56e9332e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "b9fdf3b241d9011d198aa0a95c98601f",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000303$b9fdf3b2-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "8170a9321a1ec06f2ac9cc9d00be3019",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 8684,
+       "id": "Q8684"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000303$8170a932-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}
