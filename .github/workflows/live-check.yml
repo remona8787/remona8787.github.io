@@ -16,6 +16,8 @@ jobs:
         with: { node-version: '22' }
       - run: npm i --no-save playwright@1.56.1 && npx playwright install --with-deps chromium
       - run: node explore/live-check.mjs
+        env:
+          WANT_BUILD: '20261020T121743Z-cbf00ae8'
       - name: commit
         if: always()
         run: |
