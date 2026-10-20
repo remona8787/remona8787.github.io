@@ -94,10 +94,15 @@ const REGION = { AT: 'europe', DE: 'europe', FR: 'europe', NL: 'europe', GB: 'eu
 const card = r => { const b = best(r); return { id: r.id, name_ko: r.name_ko, name_en: r.name_en, name_original: r.name_original, country_iso2: r.country_iso2, city: r.city, lat: r.lat, lng: r.lng, project_type: r.project_type, year: r.year_installed, shard: r.shard, image: b } }
 
 // The five files of site-data/ for a list of records. Used by the fixture writer and by the large-dataset specs.
-export function siteData(records, { buildId = BUILD_ID, generatedAt = at } = {}) {
+// The index follows the pipeline (pipeline/lib/output.mjs buildIndex): visual_rank is the card image's tier (1 media
+// active at night … 4 context, null without an image), added_at a date, and with compact: true the Commons thumbnails
+// are stored as "<h>/<hh>/<File>" with one thumb_template, as the pipeline does above 512 KB.
+const THUMB_TEMPLATE = 'https://upload.wikimedia.org/wikipedia/commons/thumb/{path}/500px-{file}'
+const compactThumb = url => { const m = /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/thumb\/([0-9a-f]\/[0-9a-f]{2}\/([^/]+))\/500px-([^/]+)$/.exec(url || ''); return m && m[2] === m[3] ? m[1] : url }
+export function siteData(records, { buildId = BUILD_ID, generatedAt = at, compact = false } = {}) {
   const count = (f) => records.reduce((o, r) => { const k = f(r); if (k) o[k] = (o[k] || 0) + 1; return o }, {})
   const shards = [...new Set(records.map(r => r.shard))]
-  const index = { fields: INDEX_FIELDS, rows: records.map(r => { const b = best(r); return [r.id, r.name_ko, r.name_en, r.name_original, r.country_iso2, r.city, r.lat, r.lng, r.project_type, r.year_installed, b?.thumb || null, b ? ({ 1: 85, 2: 60, 3: 40, 4: 15 })[b.tier] - (r.id.length % 10) : 0, r.shard, r.added_at] }) }
+  const index = { schema: 1, fields: INDEX_FIELDS, ...(compact ? { thumb_template: THUMB_TEMPLATE } : {}), rows: records.map(r => { const b = best(r); return [r.id, r.name_ko, r.name_en, r.name_original, r.country_iso2, r.city, r.lat, r.lng, r.project_type, r.year_installed, b ? (compact ? compactThumb(b.thumb) : b.thumb) : null, b ? b.tier : null, r.shard, r.added_at.slice(0, 10)] }) }
   const lit = records.filter(r => best(r) && best(r).tier <= 3)
   const heroRecs = records.filter(r => r.images.some(i => i.role === 'hero'))
   const byRegion = count(r => REGION[r.country_iso2]), byType = count(r => r.project_type), byCountry = count(r => r.country_iso2)

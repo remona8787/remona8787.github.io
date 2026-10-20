@@ -37,7 +37,7 @@ async function get(path) {
 
 let version = 0
 function publish(status) {
-  const projects = [...compact.values()].map(p => { const f = full.get(p.place_id); return f ? { ...p, ...f.place, thumb: p.thumb, visual_rank: p.visual_rank } : p })
+  const projects = [...compact.values()].map(p => { const f = full.get(p.place_id); return f ? { ...p, ...f.place, thumb: p.thumb, card_tier: p.card_tier } : p })
   for (const [id, f] of full) if (!compact.has(id)) projects.push(f.place)
   const media = []
   for (const p of projects) {
@@ -54,7 +54,7 @@ function publish(status) {
 function addCompact(list, mediaRows = []) {
   for (const p of list) {
     const old = compact.get(p.place_id)
-    compact.set(p.place_id, old ? { ...old, ...p, thumb: p.thumb || old.thumb, visual_rank: p.visual_rank ?? old.visual_rank, shard: p.shard || old.shard } : p)
+    compact.set(p.place_id, old ? { ...old, ...p, thumb: p.thumb || old.thumb, card_tier: p.card_tier ?? old.card_tier, shard: p.shard || old.shard } : p)
   }
   for (const m of mediaRows) if (!cards.has(m.place_code) || (cards.get(m.place_code).credit_pending && !m.credit_pending)) cards.set(m.place_code, m)
 }

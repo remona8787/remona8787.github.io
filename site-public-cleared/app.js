@@ -103,9 +103,11 @@ function rowCard(p){const id=E(p.place_id),saved=db.saved.includes(p.place_id),n
 function activeFilterCount(){return ['country','city','state','kind','year'].filter(k=>filters[k]).length+(filters.free?1:0)+(filters.indoor?1:0)+(filters.has_photo?1:0)+(filters.year_from||filters.year_to?1:0)+X.activeFacets(filters).length+(scope!=='all'?1:0)}
 function blankFilters(o={}){return {q:'',category:'전체',district:'전체',free:false,indoor:false,...o}}
 // Search context: photos (the "사진 있음" filter), names in the current language (the name sort) and the featured order.
-// Featured order (relevance without a query): the dataset's visual rank of the card image, else the best photo's tier,
-// with the editors' first picks ahead.
-function featuredRank(p){const m=typeof p.visual_rank==='number'?null:photoFor(p),v=typeof p.visual_rank==='number'?p.visual_rank:m?(5-tierOf(m))*15:0;return -(v+(p.MVP_priority==='A'||p.mvp_priority==='A'?20:0))}
+// Featured order (relevance without a query): the home page's hero and featured picks first (in their order), then by
+// the tier of the card image (media active at night first; the index states it, else the best loaded photo), the
+// editors' first picks ahead within a tier; projects without an image last.
+let picksMemo=null;function homePicks(){const h=window.AOL_DATASET?.home;if(picksMemo&&picksMemo.h===h)return picksMemo.m;const m=new Map();if(h)for(const p of [...(h.hero||[]).map(x=>x.place),...(h.featured||[])])if(p&&!m.has(p.place_id))m.set(p.place_id,m.size);picksMemo={h,m};return m}
+function featuredRank(p){const pick=homePicks().get(p.place_id)??homePicks().get(p.archive_place_id);if(pick!==undefined)return -1000+pick;const m=p.card_tier?null:photoFor(p),tier=p.card_tier||(m?tierOf(m):6);return tier*10-(p.MVP_priority==='A'||p.mvp_priority==='A'?5:0)}
 function searchCtx(){return {hasPhoto:p=>mediaFor(p).length>0,lang:uiLang(),name:nm,featured:featuredRank}}
 // The one filtered list behind the result count, the cards, the map list and the pins (memoised per render).
 let resultsMemo=null;

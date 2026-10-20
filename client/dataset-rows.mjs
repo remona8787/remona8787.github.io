@@ -92,8 +92,9 @@ export function toPlace(r, { publicURL = '' } = {}) {
   const record = String(publicURL || '').replace(/\/+$/, '')
   const coordURL = wd ? 'https://www.wikidata.org/wiki/' + wd : record.startsWith('https:') ? record + '/#place/' + placeId : null
   const located = lat !== null && lng !== null && !(lat === 0 && lng === 0) && !!coordURL
-  // visual_rank: the pipeline's 0–100 score of the card image (0 = no image); card_tier, when given, its tier.
-  const thumb = https(r.thumb), rank = num(r.visual_rank, 100), ct = Number(r.card_tier)
+  // visual_rank (index.json): the tier of the card image, 1 media active at night … 4 context; null = no image.
+  // card_tier is accepted as another name for it.
+  const thumb = https(r.thumb), tierOfRow = [r.card_tier, r.visual_rank].map(Number).find(n => Number.isInteger(n) && n >= 1 && n <= 4) || null
   const cur = typeof r.curated_place_id === 'string' && CURATED.test(r.curated_place_id) ? r.curated_place_id : CURATED.test(id) ? id : null
   return {
     place_id: placeId, origin: 'archive', dataset: true, dataset_id: id, archive_slug: id, shard: shardName(r.shard),
@@ -106,21 +107,33 @@ export function toPlace(r, { publicURL = '' } = {}) {
     year_installed: year(r.year ?? r.year_installed), year_completed: year(r.year_completed),
     review_status: 'unreviewed', record_origin: 'auto_collected', field_status: {}, credits: [], sources: [], assessments: [], technologies: [], content_types: [], spatial_context: [],
     curated_place_id: cur, wikidata: wd, website: '', official_url: null, source_url: wd ? 'https://www.wikidata.org/wiki/' + wd : '',
-    thumb, visual_rank: rank !== null && rank >= 0 ? Math.round(rank) : thumb ? 1 : 0,
-    card_tier: thumb ? (Number.isInteger(ct) && ct >= 1 && ct <= 4 ? ct : rank === null ? 4 : rank >= 70 ? 1 : rank >= 50 ? 2 : rank >= 30 ? 3 : 4) : null,
+    // Without a stated tier an index thumbnail counts as context (tier 4): it never reaches the home page.
+    thumb, card_tier: thumb ? tierOfRow || 4 : null,
     first_collected_at: time(r.added_at ?? r.added ?? r.first_seen), created_at: time(r.added_at ?? r.added ?? r.first_seen),
     scope: iso === 'KR' ? 'korea' : 'world',
   }
+}
+
+// A large index stores Commons thumbnails as "<h>/<hh>/<File.jpg>" and names the URL pattern once (thumb_template,
+// e.g. https://upload.wikimedia.org/wikipedia/commons/thumb/{path}/500px-{file}); only Commons templates are accepted.
+const TEMPLATE = /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/thumb\/\{path\}\/\d{2,4}px-\{file\}$/
+const SHORT_THUMB = /^[0-9a-f]\/[0-9a-f]{2}\/[^/?#\s]{1,240}$/
+/** @param {any} thumb @param {string|null} template */
+export function expandThumb(thumb, template) {
+  if (typeof thumb !== 'string' || !template || /^https:/.test(thumb) || !SHORT_THUMB.test(thumb)) return thumb
+  return template.replace('{path}', thumb).replace('{file}', thumb.slice(thumb.lastIndexOf('/') + 1))
 }
 
 /** index.json → places (one per id, first row wins). @param {any} json @param {{publicURL?: string}} [o] */
 export function fromIndex(json, o = {}) {
   if (!json || !Array.isArray(json.fields) || !Array.isArray(json.rows)) throw Error('invalid_index')
   const fields = json.fields.map((/** @type {any} */ f) => String(f)), seen = new Set(), out = []
+  const template = typeof json.thumb_template === 'string' && TEMPLATE.test(json.thumb_template) ? json.thumb_template : null
   for (const row of json.rows) {
     if (!Array.isArray(row)) continue
     /** @type {Record<string, any>} */ const r = {}
     for (let i = 0; i < fields.length; i++) r[fields[i]] = row[i]
+    if (template) r.thumb = expandThumb(r.thumb, template)
     const p = toPlace(r, o)
     if (!p || seen.has(p.place_id)) continue
     seen.add(p.place_id); out.push(p)
