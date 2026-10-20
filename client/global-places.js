@@ -316,7 +316,16 @@ export function curatedMatch(p, list = window.AOLApp?.places?.() || []) {
 }
 
 loadVerdicts()
-if (cfg.PLACE_GLOBAL_SYNC !== false) {
+function off() {
+  window.AOLGlobal = { refresh: async () => null, wantImages, curatedMatch, dropCache, imageStatus }
+  window.AOL_GLOBAL = { places: [], fetchedAt: null, status: 'disabled', branches: [] }
+  window.AOL_GLOBAL_MEDIA = []
+}
+// With the static archive dataset (client/dataset.js) the pipeline has already run these queries for everyone:
+// the browser runs them only where /data/ does not exist.
+if (cfg.PLACE_GLOBAL_SYNC === false) off()
+else Promise.resolve(window.AOLDataset?.ready).then(dataset => {
+  if (dataset) { off(); window.AOLApp?.softRender?.(); return }
   window.AOLGlobal = { refresh, wantImages, curatedMatch, dropCache, imageStatus }
   const cached = read()
   if (cached) apply(cached, 'cached')
@@ -324,8 +333,4 @@ if (cfg.PLACE_GLOBAL_SYNC !== false) {
   // Long-lived tabs: re-check when the tab becomes visible and every 30 minutes; refresh() is a no-op until 6h pass.
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') refresh() })
   setInterval(refresh, 30 * 60 * 1000)
-} else {
-  window.AOLGlobal = { refresh: async () => null, wantImages, curatedMatch, dropCache, imageStatus }
-  window.AOL_GLOBAL = { places: [], fetchedAt: null, status: 'disabled', branches: [] }
-  window.AOL_GLOBAL_MEDIA = []
-}
+})

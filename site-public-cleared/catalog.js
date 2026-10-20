@@ -16,7 +16,10 @@ function cityLabel(key,lang){const c=CITIES.find(x=>x[0]===key);return c?(lang==
 let isoNames=null;
 function isoOfName(name){if(!name||!T)return null;if(!isoNames){isoNames=new Map();for(const c of Object.keys(T.regionByIso))for(const l of ['ko','en']){const n=T.countryName(c,l);if(n&&n!==c)isoNames.set(text(n),c)}for(const [n,c] of [['한국','KR'],['대한민국','KR'],['korea','KR'],['republic of korea','KR'],['미국','US'],['영국','GB'],['홍콩','HK']])isoNames.set(text(n),c)}return isoNames.get(text(name))||null}
 function isoOf(p){const c=p.country_iso2;if(typeof c==='string'&&/^[A-Z]{2}$/.test(c))return c;if(/^SEOUL\d+$/.test(p.place_id||''))return 'KR';return isoOfName(p.country||p.country_name)}
-function region(p){const iso=isoOf(p),country=p.country||p.country_name||(/^SEOUL\d+$/.test(p.place_id)?'대한민국':iso&&T?T.countryName(iso,'ko'):''),city=p.city||(/^SEOUL\d+$/.test(p.place_id)?'서울':p.district||'');return {country,city,iso,countryKey:iso||country,cityKey:cityKey(city)}}
+// Memoised per place object: filters, facet counts and sorts ask for it thousands of times on large lists.
+const regionCache=typeof WeakMap==='function'?new WeakMap():null;
+function region(p){let r=regionCache&&regionCache.get(p);if(!r){r=regionOf(p);if(regionCache&&p&&typeof p==='object')regionCache.set(p,r)}return r}
+function regionOf(p){const iso=isoOf(p),country=p.country||p.country_name||(/^SEOUL\d+$/.test(p.place_id)?'대한민국':iso&&T?T.countryName(iso,'ko'):''),city=p.city||(/^SEOUL\d+$/.test(p.place_id)?'서울':p.district||'');return {country,city,iso,countryKey:iso||country,cityKey:cityKey(city)}}
 function regionKey(p){return p.region&&(!T||T.valid('region',p.region))?p.region:T?T.regionOf(isoOf(p)):null}
 function countryLabel(key,lang){return /^[A-Z]{2}$/.test(key||'')&&T?T.countryName(key,lang):String(key||'')}
 // Project types: the archive's own value, the curated seed's derived one, or for Wikidata items the one their light
@@ -43,7 +46,8 @@ function available(p,today){return p.operation_verified===true&&valid(p.verified
 // (a Wikidata item, or a source named in the archive record) apart, as circles that name their source. Archive
 // coordinates count only at exact or street precision (client/archive-rows.mjs). Always with an https source link.
 function wikidataCoords(p){return p.coordinate_source==='wikidata'&&p.coordinate_review_status==='source'}
-function sourceCoords(p){return p.coordinate_source==='archive'&&p.coordinate_review_status==='source'}
+// Archive and static-dataset coordinates reported by a source (the dataset publishes only coordinates it has a source for).
+function sourceCoords(p){return (p.coordinate_source==='archive'||p.coordinate_source==='dataset')&&p.coordinate_review_status==='source'}
 function mappable(p){return (p.coordinate_review_status==='verified'||wikidataCoords(p)||sourceCoords(p))&&typeof p.latitude==='number'&&typeof p.longitude==='number'&&Number.isFinite(p.latitude)&&Number.isFinite(p.longitude)&&Math.abs(p.latitude)<=90&&Math.abs(p.longitude)<=180&&/^https:\/\//.test(p.coordinate_source_url||'')}
 function coordKind(p){return !mappable(p)?null:wikidataCoords(p)?'wikidata':sourceCoords(p)?'source':'verified'}
 function names(p){return [p.name_kr,p.name_en,p.name_ko,p.name_original,...(Array.isArray(p.aliases)?p.aliases:[])].filter(Boolean)}
@@ -83,7 +87,8 @@ function sorter(f,ctx,scores){const s=f.sort,y=p=>yearOf(p),name=p=>ctx&&ctx.nam
  if(s==='year_desc'||s==='year_asc'){const dir=s==='year_desc'?-1:1;return (a,b)=>{const x=y(a),z=y(b);return x===z?0:x===null?1:z===null?-1:(x-z)*dir}}
  if(s==='name')return (a,b)=>String(name(a)).localeCompare(String(name(b)),lang);
  return (a,b)=>scores.get(b)-scores.get(a)}
-function search(places,f={},today,ctx){const words=queryWords(f);const out=places.filter(p=>match(p,f,today,ctx,words));const s=SORTS.includes(f.sort)?f.sort:'relevance';if(s==='relevance'&&!words.length)return out;const scores=new Map(words.length&&s==='relevance'?out.map(p=>[p,rank(p,f.q)]):[]);return out.sort(sorter({...f,sort:s},ctx,scores))}
+// Relevance without a query is the featured order (ctx.featured: lower first; the list order breaks ties).
+function search(places,f={},today,ctx){const words=queryWords(f);const out=places.filter(p=>match(p,f,today,ctx,words));const s=SORTS.includes(f.sort)?f.sort:'relevance';if(s==='relevance'&&!words.length){if(ctx&&ctx.featured){const k=new Map(out.map((p,i)=>[p,[ctx.featured(p),i]]));out.sort((a,b)=>{const x=k.get(a),y=k.get(b);return x[0]-y[0]||x[1]-y[1]})}return out}const scores=new Map(words.length&&s==='relevance'?out.map(p=>[p,rank(p,f.q)]):[]);return out.sort(sorter({...f,sort:s},ctx,scores))}
 // Option counts for the filter panel: for each facet, the places matching every other filter, by value; plus the
 // countries (and the cities of the chosen country) with every filter but those two. only: just these facets.
 function facetCounts(places,f={},today,ctx,only){const words=queryWords(f),out={};for(const k of only||FACET_KEYS){if(!FACETS[k])continue;const c={};for(const p of places)if(match(p,f,today,ctx,words,k))for(const v of FACETS[k](p))if(v)c[v]=(c[v]||0)+1;out[k]=c}

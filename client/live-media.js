@@ -44,7 +44,9 @@ export async function refresh(force = false) {
   return running
 }
 
-if (cfg.MEDIA_LIVE_SYNC !== false) {
+// With the static archive dataset (client/dataset.js) the curated places' photos come from the pipeline instead.
+if (cfg.MEDIA_LIVE_SYNC !== false) Promise.resolve(window.AOLDataset?.ready).then(dataset => {
+  if (dataset) return
   const cached = read()
   if (cached) apply(cached, 'cached')
   refresh()
@@ -52,4 +54,4 @@ if (cfg.MEDIA_LIVE_SYNC !== false) {
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') refresh() })
   setInterval(refresh, 30 * 60 * 1000)
   window.AOLLive = { refresh }
-}
+})
