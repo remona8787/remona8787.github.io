@@ -13,7 +13,10 @@ const PNG=readFileSync(new URL('../site-public-cleared/assets/icon-512.png',impo
 const cors={'access-control-allow-origin':'*','access-control-expose-headers':'Content-Range','content-type':'application/json'};
 const H=3600e3;
 const status=page=>page.evaluate(()=>window.AOL_GLOBAL?.status);
-const rail=(page,title)=>page.locator('section',{has:page.locator('h2',{hasText:title})});
+// v0.17: synced places are listed in explore (the home page shows only media-active photos, which P18 is not).
+const allResults=async page=>{await page.goto('/#explore');await page.evaluate(()=>{showCount=1000;AOLApp.render()})};
+const card=(page,name)=>page.locator('#placeResults .place-card',{hasText:name});
+const counts=page=>page.evaluate(()=>{const g=window.AOL_GLOBAL;return {korea:g.places.filter(p=>p.scope==='korea').length,world:g.places.filter(p=>p.scope!=='korea').length,failed:(g.branches||[]).filter(b=>!b.ok).map(b=>b.id+' ('+b.error+')')}});
 
 // The app with the backend configured, a server whose view answers with `rows` (or `fail` as an HTTP status), and the
 // Wikidata/Commons APIs counted (the browser sync must not run while the server answers).
@@ -54,33 +57,29 @@ async function serverMode(page,{rows=[],fail=0}={}){
 test('server mode: one request with the publishable key replaces the Wikidata queries; photos come with the server verdicts',async({page})=>{
  const seenAt=new Date(Date.now()-H).toISOString();
  const {calls}=await serverMode(page,{rows:await serverViewRows({seenAt})});
- await page.goto('/#home');
- const korea=rail(page,'전국의 빛'),world=rail(page,'세계의 빛');
- await expect(korea.locator('.place-card')).toHaveCount(4);
- for(const name of ['진주남강유등축제','광안대교','서울빛초롱축제','BUSAN X the SKY'])await expect(korea).toContainText(name);
- for(const dup of ['롯데월드타워','남산서울타워','동대문디자인플라자'])await expect(korea).not.toContainText(dup);
- await expect(world.locator('.place-card')).toHaveCount(6);
- const first=world.locator('.place-card').first();
- await expect(first).toContainText('비비드 시드니');
- await expect(first.locator('.image-credit')).toContainText('Lee Photographer · CC BY-SA 4.0');
- await expect.poll(()=>first.locator('img[data-place-photo]').evaluate(e=>e.complete&&e.naturalWidth>0)).toBe(true);
- await expect(korea.locator('.place-card',{hasText:'진주남강유등축제'}).locator('.image-credit')).toContainText('Park · CC BY 2.0');
- for(const name of ['빛의 축제','쿤스트하우스 그라츠'])await expect(world.locator('.place-card',{hasText:name}).locator('img[data-place-photo]')).toHaveCount(0);
+ await allResults(page);
  await expect.poll(()=>status(page)).toBe('ok');
+ await page.evaluate(()=>AOLApp.render());
+ for(const name of ['진주남강유등축제','광안대교','서울빛초롱축제','BUSAN X the SKY','비비드 시드니'])await expect(card(page,name)).toHaveCount(1);
+ const vivid=card(page,'비비드 시드니');
+ await expect(vivid.locator('.image-credit')).toContainText('Lee Photographer · CC BY-SA 4.0');
+ await vivid.scrollIntoViewIfNeeded();
+ await expect.poll(()=>vivid.locator('img[data-place-photo]').evaluate(e=>e.complete&&e.naturalWidth>0)).toBe(true);
+ await expect(card(page,'진주남강유등축제').locator('.image-credit')).toContainText('Park · CC BY 2.0');
+ for(const name of ['빛의 축제','쿤스트하우스 그라츠'])await expect(card(page,name).first().locator('img[data-place-photo]')).toHaveCount(0);
  // One request: the view, with the publishable key as apikey (no bearer token), the columns the app reads, a page of 1000.
  expect(calls.list).toEqual([{select:SERVER_COLUMNS,apikey:KEY,authorization:null,prefer:'count=exact',qid:null,order:'qid.asc',limit:'1000',offset:'0'}]);
  expect(await page.evaluate(()=>window.AOL_GLOBAL.fetchedAt),'the time of the server sync').toBe(seenAt);
  // No Wikidata branch query and no Commons check from this browser.
  await page.goto('/#place/WD-Q4167');
  await expect(page.locator('h1')).toHaveText('빛의 축제');
- await expect(page.locator('#syncedPhotoStatus')).toHaveText('대표 사진(P18)은 자동 표시 조건에 맞지 않아 표시하지 않습니다: 파노라마의 자유가 없는 나라의 건축물·작품 사진.');
+ await expect.poll(()=>page.evaluate(()=>AOLGlobal.imageStatus('WD-Q4167')?.state)).toBe('blocked');
+ await expect(page.locator('img[data-place-photo]')).toHaveCount(0);
  await page.goto('/#place/WD-Q7937834');
  const fig=page.locator('.image-gallery figure');
  await expect(fig).toContainText('Lee Photographer');
  await expect(fig.locator('a',{hasText:'이미지 원본'})).toHaveAttribute('href','https://commons.wikimedia.org/wiki/File:Vivid_Sydney_2019.jpg');
- await page.goto('/#settings');
- await expect(page.locator('#globalSyncCount')).toContainText('국내 4곳 / 해외 35곳');
- await expect(page.locator('#globalSyncErrors')).toHaveCount(0);
+ expect(await counts(page)).toEqual({korea:9,world:35,failed:[]});
  await page.waitForLoadState('networkidle');
  expect([calls.branches,calls.commons,calls.media.length]).toEqual([0,0,0]);
 });
@@ -90,12 +89,13 @@ test('server mode keeps the 6-hour cache: no request on reload; a copy whose ser
  await page.goto('/#home');
  await expect.poll(()=>status(page)).toBe('ok');
  expect(calls.list.length).toBe(1);
+ await allResults(page);
  await page.reload();
- await expect(rail(page,'세계의 빛')).toContainText('비비드 시드니');
  await page.waitForLoadState('networkidle');
  expect(await status(page)).toBe('cached');
  expect(calls.list.length,'fresh: not asked again').toBe(1);
- await expect(rail(page,'세계의 빛').locator('.image-credit').first()).toContainText('Lee Photographer');
+ await page.evaluate(()=>{showCount=1000;AOLApp.render()});
+ await expect(card(page,'비비드 시드니').locator('.image-credit')).toContainText('Lee Photographer');
  const age=(data,checked)=>page.evaluate(([d,c])=>{const v=JSON.parse(localStorage.getItem('aol_global_v1'));v.fetchedAt=new Date(Date.now()-d).toISOString();v.checkedAt=new Date(Date.now()-c).toISOString();localStorage.setItem('aol_global_v1',JSON.stringify(v))},[data,checked]);
  // The server's data is 7 hours old (its next run is due) but this browser asked 10 minutes ago: wait.
  await age(7*H,10*60e3);
@@ -119,14 +119,12 @@ test('a server without rows, or failing, makes the browser run the Wikidata quer
  await expect.poll(()=>status(page)).toBe('partial');
  expect(calls.list.length).toBe(1);
  expect(calls.branches).toBe(BRANCHES.length);
- await expect(page.locator('#globalSyncCount')).toContainText('국내 4곳 / 해외 35곳');
- await expect(page.locator('#globalSyncErrors')).toContainText('world:genres (HTTP 500)');
- // The browser's own result is cached as such; "지금 동기화" asks the server again first, then falls back once more.
+ expect(await counts(page)).toEqual({korea:9,world:35,failed:['world:genres (HTTP 500)','world:lantern (invalid_wdqs_payload)']});
+ // The browser's own result is cached as such; a manual refresh asks the server again first, then falls back once more.
  server.fail=503;
- await page.getByRole('button',{name:'지금 동기화'}).click();
- await expect(page.locator('#toast')).toContainText('동기화했어요');
+ await page.evaluate(()=>AOLGlobal.refresh(true));
+ await expect.poll(()=>calls.branches).toBe(2*BRANCHES.length);
  expect(calls.list.length).toBe(2);
- expect(calls.branches).toBe(2*BRANCHES.length);
  // Photos of the browser-synced places are checked on Commons as before.
  await page.goto('/#place/WD-Q7937834');
  await expect(page.locator('.image-gallery figure')).toContainText('Lee Photographer');
@@ -143,7 +141,7 @@ test('a server list longer than one page is read with Content-Range paging',asyn
  await expect.poll(()=>status(page),{timeout:30000}).toBe('ok');
  expect(calls.list.map(c=>c.offset)).toEqual(['0','1000','2000']);
  expect(await page.evaluate(()=>window.AOL_GLOBAL.places.length)).toBe(2500);
- await expect(page.locator('#globalSyncCount')).toContainText('국내 0곳 / 해외 2500곳');
+ expect(await counts(page)).toMatchObject({korea:0,world:2500});
  expect(calls.branches).toBe(0);
 });
 

@@ -36,8 +36,12 @@ async function mockApis(page,{fail=false}={}){
 
 test('photos sync with attribution and appear on cards and detail pages',async({page})=>{
  const calls=await mockApis(page);
- await page.goto('/#home');
+ // v0.17: a Wikidata P18 photo is not evidence of media running, so it shows on explore cards and the place page,
+ // never on the home page.
+ await page.goto('/#explore');
+ await expect.poll(()=>page.evaluate(()=>window.AOL_LIVE?.status)).toBe('ok');
  const ddp=page.locator('.place-card',{hasText:'동대문디자인플라자'}).first();
+ await expect(async()=>{await ddp.scrollIntoViewIfNeeded()}).toPass();
  await expect(ddp.locator('img[data-place-photo]')).toBeVisible();
  await expect(ddp.locator('.image-credit')).toContainText('Kim Photographer · CC BY-SA 4.0');
  await expect.poll(()=>ddp.locator('img[data-place-photo]').evaluate(e=>e.complete&&e.naturalWidth>0)).toBe(true);
@@ -48,12 +52,13 @@ test('photos sync with attribution and appear on cards and detail pages',async({
  await expect(fig).toContainText('CC BY-SA 4.0');await expect(fig).toContainText('2019-05-04');
  await expect(fig.locator('a',{hasText:'이미지 원본'})).toHaveAttribute('href','https://commons.wikimedia.org/wiki/File:DDP_night.jpg');
  await expect(fig.locator('a',{hasText:'사용조건'})).toHaveAttribute('href','https://creativecommons.org/licenses/by-sa/4.0');
- const info=page.locator('.live-info');
- await expect(info).toContainText('공개 데이터 연동 정보');
- await expect(info.locator('a',{hasText:'Wikidata Q482004'})).toHaveAttribute('href','https://www.wikidata.org/wiki/Q482004');
- await expect(info.locator('a',{hasText:'바로가기'})).toHaveAttribute('href','https://ddp.or.kr/');
- await expect(info).toContainText('37.56650, 127.00950');
- await expect(info).toContainText('6시간마다');
+ // The matched item's facts join the page's own sections; no sync wording.
+ await expect(page.locator('#detailSources a[href="https://www.wikidata.org/wiki/Q482004"]')).toHaveCount(1);
+ await expect(page.locator('#detailSources a[href="https://ddp.or.kr/"]')).toHaveCount(1);
+ await expect(page.locator('#detailMap .map-coords')).toContainText('37.56650, 127.00950');
+ await expect(page.locator('#view')).not.toContainText(/6시간마다|연동 정보/);
+ await page.goto('/#home');
+ await expect(page.locator('#view img[data-place-photo]')).toHaveCount(0);
 });
 
 test('host-building photos are labelled; non-free licenses are never shown',async({page})=>{
@@ -62,21 +67,22 @@ test('host-building photos are labelled; non-free licenses are never shown',asyn
  await page.goto('/#place/SEOUL045');
  await expect(page.locator('.image-gallery figure')).toContainText('프로젝트가 있는 건물(반포대교)의 사진');
  await expect(page.locator('.image-gallery figure')).toContainText('Han · CC BY 4.0');
- await expect(page.locator('.live-info')).toContainText('프로젝트가 설치된 건물(반포대교) 기준');
- await expect(page.locator('.live-info a',{hasText:'Wikidata Q255506'})).toHaveAttribute('href','https://www.wikidata.org/wiki/Q255506');
+ await expect(page.locator('.image-gallery figure .role-tag')).toHaveText('건축 맥락 사진');
+ const host=page.locator('#detailSources .source-item',{has:page.locator('a[href="https://www.wikidata.org/wiki/Q255506"]')});
+ await expect(host).toContainText('프로젝트가 설치된 건물(반포대교) 기준');
  expect(calls.queries[0]).toMatch(/VALUES \?item \{[^}]*wd:Q255506[^}]*\}/);
  expect(calls.queries[0]).toMatch(/VALUES \?item \{[^}]*wd:Q5295847[^}]*\}/);
  await page.goto('/#place/SEOUL018');
  await expect(page.locator('.image-gallery figure')).toContainText('프로젝트가 있는 건물(롯데월드타워)의 사진');
- await expect(page.locator('.live-info')).toContainText('프로젝트가 설치된 건물(롯데월드타워) 기준');
+ await expect(page.locator('#detailSources')).toContainText('프로젝트가 설치된 건물(롯데월드타워) 기준');
  await page.goto('/#place/SEOUL027');
- await expect(page.locator('.live-info')).toContainText('Q482009');
+ await expect(page.locator('#detailSources a[href="https://www.wikidata.org/wiki/Q482009"]')).toHaveCount(1);
  await expect(page.locator('.image-gallery figure')).toHaveCount(0);
 });
 
 test('results are cached for 6 hours; a failed refresh keeps the last good result',async({page})=>{
  const calls=await mockApis(page);
- await page.goto('/#home');await expect(page.locator('.place-card img[data-place-photo]').first()).toBeVisible();
+ await page.goto('/#place/SEOUL006');await expect(page.locator('.image-gallery img[data-place-photo]').first()).toBeVisible();
  await page.reload();await page.waitForLoadState('networkidle');
  expect(calls.wdqs,'fresh cache: no new query').toBe(1);
  // Age the cache past 6 hours and make the source fail.
@@ -85,21 +91,23 @@ test('results are cached for 6 hours; a failed refresh keeps the last good resul
  let failed=0;await page.route('https://query.wikidata.org/**',r=>{if(isGlobal(r))return r.fallback();failed++;r.fulfill({status:503,headers:cors,body:'{}'})});
  await page.goto('/#settings');await page.reload();
  await expect.poll(()=>failed).toBe(1);
- await expect(page.locator('#liveSyncTime')).toContainText('최근 갱신 실패');
+ await expect.poll(()=>page.evaluate(()=>window.AOL_LIVE?.status)).toBe('stale');
  await page.goto('/#place/SEOUL006');
  await expect(page.locator('.image-gallery figure').filter({hasText:'Kim Photographer'})).toBeVisible();
 });
 
-test('manual sync from settings and takedown list',async({page})=>{
+// v0.17: no sync controls on settings; the engine's manual refresh and the takedown list still work.
+test('manual refresh and takedown list',async({page})=>{
  const calls=await mockApis(page);
  await page.goto('/#settings');
- await expect(page.locator('#liveSyncTime')).not.toContainText('아직 없음');
- await expect(page.locator('.panel',{hasText:'장소 사진·정보 동기화'})).toContainText('4곳 / 3장');
- await page.getByRole('button',{name:'지금 동기화'}).click();
+ await expect.poll(()=>page.evaluate(()=>window.AOL_LIVE?.status)).toBe('ok');
+ expect(await page.evaluate(()=>[Object.keys(AOL_LIVE.info).length,AOL_LIVE.media.length])).toEqual([4,3]);
+ await expect(page.locator('#view')).not.toContainText(/동기화|4곳 \/ 3장/);
+ await page.evaluate(()=>AOLLive.refresh(true));
  await expect.poll(()=>calls.wdqs).toBe(2);
  await page.route('**/assets/media-blocklist.js',r=>r.fulfill({contentType:'text/javascript',body:"window.AOL_MEDIA_BLOCKLIST=['DDP night.jpg']"}));
  await page.goto('/#place/SEOUL006');await page.reload();
- await expect(page.locator('.live-info')).toBeVisible();
+ await expect(page.locator('#detailSources a[href="https://www.wikidata.org/wiki/Q482004"]')).toHaveCount(1);
  await expect(page.locator('.image-gallery figure').filter({hasText:'Kim Photographer'})).toHaveCount(0);
 });
 
