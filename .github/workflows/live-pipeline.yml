@@ -1,0 +1,34 @@
+name: live pipeline test
+on:
+  push:
+    branches: [ci-permission-test]
+    paths: ['explore/run-pipeline.txt']
+concurrency: live-pipeline
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: pipeline-test, path: src }
+      - name: data branch (data-test)
+        run: |
+          if git ls-remote --exit-code --heads "https://github.com/${{ github.repository }}" data-test >/dev/null; then
+            git clone --depth 1 --branch data-test "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" data
+          else
+            mkdir data && cd data && git init -q -b data-test && git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}"
+          fi
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - run: npm ci
+        working-directory: src/pipeline
+      - name: run pipeline
+        run: node src/pipeline/run.mjs --data=data --budget=30 2>&1 | tee data/run-log.txt | tail -60
+      - name: commit data
+        if: always()
+        run: |
+          cd data
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A && git commit -qm "live pipeline test run ${{ github.run_id }}" && git push origin HEAD:data-test
