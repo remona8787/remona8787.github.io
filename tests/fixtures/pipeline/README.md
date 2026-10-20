@@ -16,7 +16,7 @@ years, files and links, and QIDs `Q99000xxx` do not exist on Wikidata. Never pub
 | `links.json`, `overpass.json` | link-check and `robots.txt` answers per host; an Overpass `out center tags` answer |
 | `thumbs/*.jpg` | 330 px thumbnails generated with sharp: LED facade at night, projections, a light field, a daytime building, a colourful daytime frame, a dark frame with white beams, dim windows, an interior |
 | `editorial/` | editorial decisions and a hero allowlist exercising every action and status |
-| `site-data/`, `admin-data/` | **the output of a dry run** over all of the above (59 projects): the small, schema-valid dataset the UI track develops against |
+| `site-data/`, `admin-data/` | **the output of a dry run** over all of the above (60 projects): the small, schema-valid dataset the UI track develops against |
 
 `fake-fetch.mjs` composes the answers the way the services do (batches of `wbgetentities`, SPARQL bindings for the
 aux query, Commons template continuation in pages of 12, `If-None-Match` → 304, per-host `robots.txt`) and keeps a
