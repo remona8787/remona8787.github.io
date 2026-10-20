@@ -9,3 +9,30 @@ test('hidden places never leak through discovery search',()=>assert.equal(X.sear
 test('missing dates stay unknown, including invalid dates',()=>{assert.equal(X.status({...p,program_start:null,program_end:null},today),'unknown');assert.equal(X.status({...p,program_start:'2026-02-30',program_end:null},today),'unknown')});
 test('relevance ranks name matches above artist matches',()=>{const q={...p,place_id:'B',name_kr:'다른 공간',name_en:'',artist:'빛의 전당'};assert.equal(X.search([q,p],{q:'빛의 전당'},today)[0].place_id,p.place_id)});
 test('year filtering never infers an absent project year',()=>assert.equal(X.search([{...p,program_start:null}],{year:'2026'},today).length,0));
+// v0.18 Korea first: the archive search lists Korean results first unless a country is chosen, drops none, keeps the
+// chosen order within each group; Korean regions as a facet; the two Korean sections.
+const ko=(id,o={})=>({place_id:id,name_kr:id,country_iso2:'KR',project_type:'media_facade',...o}),fo=(id,o={})=>({place_id:id,name_kr:id,country_iso2:'FR',project_type:'media_facade',...o});
+test('Korean results first with ctx.krFirst unless a country is chosen; none dropped; the sort applies within each group',()=>{
+ const ps=[fo('F1',{year_installed:2020}),ko('K1',{year_installed:2001,kr_region:'seoul'}),fo('F2',{year_installed:2010}),ko('K2',{year_installed:2015,kr_region:'jeju'})];
+ assert.deepEqual(X.search(ps,{},today,{krFirst:true}).map(p=>p.place_id),['K1','K2','F1','F2']);
+ assert.deepEqual(X.search(ps,{sort:'year_desc'},today,{krFirst:true}).map(p=>p.place_id),['K2','K1','F1','F2']);
+ assert.deepEqual(X.search(ps,{country:'FR'},today,{krFirst:true}).map(p=>p.place_id),['F1','F2']);
+ assert.deepEqual(X.search(ps,{sort:'year_desc'},today).map(p=>p.place_id),['F1','K2','F2','K1'],'without the context: one order');
+ // Curated Seoul places count as Korean.
+ assert.equal(X.isKR({place_id:'SEOUL001',name_kr:'x'}),true);
+});
+test('Korean region: the dataset value, null stays unknown, derived for places without the field; a facet with counts',()=>{
+ assert.equal(X.krRegionOf(ko('a',{kr_region:'jeju'})),'jeju');
+ assert.equal(X.krRegionOf(ko('b',{kr_region:null,city:'Busan'})),null);
+ assert.equal(X.krRegionOf(ko('c',{city:'Busan'})),'busan_ulsan_gyeongnam');
+ assert.equal(X.krRegionOf({place_id:'SEOUL009',name_kr:'x',address:'서울특별시 중구 세종대로 110'}),'seoul');
+ assert.equal(X.krRegionOf(fo('d',{kr_region:'seoul'})),null,'only Korean places');
+ const ps=[ko('a',{kr_region:'jeju'}),ko('b',{kr_region:'jeju'}),ko('c',{kr_region:'seoul'}),fo('f')];
+ assert.deepEqual(X.facetCounts(ps,{},today,null,['kr_region']).kr_region,{jeju:2,seoul:1});
+ assert.deepEqual(X.search(ps,{kr_region:['jeju']},today).map(p=>p.place_id),['a','b']);
+ // The region's name finds its projects.
+ assert.deepEqual(X.search(ps,{q:'제주'},today).map(p=>p.place_id),['a','b']);
+});
+test('Korean sections: facades, screens, media walls and projection mapping; everything else is media art and exhibitions',()=>{
+ assert.deepEqual(['media_facade','projection_mapping','urban_screen','media_wall','light_art','festival_program','interactive_installation','media_architecture','other',null].map(t=>X.sectionOf({project_type:t})),['facade','facade','facade','facade','programs','programs','programs','programs','programs','programs']);
+});

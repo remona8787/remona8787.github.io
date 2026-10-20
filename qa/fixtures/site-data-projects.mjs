@@ -1,13 +1,15 @@
-// Test fixture for the static archive dataset (docs/STATIC_ARCHIVE.md "Output", docs/UI_v017.md): forty well-known
-// media facade, projection, light art and festival projects across every region, with the hard cases the UI must
-// handle (no images, only daytime context images, a video, a curated seed place with coordinates, long and
-// non-Latin names). TEST DATA: names and places are real projects, but coordinates, years, images and sources are
+// Test fixture for the static archive dataset (docs/STATIC_ARCHIVE.md "Output" and its v0.18 addendum, docs/UI_v018.md):
+// well-known media facade, projection, light art and festival projects in Korea (every one of the eight regions) and
+// across the world, with the hard cases the UI must handle (no images, only daytime context images, a small image
+// that must never fill a large slot, a video, a curated seed place with coordinates, long and non-Latin names). TEST DATA: names and places are real projects, but coordinates, years, images and sources are
 // plausible values written for tests, not verified facts. Image files are named Fixture_… and never exist on Commons;
 // the specs route every image request to a local file. Never publish this as the archive.
 //
-// Image kinds per project (k): 'hero' = night, media visibly running, on the reviewed hero list; 'night' = media
-// active at night; 'art' = media art content; 'led' = lighting characteristics; 'day' = daytime architectural context
-// only; '' = no image at all (the UI draws the designed placeholder).
+// Image kinds per project (k): 'hero' = night, media visibly running, reviewed for the hero (v0.18 tier 1); 'night' =
+// media active at night (tier 1); 'art' = architectural media art (tier 2); 'led' = LED or projection visible (tier 3);
+// 'scene' = an exhibition or installation scene (tier 4); 'day' = daytime architectural context (tier 5); 'small' = a
+// media-active photo only 500 px wide (it may fill a card, never a hero or a featured slot); no kind = no image at all
+// (the UI draws the designed placeholder).
 export const PROJECTS = [
   // Curated seed places keep their ids (SEOUL…) in the dataset and carry its coordinates.
   // id, name_ko, name_en, name_original (lang), iso, city, lat, lng, type, year, images, extra
@@ -42,34 +44,60 @@ export const PROJECTS = [
   ['teamlab-planets', '팀랩 플래닛', 'teamLab Planets TOKYO', ['チームラボプラネッツ', 'ja'], 'JP', 'Tokyo', 35.6491, 139.7898, 'interactive_installation', 2018, ['art'], { credits: [['artist', 'teamLab']], technologies: ['laser_projector', 'sensors'] }],
   ['shibuya-crossing-screens', '시부야 교차로 스크린', 'Shibuya Crossing screens', ['渋谷スクランブル交差点', 'ja'], 'JP', 'Tokyo', 35.6595, 139.7005, 'urban_screen', 2000, ['day'], {}],
   ['water-cube', '워터 큐브', 'Beijing National Aquatics Center', ['国家游泳中心', 'zh'], 'CN', 'Beijing', 39.9928, 116.3843, 'media_architecture', 2008, ['night'], { envelope: 'membrane_etfe' }],
-  ['galleria-centercity', '갤러리아 센터시티', 'Galleria Centercity', ['갤러리아 센터시티', 'ko'], 'KR', 'Cheonan', 36.8188, 127.1559, 'media_facade', 2010, ['night', 'day'], { credits: [['architect', 'UNStudio']], technologies: ['led_rgb'], method: 'led_media_glass' }],
-  ['seoul-square-media-canvas', '서울스퀘어 미디어 캔버스', 'Seoul Square Media Canvas', ['서울스퀘어 미디어 캔버스', 'ko'], 'KR', 'Seoul', 37.5555, 126.9732, 'media_facade', 2009, ['hero', 'art'], { technologies: ['led_mono'], method: 'led_linear_pixel' }],
-  ['SEOUL006', '서울라이트 DDP', 'Seoul Light DDP', ['서울라이트 DDP', 'ko'], 'KR', 'Seoul', 37.5665, 127.0095, 'projection_mapping', 2019, ['night'], {}],
-  ['lotte-world-tower-facade', '롯데월드타워 미디어파사드', 'Lotte World Tower media facade', ['롯데월드타워', 'ko'], 'KR', 'Seoul', 37.5125, 127.1025, 'media_facade', 2017, ['led'], {}],
-  ['gwangan-bridge-lights', '광안대교 경관조명', 'Gwangan Bridge lights', ['광안대교', 'ko'], 'KR', 'Busan', 35.1475, 129.13, 'light_art', 2003, ['night'], { envelope: 'bridge_infrastructure' }],
-  ['jinju-namgang-yudeung', '진주남강유등축제', 'Jinju Namgang Yudeung Festival', ['진주남강유등축제', 'ko'], 'KR', 'Jinju', 35.1886, 128.0807, 'festival_program', 2000, ['night'], { visit: { status: 'event_based', period: { ko: '매년 10월', en: 'Every October' } } }],
-  ['SEOUL001', '아뜰리에 노들', 'Atelier Nodeul', ['아뜰리에 노들', 'ko'], 'KR', 'Seoul', 37.5176, 126.9599, 'media_facade', 2024, [], {}],
-  ['convention-centre-atrium-long', '컨벤션 센터 북측 아트리움 인터랙티브 미디어 파사드 2단계 확장 프로젝트 (국제 공모 당선작)', 'Convention Centre North Atrium Interactive Facade, Phase Two Extension (International Competition Winner)', null, 'KR', 'Goyang', 37.6688, 126.7453, 'interactive_installation', 2021, [], {}],
+  // Korea: every region (kr_region, as the pipeline derives it from the administrative chain).
+  ['galleria-centercity', '갤러리아 센터시티', 'Galleria Centercity', ['갤러리아 센터시티', 'ko'], 'KR', 'Cheonan', 36.8188, 127.1559, 'media_facade', 2010, ['night', 'day'], { kr: 'daejeon_sejong_chungcheong', credits: [['architect', 'UNStudio']], technologies: ['led_rgb'], method: 'led_media_glass' }],
+  ['seoul-square-media-canvas', '서울스퀘어 미디어 캔버스', 'Seoul Square Media Canvas', ['서울스퀘어 미디어 캔버스', 'ko'], 'KR', 'Seoul', 37.5555, 126.9732, 'media_facade', 2009, ['hero', 'art'], { kr: 'seoul', technologies: ['led_mono'], method: 'led_linear_pixel' }],
+  ['SEOUL006', '서울라이트 DDP', 'Seoul Light DDP', ['서울라이트 DDP', 'ko'], 'KR', 'Seoul', 37.5665, 127.0095, 'projection_mapping', 2019, ['hero', 'night'], { kr: 'seoul' }],
+  ['lotte-world-tower-facade', '롯데월드타워 미디어파사드', 'Lotte World Tower media facade', ['롯데월드타워', 'ko'], 'KR', 'Seoul', 37.5125, 127.1025, 'media_facade', 2017, ['led'], { kr: 'seoul' }],
+  ['coex-kpop-square-wave', '코엑스 K-POP 스퀘어 웨이브', 'COEX K-POP Square WAVE', ['코엑스 K-POP 스퀘어', 'ko'], 'KR', 'Seoul', 37.5126, 127.0592, 'urban_screen', 2020, ['hero', 'night', 'day'], { kr: 'seoul', technologies: ['led_rgb'], method: 'led_cabinet_screen', visit: { status: 'operating', note: { ko: '매일 낮과 밤 정해진 시각에 상영', en: 'Shown daily at set times' } } }],
+  ['seoul-lantern-festival', '서울빛초롱축제', 'Seoul Lantern Festival', ['서울빛초롱축제', 'ko'], 'KR', 'Seoul', 37.5692, 126.9784, 'festival_program', 2009, ['night', 'art'], { kr: 'seoul', visit: { status: 'event_based', period: { ko: '매년 12월–1월', en: 'December to January every year' } } }],
+  ['gwangan-bridge-lights', '광안대교 경관조명', 'Gwangan Bridge lights', ['광안대교', 'ko'], 'KR', 'Busan', 35.1475, 129.13, 'light_art', 2003, ['night'], { kr: 'busan_ulsan_gyeongnam', envelope: 'bridge_infrastructure' }],
+  ['jinju-namgang-yudeung', '진주남강유등축제', 'Jinju Namgang Yudeung Festival', ['진주남강유등축제', 'ko'], 'KR', 'Jinju', 35.1886, 128.0807, 'festival_program', 2000, ['night'], { kr: 'busan_ulsan_gyeongnam', visit: { status: 'event_based', period: { ko: '매년 10월', en: 'Every October' } } }],
+  ['haeundae-light-festival', '해운대 빛축제', 'Haeundae Light Festival', ['해운대 빛축제', 'ko'], 'KR', 'Busan', 35.1587, 129.1604, 'festival_program', 2014, ['led'], { kr: 'busan_ulsan_gyeongnam' }],
+  ['SEOUL001', '아뜰리에 노들', 'Atelier Nodeul', ['아뜰리에 노들', 'ko'], 'KR', 'Seoul', 37.5176, 126.9599, 'media_facade', 2024, [], { kr: 'seoul' }],
+  ['convention-centre-atrium-long', '컨벤션 센터 북측 아트리움 인터랙티브 미디어 파사드 2단계 확장 프로젝트 (국제 공모 당선작)', 'Convention Centre North Atrium Interactive Facade, Phase Two Extension (International Competition Winner)', null, 'KR', 'Goyang', 37.6688, 126.7453, 'interactive_installation', 2021, [], { kr: 'gyeonggi_incheon' }],
+  ['inspire-aurora', '인스파이어 오로라', 'INSPIRE Aurora', ['인스파이어 오로라', 'ko'], 'KR', 'Incheon', 37.4625, 126.3863, 'media_wall', 2024, ['art', 'small'], { kr: 'gyeonggi_incheon', technologies: ['led_rgb'] }],
+  ['suwon-hwaseong-media-art', '수원 화성 미디어아트', 'Suwon Hwaseong Media Art', ['수원 화성 미디어아트', 'ko'], 'KR', 'Suwon', 37.2871, 127.0119, 'projection_mapping', 2016, ['small'], { kr: 'gyeonggi_incheon' }],
+  ['arte-museum-gangneung', '아르떼뮤지엄 강릉', 'ARTE MUSEUM Gangneung', ['아르떼뮤지엄 강릉', 'ko'], 'KR', 'Gangneung', 37.7919, 128.9197, 'media_architecture', 2021, ['scene', 'art'], { kr: 'gangwon' }],
+  ['hanbit-tower-facade', '한빛탑 미디어파사드', 'Hanbit Tower media facade', ['한빛탑', 'ko'], 'KR', 'Daejeon', 36.3758, 127.3874, 'media_facade', 2021, ['night'], { kr: 'daejeon_sejong_chungcheong' }],
+  ['acc-media-wall', '국립아시아문화전당 미디어월', 'ACC Media Wall', ['국립아시아문화전당 미디어월', 'ko'], 'KR', 'Gwangju', 35.1468, 126.92, 'media_wall', 2015, ['hero', 'led'], { kr: 'gwangju_jeolla', credits: [['architect', 'Kyu Sung Woo']] }],
+  ['gwangju-media-art-festival', '광주 미디어아트 페스티벌', 'Gwangju Media Art Festival', ['광주 미디어아트 페스티벌', 'ko'], 'KR', 'Gwangju', 35.1495, 126.9172, 'festival_program', 2012, ['art'], { kr: 'gwangju_jeolla' }],
+  ['gyeongju-woljeonggyo', '경주 월정교 야간경관', 'Woljeonggyo Bridge night lighting', ['월정교', 'ko'], 'KR', 'Gyeongju', 35.8296, 129.2187, 'light_art', 2018, ['night', 'day'], { kr: 'daegu_gyeongbuk' }],
+  ['arte-museum-jeju', '아르떼뮤지엄 제주', 'ARTE MUSEUM Jeju', ['아르떼뮤지엄 제주', 'ko'], 'KR', 'Jeju', 33.3964, 126.345, 'media_architecture', 2020, ['scene'], { kr: 'jeju' }],
+  ['bunker-de-lumieres-jeju', '빛의 벙커', 'Bunker de Lumières', ['빛의 벙커', 'ko'], 'KR', 'Seogwipo', 33.4367, 126.9157, 'projection_mapping', 2018, ['art', 'scene'], { kr: 'jeju', visit: { status: 'operating', note: { ko: '연중 상설 전시', en: 'Open all year' } } }],
   ['cairo-tower-show', '카이로 타워 라이트 쇼', 'Cairo Tower light show', ['برج القاهرة', 'ar'], 'EG', 'Cairo', 30.0459, 31.2243, 'media_architecture', 2009, ['led'], {}],
 ]
 
-const ROLE = { hero: 'hero', night: 'media_active', art: 'media_art', led: 'lighting', day: 'context' }
-const TIER = { hero: 1, night: 1, art: 2, led: 3, day: 4 }
+// v0.18 image objects (docs/STATIC_ARCHIVE.md v0.18 addendum): provider, display sizes, rights, measurements, tier
+// (1–6), role and the editorial verdict. Commons-shaped URLs, so the specs can answer every request with a local file.
+const TIER = { hero: 1, night: 1, art: 2, led: 3, scene: 4, day: 5, small: 1 }
+const ROLE = { hero: 'hero', night: 'featured', art: 'card', led: 'card', scene: 'gallery', day: 'context', small: 'card' }
+const ACTIVE = { hero: 92, night: 88, art: 74, led: 61, scene: 48, day: 4, small: 85 }
+export const DISPLAY_WIDTHS = [330, 500, 960, 1280, 1920, 3840]
 export const BUILD_ID = 'fixture-2026-10-20T06-17Z'
 const at = '2026-10-20T06:17:00Z'
 
-// A Commons-shaped image record (thumb at a standard width, original, file page, licence, author).
 function image(id, kind, i) {
   const file = `Fixture_${id}_${kind}_${i + 1}.jpg`, h = (id.length * 7 + i) % 16, hh = h.toString(16) + ((id.length + i * 3) % 16).toString(16)
-  const orig = `https://upload.wikimedia.org/wikipedia/commons/${h.toString(16)}/${hh}/${file}`
+  const path = `${h.toString(16)}/${hh}/${file}`, W = kind === 'small' ? 500 : 4000, H = kind === 'day' ? Math.round(W * 2 / 3) : Math.round(W * 3 / 4)
+  const thumb = w => `https://upload.wikimedia.org/wikipedia/commons/thumb/${path}/${w}px-${file}`
+  const display = kind === 'small' ? [[500, `https://upload.wikimedia.org/wikipedia/commons/${path}`]] : DISPLAY_WIDTHS.filter(w => w < W).map(w => [w, thumb(w)])
   return {
-    thumb: `https://upload.wikimedia.org/wikipedia/commons/thumb/${h.toString(16)}/${hh}/${file}/500px-${file}`,
-    src: orig, page: `https://commons.wikimedia.org/wiki/File:${file}`,
+    id: `img-${id}-${i + 1}`, project: id, provider: 'commons',
+    src: `https://upload.wikimedia.org/wikipedia/commons/${path}`, page: `https://commons.wikimedia.org/wiki/File:${file}`, display,
+    thumb: kind === 'small' ? `https://upload.wikimedia.org/wikipedia/commons/${path}` : thumb(500), thumb_w: 500,
+    author: 'Fixture Photographer ' + (i + 1), rights_holder: null, attribution: null,
     license: i % 3 === 0 ? 'CC BY-SA 4.0' : i % 3 === 1 ? 'CC BY 2.0' : 'CC0 1.0',
     license_url: i % 3 === 0 ? 'https://creativecommons.org/licenses/by-sa/4.0' : i % 3 === 1 ? 'https://creativecommons.org/licenses/by/2.0' : 'https://creativecommons.org/publicdomain/zero/1.0/',
-    author: 'Fixture Photographer ' + (i + 1), attribution: null, role: ROLE[kind], tier: TIER[kind], home_ok: TIER[kind] <= 3, width: 4000, height: kind === 'day' ? 2667 : 3000,
+    usage: 'hotlink', width: W, height: H, bytes: W * H / 4, format: 'jpeg',
+    quality: { sharpness: 0.81, blockiness: 0.04, score: 0.86 }, media_active: ACTIVE[kind],
+    tier: TIER[kind], role: ROLE[kind], home_ok: TIER[kind] <= 3, checked_at: at, approved: ['hero', 'night'].includes(kind) ? true : null,
   }
 }
+// The same image as the pipeline wrote it before v0.18 (no provider, display or verdict; tiers 1–4), for the
+// fallback specs.
+const V17_TIER = { 1: 1, 2: 2, 3: 3, 4: 3, 5: 4 }
+export function v17Image(m) { if (!m) return m; const { id, project, provider, display, rights_holder, usage, bytes, format, quality, media_active, checked_at, approved, thumb_w, ...rest } = m; return { ...rest, tier: V17_TIER[m.tier], role: m.role === 'context' ? 'context' : m.tier === 1 ? (m.role === 'hero' ? 'hero' : 'media_active') : m.tier === 2 ? 'media_art' : 'lighting' } }
 // Shards as the pipeline makes them (pipeline/lib/output.mjs): FNV-1a of the id modulo a power-of-two shard count.
 const fnv1a = text => { let h = 0x811c9dc5; for (const b of new TextEncoder().encode(String(text))) { h ^= b; h = Math.imul(h, 0x01000193) >>> 0 } return h >>> 0 }
 const shardCount = (n, target) => { let c = 1; while (n / c > target) c *= 2; return c }
@@ -81,7 +109,7 @@ export function record([id, ko, en, orig, iso, city, lat, lng, type, year, kinds
     id, name_ko: ko, name_en: en, name_original: orig?.[0] || null, name_original_lang: orig?.[1] || null, aliases: [],
     country_iso2: iso, city, lat, lng, project_type: type, year_installed: year, year_completed: null, operating_status: x.visit?.status || null,
     installation_method: x.method || null, envelope_type: x.envelope || null, technologies: x.technologies || [], content_types: [],
-    credits: (x.credits || []).map(([role, name]) => ({ role, name })), curated_place_id: x.curated || null,
+    credits: (x.credits || []).map(([role, name]) => ({ role, name })), curated_place_id: x.curated || null, ...(iso === 'KR' ? { kr_region: x.kr || null } : {}),
     summary_ko: `${ko}: 시험용 요약 문장입니다. 실제 기록이 아닙니다.`, summary_en: `${en}: a test summary sentence, not a real record.`,
     wikidata: null, official_url: null,
     images, videos: x.video ? [{ src: `https://upload.wikimedia.org/wikipedia/commons/${'a'}/${'a1'}/Fixture_${id}_video.webm`, poster: images[0]?.thumb || null, page: `https://commons.wikimedia.org/wiki/File:Fixture_${id}_video.webm`, license: 'CC BY-SA 4.0', license_url: 'https://creativecommons.org/licenses/by-sa/4.0', author: 'Fixture Videographer', role: 'media_active' }] : [],
@@ -91,42 +119,69 @@ export function record([id, ko, en, orig, iso, city, lat, lng, type, year, kinds
     shard: '000', // set by siteData()
   }
 }
+// The card image: the best tier, and never a context photo while a media-active one exists (the pipeline's rule).
 const best = r => [...r.images].sort((a, b) => a.tier - b.tier)[0] || null
-export const INDEX_FIELDS = ['id', 'name_ko', 'name_en', 'name_original', 'country_iso2', 'city', 'lat', 'lng', 'project_type', 'year', 'thumb', 'visual_rank', 'shard', 'added_at']
+export const INDEX_FIELDS = ['id', 'name_ko', 'name_en', 'name_original', 'country_iso2', 'city', 'lat', 'lng', 'project_type', 'year', 'thumb', 'visual_rank', 'shard', 'added_at', 'kr_region', 'thumb_w', 'thumb_h']
 const REGION = { AT: 'europe', DE: 'europe', FR: 'europe', NL: 'europe', GB: 'europe', ES: 'europe', IS: 'europe', CZ: 'europe', RU: 'europe', AE: 'middle_east', EG: 'africa', US: 'north_america', CA: 'north_america', MX: 'latin_america', BR: 'latin_america', AU: 'oceania', HK: 'east_asia', SG: 'southeast_asia', JP: 'east_asia', CN: 'east_asia', KR: 'east_asia' }
-const card = r => { const b = best(r); return { id: r.id, name_ko: r.name_ko, name_en: r.name_en, name_original: r.name_original, country_iso2: r.country_iso2, city: r.city, lat: r.lat, lng: r.lng, project_type: r.project_type, year: r.year_installed, shard: r.shard, image: b } }
+export const KR_REGIONS = ['seoul', 'gyeonggi_incheon', 'gangwon', 'daejeon_sejong_chungcheong', 'gwangju_jeolla', 'daegu_gyeongbuk', 'busan_ulsan_gyeongnam', 'jeju']
+const FACADE = ['media_facade', 'projection_mapping', 'urban_screen', 'media_wall']
+const card = (r, img = best(r)) => ({ id: r.id, name_ko: r.name_ko, name_en: r.name_en, name_original: r.name_original, country_iso2: r.country_iso2, ...(r.country_iso2 === 'KR' ? { kr_region: r.kr_region } : {}), city: r.city, lat: r.lat, lng: r.lng, project_type: r.project_type, year: r.year_installed, shard: r.shard, image: img })
+// Visual rank of the index (the app's card tier 1–4): v0.18 tiers 1–3 as they are, 4 (a scene) with 3, 5 (context) as 4.
+const RANK = { 1: 1, 2: 2, 3: 3, 4: 3, 5: 4 }
 
 // The five files of site-data/ for a list of records. Used by the fixture writer and by the large-dataset specs.
-// The index follows the pipeline (pipeline/lib/output.mjs buildIndex): visual_rank is the card image's tier (1 media
-// active at night … 4 context, null without an image), added_at a date, and with compact: true the Commons thumbnails
-// are stored as "<h>/<hh>/<File>" with one thumb_template, as the pipeline does above 512 KB.
+// The index follows the pipeline (pipeline/lib/output.mjs buildIndex): visual_rank is the card image's tier, added_at a
+// date, kr_region and the thumbnail's size (v0.18), and with compact: true the Commons thumbnails are stored as
+// "<h>/<hh>/<File>" with one thumb_template, as the pipeline does above 512 KB.
+// home: 'v18' (docs/UI_v018.md: hero, kr_regions, kr_featured, kr_programs, world, counts) or 'v17' (featured, regions,
+// types, themes, recent, with images as the pipeline wrote them before v0.18).
 const THUMB_TEMPLATE = 'https://upload.wikimedia.org/wikipedia/commons/thumb/{path}/500px-{file}'
 const compactThumb = url => { const m = /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/thumb\/([0-9a-f]\/[0-9a-f]{2}\/([^/]+))\/500px-([^/]+)$/.exec(url || ''); return m && m[2] === m[3] ? m[1] : url }
 // shardTarget: about how many records per shard (the pipeline uses 200; the small UI fixture 16, so it has several).
-export function siteData(input, { buildId = BUILD_ID, generatedAt = at, compact = false, shardTarget = 16 } = {}) {
-  const n = shardCount(input.length, shardTarget), records = input.map(r => ({ ...r, shard: shardOf(r.id, n) }))
-  const count = (f) => records.reduce((o, r) => { const k = f(r); if (k) o[k] = (o[k] || 0) + 1; return o }, {})
+export function siteData(input, { buildId = BUILD_ID, generatedAt = at, compact = false, shardTarget = 16, home: shape = 'v18' } = {}) {
+  const n = shardCount(input.length, shardTarget)
+  const records = input.map(r => ({ ...r, shard: shardOf(r.id, n), images: shape === 'v17' ? r.images.map(v17Image) : r.images }))
+  const count = (f, list = records) => list.reduce((o, r) => { const k = f(r); if (k) o[k] = (o[k] || 0) + 1; return o }, {})
   const shards = Array.from({ length: n }, (_, i) => String(i).padStart(3, '0')).filter(s => records.some(r => r.shard === s))
-  const index = { schema: 1, fields: INDEX_FIELDS, ...(compact ? { thumb_template: THUMB_TEMPLATE } : {}), rows: records.map(r => { const b = best(r); return [r.id, r.name_ko, r.name_en, r.name_original, r.country_iso2, r.city, r.lat, r.lng, r.project_type, r.year_installed, b ? (compact ? compactThumb(b.thumb) : b.thumb) : null, b ? b.tier : null, r.shard, r.added_at.slice(0, 10)] }) }
-  const lit = records.filter(r => best(r) && best(r).tier <= 3)
-  const heroRecs = records.filter(r => r.images.some(i => i.role === 'hero'))
+  const rank = b => !b ? null : shape === 'v17' ? b.tier : RANK[b.tier]
+  const index = { schema: 1, fields: shape === 'v17' ? INDEX_FIELDS.slice(0, 14) : INDEX_FIELDS, ...(compact ? { thumb_template: THUMB_TEMPLATE } : {}), rows: records.map(r => { const b = best(r); const row = [r.id, r.name_ko, r.name_en, r.name_original, r.country_iso2, r.city, r.lat, r.lng, r.project_type, r.year_installed, b ? (compact ? compactThumb(b.thumb) : b.thumb) : null, rank(b), r.shard, r.added_at.slice(0, 10)]; return shape === 'v17' ? row : [...row, r.kr_region ?? null, b ? 500 : null, b ? Math.round(500 * b.height / b.width) : null] }) }
+  const active = i => shape === 'v17' ? i.tier <= 3 : i.tier <= 4 && i.role !== 'context'
+  const large = i => (i.width || 0) >= 1600
+  const lit = records.filter(r => best(r) && active(best(r)))
+  const isHero = i => i.role === 'hero' && large(i)
+  const kr = records.filter(r => r.country_iso2 === 'KR'), world = records.filter(r => r.country_iso2 !== 'KR')
+  const heroRecs = [...kr, ...world].filter(r => r.images.some(isHero))
   const byRegion = count(r => REGION[r.country_iso2]), byType = count(r => r.project_type), byCountry = count(r => r.country_iso2)
-  const repFor = f => { const r = lit.find(f); return r ? { project: r.id, image: best(r) } : {} }
-  const home = {
+  const repFor = (f, list = lit) => { const r = list.find(x => f(x) && large(best(x))); return r ? { project: r.id, image: best(r) } : {} }
+  const hero = heroRecs.slice(0, 6).map(r => ({ project: r.id, image: r.images.find(isHero) }))
+  const krLit = kr.filter(r => best(r) && active(best(r)))
+  const home = shape === 'v17' ? {
     schema: 1, build_id: buildId, generated_at: generatedAt,
     counts: { projects: records.length, countries: Object.keys(byCountry).length, with_images: records.filter(r => r.images.length).length },
-    hero: heroRecs.slice(0, 6).map(r => ({ project: r.id, image: r.images.find(i => i.role === 'hero') })),
-    featured: lit.filter(r => !heroRecs.slice(0, 6).includes(r)).slice(0, 8).map(r => r.id),
+    hero, featured: lit.filter(r => !hero.some(h => h.project === r.id)).slice(0, 8).map(r => r.id),
     regions: Object.entries(byRegion).sort((a, b) => b[1] - a[1]).map(([key, n]) => ({ key, count: n, ...repFor(r => REGION[r.country_iso2] === key) })),
     types: Object.entries(byType).sort((a, b) => b[1] - a[1]).map(([key, n]) => ({ key, count: n, ...repFor(r => r.project_type === key) })),
-    themes: [],
-    recent: [...records].sort((a, b) => b.added_at.localeCompare(a.added_at)).slice(0, 8).map(r => r.id),
+    themes: [], recent: [...records].sort((a, b) => b.added_at.localeCompare(a.added_at)).slice(0, 8).map(r => r.id), projects: {},
+  } : {
+    schema: 1, build_id: buildId, generated_at: generatedAt,
+    counts: { projects: records.length, countries: Object.keys(byCountry).length, with_images: records.filter(r => r.images.length).length, kr: kr.length, world: world.length },
+    hero,
+    kr_regions: KR_REGIONS.map(key => ({ key, count: kr.filter(r => r.kr_region === key).length, ...repFor(r => r.kr_region === key, krLit) })),
+    kr_featured: krLit.filter(r => FACADE.includes(r.project_type) && !hero.some(h => h.project === r.id)).slice(0, 6).map(r => r.id),
+    kr_programs: krLit.filter(r => !FACADE.includes(r.project_type)).slice(0, 8).map(r => r.id),
+    world: {
+      count: world.length,
+      highlights: world.filter(r => best(r) && active(best(r)) && large(best(r))).slice(0, 6).map(r => r.id),
+      regions: Object.entries(count(r => REGION[r.country_iso2], world)).sort((a, b) => b[1] - a[1]).map(([key, n]) => ({ key, count: n, ...repFor(r => REGION[r.country_iso2] === key && r.country_iso2 !== 'KR') })),
+      countries: Object.entries(count(r => r.country_iso2, world)).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([key, n]) => ({ key, count: n })),
+    },
     projects: {},
   }
-  for (const id of new Set([...home.hero.map(h => h.project), ...home.featured, ...home.recent, ...home.regions.map(x => x.project), ...home.types.map(x => x.project)].filter(Boolean))) home.projects[id] = card(records.find(r => r.id === id))
+  const named = shape === 'v17' ? [...home.featured, ...home.recent, ...home.regions.map(x => x.project), ...home.types.map(x => x.project)] : [...home.kr_featured, ...home.kr_programs, ...home.world.highlights, ...home.kr_regions.map(x => x.project), ...home.world.regions.map(x => x.project)]
+  for (const id of new Set([...hero.map(h => h.project), ...named].filter(Boolean))) home.projects[id] = card(records.find(r => r.id === id))
   const manifest = {
     schema: 1, build_id: buildId, generated_at: generatedAt,
-    counts: { projects: records.length, with_images: records.filter(r => r.images.length).length, with_hero: heroRecs.length, by_type: byType, by_region: byRegion, by_country: byCountry },
+    counts: { projects: records.length, with_images: records.filter(r => r.images.length).length, with_hero: heroRecs.length, by_type: byType, by_region: byRegion, by_country: byCountry, ...(shape === 'v17' ? {} : { kr: kr.length, world: world.length, by_kr_region: count(r => r.kr_region, kr) }) },
     files: { index: 'index.json', home: 'home.json', shards: shards.map(s => `projects/${s}.json`) },
     sources: { wikidata: { status: 'ok', last_success: generatedAt, items: records.length } },
     note: 'TEST FIXTURE: plausible values, not verified facts',

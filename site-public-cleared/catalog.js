@@ -20,6 +20,15 @@ function isoOf(p){const c=p.country_iso2;if(typeof c==='string'&&/^[A-Z]{2}$/.te
 const regionCache=typeof WeakMap==='function'?new WeakMap():null;
 function region(p){let r=regionCache&&regionCache.get(p);if(!r){r=regionOf(p);if(regionCache&&p&&typeof p==='object')regionCache.set(p,r)}return r}
 function regionOf(p){const iso=isoOf(p),country=p.country||p.country_name||(/^SEOUL\d+$/.test(p.place_id)?'대한민국':iso&&T?T.countryName(iso,'ko'):''),city=p.city||(/^SEOUL\d+$/.test(p.place_id)?'서울':p.district||'');return {country,city,iso,countryKey:iso||country,cityKey:cityKey(city)}}
+// Korea first (v0.18): whether a place is in Korea, its Korean region (the dataset's kr_region, null when the pipeline
+// does not know it; places without the field, such as curated and synced ones, from their address or city) and the
+// Korean section it belongs to: 국내 미디어파사드 (facades, screens, media walls, projection mapping) or 국내
+// 미디어아트·전시 (light art, festivals and exhibitions, interactive and immersive spaces, venues).
+function isKR(p){return isoOf(p)==='KR'}
+const krCache=typeof WeakMap==='function'?new WeakMap():null;
+function krRegionOf(p){if(!p||!isKR(p))return null;if(p.kr_region!==undefined)return typeof p.kr_region==='string'&&T&&T.krRegions.some(x=>x[0]===p.kr_region)?p.kr_region:null;let k=krCache&&krCache.get(p);if(k===undefined){k=T&&T.krRegionOf?T.krRegionOf(p.address,p.city,p.district,p.name_kr):null;if(krCache&&typeof p==='object')krCache.set(p,k)}return k}
+const FACADE_TYPES=['media_facade','projection_mapping','urban_screen','media_wall'];
+function sectionOf(p){return FACADE_TYPES.includes(typeOf(p))?'facade':'programs'}
 function regionKey(p){return p.region&&(!T||T.valid('region',p.region))?p.region:T?T.regionOf(isoOf(p)):null}
 function countryLabel(key,lang){return /^[A-Z]{2}$/.test(key||'')&&T?T.countryName(key,lang):String(key||'')}
 // Project types: the archive's own value, the curated seed's derived one, or for Wikidata items the one their light
@@ -36,7 +45,7 @@ function originOf(p){if(p.origin==='archive'){if(p.record_origin==='curated')ret
 const ORIGINS=[['curated','편집부 수록','Curated'],['editor_verified','편집자 확인','Checked by an editor'],['unreviewed','공개 출처에서 수집','Gathered from open sources']];
 const listOf=v=>Array.isArray(v)?v:v?[v]:[];
 // Facets: multi-select within a facet (any of), all facets together (and).
-const FACETS={region:p=>[regionKey(p)],project_type:p=>[typeOf(p)],installation_method:p=>[p.installation_method],technology:p=>Array.isArray(p.technologies)?p.technologies:[],envelope_type:p=>[p.envelope_type],operating_status:p=>[p.operating_status],origin:p=>[originOf(p)]};
+const FACETS={region:p=>[regionKey(p)],kr_region:p=>[krRegionOf(p)],project_type:p=>[typeOf(p)],installation_method:p=>[p.installation_method],technology:p=>Array.isArray(p.technologies)?p.technologies:[],envelope_type:p=>[p.envelope_type],operating_status:p=>[p.operating_status],origin:p=>[originOf(p)]};
 const FACET_KEYS=Object.keys(FACETS);
 function valid(s){return typeof s==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(s)&&!isNaN(Date.parse(s))&&new Date(s).toISOString().slice(0,10)===s}
 function status(p,today){if(p.content_type==='permanent')return 'permanent';if(valid(p.program_end)&&p.program_end<today)return 'ended';if(valid(p.program_start)&&p.program_start>today)return 'upcoming';if(valid(p.program_start)&&valid(p.program_end)&&p.program_start<=today&&p.program_end>=today)return 'ongoing';return 'unknown'}
@@ -56,7 +65,7 @@ function rank(p,q){q=text(q).trim();if(!q)return 0;const ns=names(p).map(text),n
 // Thousands of places: build each searchable text once, and only when there is a query. It covers every name and
 // alias, credits, the building, the address, the city and the country in Korean and English, and the type labels.
 const hayCache=typeof WeakMap==='function'?new WeakMap():null;
-function hay(p){let h=hayCache&&hayCache.get(p);if(h===undefined){const r=region(p),type=typeOf(p);h=[...names(p),p.district,p.address,p.short_description,p.summary_en,p.building_name,...creditNames(p),r.country,r.city,cityLabel(r.cityKey,'en'),cityLabel(r.cityKey,'ko'),r.iso&&T?T.countryName(r.iso,'ko'):'',r.iso&&T?T.countryName(r.iso,'en'):'',...(Array.isArray(p.categories)?p.categories.flatMap(k=>[k,(categories.find(c=>c[0]===k)||[])[1]]):[]),type&&T?T.label('project_type',type,'ko')+' '+T.label('project_type',type,'en'):''].map(text).join(' ');if(hayCache)hayCache.set(p,h)}return h}
+function hay(p){let h=hayCache&&hayCache.get(p);if(h===undefined){const r=region(p),type=typeOf(p);h=[...names(p),p.district,p.address,p.short_description,p.summary_en,p.building_name,...creditNames(p),r.country,r.city,cityLabel(r.cityKey,'en'),cityLabel(r.cityKey,'ko'),r.iso&&T?T.countryName(r.iso,'ko'):'',r.iso&&T?T.countryName(r.iso,'en'):'',...(Array.isArray(p.categories)?p.categories.flatMap(k=>[k,(categories.find(c=>c[0]===k)||[])[1]]):[]),type&&T?T.label('project_type',type,'ko')+' '+T.label('project_type',type,'en'):'',krRegionOf(p)&&T?T.krRegionLabel(krRegionOf(p),'ko')+' '+T.krRegionLabel(krRegionOf(p),'en'):''].map(text).join(' ');if(hayCache)hayCache.set(p,h)}return h}
 // One place against the filters. skip leaves one facet out (facet counts show what each option would add).
 function match(p,f,today,ctx,words,skip){
  if(p.is_published===false)return false;
@@ -88,7 +97,10 @@ function sorter(f,ctx,scores){const s=f.sort,y=p=>yearOf(p),name=p=>ctx&&ctx.nam
  if(s==='name')return (a,b)=>String(name(a)).localeCompare(String(name(b)),lang);
  return (a,b)=>scores.get(b)-scores.get(a)}
 // Relevance without a query is the featured order (ctx.featured: lower first; the list order breaks ties).
-function search(places,f={},today,ctx){const words=queryWords(f);const out=places.filter(p=>match(p,f,today,ctx,words));const s=SORTS.includes(f.sort)?f.sort:'relevance';if(s==='relevance'&&!words.length){if(ctx&&ctx.featured){const k=new Map(out.map((p,i)=>[p,[ctx.featured(p),i]]));out.sort((a,b)=>{const x=k.get(a),y=k.get(b);return x[0]-y[0]||x[1]-y[1]})}return out}const scores=new Map(words.length&&s==='relevance'?out.map(p=>[p,rank(p,f.q)]):[]);return out.sort(sorter({...f,sort:s},ctx,scores))}
+// ctx.krFirst (the app's archive search): Korean results first whenever no country is chosen, then the others, none
+// dropped (stable: each group keeps the chosen order, so an explicit sort applies within each).
+function krFirst(list,f,ctx){if(f.country||!(ctx&&ctx.krFirst))return list;const kr=[],other=[];for(const p of list)(isKR(p)?kr:other).push(p);return kr.length&&other.length?kr.concat(other):list}
+function search(places,f={},today,ctx){const words=queryWords(f);const out=places.filter(p=>match(p,f,today,ctx,words));const s=SORTS.includes(f.sort)?f.sort:'relevance';if(s==='relevance'&&!words.length){if(ctx&&ctx.featured){const k=new Map(out.map((p,i)=>[p,[ctx.featured(p),i]]));out.sort((a,b)=>{const x=k.get(a),y=k.get(b);return x[0]-y[0]||x[1]-y[1]})}return krFirst(out,f,ctx)}const scores=new Map(words.length&&s==='relevance'?out.map(p=>[p,rank(p,f.q)]):[]);return krFirst(out.sort(sorter({...f,sort:s},ctx,scores)),f,ctx)}
 // Option counts for the filter panel: for each facet, the places matching every other filter, by value; plus the
 // countries (and the cities of the chosen country) with every filter but those two. only: just these facets.
 function facetCounts(places,f={},today,ctx,only){const words=queryWords(f),out={};for(const k of only||FACET_KEYS){if(!FACETS[k])continue;const c={};for(const p of places)if(match(p,f,today,ctx,words,k))for(const v of FACETS[k](p))if(v)c[v]=(c[v]||0)+1;out[k]=c}
@@ -149,5 +161,5 @@ const WARNING={ko:'주의: 공개 출처에서 자동으로 모으거나 분류�
 function exportCSV(places,ctx={}){const rows=exportRows(places,ctx),cols=EXPORT_FIELDS.map(f=>f[0]),cell=v=>'"'+String(v??'').replace(/^[=+@\-\t\r]/,"'$&").replaceAll('"','""')+'"';return '﻿# '+WARNING[ctx.lang==='en'?'en':'ko'].replace(/[",\r\n]/g,' ')+'\r\n'+[cols.map(cell).join(','),...rows.map(r=>cols.map(c=>cell(r[c])).join(','))].join('\r\n')+'\r\n'}
 function dictionary(lang){return EXPORT_FIELDS.map(([field,type,ko,en])=>({field,type,description:lang==='en'?en:ko}))}
 function exportJSON(places,ctx={}){const lang=ctx.lang==='en'?'en':'ko';return {meta:{title:'빛의 건축 아카이브 · Architecture of Light archive',generated_at:ctx.now||new Date().toISOString(),app_version:ctx.version||'',count:places.length,filters:ctx.filters||{},warning:WARNING[lang],licenses:{wikidata:'CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/)',commons:lang==='en'?'Wikimedia Commons images: per file (follow the licence and attribution on each file page); no images are included in this file':'Wikimedia Commons 이미지: 파일마다 다름 (각 파일 페이지의 라이선스와 저작자 표시를 따름) · 이 파일에는 이미지가 들어 있지 않음',editorial:lang==='en'?'Editorial text and classifications: licence to be confirmed by the operator (운영자 확정 필요)':'편집부 텍스트·분류: 운영자 확정 필요',sources:lang==='en'?'Source links point to the original publications; their rights stay with each publisher':'출처 링크는 원문을 가리키며, 원문의 권리는 각 발행처에 있음'},citation:ctx.citation||'',data_dictionary:dictionary(lang),field_states:T?T.vocab.field_state.map(([k,ko,en])=>({state:k,label:lang==='en'?en:ko})):[]},projects:exportRows(places,ctx)}}
-return {searchText:hay,categories,region,regionKey,isoOf,isoOfName,countryLabel,cityKey,cityLabel,typeOf,typeDerived,yearOf,originOf,ORIGINS,FACET_KEYS,facetCounts,activeFacets,status,available,mappable,wikidataCoords,sourceCoords,coordKind,search,valid,similar,stats,exportRows,exportCSV,exportJSON,EXPORT_FIELDS,WARNING,SORTS,names};
+return {isKR,krRegionOf,sectionOf,FACADE_TYPES,searchText:hay,categories,region,regionKey,isoOf,isoOfName,countryLabel,cityKey,cityLabel,typeOf,typeDerived,yearOf,originOf,ORIGINS,FACET_KEYS,facetCounts,activeFacets,status,available,mappable,wikidataCoords,sourceCoords,coordKind,search,valid,similar,stats,exportRows,exportCSV,exportJSON,EXPORT_FIELDS,WARNING,SORTS,names};
 });

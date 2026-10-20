@@ -132,10 +132,11 @@ test('images: no licence or no author means no image; the tier follows the role 
   assert.equal(R.image({ ...ok, role: 'mystery', tier: undefined }).tier, 4, 'an unknown role counts as context')
 })
 
-test('UI fixture: the hero needs a tier-1 image; daytime-only projects never reach the home picks', () => {
+test('UI fixture: the hero needs a reviewed media-active image; daytime-only projects never reach the home picks', () => {
   const d = siteData(RECORDS), home = R.fromHome(d.home)
   assert.ok(home.hero.length >= 3)
-  const dayOnly = RECORDS.filter(r => r.images.length && r.images.every(i => i.tier === 4)).map(r => 'AR-' + r.id)
+  // Daytime architectural context only (v0.18 tier 5, role context).
+  const dayOnly = RECORDS.filter(r => r.images.length && r.images.every(i => i.role === 'context')).map(r => 'AR-' + r.id)
   assert.ok(dayOnly.length >= 1)
   assert.ok(home.hero.every(h => !dayOnly.includes(h.place.place_id)))
   // A daytime photo may come with a compact record (recently added); it stays tier 4, which the home surface skips.
@@ -171,4 +172,92 @@ test('the shard of an id follows the pipeline rule, so a project link needs the 
     const P = await import(out)
     for (const id of ['Q4167', 'SEOUL001', 'ED-fixture-light-pavilion', '한글-id', 'scale-00042']) for (const n of [1, 2, 8, 32]) assert.equal(String(R.fnv1a(id) % n).padStart(3, '0'), P.shardOf(id, n))
   }
+})
+
+// ===== v0.18: images from many providers at the sizes they serve, Korean regions, the Korea-first home =====
+
+const img18 = (o = {}) => ({ provider: 'flickr', src: 'https://live.staticflickr.com/1/2_o.jpg', page: 'https://www.flickr.com/photos/a/2', author: 'A', license: 'CC BY 2.0', width: 3000, height: 2000, tier: 1, role: 'hero', approved: true, display: [[640, 'https://live.staticflickr.com/1/2_z.jpg'], [1600, 'https://live.staticflickr.com/1/2_h.jpg'], [2048, 'https://live.staticflickr.com/1/2_k.jpg']], ...o })
+
+test('v0.18 images: display sizes up to the original, provider, verdict, six tiers onto the four card tiers', () => {
+  const m = R.image(img18())
+  assert.deepEqual(m.sizes.map(x => x[0]), [640, 1600, 2048])
+  assert.equal(m.maxw, 2048)
+  assert.equal(m.thumb, 'https://live.staticflickr.com/1/2_z.jpg', 'without a thumb the smallest display size')
+  assert.equal(m.provider, 'flickr')
+  assert.equal(m.approved, true)
+  assert.equal(m.v18, true)
+  // Never a size above the original, never an insecure or broken entry.
+  const capped = R.image(img18({ width: 1700, display: [[640, 'https://a.example/640.jpg'], [1600, 'https://a.example/1600.jpg'], [2048, 'https://a.example/2048.jpg'], [800, 'http://a.example/800.jpg'], ['x', 'https://a.example/x.jpg']] }))
+  assert.deepEqual(capped.sizes.map(x => x[0]), [640, 1600])
+  // Rejected and tier-6 images are dropped; tiers 4 (a scene) and 5 (context) become the app's 3 and 4.
+  assert.equal(R.image(img18({ approved: false })), null)
+  assert.equal(R.image(img18({ tier: 6 })), null)
+  assert.deepEqual([1, 2, 3, 4, 5].map(t => R.image(img18({ tier: t })).tier), [1, 2, 3, 3, 4])
+  assert.equal(R.image(img18({ tier: 5, role: 'context' })).context, true)
+  assert.equal(R.image(img18({ provider: 'nope' })).provider, null)
+  // A media row carries them for the app.
+  const row = R.mediaRow('AR-x', m, 0)
+  assert.deepEqual([row.maxw, row.image_provider, row.sizes.length], [2048, 'flickr', 3])
+})
+
+test('Commons images: standard thumbnail widths below the original, also from URLs with a query and long names', () => {
+  // The live dataset's shape before v0.18: src is a 1920 px thumbnail with a tracking query, thumb a 500 px one.
+  const live = R.image({ src: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/A%2C_B.jpg/1920px-A%2C_B.jpg?utm_source=commons.wikimedia.org&utm_content=thumbnail', thumb: 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/A%2C_B.jpg/500px-A%2C_B.jpg?utm_source=x', license: 'CC BY 2.0', author: 'A', width: 5184, height: 3456, tier: 1, role: 'hero' })
+  assert.deepEqual(live.sizes.map(x => x[0]), [330, 500, 960, 1280, 1920, 3840])
+  assert.equal(live.sizes.at(-1)[1], 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/A%2C_B.jpg/3840px-A%2C_B.jpg')
+  assert.equal(live.v18, false)
+  assert.equal(live.approved, undefined)
+  const long = R.commonsSizes('https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Le_long.jpg/1280px-thumbnail.jpg?x=1', 2400)
+  assert.deepEqual(long.map(x => x[1].split('/').at(-1)), ['330px-thumbnail.jpg', '500px-thumbnail.jpg', '960px-thumbnail.jpg', '1280px-thumbnail.jpg', '1920px-thumbnail.jpg'])
+  // The original's width is the limit: a 500 px original has no larger size, and no 500 px thumbnail of itself.
+  const small = R.image({ src: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/S.jpg', license: 'CC0', author: 'A', width: 500, height: 375, tier: 1 })
+  assert.deepEqual(small.sizes.map(x => x[0]), [330, 500])
+  assert.equal(small.sizes.at(-1)[1], 'https://upload.wikimedia.org/wikipedia/commons/a/ab/S.jpg', 'the original itself at its own width')
+  assert.equal(small.maxw, 500)
+  // Unknown original width: no size above the thumbnail the source gave.
+  const unknown = R.image({ thumb: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/U.jpg/500px-U.jpg', license: 'CC0', author: 'A' })
+  assert.equal(unknown.maxw, 500)
+  // Index rows: the thumbnail's own width (thumb_w), credit pending.
+  const [row] = R.fromIndex({ fields: ['id', 'name_en', 'country_iso2', 'thumb', 'visual_rank', 'thumb_w', 'thumb_h'], rows: [['t', 'T', 'FR', 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/T.jpg/500px-T.jpg', 1, 500, 333]] })
+  const c = R.cardMedia(row, null)
+  assert.equal(c.maxw, 500)
+  assert.ok(c.credit_pending)
+  assert.ok(Math.abs(c.ratio - 1.5) < .01)
+})
+
+test('kr_region: the dataset value when the field exists (null stays unknown), derived only when it is missing', () => {
+  const fields = ['id', 'name_ko', 'country_iso2', 'city', 'kr_region']
+  const rows = [['a', '가', 'KR', 'Busan', 'busan_ulsan_gyeongnam'], ['b', '나', 'KR', 'Busan', null], ['c', '다', 'KR', 'Busan', 'atlantis'], ['d', '라', 'FR', 'Lyon', 'seoul']]
+  assert.deepEqual(R.fromIndex({ fields, rows }).map(p => p.kr_region), ['busan_ulsan_gyeongnam', null, null, null])
+  // An index without the column (datasets before v0.18): from the city, then the address.
+  const old = R.fromIndex({ fields: ['id', 'name_ko', 'country_iso2', 'city'], rows: [['a', '가', 'KR', 'Seoul'], ['b', '나', 'KR', 'Incheon'], ['c', '다', 'KR', '경기도 광주시'], ['d', '라', 'KR', 'Gwangju'], ['e', '마', 'KR', 'Nowhere'], ['f', '바', 'JP', 'Tokyo']] })
+  assert.deepEqual(old.map(p => p.kr_region), ['seoul', 'gyeonggi_incheon', 'gyeonggi_incheon', 'gwangju_jeolla', null, null])
+  // The live dataset (no field yet): every Korean row gets a region from its city.
+  const live = path.join(root, 'qa/fixtures/pipeline-site-data/index.json')
+  if (existsSync(live)) for (const p of R.fromIndex(JSON.parse(readFileSync(live, 'utf8'))).filter(p => p.country_iso2 === 'KR' && /seoul/i.test(p.city))) assert.equal(p.kr_region, 'seoul')
+})
+
+test('home.json v0.18: hero, Korean regions, featured and programmes, the world strip and counts; v0.17 still read', () => {
+  const d = siteData(RECORDS), h = R.fromHome(d.home)
+  assert.equal(h.shape, 'v18')
+  assert.equal(h.krRegions.length, 8)
+  assert.deepEqual(h.krRegions.map(r => r.key), ['seoul', 'gyeonggi_incheon', 'gangwon', 'daejeon_sejong_chungcheong', 'gwangju_jeolla', 'daegu_gyeongbuk', 'busan_ulsan_gyeongnam', 'jeju'])
+  assert.equal(h.krRegions.reduce((a, r) => a + r.count, 0), RECORDS.filter(r => r.country_iso2 === 'KR').length)
+  assert.ok(h.krFeatured.length >= 4 && h.krFeatured.every(p => p.country_iso2 === 'KR'))
+  assert.ok(h.krPrograms.length >= 4 && h.krPrograms.every(p => p.country_iso2 === 'KR'))
+  assert.ok(h.world.highlights.length >= 4 && h.world.highlights.every(p => p.country_iso2 !== 'KR'))
+  assert.ok(h.world.regions.length && h.world.countries.length)
+  assert.deepEqual([h.counts.kr, h.counts.world], [d.home.counts.kr, d.home.counts.world])
+  // Korean hero slides first; each a reviewed tier-1/2 image.
+  assert.equal(h.hero[0].place.country_iso2, 'KR')
+  assert.ok(h.hero.every(x => x.image.tier <= 2 && x.image.approved === true))
+  // A hero image without the editorial verdict is not a slide (v0.18); a v0.17 one needs tier 1.
+  assert.equal(R.fromHome({ ...d.home, hero: [{ project: d.home.hero[0].project, image: { ...d.home.hero[0].image, approved: null } }] }).hero.length, 0)
+  const v17 = R.fromHome(siteData(RECORDS, { home: 'v17' }).home)
+  assert.equal(v17.shape, 'v17')
+  assert.ok(v17.featured.length && v17.regions.length && v17.types.length)
+  assert.deepEqual([v17.krRegions, v17.krFeatured, v17.world], [[], [], null])
+  assert.ok(v17.hero.length >= 3 && v17.hero.every(x => x.image.tier === 1 && !x.image.v18))
+  // The plain-list form of world.
+  assert.equal(R.fromHome({ ...d.home, world: d.home.world.highlights }).world.highlights.length, d.home.world.highlights.length)
 })
