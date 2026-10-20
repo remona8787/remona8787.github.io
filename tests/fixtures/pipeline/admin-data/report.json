@@ -1,7 +1,7 @@
 {
  "cache": {
   "hits": 3,
-  "misses": 388,
+  "misses": 389,
   "sizes": {
    "commons-category": 14,
    "commons-depicts": 16,
@@ -12,13 +12,13 @@
    "entities-aux": 42,
    "links": 95,
    "overpass": 12,
-   "sparql": 28,
+   "sparql": 29,
    "visual": 15,
    "wiki-pages": 9,
    "wiki-search": 31
   },
   "stale": 0,
-  "writes": 372
+  "writes": 373
  },
  "changes": {
   "carried_over": [],
@@ -425,16 +425,16 @@
    }
   },
   "query.wikidata.org": {
-   "bytes": 20125,
+   "bytes": 20393,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 28080,
+   "ms": 29080,
    "not_modified": 0,
-   "ok": 30,
-   "requests": 30,
+   "ok": 31,
+   "requests": 31,
    "statuses": {
-    "200": 30
+    "200": 31
    }
   },
   "ru.wikipedia.org": {
@@ -477,7 +477,7 @@
    }
   },
   "www.wikidata.org": {
-   "bytes": 48933,
+   "bytes": 48975,
    "cached": 0,
    "errors": 0,
    "last_error": null,
@@ -682,7 +682,7 @@
   },
   "wikidata": {
    "consecutive_failures": 0,
-   "duration_ms": 28080,
+   "duration_ms": 29080,
    "errors": [],
    "items": 10,
    "last_success": "2026-10-20T06:17:00.000Z",
