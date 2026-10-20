@@ -3,18 +3,19 @@
 //   home            → data/home.json (about 30 pre-picked projects; never the index or a shard)
 //   explore, map,
 //   research data   → data/index.json (compact rows of every project, for list, search and map)
-//   a project page  → data/projects/<shard>.json (full records), found through home.json or the index
+//   a project page  → data/projects/<shard>.json (full records), found through home.json, the pipeline's shard rule
+//                     (manifest + one shard) or, failing those, the index
 // The service worker (sw.js) keeps what was read (stale-while-revalidate, one cache per build_id).
 // When /data/ does not exist (local development, previews, hosts without the pipeline) the app works as before:
 // curated places plus the browser's own Wikidata sync (client/global-places.js, client/live-media.js wait for this).
 // Publishes window.AOL_DATASET (projects, photos, home picks, status) and window.AOLDataset (the loader).
-import { fromHome, fromIndex, fromShard, cardMedia } from './dataset-rows.mjs'
+import { fromHome, fromIndex, fromShard, cardMedia, shardFor } from './dataset-rows.mjs'
 
 const cfg = window.AOL_CONFIG || {}
 const publicURL = String(cfg.PUBLIC_URL || '')
 const base = new URL('data/', document.baseURI)
 const TIMEOUT_MS = 20000
-let buildId = null, home = null, indexState = 'idle', indexRun = null
+let buildId = null, home = null, indexState = 'idle', indexRun = null, manifest = null, manifestRun = null
 /** @type {Map<string, any>} compact places by app id (home cards, index rows) */
 const compact = new Map()
 /** @type {Map<string, any>} full records by app id ({place, media, videos}) */
@@ -97,12 +98,25 @@ function loadShard(name) {
   return shards.get(name)
 }
 
+// The pipeline's shard of an id (pipeline/lib/output.mjs shardOf): FNV-1a of its UTF-8 bytes modulo the number of
+// shards the manifest lists. A link straight to a project page reads the small manifest and that one shard instead of
+// the whole index; when the record is not there (another shard rule), the index says where it is.
+function getManifest() {
+  if (manifest) return Promise.resolve(manifest)
+  if (!manifestRun) manifestRun = get('manifest.json').then(m => { manifest = m && typeof m === 'object' && m.files ? m : null; return manifest }, () => { manifestRun = null; return null })
+  return manifestRun
+}
+
 /** A project page: its full record (photos, videos, sources, visit facts), then the index for similar projects. */
 export async function ensureRecord(placeId) {
   if (status !== 'ok' || typeof placeId !== 'string') return false
   const id = /^AR-/.test(placeId) ? placeId : 'AR-' + placeId
   if (full.has(id)) { ensureIndex(); return true }
   let p = compact.get(id)
+  if (!p?.shard && indexState !== 'ok') {
+    const m = await getManifest(), guess = m && shardFor(id.slice(3), m.files.shards)
+    if (guess && await loadShard(guess) && full.has(id)) { ensureIndex(); return true }
+  }
   if (!p?.shard) { await ensureIndex(); p = compact.get(id) }
   if (!p?.shard) return false
   const ok = await loadShard(p.shard)
@@ -129,7 +143,7 @@ const first = (() => { try { return (decodeURIComponent(location.hash.slice(1)).
 export const ready = (async () => {
   try {
     if (first) await loadHome()
-    else { const m = await get('manifest.json'); if (!m || typeof m !== 'object' || !m.files) throw Error('invalid_manifest'); buildId = typeof m.build_id === 'string' && m.build_id.length <= 80 ? m.build_id : null }
+    else { const m = await get('manifest.json'); if (!m || typeof m !== 'object' || !m.files) throw Error('invalid_manifest'); manifest = m; buildId = typeof m.build_id === 'string' && m.build_id.length <= 80 ? m.build_id : null }
     status = 'ok'
   } catch { status = 'missing' }
   publish(status)

@@ -70,7 +70,10 @@ function image(id, kind, i) {
     author: 'Fixture Photographer ' + (i + 1), attribution: null, role: ROLE[kind], tier: TIER[kind], home_ok: TIER[kind] <= 3, width: 4000, height: kind === 'day' ? 2667 : 3000,
   }
 }
-const shardOf = i => String(Math.floor(i / 15)).padStart(3, '0')
+// Shards as the pipeline makes them (pipeline/lib/output.mjs): FNV-1a of the id modulo a power-of-two shard count.
+const fnv1a = text => { let h = 0x811c9dc5; for (const b of new TextEncoder().encode(String(text))) { h ^= b; h = Math.imul(h, 0x01000193) >>> 0 } return h >>> 0 }
+const shardCount = (n, target) => { let c = 1; while (n / c > target) c *= 2; return c }
+export const shardOf = (id, count) => String(fnv1a(id) % count).padStart(3, '0')
 
 export function record([id, ko, en, orig, iso, city, lat, lng, type, year, kinds, x], i) {
   const images = kinds.map((k, j) => image(id, k, j))
@@ -85,7 +88,7 @@ export function record([id, ko, en, orig, iso, city, lat, lng, type, year, kinds
     sources: [{ kind: 'wikipedia', title: en, url: `https://en.wikipedia.org/wiki/${encodeURIComponent(en.replace(/ /g, '_'))}`, publisher: 'Wikipedia' }, { kind: 'commons', title: 'Category:' + en, url: `https://commons.wikimedia.org/wiki/Category:${encodeURIComponent(en.replace(/ /g, '_'))}`, publisher: 'Wikimedia Commons' }],
     visit: x.visit ? { status: x.visit.status, note: x.visit.note || null, period: x.visit.period || null } : null,
     added_at: new Date(Date.parse(at) - i * 36e5 * 7).toISOString(),
-    shard: shardOf(i),
+    shard: '000', // set by siteData()
   }
 }
 const best = r => [...r.images].sort((a, b) => a.tier - b.tier)[0] || null
@@ -99,9 +102,11 @@ const card = r => { const b = best(r); return { id: r.id, name_ko: r.name_ko, na
 // are stored as "<h>/<hh>/<File>" with one thumb_template, as the pipeline does above 512 KB.
 const THUMB_TEMPLATE = 'https://upload.wikimedia.org/wikipedia/commons/thumb/{path}/500px-{file}'
 const compactThumb = url => { const m = /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/thumb\/([0-9a-f]\/[0-9a-f]{2}\/([^/]+))\/500px-([^/]+)$/.exec(url || ''); return m && m[2] === m[3] ? m[1] : url }
-export function siteData(records, { buildId = BUILD_ID, generatedAt = at, compact = false } = {}) {
+// shardTarget: about how many records per shard (the pipeline uses 200; the small UI fixture 16, so it has several).
+export function siteData(input, { buildId = BUILD_ID, generatedAt = at, compact = false, shardTarget = 16 } = {}) {
+  const n = shardCount(input.length, shardTarget), records = input.map(r => ({ ...r, shard: shardOf(r.id, n) }))
   const count = (f) => records.reduce((o, r) => { const k = f(r); if (k) o[k] = (o[k] || 0) + 1; return o }, {})
-  const shards = [...new Set(records.map(r => r.shard))]
+  const shards = Array.from({ length: n }, (_, i) => String(i).padStart(3, '0')).filter(s => records.some(r => r.shard === s))
   const index = { schema: 1, fields: INDEX_FIELDS, ...(compact ? { thumb_template: THUMB_TEMPLATE } : {}), rows: records.map(r => { const b = best(r); return [r.id, r.name_ko, r.name_en, r.name_original, r.country_iso2, r.city, r.lat, r.lng, r.project_type, r.year_installed, b ? (compact ? compactThumb(b.thumb) : b.thumb) : null, b ? b.tier : null, r.shard, r.added_at.slice(0, 10)] }) }
   const lit = records.filter(r => best(r) && best(r).tier <= 3)
   const heroRecs = records.filter(r => r.images.some(i => i.role === 'hero'))
@@ -141,6 +146,6 @@ export function manyRecords(n) {
     const base = PROJECTS[i % PROJECTS.length], iso = isos[i % isos.length]
     const kinds = i % 5 === 0 ? [] : i % 5 === 1 ? ['day'] : i % 5 === 2 ? ['night'] : i % 5 === 3 ? ['art', 'day'] : ['led']
     const lat = i % 17 === 0 ? null : Math.round((-55 + ((i * 37) % 1200) / 10) * 1e4) / 1e4, lng = i % 17 === 0 ? null : Math.round((-170 + ((i * 53) % 3400) / 10) * 1e4) / 1e4
-    return { ...record([`scale-${String(i).padStart(5, '0')}`, `규모 시험 프로젝트 ${i}`, `Scale test project ${i}`, null, iso, base[5], lat, lng, types[i % types.length], 1990 + (i % 36), kinds, {}], i), shard: String(Math.floor(i / 200)).padStart(3, '0') }
+    return record([`scale-${String(i).padStart(5, '0')}`, `규모 시험 프로젝트 ${i}`, `Scale test project ${i}`, null, iso, base[5], lat, lng, types[i % types.length], 1990 + (i % 36), kinds, {}], i)
   })
 }

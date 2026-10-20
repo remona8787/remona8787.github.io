@@ -88,7 +88,7 @@ test('a large index with compacted Commons thumbnails expands them; only Commons
 })
 
 test('5,000 index rows read in well under a second and stay under 1 MB compacted', () => {
-  const d = siteData(manyRecords(5000), { compact: true })
+  const d = siteData(manyRecords(5000), { compact: true, shardTarget: 200 })
   const bytes = Buffer.byteLength(JSON.stringify(d.index))
   assert.ok(bytes < 1024 * 1024, `index ${bytes} bytes`)
   const t0 = performance.now(), places = R.fromIndex(JSON.parse(JSON.stringify(d.index))), ms = performance.now() - t0
@@ -155,4 +155,20 @@ test('UI fixture: gallery order puts media-active images first, videos are read,
   assert.equal(graz.place.visit, null)
   const none = all.get('AR-medialab-prado')
   assert.deepEqual(none.media, [])
+})
+
+test('the shard of an id follows the pipeline rule, so a project link needs the manifest and one shard only', async () => {
+  const manifest = read(PIPE, 'manifest.json'), shard = read(PIPE, 'projects/000.json')
+  for (const r of shard.projects) assert.equal(R.shardFor(r.id, manifest.files.shards), r.shard, r.id)
+  const d = siteData(manyRecords(800), { shardTarget: 200 })
+  assert.equal(d.manifest.files.shards.length, 4)
+  for (const [name, file] of Object.entries(d.shards)) for (const r of file.projects) assert.equal(R.shardFor(r.id, d.manifest.files.shards), name)
+  assert.equal(R.shardFor('x', []), null)
+  assert.equal(R.shardFor('x', ['projects/000.json', 'projects/009.json']), R.fnv1a('x') % 2 === 0 ? '000' : null)
+  // The pipeline's own implementation, when this checkout has it.
+  const out = path.join(root, 'pipeline/lib/output.mjs')
+  if (existsSync(out)) {
+    const P = await import(out)
+    for (const id of ['Q4167', 'SEOUL001', 'ED-fixture-light-pavilion', '한글-id', 'scale-00042']) for (const n of [1, 2, 8, 32]) assert.equal(String(R.fnv1a(id) % n).padStart(3, '0'), P.shardOf(id, n))
+  }
 })

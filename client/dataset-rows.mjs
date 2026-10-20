@@ -39,6 +39,21 @@ export function datasetId(v) {
   return /^[A-Za-z0-9][A-Za-z0-9._-]{0,156}$/.test(s) ? s : null
 }
 export const appId = (/** @type {string} */ id) => 'AR-' + id
+// The pipeline's shard of an id (pipeline/lib/output.mjs shardOf): FNV-1a of its UTF-8 bytes modulo the number of
+// shards the manifest lists (a power of two). null when the manifest names no such shard.
+/** @param {string} text */
+export function fnv1a(text) {
+  let h = 0x811c9dc5
+  for (const b of new TextEncoder().encode(String(text))) { h ^= b; h = Math.imul(h, 0x01000193) >>> 0 }
+  return h >>> 0
+}
+/** @param {string} datasetId @param {any} shardFiles manifest.files.shards */
+export function shardFor(datasetId, shardFiles) {
+  const n = Array.isArray(shardFiles) ? shardFiles.length : 0
+  if (!n) return null
+  const name = String(fnv1a(datasetId) % n).padStart(3, '0')
+  return shardFiles.includes(`projects/${name}.json`) ? name : null
+}
 const CURATED = /^[A-Z]{2,12}\d{1,6}$/
 const shardName = (/** @type {any} */ v) => { const s = typeof v === 'number' ? String(v).padStart(3, '0') : v; return typeof s === 'string' && /^[A-Za-z0-9_-]{1,40}$/.test(s) ? s : null }
 
