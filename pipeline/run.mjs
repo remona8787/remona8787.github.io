@@ -702,14 +702,24 @@ export async function runPipeline(o) {
 }
 
 // ---------------------------------------------------------------- CLI
-/** Markdown summary of a run (GitHub Actions step summary). */
+/**
+ * Markdown summary of a run (GitHub Actions step summary): status, the counts (collected, eligible, published, Korean
+ * and foreign), images by provider with the hero and below-threshold counts, and the failures.
+ */
 export function runSummary(report) {
-  const c = report.counts || {}
+  const c = report.counts || {}, im = report.images || {}
+  const n = (v) => (Number.isFinite(v) ? v : 0)
+  const providers = Object.entries(im.by_provider || {}).filter(([, v]) => v).sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1))
+  const failing = Object.entries(report.sources || {}).filter(([, v]) => v.status === 'error' || v.status === 'partial')
   const lines = [
     `### Collect: ${report.run.status} (${report.run.publish})`, '',
     `- build: \`${report.run.build_id ?? '-'}\`, ${Math.round((report.run.duration_ms || 0) / 1000)} s of a ${report.run.budget_minutes} min budget`,
-    `- projects: ${c.published ?? 0} published (${c.new ?? 0} new, ${c.changed ?? 0} changed, ${c.removed ?? 0} removed, ${c.carried_over ?? 0} carried over), ${c.excluded ?? 0} excluded`,
-    `- images: ${c.with_images ?? 0} projects with images, ${c.with_hero ?? 0} with a hero; ${c.hero_candidates_awaiting_review ?? 0} hero candidates and ${c.candidates_awaiting_review ?? 0} web candidates await review`,
+    `- projects: ${n(c.collected ?? c.projects_built)} collected, ${n(c.eligible)} eligible, ${n(c.published)} published (${n(c.kr)} Korean, ${n(c.foreign)} foreign; ${n(c.kr_with_region)} Korean with a region)`,
+    `- changes: ${n(c.new)} new, ${n(c.changed)} changed, ${n(c.removed)} removed, ${n(c.carried_over)} carried over, ${n(c.excluded)} excluded`,
+    `- images: ${n(c.with_images)} projects with images, ${n(c.with_hero)} with a hero; ${n(im.hero)} hero images on the home page, ${n(im.below_threshold)} images below their role's width target`,
+    `- images by provider: ${providers.length ? providers.map(([k, v]) => `${k} ${v}`).join(', ') : 'none'}`,
+    `- review: ${n(c.hero_candidates_awaiting_review)} hero candidates, ${n(im.awaiting_review)} images awaiting review, ${n(c.candidates_awaiting_review)} web candidates`,
+    `- failures: ${failing.length ? failing.map(([k, v]) => `${k} ${v.status}${v.consecutive_failures ? ` (${v.consecutive_failures} in a row)` : ''}`).join(', ') : 'none'}; ${(report.errors || []).length} errors logged`,
     '', '| source | status | items | consecutive failures |', '|---|---|---|---|',
     ...Object.entries(report.sources || {}).map(([k, v]) => `| ${k} | ${v.status} | ${v.items ?? ''} | ${v.consecutive_failures ?? 0} |`),
     '',
