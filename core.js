@@ -21,6 +21,11 @@ function freshness(p,date=today()){
  if(/PARTIAL|NEEDS|CONFLICT/.test(p.audit_status||''))return {key:'review',label:'추가 확인 필요',tone:'warn',age};
  return {key:'recorded',label:'확인 기록 있음',tone:'ok',age};
 }
+// Commons thumbnails come in standard widths only (https://www.mediawiki.org/wiki/Common_thumbnail_sizes); a request for
+// any other width may be refused. A srcset uses those widths, never wider than the original (or, when its width is not
+// known, than the thumbnail the source gave). Returns null for anything that is not a Commons file URL.
+const THUMB_WIDTHS=[330,500,960,1280,1920],COMMONS=/^https:\/\/(upload|thumb)\.wikimedia\.org\/wikipedia\/([a-z-]+)\/(?:thumb\/)?([0-9a-f])\/([0-9a-f]{2})\/([^/?#]+)(?:\/(\d+)px-[^/?#]+)?$/;
+function commonsSrcset(url,width=null,max=1920){const m=COMMONS.exec(String(url||''));if(!m)return null;const [,host,wiki,a,ab,file]=m;if(!/\.(jpe?g|png|webp|gif)$/i.test(file))return null;const base=`https://${host}.wikimedia.org/wikipedia/${wiki}/thumb/${a}/${ab}/${file}/`,cap=width?Math.min(max,width-1):m[6]?Math.min(max,Number(m[6])):Math.min(max,960),widths=THUMB_WIDTHS.filter(w=>w<=cap);if(!widths.length)return null;return {src:base+widths[Math.min(1,widths.length-1)]+'px-'+file,srcset:widths.map(w=>base+w+'px-'+file+' '+w+'w').join(', ')}}
 function coords(p){const a=p.latitude,b=p.longitude;return typeof a==='number'&&typeof b==='number'&&Number.isFinite(a)&&Number.isFinite(b)&&Math.abs(a)<=90&&Math.abs(b)<=180?[a,b]:null}
 function filterPlaces(ps,f={}){const q=(f.q||'').normalize('NFKC').toLowerCase().trim();return ps.filter(p=>(!q||[p.name_kr,p.name_en,p.district,p.address,p.short_description].some(x=>String(x||'').normalize('NFKC').toLowerCase().includes(q)))&&(!f.category||f.category==='전체'||p.primary_category===f.category)&&(!f.district||f.district==='전체'||p.district===f.district)&&(!f.free||p.free===true)&&(!f.indoor||p.indoor===true)&&(!f.saved||f.saved.has(p.place_id))&&(!f.upcoming||freshness(p).key==='upcoming'))}
 function empty(){return {schema:VERSION,saved:[],visits:[],routes:[],candidates:[],legacyVisits:{},preferences:{}}}
@@ -84,5 +89,5 @@ function ics(route,lookup){
  // RFC5545: fold at 75 octets, never split a Unicode code point.
  return lines.map(line=>{let s='',n=0;for(const ch of line){const bytes=new TextEncoder().encode(ch).length;if(n+bytes>75){s+='\r\n ';n=1}s+=ch;n+=bytes}return s}).join('\r\n')+'\r\n';
 }
-return {VERSION,KEY,esc,safeURL,today,validDate,days,freshness,coords,filterPlaces,empty,id,validate,read,write,csv,ics};
+return {VERSION,KEY,esc,safeURL,today,validDate,days,freshness,coords,commonsSrcset,THUMB_WIDTHS,filterPlaces,empty,id,validate,read,write,csv,ics};
 });
