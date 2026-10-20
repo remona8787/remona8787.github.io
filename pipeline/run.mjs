@@ -20,7 +20,7 @@
 // CLI:  node pipeline/run.mjs --data=<data dir> [--editorial=<dir>] [--budget=<minutes>] [--fixtures] [--now=<iso>]
 import path from 'node:path'
 import { fileURLToPath, pathToFileURL } from 'node:url'
-import { mkdir, rm } from 'node:fs/promises'
+import { mkdir, rm, appendFile } from 'node:fs/promises'
 import { existsSync, readFileSync } from 'node:fs'
 import { defaultSleep, errorText } from '../edge-functions/_shared/archive/http.mjs'
 import { createClient, USER_AGENT } from './lib/net.mjs'
@@ -693,6 +693,21 @@ export async function runPipeline(o) {
 }
 
 // ---------------------------------------------------------------- CLI
+/** Markdown summary of a run (GitHub Actions step summary). */
+export function runSummary(report) {
+  const c = report.counts || {}
+  const lines = [
+    `### Collect: ${report.run.status} (${report.run.publish})`, '',
+    `- build: \`${report.run.build_id ?? '-'}\`, ${Math.round((report.run.duration_ms || 0) / 1000)} s of a ${report.run.budget_minutes} min budget`,
+    `- projects: ${c.published ?? 0} published (${c.new ?? 0} new, ${c.changed ?? 0} changed, ${c.removed ?? 0} removed, ${c.carried_over ?? 0} carried over), ${c.excluded ?? 0} excluded`,
+    `- images: ${c.with_images ?? 0} projects with images, ${c.with_hero ?? 0} with a hero; ${c.hero_candidates_awaiting_review ?? 0} hero candidates and ${c.candidates_awaiting_review ?? 0} web candidates await review`,
+    '', '| source | status | items | consecutive failures |', '|---|---|---|---|',
+    ...Object.entries(report.sources || {}).map(([k, v]) => `| ${k} | ${v.status} | ${v.items ?? ''} | ${v.consecutive_failures ?? 0} |`),
+    '',
+  ]
+  return lines.join('\n') + '\n'
+}
+
 function args(argv) {
   const out = {}
   for (const a of argv) { const m = /^--([a-z-]+)(?:=(.*))?$/.exec(a); if (m) out[m[1]] = m[2] ?? true }
@@ -718,6 +733,9 @@ if (process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === imp
     // A run that kept the previous dataset still exits 0: its report, review logs and state are committed.
     const r = await runPipeline({ dataDir, editorialDir, fetch: fetchImpl, clock, sleep, overrides })
     console.log(`[pipeline] status ${r.report.run.status}, publish ${r.publishStatus}, build ${r.buildId}`)
+    // On GitHub Actions: step outputs for the next jobs and a summary on the run page.
+    if (process.env.GITHUB_OUTPUT) await appendFile(process.env.GITHUB_OUTPUT, `build_id=${r.buildId ?? ''}\nstatus=${r.report.run.status}\npublish=${r.publishStatus}\n`)
+    if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, runSummary(r.report))
   } catch (e) {
     console.error('[pipeline] failed:', errorText(e), e?.stack || '')
     process.exitCode = 1
