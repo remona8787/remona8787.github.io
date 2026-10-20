@@ -2,7 +2,7 @@ name: explore
 on:
   push:
     branches: [ci-permission-test]
-    paths: ['explore/discover.mjs', '.github/workflows/permission-test.yml']
+    paths: ['explore/wiki-search.mjs']
 jobs:
   discover:
     runs-on: ubuntu-latest
@@ -13,8 +13,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node explore/discover.mjs
+      - run: node explore/wiki-search.mjs
       - name: commit result
         run: |
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add explore/discovery.json && git commit -m "discovery result" && git push
+          git add explore/wiki-search.json && git commit -m "discovery result" && git push
