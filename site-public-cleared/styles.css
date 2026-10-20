@@ -1736,7 +1736,7 @@ details[open]>summary .more-caret{transform:rotate(180deg)}
 .map-address{margin:0 0 var(--s-3)}
 .visit-info .kv-list{margin-bottom:var(--s-2)}
 .glance .kv{grid-template-columns:96px minmax(0,1fr)}
-@media (min-width:768px){.card-art.detail-art{aspect-ratio:21/9;max-height:min(560px,62dvh)}.context-tag{bottom:12px;right:auto;left:12px}.detail-hero .image-credit{left:auto;right:12px}.detail-hero:has(.photo-count) .context-tag{bottom:12px}}
+@media (min-width:768px){.card-art.detail-art{aspect-ratio:21/9;max-height:min(560px,62dvh)}.context-tag,.detail-hero:has(.photo-count) .context-tag{top:16px;bottom:auto;right:auto;left:16px}.detail-hero .image-credit{left:12px;max-width:calc(100% - 140px)}}
 @media (min-width:1024px){
   .detail-body{display:block}
   .detail-body>*+*{margin-top:var(--s-5)}

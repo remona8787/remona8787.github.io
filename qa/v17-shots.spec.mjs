@@ -18,6 +18,7 @@ for(const scheme of ['light','dark'])for(const [w,h] of SIZES)for(const [name,ha
   if(name==='explore-filters'){await page.locator('.advanced-filters summary').click().catch(()=>{});await page.waitForTimeout(500)}
   // Lazy images load as they come near the viewport: walk down the page once, then back to the top.
   if(!['map','explore-filters'].includes(name)){const h=await page.evaluate(()=>document.documentElement.scrollHeight);for(let y=0;y<h;y+=600){await page.evaluate(v=>window.scrollTo(0,v),y);await page.waitForTimeout(60)}await page.evaluate(()=>window.scrollTo(0,0));await page.waitForLoadState('networkidle')}
+  await page.waitForFunction(()=>[...document.images].every(i=>i.complete),null,{timeout:8000}).catch(()=>{});
   await page.waitForTimeout(400);
   await page.screenshot({path:`${OUT}/${name}-${w}-${scheme}${FALLBACK?'-fallback':''}.png`,fullPage:!['map','explore-filters'].includes(name)});
  });

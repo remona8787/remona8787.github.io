@@ -174,7 +174,7 @@ test('statistics count every value with unknowns apart', () => {
 
 test('export: CSV with a BOM, the warning line and provenance columns; JSON with meta, dictionary and licences', () => {
   const csv = X.exportCSV(projects, { lang: 'ko', recordURL: p => PUBLIC + '/#place/' + p.place_id })
-  assert.ok(csv.startsWith('﻿# 주의: 자동 수집·자동 분류된 값은 검증된 사실이 아닙니다.'))
+  assert.ok(csv.startsWith('﻿# 주의: 공개 출처에서 자동으로 모으거나 분류한 값은 사실과 다를 수 있어요.'))
   const lines = csv.slice(1).split('\r\n').filter(Boolean)
   assert.equal(lines.length, projects.length + 2, 'warning, header, one line per project')
   const header = lines[1].split(',').map(c => c.replace(/^"|"$/g, ''))
@@ -195,7 +195,7 @@ test('export: CSV with a BOM, the warning line and provenance columns; JSON with
   assert.equal(json.meta.generated_at, '2026-10-18T00:00:00.000Z')
   assert.deepEqual(json.meta.filters, { region: ['europe'] })
   assert.equal(json.meta.count, projects.length)
-  assert.match(json.meta.warning, /not verified facts/)
+  assert.match(json.meta.warning, /may be wrong/)
   assert.match(json.meta.licenses.wikidata, /CC0/)
   assert.match(json.meta.licenses.commons, /per file/)
   assert.match(json.meta.licenses.editorial, /운영자 확정 필요/)
