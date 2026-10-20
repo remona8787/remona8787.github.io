@@ -80,14 +80,16 @@ test('the list is kept for 6 hours; a failed refresh keeps it up to 72 hours',as
  await expect.poll(()=>status(page)).toBe('stale');
  expect(calls.length).toBe(2);
  await page.locator('#placeSearch').fill('Crown');await expect(page.locator('#placeResults .place-card')).toHaveCount(1);
+ // The refresh state is internal (v0.17): settings shows no sync row; the previous list keeps working.
  await page.goto('/#settings');
- await expect(page.locator('#archiveSyncTime')).toContainText('최근 갱신 실패, 이전 결과 사용 중');
+ await expect(page.locator('#view')).toBeVisible();
+ await expect(page.locator('#archiveSyncTime, #archiveSyncCount')).toHaveCount(0);
  await age(73*H);await page.reload();
  await expect.poll(()=>status(page)).toBe('unavailable');
  expect(await page.evaluate(()=>window.AOL_ARCHIVE.projects.length)).toBe(0);
 });
 
-test('filters: facets with counts, country and city, year range, origin, photos; chips remove them; sorts',async({page})=>{
+test('filters: facets with counts, country and city, year range, photos; chips remove them; sorts',async({page})=>{
  await page.setViewportSize({width:1440,height:900});
  await archiveMode(page);
  await page.goto('/#explore');
@@ -102,7 +104,9 @@ test('filters: facets with counts, country and city, year range, origin, photos;
  await expect.poll(()=>count(page)).toBe(inEurope);
  await expect(europe).toHaveAttribute('aria-pressed','true');
  await expect(europe).toBeFocused();
- // Technology inside Europe; then the country select (names in Korean, values are ISO codes).
+ // Technology inside Europe (under "세부 분류", folded by default); then the country select (names in Korean, values
+ // are ISO codes).
+ await panel.locator('[data-more-filters]').click();
  await panel.locator('[data-facet="technology"][data-value="led_rgb"]').click();
  await expect.poll(()=>count(page)).toBe(listed.filter(p=>p.region==='europe'&&p.technologies.includes('led_rgb')).length);
  await panel.locator('select[data-search-filter="country"]').selectOption('오스트리아');
@@ -122,10 +126,8 @@ test('filters: facets with counts, country and city, year range, origin, photos;
  await expect(page.locator('.active-filters')).toContainText('2010–2014년');
  await page.locator('.active-filters [data-clear-filter="years"]').click();
  await expect.poll(()=>count(page)).toBe(all);
- // Origin groups: unreviewed automatic records are a filter of their own.
- await panel.locator('[data-facet="origin"][data-value="unreviewed"]').click();
- await expect.poll(()=>count(page)).toBe(listed.filter(p=>X.originOf(p)==='unreviewed').length);
- await panel.locator('[data-facet="origin"][data-value="unreviewed"]').click();
+ // The record origin and review group is research data (exports), not a public filter (v0.17).
+ await expect(panel.locator('[data-facet="origin"]')).toHaveCount(0);
  // Photos: only places whose photo is cleared.
  await panel.locator('[data-filter-toggle="has_photo"]').click();
  await expect.poll(()=>count(page)).toBe(await page.evaluate(()=>allPlaces().filter(p=>mediaFor(p).length).length));
@@ -167,13 +169,16 @@ test.describe('phone',()=>{
   // Scroll the body to the bottom: header and footer stay where they are, and choices keep the scroll position.
   const body=sheet.locator('.sheet-body');
   await body.evaluate(e=>e.scrollTop=e.scrollHeight);
-  const facet=sheet.locator('[data-facet="origin"][data-value="editor_verified"]');
+  await sheet.locator('[data-more-filters]').click();
+  await body.evaluate(e=>e.scrollTop=e.scrollHeight);
+  const facet=sheet.locator('[data-facet="technology"][data-value="led_rgb"]');
   await facet.scrollIntoViewIfNeeded();
   const before=await body.evaluate(e=>e.scrollTop);
   await facet.click();
   await expect(facet).toHaveAttribute('aria-pressed','true');
   expect(Math.abs(await body.evaluate(e=>e.scrollTop)-before)).toBeLessThan(2);
-  const n=listed.filter(p=>X.originOf(p)==='editor_verified').length;
+  const n=await page.evaluate(()=>allPlaces().filter(p=>(p.technologies||[]).includes('led_rgb')).length);
+  expect(n).toBeGreaterThan(1);
   await expect(foot.getByRole('button')).toHaveText(`${n}개 결과 보기`);
   expect((await head.boundingBox()).y).toBe(0);
   const fb=await foot.boundingBox();expect(fb.y+fb.height).toBeCloseTo(844,0);
@@ -181,7 +186,7 @@ test.describe('phone',()=>{
   await foot.getByRole('button').click();
   await expect(sheet).toBeHidden();
   await expect.poll(()=>count(page)).toBe(n);
-  await expect(page.locator('.active-filters .chip')).toHaveText(['편집 검수']);
+  await expect(page.locator('.active-filters .chip')).toHaveText(['RGB LED']);
   await expect(page.locator('.filter-button .count-badge')).toHaveText('1');
   await page.locator('.active-filters .chip').click();
   await expect.poll(()=>count(page)).toBe(all);
@@ -190,7 +195,8 @@ test.describe('phone',()=>{
 
 // The one invariant of the map: its pins, the list under it and the count are the explore results that have usable
 // coordinates (exact or street precision with a source, or verified), and they always agree.
-async function mapState(page){return page.evaluate(()=>{const b=currentMap?currentMap.getBounds():null,inView=mapMarkers.filter(m=>!b||b.contains(m.getLatLng()));return {pins:mapMarkers.length,inView:inView.length,ids:inView.map(m=>m.aolId).sort(),list:[...document.querySelectorAll('#mapResults [data-map-select]')].map(e=>e.dataset.mapSelect).sort(),count:Number(document.querySelector('#mapResults .result-meta b').textContent.match(/([\d,]+)곳/)[1].replace(/,/g,'')),results:results().length,mappable:results().filter(AOLCatalog.mappable).length,kinds:mapMarkers.reduce((a,m)=>(a[m.aolSource]=(a[m.aolSource]||0)+1,a),{})}})}
+// Pins are grid clusters (v0.17): a marker stands for one place (aolId) or a cluster of places (aolIds).
+async function mapState(page){return page.evaluate(()=>{const b=currentMap?currentMap.getBounds():null,all=mapMarkers.flatMap(m=>m.aolIds||[m.aolId]),ids=all.filter(id=>{const p=place(id);return !b||b.contains([p.latitude,p.longitude])}).sort();return {pins:all.length,inView:ids.length,ids,list:[...document.querySelectorAll('#mapResults [data-map-select]')].map(e=>e.dataset.mapSelect).sort(),count:Number(document.querySelector('#mapResults .result-meta b').textContent.match(/([\d,]+)곳/)[1].replace(/,/g,'')),results:results().length,mappable:results().filter(AOLCatalog.mappable).length,canvasPoints:Number(document.querySelector('#mapCanvas')?.dataset.points||0)}})}
 for(const viewport of [{width:390,height:844},{width:1440,height:900}])test(`map pins, the list under the map and its count agree with the explore results @${viewport.width}`,async({page})=>{
  await page.setViewportSize(viewport);
  await archiveMode(page);
@@ -198,47 +204,47 @@ for(const viewport of [{width:390,height:844},{width:1440,height:900}])test(`map
  await expect.poll(()=>status(page)).toBe('ok');
  const mappable=listed.filter(X.mappable);
  await expect(page.locator('#mapResults .result-meta b')).toContainText(`${mappable.length}곳`);
- await expect(page.locator('#mapResults .result-meta')).toContainText(`검증 좌표 ${mappable.filter(p=>X.coordKind(p)==='verified').length}곳 · Wikidata 좌표 0곳 · 출처 좌표 ${mappable.filter(p=>X.coordKind(p)==='source').length}곳`);
- await expect(page.locator('.map-legend')).toContainText('편집 검증 좌표');
- await expect(page.locator('.map-legend')).toContainText('수집 출처 좌표 · 검증 전');
- await page.locator('.legend-rule summary').click();
- await expect(page.locator('.legend-rule p')).toContainText('도시 수준 좌표');
+ // No coordinate review classes on the public map (v0.17): one kind of point, places without a location listed apart.
+ await expect(page.locator('#view')).not.toContainText(/검증 전|편집 검증 좌표|수집 출처 좌표/);
  await page.locator('.map-consent [data-load-map]').click();
  await expect(page.locator('#mapCanvas.map-loaded')).toBeVisible();
  let s=await mapState(page);
- expect(s.pins).toBe(mappable.length);expect(s.mappable).toBe(mappable.length);
+ expect(s.pins).toBe(mappable.length);expect(s.mappable).toBe(mappable.length);expect(s.canvasPoints).toBe(mappable.length);
  expect(s.list).toEqual(s.ids);expect(s.count).toBe(s.inView);expect(s.inView).toBe(s.pins);
- expect(s.kinds).toEqual({verified:mappable.filter(p=>X.coordKind(p)==='verified').length,source:mappable.filter(p=>X.coordKind(p)==='source').length});
  // The same filter narrows explore and the map together.
  await page.locator('#typeChips [data-facet="project_type"][data-value="urban_screen"]').click();
  await expect.poll(async()=>(await mapState(page)).pins).toBe(mappable.filter(p=>p.project_type==='urban_screen').length);
  s=await mapState(page);expect(s.list).toEqual(s.ids);expect(s.count).toBe(s.inView);
- await expect(page.locator('#mapResults .map-off')).toContainText(`${s.results-s.mappable}곳은 지도에 없어요`);
+ await expect(page.locator('#mapResults .map-off')).toContainText(`위치 정보가 없는 ${s.results-s.mappable}곳은 목록에서만 보여요.`);
  // Typing filters the map after a short pause; list, count and pins follow.
  await page.locator('#typeChips [data-type-all]').click();
  await page.locator('#placeSearch').fill('Times');
  await expect.poll(async()=>(await mapState(page)).pins).toBe(1);
  s=await mapState(page);expect(s.list).toEqual(['AR-times-square-screens']);expect(s.count).toBe(1);
- // Moving the map: the list and the count are the pins in view.
+ // Moving the map: the list and the count are the places in view.
  await page.locator('#placeSearch').fill('');
  await expect.poll(async()=>(await mapState(page)).pins).toBe(mappable.length);
  await page.evaluate(()=>currentMap.setView([48.3,14.28],9));
- await expect.poll(async()=>{const m=await mapState(page);return m.count===m.inView&&m.list.join()===m.ids.join()&&m.inView<m.pins}).toBe(true);
+ // Only places near the view are drawn (clusters are rebuilt on every move), so the pins narrow with the view too.
+ await expect.poll(async()=>{const m=await mapState(page);return m.count===m.inView&&m.list.join()===m.ids.join()&&m.inView<m.mappable&&m.mappable===mappable.length}).toBe(true);
  // Explore shows the same results; the map shows the part with coordinates.
  await page.goto('/#explore');
  expect(await count(page)).toBe((await curatedCount(page))+listed.length);
 });
 
-test('without a backend there is no archive request and the status says so',async({page})=>{
+test('without a backend there is no archive request, and no account or sync control is offered',async({page})=>{
  const requests=[];page.on('request',r=>{if(/supabase\.co/.test(r.url()))requests.push(r.url())});
  await page.goto('/#settings');
  await expect.poll(()=>status(page)).toBe('disabled');
- await expect(page.locator('#archiveSyncCount')).toHaveText('서버에 연결되지 않아 편집부 수록 장소와 Wikidata 장소만 보여요');
+ await expect(page.locator('#archiveSyncCount')).toHaveCount(0);
+ await expect(page.locator('#view')).not.toContainText(/동기화|서버에 연결/);
+ await page.goto('/#my');await expect(page.locator('#view a[href="#account"], #view [data-sync]')).toHaveCount(0);
+ await page.goto('/#saved');await expect(page.locator('#view')).not.toContainText('동기화 상태');
  await page.waitForLoadState('networkidle');
  expect(requests).toEqual([]);
 });
 
-test('archive detail: archive record by group, the 미확인 disclosure, sources, data status, assessments, citation, similar projects',async({page,context})=>{
+test('archive detail: facts by group, sources, assessments, citation, similar projects; no review vocabulary',async({page,context})=>{
  await context.grantPermissions(['clipboard-read','clipboard-write']);
  await page.setViewportSize({width:1440,height:900});
  await archiveMode(page);
@@ -247,38 +253,24 @@ test('archive detail: archive record by group, the 미확인 disclosure, sources
  const info=page.locator('#detailArchive');
  await expect(info.locator('.field-group h3')).toHaveText(['기본 정보','기술·건축 정보','맥락']);
  await expect(info.locator('.kv',{hasText:'설치 연도'})).toContainText('2009');
- await expect(info.locator('.kv',{hasText:'설치 연도'}).locator('.state-badge')).toHaveText('편집 확인');
  await expect(info.locator('.kv',{hasText:'표시 면적'})).toContainText('5,100 ㎡');
- await expect(info.locator('.kv',{hasText:'표시 면적'}).locator('.state-badge')).toHaveText('출처 기재');
- await expect(info.locator('.kv',{hasText:'인터랙션'}).locator('.state-badge')).toHaveText('연구자 평가');
  await expect(info.locator('.kv',{hasText:'참여자'})).toContainText('건축가: Treusch architecture');
- // Unknown fields are listed apart, collapsed, and never filled in.
- const unknown=info.locator('.unknown-fields');
- await expect(unknown.locator('summary')).toHaveText('미확인 항목 3개');
- await expect(unknown.locator('li').first()).toBeHidden();
- await unknown.locator('summary').click();
- await expect(unknown.locator('li')).toHaveText(['운영 시작 연도','해상도','픽셀 피치(mm)']);
- // Sources: publisher, kind, licence, dates, link state, reliability, supported fields.
+ // Facts in plain words (v0.17): no field states, no list of unknown fields, no data-status card. Only known values.
+ await expect(page.locator('#view .state-badge, #view .unknown-fields, #detailStatus')).toHaveCount(0);
+ for(const label of ['운영 시작 연도','해상도','픽셀 피치(mm)'])await expect(info.locator('.kv dt',{hasText:label})).toHaveCount(0);
+ // Sources: the official site first, then each source with its publisher and kind; every one links out.
  const sources=page.locator('#detailSources .source-item');
- await expect(sources).toHaveCount(2);
  await expect(sources.first()).toContainText('Ars Electronica');
- await expect(sources.first().locator('.pill')).toHaveText(['공식','신뢰도 높음 90']);
- await expect(sources.first()).toContainText('2026-09-01');
- await expect(sources.first()).toContainText('2026-10-15 · 정상');
- await expect(sources.first()).toContainText('위도, 경도, 설치 연도, 운영 상태');
- await expect(sources.nth(1)).toContainText('CC BY 4.0');
+ await expect(sources.first().locator('.pill')).toHaveText(['공식']);
  await expect(sources.first().locator('a')).toHaveAttribute('href','https://ars.electronica.art/center/');
- // Data status: record origin, review, collected and verified times, update state, in plain words.
- const status=page.locator('#detailStatus');
- await expect(status).toContainText('편집부 등록');await expect(status).toContainText('연구자 평가');await expect(status).toContainText('2026. 10. 10.');
- await expect(status).toContainText('6시간마다 자동 갱신돼요');
+ await expect(page.locator('#detailSources')).not.toContainText(/신뢰도|정상|확인 중/);
  // Researcher assessments are labelled as interpretation.
  await expect(page.locator('#detailAssess .assess-label')).toHaveText('연구자의 해석이에요. 수집된 데이터와 따로 보여드려요.');
  await expect(page.locator('#detailAssess .assess-item')).toContainText('확신 보통');
  // Citation with the record URL and today's access date; the copy button copies exactly that text.
  const cite=page.locator('#citationText');
  const today=await page.evaluate(()=>AOLCore.today());
- await expect(cite).toHaveText(`빛의 건축 아카이브, 「아르스 일렉트로니카 센터」, 편집 검수, https://light-architecture-jihyun.peppydegu2.chatgpt.site/#place/AR-ars-electronica-center (${today} 접속).`);
+ await expect(cite).toHaveText(`빛의 건축 아카이브, 「아르스 일렉트로니카 센터」, https://light-architecture-jihyun.peppydegu2.chatgpt.site/#place/AR-ars-electronica-center (${today} 접속).`);
  await page.getByRole('button',{name:'인용문 복사'}).click();
  await expect(page.locator('#toast')).toContainText('인용문을 복사했어요');
  expect(await page.evaluate(()=>navigator.clipboard.readText())).toBe(await cite.textContent());
@@ -292,21 +284,20 @@ test('archive detail: archive record by group, the 미확인 disclosure, sources
  await page.goto('/#place/AR-al-bahr-towers');
  await expect(page.locator('#view h1')).toHaveText('Al Bahr Towers');
  await expect(page.locator('.detail-sub bdi')).toHaveText('أبراج البحر');
- await expect(page.locator('#detailSources .link-broken')).toContainText('링크 연결 안 됨');
+ await expect(page.locator('#detailSources .link-broken')).toContainText('지금은 열리지 않는 링크');
  await expect(page.locator('#detailSources a[href="https://albahr.example/"]')).toHaveCount(0);
- await expect(page.locator('.detail-pills .pill').first()).toHaveText('링크 오류 · 확인 중');
  // A failed image falls back to the placeholder and keeps its credit; an unlicensed one is never shown.
  await page.goto('/#place/AR-burj-khalifa-led');
  await expect(page.locator('.detail-hero .photo-failed')).toBeVisible();
  await expect(page.locator('.detail-hero .image-credit')).toContainText('Gulf Photo · CC BY 4.0');
  await page.goto('/#place/AR-shibuya-crossing-screens');
  await expect(page.locator('img[data-place-photo]')).toHaveCount(0);
- await expect(page.locator('#detailPhotos')).toContainText('권리가 확인된 사진이 아직 없어요.');
- // A curated place enriched by its archive record shows the archive sections with the archive's states.
+ await expect(page.locator('#detailPhotos')).toContainText('아직 자유 라이선스로 공개된 사진이 없어요.');
+ await expect(page.locator('#detailPhotos .gallery-empty .ph')).toBeVisible();
+ // A curated place enriched by its archive record shows the archive's facts.
  await page.goto('/#place/SEOUL007');
  await expect(page.locator('#detailArchive .kv',{hasText:'프로젝트 유형'})).toContainText('도시 대형 스크린');
- await expect(page.locator('#detailArchive .kv',{hasText:'프로젝트 유형'}).locator('.state-badge')).toHaveText('편집 확인');
- await expect(page.locator('#detailStatus')).toContainText('편집부 수록');
+ await expect(page.locator('#view .state-badge, #detailStatus')).toHaveCount(0);
  // A very long title wraps inside the page.
  await page.setViewportSize({width:320,height:700});
  await page.goto('/#place/AR-convention-centre-north-atrium-interactive-facade-phase-two');
@@ -335,8 +326,8 @@ test('research data page: statistics of the filtered set; CSV and JSON exports c
  await expect(page.locator('#chartType .bar-value')).toHaveText(st.project_type.rows.map(r=>String(r[1])));
  await expect(page.locator('#chartTech .bar-value')).toHaveText(st.technology.rows.map(r=>String(r[1])));
  await expect(page.locator('#chartCountry .bar-label')).toHaveText(st.country.rows.map(r=>({AT:'오스트리아',DE:'독일',ES:'스페인',GB:'영국',FR:'프랑스'})[r[0]]));
- await expect(page.locator('#chartDecade small')).toContainText(`미확인 ${st.decade.unknown}곳`);
- for(const id of ['chartRegion','chartCountry','chartDecade','chartType','chartMethod','chartTech','chartOrigin'])await expect(page.locator('#'+id+' figcaption h3')).toBeVisible();
+ await expect(page.locator('#chartDecade small')).toContainText(`값 없음 ${st.decade.unknown}곳`);
+ for(const id of ['chartRegion','chartCountry','chartDecade','chartType','chartMethod','chartTech'])await expect(page.locator('#'+id+' figcaption h3')).toBeVisible();
  // CSV: BOM, the warning line, the header from the data dictionary, one row per place with provenance.
  const [csvDownload]=await Promise.all([page.waitForEvent('download'),page.getByRole('button',{name:'CSV 내려받기 (Excel)'}).click()]);
  expect(csvDownload.suggestedFilename()).toMatch(/^빛의건축_아카이브_\d{4}-\d{2}-\d{2}\.csv$/);
@@ -370,12 +361,12 @@ test('research data page: statistics of the filtered set; CSV and JSON exports c
  expect(json.meta.data_dictionary.map(d=>d.field)).toEqual(X.EXPORT_FIELDS.map(f=>f[0]));
  expect(json.meta.citation).toContain(`${europe.length}곳`);
  expect(json.projects.map(p=>p.place_id).sort()).toEqual(europe.map(p=>p.place_id).sort());
- // Methodology: sources, cadence, classification, review, field states and how to cite.
+ // Methodology for researchers, in plain words (v0.17): where the data comes from, how often it changes, how photos
+ // are chosen, how it is classified, its limits and how to cite; no internal review or pipeline terms.
  const method=page.locator('#methodology');
- for(const h of ['출처','갱신 주기','분류','검수','항목별 상태','지도 표시 기준','인용 방법'])await expect(method.locator('h3',{hasText:h})).toHaveCount(1);
- await expect(method).toContainText('6시간마다 자동 갱신돼요');
- await expect(method).toContainText('웹·뉴스에서 찾은 후보는 편집 검수 후 공개돼요');
- await expect(method.locator('.state-list .state-badge')).toHaveText(['검증 전','출처 기재','분류 추정','편집 확인','연구자 평가']);
+ await expect(method.locator('h3')).toHaveText(['어디에서 오나요','얼마나 자주 바뀌나요','사진은 어떻게 고르나요','어떻게 분류하나요','한계','인용 방법']);
+ for(const w of ['Wikidata','Wikimedia Commons','공식 웹사이트'])await expect(method).toContainText(w);
+ await expect(method).not.toContainText(/검수|미검수|항목별 상태|6시간마다|수집기|GDELT/);
 });
 
 // The interface language: a compact switch in the top bar and a choice in settings, kept with the user's preferences,
@@ -402,13 +393,13 @@ test('KO/EN: the top-bar switch and the settings choice change the interface, <h
  const europe=listed.filter(p=>p.region==='europe');
  await expect(page.locator('#placeResults .result-meta')).toContainText(`${europe.length} places`);
  await expect(page.locator('.active-filters .chip')).toHaveText(['Europe']);
- // A place page: English names first, archive groups, unknown fields, citation.
+ // A place page: English names first, archive groups, sources, citation; no unknown-field list or data status.
  await page.goto('/#place/AR-ars-electronica-center');
  await expect(page.locator('#view h1')).toHaveText('Ars Electronica Center');
  await expect(page.locator('#detailArchive .field-group h3')).toHaveText(['Basic information','Technical and architectural','Context']);
- await expect(page.locator('#detailArchive .unknown-fields summary')).toHaveText('3 unknown fields');
- await expect(page.locator('#detailSources h2')).toHaveText('Sources');
- await expect(page.locator('#detailStatus h2')).toHaveText('Data status');
+ await expect(page.locator('#detailArchive .unknown-fields, #detailStatus')).toHaveCount(0);
+ await expect(page.locator('#detailSources h2')).toHaveText('Official site and sources');
+ await expect(page.locator('#detailPhotos h2')).toHaveText('Photos and video');
  await expect(page.locator('#citationText')).toHaveText(/^Architecture of Light archive, “Ars Electronica Center,” .+ \(accessed \d{4}-\d{2}-\d{2}\)\.$/);
  await expect(page.getByRole('button',{name:'Copy citation'})).toBeVisible();
  await expect(page.locator('#detailRelated h2')).toHaveText('Similar projects');
