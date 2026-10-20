@@ -233,7 +233,7 @@
     "arwiki"
   ],
   "images": {
-    "max_candidates_per_project": 24,
+    "max_candidates_per_project": 16,
     "max_scored_per_project": 6,
     "max_thumbs_per_run": 1800,
     "thumb_width": 330,
@@ -249,7 +249,13 @@
     "home_min_colourfulness": 20,
     "rights_policy": {
       "krFopDisplay": true
-    }
+    },
+    "max_categories_per_project": 4,
+    "max_subcategories": 3,
+    "members_per_category": 200,
+    "files_per_subcategory": 40,
+    "public_thumb_width": 500,
+    "about": "thumb_width: the Commons thumbnail read for scoring (330 px, a standard step); score_width: the size measured (320 px); public_thumb_width: the card thumbnail published (500 px). A home image needs mean luminance <= home_max_mean_luminance, saturated bright share >= home_min_saturated_bright and colourfulness >= home_min_colourfulness; a hero also needs visual >= hero_visual_threshold, an original >= hero_min_width and the reviewed allowlist."
   },
   "links": {
     "max_per_run": 400,

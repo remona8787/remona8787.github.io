@@ -93,6 +93,34 @@
     {
       "term": "sound and light show",
       "project_type": "festival_program"
+    },
+    {
+      "term": "미디어 파사드",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "Medienfassaden",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "façade média",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "fachada multimedia",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "медиафасад",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "媒体立面",
+      "project_type": "media_facade"
+    },
+    {
+      "term": "light shows",
+      "project_type": "festival_program"
     }
   ],
   "search_limit": 50,
@@ -102,7 +130,11 @@
     "Medienfassade",
     "LED facade",
     "미디어파사드",
-    "メディアファサード"
+    "メディアファサード",
+    "media facades",
+    "mediafacade",
+    "fachada multimedia",
+    "медиафасад"
   ],
   "file_search_limit": 100,
   "roots": [
@@ -173,7 +205,7 @@
       "title": "Category:Illuminated buildings by country",
       "qid": "Q116262672",
       "mode": "evidence",
-      "depth": 3
+      "depth": 2
     },
     {
       "title": "Category:Illuminated buildings by city",
@@ -286,5 +318,6 @@
       "pattern": "\\b(1[89]\\d\\d|20\\d\\d)\\s*(edition|ausgabe|édition|edición)\\b",
       "reason": "edition_named"
     }
-  ]
+  ],
+  "about_roots": "Roots are walked in this order (candidate roots first, evidence roots last, so a short time budget spends itself on project discovery). Category:Media Facade was empty on 2026-10-19; it stays so new files are found."
 }

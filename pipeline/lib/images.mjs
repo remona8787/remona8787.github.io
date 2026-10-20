@@ -120,14 +120,30 @@ export function thumbAt(thumburl, width) {
   return thumburl ? thumburl.replace(/\/(\d+)px-([^/]+)$/, `/${width}px-$2`) : null
 }
 
-/** The public image object (licence and author always present; attribution as live-media.mjs builds it). */
+/** Name evidence of a file before its metadata is read (used to choose which candidates to read). */
+export function nameEvidence(text) {
+  const t = String(text || '').replace(/\.[a-z0-9]+$/i, '').replace(/[_-]+/g, ' ')
+  return { night: keywordScore(t, NIGHT).score, media: keywordScore(t, MEDIA).score }
+}
+
+// Standard Wikimedia thumbnail steps (other widths are refused or rendered on demand more slowly).
+export const THUMB_STEPS = [120, 250, 330, 500, 960, 1280, 1920, 3840]
+const step = (w, width) => (width && width <= w ? null : w)
+
+/**
+ * The public image object (licence and author always present; attribution as live-media.mjs builds it): a 500 px
+ * card thumbnail, a 1280 px display file (1920 px for a hero), the file page, licence, author, role and tier.
+ */
 export function publicImage(info, role, extra = {}) {
   const page = { imageinfo: [{ url: info.url, thumburl: info.thumburl, extmetadata: { Artist: { value: info.artist || '' }, Credit: { value: info.credit || '' }, LicenseShortName: { value: info.license || '' }, LicenseUrl: { value: info.license_url || '' }, DateTimeOriginal: { value: info.date || '' } } }] }
   const row = toMediaRow('x', info.file, page, { qid: null, krFop: !!extra.kr_fop, now: null })
-  const big = (info.width || 0) > 1280 ? thumbAt(info.thumburl, 1280) : info.url
+  const w = info.width || 0
+  const thumbW = step(extra.thumbWidth ?? 500, w), bigW = step(role === 'hero' ? 1920 : 1280, w)
+  const thumb = thumbW && info.thumburl ? thumbAt(info.thumburl, thumbW) : info.thumburl || info.url
+  const big = bigW && info.thumburl ? thumbAt(info.thumburl, bigW) : info.url
   return {
     file: info.file,
-    thumb: info.thumburl || info.url,
+    thumb,
     src: big || info.url,
     page: info.page || row.source_url,
     width: info.width ?? null,

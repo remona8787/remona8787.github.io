@@ -6,6 +6,7 @@
 import { fetchCommonsPages, BLOCKING_TEMPLATES, KR_FOP_TEMPLATES } from '../../edge-functions/_shared/live-media.mjs'
 import { detectLocation } from '../../edge-functions/_shared/archive/normalize.mjs'
 import { categoryTitle, chunk, stripTags, uniq, isQid, bareFile, validLat, validLng } from './util.mjs'
+import { termPattern } from './wikipedia.mjs'
 import { HOUR } from './cache.mjs'
 
 export const COMMONS_API = 'https://commons.wikimedia.org/w/api.php'
@@ -125,6 +126,24 @@ export async function categoryFiles(client, title, { cache, ttlHours = 72, limit
   return list
 }
 
+/** Files and subcategories of a category in one request (newest first): {files: [names], subcats: [titles]}. */
+export async function categoryMembers(client, title, { cache, ttlHours = 72, limit = 200, stage = 'images' } = {}) {
+  const key = 'members:' + title + ':' + limit
+  const hit = cache?.fresh('commons-members', key)
+  if (hit !== undefined) return hit
+  const files = [], subcats = []
+  let cont = {}
+  for (let round = 0; round < 3 && files.length + subcats.length < limit; round++) {
+    const json = await client.json(api({ action: 'query', list: 'categorymembers', cmtitle: title, cmtype: 'file|subcat', cmlimit: String(Math.min(500, limit)), cmsort: 'timestamp', cmdir: 'desc', cmprop: 'title|type|timestamp', ...cont }), { stage })
+    for (const m of json?.query?.categorymembers || []) { if (m.ns === 6) files.push(bareFile(m.title)); else if (m.ns === 14) subcats.push(m.title) }
+    if (!json?.continue) break
+    cont = { cmcontinue: json.continue.cmcontinue, continue: json.continue.continue }
+  }
+  const out = { files: files.slice(0, limit), subcats: subcats.sort() }
+  cache?.set('commons-members', key, out, { ttlMs: ttlHours * HOUR })
+  return out
+}
+
 /** Category name search (namespace 14) for a phrase. */
 export async function searchCategories(client, term, { limit = 50, cache, ttlHours = 72 } = {}) {
   const json = await client.json(api({ action: 'query', list: 'search', srsearch: `intitle:"${term}"`, srnamespace: '14', srlimit: String(Math.min(500, limit)), srprop: 'size' }), { stage: 'commons', cache: cache ? { ns: 'commons-search', key: 'cat:' + term, ttlMs: ttlHours * HOUR } : null })
@@ -158,7 +177,7 @@ export async function discoverCategories(client, config, { cache, ttlHours = 72,
   const searched = []
   for (const s of config.search_terms || []) {
     try {
-      for (const t of await searchCategories(client, s.term, { limit: config.search_limit ?? 50, cache, ttlHours })) searched.push({ title: t, root: { title: 'search:' + s.term, mode: 'candidates', project_type: s.project_type } })
+      for (const t of await searchCategories(client, s.term, { limit: config.search_limit ?? 50, cache, ttlHours })) searched.push({ title: t, term: s.term, root: { title: 'search:' + s.term, mode: 'candidates', project_type: s.project_type } })
     } catch (e) { if (e?.code === 'budget') { partial = true; break } errors.push({ stage: 'commons_search', term: s.term, message: String(e?.message || e).slice(0, 300) }) }
   }
   // 2. Files named "media facade": their categories are candidates (same rules).
@@ -176,6 +195,9 @@ export async function discoverCategories(client, config, { cache, ttlHours = 72,
       for (const s of searched) {
         const i = info.get(categoryTitle(s.title))
         if (!i || !i.exists || seen.has(i.title)) continue
+        // A name search also returns loosely related categories ("Facades" for "media facade"): the searched phrase
+        // must be in the category name itself. (Categories of files named with the phrase are exempt.)
+        if (!s.via_file && s.term && !termPattern(s.term).test(name(i.title))) { record(i, { decision: 'rejected', reason: 'term_not_in_name' }, { root: s.root.title, parent: null, project_type: null, place_hint: null }); continue }
         const d = classifyCategory(i.title, i, s.root, rules)
         record(i, d, { root: s.root.title, parent: null, project_type: s.root.project_type, place_hint: null, via_file: s.via_file || null })
       }

@@ -104,12 +104,14 @@ const first = (...v) => v.find((x) => x !== null && x !== undefined && x !== '')
 const typeRank = (t) => { const i = TYPE_PRIORITY.indexOf(t); return i < 0 ? 99 : i }
 
 /** Project type with its source and confidence. */
-export function projectType({ editorial, curated, classTypes, wikipedia, commonsTypes }) {
+export function projectType({ editorial, curated, classTypes, wikipedia, wikipediaType = null, commonsTypes }) {
   if (editorial && PROJECT_TYPES.includes(editorial)) return { project_type: editorial, source: 'editorial', low_confidence: false }
   if (curated?.project_type) return { project_type: curated.project_type, source: curated.type_source, low_confidence: !!curated.type_low_confidence }
-  const classes = classTypes.filter((c) => PROJECT_TYPES.includes(c.project_type)).sort((a, b) => typeRank(a.project_type) - typeRank(b.project_type))
+  // A class that is the item's own P31 says more than one reached through P279*; then the most specific type.
+  const classes = classTypes.filter((c) => PROJECT_TYPES.includes(c.project_type)).sort((a, b) => (b.direct ? 1 : 0) - (a.direct ? 1 : 0) || typeRank(a.project_type) - typeRank(b.project_type))
   if (classes.length) return { project_type: classes[0].project_type, source: 'class:' + classes[0].qid, low_confidence: !!classes[0].low_confidence && classes.every((c) => c.low_confidence) }
-  if (wikipedia) return { project_type: 'media_facade', source: 'wikipedia_media_facade', low_confidence: false }
+  // An article that states a media facade: the item is the building (or, for a festival item, the festival).
+  if (wikipedia) return { project_type: PROJECT_TYPES.includes(wikipediaType) ? wikipediaType : 'media_facade', source: 'wikipedia_media_facade', low_confidence: false }
   const ct = commonsTypes.filter((t) => PROJECT_TYPES.includes(t)).sort((a, b) => typeRank(a) - typeRank(b))
   if (ct.length) return { project_type: ct[0], source: 'commons_category', low_confidence: true }
   return { project_type: null, source: null, low_confidence: true }
@@ -172,7 +174,7 @@ export function buildProject(obs, facts, ctx = {}) {
   p.longitude = p.latitude !== null ? set('longitude', lng, coordSource) : null
   p.location_precision = p.latitude !== null ? 'exact' : p.city ? 'city' : 'unknown'
 
-  const typed = projectType({ editorial: editorialObs?.project_type, curated, classTypes, wikipedia: wiki.length > 0, commonsTypes: cats.map((c) => c.project_type).filter(Boolean) })
+  const typed = projectType({ editorial: editorialObs?.project_type, curated, classTypes, wikipedia: wiki.length > 0, wikipediaType: wiki.find((w) => w.type)?.type ?? null, commonsTypes: cats.map((c) => c.project_type).filter(Boolean) })
   p.project_type = typed.project_type
   if (typed.source) fs.project_type = typed.source === 'editorial' ? 'editorial' : typed.source.startsWith('curated') ? 'curated' : typed.source.startsWith('class:') || typed.source.startsWith('wikipedia') ? (typed.source.startsWith('class:') ? 'wikidata' : 'wikipedia') : 'derived:commons_category'
   p.type_source = typed.source
