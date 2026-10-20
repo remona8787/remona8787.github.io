@@ -1,0 +1,23 @@
+name: live site check
+on:
+  push:
+    branches: [ci-permission-test]
+    paths: ['explore/live-check.mjs', 'explore/live-check.txt']
+concurrency: live-check
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - run: npm i --no-save playwright@1.56.1 && npx playwright install --with-deps chromium
+      - run: node explore/live-check.mjs
+      - name: commit
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add explore/live && git commit -qm "live site check" && for i in 1 2 3; do git pull -q --rebase && git push -q && break; sleep 5; done
