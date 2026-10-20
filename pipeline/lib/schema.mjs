@@ -82,6 +82,7 @@ export function checkIndex(ix) {
     need(v('visual_rank') === null ? v('thumb') === null : isInt(v('visual_rank')) && v('visual_rank') >= 1 && v('visual_rank') <= 4, p + '.visual_rank', 'tier 1..4 with a thumb, null without')
     need(SHARD.test(v('shard')), p + '.shard', 'bad shard')
     need(opt((d) => /^\d{4}-\d{2}-\d{2}$/.test(d))(v('added_at')), p + '.added_at', 'not a date')
+    if ('kr_region' in at) need(v('kr_region') === null || (v('country_iso2') === 'KR' && T.valid('kr_region', v('kr_region'))), p + '.kr_region', 'a Korean region of a KR project, or null')
   })
   return errors
 }
@@ -92,6 +93,8 @@ export function checkRecord(r, path, need) {
   need(str(r.name_ko) || str(r.name_en) || str(r.name_original), path, 'no name')
   need(T.regionOf(r.country_iso2) !== null, path + '.country_iso2', 'unknown country')
   need(r.region === T.regionOf(r.country_iso2), path + '.region', 'does not match the country')
+  need('kr_region' in r, path + '.kr_region', 'missing (null when unknown or not Korean)')
+  need(r.kr_region === null || r.kr_region === undefined || (r.country_iso2 === 'KR' && T.valid('kr_region', r.kr_region)), path + '.kr_region', 'a Korean region of a KR project, or null')
   need((r.lat === null) === (r.lng === null), path + '.lat', 'lat and lng go together')
   need(r.lat !== null || str(r.city), path, 'needs coordinates or a city')
   need(T.valid('project_type', r.project_type), path + '.project_type', 'unknown type')

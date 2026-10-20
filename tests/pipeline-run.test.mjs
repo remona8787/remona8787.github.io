@@ -11,7 +11,7 @@ import { runPipeline } from '../pipeline/run.mjs'
 import { USER_AGENT } from '../pipeline/lib/net.mjs'
 import { loadSharp } from '../pipeline/lib/visual.mjs'
 import { checkDataset, checkReport, checkQuality, checkCandidates } from '../pipeline/lib/schema.mjs'
-import { fixtureEnvironment, FIXTURE_OVERRIDES } from './fixtures/pipeline/fake-fetch.mjs'
+import { fixtureEnvironment, FIXTURE_OVERRIDES, FIXTURE_ENV } from './fixtures/pipeline/fake-fetch.mjs'
 
 const FIX = path.join(import.meta.dirname, 'fixtures/pipeline')
 const EDITORIAL = path.join(FIX, 'editorial')
@@ -20,10 +20,10 @@ const HOUR = 3600e3
 const SHARP = await loadSharp().then(() => true, () => false)
 const needSharp = SHARP ? {} : { skip: 'sharp is not installed (npm ci --prefix pipeline)' }
 
-async function run(dataDir, { start = START, fail = null, pipeline = {} } = {}) {
+async function run(dataDir, { start = START, fail = null, pipeline = {}, keys = FIXTURE_ENV } = {}) {
   const env = fixtureEnvironment({ start, fail })
   const overrides = { ...FIXTURE_OVERRIDES, pipeline: { ...FIXTURE_OVERRIDES.pipeline, ...pipeline } }
-  const r = await runPipeline({ dataDir, editorialDir: EDITORIAL, fetch: env.fetch, clock: env.clock, sleep: env.sleep, overrides, log: () => {} })
+  const r = await runPipeline({ dataDir, editorialDir: EDITORIAL, fetch: env.fetch, clock: env.clock, sleep: env.sleep, overrides, env: keys, log: () => {} })
   return { ...r, env }
 }
 const readJSON = async (f) => JSON.parse(await readFile(f, 'utf8'))

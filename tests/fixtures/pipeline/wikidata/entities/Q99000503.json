@@ -1,0 +1,139 @@
+{
+ "pageid": 99000503,
+ "ns": 0,
+ "title": "Q99000503",
+ "lastrevid": 2400000503,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000503",
+ "labels": {
+  "ko": {
+   "language": "ko",
+   "value": "픽스처 제주 빛 설치"
+  },
+  "en": {
+   "language": "en",
+   "value": "Fixture Jeju Light Field"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "light installation in Jeju"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "6b144ab71bbf472bb8dae3edca2463fb",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1823448,
+       "id": "Q1823448"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000503$6b144ab7-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "4073be87493cdd5f1f062a44dea32567",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000503$4073be87-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "d3f6f61e76fc7f5dcb9c016f4bb6371f",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000416,
+       "id": "Q99000416"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000503$d3f6f61e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "efeea3743e2059759d8008e9d4f2a7c3",
+     "datavalue": {
+      "value": {
+       "latitude": 33.4996,
+       "longitude": 126.5312,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q99000503$efeea374-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "349b8e694e529172f45e3cd64b1343f8",
+     "datavalue": {
+      "value": {
+       "time": "+2022-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q99000503$349b8e69-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

@@ -1,0 +1,66 @@
+{
+ "pageid": 99000415,
+ "ns": 0,
+ "title": "Q99000415",
+ "lastrevid": 2400000415,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000415",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Jeonnam-Gwangju Special Metropolitan City"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "전남광주특별시"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "8946a587928b1d33df6d2628f93fe764",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000419,
+       "id": "Q99000419"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000415$8946a587-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "2cd5078de305c447bf57d10dad85405f",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000415$2cd5078d-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

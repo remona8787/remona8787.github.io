@@ -1,0 +1,66 @@
+{
+ "pageid": 41283,
+ "ns": 0,
+ "title": "Q41283",
+ "lastrevid": 2400041283,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q41283",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Gwangju"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "광주광역시"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "d96655831931a7969b02a3e4dcb88d93",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000412,
+       "id": "Q99000412"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q41283$d9665583-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "9906179d799c0303baa2ad954bb028ac",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q41283$9906179d-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

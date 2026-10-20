@@ -1,0 +1,87 @@
+{
+ "pageid": 99000416,
+ "ns": 0,
+ "title": "Q99000416",
+ "lastrevid": 2400000416,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000416",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Jeju City"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "제주시"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "a3065075b7b3aa54add161a980181f42",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 515,
+       "id": "Q515"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000416$a3065075-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "c0017dbbe0b2532c37c85ede50099e1a",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000416$c0017dbb-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "00d10a23a1e98f1a2b091906fe4dbc7f",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 41164,
+       "id": "Q41164"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000416$00d10a23-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

@@ -5,7 +5,8 @@
     "\"verified\": true only when a web search restricted to wikidata.org returned a result whose URL is exactly this item with this label (verified_by); otherwise \"verified\": false with the reason.",
     "Every run writes the live label, description and instance counts of every class to review/classes.json. A class is PUBLISHED FROM only when it is verified, included, and its live label still matches; every other class is queried for discovery counts only, never published from, until a human marks it verified.",
     "Blocklist classes only remove items (an item whose own P31 is one of them). An entry is applied when it is verified, or when this run's live label of the QID equals the configured label (logged in review/classes.json).",
-    "When several classes give different types, a class that is the item's own P31 wins; otherwise the most specific type (lib/entities.mjs TYPE_PRIORITY)."
+    "When several classes give different types, a class that is the item's own P31 wins; otherwise the most specific type (lib/entities.mjs TYPE_PRIORITY).",
+    "Korea first (v0.18): every usable class (verified, live label matching) is also read for its items located in South Korea (wdt:P17 wd:Q884) before any worldwide query; those items are published from classes that are included, or marked korea_include."
   ],
   "verified_at": "2026-10-20",
   "verified_method": "WebSearch with allowed_domains [\"wikidata.org\"], one query per QID (\"<label> <QID>\"); verified_by is the result URL that showed the item.",
@@ -27,10 +28,10 @@
     {"qid":"Q2005487","label":"video wall","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q2005487","include":true,"project_type":"media_wall","require_coordinates":true,"low_confidence":true,"rule":"Video walls with a location (e.g. IAC Video Wall Q17028586): LED or media walls on architecture. Only located instances are kept, listed as low-confidence types until an editor confirms them; advertising screens are removed by the billboard blocklist entries. Verified 2026-10-20 (search result URL = this item, label \"video wall\"); instance count unknown until the first live run."},
     {"qid":"Q378604","label":"new media art","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q378604","include":true,"project_type":"other","low_confidence":true,"require_coordinates":true,"rule":"Broad: 265 instances but only 4 with coordinates on 2026-10-19. Only instances with coordinates are kept, typed \"other\" and listed as low-confidence types in quality.json until an editor sets a type."},
     {"qid":"Q860372","label":"digital art","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q860372","include":false,"project_type":"other","rule":"Discovery only: a subclass of new media art, mostly screen-based works without a site."},
-    {"qid":"Q550484","label":"video installation","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q550484","include":false,"project_type":"other","rule":"Discovery only: gallery video installations rarely have a public site; enable after reviewing review/classes.json."},
+    {"qid":"Q550484","label":"video installation","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q550484","include":false,"korea_include":true,"project_type":"other","low_confidence":true,"require_coordinates":true,"rule":"Worldwide discovery only: gallery video installations rarely have a public site. Korea first: located items in South Korea are published (korea_include), typed other and listed as low-confidence types until an editor sets a type."},
     {"qid":"Q20437094","label":"installation artwork","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q20437094","include":false,"project_type":"other","rule":"Discovery only: far too broad (every installation artwork). Light installations enter through Q1823448."},
     {"qid":"Q380051","label":"laser lighting show","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q380051","include":false,"project_type":"festival_program","rule":"Discovery only: mostly concert and venue effects, not architecture."},
-    {"qid":"Q926949","label":"musical fountain","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q926949","include":false,"project_type":"light_art","rule":"Discovery only: water and light shows (e.g. Sentosa Musical Fountain Q7451371). An operator may include it after reviewing the counts."},
+    {"qid":"Q926949","label":"musical fountain","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q926949","include":false,"korea_include":true,"project_type":"light_art","rule":"Worldwide discovery only: water and light shows (e.g. Sentosa Musical Fountain Q7451371). Korea first: published from for items located in South Korea (korea_include), such as the Banpo Bridge Moonlight Rainbow Fountain."},
     {"qid":"Q110775916","label":"media artwork","verified":false,"verified_by":null,"unverified_reason":"No search result showed this item page itself (only a talk page mentioning it).","include":false,"project_type":"other","rule":"Excluded: 26,875 instances on 2026-10-19 (30 with coordinates), mostly films, series and media files."},
     {"qid":"Q116262603","label":"illuminated building","verified":false,"verified_by":null,"unverified_reason":"No search result showed this item.","include":false,"project_type":"media_architecture","rule":"Discovery only: 0 instances on 2026-10-19 (\"state where a building is illuminated\"). Architectural lighting enters only through the specific classes above; Commons \"Illuminated buildings\" categories are image evidence only (config/categories.json)."}
   ],
@@ -69,6 +70,8 @@
     "P1705": "native label",
     "P1448": "official name",
     "P5817": "state of use",
-    "P276": "location"
+    "P276": "location",
+    "P150": "contains the administrative territorial entity",
+    "P300": "ISO 3166-2 code"
   }
 }

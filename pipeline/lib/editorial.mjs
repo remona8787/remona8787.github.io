@@ -23,8 +23,8 @@ import T from '../../site-public-cleared/archive-taxonomy.js'
 import { bareFile, isQid, validLat, validLng, slugify, fnv1a } from './util.mjs'
 
 export const ACTIONS = ['approve', 'hide', 'unhide', 'merge', 'edit', 'block_image', 'set_hero', 'unset_hero']
-const ID_RE = /^(?:Q[1-9]\d{0,11}|[A-Z]{2,12}\d{1,6}|CAT-[0-9A-Z]{1,13}|ED-[a-z0-9-]{1,60}|X-[0-9A-Z]{1,13}|cand-[0-9a-z]{1,13}|new:[a-z0-9-]{1,60})$/
-const EDIT_FIELDS = ['name_ko', 'name_en', 'name_original', 'name_original_lang', 'country_iso2', 'city', 'city_ko', 'lat', 'lng', 'project_type', 'official_url', 'description_ko', 'description_en', 'visit']
+const ID_RE = /^(?:Q[1-9]\d{0,11}|[A-Z]{2,12}\d{1,6}|CAT-[0-9A-Z]{1,13}|ED-[a-z0-9-]{1,60}|X-[0-9A-Z]{1,13}|KTO-\d{1,12}|cand-[0-9a-z]{1,13}|new:[a-z0-9-]{1,60})$/
+const EDIT_FIELDS = ['name_ko', 'name_en', 'name_original', 'name_original_lang', 'country_iso2', 'city', 'city_ko', 'lat', 'lng', 'project_type', 'kr_region', 'official_url', 'description_ko', 'description_en', 'visit']
 const VISIT_STATUS = new Set(['operating', 'seasonal', 'event_based', 'ended', 'inactive', 'demolished', 'unknown'])
 
 const text = (v, max = 300) => typeof v === 'string' && v.trim() ? v.replace(/\s+/g, ' ').trim().slice(0, max) : null
@@ -42,6 +42,7 @@ export function cleanFields(fields) {
       case 'lat': if (validLat(Number(v))) out.lat = Number(v); else problems.push('bad_lat'); break
       case 'lng': if (validLng(Number(v))) out.lng = Number(v); else problems.push('bad_lng'); break
       case 'project_type': if (T.valid('project_type', v)) out[k] = v; else problems.push('bad_project_type'); break
+      case 'kr_region': if (T.valid('kr_region', v)) out[k] = v; else problems.push('bad_kr_region'); break
       case 'official_url': { const u = httpsUrl(v); if (u) out[k] = u; else problems.push('bad_official_url'); break }
       case 'name_original_lang': if (/^[a-z]{2,3}(-[A-Za-z]{2,4})?$/.test(String(v))) out[k] = String(v); else problems.push('bad_language'); break
       case 'visit': {
@@ -200,6 +201,8 @@ export function applyToProject(ed, p) {
       for (const k of ['name_ko', 'name_en', 'name_original', 'name_original_lang', 'country_iso2', 'city', 'city_ko', 'project_type', 'official_url', 'description_ko', 'description_en']) if (k in f) put(k, f[k])
       if ('lat' in f) { put('latitude', f.lat); put('longitude', f.lng); p.location_precision = f.lat === null ? (p.city ? 'city' : 'unknown') : 'exact' }
       if ('country_iso2' in f) p.region = f.country_iso2 ? T.regionOf(f.country_iso2) : null
+      // kr_region: the edit wins over every derived rule (lib/korea.mjs krRegionOf reads kr_region_edit).
+      if ('kr_region' in f) p.kr_region_edit = f.kr_region
       if ('project_type' in f) { p.type_source = 'editorial'; p.type_low_confidence = false }
       if ('visit' in f) { p.visit = f.visit; if (f.visit) fs.visit = 'editorial' }
       if (f.official_url && !p.sources.some((s) => s.url === f.official_url)) p.sources.push({ id: 'official', kind: 'official', title: null, url: f.official_url, publisher: null })

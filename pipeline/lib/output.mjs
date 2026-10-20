@@ -6,7 +6,8 @@ import T from '../../site-public-cleared/archive-taxonomy.js'
 import { fnv1a, round, compareStrings, sha256, stableStringify } from './util.mjs'
 
 export const DATA_SCHEMA = 1
-export const INDEX_FIELDS = ['id', 'name_ko', 'name_en', 'name_original', 'country_iso2', 'city', 'lat', 'lng', 'project_type', 'year', 'thumb', 'visual_rank', 'shard', 'added_at']
+// The v0.17 fields first (readers find columns by name), then v0.18: kr_region, and the thumbnail's size.
+export const INDEX_FIELDS = ['id', 'name_ko', 'name_en', 'name_original', 'country_iso2', 'city', 'lat', 'lng', 'project_type', 'year', 'thumb', 'visual_rank', 'shard', 'added_at', 'kr_region']
 export const SHARD_TARGET = 200
 
 /** Number of shards: a power of two, so ids move between shards only when the archive doubles. */
@@ -51,6 +52,7 @@ export function publicRecord(p, { shard, addedAt }) {
     aliases: p.aliases || [],
     country_iso2: p.country_iso2 ?? null,
     region: p.region ?? null,
+    kr_region: p.country_iso2 === 'KR' ? p.kr_region ?? null : null,
     city: p.city ?? null,
     city_ko: p.city_ko ?? null,
     district: p.district ?? null,
@@ -112,7 +114,7 @@ export function buildIndex(records, { compactAboveBytes = 512 * 1024 } = {}) {
     const card = r.images.find((i) => i.role === 'card') || r.images.find((i) => i.role === 'hero') || null
     return [r.id, r.name_ko, r.name_en, r.name_original && r.name_original !== r.name_en && r.name_original !== r.name_ko ? r.name_original : null,
       r.country_iso2, r.city, r.lat === null ? null : round(r.lat, 4), r.lng === null ? null : round(r.lng, 4), r.project_type, yearOf(r),
-      card?.thumb ?? null, card?.tier ?? null, r.shard, r.added_at ? r.added_at.slice(0, 10) : null]
+      card?.thumb ?? null, card?.tier ?? null, r.shard, r.added_at ? r.added_at.slice(0, 10) : null, r.kr_region ?? null]
   })
   const full = { schema: DATA_SCHEMA, fields: INDEX_FIELDS, rows }
   if (Buffer.byteLength(JSON.stringify(full)) <= compactAboveBytes) return full
@@ -121,7 +123,7 @@ export function buildIndex(records, { compactAboveBytes = 512 * 1024 } = {}) {
 }
 
 const compact = (r, image) => ({
-  id: r.id, name_ko: r.name_ko, name_en: r.name_en, name_original: r.name_original, country_iso2: r.country_iso2, city: r.city,
+  id: r.id, name_ko: r.name_ko, name_en: r.name_en, name_original: r.name_original, country_iso2: r.country_iso2, kr_region: r.kr_region ?? null, city: r.city,
   lat: r.lat, lng: r.lng, project_type: r.project_type, year: yearOf(r), shard: r.shard, ...(r.curated_place_id ? { curated_place_id: r.curated_place_id } : {}),
   ...(r.wikidata ? { wikidata: r.wikidata } : {}), added_at: r.added_at, image: image ? imageOut(image) : null,
 })
@@ -200,6 +202,7 @@ export function buildStats(records, { buildId, generatedAt }) {
     },
     by_type: tally(records, (r) => r.project_type),
     by_region: tally(records, (r) => r.region),
+    by_kr_region: tally(records, (r) => r.kr_region),
     by_country: tally(records, (r) => r.country_iso2),
     by_decade: tally(records, (r) => { const y = yearOf(r); return y ? String(Math.floor(y / 10) * 10) + 's' : null }),
     by_year: tally(records, (r) => yearOf(r)),
@@ -223,6 +226,9 @@ export function buildManifest({ buildId, generatedAt, records, shards, sources }
       by_type: tally(records, (r) => r.project_type),
       by_region: tally(records, (r) => r.region),
       by_country: tally(records, (r) => r.country_iso2),
+      by_kr_region: tally(records, (r) => r.kr_region),
+      korea: records.filter((r) => r.country_iso2 === 'KR').length,
+      world: records.filter((r) => r.country_iso2 !== 'KR').length,
     },
     files: { index: 'index.json', home: 'home.json', stats: 'stats.json', shards: shards.map((s) => `projects/${s}.json`) },
     sources,

@@ -26,7 +26,9 @@ import { defaultSleep, errorText } from '../edge-functions/_shared/archive/http.
 import { createClient, USER_AGENT } from './lib/net.mjs'
 import { Cache, HOUR } from './lib/cache.mjs'
 import { readJSON, writeJSON, writeFileAtomic, swapDir, listFiles } from './lib/io.mjs'
-import { discoverClasses, classInstances, fetchEntities, fetchAux, auxRefs, auxNext, factsOf } from './lib/wikidata.mjs'
+import { discoverClasses, addClassCounts, classInstances, countryClassInstances, fetchEntities, fetchAux, auxRefs, auxNext, factsOf } from './lib/wikidata.mjs'
+import { compileGazetteer, discoverKrDivisions, krRegionOf, KR_REGIONS } from './lib/korea.mjs'
+import { discoverTourApi, tourObservation } from './lib/tourapi.mjs'
 import { discoverCategories, categoryRules, isNightCategory, isEventCategory, nightParent, fileInfo, categoryMembers, categoryFiles, depictsFiles } from './lib/commons.mjs'
 import { discoverWikipedia, acceptEntity } from './lib/wikipedia.mjs'
 import { webRules, collectWeb, mergeCandidates } from './lib/web.mjs'
@@ -41,25 +43,25 @@ import { loadEditorial, compileEditorial, heroAllowSet, imageBlocked, applyToPro
 import { publicRecord, buildIndex, buildHome, buildStats, buildManifest, shardCount, shardOf, contentHash } from './lib/output.mjs'
 import { checkDataset, checkReport, checkQuality, checkCandidates } from './lib/schema.mjs'
 import { loadState, saveState, updateFailures, trackProjects, ORIGIN_SOURCE } from './lib/state.mjs'
-import { compactTime, uniq, chunk, isQid, stableStringify, sha256, compareStrings, wikidataPage, bareFile } from './lib/util.mjs'
+import { compactTime, uniq, chunk, isQid, stableStringify, sha256, compareStrings, wikidataPage, bareFile, redactKeys } from './lib/util.mjs'
 
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 export const PROJECT_ROOT = path.resolve(HERE, '..')
 const CATEGORY_ITEM = 'Q4167836'
 const iso = (t) => new Date(t).toISOString()
-const msg = (e) => String(e?.message || e).slice(0, 300)
+const msg = (e) => redactKeys(String(e?.message || e)).slice(0, 300)
 const isBudget = (e) => e?.code === 'budget'
 
 export function loadConfig(overrides = {}) {
   const read = (name) => JSON.parse(readFileSync(path.join(HERE, 'config', name), 'utf8'))
-  const pipeline = read('pipeline.json'), classes = read('classes.json'), categories = read('categories.json')
+  const pipeline = read('pipeline.json'), classes = read('classes.json'), categories = read('categories.json'), korea = read('korea.json')
   const merge = (a, b) => {
     if (!b || typeof b !== 'object' || Array.isArray(b)) return b === undefined ? a : b
     const out = { ...(a || {}) }
     for (const [k, v] of Object.entries(b)) out[k] = v && typeof v === 'object' && !Array.isArray(v) && a?.[k] && typeof a[k] === 'object' && !Array.isArray(a[k]) && k !== 'wikis' ? merge(a[k], v) : v
     return out
   }
-  return { pipeline: merge(pipeline, overrides.pipeline), classes: merge(classes, overrides.classes), categories: merge(categories, overrides.categories) }
+  return { pipeline: merge(pipeline, overrides.pipeline), classes: merge(classes, overrides.classes), categories: merge(categories, overrides.categories), korea: merge(korea, overrides.korea) }
 }
 
 /** Reads the previous published dataset (records by id) from site-data/. */
@@ -143,44 +145,77 @@ export async function runPipeline(o) {
   if (ed.created.length) status('editorial', { status: 'ok', items: ed.created.length, errors: [] })
 
   // ---------------------------------------------------------------- sources (concurrent: different hosts)
+  // Korea first: the Korean sources start first on every shared host (the per-host queues keep call order) and run
+  // until the stage deadline; the foreign sources use a view of the client that stops korea.foreign_reserve_share of
+  // the stage earlier, so the time budget never cuts Korean sources before foreign ones.
   client.setDeadline(stageDeadline('sources'))
-  let classReview = null, categories = null, wikiHits = [], webOut = null
+  const KC = cfg.korea, gaz = compileGazetteer(KC), KO = P.korea || {}
+  const sourcesMs = budgetMs * (shares.sources ?? 0.42)
+  const foreign = client.view(() => client.deadline - sourcesMs * (KO.foreign_reserve_share ?? 0.2))
+  let classReview = null, categories = null, wikiHits = [], webOut = null, krDiv = null, krInst = null, tourOut = null
   const S = P.sources || {}
+  const koreaOn = S.korea?.enabled !== false
   await st.run('sources', async () => {
     const wikidataTask = (async () => {
       if (S.wikidata?.enabled === false) { status('wikidata', { status: 'disabled', items: 0, errors: [] }); return }
       const t = clock(), e = []
       try {
-        classReview = await discoverClasses(client, cfg.classes, { cache, ttlHours: ttl.class_counts ?? 24 })
+        // Live labels of every class, blocklist item, property and the country item (one or two requests).
+        classReview = await discoverClasses(client, cfg.classes, { cache, ttlHours: ttl.class_counts ?? 24, counts: false, extraItems: [{ qid: KC.country.qid, label: KC.country.label, purpose: 'korea_country' }] })
         e.push(...classReview.errors)
-        const inst = await classInstances(client, classReview.classes, { cache, ttlHours: ttl.sparql ?? 24 })
+        const props = new Map(classReview.properties.map((x) => [x.pid, x.ok]))
+        const countryOk = classReview.items.find((x) => x.qid === KC.country.qid)?.ok === true
+        // Korea: the first-level divisions (kr_region), then the items of the usable classes located in Korea.
+        if (koreaOn && countryOk) {
+          krDiv = await discoverKrDivisions(client, KC, { cache, ttlHours: ttl.kr_divisions ?? 168, gaz, properties: props })
+          e.push(...krDiv.errors)
+          if (props.get('P17') !== false) {
+            krInst = await countryClassInstances(client, classReview.classes, KC.country.qid, { cache, ttlHours: ttl.sparql ?? 24, limit: KO.class_instance_limit ?? 2000 })
+            e.push(...krInst.errors)
+          }
+        } else if (koreaOn) e.push({ stage: 'korea', message: `country item ${KC.country.qid} not confirmed this run (live label differs or was not read)` })
+        // Discovery counts and the worldwide instances (foreign: stops first when time runs short).
+        await addClassCounts(foreign, classReview.classes, { ttlHours: ttl.class_counts ?? 24, errors: e })
+        const inst = await classInstances(foreign, classReview.classes, { cache, ttlHours: ttl.sparql ?? 24 })
         e.push(...inst.errors)
         classReview.instances = inst
-        const n = inst.byQid.size
-        status('wikidata', { status: e.length ? (n ? 'partial' : 'error') : 'ok', items: n, errors: e, duration_ms: clock() - t })
+        const n = new Set([...inst.byQid.keys(), ...(krInst?.byQid.keys() || [])]).size
+        status('wikidata', { status: e.length ? (n ? 'partial' : 'error') : 'ok', items: n, korea_items: krInst?.byQid.size ?? 0, errors: e, duration_ms: clock() - t })
       } catch (x) {
         err('wikidata', x)
-        status('wikidata', { status: isBudget(x) && classReview?.instances ? 'partial' : 'error', items: classReview?.instances?.byQid.size ?? 0, errors: [...e, { message: msg(x) }], duration_ms: clock() - t })
+        const n = (classReview?.instances?.byQid.size ?? 0) + (krInst?.byQid.size ?? 0)
+        status('wikidata', { status: isBudget(x) && n ? 'partial' : 'error', items: n, korea_items: krInst?.byQid.size ?? 0, errors: [...e, { message: msg(x) }], duration_ms: clock() - t })
       }
     })()
     const commonsTask = (async () => {
       if (S.commons?.enabled === false) { status('commons', { status: 'disabled', items: 0, errors: [] }); return }
       const t = clock()
       try {
-        categories = await discoverCategories(client, cfg.categories, { cache, ttlHours: ttl.commons_category ?? 72, classQids: (cfg.classes.classes || []).map((c) => c.qid) })
+        categories = await discoverCategories(client, cfg.categories, { cache, ttlHours: ttl.commons_category ?? 72, classQids: (cfg.classes.classes || []).map((c) => c.qid), foreign, korea: koreaOn })
         const n = [...categories.categories.values()].filter((c) => c.decision === 'candidate').length
-        status('commons', { status: categories.partial ? 'partial' : categories.errors.length ? (n ? 'partial' : 'error') : 'ok', items: n, errors: categories.errors, warnings: categories.warnings, duration_ms: clock() - t })
+        status('commons', { status: categories.partial ? 'partial' : categories.errors.length ? (n ? 'partial' : 'error') : 'ok', items: n, korea_items: [...categories.categories.values()].filter((c) => c.decision === 'candidate' && c.korea).length, errors: categories.errors, warnings: categories.warnings, duration_ms: clock() - t })
       } catch (x) { err('commons', x); status('commons', { status: 'error', items: 0, errors: [{ message: msg(x) }], duration_ms: clock() - t }) }
     })()
     const wikipediaTask = (async () => {
       if (S.wikipedia?.enabled === false) { status('wikipedia', { status: 'disabled', items: 0, errors: [] }); return }
       const t = clock()
-      // One sequence per wiki (1 request per second each), the wikis in parallel.
+      // One sequence per wiki (1 request per second each), the wikis in parallel; Korean Wikipedia (the wide Korean
+      // term list) on the Korean deadline, the others on the foreign one.
       const runs = await Promise.all(Object.entries(P.wikipedia?.wikis || {}).map(([lang, terms]) =>
-        discoverWikipedia(client, { ...P.wikipedia, wikis: { [lang]: terms } }, { cache }).catch((x) => ({ hits: [], errors: [{ stage: 'wikipedia', wiki: lang, message: msg(x) }], partial: isBudget(x) }))))
+        discoverWikipedia(lang === 'ko' ? client : foreign, { ...P.wikipedia, wikis: { [lang]: terms } }, { cache }).catch((x) => ({ hits: [], errors: [{ stage: 'wikipedia', wiki: lang, message: msg(x) }], partial: isBudget(x) }))))
       wikiHits = runs.flatMap((r) => r.hits)
       const e = runs.flatMap((r) => r.errors), partial = runs.some((r) => r.partial)
-      status('wikipedia', { status: partial ? 'partial' : e.length ? (wikiHits.length ? 'partial' : 'error') : 'ok', items: wikiHits.length, errors: e, duration_ms: clock() - t })
+      status('wikipedia', { status: partial ? 'partial' : e.length ? (wikiHits.length ? 'partial' : 'error') : 'ok', items: wikiHits.length, korea_items: wikiHits.filter((h) => h.lang === 'ko').length, errors: e, duration_ms: clock() - t })
+    })()
+    const tourTask = (async () => {
+      if (!koreaOn || S.tourapi?.enabled === false) { status('tourapi', { status: 'disabled', items: 0, errors: [] }); return }
+      const key = env.TOURAPI_SERVICE_KEY
+      if (!key) { status('tourapi', { status: 'skipped', items: 0, errors: [], reason: 'TOURAPI_SERVICE_KEY not set' }); return }
+      const t = clock()
+      try {
+        tourOut = await discoverTourApi(client, P.tourapi || {}, { key, cache, ttlHours: ttl.tourapi ?? 72, termRules: P.wikipedia?.term_rules || {} })
+        status('tourapi', { status: tourOut.partial ? 'partial' : tourOut.errors.length ? (tourOut.items.length ? 'partial' : 'error') : 'ok', items: tourOut.accepted.length, seen: tourOut.items.length, errors: tourOut.errors.slice(0, 50), duration_ms: clock() - t })
+      } catch (x) { err('tourapi', x); status('tourapi', { status: isBudget(x) ? 'partial' : 'error', items: 0, errors: [{ message: msg(x) }], duration_ms: clock() - t }) }
     })()
     const webTask = (async () => {
       if (S.web?.enabled === false) { status('web', { status: 'disabled', items: 0, errors: [] }); return }
@@ -189,41 +224,46 @@ export async function runPipeline(o) {
         const rules = S.web?.rules || webRules({ gdelt: S.web?.gdelt !== false, rss: S.web?.rss !== false, getEnv: (k) => env[k] })
         const known = observations.filter((x) => x.origin === 'curated').map((x) => ({ id: x.curated_id, names: [x.name?.ko, x.name?.en].filter(Boolean), wikidata_qid: x.qid }))
         for (const r of prev.records.values()) known.push({ id: r.id, names: [r.name_ko, r.name_en, r.name_original].filter(Boolean), wikidata_qid: r.wikidata })
-        webOut = await collectWeb({ client, rules, ruleState: state.webRules, projects: known, getEnv: (k) => env[k], deadline: client.deadline })
+        webOut = await collectWeb({ client: foreign, rules, ruleState: state.webRules, projects: known, getEnv: (k) => env[k], deadline: foreign.deadline })
         const ok = webOut.results.filter((r) => r.status === 'success' || r.status === 'partial').length
         const failed = webOut.results.filter((r) => r.status === 'error').length
         status('web', { status: failed && !ok ? 'error' : failed || webOut.results.some((r) => r.reason === 'time_budget') ? 'partial' : 'ok', items: webOut.items.length, errors: webOut.errors.slice(0, 50), rules: webOut.results, duration_ms: clock() - t })
       } catch (x) { err('web', x); status('web', { status: 'error', items: 0, errors: [{ message: msg(x) }], duration_ms: clock() - t }) }
     })()
-    await Promise.all([wikidataTask, commonsTask, wikipediaTask, webTask])
+    await Promise.all([wikidataTask, commonsTask, wikipediaTask, tourTask, webTask])
   })
   say(`[pipeline] sources: ${Object.entries(sourceStatus).map(([k, v]) => `${k}=${v.status}(${v.items})`).join(' ')}`)
 
-  // Observations from the sources.
+  // Observations from the sources (Korean ones first: they are enriched first).
   const classByQid = new Map((classReview?.classes || []).map((c) => [c.qid, c]))
   const classCfg = new Map((cfg.classes.classes || []).map((c) => [c.qid, c]))
-  for (const [qid, classQids] of classReview?.instances?.byQid || []) {
-    observations.push({
-      origin: 'wikidata_class', qid,
-      class_types: classQids.map((c) => ({ qid: c, project_type: classByQid.get(c)?.project_type, publish: !!classByQid.get(c)?.publish, low_confidence: !!classCfg.get(c)?.low_confidence, require_coordinates: !!classCfg.get(c)?.require_coordinates })),
-      sources: [], evidence: [{ kind: 'wikidata_class', classes: classQids }],
-    })
-  }
+  const classObservation = (qid, classQids, korea) => ({
+    origin: 'wikidata_class', qid, korea,
+    class_types: classQids.map((c) => ({ qid: c, project_type: classByQid.get(c)?.project_type, publish: !!(korea ? classByQid.get(c)?.publish_korea : classByQid.get(c)?.publish), low_confidence: !!classCfg.get(c)?.low_confidence, require_coordinates: !!classCfg.get(c)?.require_coordinates })),
+    sources: [], evidence: [{ kind: 'wikidata_class', classes: classQids, ...(korea ? { country: KC.country.qid } : {}) }],
+  })
+  for (const [qid, classQids] of krInst?.byQid || []) observations.push(classObservation(qid, classQids, true))
+  for (const [qid, classQids] of classReview?.instances?.byQid || []) observations.push(classObservation(qid, classQids, false))
+  for (const t of tourOut?.accepted || []) observations.push(tourObservation(t))
   const evidenceCats = []
   for (const c of categories?.categories?.values() || []) {
     if (c.decision === 'evidence') evidenceCats.push(c)
     if (c.decision !== 'candidate') continue
     observations.push({
-      origin: 'commons', category: c.title, qid: c.qid, lat: c.lat, lng: c.lng, place_hint: c.place_hint, project_type: c.project_type,
+      origin: 'commons', category: c.title, qid: c.qid, lat: c.lat, lng: c.lng, place_hint: c.place_hint, project_type: c.project_type, korea: !!c.korea,
       parts: c.parts || [], editions: c.editions || [], night_subcats: [],
       sources: [], evidence: [{ kind: 'commons_category', title: c.title, root: c.root, reason: c.reason, via_file: c.via_file || null }],
     })
   }
   const accept = Number(P.wikipedia?.accept_score ?? 50)
   const configuredClassQids = new Set((cfg.classes.classes || []).map((c) => c.qid))
+  // Wikipedia hits: a broad term (config wikipedia.term_rules) needs a higher score; the term names the type.
+  const termRules = P.wikipedia?.term_rules || {}
   for (const h of wikiHits) {
-    if (h.score < accept || !h.qid || configuredClassQids.has(h.qid)) continue
-    observations.push({ origin: 'wikipedia', qid: h.qid, sources: [], evidence: [{ kind: 'wikipedia', lang: h.lang, title: h.title, url: h.url, term: h.term, score: h.score, reasons: h.reasons, accepted: false }] })
+    const rule = termRules[h.term] || {}
+    h.min_score = rule.min_score ?? accept
+    if (h.score < h.min_score || !h.qid || configuredClassQids.has(h.qid)) continue
+    observations.push({ origin: 'wikipedia', qid: h.qid, korea: h.lang === 'ko', sources: [], evidence: [{ kind: 'wikipedia', lang: h.lang, title: h.title, url: h.url, term: h.term, score: h.score, reasons: h.reasons, accepted: false, ...(rule.type ? { type: rule.type } : {}) }] })
   }
 
   // ---------------------------------------------------------------- enrichment
@@ -235,7 +275,9 @@ export async function runPipeline(o) {
   await st.run('enrich', async () => {
     const t = clock(), e = []
     const props = Object.keys(cfg.classes.properties || {}).filter((k) => /^P\d+$/.test(k) && !badProps.has(k))
-    const opts = { cache, ttlHours: ttl.entities ?? 72, properties: props, languages: P.label_languages || ['ko', 'en'], wikis: P.sitelink_wikis || ['kowiki', 'enwiki'] }
+    // Korea first: items from the Korean sources and the curated places are read before the others.
+    const priority = new Set(observations.filter((x) => x.korea || x.origin === 'curated' || x.origin === 'tourapi').map((x) => x.qid).filter(isQid))
+    const opts = { cache, ttlHours: ttl.entities ?? 72, properties: props, languages: P.label_languages || ['ko', 'en'], wikis: P.sitelink_wikis || ['kowiki', 'enwiki'], priority }
     try {
       let { entities, redirects, errors: e1 } = await fetchEntities(client, uniq(observations.map((x) => x.qid).filter(isQid)), opts)
       e.push(...e1)
@@ -250,13 +292,15 @@ export async function runPipeline(o) {
         for (const x of observations) if (x.qid && topics.has(x.qid)) { x.category_item = x.qid; x.qid = topics.get(x.qid) ? (more.redirects.get(topics.get(x.qid)) || topics.get(x.qid)) : null }
       }
       // Aux rounds: countries (ISO codes), administrative areas up to the city, class labels, people.
-      const aux = await fetchAux(client, auxRefs(entities.values()), { cache, ttlHours: ttl.entities_aux ?? 720 })
+      const krEntities = [...entities.values()].filter((ent) => priority.has(ent.id) || (ent.claims.P17 || []).some((v) => v.item === KC.country.qid))
+      const auxPriority = new Set(auxRefs(krEntities))
+      const aux = await fetchAux(client, auxRefs(entities.values()), { cache, ttlHours: ttl.entities_aux ?? 720, priority: auxPriority })
       e.push(...aux.errors)
       auxMap = aux.aux
       for (let round = 0; round < 3; round++) {
         const next = auxNext(auxMap, [...auxMap.keys()])
         if (!next.length) break
-        const r = await fetchAux(client, next, { cache, ttlHours: ttl.entities_aux ?? 720 })
+        const r = await fetchAux(client, next, { cache, ttlHours: ttl.entities_aux ?? 720, priority: new Set(auxNext(auxMap, [...auxPriority])) })
         e.push(...r.errors)
         for (const [k, v] of r.aux) auxMap.set(k, v)
       }
@@ -282,6 +326,7 @@ export async function runPipeline(o) {
     ev.accepted = a.ok
     ev.entity_reasons = a.reasons
     if (a.ok && f.p31_labels.some((l) => /\b(festival|event|show)\b/i.test(l))) ev.type = 'festival_program'
+    else if (a.ok && f.p31_labels.some((l) => /\b(museum|gallery|exhibition|art centre|art center)\b/i.test(l)) && (ev.type ?? 'media_facade') === 'media_facade' && !/파사드|facade|façade|fassade/i.test(ev.term)) ev.type = 'media_architecture'
     wikiDecisions.push({ qid: x.qid, url: ev.url, lang: ev.lang, term: ev.term, score: ev.score, reasons: ev.reasons, accepted: a.ok, entity_reasons: a.reasons, p31_labels: f?.p31_labels || [] })
   }
   const kept = observations.filter((x) => x.origin !== 'wikipedia' || x.evidence[0].accepted)
@@ -335,8 +380,14 @@ export async function runPipeline(o) {
 
   // ---------------------------------------------------------------- editorial, blocklist, eligibility
   const excluded = [], published = []
+  const krDecisions = []
   for (const p of projects) {
     applyToProject(ed, p)
+    // kr_region (lib/korea.mjs): every rule's outcome is logged in review/korea.json.
+    const kr = krRegionOf(p, { facts: p.qid ? facts.get(p.qid) : null, auxMap, confirmed: krDiv?.confirmed || new Map(), gaz, cfg: KC })
+    p.kr_region = kr.region
+    if (kr.region) p.field_sources = { ...(p.field_sources || {}), kr_region: { editorial: 'editorial', curated_seoul: 'curated', p131: 'wikidata', p131_labels: 'wikidata', tourapi_ldong: 'tourapi', tourapi_areacode: 'tourapi' }[kr.rule] || 'derived:gazetteer' }
+    if (p.country_iso2 === 'KR') krDecisions.push({ id: p.id, qid: p.qid || null, name: p.name_ko || p.name_en || p.name_original, ...kr })
     const p31 = uniq((p.all_qids || [p.qid]).flatMap((q) => entityP31.get(q) || []))
     const blocked = p31.filter((q) => blockActive.has(q))
     if (exclude && !p.curated_id) for (const l of p.p31_labels || []) if (exclude.test(l) && !(p.origins.includes('wikidata_class') && p.class_publish)) blocked.push('class_label:' + l)
@@ -361,7 +412,8 @@ export async function runPipeline(o) {
     for (const key of [c.qid && 'q:' + c.qid, parent && 'c:' + parent].filter(Boolean)) evidenceByKey.set(key, [...(evidenceByKey.get(key) || []), c.title])
   }
   const typeOrder = ['media_facade', 'projection_mapping', 'media_wall', 'urban_screen', 'interactive_installation', 'light_art', 'media_architecture', 'festival_program', 'other']
-  const order = [...published].sort((a, b) => (b.curated_id ? 1 : 0) - (a.curated_id ? 1 : 0) || (prev.records.get(b.id)?.images?.length ? 1 : 0) - (prev.records.get(a.id)?.images?.length ? 1 : 0) || typeOrder.indexOf(a.project_type) - typeOrder.indexOf(b.project_type) || (b.p18.length ? 1 : 0) - (a.p18.length ? 1 : 0) || compareStrings(a.id, b.id))
+  // Korea first: Korean projects get their images before any foreign one, so a short budget cuts foreign images first.
+  const order = [...published].sort((a, b) => (b.country_iso2 === 'KR' ? 1 : 0) - (a.country_iso2 === 'KR' ? 1 : 0) || (b.curated_id ? 1 : 0) - (a.curated_id ? 1 : 0) || (prev.records.get(b.id)?.images?.length ? 1 : 0) - (prev.records.get(a.id)?.images?.length ? 1 : 0) || typeOrder.indexOf(a.project_type) - typeOrder.indexOf(b.project_type) || (b.p18.length ? 1 : 0) - (a.p18.length ? 1 : 0) || compareStrings(a.id, b.id))
   let thumbsFetched = 0, depictsAsked = 0
   const heroOutcome = new Map()
   const imageStats = { processed: 0, kept_previous: 0, none: 0, candidates: 0, rejected: {}, measured: 0, measure_errors: 0 }
@@ -523,7 +575,7 @@ export async function runPipeline(o) {
   let linkRows = []
   await st.run('links', async () => {
     const targets = []
-    for (const p of published) {
+    for (const p of [...published].sort((a, b) => (b.country_iso2 === 'KR' ? 1 : 0) - (a.country_iso2 === 'KR' ? 1 : 0))) {
       if (p.official_url) targets.push({ url: p.official_url, project: p.id, field: 'official_url' })
       for (const s of p.sources) if (!['wikidata', 'wikipedia', 'commons'].includes(s.kind) && s.url !== p.official_url) targets.push({ url: s.url, project: p.id, field: 'source:' + s.id })
     }
@@ -584,7 +636,7 @@ export async function runPipeline(o) {
     const hero = r.images.find((i) => i.role === 'hero' && i.tier === 1) || null
     picks.set(r.id, { hero, home: ir?.home ?? (r.images.find((i) => i.role === 'hero') || null), score: ir?.score ?? (hero ? 80 : 0) })
   }
-  const sourcesManifest = Object.fromEntries(['wikidata', 'commons', 'wikipedia', 'curated', 'web'].filter((k) => sourceStatus[k]).map((k) => [k, { status: sourceStatus[k].status, last_success: sourceStatus[k].last_success, items: sourceStatus[k].items ?? null }]))
+  const sourcesManifest = Object.fromEntries(['wikidata', 'commons', 'wikipedia', 'tourapi', 'curated', 'web'].filter((k) => sourceStatus[k]).map((k) => [k, { status: sourceStatus[k].status, last_success: sourceStatus[k].last_success, items: sourceStatus[k].items ?? null }]))
   const hashParts = { records }
   const hash = contentHash(hashParts)
   const unchanged = state.runs.last_good?.content_hash === hash && prev.manifest
@@ -689,6 +741,16 @@ export async function runPipeline(o) {
   await writeJSON(path.join(dirs.review, 'images.json'), { schema: 1, at: startedAt, projects: imageReview }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'web.json'), { schema: 1, at: startedAt, rules: webOut?.results ?? null, errors: webOut?.errors ?? [] }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'http-log.json'), { schema: 1, at: startedAt, entries: httpLog }, { pretty: true })
+  await writeJSON(path.join(dirs.review, 'tourapi.json'), { schema: 1, at: startedAt, about: 'TourAPI KorService2 keyword discovery: every item seen, the terms found in its title or overview, the classifier verdict and the decision. Accepted items become projects (origin tourapi) when they also have a public source (their homepage) or merge with a known project.', status: sourceStatus.tourapi ?? null, overviews_read: tourOut?.overviews_read ?? 0, items: tourOut?.items ?? [], errors: tourOut?.errors ?? [] }, { pretty: true })
+  await writeJSON(path.join(dirs.review, 'korea.json'), {
+    schema: 1, at: startedAt,
+    about: 'Korea first: the live first-level divisions of South Korea (wd:Q884 p:P150 with ISO 3166-2 codes) and the region each maps to, the configured expectations compared with them, the Korean class instances per class, and the kr_region decision of every Korean project with the rule that made it.',
+    country: classReview?.items?.find((x) => x.qid === KC.country.qid) ?? null,
+    divisions: krDiv ? { from: krDiv.from, list: krDiv.divisions, expected: krDiv.expected, errors: krDiv.errors } : null,
+    class_instances: krInst?.perClass ?? null,
+    regions: Object.fromEntries(KR_REGIONS.map((k) => [k, krDecisions.filter((d) => d.region === k).length])),
+    decisions: krDecisions.sort((a, b) => compareStrings(a.id, b.id)),
+  }, { pretty: true })
 
   state.runs = { schema: 1, runs: runNo, last_run: { at: startedAt, status: report.run.status, build_id: report.run.build_id, duration_ms: report.run.duration_ms }, last_good: published_ ? { build_id: buildId, at: generatedAt, projects: records.length, content_hash: hash } : state.runs.last_good }
   if (published_) state.tracker = track.tracker
@@ -739,18 +801,18 @@ if (process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === imp
   const editorialDir = a.editorial || (existsSync(path.join(PROJECT_ROOT, 'editorial')) ? path.join(PROJECT_ROOT, 'editorial') : null)
   const overrides = { pipeline: {} }
   if (a.budget) overrides.pipeline.budget_minutes = Number(a.budget)
-  let fetchImpl = globalThis.fetch, clock = Date.now, sleep = defaultSleep
+  let fetchImpl = globalThis.fetch, clock = Date.now, sleep = defaultSleep, runEnv = process.env
   if (a.fixtures) {
     // Recorded responses only (tests/fixtures/pipeline): no network, a virtual clock.
     const fx = await import(pathToFileURL(path.join(PROJECT_ROOT, 'tests/fixtures/pipeline/fake-fetch.mjs')).href)
     const env = fx.fixtureEnvironment({ start: a.now ? Date.parse(a.now) : Date.parse('2026-10-20T06:17:00Z') })
-    fetchImpl = env.fetch; clock = env.clock; sleep = env.sleep
+    fetchImpl = env.fetch; clock = env.clock; sleep = env.sleep; runEnv = { ...fx.FIXTURE_ENV }
     Object.assign(overrides, fx.FIXTURE_OVERRIDES)
     overrides.pipeline = { ...fx.FIXTURE_OVERRIDES.pipeline, ...overrides.pipeline }
   }
   try {
     // A run that kept the previous dataset still exits 0: its report, review logs and state are committed.
-    const r = await runPipeline({ dataDir, editorialDir, fetch: fetchImpl, clock, sleep, overrides })
+    const r = await runPipeline({ dataDir, editorialDir, fetch: fetchImpl, clock, sleep, overrides, env: runEnv })
     console.log(`[pipeline] status ${r.report.run.status}, publish ${r.publishStatus}, build ${r.buildId}`)
     // On GitHub Actions: step outputs for the next jobs and a summary on the run page.
     if (process.env.GITHUB_OUTPUT) await appendFile(process.env.GITHUB_OUTPUT, `build_id=${r.buildId ?? ''}\nstatus=${r.report.run.status}\npublish=${r.publishStatus}\n`)

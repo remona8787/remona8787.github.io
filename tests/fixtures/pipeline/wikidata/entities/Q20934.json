@@ -1,0 +1,66 @@
+{
+ "pageid": 20934,
+ "ns": 0,
+ "title": "Q20934",
+ "lastrevid": 2400020934,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q20934",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Incheon"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "인천광역시"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "cb00c7ef1416b04a089c3654b4df9840",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000412,
+       "id": "Q99000412"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q20934$cb00c7ef-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "d7a97c82a532efe81081729715b76a98",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q20934$d7a97c82-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

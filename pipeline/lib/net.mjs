@@ -5,7 +5,8 @@
 //  - a per-host rate limiter: at most 1 request per second per wiki and for the query service, GDELT 1 per 5 s,
 //    Overpass 1 per 10 s, thumbnails 5 per second;
 //  - maxlag=5 on every MediaWiki API call, with a wait and retry when the API answers with a maxlag error;
-//  - the run's time budget: no request starts after the deadline (BudgetError);
+//  - the run's time budget: no request starts after the deadline (BudgetError); a view of the client may have an earlier
+//    deadline of its own (client.view), which is how the foreign sources stop before the Korean ones (Korea first);
 //  - optional caching with a TTL and ETag revalidation (state/cache/);
 //  - per-host counters for report.json (requests, errors, statuses, bytes, time).
 import { fetchWithPolicy, checkUrl, readCapped, parseRetryAfter, retryable, HttpError, defaultSleep, errorText } from '../../edge-functions/_shared/archive/http.mjs'
@@ -38,15 +39,28 @@ export function createStrictLimiter({ clock = Date.now, sleep = defaultSleep, de
   }
 }
 
-export const USER_AGENT = 'LightArchitectureArchive/0.17 (+https://remona8787.github.io/; remona56@hanmail.net)'
+export const USER_AGENT = 'LightArchitectureArchive/0.18 (+https://remona8787.github.io/; remona56@hanmail.net)'
 export const MAXLAG = 5
 export const HOST_INTERVALS = {
   'query.wikidata.org': 1000,
   'www.wikidata.org': 1000,
   'commons.wikimedia.org': 1000,
   'upload.wikimedia.org': 200,
+  'thumb.wikimedia.org': 200,
   'api.gdeltproject.org': 5000,
   'overpass-api.de': 10000,
+  // Image providers and Korean public data (docs/PIPELINE.md "Sources: rate limits and terms").
+  'api.openverse.org': 4000,
+  'api.flickr.com': 1000,
+  'live.staticflickr.com': 200,
+  'apis.data.go.kr': 500,
+  'tong.visitkorea.or.kr': 200,
+  'api.unsplash.com': 75000,
+  'images.unsplash.com': 200,
+  'api.pexels.com': 20000,
+  'images.pexels.com': 200,
+  'naverapihub.apigw.ntruss.com': 1000,
+  'openapi.naver.com': 1000,
 }
 const MEDIAWIKI_API = /^(?:[a-z-]+\.wikipedia\.org|commons\.wikimedia\.org|www\.wikidata\.org)$/
 
@@ -62,8 +76,12 @@ export const isMediaWikiApi = (url) => { try { const u = new URL(url); return ME
  */
 export function createClient({ fetch = globalThis.fetch, clock = Date.now, sleep = defaultSleep, userAgent = USER_AGENT, intervals = HOST_INTERVALS, cache = null, deadline = Infinity, log = () => {} } = {}) {
   const strict = createStrictLimiter({ clock, sleep, defaultIntervalMs: 1000, intervals })
-  // The budget is checked again after the rate-limit wait, so no request starts after the deadline.
-  const limiter = { last: strict.last, intervalOf: strict.intervalOf, async wait(host) { await strict.wait(host); if (clock() >= until) throw new BudgetError('rate_limit_wait') } }
+  // The budget is checked again after the rate-limit wait, so no request starts after the deadline (the client's, or
+  // the earlier one of a view).
+  const limiterUntil = (callUntil) => ({ last: strict.last, intervalOf: strict.intervalOf, async wait(host) { await strict.wait(host); if (clock() >= Math.min(until, callUntil)) throw new BudgetError('rate_limit_wait') } })
+  const limiter = limiterUntil(Infinity)
+  // A provider that answers 429 with a long Retry-After (or reports its quota as used up) is paused until then.
+  const pausedUntil = new Map()
   /** @type {Record<string, {requests: number, ok: number, errors: number, not_modified: number, cached: number, bytes: number, ms: number, statuses: Record<string, number>, last_error: string|null}>} */
   const stats = {}
   const hostStats = (host) => (stats[host] ||= { requests: 0, ok: 0, errors: 0, not_modified: 0, cached: 0, bytes: 0, ms: 0, statuses: {}, last_error: null })
@@ -77,7 +95,10 @@ export function createClient({ fetch = globalThis.fetch, clock = Date.now, sleep
     return fetch(url, { ...init, headers })
   }
 
-  const guard = (stage) => { if (clock() >= until) throw new BudgetError(stage) }
+  const guard = (stage, callUntil = Infinity) => {
+    if (clock() >= Math.min(until, callUntil)) throw new BudgetError(stage)
+  }
+  const checkPaused = (host, url) => { const t = pausedUntil.get(host); if (t && clock() < t) throw new HttpError('rate_limited', `${host} asked to wait until ${new Date(t).toISOString()}`, { url, status: 429 }) }
   const hostOf = (url) => { try { return new URL(url).host } catch { return 'invalid' } }
 
   /**
@@ -87,7 +108,7 @@ export function createClient({ fetch = globalThis.fetch, clock = Date.now, sleep
    *   retries?: number, timeoutMs?: number, maxBytes?: number, stage?: string, accept?: string}} [o]
    */
   async function json(url, o = {}) {
-    const { method = 'GET', headers = {}, body = null, retries = 2, timeoutMs = 30000, maxBytes = 16 * 1024 * 1024, stage = 'fetch', accept = 'application/json' } = o
+    const { method = 'GET', headers = {}, body = null, retries = 2, timeoutMs = 30000, maxBytes = 16 * 1024 * 1024, stage = 'fetch', accept = 'application/json', deadline: callUntil = Infinity, redactUrl = null } = o
     const c = o.cache && cache ? o.cache : null
     const host = hostOf(url)
     if (c) {
@@ -96,9 +117,12 @@ export function createClient({ fetch = globalThis.fetch, clock = Date.now, sleep
     }
     let target = url
     if (isMediaWikiApi(url)) { const u = new URL(url); if (!u.searchParams.has('maxlag')) u.searchParams.set('maxlag', String(MAXLAG)); target = u.href }
+    // Keys in query strings (data.go.kr, Flickr) never reach the logs.
+    const shown = (x) => String(redactUrl ? redactUrl(x) : x).slice(0, 300)
     const stale = c ? cache.entry(c.ns, c.key) : null
+    checkPaused(host, shown(target))
     for (let attempt = 1; ; attempt++) {
-      guard(stage)
+      guard(stage, callUntil)
       const h = { accept, ...headers }
       if (stale?.etag) h['if-none-match'] = stale.etag
       const s = hostStats(host)
@@ -106,10 +130,10 @@ export function createClient({ fetch = globalThis.fetch, clock = Date.now, sleep
       const t0 = clock()
       let res
       try {
-        res = await fetchWithPolicy(target, { fetch: politeFetch, clock, sleep, limiter, method, headers: h, body, retries, timeoutMs, maxBytes, userAgent })
+        res = await fetchWithPolicy(target, { fetch: politeFetch, clock, sleep, limiter: callUntil === Infinity ? limiter : limiterUntil(callUntil), method, headers: h, body, retries, timeoutMs, maxBytes, userAgent })
       } catch (e) {
-        s.errors++; s.ms += clock() - t0; s.last_error = errorText(e)
-        log({ kind: 'http_error', host, url: target.slice(0, 300), message: errorText(e) })
+        s.errors++; s.ms += clock() - t0; s.last_error = redactUrl ? redactUrl(errorText(e)) : errorText(e)
+        log({ kind: 'http_error', host, url: shown(target), message: s.last_error })
         throw e
       }
       s.ms += clock() - t0
@@ -118,7 +142,12 @@ export function createClient({ fetch = globalThis.fetch, clock = Date.now, sleep
       if (res.notModified && stale) { s.not_modified++; cache.touch(c.ns, c.key); return stale.v }
       if (!res.ok) {
         s.errors++; s.last_error = `HTTP ${res.status}`
-        throw new HttpError('http_status', `HTTP ${res.status}`, { url: res.url, status: res.status, retryAfterMs: res.retryAfterMs })
+        if (res.status === 429) {
+          const wait = parseRetryAfter(res.headers.get('retry-after'), clock()) ?? 15 * 60e3
+          pausedUntil.set(host, clock() + Math.min(wait, 24 * 3600e3))
+          log({ kind: 'rate_limited', host, wait_ms: wait })
+        }
+        throw new HttpError('http_status', `HTTP ${res.status}`, { url: shown(res.url), status: res.status, retryAfterMs: res.retryAfterMs })
       }
       let data
       try { data = JSON.parse(res.text || 'null') } catch {
@@ -136,22 +165,25 @@ export function createClient({ fetch = globalThis.fetch, clock = Date.now, sleep
         throw new HttpError('api_error', `${data.error.code}: ${String(data.error.info || '').slice(0, 200)}`, { url: res.url, status: res.status })
       }
       s.ok++
+      if (o.onHeaders) o.onHeaders(res.headers)
       if (c) cache.set(c.ns, c.key, data, { ttlMs: c.ttlMs, etag: res.headers.get('etag') })
       return data
     }
   }
 
   /** GET returning bytes (thumbnails). Same guards as fetchWithPolicy: SSRF check per hop, timeout, cap, retries. */
-  async function bytes(url, { maxBytes = 4 * 1024 * 1024, timeoutMs = 30000, retries = 2, stage = 'thumb' } = {}) {
+  async function bytes(url, { maxBytes = 4 * 1024 * 1024, timeoutMs = 30000, retries = 2, stage = 'thumb', deadline: callUntil = Infinity } = {}) {
     let current = url
+    const lim = callUntil === Infinity ? limiter : limiterUntil(callUntil)
     for (let hop = 0; hop <= 3; hop++) {
       const check = checkUrl(current)
       if (!check.ok) throw new HttpError('ssrf_blocked', `refused ${current}: ${check.reason}`, { url: current })
       const host = check.url.host
       const s = hostStats(host)
+      checkPaused(host, current)
       for (let attempt = 1; ; attempt++) {
-        guard(stage)
-        await limiter.wait(host)
+        guard(stage, callUntil)
+        await lim.wait(host)
         s.requests++
         const t0 = clock()
         const controller = new AbortController()
@@ -191,10 +223,25 @@ export function createClient({ fetch = globalThis.fetch, clock = Date.now, sleep
     throw new HttpError('too_many_redirects', 'more than 3 redirects', { url })
   }
 
-  return {
-    json, bytes, limiter, stats, politeFetch, userAgent, clock, sleep,
+  const client = {
+    json, bytes, limiter, stats, politeFetch, userAgent, clock, sleep, pausedUntil,
     setDeadline(t) { until = t },
     get deadline() { return until },
     remaining() { return until - clock() },
+    /**
+     * The same client (limiter, caches, counters) with an extra deadline: deadlineFn() is read at every request, so
+     * a stage can move it. The foreign sources use a view that stops before the Korean ones (Korea first).
+     */
+    view(deadlineFn) {
+      const d = () => Math.min(until, deadlineFn())
+      return {
+        ...client,
+        json: (u, o = {}) => json(u, { ...o, deadline: Math.min(o.deadline ?? Infinity, deadlineFn()) }),
+        bytes: (u, o = {}) => bytes(u, { ...o, deadline: Math.min(o.deadline ?? Infinity, deadlineFn()) }),
+        get deadline() { return d() },
+        remaining() { return d() - clock() },
+      }
+    },
   }
+  return client
 }

@@ -1,0 +1,113 @@
+{
+ "pageid": 99000505,
+ "ns": 0,
+ "title": "Q99000505",
+ "lastrevid": 2400000505,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000505",
+ "labels": {
+  "ko": {
+   "language": "ko",
+   "value": "픽스처 시립도서관"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "51922aff60e8cb99919ed32d0670f2c0",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 33506,
+       "id": "Q33506"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000505$51922aff-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "2a8cb154133b501cea0c559f9b7683df",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000505$2a8cb154-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "c8469f4589e8af3a7da4fbbc38d69c6c",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000417,
+       "id": "Q99000417"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000505$c8469f45-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "23a954e7078f61a64ec80d593e090af4",
+     "datavalue": {
+      "value": {
+       "latitude": 37.48,
+       "longitude": 127.01,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q99000505$23a954e7-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "kowiki": {
+   "site": "kowiki",
+   "title": "픽스처 시립도서관",
+   "badges": [],
+   "url": "https://ko.wikipedia.org/wiki/%ED%94%BD%EC%8A%A4%EC%B2%98_%EC%8B%9C%EB%A6%BD%EB%8F%84%EC%84%9C%EA%B4%80"
+  }
+ }
+}
