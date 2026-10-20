@@ -21,7 +21,7 @@ export const NAVER_MAX_PAGES = 2
 export const BACKOFF_BASE_MS = 3600e3
 export const BACKOFF_MAX_MS = 48 * 3600e3
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
-const ITEM_KEYS = ['provider', 'rule_id', 'external_id', 'url', 'canonical_url', 'title', 'excerpt', 'publisher', 'language', 'published_at', 'source_kind', 'reliability', 'classification', 'detected', 'keys', 'raw']
+export const ITEM_KEYS = ['provider', 'rule_id', 'external_id', 'url', 'canonical_url', 'title', 'excerpt', 'publisher', 'language', 'published_at', 'source_kind', 'reliability', 'classification', 'detected', 'keys', 'raw']
 
 /**
  * @typedef {import('./adapters/rss.mjs').RawRecord} RawRecord
