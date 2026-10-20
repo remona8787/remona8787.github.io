@@ -1,0 +1,27 @@
+{
+ "at": "2026-10-20T12:17:43.935Z",
+ "entries": [
+  {
+   "at": "2026-10-20T12:17:49.022Z",
+   "host": "www.wikidata.org",
+   "kind": "http_error",
+   "message": "network error: fetch failed (getaddrinfo ENOTFOUND www.wikidata.org)",
+   "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=Q17158007%7CQ4287692%7CQ776483%7CQ1421557%7CQ1823448%7CQ29885984%7CQ1798004%7CQ124414048%7CQ126682969%7CQ126682939%7CQ1136999%7CQ63442021%7CQ110409771%7CQ115452528%7CQ378604%7CQ860372%7CQ550484%7CQ20437094%7CQ380051%7CQ926949%7C"
+  },
+  {
+   "at": "2026-10-20T12:17:53.034Z",
+   "host": "www.wikidata.org",
+   "kind": "http_error",
+   "message": "network error: fetch failed (getaddrinfo ENOTFOUND www.wikidata.org)",
+   "url": "https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&ids=P1705%7CP1448%7CP5817%7CP276&props=labels%7Cdescriptions&languages=en%7Cko&redirects=yes&maxlag=5"
+  },
+  {
+   "at": "2026-10-20T12:18:06.908Z",
+   "host": "overpass-api.de",
+   "kind": "http_error",
+   "message": "network error: fetch failed (getaddrinfo ENOTFOUND overpass-api.de)",
+   "url": "https://overpass-api.de/api/interpreter"
+  }
+ ],
+ "schema": 1
+}

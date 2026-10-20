@@ -1,0 +1,1232 @@
+{
+ "cache": {
+  "hits": 5370,
+  "misses": 152,
+  "sizes": {
+   "commons-category": 244,
+   "commons-files": 1295,
+   "commons-members": 361,
+   "commons-search": 40,
+   "entities": 755,
+   "entities-aux": 1741,
+   "links": 150,
+   "overpass": 0,
+   "sparql": 37,
+   "visual": 646,
+   "wiki-pages": 211,
+   "wiki-search": 32
+  },
+  "stale": 0,
+  "writes": 3
+ },
+ "changes": {
+  "carried_over": [],
+  "changed": [
+   "CAT-06RUPY4",
+   "CAT-0QJFC3C",
+   "CAT-14IPYSX",
+   "CAT-1GGUXSH",
+   "CAT-1OKTAW1",
+   "Q1068874",
+   "Q131314431",
+   "Q15014400",
+   "Q351126",
+   "Q4173984",
+   "Q63319303",
+   "Q796012",
+   "Q96409917",
+   "SEOUL045"
+  ],
+  "merges": [],
+  "new": [],
+  "removed": [
+   {
+    "id": "CAT-0A9JSZO",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "CAT-1B4QSNI",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "CAT-1D0R0GP",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "CAT-1ND3UQ0",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q127867500",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q127869230",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q128188479",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q128569764",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q129176499",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q129177577",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q129255808",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "CAT-0H3JR1Y",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "CAT-0R3QCXL",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "CAT-1Q6ANK9",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q126689885",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q127587524",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q128197049",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q128234371",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q128241531",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q128303488",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q128303619",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q128305860",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q128573229",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q128578587",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q1348762",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q18333843",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q4884726",
+    "reason": "hidden_or_ineligible"
+   },
+   {
+    "id": "Q97030914",
+    "reason": "hidden_or_ineligible"
+   }
+  ]
+ },
+ "counts": {
+  "candidates_awaiting_review": 7,
+  "carried_over": 0,
+  "changed": 14,
+  "excluded": 697,
+  "hero_candidates_awaiting_review": 85,
+  "merged": 0,
+  "new": 0,
+  "observations": 975,
+  "observations_kept": 972,
+  "projects_built": 959,
+  "published": 262,
+  "removed": 28,
+  "stale": 0,
+  "with_hero": 10,
+  "with_images": 125
+ },
+ "decisions": [
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-001-hide.json",
+   "note": "Japanese garden; the article mentions a media facade nearby, the garden itself is not one.",
+   "project": "Q1348762",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q1348762"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-002-hide.json",
+   "note": "Aggregate Commons category (illuminated objects in a city), not one project.",
+   "project": "CAT-0A9JSZO",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-0A9JSZO"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-003-hide.json",
+   "note": "Aggregate Commons category (illuminated trees), not one project.",
+   "project": "CAT-1Q6ANK9",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-1Q6ANK9"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-004-hide.json",
+   "note": "Night views of an ornamental fountain, not a light art project.",
+   "project": "CAT-0R3QCXL",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-0R3QCXL"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-005-hide.json",
+   "note": "Night views of a fountain, not a light art project.",
+   "project": "CAT-1ND3UQ0",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-1ND3UQ0"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-006-hide.json",
+   "note": "Night-view category of the Magic Fountain; the show itself needs its own record.",
+   "project": "CAT-1B4QSNI",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-1B4QSNI"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-007-hide.json",
+   "note": "Christmas market decoration, not a light art project.",
+   "project": "CAT-0H3JR1Y",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-0H3JR1Y"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-008-hide.json",
+   "note": "Christmas market lettering, not a light art project.",
+   "project": "CAT-1D0R0GP",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-1D0R0GP"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-009-hide.json",
+   "note": "Fire festival, not light or media art.",
+   "project": "Q4884726",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q4884726"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-010-hide.json",
+   "note": "Workshop organisation, not a project.",
+   "project": "Q18333843",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q18333843"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-011-hide.json",
+   "note": "Association, not a project.",
+   "project": "Q97030914",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q97030914"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-012-hide.json",
+   "note": "Academic symposium, not a festival or project.",
+   "project": "Q126689885",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q126689885"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-013-hide.json",
+   "note": "A collection, not one work.",
+   "project": "Q127587524",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q127587524"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-014-hide.json",
+   "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q127867500",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q127867500"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-015-hide.json",
+   "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q127869230",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q127869230"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-016-hide.json",
+   "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128188479",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q128188479"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-017-hide.json",
+   "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128197049",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q128197049"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-018-hide.json",
+   "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128234371",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q128234371"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-019-hide.json",
+   "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128241531",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q128241531"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-020-hide.json",
+   "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128303488",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q128303488"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-021-hide.json",
+   "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128303619",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q128303619"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-022-hide.json",
+   "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128305860",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q128305860"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-023-hide.json",
+   "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128569764",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q128569764"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-024-hide.json",
+   "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128573229",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q128573229"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-025-hide.json",
+   "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128578587",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q128578587"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-026-hide.json",
+   "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q129176499",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q129176499"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-027-hide.json",
+   "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q129177577",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q129177577"
+  },
+  {
+   "action": "hide",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-40-028-hide.json",
+   "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q129255808",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q129255808"
+  },
+  {
+   "action": "edit",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-41-029-edit.json",
+   "note": "BIX, the media facade of Kunsthaus Graz.",
+   "project": "Q796012",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q796012"
+  },
+  {
+   "action": "edit",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-41-030-edit.json",
+   "note": "Project Blinkenlights turned the Haus des Lehrers facade into a display.",
+   "project": "Q351126",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q351126"
+  },
+  {
+   "action": "edit",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-41-031-edit.json",
+   "note": "Times Square is known for its large urban screens.",
+   "project": "Q96409917",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q96409917"
+  },
+  {
+   "action": "edit",
+   "at": "2026-10-20T12:40:00Z",
+   "by": "claude (review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-41-032-edit.json",
+   "note": "teamLab Borderless is an immersive digital art museum.",
+   "project": "Q131314431",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q131314431"
+  },
+  {
+   "action": "set_hero",
+   "at": "2026-10-20T12:50:00Z",
+   "by": "claude (visual review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-50-040-set_hero.json",
+   "note": "Contact sheet #13 reviewed visually: Projection mapping visibly running on the Barcelona city hall facade.",
+   "project": "CAT-06RUPY4",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-06RUPY4"
+  },
+  {
+   "action": "set_hero",
+   "at": "2026-10-20T12:50:00Z",
+   "by": "claude (visual review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-50-041-set_hero.json",
+   "note": "Contact sheet #16 reviewed visually: Projection mapping running on the Prague Astronomical Clock.",
+   "project": "CAT-0QJFC3C",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-0QJFC3C"
+  },
+  {
+   "action": "set_hero",
+   "at": "2026-10-20T12:50:00Z",
+   "by": "claude (visual review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-50-042-set_hero.json",
+   "note": "Contact sheet #90 reviewed visually: Bright Brussels: projection across a palace facade.",
+   "project": "Q63319303",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q63319303"
+  },
+  {
+   "action": "set_hero",
+   "at": "2026-10-20T12:50:00Z",
+   "by": "claude (visual review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-50-043-set_hero.json",
+   "note": "Contact sheet #28 reviewed visually: Projection running across the Cégep du Vieux Montréal facade.",
+   "project": "CAT-14IPYSX",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-14IPYSX"
+  },
+  {
+   "action": "set_hero",
+   "at": "2026-10-20T12:50:00Z",
+   "by": "claude (visual review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-50-044-set_hero.json",
+   "note": "Contact sheet #3 reviewed visually: LED media facade of Tauron Arena Kraków showing content.",
+   "project": "Q15014400",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q15014400"
+  },
+  {
+   "action": "set_hero",
+   "at": "2026-10-20T12:50:00Z",
+   "by": "claude (visual review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-50-045-set_hero.json",
+   "note": "Contact sheet #72 reviewed visually: A Symphony of Lights: the Hong Kong skyline light and laser show.",
+   "project": "Q1068874",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q1068874"
+  },
+  {
+   "action": "set_hero",
+   "at": "2026-10-20T12:50:00Z",
+   "by": "claude (visual review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-50-046-set_hero.json",
+   "note": "Contact sheet #95 reviewed visually: Bucharest Festival of Lights: projection on a building facade.",
+   "project": "CAT-1OKTAW1",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-1OKTAW1"
+  },
+  {
+   "action": "set_hero",
+   "at": "2026-10-20T12:50:00Z",
+   "by": "claude (visual review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-50-047-set_hero.json",
+   "note": "Contact sheet #1 reviewed visually: Banpo Bridge Moonlight Rainbow Fountain lit at night.",
+   "project": "SEOUL045",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL045"
+  },
+  {
+   "action": "set_hero",
+   "at": "2026-10-20T12:50:00Z",
+   "by": "claude (visual review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-50-048-set_hero.json",
+   "note": "Contact sheet #57 reviewed visually: Urba Morphic: the LED glass facade in Montreal lit at night.",
+   "project": "CAT-1GGUXSH",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-1GGUXSH"
+  },
+  {
+   "action": "set_hero",
+   "at": "2026-10-20T12:50:00Z",
+   "by": "claude (visual review of live run 20261020T114517Z)",
+   "file": "2026-10-20T12-50-049-set_hero.json",
+   "note": "Contact sheet #83 reviewed visually: Jerusalem Festival of Light: light art on the Old City walls.",
+   "project": "Q4173984",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q4173984"
+  }
+ ],
+ "errors": [],
+ "hero_list": [
+  {
+   "image": "049 Llum BCN, projecció a la façana de l'Ajuntament, pl. Sant Jaume.JPG",
+   "note": "Reviewed on hero-candidates contact sheet #13: Projection mapping visibly running on the Barcelona city hall facade.",
+   "project": "CAT-06RUPY4",
+   "reasons": [],
+   "status": "hero"
+  },
+  {
+   "image": "Prague (6365118027).jpg",
+   "note": "Reviewed on hero-candidates contact sheet #16: Projection mapping running on the Prague Astronomical Clock.",
+   "project": "CAT-0QJFC3C",
+   "reasons": [],
+   "status": "hero"
+  },
+  {
+   "image": "2021-10-28 19-54-37 ILCE-6500 DSC17091 Kiri DxO (51677190056).jpg",
+   "note": "Reviewed on hero-candidates contact sheet #90: Bright Brussels: projection across a palace facade.",
+   "project": "Q63319303",
+   "reasons": [],
+   "status": "hero"
+  },
+  {
+   "image": "Gabriel Poirier-Galarneau et Vincent Bilodeau, 9X-MTL-, 2015 (18433093181).jpg",
+   "note": "Reviewed on hero-candidates contact sheet #28: Projection running across the Cégep du Vieux Montréal facade.",
+   "project": "CAT-14IPYSX",
+   "reasons": [],
+   "status": "hero"
+  },
+  {
+   "image": "20231021 184556 weźże wyluzuj neon sign.jpg",
+   "note": "Reviewed on hero-candidates contact sheet #3: LED media facade of Tauron Arena Kraków showing content.",
+   "project": "Q15014400",
+   "reasons": [],
+   "status": "hero"
+  },
+  {
+   "image": "Hk-Symphony of Lights 3420.jpg",
+   "note": "Reviewed on hero-candidates contact sheet #72: A Symphony of Lights: the Hong Kong skyline light and laser show.",
+   "project": "Q1068874",
+   "reasons": [],
+   "status": "hero"
+  },
+  {
+   "image": "Bucuresti, Romania, Cercul Militar National (2), B-II-m-A-19201.JPG",
+   "note": "Reviewed on hero-candidates contact sheet #95: Bucharest Festival of Lights: projection on a building facade.",
+   "project": "CAT-1OKTAW1",
+   "reasons": [],
+   "status": "hero"
+  },
+  {
+   "image": "Banpo Bridge Moonlight Rainbow Fountain at night - 2023-08-14.jpg",
+   "note": "Reviewed on hero-candidates contact sheet #1: Banpo Bridge Moonlight Rainbow Fountain lit at night.",
+   "project": "SEOUL045",
+   "reasons": [],
+   "status": "hero"
+  },
+  {
+   "image": "Urba Morphic-Volume 1 - 05.jpg",
+   "note": "Reviewed on hero-candidates contact sheet #57: Urba Morphic: the LED glass facade in Montreal lit at night.",
+   "project": "CAT-1GGUXSH",
+   "reasons": [],
+   "status": "hero"
+  },
+  {
+   "image": "Light festival in Jerusalem - פסטיבל האור בירושלים (3638888871).jpg",
+   "note": "Reviewed on hero-candidates contact sheet #83: Jerusalem Festival of Light: light art on the Old City walls.",
+   "project": "Q4173984",
+   "reasons": [],
+   "status": "hero"
+  }
+ ],
+ "http": {
+  "ar.wikipedia.org": {
+   "bytes": 0,
+   "cached": 2,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "commons.wikimedia.org": {
+   "bytes": 0,
+   "cached": 40,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "de.wikipedia.org": {
+   "bytes": 0,
+   "cached": 2,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "en.wikipedia.org": {
+   "bytes": 0,
+   "cached": 4,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "es.wikipedia.org": {
+   "bytes": 0,
+   "cached": 3,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "fr.wikipedia.org": {
+   "bytes": 0,
+   "cached": 3,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "it.wikipedia.org": {
+   "bytes": 0,
+   "cached": 2,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "ja.wikipedia.org": {
+   "bytes": 0,
+   "cached": 1,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "ko.wikipedia.org": {
+   "bytes": 0,
+   "cached": 2,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "nl.wikipedia.org": {
+   "bytes": 0,
+   "cached": 1,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "overpass-api.de": {
+   "bytes": 0,
+   "cached": 0,
+   "errors": 1,
+   "last_error": "network error: fetch failed (getaddrinfo ENOTFOUND overpass-api.de)",
+   "ms": 10011,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 1,
+   "statuses": {}
+  },
+  "pl.wikipedia.org": {
+   "bytes": 0,
+   "cached": 2,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "pt.wikipedia.org": {
+   "bytes": 0,
+   "cached": 3,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "query.wikidata.org": {
+   "bytes": 0,
+   "cached": 37,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "ru.wikipedia.org": {
+   "bytes": 0,
+   "cached": 1,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "tr.wikipedia.org": {
+   "bytes": 0,
+   "cached": 3,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "www.wikidata.org": {
+   "bytes": 0,
+   "cached": 0,
+   "errors": 2,
+   "last_error": "network error: fetch failed (getaddrinfo ENOTFOUND www.wikidata.org)",
+   "ms": 9018,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 2,
+   "statuses": {}
+  },
+  "zh.wikipedia.org": {
+   "bytes": 0,
+   "cached": 3,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  }
+ },
+ "images": {
+  "candidates": 3038,
+  "contact_sheets": [
+   "hero-candidates-01.jpg",
+   "hero-candidates-02.jpg",
+   "cards-01.jpg",
+   "cards-02.jpg",
+   "cards-03.jpg"
+  ],
+  "kept_previous": 0,
+  "measure_errors": 0,
+  "measured": 0,
+  "none": 137,
+  "processed": 262,
+  "rejected": {
+   "extreme_aspect": 5,
+   "interior_unrelated_to_work": 3,
+   "rights:foreign_no_freedom_of_panorama": 4,
+   "rights:license_not_allowed": 11,
+   "too_small": 12
+  },
+  "thumbnails_fetched": 0
+ },
+ "reachability": {
+  "ar.wikipedia.org": "reachable",
+  "commons.wikimedia.org": "reachable",
+  "de.wikipedia.org": "reachable",
+  "en.wikipedia.org": "reachable",
+  "es.wikipedia.org": "reachable",
+  "fr.wikipedia.org": "reachable",
+  "it.wikipedia.org": "reachable",
+  "ja.wikipedia.org": "reachable",
+  "ko.wikipedia.org": "reachable",
+  "nl.wikipedia.org": "reachable",
+  "overpass-api.de": "failed",
+  "pl.wikipedia.org": "reachable",
+  "pt.wikipedia.org": "reachable",
+  "query.wikidata.org": "reachable",
+  "ru.wikipedia.org": "reachable",
+  "tr.wikipedia.org": "reachable",
+  "www.wikidata.org": "failed",
+  "zh.wikipedia.org": "reachable"
+ },
+ "review_queue": {
+  "candidates": 7,
+  "hero_candidates": 85
+ },
+ "run": {
+  "budget_minutes": 12,
+  "build_id": "20261020T121743Z-cbf00ae8",
+  "drop_guard": null,
+  "duration_ms": 23112,
+  "finished_at": "2026-10-20T12:18:07.047Z",
+  "number": 2,
+  "publish": "published",
+  "started_at": "2026-10-20T12:17:43.935Z",
+  "status": "partial",
+  "user_agent": "LightArchitectureArchive/0.17 (+https://remona8787.github.io/; remona56@hanmail.net)",
+  "validation_errors": []
+ },
+ "schema": 1,
+ "sources": {
+  "commons": {
+   "consecutive_failures": 0,
+   "duration_ms": 1990,
+   "errors": [],
+   "items": 289,
+   "last_success": "2026-10-20T12:17:43.935Z",
+   "status": "ok",
+   "warnings": [
+    {
+     "message": "category does not exist",
+     "root": "Category:Light installations",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Light festivals",
+     "stage": "commons_root"
+    }
+   ]
+  },
+  "curated": {
+   "consecutive_failures": 0,
+   "errors": [],
+   "items": 49,
+   "last_success": "2026-10-20T12:17:43.935Z",
+   "status": "ok"
+  },
+  "enrich": {
+   "consecutive_failures": 0,
+   "duration_ms": 48,
+   "errors": [],
+   "items": 755,
+   "last_success": "2026-10-20T12:17:43.935Z",
+   "status": "ok"
+  },
+  "links": {
+   "consecutive_failures": 0,
+   "errors": [],
+   "from_cache": 130,
+   "items": 3,
+   "last_success": "2026-10-20T12:17:43.935Z",
+   "status": "ok",
+   "unchecked": 0
+  },
+  "overpass": {
+   "consecutive_failures": 0,
+   "errors": [
+    {
+     "message": "network error: fetch failed (getaddrinfo ENOTFOUND overpass-api.de)"
+    }
+   ],
+   "items": 50,
+   "last_success": null,
+   "status": "skipped"
+  },
+  "web": {
+   "consecutive_failures": 0,
+   "duration_ms": 1755,
+   "errors": [],
+   "items": 0,
+   "last_success": "2026-10-20T12:17:43.935Z",
+   "rules": [
+    {
+     "key": "gdelt:GDELT en · media facade",
+     "reason": "backoff",
+     "status": "skipped",
+     "until": "2026-10-20T12:45:53.556Z"
+    },
+    {
+     "key": "gdelt:GDELT ko · media facade",
+     "reason": "backoff",
+     "status": "skipped",
+     "until": "2026-10-20T12:46:27.896Z"
+    },
+    {
+     "key": "gdelt:GDELT ja · media facade",
+     "next_run_at": "2026-10-20T17:46:54.792Z",
+     "reason": "not_due",
+     "status": "skipped"
+    },
+    {
+     "key": "gdelt:GDELT zh · media facade",
+     "next_run_at": "2026-10-20T17:47:09.388Z",
+     "reason": "not_due",
+     "status": "skipped"
+    },
+    {
+     "key": "gdelt:GDELT de · media facade",
+     "next_run_at": "2026-10-20T17:47:46.018Z",
+     "reason": "not_due",
+     "status": "skipped"
+    },
+    {
+     "key": "gdelt:GDELT fr · media facade",
+     "next_run_at": "2026-10-20T17:48:01.457Z",
+     "reason": "not_due",
+     "status": "skipped"
+    },
+    {
+     "key": "gdelt:GDELT es · media facade",
+     "reason": "backoff",
+     "status": "skipped",
+     "until": "2026-10-20T12:48:35.478Z"
+    },
+    {
+     "key": "gdelt:GDELT it · media facade",
+     "next_run_at": "2026-10-20T17:49:08.146Z",
+     "reason": "not_due",
+     "status": "skipped"
+    },
+    {
+     "key": "gdelt:GDELT pt · media facade",
+     "reason": "backoff",
+     "status": "skipped",
+     "until": "2026-10-20T12:49:36.737Z"
+    },
+    {
+     "key": "gdelt:GDELT nl · media facade",
+     "reason": "backoff",
+     "status": "skipped",
+     "until": "2026-10-20T12:50:01.236Z"
+    },
+    {
+     "key": "gdelt:GDELT pl · media facade",
+     "reason": "backoff",
+     "status": "skipped",
+     "until": "2026-10-20T12:50:15.239Z"
+    },
+    {
+     "key": "gdelt:GDELT ru · media facade",
+     "reason": "backoff",
+     "status": "skipped",
+     "until": "2026-10-20T12:50:38.469Z"
+    },
+    {
+     "key": "gdelt:GDELT ar · media facade",
+     "reason": "backoff",
+     "status": "skipped",
+     "until": "2026-10-20T12:51:13.072Z"
+    },
+    {
+     "key": "gdelt:GDELT tr · media facade",
+     "reason": "backoff",
+     "status": "skipped",
+     "until": "2026-10-20T12:51:47.236Z"
+    },
+    {
+     "key": "rss:Dezeen",
+     "next_run_at": "2026-10-20T17:51:47.425Z",
+     "reason": "not_due",
+     "status": "skipped"
+    },
+    {
+     "key": "rss:designboom",
+     "next_run_at": "2026-10-20T17:51:48.144Z",
+     "reason": "not_due",
+     "status": "skipped"
+    },
+    {
+     "key": "rss:ArchDaily",
+     "next_run_at": "2026-10-20T17:51:48.354Z",
+     "reason": "not_due",
+     "status": "skipped"
+    },
+    {
+     "key": "rss:Archinect",
+     "next_run_at": "2026-10-20T17:51:48.547Z",
+     "reason": "not_due",
+     "status": "skipped"
+    },
+    {
+     "key": "rss:Creative Applications Network",
+     "next_run_at": "2026-10-20T17:51:48.821Z",
+     "reason": "not_due",
+     "status": "skipped"
+    },
+    {
+     "key": "rss:Media Architecture Institute",
+     "next_run_at": "2026-10-20T17:51:49.926Z",
+     "reason": "not_due",
+     "status": "skipped"
+    },
+    {
+     "key": "rss:Designboom Korea",
+     "reason": "backoff",
+     "status": "skipped",
+     "until": "2026-10-20T12:51:50.566Z"
+    }
+   ],
+   "status": "ok"
+  },
+  "wikidata": {
+   "consecutive_failures": 0,
+   "duration_ms": 9025,
+   "errors": [
+    {
+     "message": "network error: fetch failed (getaddrinfo ENOTFOUND www.wikidata.org)",
+     "stage": "discovery"
+    },
+    {
+     "message": "network error: fetch failed (getaddrinfo ENOTFOUND www.wikidata.org)",
+     "stage": "discovery"
+    }
+   ],
+   "items": 625,
+   "last_success": "2026-10-20T11:45:17.714Z",
+   "status": "partial"
+  },
+  "wikipedia": {
+   "consecutive_failures": 0,
+   "duration_ms": 1906,
+   "errors": [],
+   "items": 211,
+   "last_success": "2026-10-20T12:17:43.935Z",
+   "status": "ok"
+  }
+ },
+ "stages": {
+  "contact_sheets": {
+   "duration_ms": 1076,
+   "status": "ok"
+  },
+  "enrich": {
+   "duration_ms": 48,
+   "status": "ok"
+  },
+  "images": {
+   "duration_ms": 527,
+   "status": "ok"
+  },
+  "links": {
+   "duration_ms": 2026,
+   "status": "ok"
+  },
+  "overpass": {
+   "duration_ms": 10013,
+   "status": "ok"
+  },
+  "resolve": {
+   "duration_ms": 123,
+   "status": "ok"
+  },
+  "sources": {
+   "duration_ms": 9026,
+   "status": "ok"
+  }
+ },
+ "warnings": [
+  {
+   "message": "category does not exist",
+   "root": "Category:Light installations",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Light festivals",
+   "stage": "commons_root"
+  }
+ ]
+}

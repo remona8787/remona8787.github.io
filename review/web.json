@@ -1,0 +1,133 @@
+{
+ "at": "2026-10-20T12:17:43.935Z",
+ "errors": [],
+ "rules": [
+  {
+   "key": "gdelt:GDELT en · media facade",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-10-20T12:45:53.556Z"
+  },
+  {
+   "key": "gdelt:GDELT ko · media facade",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-10-20T12:46:27.896Z"
+  },
+  {
+   "key": "gdelt:GDELT ja · media facade",
+   "next_run_at": "2026-10-20T17:46:54.792Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT zh · media facade",
+   "next_run_at": "2026-10-20T17:47:09.388Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT de · media facade",
+   "next_run_at": "2026-10-20T17:47:46.018Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT fr · media facade",
+   "next_run_at": "2026-10-20T17:48:01.457Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT es · media facade",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-10-20T12:48:35.478Z"
+  },
+  {
+   "key": "gdelt:GDELT it · media facade",
+   "next_run_at": "2026-10-20T17:49:08.146Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT pt · media facade",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-10-20T12:49:36.737Z"
+  },
+  {
+   "key": "gdelt:GDELT nl · media facade",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-10-20T12:50:01.236Z"
+  },
+  {
+   "key": "gdelt:GDELT pl · media facade",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-10-20T12:50:15.239Z"
+  },
+  {
+   "key": "gdelt:GDELT ru · media facade",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-10-20T12:50:38.469Z"
+  },
+  {
+   "key": "gdelt:GDELT ar · media facade",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-10-20T12:51:13.072Z"
+  },
+  {
+   "key": "gdelt:GDELT tr · media facade",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-10-20T12:51:47.236Z"
+  },
+  {
+   "key": "rss:Dezeen",
+   "next_run_at": "2026-10-20T17:51:47.425Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "rss:designboom",
+   "next_run_at": "2026-10-20T17:51:48.144Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "rss:ArchDaily",
+   "next_run_at": "2026-10-20T17:51:48.354Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "rss:Archinect",
+   "next_run_at": "2026-10-20T17:51:48.547Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "rss:Creative Applications Network",
+   "next_run_at": "2026-10-20T17:51:48.821Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "rss:Media Architecture Institute",
+   "next_run_at": "2026-10-20T17:51:49.926Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "rss:Designboom Korea",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-10-20T12:51:50.566Z"
+  }
+ ],
+ "schema": 1
+}
