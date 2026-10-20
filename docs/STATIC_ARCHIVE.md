@@ -132,3 +132,111 @@ The pipeline also writes `review/contact-sheets/*.jpg`: a grid of hero and card 
   - visit information (whether it can be seen now, operating period) only when known from a source.
 - Required credits (image licence and author, map attribution) and facts that affect a visit stay visible.
 - Internal quality and status information lives only in the admin page.
+
+## v0.18 addendum — Korea first, images from many licensed providers, high resolution
+
+The operator's fourth brief changes the product identity: a **Korean** media facade, media art and architectural
+light platform first, with worldwide cases as a separate section. The same dataset holds both; only the structure and
+priority of the public screens differ. Image quality is the second priority: sharp, high-resolution photos of the
+actual project with the media running, from more providers than Wikimedia Commons, and always within their licences.
+
+### Data fields (pipeline → app)
+
+- `kr_region` on every KR project (index rows and records). Its key is one of:
+  - `seoul`, `gyeonggi_incheon`, `gangwon`
+  - `daejeon_sejong_chungcheong`, `gwangju_jeolla`, `daegu_gyeongbuk`, `busan_ulsan_gyeongnam`
+  - `jeju`
+
+  Derive it from the administrative chain (Wikidata P131 up to the first-level division), else from the address or
+  city through a gazetteer. Never guess it; leave it null when unknown. `archive-taxonomy.js` gets the vocabulary
+  `kr_region` with KO and EN labels.
+- `images[]` in full records. One object per image:
+  - Identity and source: `id` (stable hash of provider + source id), `project`, `provider`, `src`, `page`,
+    `display` (`[[width, url], ...]`).
+    - `provider` is one of `commons`, `openverse`, `flickr`, `tourapi`, `kto_photo`, `unsplash`, `pexels`, `official` or `editor`.
+    - `src` is the original or full-size URL; `page` is the source page a person can open.
+    - `display` holds the sizes the provider serves; never a width above the original.
+  - Rights: `author`, `rights_holder`, `license`, `license_url`, `usage`.
+    - `usage` is `hotlink` (display from the provider URL only) or `cache` (copying allowed). Copies are made only where
+      the licence and the provider's terms allow them.
+  - Measurements: `width`, `height`, `bytes`, `format`.
+  - Assessment: `quality` (`{sharpness, blockiness, score}`), `media_active` (0–100 with reasons), `tier` (1–6, the
+    brief's priority list), `role` (`hero` | `featured` | `card` | `gallery` | `context`).
+  - Status: `checked_at`, `approved` (editorial review: true / false / null).
+- Index rows keep the compact `thumb` and add `thumb_w` and `thumb_h`. Card images are served at about 640 px, with the
+  app's srcset up to the size the layout needs.
+
+### Image rules
+
+- Target widths of the original:
+  - hero ≥ 2400 px (1920 only when the project has nothing larger, and flagged);
+  - featured ≥ 1600 px;
+  - card ≥ 1200 px;
+  - detail: keep the original.
+- An image is never shown wider than its original, so an upscaled small file never appears large.
+- Blur and compression checks, from sharp on a 1024 px rendition:
+  - `sharpness`: variance of the Laplacian, normalised for size;
+  - `blockiness`: 8×8 JPEG block-edge energy;
+  - near-duplicates removed by perceptual hash, keeping the larger and sharper copy.
+- The priority order (tier):
+  1. media facade running, high resolution;
+  2. architectural media art at night;
+  3. LED or projection technology and content visible;
+  4. exhibition or public-art installation scene;
+  5. an architectural photo of the same project;
+  6. none (the designed placeholder).
+- Darkness or LEDs alone never qualify an image. The image must show the same building, installation or work. For
+  providers other than Commons, prove that by:
+  - the provider's place/item id matching the project (TourAPI contentid, a geotag within 300 m together with a name match), or
+  - an exact name match in the title or tags plus the location;
+  - and always by human review on the contact sheets before an image is used as hero or featured.
+
+### Providers
+
+| provider | key | use |
+|---|---|---|
+| Wikimedia Commons | none | as today |
+| Openverse API (CC search over Flickr and others) | none needed (anonymous rate limit); optional OPENVERSE credentials | licence, creator and source page from the API; keep only CC0, PDM, BY and BY-SA |
+| Flickr API | FLICKR_API_KEY | licensed photos with geotags; original sizes |
+| 한국관광공사 TourAPI (KorService2, data.go.kr) | TOURAPI_SERVICE_KEY | Korean places, festivals and their images; the licence per image from `cpyrhtDivCd` (공공누리 Type1/Type3), never assumed |
+| 한국관광공사 관광사진 갤러리 (PhotoGalleryService1) | same data.go.kr key | photos with photographer and copyright fields |
+| Unsplash / Pexels | UNSPLASH_ACCESS_KEY / PEXELS_API_KEY | hotlink only, as their API terms require; attribution |
+| NAVER image search (API HUB) | NAVER keys | discovery only: candidates for review, never displayed |
+| official sites | — | only through editorial decisions (`set_image` with the licence or the permission note) |
+
+Google and Bing image APIs are not available (Bing retired 2025-08-11; Google Custom Search is closed to new
+customers and ends 2027-01-01).
+
+### Korean data sources
+
+- Korean Wikipedia full-text search over a wide Korean term list (미디어파사드, 미디어 파사드, 미디어아트, 미디어 아트,
+  프로젝션 매핑, 프로젝션맵핑, 빛 축제, 빛축제, 라이트쇼, 루미나리에, 야간경관, 경관조명, 미디어월, 미디어 캔버스, 몰입형
+  전시…), with the same entity acceptance rules.
+- Wikidata items located in Korea (P17 Q884) of the configured classes, plus Commons categories about Korean projects.
+- TourAPI keyword search (searchKeyword2) for the same terms, by content type (attractions, cultural facilities,
+  festivals) when the key is set.
+- Korean projects are a priority of the collection budget: they run first and are never cut by the time budget before
+  foreign sources.
+
+### Home and navigation (app)
+
+- Home: about 70–80 % Korean picks.
+  - Hero: Korean projects with a reviewed tier-1/2 image of at least 2400 px first.
+  - Korean regions: 8 tiles with counts and images.
+  - Korean featured projects.
+  - Korean exhibitions, festivals and media art.
+  - Then "세계의 미디어파사드" highlights.
+  - home.json carries these sections.
+- Menu:
+  - 홈
+  - 국내 미디어파사드 (regions)
+  - 국내 미디어아트·전시
+  - 지도 (default view: Korea; a switch to the world)
+  - 세계 미디어파사드
+  - 아카이브 검색 (all data, Korean results first unless a country is chosen)
+  - 내 컬렉션 (saved, routes, records)
+
+### Internal data
+
+`admin-data/` is no longer published on the public site. It stays on the `data` branch. The authenticated admin
+console is the Supabase mode (login + `app_admins` roles); the public site never exposes review or pipeline state.
