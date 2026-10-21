@@ -218,7 +218,15 @@
   }
  ],
  "build_id": "20261020T213952Z-5625bd3f",
- "coordinate_checks": [],
+ "coordinate_checks": [
+  {
+   "distance_m": 1593,
+   "id": "SEOUL025",
+   "osm": "relation/10718798",
+   "qid": "Q27207690",
+   "status": "mismatch"
+  }
+ ],
  "excluded": [
   {
    "id": "CAT-006W654",
@@ -8728,7 +8736,7 @@
    ]
   }
  ],
- "generated_at": "2026-10-20T21:39:52.134Z",
+ "generated_at": "2026-10-21T04:53:26.437Z",
  "image_rejections": {
   "extreme_aspect": 8,
   "interior_unrelated_to_work": 3,

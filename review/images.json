@@ -1,5 +1,5 @@
 {
- "at": "2026-10-20T21:39:52.134Z",
+ "at": "2026-10-21T04:53:26.437Z",
  "projects": [
   {
    "candidates": [
@@ -21317,6 +21317,88 @@
   {
    "candidates": [
     {
+     "evidence": [],
+     "file": "ISS053-E-93966 - View of Earth.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": {
+      "bright_share": 0.0006,
+      "colourfulness": 8.04,
+      "dark_share": 0.9534,
+      "height": 213,
+      "mean_luminance": 0.0574,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     }
+    }
+   ],
+   "card": "ISS053-E-93966 - View of Earth.jpg",
+   "hero": null,
+   "hero_decisions": [],
+   "name": "Night Sky",
+   "project": "Q105621899",
+   "type": "light_art"
+  },
+  {
+   "candidates": [
+    {
+     "evidence": [],
+     "file": "Haerle Hubacher Architekten BSA, Max Bill Platz Zürich, 2006.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "reasons": [],
+     "source": "depicts",
+     "tier": 4,
+     "visual": {
+      "bright_share": 0.4266,
+      "colourfulness": 9.97,
+      "dark_share": 0.0959,
+      "height": 427,
+      "mean_luminance": 0.6064,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     }
+    },
+    {
+     "evidence": [],
+     "file": "Haerle Hubacher Architekten BSA, Oerlikerpark Zürich, 2001.jpg",
+     "home_ok": false,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": false,
+     "reasons": [
+      "too_small"
+     ],
+     "source": "depicts",
+     "tier": null,
+     "visual": null
+    }
+   ],
+   "card": "Haerle Hubacher Architekten BSA, Max Bill Platz Zürich, 2006.jpg",
+   "hero": null,
+   "hero_decisions": [],
+   "name": "Plaza Design",
+   "project": "Q127587463",
+   "type": "light_art"
+  },
+  {
+   "candidates": [
+    {
      "evidence": [
       "own_category_of_light_work"
      ],
@@ -30453,39 +30535,6 @@
    "type": "projection_mapping"
   },
   {
-   "candidates": [
-    {
-     "evidence": [],
-     "file": "ISS053-E-93966 - View of Earth.jpg",
-     "home_ok": false,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "depicts",
-     "tier": 4,
-     "visual": {
-      "bright_share": 0.0006,
-      "colourfulness": 8.04,
-      "dark_share": 0.9534,
-      "height": 213,
-      "mean_luminance": 0.0574,
-      "saturated_bright": 0,
-      "visual": 0,
-      "width": 320
-     }
-    }
-   ],
-   "card": "ISS053-E-93966 - View of Earth.jpg",
-   "hero": null,
-   "hero_decisions": [],
-   "name": "Night Sky",
-   "project": "Q105621899",
-   "type": "light_art"
-  },
-  {
    "candidates": [],
    "card": null,
    "hero": null,
@@ -30744,55 +30793,6 @@
    "hero_decisions": [],
    "name": "Basement",
    "project": "Q127587388",
-   "type": "light_art"
-  },
-  {
-   "candidates": [
-    {
-     "evidence": [],
-     "file": "Haerle Hubacher Architekten BSA, Max Bill Platz Zürich, 2006.jpg",
-     "home_ok": false,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "reasons": [],
-     "source": "depicts",
-     "tier": 4,
-     "visual": {
-      "bright_share": 0.4266,
-      "colourfulness": 9.97,
-      "dark_share": 0.0959,
-      "height": 427,
-      "mean_luminance": 0.6064,
-      "saturated_bright": 0,
-      "visual": 0,
-      "width": 320
-     }
-    },
-    {
-     "evidence": [],
-     "file": "Haerle Hubacher Architekten BSA, Oerlikerpark Zürich, 2001.jpg",
-     "home_ok": false,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": false,
-     "reasons": [
-      "too_small"
-     ],
-     "source": "depicts",
-     "tier": null,
-     "visual": null
-    }
-   ],
-   "card": "Haerle Hubacher Architekten BSA, Max Bill Platz Zürich, 2006.jpg",
-   "hero": null,
-   "hero_decisions": [],
-   "name": "Plaza Design",
-   "project": "Q127587463",
    "type": "light_art"
   },
   {
