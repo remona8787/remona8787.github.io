@@ -2,6 +2,8 @@
 // publishes at /data/ next to the site. It is read in pieces, only when a screen needs them:
 //   home            → data/home.json (about 30 pre-picked projects; never the index or a shard)
 //   explore, map,
+//   the Korean and
+//   world sections,
 //   research data   → data/index.json (compact rows of every project, for list, search and map)
 //   a project page  → data/projects/<shard>.json (full records), found through home.json, the pipeline's shard rule
 //                     (manifest + one shard) or, failing those, the index
@@ -134,7 +136,7 @@ function need() {
   let page = 'home', id = ''
   try { [page = 'home', id = ''] = decodeURIComponent(location.hash.slice(1) || 'home').split('/') } catch {}
   if (page === 'home' && !home) loadHome().then(() => publish(status), () => {})
-  else if (['explore', 'map', 'data'].includes(page)) ensureIndex()
+  else if (['explore', 'map', 'data', 'korea', 'programs', 'world'].includes(page)) ensureIndex()
   else if (page === 'place' && id) ensureRecord(id)
 }
 

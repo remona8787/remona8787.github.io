@@ -1748,3 +1748,137 @@ details[open]>summary .more-caret{transform:rotate(180deg)}
 }
 .detail-hero.no-photo .card-art.detail-art{aspect-ratio:4/3}
 @media (min-width:768px){.detail-hero.no-photo .card-art.detail-art{aspect-ratio:21/9;height:auto}}
+
+/* ===================================================================================================================
+   v0.18 — Korea first
+   The menu leads with Korea (국내 미디어파사드 by region, 국내 미디어아트·전시), then the map, the world section, the
+   archive search and the visitor's collection. Korean sections are the large, image-led blocks; the world follows as a
+   quieter strip and its own section with a world map. Photos are never shown larger than their renditions allow: a
+   small one sits at its own size on a dark mat. Night tones (--night…) stay fixed in both themes.
+   =================================================================================================================== */
+
+/* ===== Menu: seven sections on wide screens, five in the phone tab bar, the rest in the top bar's menu ===== */
+.nav-short{display:none}
+@media (max-width:1023px){.nav-link .nav-label{display:none}.nav-short{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+@media (max-width:767px){
+  .nav-link.nav-wide{display:none}
+  .nav-link.phone-active{color:var(--accent)}
+  .nav-link.phone-active .nav-icon{background:var(--accent-soft)}
+}
+@media (min-width:768px) and (max-width:1023px){#navigation{gap:var(--s-2)}.nav-link{min-height:52px}}
+.top-more{flex:none}
+.top-more>summary{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:var(--r-pill);color:var(--text);cursor:pointer}
+.top-more>summary .icon{width:24px;height:24px}
+.top-more>summary:hover,.top-more[open]>summary{background:var(--panel)}
+.more-list{right:-4px;min-width:248px;max-height:calc(100dvh - var(--topbar-h) - 24px);overflow:auto}
+.more-list .menu-item.active{background:var(--accent-soft);color:var(--accent-on-soft);font-weight:600}
+.more-list .menu-item.active .icon{color:var(--accent-on-soft)}
+.menu-sep{display:block;height:1px;margin:6px 8px;background:var(--line)}
+@media (min-width:768px){.top-more{display:none}}
+
+/* ===== Section pages: eyebrow, title, the two Korean sections as a switch ===== */
+.page-eyebrow{margin:0 0 var(--s-2);color:var(--accent-strong);font-size:var(--fs-micro);line-height:var(--lh-micro);font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.section-page-head .large-title{letter-spacing:-.035em}
+.section-page-head .page-sub{max-width:640px}
+.section-switch{display:flex;gap:4px;width:100%;max-width:520px;margin:0 0 var(--s-6);padding:4px;border-radius:var(--r-pill);background:var(--panel)}
+.section-switch a{display:flex;align-items:center;justify-content:center;gap:6px;flex:1;min-height:44px;padding:0 var(--s-3);border-radius:var(--r-pill);color:var(--text-muted);font-size:var(--fs-label);font-weight:600;white-space:nowrap;transition:background-color var(--dur-fast) var(--ease-standard),color var(--dur-fast) var(--ease-standard)}
+.section-switch a .icon{width:18px;height:18px}
+.section-switch a:hover{color:var(--text)}
+.section-switch a[aria-current=page]{background:var(--surface);color:var(--text);box-shadow:var(--shadow-1)}
+@media (max-width:420px){.section-switch a .icon{display:none}}
+.section-block{margin-top:var(--s-10)}
+.list-head{align-items:baseline;flex-wrap:wrap;column-gap:var(--s-3);padding-top:var(--s-5);border-top:1px solid var(--line);margin-bottom:var(--s-5)}
+.list-head h2{font-size:var(--fs-title2);line-height:var(--lh-title2);font-weight:800;letter-spacing:-.03em}
+.list-head .result-meta{margin:0;color:var(--text-muted);font-size:var(--fs-label);font-weight:600}
+.list-head .text-link{margin-left:auto}
+.group-title{display:flex;align-items:baseline;gap:var(--s-2);margin:var(--s-8) 0 var(--s-4);font-size:var(--fs-title3);line-height:var(--lh-title3);font-weight:700}
+.group-title:first-of-type{margin-top:0}
+.group-title .tnum{color:var(--text-muted);font-size:var(--fs-label);font-weight:600}
+.section-filters{display:grid;gap:var(--s-2);margin:0 0 var(--s-2)}
+.chip-count{color:inherit;opacity:.7;font-weight:600}
+.section-note{color:var(--text-muted);font-size:var(--fs-caption);line-height:var(--lh-caption)}
+.world-stats{margin:calc(-1 * var(--s-3)) 0 var(--s-5);color:var(--text-muted);font-size:var(--fs-label);font-weight:600}
+.results-foot .text-link{min-height:44px}
+
+/* ===== Korean regions: eight tiles with a picture, the name and a count ===== */
+ul.kr-grid,div.kr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0;padding:0;list-style:none}
+@media (min-width:768px){ul.kr-grid,div.kr-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s-4)}}
+.kr-tile{position:relative;aspect-ratio:4/5;border-radius:var(--r-md);overflow:hidden;isolation:isolate;background:var(--night-2)}
+@media (min-width:1024px){.kr-tile{aspect-ratio:5/6}}
+.kr-tile .region-text{padding:var(--s-10) var(--s-4) var(--s-4)}
+.kr-tile .region-name{display:block;font-size:var(--fs-title3);line-height:var(--lh-title3);font-weight:800;letter-spacing:-.02em;color:#FFFFFF}
+@media (min-width:1024px){.kr-tile .region-name{font-size:22px;line-height:28px}}
+.kr-tile .region-count{display:block;margin-top:2px}
+.kr-tile:not(.has-photo) .region-text{background:none}
+.kr-tile .ph-region .ph-glyph{left:auto;right:8%;bottom:auto;top:6%;font-size:clamp(64px,46cqi,180px);font-weight:700;color:#F4F1FF14}
+.kr-tile.active{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--accent)}
+.kr-tile .tile-credit{top:auto;bottom:auto;top:8px;font-size:10px;opacity:.86}
+.sk-tile{display:block;aspect-ratio:4/5;border-radius:var(--r-md)}
+
+/* ===== The world map: OpenStreetMap's zoom-1 world, night-toned, a dot per group of projects ===== */
+.world-map{margin:0 0 var(--s-6)}
+.wm-stage{position:relative;display:block;overflow:hidden;border-radius:var(--r-lg);background:#0B0D24;isolation:isolate}
+.wm-tiles{position:absolute;left:0;width:100%;display:grid;grid-template-columns:1fr 1fr}
+.wm-tiles img{display:block;width:100%;height:auto;aspect-ratio:1;filter:grayscale(1) invert(.94) brightness(.62) contrast(1.15)}
+.wm-dot{position:absolute;z-index:1;width:calc(6px * var(--n,1));height:calc(6px * var(--n,1));margin:calc(-3px * var(--n,1)) 0 0 calc(-3px * var(--n,1));border-radius:50%;background:#A08CFF;box-shadow:0 0 0 2px #A08CFF40,0 0 12px #A08CFFB3}
+.wm-dot.many{background:#C9BEFF}
+.wm-open{position:absolute;right:12px;bottom:12px;z-index:2;display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:var(--r-pill);background:#06071AC7;color:#FFFFFF;font-size:var(--fs-caption);font-weight:600;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.wm-open .icon{width:16px;height:16px}
+.wm-stage:hover .wm-open{background:#06071AF0}
+.wm-stage:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.world-map figcaption{margin-top:6px;color:var(--text-muted);font-size:var(--fs-micro);line-height:var(--lh-micro);text-align:right}
+
+/* ===== Home (v0.18): section heads, the Korean blocks, the world strip ===== */
+.home-head{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--s-4);margin:0 0 var(--s-5)}
+.home-head-text{display:grid;gap:2px;min-width:0}
+.section-eyebrow{display:flex;align-items:center;gap:10px;margin:0 0 var(--s-2);color:var(--accent-strong);font-size:var(--fs-micro);line-height:var(--lh-micro);font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.section-eyebrow::before{content:'';width:20px;height:2px;border-radius:2px;background:currentColor}
+.home-head h2{margin:0;font-size:26px;line-height:32px;font-weight:800;letter-spacing:-.035em}
+.home-head .section-tools{display:flex;align-items:center;gap:var(--s-2);flex:none}
+.home-head .text-link{min-height:44px;font-size:var(--fs-label);white-space:nowrap}
+@media (max-width:599px){.home-head{flex-wrap:wrap;align-items:flex-start}.home-head .section-tools{width:100%;justify-content:flex-start;margin-top:calc(-1 * var(--s-2))}.home-head .rail-nav{display:none!important}}
+@media (min-width:1024px){.home-head{margin-bottom:var(--s-8)}.home-head h2{font-size:38px;line-height:46px}}
+.home-kr-regions{margin-top:48px}
+@media (min-width:1024px){.home-kr-regions{margin-top:72px}}
+.home-world{position:relative;padding:var(--s-8) 0 var(--s-6)}
+.home-world::before{content:'';position:absolute;inset:0 calc(-1 * var(--gutter));z-index:-1;background:var(--panel)}
+@media (min-width:1024px){.home-world{padding:var(--s-10) 0}.home-world::before{inset:0 calc(-1 * var(--s-6));border-radius:var(--r-xl)}}
+.home-world .home-head h2{font-size:22px;line-height:28px}
+@media (min-width:1024px){.home-world .home-head h2{font-size:30px;line-height:38px}}
+.world-strip{display:grid;grid-auto-flow:column;grid-auto-columns:min(62vw,240px);gap:var(--s-3);overflow-x:auto;margin:0 calc(-1 * var(--gutter));padding:0 var(--gutter) var(--s-2);scroll-snap-type:x mandatory;scroll-padding:0 var(--gutter);scrollbar-width:none}
+.world-strip::-webkit-scrollbar{display:none}
+.world-strip>*{scroll-snap-align:start}
+@media (min-width:1024px){.world-strip{grid-auto-flow:row;grid-template-columns:repeat(6,minmax(0,1fr));overflow:visible;margin:0;padding:0;gap:var(--s-4)}}
+.world-card .card-art{aspect-ratio:4/3}
+.world-card .card-link h3{font-size:15px;line-height:20px}
+.feature-grid .card-art,.grid.rail .card-art{aspect-ratio:4/3}
+.feature-grid .feature-lead .card-art{aspect-ratio:3/2}
+
+/* ===== Cards: landscape frames (architecture photos are mostly landscape), quieter credits ===== */
+.grid:not(.rail) .card-art,.grid.results:not(.rows) .card-art{aspect-ratio:4/3}
+.image-credit{background:#06071AA6;font-size:10px;line-height:14px;font-weight:500;opacity:.92}
+.image-credit:hover,.image-credit:focus-visible{opacity:1;background:var(--credit-bg)}
+.plate-credit{font-size:10px;line-height:14px;min-height:24px;padding:3px 8px;background:#06071A99}
+@media (max-width:599px){.grid:not(.rail):not(.rows){grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s-5) var(--s-3)}.grid:not(.rail) .card-link h3{font-size:15px;line-height:20px}.grid:not(.rail) .card-meta{font-size:var(--fs-micro)}}
+@media (min-width:1280px){.section-block .grid:not(.rows){grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* ===== Archive search: Korean results first, under their own heading ===== */
+h2.result-group{display:flex;align-items:baseline;gap:var(--s-2);margin:var(--s-8) 0 var(--s-4);padding-top:var(--s-4);border-top:1px solid var(--line);font-size:var(--fs-title3);line-height:var(--lh-title3);font-weight:800;letter-spacing:-.02em}
+h2.result-group:first-of-type{margin-top:var(--s-2)}
+h2.result-group .tnum{color:var(--text-muted);font-size:var(--fs-label);font-weight:600}
+
+/* ===== Map: the Korea / world switch in the panel head ===== */
+.map-title-row{display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);margin-bottom:var(--s-3)}
+.map-title-row .map-title{margin:0}
+.map-scope{flex:none;width:auto}
+.map-scope button{display:inline-flex;align-items:center;gap:6px;padding:0 14px;min-height:40px}
+.map-scope button .icon{width:16px;height:16px}
+
+/* ===== Photos: never larger than their renditions ===== */
+.card-art.detail-art.matted{display:grid;place-items:center;background:radial-gradient(60% 70% at 50% 40%,#2B287366 0%,#2B287300 70%),var(--night)}
+.card-art.detail-art.matted>img{position:relative;inset:auto;width:auto;height:auto;max-width:min(100%,var(--natural,100%));max-height:100%;object-fit:contain;transform:none!important}
+.gallery-figure .gallery-photo{max-width:min(100%,var(--natural,100%))}
+.credit-source{color:var(--text-muted);font-size:var(--fs-micro);line-height:var(--lh-micro)}
+.ph.ph-failed{position:absolute;inset:0}
+.collection-actions{margin:0 0 var(--s-5)}
+.record-list{display:grid;gap:var(--s-3)}
