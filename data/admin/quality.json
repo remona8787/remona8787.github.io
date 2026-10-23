@@ -109,8 +109,8 @@
    "url": "https://lightroomseoul.com/en/"
   },
   {
-   "checked_at": "2026-10-22T17:15:03.615Z",
-   "consecutive_failures": 3,
+   "checked_at": "2026-10-23T17:14:02.460Z",
+   "consecutive_failures": 4,
    "field": "source:curated:source",
    "http_status": null,
    "project": "SEOUL023",
@@ -181,7 +181,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261020T213952Z-5625bd3f",
+ "build_id": "20261023T171159Z-bf9fc432",
  "coordinate_checks": [
   {
    "distance_m": 1593,
@@ -2997,6 +2997,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -4908,6 +4909,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5827,6 +5829,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "class_requires_coordinates"
    ]
   },
@@ -6221,6 +6224,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6270,6 +6274,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6306,6 +6311,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6499,6 +6505,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6653,6 +6660,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6702,6 +6710,7 @@
    "qid": "Q325698",
    "reasons": [
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6714,6 +6723,7 @@
    "qid": "Q33133506",
    "reasons": [
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6740,6 +6750,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6753,6 +6764,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6766,6 +6778,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6974,6 +6987,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -8167,6 +8181,7 @@
    "qid": "Q95204866",
    "reasons": [
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -8180,6 +8195,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -8684,7 +8700,7 @@
    ]
   }
  ],
- "generated_at": "2026-10-23T11:43:38.432Z",
+ "generated_at": "2026-10-23T17:11:59.905Z",
  "image_rejections": {
   "extreme_aspect": 8,
   "interior_unrelated_to_work": 3,
