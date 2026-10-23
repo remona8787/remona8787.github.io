@@ -1,5 +1,5 @@
 {
- "at": "2026-10-22T21:39:08.447Z",
+ "at": "2026-10-23T04:55:43.817Z",
  "decisions": [
   {
    "decision": "candidate",
@@ -1449,7 +1449,7 @@
    "qid": null,
    "reason": "evidence_root",
    "root": "Category:Illuminated buildings by country",
-   "subcats": 1,
+   "subcats": 0,
    "title": "Category:Buildings in Estonia illuminated as memorials to the November 2015 Paris attacks"
   },
   {
@@ -11581,6 +11581,24 @@
    "root": "Category:Illuminated buildings by country",
    "subcats": 4,
    "title": "Category:Illuminated buildings in Taiwan by county"
+  },
+  {
+   "decision": "aggregate",
+   "files": 1,
+   "lat": null,
+   "lng": null,
+   "parent": "Category:Illuminated buildings in Estonia",
+   "place_hint": {
+    "city": null,
+    "country_iso2": "EE",
+    "from": "Category:Illuminated buildings in Estonia"
+   },
+   "project_type": null,
+   "qid": null,
+   "reason": "aggregate_topic_in_place",
+   "root": "Category:Illuminated buildings by country",
+   "subcats": 2,
+   "title": "Category:Illuminated buildings in Tallinn"
   },
   {
    "decision": "aggregate",
