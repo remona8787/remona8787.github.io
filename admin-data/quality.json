@@ -1,8 +1,8 @@
 {
  "broken_links": [
   {
-   "checked_at": "2026-10-22T21:46:09.465Z",
-   "consecutive_failures": 3,
+   "checked_at": "2026-10-24T04:51:23.686Z",
+   "consecutive_failures": 4,
    "field": "official_url",
    "http_status": 404,
    "project": "Q105749709",
@@ -28,8 +28,8 @@
    "url": "https://disneyworld.disney.go.com/entertainment/hollywood-studios/star-wars-galactic-spectacular/"
   },
   {
-   "checked_at": "2026-10-22T21:45:27.332Z",
-   "consecutive_failures": 3,
+   "checked_at": "2026-10-24T04:50:37.012Z",
+   "consecutive_failures": 4,
    "field": "official_url",
    "http_status": null,
    "project": "Q3148738",
@@ -46,8 +46,8 @@
    "url": "http://light-building.messefrankfurt.com/frankfurt/de/besucher/events/luminale.html"
   },
   {
-   "checked_at": "2026-10-22T21:45:55.355Z",
-   "consecutive_failures": 3,
+   "checked_at": "2026-10-24T04:51:05.334Z",
+   "consecutive_failures": 4,
    "field": "official_url",
    "http_status": 404,
    "project": "Q4173984",
@@ -55,8 +55,8 @@
    "url": "https://www.lightinjerusalem.com/"
   },
   {
-   "checked_at": "2026-10-22T21:45:27.332Z",
-   "consecutive_failures": 3,
+   "checked_at": "2026-10-24T04:50:37.012Z",
+   "consecutive_failures": 4,
    "field": "official_url",
    "http_status": null,
    "project": "Q5057595",
@@ -82,8 +82,8 @@
    "url": "https://ddp.or.kr/"
   },
   {
-   "checked_at": "2026-10-22T21:45:29.902Z",
-   "consecutive_failures": 3,
+   "checked_at": "2026-10-24T04:50:39.621Z",
+   "consecutive_failures": 4,
    "field": "official_url",
    "http_status": 404,
    "project": "SEOUL007",
@@ -100,8 +100,8 @@
    "url": "https://english.visitseoul.net/exhibition/CheonggyeSoulOcean/ENP20kefn"
   },
   {
-   "checked_at": "2026-10-22T21:45:51.923Z",
-   "consecutive_failures": 3,
+   "checked_at": "2026-10-24T04:51:01.622Z",
+   "consecutive_failures": 4,
    "field": "official_url",
    "http_status": null,
    "project": "SEOUL023",
@@ -118,8 +118,8 @@
    "url": "https://lightroomseoul.com/en/visit"
   },
   {
-   "checked_at": "2026-10-22T21:45:28.475Z",
-   "consecutive_failures": 3,
+   "checked_at": "2026-10-24T04:50:38.153Z",
+   "consecutive_failures": 4,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "SEOUL032",
@@ -136,8 +136,8 @@
    "url": "https://parks.seoul.go.kr/culturetank"
   },
   {
-   "checked_at": "2026-10-22T21:46:28.832Z",
-   "consecutive_failures": 3,
+   "checked_at": "2026-10-24T04:51:43.325Z",
+   "consecutive_failures": 4,
    "field": "official_url",
    "http_status": null,
    "project": "SEOUL040",
@@ -145,8 +145,8 @@
    "url": "https://www.thehyundaiseoul.com/"
   },
   {
-   "checked_at": "2026-10-22T21:45:30.901Z",
-   "consecutive_failures": 3,
+   "checked_at": "2026-10-24T04:50:40.582Z",
+   "consecutive_failures": 4,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "SEOUL044",
@@ -154,8 +154,8 @@
    "url": "https://english.visitseoul.net/attractions/Sebitseom_/24646"
   },
   {
-   "checked_at": "2026-10-22T21:45:54.246Z",
-   "consecutive_failures": 3,
+   "checked_at": "2026-10-24T04:51:04.236Z",
+   "consecutive_failures": 4,
    "field": "source:curated:check2",
    "http_status": 404,
    "project": "SEOUL046",
@@ -172,8 +172,8 @@
    "url": "https://www.starfield.co.kr/coexmall/starfieldLibrary"
   },
   {
-   "checked_at": "2026-10-22T21:46:07.912Z",
-   "consecutive_failures": 3,
+   "checked_at": "2026-10-24T04:51:22.083Z",
+   "consecutive_failures": 4,
    "field": "official_url",
    "http_status": null,
    "project": "SEOUL049",
@@ -181,7 +181,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261023T171159Z-bf9fc432",
+ "build_id": "20261024T044111Z-03b0c9df",
  "coordinate_checks": [
   {
    "distance_m": 1593,
@@ -217,18 +217,6 @@
    ]
   },
   {
-   "id": "CAT-01J5C0A",
-   "name": "Illuminated objects in Hohenlohekreis",
-   "origins": [
-    "commons"
-   ],
-   "qid": null,
-   "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
    "id": "CAT-01PJPZP",
    "name": "Illuminated objects in Germany",
    "origins": [
@@ -253,18 +241,6 @@
   {
    "id": "CAT-026CY1A",
    "name": "Illuminated objects in Pforzheim",
-   "origins": [
-    "commons"
-   ],
-   "qid": null,
-   "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "CAT-02G8WLR",
-   "name": "Illuminated trees in Bavaria",
    "origins": [
     "commons"
    ],
@@ -497,7 +473,6 @@
    ],
    "qid": null,
    "reasons": [
-    "no_country",
     "no_coordinates_or_city"
    ]
   },
@@ -645,6 +620,17 @@
    ]
   },
   {
+   "id": "CAT-0ER9UMN",
+   "name": "Illuminated trees in Norway",
+   "origins": [
+    "commons"
+   ],
+   "qid": null,
+   "reasons": [
+    "no_coordinates_or_city"
+   ]
+  },
+  {
    "id": "CAT-0FT9A87",
    "name": "Illuminationsprojekt Bunte Leuchten",
    "origins": [
@@ -694,6 +680,28 @@
   {
    "id": "CAT-0H4BEQU",
    "name": "Tree of Life Awakenings",
+   "origins": [
+    "commons"
+   ],
+   "qid": null,
+   "reasons": [
+    "no_coordinates_or_city"
+   ]
+  },
+  {
+   "id": "CAT-0HG346O",
+   "name": "Luminaries in Italy",
+   "origins": [
+    "commons"
+   ],
+   "qid": null,
+   "reasons": [
+    "no_coordinates_or_city"
+   ]
+  },
+  {
+   "id": "CAT-0IQORLO",
+   "name": "Neongeheimen,",
    "origins": [
     "commons"
    ],
@@ -1032,6 +1040,17 @@
    ]
   },
   {
+   "id": "CAT-0VTAS6Y",
+   "name": "Luminaries in Mexico",
+   "origins": [
+    "commons"
+   ],
+   "qid": null,
+   "reasons": [
+    "no_coordinates_or_city"
+   ]
+  },
+  {
    "id": "CAT-0WFYE2K",
    "name": "70 Jahre fit – Lichtkunst am Roten Turm in Chemnitz",
    "origins": [
@@ -1046,18 +1065,6 @@
   {
    "id": "CAT-0X3BFNZ",
    "name": "Festival Son et Lumière, Lomé",
-   "origins": [
-    "commons"
-   ],
-   "qid": null,
-   "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "CAT-0XKXRFR",
-   "name": "Elixir by Moment Factory",
    "origins": [
     "commons"
    ],
@@ -1139,30 +1146,6 @@
    ]
   },
   {
-   "id": "CAT-0ZY9NJG",
-   "name": "Allianz Arena illumination",
-   "origins": [
-    "commons"
-   ],
-   "qid": null,
-   "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "CAT-108UHBQ",
-   "name": "Illuminated trees in Großrinderfeld",
-   "origins": [
-    "commons"
-   ],
-   "qid": null,
-   "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
    "id": "CAT-10OT2VI",
    "name": "When Red Light Shows Wait Here sign",
    "origins": [
@@ -1199,31 +1182,8 @@
    ]
   },
   {
-   "id": "CAT-13KGH9X",
-   "name": "Dome of Light at Formosa Boulevard Station",
-   "origins": [
-    "commons"
-   ],
-   "qid": null,
-   "reasons": [
-    "no_coordinates_or_city"
-   ]
-  },
-  {
    "id": "CAT-14L575Y",
    "name": "47,16° Nord",
-   "origins": [
-    "commons"
-   ],
-   "qid": null,
-   "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "CAT-15Q3ETO",
-   "name": "Pluie de lumière",
    "origins": [
     "commons"
    ],
@@ -1389,18 +1349,6 @@
   {
    "id": "CAT-1AD2TXB",
    "name": "Firetwirling",
-   "origins": [
-    "commons"
-   ],
-   "qid": null,
-   "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "CAT-1AXKR8E",
-   "name": "Sphéérie",
    "origins": [
     "commons"
    ],
@@ -1648,18 +1596,6 @@
   {
    "id": "CAT-1HPTKTH",
    "name": "Sharjah Light Festival 2023",
-   "origins": [
-    "commons"
-   ],
-   "qid": null,
-   "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "CAT-1I6DKSQ",
-   "name": "Illuminated trees in Wertheim",
    "origins": [
     "commons"
    ],
@@ -2274,28 +2210,6 @@
     "wikidata_class"
    ],
    "qid": "Q105623405",
-   "reasons": [
-    "no_country"
-   ]
-  },
-  {
-   "id": "Q105658382",
-   "name": "White noise",
-   "origins": [
-    "wikidata_class"
-   ],
-   "qid": "Q105658382",
-   "reasons": [
-    "no_country"
-   ]
-  },
-  {
-   "id": "Q105765811",
-   "name": "The White Cube",
-   "origins": [
-    "wikidata_class"
-   ],
-   "qid": "Q105765811",
    "reasons": [
     "no_country"
    ]
@@ -5511,17 +5425,6 @@
    ]
   },
   {
-   "id": "Q136219703",
-   "name": "Origin",
-   "origins": [
-    "wikidata_class"
-   ],
-   "qid": "Q136219703",
-   "reasons": [
-    "no_country"
-   ]
-  },
-  {
    "id": "Q136720760",
    "name": "Vinyl Steganographic (part of Batman and Joker)",
    "origins": [
@@ -6204,17 +6107,6 @@
    ]
   },
   {
-   "id": "Q16034471",
-   "name": "Montréal en lumière",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q16034471",
-   "reasons": [
-    "no_coordinates_or_city"
-   ]
-  },
-  {
    "id": "Q1629853",
    "name": "Horst Rellecke",
    "origins": [
@@ -6485,17 +6377,6 @@
    ]
   },
   {
-   "id": "Q26156861",
-   "name": "Amsterdam Light Festival",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q26156861",
-   "reasons": [
-    "no_country"
-   ]
-  },
-  {
    "id": "Q2706817",
    "name": "Peter Struycken",
    "origins": [
@@ -6591,17 +6472,6 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "Q28873401",
-   "name": "Travelling Sand",
-   "origins": [
-    "wikidata_class"
-   ],
-   "qid": "Q28873401",
-   "reasons": [
-    "no_country"
    ]
   },
   {
@@ -7297,17 +7167,6 @@
    "reasons": [
     "no_country",
     "class_requires_coordinates"
-   ]
-  },
-  {
-   "id": "Q882517",
-   "name": "Blaue Nacht",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q882517",
-   "reasons": [
-    "no_country"
    ]
   },
   {
@@ -8700,12 +8559,12 @@
    ]
   }
  ],
- "generated_at": "2026-10-23T21:27:05.911Z",
+ "generated_at": "2026-10-24T04:41:11.973Z",
  "image_rejections": {
-  "extreme_aspect": 8,
+  "extreme_aspect": 9,
   "interior_unrelated_to_work": 3,
   "rights:foreign_no_freedom_of_panorama": 4,
-  "rights:license_not_allowed": 13,
+  "rights:license_not_allowed": 12,
   "too_small": 12
  },
  "low_confidence_types": [
@@ -8716,6 +8575,11 @@
   },
   {
    "id": "Q1068874",
+   "project_type": "festival_program",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q26156861",
    "project_type": "festival_program",
    "type_source": "commons_category"
   },
@@ -8770,6 +8634,16 @@
    "type_source": "commons_category"
   },
   {
+   "id": "CAT-0XKXRFR",
+   "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q61473821",
+   "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
    "id": "Q122689319",
    "project_type": "light_art",
    "type_source": "commons_category"
@@ -8800,11 +8674,6 @@
    "type_source": "commons_category"
   },
   {
-   "id": "Q270746",
-   "project_type": "light_art",
-   "type_source": "commons_category"
-  },
-  {
    "id": "CAT-087XY0Y",
    "project_type": "light_art",
    "type_source": "commons_category"
@@ -8827,11 +8696,6 @@
   {
    "id": "Q33993",
    "project_type": "media_facade",
-   "type_source": "commons_category"
-  },
-  {
-   "id": "Q48757176",
-   "project_type": "light_art",
    "type_source": "commons_category"
   },
   {
@@ -8880,8 +8744,18 @@
    "type_source": "commons_category"
   },
   {
+   "id": "Q54856189",
+   "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
    "id": "CAT-1SSQIKM",
    "project_type": "projection_mapping",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q16034471",
+   "project_type": "light_art",
    "type_source": "commons_category"
   },
   {
@@ -8890,8 +8764,18 @@
    "type_source": "commons_category"
   },
   {
+   "id": "Q114669123",
+   "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
    "id": "Q11825476",
    "project_type": "festival_program",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "CAT-15Q3ETO",
+   "project_type": "light_art",
    "type_source": "commons_category"
   },
   {
@@ -8945,6 +8829,11 @@
    "type_source": "commons_category"
   },
   {
+   "id": "CAT-1AXKR8E",
+   "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
    "id": "Q22912864",
    "project_type": "projection_mapping",
    "type_source": "commons_category"
@@ -8965,7 +8854,17 @@
    "type_source": "commons_category"
   },
   {
+   "id": "Q101435284",
+   "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
    "id": "Q17051597",
+   "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q130070499",
    "project_type": "light_art",
    "type_source": "commons_category"
   },
@@ -9888,6 +9787,10 @@
   },
   {
    "best_tier": 3,
+   "id": "Q101435284"
+  },
+  {
+   "best_tier": 3,
    "id": "Q101965745"
   },
   {
@@ -9901,6 +9804,14 @@
   {
    "best_tier": 4,
    "id": "Q105621899"
+  },
+  {
+   "best_tier": 3,
+   "id": "Q105658382"
+  },
+  {
+   "best_tier": 3,
+   "id": "Q105765811"
   },
   {
    "best_tier": 3,
@@ -10007,16 +9918,36 @@
    "id": "Q22703904"
   },
   {
+   "best_tier": 1,
+   "id": "Q270746"
+  },
+  {
+   "best_tier": 3,
+   "id": "Q28873401"
+  },
+  {
    "best_tier": 3,
    "id": "Q328491"
+  },
+  {
+   "best_tier": 1,
+   "id": "Q48757176"
   },
   {
    "best_tier": 4,
    "id": "Q5197843"
   },
   {
+   "best_tier": 3,
+   "id": "Q54856189"
+  },
+  {
    "best_tier": 4,
    "id": "Q5839725"
+  },
+  {
+   "best_tier": 3,
+   "id": "Q61473821"
   },
   {
    "best_tier": 4,
@@ -10106,7 +10037,18 @@
   }
  ],
  "schema": 1,
- "stale": [],
+ "stale": [
+  {
+   "id": "Q270746",
+   "last_seen": "2026-10-23T21:27:05.911Z",
+   "missing_runs": 1
+  },
+  {
+   "id": "Q48757176",
+   "last_seen": "2026-10-23T21:27:05.911Z",
+   "missing_runs": 1
+  }
+ ],
  "suspected_duplicates": [
   {
    "detail": "https://sonicrunway.com/",

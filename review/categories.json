@@ -1,5 +1,5 @@
 {
- "at": "2026-10-23T21:27:05.911Z",
+ "at": "2026-10-24T04:41:11.973Z",
  "decisions": [
   {
    "decision": "candidate",
@@ -365,11 +365,7 @@
    "parts": [
     "Category:A Symphony of Lights videos"
    ],
-   "place_hint": {
-    "city": null,
-    "country_iso2": "CN",
-    "from": "Category:Light art in China"
-   },
+   "place_hint": null,
    "project_type": "festival_program",
    "qid": "Q8218016",
    "reason": "specific_category",
@@ -429,20 +425,6 @@
    "title": "Category:Alcácer do Sal train station at night"
   },
   {
-   "decision": "candidate",
-   "files": 27,
-   "lat": null,
-   "lng": null,
-   "parent": "Category:Light art in Bavaria",
-   "place_hint": null,
-   "project_type": "light_art",
-   "qid": null,
-   "reason": "specific_category",
-   "root": "search:light art",
-   "subcats": 4,
-   "title": "Category:Allianz Arena illumination"
-  },
-  {
    "decision": "evidence",
    "files": 5,
    "lat": null,
@@ -466,7 +448,11 @@
    "lat": null,
    "lng": null,
    "parent": null,
-   "place_hint": null,
+   "place_hint": {
+    "city": null,
+    "country_iso2": "NL",
+    "from": "Category:Light art in the Netherlands"
+   },
    "project_type": "festival_program",
    "qid": "Q26156861",
    "reason": "specific_category",
@@ -726,20 +712,6 @@
    "subcats": 0,
    "title": "Category:Black light shows",
    "via_file": null
-  },
-  {
-   "decision": "candidate",
-   "files": 23,
-   "lat": null,
-   "lng": null,
-   "parent": "Category:Light art in Bavaria",
-   "place_hint": null,
-   "project_type": "light_art",
-   "qid": "Q882517",
-   "reason": "specific_category",
-   "root": "search:light art",
-   "subcats": 0,
-   "title": "Category:Blaue Nacht"
   },
   {
    "decision": "part",
@@ -3725,7 +3697,7 @@
   },
   {
    "decision": "candidate",
-   "files": 2959,
+   "files": 2960,
    "lat": null,
    "lng": null,
    "parent": null,
@@ -4201,24 +4173,6 @@
   },
   {
    "decision": "candidate",
-   "files": 157,
-   "lat": null,
-   "lng": null,
-   "parent": "Category:Light art in Taiwan",
-   "place_hint": {
-    "city": null,
-    "country_iso2": "TW",
-    "from": "Category:Light art in Taiwan"
-   },
-   "project_type": "light_art",
-   "qid": null,
-   "reason": "specific_category",
-   "root": "search:light art",
-   "subcats": 0,
-   "title": "Category:Dome of Light at Formosa Boulevard Station"
-  },
-  {
-   "decision": "candidate",
    "files": 7,
    "lat": null,
    "lng": null,
@@ -4322,7 +4276,11 @@
    "lat": null,
    "lng": null,
    "parent": "Category:Light art in the Quartier des Spectacles",
-   "place_hint": null,
+   "place_hint": {
+    "city": "Montreal",
+    "country_iso2": "CA",
+    "from": "Category:Light art in Montreal"
+   },
    "project_type": "light_art",
    "qid": null,
    "reason": "specific_category",
@@ -4347,6 +4305,24 @@
    "root": "Category:Illuminated buildings by country",
    "subcats": 0,
    "title": "Category:Emiciclo (L'Aquila) at night"
+  },
+  {
+   "decision": "candidate",
+   "files": 3,
+   "lat": 52.505622,
+   "lng": 6.090658,
+   "parent": "Category:Light art in the Netherlands",
+   "place_hint": {
+    "city": null,
+    "country_iso2": "NL",
+    "from": "Category:Light art in the Netherlands"
+   },
+   "project_type": "light_art",
+   "qid": "Q61473821",
+   "reason": "specific_category",
+   "root": "search:light art",
+   "subcats": 0,
+   "title": "Category:Energiesculptuur (Jan van Munster)"
   },
   {
    "decision": "evidence",
@@ -4954,7 +4930,11 @@
    "lat": null,
    "lng": null,
    "parent": null,
-   "place_hint": null,
+   "place_hint": {
+    "city": null,
+    "country_iso2": "RO",
+    "from": "Category:Light art in Romania"
+   },
    "project_type": "festival_program",
    "qid": null,
    "reason": "specific_category",
@@ -5231,7 +5211,11 @@
    "lat": null,
    "lng": null,
    "parent": "Category:Festivals of lights by country",
-   "place_hint": null,
+   "place_hint": {
+    "city": null,
+    "country_iso2": "IT",
+    "from": "Category:Light art in Italy"
+   },
    "project_type": "festival_program",
    "qid": null,
    "reason": "aggregate_topic_in_place",
@@ -5519,39 +5503,21 @@
   },
   {
    "decision": "rejected",
-   "files": 45,
+   "files": 8,
    "lat": null,
    "lng": null,
-   "parent": "Category:Light art in China",
+   "parent": "Category:Light art in Bulgaria",
    "place_hint": {
     "city": null,
-    "country_iso2": "CN",
-    "from": "Category:Light art in China"
+    "country_iso2": "BG",
+    "from": "Category:Light art in Bulgaria"
    },
    "project_type": "light_art",
    "qid": null,
    "reason": "blocklist_unrelated_light_topic",
    "root": "search:light art",
-   "subcats": 2,
-   "title": "Category:Fireworks in China"
-  },
-  {
-   "decision": "rejected",
-   "files": 26,
-   "lat": null,
-   "lng": null,
-   "parent": "Category:Light art in Taiwan",
-   "place_hint": {
-    "city": null,
-    "country_iso2": "TW",
-    "from": "Category:Light art in Taiwan"
-   },
-   "project_type": "light_art",
-   "qid": null,
-   "reason": "blocklist_unrelated_light_topic",
-   "root": "search:light art",
-   "subcats": 3,
-   "title": "Category:Fireworks in Taiwan"
+   "subcats": 1,
+   "title": "Category:Fireworks in Bulgaria"
   },
   {
    "decision": "evidence",
@@ -6207,20 +6173,6 @@
    "title": "Category:Genesis II (München)"
   },
   {
-   "decision": "candidate",
-   "files": 6,
-   "lat": 48.1509,
-   "lng": 11.5767,
-   "parent": "Category:Light art in Bavaria",
-   "place_hint": null,
-   "project_type": "light_art",
-   "qid": "Q270746",
-   "reason": "specific_category",
-   "root": "search:light art",
-   "subcats": 0,
-   "title": "Category:Georg-Elser-Denkmal (München)"
-  },
-  {
    "decision": "part",
    "files": 4,
    "lat": 53.550972,
@@ -6761,7 +6713,11 @@
    "lat": null,
    "lng": null,
    "parent": "Category:Light art events",
-   "place_hint": null,
+   "place_hint": {
+    "city": "Montreal",
+    "country_iso2": "CA",
+    "from": "Category:Light art in Montreal"
+   },
    "project_type": "light_art",
    "qid": null,
    "reason": "inside_project_category",
@@ -7052,7 +7008,7 @@
    "qid": null,
    "reason": "aggregate_topic_in_place",
    "root": "Category:Illuminated buildings by city",
-   "subcats": 3,
+   "subcats": 2,
    "title": "Category:Illuminated buildings in Amritsar"
   },
   {
@@ -13758,20 +13714,6 @@
    "files": 0,
    "lat": null,
    "lng": null,
-   "parent": "Category:Light art in Hohenlohekreis",
-   "place_hint": null,
-   "project_type": "light_art",
-   "qid": null,
-   "reason": "specific_category",
-   "root": "search:light art",
-   "subcats": 1,
-   "title": "Category:Illuminated objects in Hohenlohekreis"
-  },
-  {
-   "decision": "candidate",
-   "files": 0,
-   "lat": null,
-   "lng": null,
    "parent": "Category:Light art in Karlsruhe",
    "place_hint": null,
    "project_type": "light_art",
@@ -14005,20 +13947,6 @@
   },
   {
    "decision": "candidate",
-   "files": 0,
-   "lat": null,
-   "lng": null,
-   "parent": "Category:Light art in Bavaria",
-   "place_hint": null,
-   "project_type": "light_art",
-   "qid": null,
-   "reason": "specific_category",
-   "root": "search:light art",
-   "subcats": 1,
-   "title": "Category:Illuminated trees in Bavaria"
-  },
-  {
-   "decision": "candidate",
    "files": 45,
    "lat": null,
    "lng": null,
@@ -14076,14 +14004,18 @@
    "files": 0,
    "lat": null,
    "lng": null,
-   "parent": "Category:Light art in Großrinderfeld",
-   "place_hint": null,
+   "parent": "Category:Light art in Norway",
+   "place_hint": {
+    "city": null,
+    "country_iso2": "NO",
+    "from": "Category:Light art in Norway"
+   },
    "project_type": "light_art",
    "qid": null,
    "reason": "specific_category",
    "root": "search:light art",
    "subcats": 1,
-   "title": "Category:Illuminated trees in Großrinderfeld"
+   "title": "Category:Illuminated trees in Norway"
   },
   {
    "decision": "candidate",
@@ -14120,20 +14052,6 @@
    "root": "search:light art",
    "subcats": 1,
    "title": "Category:Illuminated trees in Sweden"
-  },
-  {
-   "decision": "candidate",
-   "files": 0,
-   "lat": null,
-   "lng": null,
-   "parent": "Category:Light art in Wertheim",
-   "place_hint": null,
-   "project_type": "light_art",
-   "qid": null,
-   "reason": "specific_category",
-   "root": "search:light art",
-   "subcats": 1,
-   "title": "Category:Illuminated trees in Wertheim"
   },
   {
    "decision": "candidate",
@@ -14344,7 +14262,11 @@
    "lat": null,
    "lng": null,
    "parent": "Category:Searchlights used in art",
-   "place_hint": null,
+   "place_hint": {
+    "city": "Montreal",
+    "country_iso2": "CA",
+    "from": "Category:Light art in Montreal"
+   },
    "project_type": "light_art",
    "qid": null,
    "reason": "inside_project_category",
@@ -14521,20 +14443,6 @@
    "root": "Category:Illuminated buildings by city",
    "subcats": 0,
    "title": "Category:Konserthuset at night"
-  },
-  {
-   "decision": "candidate",
-   "files": 13,
-   "lat": null,
-   "lng": null,
-   "parent": "Category:Light art in Bavaria",
-   "place_hint": null,
-   "project_type": "light_art",
-   "qid": "Q48757176",
-   "reason": "specific_category",
-   "root": "search:light art",
-   "subcats": 0,
-   "title": "Category:Kronach leuchtet"
   },
   {
    "decision": "candidate",
@@ -15692,28 +15600,17 @@
    "lat": null,
    "lng": null,
    "parent": null,
-   "place_hint": null,
+   "place_hint": {
+    "city": null,
+    "country_iso2": "ES",
+    "from": "Category:Light art in Spain"
+   },
    "project_type": "light_art",
    "qid": null,
    "reason": "aggregate_topic_in_place",
    "root": "search:light art",
    "subcats": 5,
    "title": "Category:Light art in Barcelona",
-   "via_file": null
-  },
-  {
-   "decision": "aggregate",
-   "files": 26,
-   "lat": null,
-   "lng": null,
-   "parent": null,
-   "place_hint": null,
-   "project_type": "light_art",
-   "qid": null,
-   "reason": "aggregate_topic_in_place",
-   "root": "search:light art",
-   "subcats": 7,
-   "title": "Category:Light art in Bavaria",
    "via_file": null
   },
   {
@@ -15748,7 +15645,7 @@
   },
   {
    "decision": "aggregate",
-   "files": 1,
+   "files": 2,
    "lat": null,
    "lng": null,
    "parent": null,
@@ -15757,13 +15654,13 @@
    "qid": null,
    "reason": "aggregate_topic_in_place",
    "root": "search:light art",
-   "subcats": 0,
-   "title": "Category:Light art in Bodenseekreis",
+   "subcats": 1,
+   "title": "Category:Light art in Bulgaria",
    "via_file": null
   },
   {
    "decision": "aggregate",
-   "files": 2,
+   "files": 7,
    "lat": null,
    "lng": null,
    "parent": "Category:Light art by country",
@@ -15772,23 +15669,8 @@
    "qid": null,
    "reason": "aggregate_topic_in_place",
    "root": "Category:Light art",
-   "subcats": 1,
-   "title": "Category:Light art in Bulgaria"
-  },
-  {
-   "decision": "aggregate",
-   "files": 7,
-   "lat": null,
-   "lng": null,
-   "parent": null,
-   "place_hint": null,
-   "project_type": "light_art",
-   "qid": null,
-   "reason": "aggregate_topic_in_place",
-   "root": "search:light art",
    "subcats": 2,
-   "title": "Category:Light art in Canada",
-   "via_file": null
+   "title": "Category:Light art in Canada"
   },
   {
    "decision": "aggregate",
@@ -15829,15 +15711,14 @@
    "files": 25,
    "lat": null,
    "lng": null,
-   "parent": null,
+   "parent": "Category:Light art by country",
    "place_hint": null,
    "project_type": "light_art",
    "qid": null,
    "reason": "aggregate_topic_in_place",
-   "root": "search:light art",
+   "root": "Category:Light art",
    "subcats": 3,
-   "title": "Category:Light art in China",
-   "via_file": null
+   "title": "Category:Light art in China"
   },
   {
    "decision": "aggregate",
@@ -16053,21 +15934,6 @@
   },
   {
    "decision": "aggregate",
-   "files": 0,
-   "lat": null,
-   "lng": null,
-   "parent": null,
-   "place_hint": null,
-   "project_type": "light_art",
-   "qid": null,
-   "reason": "aggregate_topic_in_place",
-   "root": "search:light art",
-   "subcats": 1,
-   "title": "Category:Light art in Großrinderfeld",
-   "via_file": null
-  },
-  {
-   "decision": "aggregate",
    "files": 3,
    "lat": null,
    "lng": null,
@@ -16113,7 +15979,7 @@
   },
   {
    "decision": "aggregate",
-   "files": 0,
+   "files": 6,
    "lat": null,
    "lng": null,
    "parent": null,
@@ -16122,23 +15988,9 @@
    "qid": null,
    "reason": "aggregate_topic_in_place",
    "root": "search:light art",
-   "subcats": 1,
-   "title": "Category:Light art in Hohenlohekreis",
-   "via_file": null
-  },
-  {
-   "decision": "aggregate",
-   "files": 6,
-   "lat": null,
-   "lng": null,
-   "parent": "Category:Light art by country",
-   "place_hint": null,
-   "project_type": "light_art",
-   "qid": null,
-   "reason": "aggregate_topic_in_place",
-   "root": "Category:Light art",
    "subcats": 3,
-   "title": "Category:Light art in Italy"
+   "title": "Category:Light art in Italy",
+   "via_file": null
   },
   {
    "decision": "aggregate",
@@ -16189,14 +16041,15 @@
    "files": 1,
    "lat": null,
    "lng": null,
-   "parent": "Category:Light art by country",
+   "parent": null,
    "place_hint": null,
    "project_type": "light_art",
    "qid": null,
    "reason": "aggregate_topic_in_place",
-   "root": "Category:Light art",
+   "root": "search:light art",
    "subcats": 2,
-   "title": "Category:Light art in Mexico"
+   "title": "Category:Light art in Mexico",
+   "via_file": null
   },
   {
    "decision": "aggregate",
@@ -16204,11 +16057,7 @@
    "lat": null,
    "lng": null,
    "parent": null,
-   "place_hint": {
-    "city": null,
-    "country_iso2": "CA",
-    "from": "Category:Light art in Canada"
-   },
+   "place_hint": null,
    "project_type": "light_art",
    "qid": null,
    "reason": "aggregate_topic_in_place",
@@ -16252,17 +16101,33 @@
   },
   {
    "decision": "aggregate",
-   "files": 0,
+   "files": 17,
    "lat": null,
    "lng": null,
-   "parent": "Category:Light art by country",
+   "parent": null,
    "place_hint": null,
    "project_type": "light_art",
    "qid": null,
    "reason": "aggregate_topic_in_place",
-   "root": "Category:Light art",
+   "root": "search:light art",
+   "subcats": 0,
+   "title": "Category:Light art in Nijō Castle",
+   "via_file": null
+  },
+  {
+   "decision": "aggregate",
+   "files": 0,
+   "lat": null,
+   "lng": null,
+   "parent": null,
+   "place_hint": null,
+   "project_type": "light_art",
+   "qid": null,
+   "reason": "aggregate_topic_in_place",
+   "root": "search:light art",
    "subcats": 1,
-   "title": "Category:Light art in Norway"
+   "title": "Category:Light art in Norway",
+   "via_file": null
   },
   {
    "decision": "aggregate",
@@ -16285,7 +16150,11 @@
    "lat": null,
    "lng": null,
    "parent": "Category:Light art in the Quartier des Spectacles",
-   "place_hint": null,
+   "place_hint": {
+    "city": "Montreal",
+    "country_iso2": "CA",
+    "from": "Category:Light art in Montreal"
+   },
    "project_type": "light_art",
    "qid": null,
    "reason": "aggregate_topic_in_place",
@@ -16313,14 +16182,15 @@
    "files": 0,
    "lat": null,
    "lng": null,
-   "parent": "Category:Light art by country",
+   "parent": null,
    "place_hint": null,
    "project_type": "light_art",
    "qid": null,
    "reason": "aggregate_topic_in_place",
-   "root": "Category:Light art",
+   "root": "search:light art",
    "subcats": 2,
-   "title": "Category:Light art in Romania"
+   "title": "Category:Light art in Romania",
+   "via_file": null
   },
   {
    "decision": "aggregate",
@@ -16328,7 +16198,11 @@
    "lat": null,
    "lng": null,
    "parent": null,
-   "place_hint": null,
+   "place_hint": {
+    "city": null,
+    "country_iso2": "NL",
+    "from": "Category:Light art in the Netherlands"
+   },
    "project_type": "light_art",
    "qid": null,
    "reason": "aggregate_topic_in_place",
@@ -16394,6 +16268,21 @@
    "reason": "aggregate_topic_in_place",
    "root": "search:light art",
    "subcats": 1,
+   "title": "Category:Light art in Suhl",
+   "via_file": null
+  },
+  {
+   "decision": "aggregate",
+   "files": 0,
+   "lat": null,
+   "lng": null,
+   "parent": null,
+   "place_hint": null,
+   "project_type": "light_art",
+   "qid": null,
+   "reason": "aggregate_topic_in_place",
+   "root": "search:light art",
+   "subcats": 1,
    "title": "Category:Light art in Sweden",
    "via_file": null
   },
@@ -16417,15 +16306,14 @@
    "files": 8,
    "lat": null,
    "lng": null,
-   "parent": null,
+   "parent": "Category:Light art by country",
    "place_hint": null,
    "project_type": "light_art",
    "qid": null,
    "reason": "aggregate_topic_in_place",
-   "root": "search:light art",
+   "root": "Category:Light art",
    "subcats": 2,
-   "title": "Category:Light art in Taiwan",
-   "via_file": null
+   "title": "Category:Light art in Taiwan"
   },
   {
    "decision": "aggregate",
@@ -16483,21 +16371,6 @@
    "qid": null,
    "reason": "aggregate_topic_in_place",
    "root": "search:light art",
-   "subcats": 1,
-   "title": "Category:Light art in Wertheim",
-   "via_file": null
-  },
-  {
-   "decision": "aggregate",
-   "files": 0,
-   "lat": null,
-   "lng": null,
-   "parent": null,
-   "place_hint": null,
-   "project_type": "light_art",
-   "qid": null,
-   "reason": "aggregate_topic_in_place",
-   "root": "search:light art",
    "subcats": 8,
    "title": "Category:Light art in Wuppertal",
    "via_file": null
@@ -16522,14 +16395,15 @@
    "files": 23,
    "lat": null,
    "lng": null,
-   "parent": "Category:Light art by country",
+   "parent": null,
    "place_hint": null,
    "project_type": "light_art",
    "qid": null,
    "reason": "aggregate_topic_in_place",
-   "root": "Category:Light art",
+   "root": "search:light art",
    "subcats": 12,
-   "title": "Category:Light art in the Netherlands"
+   "title": "Category:Light art in the Netherlands",
+   "via_file": null
   },
   {
    "decision": "aggregate",
@@ -16954,6 +16828,42 @@
   },
   {
    "decision": "candidate",
+   "files": 116,
+   "lat": null,
+   "lng": null,
+   "parent": "Category:Light art in Italy",
+   "place_hint": {
+    "city": null,
+    "country_iso2": "IT",
+    "from": "Category:Light art in Italy"
+   },
+   "project_type": "light_art",
+   "qid": null,
+   "reason": "specific_category",
+   "root": "search:light art",
+   "subcats": 16,
+   "title": "Category:Luminaries in Italy"
+  },
+  {
+   "decision": "candidate",
+   "files": 0,
+   "lat": null,
+   "lng": null,
+   "parent": "Category:Light art in Mexico",
+   "place_hint": {
+    "city": null,
+    "country_iso2": "MX",
+    "from": "Category:Light art in Mexico"
+   },
+   "project_type": "light_art",
+   "qid": null,
+   "reason": "specific_category",
+   "root": "search:light art",
+   "subcats": 1,
+   "title": "Category:Luminaries in Mexico"
+  },
+  {
+   "decision": "candidate",
    "files": 61,
    "lat": null,
    "lng": null,
@@ -16989,13 +16899,35 @@
    "lat": null,
    "lng": null,
    "parent": "Category:Light art events",
-   "place_hint": null,
+   "place_hint": {
+    "city": "Montreal",
+    "country_iso2": "CA",
+    "from": "Category:Light art in Montreal"
+   },
    "project_type": "light_art",
    "qid": null,
    "reason": "inside_project_category",
    "root": "Category:Light art",
    "subcats": 12,
    "title": "Category:Luminothérapie, Montréal"
+  },
+  {
+   "decision": "candidate",
+   "files": 7,
+   "lat": 52.1650058,
+   "lng": 4.4734603,
+   "parent": "Category:Light art in the Netherlands",
+   "place_hint": {
+    "city": null,
+    "country_iso2": "NL",
+    "from": "Category:Light art in the Netherlands"
+   },
+   "project_type": "light_art",
+   "qid": "Q54856189",
+   "reason": "specific_category",
+   "root": "search:light art",
+   "subcats": 0,
+   "title": "Category:Lust for Life (Giny Vos)"
   },
   {
    "decision": "part",
@@ -17298,7 +17230,11 @@
    "lat": null,
    "lng": null,
    "parent": "Category:Light art in the Quartier des Spectacles",
-   "place_hint": null,
+   "place_hint": {
+    "city": "Montreal",
+    "country_iso2": "CA",
+    "from": "Category:Light art in Montreal"
+   },
    "project_type": "light_art",
    "qid": "Q16034471",
    "reason": "specific_category",
@@ -17518,6 +17454,24 @@
    "root": "Category:Light art",
    "subcats": 1,
    "title": "Category:Neon signs in art"
+  },
+  {
+   "decision": "candidate",
+   "files": 3,
+   "lat": null,
+   "lng": null,
+   "parent": "Category:Light art in the Netherlands",
+   "place_hint": {
+    "city": null,
+    "country_iso2": "NL",
+    "from": "Category:Light art in the Netherlands"
+   },
+   "project_type": "light_art",
+   "qid": null,
+   "reason": "specific_category",
+   "root": "search:light art",
+   "subcats": 0,
+   "title": "Category:Neongeheimen, (Marijke de Goey)"
   },
   {
    "decision": "candidate",
@@ -17760,6 +17714,24 @@
    "title": "Category:Novotel Bucharest City Centre at night"
   },
   {
+   "decision": "candidate",
+   "files": 6,
+   "lat": 52.16666135,
+   "lng": 4.48141978,
+   "parent": "Category:Light art in the Netherlands",
+   "place_hint": {
+    "city": null,
+    "country_iso2": "NL",
+    "from": "Category:Light art in the Netherlands"
+   },
+   "project_type": "light_art",
+   "qid": "Q114669123",
+   "reason": "specific_category",
+   "root": "search:light art",
+   "subcats": 0,
+   "title": "Category:Ode to Rembrandt (Jan Wolkers, Leiden)"
+  },
+  {
    "decision": "evidence",
    "files": 19,
    "lat": null,
@@ -17866,6 +17838,24 @@
    "root": "Category:Illuminated buildings by city",
    "subcats": 0,
    "title": "Category:Oriental Pearl Tower at night"
+  },
+  {
+   "decision": "candidate",
+   "files": 18,
+   "lat": null,
+   "lng": null,
+   "parent": "Category:Light art in the Netherlands",
+   "place_hint": {
+    "city": null,
+    "country_iso2": "NL",
+    "from": "Category:Light art in the Netherlands"
+   },
+   "project_type": "light_art",
+   "qid": null,
+   "reason": "specific_category",
+   "root": "search:light art",
+   "subcats": 0,
+   "title": "Category:Origin (Vendel & De Wolf)"
   },
   {
    "decision": "candidate",
@@ -18136,7 +18126,11 @@
    "lat": null,
    "lng": null,
    "parent": "Category:Light art in the Quartier des Spectacles",
-   "place_hint": null,
+   "place_hint": {
+    "city": "Montreal",
+    "country_iso2": "CA",
+    "from": "Category:Light art in Montreal"
+   },
    "project_type": "light_art",
    "qid": null,
    "reason": "specific_category",
@@ -18513,11 +18507,7 @@
    "lat": null,
    "lng": null,
    "parent": null,
-   "place_hint": {
-    "city": null,
-    "country_iso2": "CN",
-    "from": "Category:Light art in China"
-   },
+   "place_hint": null,
    "project_type": "projection_mapping",
    "qid": null,
    "reason": "aggregate_topic_in_place",
@@ -19266,6 +19256,24 @@
   },
   {
    "decision": "candidate",
+   "files": 4,
+   "lat": 52.209672,
+   "lng": 5.968651,
+   "parent": "Category:Light art in the Netherlands",
+   "place_hint": {
+    "city": null,
+    "country_iso2": "NL",
+    "from": "Category:Light art in the Netherlands"
+   },
+   "project_type": "light_art",
+   "qid": "Q28873401",
+   "reason": "specific_category",
+   "root": "search:light art",
+   "subcats": 0,
+   "title": "Category:Reizend zand"
+  },
+  {
+   "decision": "candidate",
    "files": 1,
    "lat": null,
    "lng": null,
@@ -20001,7 +20009,11 @@
    "lat": null,
    "lng": null,
    "parent": "Category:Light art in the Quartier des Spectacles",
-   "place_hint": null,
+   "place_hint": {
+    "city": "Montreal",
+    "country_iso2": "CA",
+    "from": "Category:Light art in Montreal"
+   },
    "project_type": "light_art",
    "qid": null,
    "reason": "specific_category",
@@ -20309,6 +20321,24 @@
    "root": "search:light art",
    "subcats": 0,
    "title": "Category:The World is Yours (Arno Coenen and Iris Roskam)"
+  },
+  {
+   "decision": "candidate",
+   "files": 4,
+   "lat": 52.37707222,
+   "lng": 4.89614722,
+   "parent": "Category:Light art in the Netherlands",
+   "place_hint": {
+    "city": null,
+    "country_iso2": "NL",
+    "from": "Category:Light art in the Netherlands"
+   },
+   "project_type": "light_art",
+   "qid": "Q105765811",
+   "reason": "specific_category",
+   "root": "search:light art",
+   "subcats": 0,
+   "title": "Category:The white cube (Giny Vos)"
   },
   {
    "decision": "evidence",
@@ -20654,6 +20684,24 @@
    "via_file": "V2 Institute for the Unstable Media facade.jpg"
   },
   {
+   "decision": "candidate",
+   "files": 1,
+   "lat": 51.454448,
+   "lng": 5.52665,
+   "parent": "Category:Light art in the Netherlands",
+   "place_hint": {
+    "city": null,
+    "country_iso2": "NL",
+    "from": "Category:Light art in the Netherlands"
+   },
+   "project_type": "light_art",
+   "qid": "Q101435284",
+   "reason": "specific_category",
+   "root": "search:light art",
+   "subcats": 0,
+   "title": "Category:Van Gogh Fietspad"
+  },
+  {
    "decision": "part",
    "files": 3,
    "lat": 36.133434,
@@ -20837,6 +20885,24 @@
   },
   {
    "decision": "candidate",
+   "files": 7,
+   "lat": 53.21915677,
+   "lng": 6.57059825,
+   "parent": "Category:Light art in the Netherlands",
+   "place_hint": {
+    "city": null,
+    "country_iso2": "NL",
+    "from": "Category:Light art in the Netherlands"
+   },
+   "project_type": "light_art",
+   "qid": "Q130070499",
+   "reason": "specific_category",
+   "root": "search:light art",
+   "subcats": 0,
+   "title": "Category:Wervel (Nicky Assmann)"
+  },
+  {
+   "decision": "candidate",
    "files": 8,
    "lat": null,
    "lng": null,
@@ -20849,6 +20915,24 @@
    "subcats": 3,
    "title": "Category:When Red Light Shows Wait Here sign",
    "via_file": null
+  },
+  {
+   "decision": "candidate",
+   "files": 8,
+   "lat": 52.336381,
+   "lng": 4.888094,
+   "parent": "Category:Light art in the Netherlands",
+   "place_hint": {
+    "city": null,
+    "country_iso2": "NL",
+    "from": "Category:Light art in the Netherlands"
+   },
+   "project_type": "light_art",
+   "qid": "Q105658382",
+   "reason": "specific_category",
+   "root": "search:light art",
+   "subcats": 0,
+   "title": "Category:White noise (Giny Vos)"
   },
   {
    "decision": "part",
