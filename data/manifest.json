@@ -1,5 +1,5 @@
 {
- "build_id": "20261025T143341Z-e9a1ed3e",
+ "build_id": "20261025T191359Z-8157020e",
  "counts": {
   "by_country": {
    "AE": 1,
@@ -11,7 +11,7 @@
    "CZ": 5,
    "DE": 102,
    "DK": 1,
-   "ES": 6,
+   "ES": 7,
    "FI": 6,
    "FR": 4,
    "GB": 14,
@@ -21,8 +21,8 @@
    "IN": 1,
    "IS": 1,
    "IT": 1,
-   "JP": 3,
-   "KR": 50,
+   "JP": 5,
+   "KR": 52,
    "NL": 12,
    "NZ": 3,
    "PL": 3,
@@ -33,28 +33,34 @@
    "TR": 2,
    "US": 19
   },
+  "by_kr_region": {
+   "gyeonggi_incheon": 1,
+   "seoul": 51
+  },
   "by_region": {
-   "east_asia": 55,
-   "europe": 170,
+   "east_asia": 59,
+   "europe": 171,
    "middle_east": 6,
    "north_america": 39,
    "oceania": 3,
    "south_asia": 1
   },
   "by_type": {
-   "festival_program": 41,
+   "festival_program": 44,
    "interactive_installation": 1,
    "light_art": 151,
-   "media_architecture": 12,
-   "media_facade": 30,
+   "media_architecture": 13,
+   "media_facade": 31,
    "media_wall": 2,
    "other": 19,
    "projection_mapping": 17,
    "urban_screen": 1
   },
-  "projects": 274,
+  "korea": 52,
+  "projects": 279,
   "with_hero": 9,
-  "with_images": 140
+  "with_images": 143,
+  "world": 227
  },
  "credits": {
   "data": "Wikidata (CC0 1.0), Wikipedia (CC BY-SA 4.0, article links), Wikimedia Commons (each image carries its own licence and author), curated records of the archive.",
@@ -69,32 +75,37 @@
   ],
   "stats": "stats.json"
  },
- "generated_at": "2026-10-25T14:33:41.640Z",
+ "generated_at": "2026-10-25T19:13:59.856Z",
  "schema": 1,
  "sources": {
   "commons": {
-   "items": 293,
-   "last_success": "2026-10-25T14:33:41.640Z",
+   "items": 295,
+   "last_success": "2026-10-25T19:13:59.856Z",
    "status": "ok"
   },
   "curated": {
    "items": 49,
-   "last_success": "2026-10-25T14:33:41.640Z",
+   "last_success": "2026-10-25T19:13:59.856Z",
    "status": "ok"
   },
-  "web": {
+  "tourapi": {
    "items": 0,
-   "last_success": "2026-10-21T17:15:41.448Z",
-   "status": "error"
+   "last_success": null,
+   "status": "skipped"
+  },
+  "web": {
+   "items": 7,
+   "last_success": "2026-10-25T16:26:36.313Z",
+   "status": "partial"
   },
   "wikidata": {
    "items": 625,
-   "last_success": "2026-10-25T14:33:41.640Z",
+   "last_success": "2026-10-25T19:13:59.856Z",
    "status": "ok"
   },
   "wikipedia": {
-   "items": 211,
-   "last_success": "2026-10-25T14:33:41.640Z",
+   "items": 576,
+   "last_success": "2026-10-25T19:13:59.856Z",
    "status": "ok"
   }
  }
