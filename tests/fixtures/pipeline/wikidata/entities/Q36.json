@@ -1,0 +1,62 @@
+{
+ "pageid": 36,
+ "ns": 0,
+ "title": "Q36",
+ "lastrevid": 2400000036,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q36",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Poland"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "폴란드"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P297": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P297",
+     "hash": "c92f423296578378f26ca9d50df8f39b",
+     "datavalue": {
+      "value": "PL",
+      "type": "string"
+     },
+     "datatype": "external-id"
+    },
+    "type": "statement",
+    "id": "Q36$c92f4232-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "4dd7d702042b01fd6732f1a12f4feabe",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 6256,
+       "id": "Q6256"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q36$4dd7d702-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

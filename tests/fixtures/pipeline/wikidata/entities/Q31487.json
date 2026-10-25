@@ -1,0 +1,66 @@
+{
+ "pageid": 31487,
+ "ns": 0,
+ "title": "Q31487",
+ "lastrevid": 2400031487,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q31487",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Kraków"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "크라쿠프"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "53ea91fa3b64445a049a727b1716eb59",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 515,
+       "id": "Q515"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q31487$53ea91fa-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "c3405ca689b01da6f92ce947c71fcad0",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 36,
+       "id": "Q36"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q31487$c3405ca6-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

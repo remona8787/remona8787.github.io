@@ -127,7 +127,7 @@ add('Q8590079', { labels: { en: 'Category:Light art' }, claims: { P31: 'Q4167836
 
 // ---- Korea first (v0.18): first-level divisions, places under them, Korean projects of every Korean source.
 for (const [q, en, ko, cls] of [['Q99000411', 'province of South Korea', '대한민국의 도'], ['Q99000412', 'metropolitan city of South Korea', '대한민국의 광역시'], ['Q99000419', 'special city of South Korea', '대한민국의 특별시'],
-  ['Q33506', 'museum', '박물관'], ['Q12280', 'bridge', '다리'], ['Q926949', 'musical fountain', '음악 분수'], ['Q99000418', 'district of South Korea', '대한민국의 구']]) add(q, { labels: { en, ko } })
+  ['Q33506', 'museum', '박물관'], ['Q12280', 'bridge', '다리'], ['Q29885984', 'light sculpture', '빛 조각'], ['Q4287692', 'mediafacade', '미디어파사드'], ['Q926949', 'musical fountain', '음악 분수'], ['Q99000418', 'district of South Korea', '대한민국의 구']]) add(q, { labels: { en, ko } })
 for (const [q, en, ko, cls, parent] of [
   ['Q99000410', 'South Chungcheong', '충청남도', 'Q99000411'], ['Q16520', 'Busan', '부산광역시', 'Q99000412'], ['Q41071', 'Gangwon State', '강원특별자치도', 'Q99000411'],
   ['Q41164', 'Jeju Province', '제주특별자치도', 'Q99000411'], ['Q20934', 'Incheon', '인천광역시', 'Q99000412'], ['Q41283', 'Gwangju', '광주광역시', 'Q99000412'],
@@ -143,6 +143,21 @@ add('Q99000504', { labels: { ko: '픽스처 미디어 작가' }, claims: { P31: 
 add('Q99000505', { labels: { ko: '픽스처 시립도서관' }, claims: { P31: 'Q33506', P17: 'Q884', P131: 'Q99000417', P625: [[37.48, 127.01]] }, sitelinks: { kowiki: '픽스처 시립도서관' } })
 add('Q255506', { labels: { en: 'Banpo Bridge', ko: '반포대교' }, descriptions: { en: 'bridge in Seoul with a musical fountain' },
   claims: { P31: ['Q12280', 'Q926949'], P17: 'Q884', P131: 'Q99000417', P625: [[37.5152, 126.9958]], P571: 1982 }, sitelinks: { kowiki: '반포대교', enwiki: 'Banpo Bridge' } })
+// Regression fixtures from the live visual review (2026-10): files that name another subject than the project.
+for (const [q, en, ko] of [['Q641226', 'arena', '경기장'], ['Q36', 'Poland', '폴란드'], ['Q31487', 'Kraków', '크라쿠프'], ['Q2946', 'Solingen', '졸링겐'], ['Q207694', 'art museum', '미술관']]) add(q, { labels: { en, ko } })
+E.find((e) => e.id === 'Q36').claims.P297 = [claimMakers.id('Q36', 'P297', 'PL')]
+E.find((e) => e.id === 'Q36').claims.P31 = [claimMakers.item('Q36', 'P31', 'Q6256')]
+for (const q of ['Q31487', 'Q2946']) E.find((e) => e.id === q).claims.P31 = [claimMakers.item(q, 'P31', 'Q515')]
+E.find((e) => e.id === 'Q31487').claims.P17 = [claimMakers.item('Q31487', 'P17', 'Q36')]
+E.find((e) => e.id === 'Q2946').claims.P17 = [claimMakers.item('Q2946', 'P17', 'Q183')]
+add('Q69134', { labels: { en: 'N Seoul Tower', ko: 'N서울타워' }, descriptions: { en: 'communication and observation tower in Seoul' },
+  claims: { P31: 'Q12518', P17: 'Q884', P131: 'Q99000417', P625: [[37.5512, 126.9882]], P571: 1975, P373: 'N Seoul Tower' }, sitelinks: { kowiki: 'N서울타워', enwiki: 'N Seoul Tower', commonswiki: 'Category:N Seoul Tower' } })
+add('Q494407', { labels: { en: 'National Museum of Korea', ko: '국립중앙박물관' }, descriptions: { en: 'national museum in Seoul' },
+  claims: { P31: 'Q207694', P17: 'Q884', P131: 'Q99000417', P625: [[37.5239, 126.9803]], P571: 1945, P373: 'National Museum of Korea' }, sitelinks: { kowiki: '국립중앙박물관', enwiki: 'National Museum of Korea', commonswiki: 'Category:National Museum of Korea' } })
+add('Q15014400', { labels: { en: 'Tauron Arena Kraków', pl: 'Tauron Arena Kraków' }, descriptions: { en: 'arena in Kraków with an LED facade' },
+  claims: { P31: 'Q641226', P17: 'Q36', P131: 'Q31487', P625: [[50.0675, 19.9914]], P571: 2014, P373: 'Tauron Arena Kraków' }, sitelinks: { commonswiki: 'Category:Tauron Arena Kraków' } })
+add('Q127587129', { labels: { en: 'Light Column', de: 'Lichtsäule' }, descriptions: { en: 'light sculpture in Solingen' },
+  claims: { P31: 'Q29885984', P17: 'Q183', P131: 'Q2946', P625: [[51.1652, 7.0671]], P571: 2020, P18: '2021-01-27-Bergischer Löwe-1.jpg' } })
 add('Q99000503', { labels: { ko: '픽스처 제주 빛 설치', en: 'Fixture Jeju Light Field' }, descriptions: { en: 'light installation in Jeju' },
   claims: { P31: 'Q1823448', P17: 'Q884', P131: 'Q99000416', P625: [[33.4996, 126.5312]], P571: 2022 } })
 
@@ -151,7 +166,7 @@ const INT = (n) => ({ datatype: 'http://www.w3.org/2001/XMLSchema#integer', type
 const COUNTS = { Q17158007: [0, 0], Q4287692: [0, 0], Q776483: [1, 1], Q1421557: [14, 8], Q1823448: [138, 94], Q29885984: [26, 9], Q1798004: [0, 0], Q124414048: [23, 3],
   Q126682969: [0, 0], Q126682939: [0, 0], Q1136999: [0, 0], Q63442021: [5, 1], Q110409771: [0, 0], Q115452528: [0, 0], Q378604: [265, 4], Q860372: [0, 0], Q550484: [0, 0],
   Q20437094: [0, 0], Q380051: [0, 0], Q926949: [0, 0], Q110775916: [26875, 30], Q116262603: [0, 0] }
-const INSTANCES = { Q1823448: ['Q7715933', 'Q5447104', 'Q7899954', 'Q2001578', 'Q99000108', 'Q99000503'], Q1421557: ['Q7715933', 'Q99000107'], Q124414048: ['Q4167', 'Q15140473', 'Q125715'], Q378604: ['Q99000106'] }
+const INSTANCES = { Q4287692: ['Q15014400'], Q29885984: ['Q127587129'], Q1823448: ['Q7715933', 'Q5447104', 'Q7899954', 'Q2001578', 'Q99000108', 'Q99000503'], Q1421557: ['Q7715933', 'Q99000107'], Q124414048: ['Q4167', 'Q15140473', 'Q125715'], Q378604: ['Q99000106'] }
 // Korea first: the items of each usable class located in South Korea (P17 = Q884), read before any worldwide query.
 const KR_INSTANCES = { Q1823448: ['Q99000503'], Q1421557: ['Q99000107'], Q926949: ['Q255506'] }
 // The first-level divisions of South Korea as wd:Q884 p:P150 lists them, with ISO 3166-2 codes (P300); Gwangju ended
@@ -200,6 +215,13 @@ const FILES = [
   ['Signal festival 2019 projection compressed.jpg', 'blocky', 2400, 1600, 'CC BY-SA 4.0', 'Fixture Photographer 23', ['Signal Festival'], 'Videomapping at Signal Festival at night'],
   ['Festival of Lights Berlin 2013 Brandenburg Gate blurred.jpg', 'blurry', 3000, 2000, 'CC BY-SA 3.0', 'Fixture Photographer 24', ['Festival of Lights (Berlin, 2013)'], 'Projection on the Brandenburg Gate at night'],
   ['The Bay Lights at night 2013 small copy.jpg', 'night_led', 1500, 1000, 'CC BY-SA 4.0', 'Fixture Photographer 1', ['The Bay Lights'], 'The Bay Lights LED installation on the Bay Bridge at night'],
+  // Mislinked files of the live review: colourful frames that name another subject (they must never rank).
+  ['Nanta Cooking Teddy Bears.JPG', 'night_led', 3000, 2000, 'CC BY-SA 3.0', 'Fixture Photographer 25', ['N Seoul Tower'], 'Teddy bears at the museum in the tower'],
+  ['N Seoul Tower at night 2019.jpg', 'night_led2', 3000, 4000, 'CC BY-SA 4.0', 'Fixture Photographer 26', ['N Seoul Tower'], 'N Seoul Tower lit up at night'],
+  ['G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (02).jpg', 'night_projection', 3000, 2000, 'CC BY 2.0', 'Fixture Photographer 27', ['National Museum of Korea', '2010 G-20 Seoul summit'], 'Leaders at the summit dinner'],
+  ['20231021 184556 weźże wyluzuj neon sign.jpg', 'night_led2', 4032, 3024, 'CC BY-SA 4.0', 'Fixture Photographer 28', ['Tauron Arena Kraków'], 'Neon sign at night'],
+  ['Tauron Arena Kraków LED facade at night.jpg', 'night_led', 4000, 2667, 'CC BY-SA 4.0', 'Fixture Photographer 29', ['Tauron Arena Kraków'], 'The LED facade of the arena at night'],
+  ['2021-01-27-Bergischer Löwe-1.jpg', 'night_field', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 30', ['Light Column'], 'Bergischer Löwe'],
 ]
 const COMMON_TEMPLATES = ['Template:Information', 'Template:Own', 'Template:Self', 'Template:Cc-by-sa-4.0', 'Template:Location', 'Template:Taken on', 'Template:Lang', 'Template:Description']
 const files = FILES.map(([file, kind, width, height, license, author, cats, description, extraTemplates = []]) => ({
@@ -259,6 +281,9 @@ const CATS = [
   ['Category:Media art in Busan', null, null, ['Category:Fixture Media Art Museum Busan'], []],
   ['Category:Fixture Media Art Museum Busan', 'Q99000501', [35.1601, 129.1636], [], fileTitles('Fixture Media Art Museum Busan immersive hall night.jpg')],
   ['Category:Seoul Lantern Festival', null, [37.5689, 126.9786], [], fileTitles('Seoul Lantern Festival 2024 Cheonggyecheon.jpg')],
+  ['Category:N Seoul Tower', 'Q69134', [37.5512, 126.9882], [], fileTitles('Nanta Cooking Teddy Bears.JPG', 'N Seoul Tower at night 2019.jpg')],
+  ['Category:National Museum of Korea', 'Q494407', [37.5239, 126.9803], [], fileTitles('G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (02).jpg')],
+  ['Category:Tauron Arena Kraków', 'Q15014400', [50.0675, 19.9914], [], fileTitles('20231021 184556 weźże wyluzuj neon sign.jpg', 'Tauron Arena Kraków LED facade at night.jpg')],
 ]
 const categories = CATS.map(([title, qid, coord, subcats, members]) => ({
   page: {

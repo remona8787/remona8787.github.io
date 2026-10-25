@@ -512,7 +512,8 @@ export async function runPipeline(o) {
   const picks = new Map()
   for (const r of records) {
     const ir = imageResults.get(r.id)
-    const hero = r.images.find((i) => i.role === 'hero' && i.tier <= 2) || null
+    // A hero kept from a v0.17 run counts only when its original reaches the fallback width.
+    const hero = r.images.find((i) => i.role === 'hero' && i.tier <= 2 && (i.width || 0) >= (P.images?.hero_fallback_min_width ?? 1920)) || null
     const featured = r.images.find((i) => i.role === 'featured') || null
     picks.set(r.id, { hero, featured, home: ir?.home ?? featured ?? hero ?? null, score: ir?.score ?? (hero ? 80 : 0) })
   }

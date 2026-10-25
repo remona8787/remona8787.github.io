@@ -187,6 +187,39 @@ test('dry run: images follow the per-surface rules', needSharp, async () => {
   assert.ok(report.images.by_provider.commons > 0 && report.images.by_provider.tourapi > 0)
 })
 
+test('relevance: files that name another subject never rank (regressions of the live review)', needSharp, async () => {
+  const { dir, data } = await firstRun()
+  const pages = (id) => (data.records.get(id)?.images || []).map((i) => decodeURIComponent(i.page))
+  const mislinked = [['SEOUL043', 'Nanta Cooking Teddy Bears'], ['SEOUL022', 'G-20 Seoul 2010'], ['Q15014400', 'neon sign'], ['Q127587129', 'Bergischer Löwe']]
+  for (const [id, name] of mislinked) assert.ok(!pages(id).some((p) => p.includes(name.replace(/ /g, '_'))), `${id}: ${name}`)
+  // The real photos of the same projects stay.
+  assert.ok(pages('SEOUL043').some((p) => /N_Seoul_Tower_at_night/.test(p)))
+  assert.ok(pages('Q15014400').some((p) => /LED_facade_at_night/.test(p)))
+  const review = JSON.parse(await readFile(path.join(dir, 'review/images.json'), 'utf8'))
+  const reasons = (id, re) => review.projects.find((p) => p.project === id).candidates.find((c) => re.test(c.key)).reasons
+  assert.ok(reasons('SEOUL043', /Teddy/).some((r) => r.startsWith('subject:object_or_animal')))
+  assert.ok(reasons('SEOUL022', /G-20/).some((r) => r.startsWith('subject:people_or_event')))
+  assert.ok(reasons('Q15014400', /neon sign/).some((r) => r.startsWith('subject:object_or_animal')))
+  assert.ok(reasons('Q127587129', /Löwe/).some((r) => r.startsWith('subject:object_or_animal')))
+})
+
+test('contact sheets show real pictures on every run, also when the measurements come from the cache', needSharp, async () => {
+  const { dir } = await firstRun()
+  const first = JSON.parse(await readFile(path.join(dir, 'review/contact-sheets/index.json'), 'utf8'))
+  const tiles = (ix) => ix.sheets.flatMap((s) => s.tiles)
+  assert.ok(tiles(first).length >= 5)
+  assert.ok(tiles(first).every((t) => t.image_in_sheet), 'first run')
+  assert.ok(first.sheets.some((s) => s.kind === 'hero' && s.provider === 'commons'))
+  assert.ok(tiles(first).every((t) => /^img-[0-9a-f]{12}$/.test(t.image) && t.thumb && !/utm_/.test(t.thumb)))
+  const copy = await tmp()
+  await cp(dir, copy, { recursive: true })
+  const r2 = await run(copy, { start: START + 6 * HOUR })
+  const second = JSON.parse(await readFile(path.join(copy, 'review/contact-sheets/index.json'), 'utf8'))
+  assert.equal(tiles(second).length, tiles(first).length)
+  assert.ok(tiles(second).every((t) => t.image_in_sheet), 'a cached run fetches the small renditions it shows')
+  assert.ok(r2.env.requests.filter((q) => /wikimedia\.org$/.test(q.host) && /\/330px-/.test(q.url)).every((q) => !/utm_/.test(q.url)))
+})
+
 test('dry run: quality, candidates and the decision log', needSharp, async () => {
   const { dir } = await firstRun()
   const quality = await readJSON(path.join(dir, 'admin-data/quality.json'))

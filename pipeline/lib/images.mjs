@@ -61,6 +61,30 @@ export function keywordScore(text, compiled) {
 // File names that are never project photos.
 export const BAD_NAME = /(^|[^a-z])(map|maps|plan|plans|logo|logos|diagram|diagrams|portrait|portraits|signature|signatures|flag|coat of arms|seal|icon|screenshot|lageplan|grundriss|karte)([^a-z]|$)/i
 const INTERIOR = /\b(interior|inside|indoors?|lobby|atrium|foyer|innenraum|innenansicht|interieur|interno|interni|wnetrze|интерьер)\b|내부|실내|内部|室内|館内/i
+// Relevance: a file whose title, description or categories name a different subject than the project and its
+// building (people, a political event, an animal or an object, a show) is not a photo of the work, however colourful
+// its frame. Found on the live site: "Nanta Cooking Teddy Bears" on N Seoul Tower, a G-20 summit photo on an immersive
+// gallery, a neon sign on an LED-facade arena, a lion sculpture on a light column.
+export const PEOPLE_EVENT = /\b(portraits?|politicians?|presidents?|prime minister|ministers?|chancellors?|mayors?|kings?|queens?|princes?|princess|ambassadors?|delegations?|summits?|g-?20|g-?7|g-?8|apec|conferences?|press conference|state visit|official visit|weddings?|selfies?|celebrities|actors?|actresses|footballers?)\b|대통령|정상회의|총리|장관|기자회견|초상/i
+export const OBJECT_ANIMAL = /\b(teddy ?bears?|bears?|lions?|l[öo]we|loewe|tigers?|dogs?|cats?|birds?|pigeons?|horses?|animals?|cooking|food|meals?|menus?|restaurants?|toys?|dolls?|figurines?|mascots?|costumes?|statues?|neon signs?|signboards?|shop signs?|street signs?|road signs?|posters?|tickets?|souvenirs?|merchandise|t-shirts?)\b|곰인형|테디베어|사자상|호랑이|강아지|고양이|음식|요리|인형|동상|간판|포스터/i
+// Event words that belong to a festival's own photos.
+const FESTIVAL_OK = /\b(ceremon(y|ies)|weddings?)\b/i
+/**
+ * Whether a candidate's text names a different subject than the project. A word that is part of the project's own
+ * names ("Teddy Bear Museum", a neon work) never counts.
+ * @returns {string|null} the rejection reason
+ */
+export function otherSubject(text, ctx = {}) {
+  const own = [ctx.names].flat().filter(Boolean).join(' ').toLowerCase()
+  const t = String(text || '')
+  const hit = (re) => { const m = re.exec(t); return m && !own.includes(m[0].toLowerCase().replace(/s$/, '')) ? m[0] : null }
+  const people = hit(PEOPLE_EVENT)
+  if (people && !(ctx.project_type === 'festival_program' && FESTIVAL_OK.test(people))) return 'subject:people_or_event:' + people.toLowerCase()
+  const thing = hit(OBJECT_ANIMAL)
+  if (thing && !(/neon/i.test(thing) && ['light_art', 'other'].includes(ctx.project_type) && /neon/i.test(own))) return 'subject:object_or_animal:' + thing.toLowerCase()
+  return null
+}
+
 // Project types whose work is on the outside of a building or in public space: interior photos are unrelated.
 const EXTERIOR_TYPES = new Set(['media_facade', 'projection_mapping', 'urban_screen', 'festival_program'])
 // Types whose own category is about the light work itself (a photo in it shows the work): media evidence.
@@ -80,6 +104,9 @@ export function assessCandidate(cand, info, ctx) {
   if (BAD_NAME.test(cand.file.replace(/\.[a-z0-9]+$/i, ''))) reasons.push('name:map_plan_logo_diagram_portrait_signature')
   const text = [cand.file.replace(/\.[a-z0-9]+$/i, '').replace(/[_-]+/g, ' '), info.object_name, info.description, ...(info.categories || []), cand.category ? cand.category.replace(/^Category:/, '') : ''].filter(Boolean).join(' · ')
   if (EXTERIOR_TYPES.has(ctx.project_type) && INTERIOR.test(text)) reasons.push('interior_unrelated_to_work')
+  // The title and description decide the subject (categories also name the place, events held there, etc.).
+  const subject = otherSubject([cand.file.replace(/\.[a-z0-9]+$/i, '').replace(/[_-]+/g, ' '), info.object_name, info.description, ...(info.categories || []).filter((c) => PEOPLE_EVENT.test(c))].filter(Boolean).join(' · '), ctx)
+  if (subject) reasons.push(subject)
   const w = info.width || 0, h = info.height || 0
   if (w < (ctx.minWidth ?? 640) || h < (ctx.minHeight ?? 400)) reasons.push('too_small')
   if (w && h && (w / h > 3 || w / h < 0.4)) reasons.push('extreme_aspect')
@@ -88,6 +115,9 @@ export function assessCandidate(cand, info, ctx) {
   let nightScore = night.score, mediaScore = media.score
   const evidence = []
   if (cand.source === 'night_category') { nightScore = Math.max(nightScore, 40); evidence.push('night_subcategory') }
+  // A file of the host building's P18, category or depicts search that names neither night nor media shows the
+  // building, not the work: context at best (tier 5).
+  if (ctx.host && ['p18', 'category', 'depicts'].includes(cand.source) && night.score < 30 && media.score < 30) evidence.push('host_building_only')
   if (cand.source === 'event_category') { mediaScore = Math.min(100, mediaScore + 20); evidence.push('event_subcategory') }
   if ((cand.source === 'category' || cand.source === 'part_category' || cand.source === 'event_category') && WORK_TYPES.has(ctx.project_type)) { mediaScore = Math.min(100, mediaScore + 40); evidence.push('own_category_of_light_work') }
   return {
@@ -114,7 +144,10 @@ export function assessText(c, ctx = {}) {
   const reasons = []
   if (BAD_NAME.test(c.title || '')) reasons.push('name:map_plan_logo_diagram_portrait_signature')
   if (EXTERIOR_TYPES.has(ctx.project_type) && INTERIOR.test(text)) reasons.push('interior_unrelated_to_work')
-  return { ok: reasons.length === 0, reasons, night: night.score, media: media.score, night_terms: night.terms, media_terms: media.terms, evidence: SCENE_TERMS.test(text) ? ['scene_terms'] : [], kr_fop: false, text }
+  const subject = otherSubject([c.title, c.description].filter(Boolean).join(' · '), ctx)
+  if (subject) reasons.push(subject)
+  const evidence = [...(SCENE_TERMS.test(text) ? ['scene_terms'] : []), ...(c.editorial ? ['editorial_review'] : [])]
+  return { ok: reasons.length === 0, reasons, night: night.score, media: media.score, night_terms: night.terms, media_terms: media.terms, evidence, kr_fop: false, text }
 }
 
 /**
@@ -125,10 +158,16 @@ export function assessText(c, ctx = {}) {
 export function tierOf(a, m, th = {}, ctx = {}) {
   const v = m?.visual ?? null
   const mediaThreshold = th.visual_media_threshold ?? 40
-  const running = v !== null && v >= mediaThreshold && (a.night >= 30 || m.mean_luminance <= 0.3) && (a.media >= 30 || v >= 60)
+  // A colourful dark frame alone never makes tiers 1–3: the file must name night or media, or come from a night,
+  // event or light-work category (keyword evidence), and never be only a host building's photo.
+  const ev = a.evidence || []
+  const evidence = a.night >= 30 || a.media >= 30 || ev.includes('night_subcategory') || ev.includes('event_subcategory') || ev.includes('own_category_of_light_work') || ev.includes('editorial_review')
+  const hostOnly = ev.includes('host_building_only')
+  const running = !hostOnly && evidence && v !== null && v >= mediaThreshold && (a.night >= 30 || m.mean_luminance <= 0.3) && (a.media >= 30 || v >= 60)
   let tier
   if (running) tier = FACADE_TYPES.has(ctx.project_type) && (ctx.width ?? 0) >= (th.tier1_min_width ?? 1600) ? 1 : 2
-  else if ((a.media >= 50 && ((v !== null && v >= 20) || a.evidence?.includes('event_subcategory'))) || a.media >= 30 || a.night >= 50 || (v !== null && v >= 25)) tier = 3
+  else if (hostOnly) tier = 5
+  else if ((a.media >= 50 && ((v !== null && v >= 20) || ev.includes('event_subcategory'))) || a.media >= 30 || a.night >= 50 || (evidence && v !== null && v >= 25)) tier = 3
   else if (SCENE_TYPES.has(ctx.project_type) && (a.evidence?.includes('own_category_of_light_work') || a.evidence?.includes('scene_terms') || SCENE_TERMS.test(a.text || ''))) tier = 4
   else tier = 5
   // Home: active media in a dark frame. A bright (daytime) frame or a frame without saturated light never qualifies.
