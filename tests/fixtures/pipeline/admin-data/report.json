@@ -1,29 +1,29 @@
 {
  "cache": {
   "hits": 5,
-  "misses": 1169,
+  "misses": 1209,
   "sizes": {
    "commons-category": 25,
-   "commons-depicts": 18,
-   "commons-files": 24,
-   "commons-members": 26,
+   "commons-depicts": 19,
+   "commons-files": 30,
+   "commons-members": 29,
    "commons-search": 72,
-   "entities": 30,
-   "entities-aux": 56,
-   "flickr": 64,
+   "entities": 32,
+   "entities-aux": 63,
+   "flickr": 66,
    "kto-photo": 55,
    "links": 97,
-   "openverse": 114,
-   "overpass": 16,
-   "quality": 26,
-   "sparql": 37,
+   "openverse": 116,
+   "overpass": 20,
+   "quality": 28,
+   "sparql": 41,
    "tourapi": 107,
-   "visual": 20,
+   "visual": 22,
    "wiki-pages": 13,
    "wiki-search": 59
   },
   "stale": 0,
-  "writes": 859
+  "writes": 894
  },
  "changes": {
   "carried_over": [],
@@ -31,19 +31,19 @@
   "merges": [
    {
     "a": "cur:SEOUL018",
-    "b": "obs:000064",
+    "b": "obs:000066",
     "distance_m": 14,
     "rule": "name_within_300m"
    },
    {
     "a": "cur:SEOUL018",
-    "b": "obs:000064",
+    "b": "obs:000066",
     "rule": "same_official_url",
     "url": "https://lwt.co.kr/"
    },
    {
     "a": "cur:SEOUL018",
-    "b": "obs:000064",
+    "b": "obs:000066",
     "distance_m": 14,
     "rule": "tourapi_name_within_300m"
    },
@@ -59,6 +59,8 @@
    "KTO-2900002",
    "KTO-2900006",
    "Q125715",
+   "Q127587129",
+   "Q15014400",
    "Q15140473",
    "Q2001578",
    "Q4167",
@@ -127,23 +129,23 @@
   "candidates_awaiting_review": 2,
   "carried_over": 0,
   "changed": 0,
-  "collected": 71,
-  "eligible": 66,
+  "collected": 73,
+  "eligible": 68,
   "excluded": 5,
-  "foreign": 10,
-  "hero_candidates_awaiting_review": 6,
+  "foreign": 12,
+  "hero_candidates_awaiting_review": 8,
   "kr": 56,
   "kr_with_region": 56,
   "merged": 4,
-  "new": 66,
-  "observations": 86,
-  "observations_kept": 85,
-  "projects_built": 71,
-  "published": 66,
+  "new": 68,
+  "observations": 88,
+  "observations_kept": 87,
+  "projects_built": 73,
+  "published": 68,
   "removed": 0,
   "stale": 0,
   "with_hero": 5,
-  "with_images": 15
+  "with_images": 17
  },
  "decisions": [
   {
@@ -353,29 +355,29 @@
  ],
  "http": {
   "api.flickr.com": {
-   "bytes": 6694,
+   "bytes": 6848,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 3520,
+   "ms": 3600,
    "not_modified": 0,
-   "ok": 64,
-   "requests": 64,
+   "ok": 66,
+   "requests": 66,
    "statuses": {
-    "200": 64
+    "200": 66
    }
   },
   "api.openverse.org": {
-   "bytes": 10757,
+   "bytes": 10897,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 395760,
+   "ms": 396220,
    "not_modified": 0,
-   "ok": 114,
-   "requests": 114,
+   "ok": 116,
+   "requests": 116,
    "statuses": {
-    "200": 114
+    "200": 116
    }
   },
   "apis.data.go.kr": {
@@ -405,16 +407,16 @@
    }
   },
   "commons.wikimedia.org": {
-   "bytes": 81696,
+   "bytes": 92679,
    "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 143440,
+   "ms": 150480,
    "not_modified": 0,
-   "ok": 154,
-   "requests": 154,
+   "ok": 162,
+   "requests": 162,
    "statuses": {
-    "200": 154
+    "200": 162
    }
   },
   "de.wikipedia.org": {
@@ -587,16 +589,16 @@
    }
   },
   "query.wikidata.org": {
-   "bytes": 27717,
+   "bytes": 30210,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 38080,
+   "ms": 42080,
    "not_modified": 0,
-   "ok": 40,
-   "requests": 40,
+   "ok": 44,
+   "requests": 44,
    "statuses": {
-    "200": 40
+    "200": 44
    }
   },
   "ru.wikipedia.org": {
@@ -639,20 +641,20 @@
    }
   },
   "upload.wikimedia.org": {
-   "bytes": 740056,
+   "bytes": 823605,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 1600,
+   "ms": 1760,
    "not_modified": 0,
-   "ok": 40,
-   "requests": 40,
+   "ok": 44,
+   "requests": 44,
    "statuses": {
-    "200": 40
+    "200": 44
    }
   },
   "www.wikidata.org": {
-   "bytes": 60053,
+   "bytes": 70984,
    "cached": 0,
    "errors": 0,
    "last_error": null,
@@ -682,12 +684,12 @@
   "awaiting_review": 0,
   "below_threshold": 0,
   "by_provider": {
-   "commons": 17,
+   "commons": 19,
    "official": 1,
    "openverse": 1,
    "tourapi": 2
   },
-  "candidates": 24,
+  "candidates": 30,
   "contact_sheets": [
    "hero-commons-01.jpg",
    "hero-official-01.jpg",
@@ -697,23 +699,23 @@
    "featured-openverse-01.jpg",
    "cards-01.jpg"
   ],
-  "depicts_searches": 18,
+  "depicts_searches": 19,
   "duplicates": 5,
   "hero": 4,
   "identity_rejected": 3,
   "kept_previous": 0,
   "measure_errors": 0,
-  "measured": 20,
+  "measured": 22,
   "none": 51,
   "openverse_rate_limit": {
    "x-ratelimit-available-anon_burst": 19
   },
-  "processed": 66,
+  "processed": 68,
   "provider_errors": {},
   "provider_new_requests": {
-   "flickr": 64,
+   "flickr": 66,
    "kto_photo": 55,
-   "openverse": 114,
+   "openverse": 116,
    "tourapi": 55
   },
   "provider_rejected": {
@@ -724,19 +726,21 @@
    "tourapi:rights": 1
   },
   "provider_requests": {
-   "flickr": 64,
+   "flickr": 66,
    "kto_photo": 55,
-   "openverse": 114,
+   "openverse": 116,
    "tourapi": 55
   },
-  "quality_fetched": 26,
-  "quality_measured": 26,
+  "quality_fetched": 28,
+  "quality_measured": 28,
   "rejected": {
    "interior_unrelated_to_work": 1,
    "rights:foreign_no_freedom_of_panorama": 1,
-   "rights:license_not_allowed": 1
+   "rights:license_not_allowed": 1,
+   "subject:object_or_animal": 3,
+   "subject:people_or_event": 1
   },
-  "thumbnails_fetched": 20
+  "thumbnails_fetched": 22
  },
  "reachability": {
   "api.flickr.com": "reachable",
@@ -767,14 +771,14 @@
  },
  "review_queue": {
   "candidates": 2,
-  "hero_candidates": 6
+  "hero_candidates": 8
  },
  "run": {
   "budget_minutes": 25,
-  "build_id": "20261020T061700Z-61a8105f",
+  "build_id": "20261020T061700Z-a0d8c163",
   "drop_guard": null,
-  "duration_ms": 680520,
-  "finished_at": "2026-10-20T06:28:20.520Z",
+  "duration_ms": 688660,
+  "finished_at": "2026-10-20T06:28:28.660Z",
   "number": 1,
   "publish": "published",
   "started_at": "2026-10-20T06:17:00.000Z",
@@ -883,7 +887,7 @@
    "consecutive_failures": 0,
    "duration_ms": 3080,
    "errors": [],
-   "items": 21,
+   "items": 25,
    "last_success": "2026-10-20T06:17:00.000Z",
    "status": "ok"
   },
@@ -899,7 +903,7 @@
   "overpass": {
    "consecutive_failures": 0,
    "errors": [],
-   "items": 16,
+   "items": 20,
    "last_success": "2026-10-20T06:17:00.000Z",
    "status": "ok"
   },
@@ -954,9 +958,9 @@
   },
   "wikidata": {
    "consecutive_failures": 0,
-   "duration_ms": 37080,
+   "duration_ms": 41080,
    "errors": [],
-   "items": 12,
+   "items": 14,
    "korea_items": 3,
    "last_success": "2026-10-20T06:17:00.000Z",
    "status": "ok"
@@ -981,7 +985,7 @@
    "status": "ok"
   },
   "images": {
-   "duration_ms": 480120,
+   "duration_ms": 488260,
    "status": "ok"
   },
   "links": {

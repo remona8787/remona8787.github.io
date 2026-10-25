@@ -1,7 +1,7 @@
 {
  "broken_links": [
   {
-   "checked_at": "2026-10-20T06:26:43.280Z",
+   "checked_at": "2026-10-20T06:26:51.420Z",
    "consecutive_failures": 1,
    "field": "official_url",
    "http_status": 404,
@@ -10,7 +10,7 @@
    "url": "https://centercity.example/"
   }
  ],
- "build_id": "20261020T061700Z-61a8105f",
+ "build_id": "20261020T061700Z-a0d8c163",
  "coordinate_checks": [
   {
    "distance_m": 6135,
@@ -83,7 +83,9 @@
  "image_rejections": {
   "interior_unrelated_to_work": 1,
   "rights:foreign_no_freedom_of_panorama": 1,
-  "rights:license_not_allowed": 1
+  "rights:license_not_allowed": 1,
+  "subject:object_or_animal": 3,
+  "subject:people_or_event": 1
  },
  "low_confidence_types": [
   {
@@ -199,6 +201,12 @@
    "id": "KTO-2900006",
    "name": "픽스처 루미나리에 축제",
    "project_type": "festival_program"
+  },
+  {
+   "country_iso2": "DE",
+   "id": "Q127587129",
+   "name": "Light Column",
+   "project_type": "light_art"
   },
   {
    "country_iso2": "KR",
@@ -445,12 +453,6 @@
    "id": "SEOUL041",
    "name": "Ground Seesaw East",
    "project_type": "media_architecture"
-  },
-  {
-   "country_iso2": "KR",
-   "id": "SEOUL043",
-   "name": "N Seoul Tower",
-   "project_type": "light_art"
   },
   {
    "country_iso2": "KR",

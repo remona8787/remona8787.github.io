@@ -1,0 +1,163 @@
+{
+ "pageid": 15014400,
+ "ns": 0,
+ "title": "Q15014400",
+ "lastrevid": 2400014400,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q15014400",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Tauron Arena Kraków"
+  },
+  "pl": {
+   "language": "pl",
+   "value": "Tauron Arena Kraków"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "arena in Kraków with an LED facade"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "9d741a3e1dd9a612d19d3d11a020aa33",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 641226,
+       "id": "Q641226"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q15014400$9d741a3e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "ec9e0e8fb3662e1994a9fe9941a1f0fa",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 36,
+       "id": "Q36"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q15014400$ec9e0e8f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "fba80f4891aefe0b240eb014de121053",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 31487,
+       "id": "Q31487"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q15014400$fba80f48-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "f26043183f3b50269b652d0a05f3d534",
+     "datavalue": {
+      "value": {
+       "latitude": 50.0675,
+       "longitude": 19.9914,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q15014400$f2604318-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "e8c78de6f363513ef484b344bef12947",
+     "datavalue": {
+      "value": {
+       "time": "+2014-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q15014400$e8c78de6-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P373": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P373",
+     "hash": "27b163726f864469cf095e50eb10b005",
+     "datavalue": {
+      "value": "Tauron Arena Kraków",
+      "type": "string"
+     },
+     "datatype": "string"
+    },
+    "type": "statement",
+    "id": "Q15014400$27b16372-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "commonswiki": {
+   "site": "commonswiki",
+   "title": "Category:Tauron Arena Kraków",
+   "badges": [],
+   "url": "https://commons.wikimedia.org/wiki/Category:Tauron_Arena_Krak%C3%B3w"
+  }
+ }
+}

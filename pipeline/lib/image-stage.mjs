@@ -201,10 +201,11 @@ export async function imageStage(ctx) {
   // ---------------------------------------------------------------- one project
   async function scoreProject(p, commons, info, providers) {
     const assessed = []
+    const ownNames = [p.name_ko, p.name_en, p.name_original, p.building_name, ...(p.aliases || [])].filter(Boolean)
     for (const c of commons) {
       const i = info.get(c.file)
-      const a = assessCandidate(c, i, { project_type: p.project_type, rightsPolicy: IC.rights_policy, minWidth: IC.min_width, minHeight: IC.min_height })
-      for (const r of a.reasons) count(stats.rejected, r.split(':')[0] === 'rights' ? r : r.replace(/:.*/, ''))
+      const a = assessCandidate(c, i, { project_type: p.project_type, rightsPolicy: IC.rights_policy, minWidth: IC.min_width, minHeight: IC.min_height, names: ownNames, host: p.qid_match === 'host' })
+      for (const r of a.reasons) count(stats.rejected, r.split(':')[0] === 'rights' ? r : r.split(':')[0] === 'subject' ? r.split(':').slice(0, 2).join(':') : r.replace(/:.*/, ''))
       const cand = i && !i.missing ? commonsCandidate(i, a) : { provider: 'commons', source_id: c.file, file: c.file }
       assessed.push({ key: c.file, file: c.file, source: c.source, cand, a, info: i, width: i?.width ?? null, height: i?.height ?? null, approved: approvalOf(p, c.file, 'commons', c.file), identity: { ok: true, method: 'commons_category_or_item' } })
     }
@@ -213,7 +214,7 @@ export async function imageStage(ctx) {
       const key = stableImageId(c.provider, c.source_id)
       const placeIds = c.placeIds || []
       const identity = identityOf(c, p, { placeIds, regionNames: ctx.krRegionNames })
-      const a = assessText(c, { project_type: p.project_type })
+      const a = assessText(c, { project_type: p.project_type, names: ownNames })
       const reasons = [...(c.rights?.ok ? [] : (c.rights?.reasons || ['rights']).map((r) => 'rights:' + r)), ...(identity.ok ? [] : ['identity_unproven']), ...a.reasons]
       if (!c.src || !c.page) reasons.push('no_https_url')
       const ok = reasons.length === 0

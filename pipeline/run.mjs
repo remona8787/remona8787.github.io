@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-// The static archive pipeline (docs/STATIC_ARCHIVE.md, operations in docs/PIPELINE.md). Runs on GitHub Actions
-// (job "collect" of archive.yml) with the data branch checked out as the data directory:
+// The static archive pipeline (docs/STATIC_ARCHIVE.md with its v0.18 addendum, operations in docs/PIPELINE.md). Runs on
+// GitHub Actions (job "collect" of archive.yml) with the data branch checked out as the data directory:
 //
-//   sources (Wikidata classes · Commons categories · Wikipedia media-facade search · web candidates)
-//     → classify/type → resolve entities → dedupe/merge → enrich (Wikidata facts) → editorial decisions
-//     → eligibility → images (rights, visual scoring, roles) → contact sheets → link checks → Overpass (optional)
-//     → shard → site-data/ admin-data/ review/ state/
+//   sources, Korean first (divisions, Korean class items, Commons Korean searches, Korean Wikipedia, TourAPI), then
+//   worldwide (Wikidata classes · Commons categories · Wikipedia media-facade search · web candidates)
+//     → classify/type → resolve entities → dedupe/merge → enrich (Wikidata facts) → editorial decisions → kr_region
+//     → eligibility → images (lib/image-stage.mjs: Commons and providers, rights, identity, visual and quality,
+//       tiers, roles) → contact sheets → link checks → Overpass (optional)
+//     → shard → site-data/ (published) admin-data/ review/ state/ (data branch only)
 //
 // Guarantees:
 //  - Polite: one User-Agent with a contact address, maxlag on every MediaWiki call, at most 1 request per second per
@@ -512,7 +514,8 @@ export async function runPipeline(o) {
   const picks = new Map()
   for (const r of records) {
     const ir = imageResults.get(r.id)
-    const hero = r.images.find((i) => i.role === 'hero' && i.tier <= 2) || null
+    // A hero kept from a v0.17 run counts only when its original reaches the fallback width.
+    const hero = r.images.find((i) => i.role === 'hero' && i.tier <= 2 && (i.width || 0) >= (P.images?.hero_fallback_min_width ?? 1920)) || null
     const featured = r.images.find((i) => i.role === 'featured') || null
     picks.set(r.id, { hero, featured, home: ir?.home ?? featured ?? hero ?? null, score: ir?.score ?? (hero ? 80 : 0) })
   }
