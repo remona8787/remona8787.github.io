@@ -53,7 +53,7 @@ export function blockiness(gray, width, height) {
       if (y % 8 === 7) { vb += d; vbN++ } else { vn += d; vnN++ }
     }
   }
-  const ratio = (b, bn, n, nn) => (n > 0 && nn > 0 ? (b / bn) / Math.max(0.5, n / nn) : 1)
+  const ratio = (b, bn, n, nn) => (bn > 0 && nn > 0 ? (b / bn) / Math.max(0.5, n / nn) : 1)
   const r = (ratio(hb, hbN, hn, hnN) + ratio(vb, vbN, vn, vnN)) / 2
   return Math.round(100 * clamp(r - 1))
 }
