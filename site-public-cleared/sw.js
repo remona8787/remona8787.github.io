@@ -30,6 +30,8 @@ self.addEventListener('fetch',event=>{
  const relative=url.pathname.slice(scopeURL.pathname.length);
  // Never cache admin/auth/API responses or external images. Cache the shell only.
  if(relative.startsWith('admin/')||relative.startsWith('api/')||relative.startsWith('auth/')||relative.startsWith('data/admin/'))return;
+ // Static project pages (p/, scripts/prerender.mjs) are plain pages: never answered with the app shell.
+ if(relative.startsWith('p/'))return;
  if(relative.startsWith('data/')&&relative.endsWith('.json')){event.respondWith(data(event,req,url));return}
  if(req.mode==='navigate'){
   event.respondWith(fetch(req).catch(async()=>{const hit=await caches.match(new URL('index.html',scopeURL).href);return hit||Response.error()}));return;
