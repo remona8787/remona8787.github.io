@@ -45,6 +45,8 @@ test('the archive is read once with the publishable key, in pages, and its proje
  const {calls}=await archiveMode(page);
  await page.goto('/#explore');
  await expect.poll(()=>status(page)).toBe('ok');
+ // The account module loads only where a server is configured (without one it is never requested, test below).
+ await expect.poll(()=>page.evaluate(()=>!!window.AOLCloud?.state?.configured)).toBe(true);
  expect(calls).toEqual([{select:ARCHIVE_COLUMNS,order:'slug.asc',apikey:KEY,authorization:null,range:'0-999',rangeUnit:'items',prefer:'count=exact'}]);
  const curated=await curatedCount(page);
  await expect.poll(()=>count(page)).toBe(curated+listed.length);
@@ -235,7 +237,7 @@ for(const viewport of [{width:390,height:844},{width:1440,height:900}])test(`map
 });
 
 test('without a backend there is no archive request, and no account or sync control is offered',async({page})=>{
- const requests=[];page.on('request',r=>{if(/supabase\.co/.test(r.url()))requests.push(r.url())});
+ const requests=[];page.on('request',r=>{if(/supabase\.co|\/assets\/cloud\.js/.test(r.url()))requests.push(r.url())});
  await page.goto('/#settings');
  await expect.poll(()=>status(page)).toBe('disabled');
  await expect(page.locator('#archiveSyncCount')).toHaveCount(0);

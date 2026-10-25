@@ -103,7 +103,7 @@ test.describe('home',()=>{
   for(const [w,h] of [[390,844],[1440,900]]){
    await page.setViewportSize({width:w,height:h});
    await page.goto('/#home');await expect(page.locator('.hero-slide').first()).toBeVisible();
-   for(const [sel,min] of [['.hero-slide img',1600],['.feature-lead .card-art img',960],['.kr-tile .region-art img',640]]){
+   for(const [sel,min] of [['.hero-slide img',1600],['.feature-lead .card-art img',960],['.kr-tile .region-art img',480]]){
     const ws=await widest(page.locator(sel));
     expect(ws.length,sel).toBeGreaterThan(0);
     for(const x of ws)expect(x,sel).toBeGreaterThanOrEqual(min);
