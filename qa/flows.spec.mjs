@@ -70,7 +70,7 @@ test.describe('offline',()=>{
   await page.reload();await expect.poll(()=>page.evaluate(()=>!!navigator.serviceWorker.controller)).toBe(true);
   await context.setOffline(true);
   await page.reload();
-  await expect(page.getByRole('heading',{name:'빛이 건축이 되는 순간들'})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'빛으로 읽는 한국의 건축'})).toBeVisible();
   await page.goto('/#place/SEOUL001');await expect(page.locator('#view h1')).toBeVisible();
  });
 });

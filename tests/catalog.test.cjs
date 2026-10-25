@@ -36,3 +36,9 @@ test('Korean region: the dataset value, null stays unknown, derived for places w
 test('Korean sections: facades, screens, media walls and projection mapping; everything else is media art and exhibitions',()=>{
  assert.deepEqual(['media_facade','projection_mapping','urban_screen','media_wall','light_art','festival_program','interactive_installation','media_architecture','other',null].map(t=>X.sectionOf({project_type:t})),['facade','facade','facade','facade','programs','programs','programs','programs','programs','programs']);
 });
+test('a keyword search keeps the best match on top; Korean results lead among equally good matches',()=>{
+ const ps=[fo('F1',{name_en:'Haechi wall'}),ko('K1',{name_en:'Haechi Madang media wall'}),fo('F2',{name_en:'AEC',aliases:['AEC']}),fo('F3',{name_en:'Uniqa media wall'}),ko('K2',{name_en:'Lotte media wall'})];
+ assert.equal(X.search(ps,{q:'aec'},today,{krFirst:true})[0].place_id,'F2','an exact foreign name leads');
+ const r=X.search(ps,{q:'media wall'},today,{krFirst:true}).map(p=>p.place_id);
+ assert.deepEqual(r.slice(0,2).sort(),['K1','K2']);assert.deepEqual(r.slice(2),['F3','F1'],'then the foreign match, then a passing mention');
+});

@@ -60,8 +60,12 @@ test('home without the dataset: the LED graphic, counts from curated and synced 
  // Every place counted once by region: synced items that are curated places (by QID) are not counted twice.
  const curated=await page.evaluate(()=>AOLApp.places().length);
  expect(await page.evaluate(()=>allPlaces().filter(p=>p.origin!=='wikidata').length)).toBe(curated+KOREA_SHOWN+WORLD_SHOWN);
- const byRegion=await page.evaluate(()=>{const c={};for(const p of allPlaces().filter(p=>p.origin!=='wikidata')){const k=AOLCatalog.regionKey(p);if(k)c[k]=(c[k]||0)+1}return c});
- for(const [key,n] of Object.entries(byRegion))await expect(page.locator(`[data-region-link="${key}"] .region-count`)).toHaveText(`${n}개 프로젝트`);
+ // v0.18 Korea first: the home page counts the Korean regions (curated and synced Korean places); the world regions
+ // are counted on the world page.
+ const byKr=await page.evaluate(()=>{const c={};for(const p of allPlaces().filter(p=>p.origin!=='wikidata'&&AOLCatalog.isKR(p))){const k=AOLCatalog.krRegionOf(p);if(k)c[k]=(c[k]||0)+1}return c});
+ expect(byKr.busan_ulsan_gyeongnam).toBeGreaterThan(0);
+ for(const [key,n] of Object.entries(byKr))await expect(page.locator(`.home-kr-regions a[href="#korea/${key}"] .region-count`)).toHaveText(`${n}개 프로젝트`);
+ const byRegion=await page.evaluate(()=>{const c={};for(const p of allPlaces().filter(p=>p.origin!=='wikidata'&&!AOLCatalog.isKR(p))){const k=AOLCatalog.regionKey(p);if(k)c[k]=(c[k]||0)+1}return c});
  expect(byRegion.oceania).toBeGreaterThan(0);
  await expect(page.locator('#view img[data-place-photo]')).toHaveCount(0);
  // Explore: Korean synced places, curated duplicates hidden; photos only once their rights check passed.
@@ -108,12 +112,17 @@ test('explore: country and city filters from all places, 24 results per page, se
  await expect(page.locator('#placeResults .place-card')).toHaveCount(1);
  await expect(page.locator('#placeResults h3')).toHaveText('光のアート回廊');
  await expect(page.locator('#view')).not.toContainText('Q99200002');
- // A region tile on the home page opens explore filtered to that region.
+ // A Korean region tile on the home page opens that region; a world region on the world page lists its places.
+ const byKr=await page.evaluate(()=>{const c={};for(const p of allPlaces().filter(p=>p.origin!=='wikidata'&&AOLCatalog.isKR(p))){const k=AOLCatalog.krRegionOf(p);if(k)c[k]=(c[k]||0)+1}return c});
+ const byRegion=await page.evaluate(()=>{const c={};for(const p of allPlaces().filter(p=>p.origin!=='wikidata'&&!AOLCatalog.isKR(p))){const k=AOLCatalog.regionKey(p);if(k)c[k]=(c[k]||0)+1}return c});
  await page.goto('/#home');
- await page.locator('[data-region-link="oceania"]').click();
- await expect(page).toHaveURL(/#explore$/);
- const oceania=await page.evaluate(()=>allPlaces().filter(p=>p.origin!=='wikidata'&&AOLCatalog.regionKey(p)==='oceania').length);
- await expect(page.locator('#placeResults .result-meta')).toContainText(`${oceania}곳`);
+ await page.locator('.home-kr-regions a[href="#korea/busan_ulsan_gyeongnam"]').click();
+ await expect(page).toHaveURL(/#korea\/busan_ulsan_gyeongnam$/);
+ await expect(page.locator('#krList .result-meta')).toHaveAttribute('data-count',String(byKr.busan_ulsan_gyeongnam));
+ await page.goto('/#world');
+ for(const [key,n] of Object.entries(byRegion))await expect(page.locator(`[data-world-region="${key}"] .chip-count`)).toHaveText(String(n));
+ await page.locator('[data-world-region="oceania"]').click();
+ await expect(page.locator('#worldList .result-meta')).toHaveAttribute('data-count',String(byRegion.oceania));
 });
 
 // 내 주변: the nearest places with coordinates, as in-app rows that open the place here (not a new tab).
@@ -132,7 +141,8 @@ test('map: nearby lists the closest places as in-app rows',async({page,context})
 
 test('map: synced places are drawn from their Wikidata coordinates on one canvas; list, count and points agree',async({page})=>{
  await mockApis(page);
- await page.goto('/#map');
+ // The world view (v0.18: the map opens on Korea).
+ await page.goto('/#map/world');
  await expect.poll(()=>status(page)).toBe('partial');
  await expect(page.locator('#mapResults .result-meta b')).toContainText(`${KOREA_SHOWN+WORLD_SHOWN}곳`);
  await expect(page.locator('#mapResults .map-list-item')).toHaveCount(24);

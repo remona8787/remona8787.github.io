@@ -1,26 +1,29 @@
 // The v0.17 consumer screens on the static archive dataset (qa/fixtures/site-data, served at /data/ with synthetic
 // images): the museum home and its hero, the generative LED graphic, lazy loading of the dataset files, the gallery
 // order by image role, designed placeholders, the public-copy guard in Korean and English, and layout at every width.
+// v0.18: the home tests read a home.json of the v0.17 shape (the live dataset's), which the app regroups Korea first;
+// qa/v18.spec.mjs covers the v0.18 sections.
 import {test,expect} from './fixtures.mjs';
 import AxeBuilder from '@axe-core/playwright';
 import {serveDataset,serveImages,noDataset,filesOf,FIXTURE} from './fixtures/site-data-routes.mjs';
 import {siteData,RECORDS} from './fixtures/site-data-projects.mjs';
 
-const HOME=FIXTURE['home.json'];
-const HERO=HOME.hero.filter(h=>h.image?.tier===1);
+const HOME=FIXTURE['home.json'],V17=filesOf(siteData(RECORDS,{home:'v17'})),HOME17=V17['home.json'];
+// Hero slides of a v0.17 home.json: its tier-1 photos of Korean projects (Korea first, v0.18).
+const HERO=HOME17.hero.filter(h=>h.image?.tier===1&&HOME17.projects[h.project]?.country_iso2==='KR');
 const tiles=page=>page.route(/^https:\/\/([abc]\.)?tile\.openstreetmap\.org\//,r=>r.fulfill({status:204,body:''}));
 const pixels=page=>page.locator('canvas[data-led="hero"]').evaluate(c=>c.toDataURL());
 
 test.describe('home',()=>{
  test('hero slides are real projects with their media running, credited, linked to their page',async({page})=>{
-  await serveDataset(page);await serveImages(page);
+  await serveDataset(page,V17);await serveImages(page);
   await page.setViewportSize({width:1440,height:900});
   await page.goto('/#home');
   const slides=page.locator('.hero .hero-slide');
   await expect(slides).toHaveCount(HERO.length);
   expect(HERO.length).toBeGreaterThan(1);
   for(let i=0;i<HERO.length;i++){
-   const s=slides.nth(i),h=HERO[i],p=HOME.projects[h.project];
+   const s=slides.nth(i),h=HERO[i],p=HOME17.projects[h.project];
    await expect(s.locator('.plate-title')).toHaveAttribute('href','#place/AR-'+h.project);
    await expect(s.locator('.plate-title')).toContainText(p.name_ko);
    await expect(s.locator('.plate-credit')).toHaveText(new RegExp(`© ${h.image.author} · ${h.image.license.replace(/[.]/g,'\\.')}`));
@@ -38,16 +41,16 @@ test.describe('home',()=>{
   // No image without media-active evidence anywhere on the home page (no daytime context photo, no unrelated photo).
   const srcs=await page.locator('#view img[data-place-photo]').evaluateAll(xs=>xs.map(x=>x.getAttribute('src')));
   expect(srcs.length).toBeGreaterThan(8);
-  for(const src of srcs)expect(src,'home image').toMatch(/_(hero|night|art|led)_\d/);
-  // Sections: featured, regions with counts, types with counts, themes, recently added.
-  for(const h of ['주요 프로젝트','지역으로 보기','유형으로 보기','주제로 보기','새로 수록된 프로젝트'])await expect(page.locator('.home-section h2',{hasText:h})).toHaveCount(1);
-  for(const r of HOME.regions)await expect(page.locator(`[data-region-link="${r.key}"] .region-count`)).toHaveText(`${r.count}개 프로젝트`);
-  for(const t of HOME.types)await expect(page.locator(`[data-type-link="${t.key}"] .type-count`)).toHaveText(String(t.count));
-  await expect(page.locator('.hero-stats')).toHaveText(`프로젝트 ${HOME.counts.projects}개 · ${HOME.counts.countries}개 나라`);
-  // A type opens explore filtered to it.
-  await page.locator('[data-type-link="projection_mapping"]').click();
-  await expect(page).toHaveURL(/#explore$/);
-  await expect(page.locator('#typeChips [data-value="projection_mapping"]')).toHaveAttribute('aria-pressed','true');
+  for(const src of srcs)expect(src,'home image').toMatch(/_(hero|night|art|led|scene|small)_\d/);
+  // Sections (v0.18, Korea first): Korean regions, featured, programmes, then the world; counts of a v0.17 home.json.
+  for(const h of ['지역으로 만나는 한국의 빛','세계의 미디어파사드'])await expect(page.locator('.home-section h2',{hasText:h})).toHaveCount(1);
+  expect(await page.locator('.home-featured .place-card, .home-programs .place-card').count(),'Korean projects of home.json in the Korean sections').toBeGreaterThan(0);
+  await expect(page.locator('.home-kr-regions .kr-tile')).toHaveCount(8);
+  await expect(page.locator('.hero-stats')).toHaveText(`프로젝트 ${HOME17.counts.projects}개 · ${HOME17.counts.countries}개 나라`);
+  // A region opens its page.
+  await page.locator('.home-kr-regions a[href="#korea/seoul"]').click();
+  await expect(page).toHaveURL(/#korea\/seoul$/);
+  await expect(page.locator('#view h1')).toHaveText('서울');
  });
 
  test('without hero data the hero is the generative LED graphic, which says it is a graphic',async({page})=>{
@@ -62,7 +65,7 @@ test.describe('home',()=>{
   const p2=await page.context().newPage();await noDataset(p2);
   await p2.goto('/#home');
   await expect(p2.locator('.hero-generative canvas.led-canvas')).toHaveCount(1);
-  await expect(p2.locator('.hero-title')).toHaveText('빛이 건축이 되는 순간들');
+  await expect(p2.locator('.hero-title')).toHaveText('빛으로 읽는 한국의 건축');
   await expect(p2.locator('#view img[data-place-photo]')).toHaveCount(0);
  });
 
@@ -167,7 +170,7 @@ const BANNED={
  en:['re-check','recheck','Review list','Editor-verified','Auto-collected','unreviewed','not reviewed','Sync status','Data status','Data review','Update now','Refreshes every','last refreshed','unknown fields','Field states','field state','Origin and review','pipeline'],
  any:['Failed to fetch','refresh_days','field_status','review_status','build_id','HTTP 500','undefined','null ·','[object Object]'],
 };
-const SCREENS=['home','explore','map','place/AR-ars-electronica-center','place/AR-medialab-prado','place/AR-piccadilly-lights','place/SEOUL001','place/SEOUL006','saved','my','settings','data','calendar','routes','journal','magazine','curation/CUR001','nope'];
+const SCREENS=['home','korea','korea/seoul','programs','world','explore','map','map/world','place/AR-ars-electronica-center','place/AR-medialab-prado','place/AR-piccadilly-lights','place/AR-suwon-hwaseong-media-art','place/SEOUL001','place/SEOUL006','saved','my','settings','data','calendar','routes','journal','magazine','curation/CUR001','nope'];
 for(const mode of ['dataset','no dataset'])for(const lang of ['ko','en'])test(`public copy guard: no internal review or pipeline terms (${lang}, ${mode})`,async({page})=>{
  test.setTimeout(90000);
  if(mode==='dataset')await serveDataset(page);else await noDataset(page);
@@ -178,9 +181,11 @@ for(const mode of ['dataset','no dataset'])for(const lang of ['ko','en'])test(`p
  const found=[];
  for(const s of SCREENS){
   await page.goto('/#'+s);await page.waitForLoadState('networkidle');
-  if(s==='explore'){await page.locator('.advanced-filters summary').click();await page.locator('[data-more-filters]').click().catch(()=>{})}
+  if(s==='explore'){await page.locator('.advanced-filters summary').click();await page.locator('[data-more-filters]').click({timeout:3000}).catch(()=>{})}
   const text=await page.evaluate(()=>document.body.innerText+' '+[...document.querySelectorAll('[aria-label],[title],[alt]')].map(e=>[e.getAttribute('aria-label'),e.getAttribute('title'),e.getAttribute('alt')].filter(Boolean).join(' ')).join(' '));
   for(const w of [...BANNED.ko,...BANNED.en,...BANNED.any])if(text.toLowerCase().includes(w.toLowerCase()))found.push(`#${s}: "${w}"`);
+  // No public link to the admin pages or to internal data (v0.18: admin data is not published at all).
+  for(const h of await page.evaluate(()=>[...document.querySelectorAll('a[href],[data-href]')].map(a=>a.getAttribute('href')||a.dataset.href)))if(/(^|\/)admin(\/|\.html|$)|data\/admin|admin-data|review\/|state\//i.test(h||''))found.push(`#${s}: link to ${h}`);
   if(lang==='en'&&!s.startsWith('place/SEOUL')&&!['journal','curation/CUR001','routes','magazine'].includes(s)){const h1=await page.locator('#view h1').first().textContent().catch(()=>'');if(/[가-힣]/.test(h1||'')&&!s.startsWith('place/'))found.push(`#${s}: Korean heading in English mode "${h1}"`)}
  }
  expect(found).toEqual([]);
@@ -209,7 +214,7 @@ test('touch targets on cards, credits and the place page are at least 44 px on a
  const small=[];
  for(const s of ['home','explore','place/AR-ars-electronica-center']){
   await page.goto('/#'+s);await page.waitForLoadState('networkidle');
-  small.push(...await page.evaluate(async s=>{const out=[];const sel='#view .save-button, #view .image-credit, #view .card-link, #view .quick, #view .region-link, #view .type-row, #view .type-chips .chip, #view .text-link, #view .photo-count';for(const e of [...document.querySelectorAll(sel)].slice(0,40)){e.scrollIntoView({block:'center',inline:'center'});await new Promise(r=>requestAnimationFrame(r));const r=e.getBoundingClientRect();if(!r.width||getComputedStyle(e).visibility==='hidden')continue;const cx=r.left+r.width/2,cy=r.top+r.height/2,hit=(x,y)=>{const h=document.elementFromPoint(x,y);return !!h&&(e===h||e.contains(h))};const pts=[[cx,cy-21],[cx,cy+21]];if(r.width<44)pts.push([cx-21,cy],[cx+21,cy]);const miss=pts.filter(([x,y])=>!hit(x,y));if(miss.length)out.push(`#${s} ${e.tagName.toLowerCase()}.${String(e.className).split(' ')[0]} ${Math.round(r.width)}x${Math.round(r.height)} misses ${miss.map(p=>p.map(Math.round).join(',')).join(' ')}`)}return out},s));
+  small.push(...await page.evaluate(async s=>{const out=[];const sel='#view .save-button, #view .image-credit, #view .card-link, #view .quick, #view .region-link, #view .type-row, #view .type-chips .chip, #view .text-link, #view .photo-count';for(const e of [...document.querySelectorAll(sel)].slice(0,40)){e.scrollIntoView({block:'center',inline:'center'});await new Promise(r=>requestAnimationFrame(r));if(e.closest('details:not([open])')&&!e.closest('summary'))continue;const r=e.getBoundingClientRect();if(!r.width||getComputedStyle(e).visibility==='hidden')continue;const cx=r.left+r.width/2,cy=r.top+r.height/2,hit=(x,y)=>{const h=document.elementFromPoint(x,y);return !!h&&(e===h||e.contains(h))};const pts=[[cx,cy-21],[cx,cy+21]];if(r.width<44)pts.push([cx-21,cy],[cx+21,cy]);const miss=pts.filter(([x,y])=>!hit(x,y));if(miss.length)out.push(`#${s} ${e.tagName.toLowerCase()}.${String(e.className).split(' ')[0]} ${Math.round(r.width)}x${Math.round(r.height)} misses ${miss.map(p=>p.map(Math.round).join(',')).join(' ')}`)}return out},s));
  }
  expect(small).toEqual([]);
 });
