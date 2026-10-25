@@ -74,7 +74,7 @@ async function loadHome() {
 export function ensureIndex() {
   if (status !== 'ok') return Promise.resolve(false)
   if (indexRun) return indexRun
-  indexState = 'loading'; publish(status)
+  indexState = 'loading'
   indexRun = (async () => {
     try {
       const json = await get('index.json')
@@ -85,6 +85,10 @@ export function ensureIndex() {
     publish(status)
     return indexState === 'ok'
   })()
+  // Published only once the run is stored: publishing renders the screen, and a screen that asks for the index again
+  // (a curated place page asks for its archive record, which asks for the index) must get this run, not start a new
+  // one (that recursion never ended).
+  publish(status)
   return indexRun
 }
 

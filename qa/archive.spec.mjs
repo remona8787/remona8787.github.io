@@ -137,7 +137,8 @@ test('filters: facets with counts, country and city, year range, photos; chips r
  // Sorts: year (unknown years last), name in the current language.
  await page.locator('select[data-search-filter="sort"]').selectOption('year_asc');
  const years=await page.locator('#placeResults .place-card h3').evaluateAll(hs=>hs.map(h=>h.textContent));
- const expected=await page.evaluate(()=>allPlaces().filter(p=>AOLCatalog.yearOf(p)!==null).sort((a,b)=>AOLCatalog.yearOf(a)-AOLCatalog.yearOf(b))[0].name_kr);
+ // Korean results first when no country is chosen (v0.18), each group in the chosen order.
+ const expected=await page.evaluate(()=>{const ys=allPlaces().filter(p=>AOLCatalog.yearOf(p)!==null),kr=ys.filter(AOLCatalog.isKR);return (kr.length?kr:ys).sort((a,b)=>AOLCatalog.yearOf(a)-AOLCatalog.yearOf(b))[0].name_kr});
  expect(years[0]).toBe(expected);
  await page.locator('select[data-search-filter="sort"]').selectOption('name');
  const names=await page.locator('#placeResults .place-card h3').evaluateAll(hs=>hs.map(h=>h.textContent));
@@ -200,7 +201,8 @@ async function mapState(page){return page.evaluate(()=>{const b=currentMap?curre
 for(const viewport of [{width:390,height:844},{width:1440,height:900}])test(`map pins, the list under the map and its count agree with the explore results @${viewport.width}`,async({page})=>{
  await page.setViewportSize(viewport);
  await archiveMode(page);
- await page.goto('/#map');
+ // The world view: every explore result (v0.18: the map opens on Korea, qa/v18.spec.mjs).
+ await page.goto('/#map/world');
  await expect.poll(()=>status(page)).toBe('ok');
  const mappable=listed.filter(X.mappable);
  await expect(page.locator('#mapResults .result-meta b')).toContainText(`${mappable.length}곳`);
@@ -383,8 +385,8 @@ test('KO/EN: the top-bar switch and the settings choice change the interface, <h
  // The switch names the other language, in that language.
  await expect(toggle).toHaveText('KO');await expect(toggle).toHaveAttribute('aria-label','한국어로 보기');await expect(toggle).toHaveAttribute('lang','ko');
  // Explore: title, navigation, search, count, filters, the link to the data page; the results are unchanged.
- await expect(page.locator('#view h1')).toHaveText('Explore');
- await expect(page).toHaveTitle('Explore · Architecture of Light');
+ await expect(page.locator('#view h1')).toHaveText('Archive search');
+ await expect(page).toHaveTitle('Archive search · Architecture of Light');
  await expect(page.getByRole('link',{name:'Map',exact:true}).first()).toBeVisible();
  await expect(page.locator('#placeSearch')).toHaveAttribute('placeholder','Search names, cities, artists, buildings');
  await expect(page.locator('#placeResults .result-meta')).toContainText(`${total} places`);

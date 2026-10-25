@@ -43,6 +43,10 @@ test(`explore, its count, the map list and the map points agree on ${N} projects
  expect(lightArt).toBeGreaterThanOrEqual(400);
  await expect(meta(page)).toHaveAttribute('data-count',String(lightArt));
  await page.locator('#navigation a[href="#map"]').click();
+ // The map opens on Korea (v0.18): its list is the Korean part; the world view has every one.
+ const lightArtKr=RECORDS.filter(r=>r.project_type==='light_art'&&r.country_iso2==='KR'&&Number.isFinite(r.lat)).length;
+ await expect(page.locator('#mapResults .result-meta')).toHaveAttribute('data-count',String(lightArtKr));
+ await page.locator('[data-map-scope="world"]').click();
  await expect(page.locator('#mapResults .result-meta')).toHaveAttribute('data-count',String(lightArtMapped));
  await page.locator('.map-consent [data-load-map]').click();
  await expect(page.locator('#mapCanvas.map-loaded')).toBeVisible();
@@ -80,8 +84,10 @@ test(`the index of ${N} projects is read once and paged 24 at a time on a phone`
  await page.getByRole('button',{name:/더 보기/}).click();
  await expect(page.locator('#placeResults .place-card')).toHaveCount(48);
  await page.locator('#navigation a[href="#map"]').click();
+ await page.locator('[data-map-scope="world"]').click();
  await expect(page.locator('#mapResults .result-meta')).toHaveAttribute('data-count',String(MAPPABLE));
- await page.locator('#navigation a[href="#explore"]').click();
+ // On a phone the archive search is the top bar's search button (v0.18: five tabs).
+ await page.locator('#quickSearch').click();
  await expect(meta(page)).toHaveAttribute('data-count',String(ALL));
  expect(seen.filter(f=>f==='index.json').length,'index.json fetched once').toBe(1);
  expect(seen.filter(f=>f.startsWith('projects/')),'no shard for lists').toEqual([]);

@@ -1759,7 +1759,8 @@ details[open]>summary .more-caret{transform:rotate(180deg)}
 
 /* ===== Menu: seven sections on wide screens, five in the phone tab bar, the rest in the top bar's menu ===== */
 .nav-short{display:none}
-@media (max-width:1023px){.nav-link .nav-label{display:none}.nav-short{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+/* Under 1024px the tab shows its short label; the full one stays the link's accessible name (visually hidden). */
+@media (max-width:1023px){.nav-link .nav-label{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}.nav-short{display:block;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
 @media (max-width:767px){
   .nav-link.nav-wide{display:none}
   .nav-link.phone-active{color:var(--accent)}
@@ -1882,3 +1883,13 @@ h2.result-group .tnum{color:var(--text-muted);font-size:var(--fs-label);font-wei
 .ph.ph-failed{position:absolute;inset:0}
 .collection-actions{margin:0 0 var(--s-5)}
 .record-list{display:grid;gap:var(--s-3)}
+/* Review fixes: credits on tiles one quiet line; Korean text never letter-spaced like Latin capitals; the world band. */
+.kr-tile .tile-credit{display:block;max-width:calc(100% - 16px);padding:2px 6px;border-radius:4px;background:#06071A8C;font-size:10px;line-height:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-webkit-line-clamp:unset}
+html[lang=ko] .section-eyebrow,html[lang=ko] .page-eyebrow,html[lang=ko] .hero-kicker{letter-spacing:.04em}
+.home-world{isolation:isolate}
+.world-map .wm-stage{max-width:min(100%,calc(460px * var(--ratio,1.8)));margin:0 auto}
+.world-map figcaption{max-width:min(100%,calc(460px * var(--ratio,1.8)));margin-left:auto;margin-right:auto}
+/* Type chips on touch screens: a 44 px tall target (the row keeps room for it inside its scroller). */
+.type-chips{padding-top:6px;padding-bottom:6px}
+.type-chips .chip{position:relative}
+.type-chips .chip::after{content:'';position:absolute;inset:-6px 0}

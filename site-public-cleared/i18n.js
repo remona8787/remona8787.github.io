@@ -188,7 +188,7 @@ const S={
  'home.coursesEyebrow':['답사','Field trips'],'home.worldEyebrow':['세계','World'],'home.world':['세계의 미디어파사드','Media façades of the world'],'home.worldSub':['국외 {n}곳의 기록','{n} projects outside Korea'],'home.worldSubNone':['국외의 대표 사례','Highlights outside Korea'],'home.worldAll':['세계 미디어파사드 보기','All media façades worldwide'],
  'results.groupKr':['국내','In Korea'],'results.groupWorld':['해외','Outside Korea'],
  'collection.records':['기록','Notes'],'collection.newRecord':['방문 기록','Add a visit'],'collection.allRecords':['현장 기록 전체','All field notes'],'collection.noRecords':['아직 남긴 기록이 없어요','No field notes yet'],'collection.noRecordsBody':['관람 날짜와 메모로 나만의 빛 아카이브를 시작하세요.','Start your own archive of light with a date and a note.'],
- 'photo.via':['출처 {p}','via {p}'],'photo.rightsHolder':['권리자 {n}','Rights holder {n}'],'provider.kto':['한국관광공사','Korea Tourism Organization']
+ 'photo.via':['출처 {p}','via {p}'],'calendar.h1':['빛을 만나는 일정','Light on the calendar'],'calendar.sub':['전시·프로그램 일정과 나의 답사 계획을 함께 봐요.','Exhibition and programme dates next to your own field-trip plans.'],'photo.rightsHolder':['권리자 {n}','Rights holder {n}'],'provider.kto':['한국관광공사','Korea Tourism Organization']
 };
 const ko={},en={};for(const [k,[a,b]] of Object.entries(S)){ko[k]=a;en[k]=b}
 function t(lang,key,vars){let s=(lang==='en'?en:ko)[key];if(s===undefined)return key;return vars?s.replace(/\{(\w+)\}/g,(m,k)=>vars[k]===undefined||vars[k]===null?'':String(vars[k])):s}
