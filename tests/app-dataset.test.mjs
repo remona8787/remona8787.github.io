@@ -41,10 +41,13 @@ test('pipeline dataset: every index row becomes a place, with coordinates, tier 
 test('pipeline dataset: home picks keep only media-active hero images and name every project they use', () => {
   const home = R.fromHome(read(PIPE, 'home.json'))
   const raw = read(PIPE, 'home.json')
-  assert.equal(home.hero.length, raw.hero.filter(h => h.image?.tier === 1).length)
+  // v0.18 images (provider, approved, media_active): a reviewed tier-1/2 photo; v0.17 images: tier 1 only.
+  const heroOk = (/** @type {any} */ m = {}) => typeof m.provider === 'string' || m.approved !== undefined || m.media_active !== undefined || Array.isArray(m.display)
+    ? m.approved === true && m.tier <= 2 : m.tier === 1
+  assert.equal(home.hero.length, raw.hero.filter(h => heroOk(h.image)).length)
   assert.ok(home.hero.length >= 1)
   for (const h of home.hero) {
-    assert.equal(h.image.tier, 1)
+    assert.ok(h.image.tier <= 2)
     assert.ok(h.image.license && (h.image.author || h.image.attribution), 'credit on every hero image')
     assert.ok(h.place.name_kr)
   }
