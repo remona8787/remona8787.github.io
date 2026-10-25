@@ -468,6 +468,12 @@ admin page builds the JSON and opens GitHub's new-file page
   deploy is removed by the next one (the deploy commits even when nothing else changed).
 - `.git`, `.github/`, `README.md`, `.nojekyll` and `CNAME` on main are kept. Everything else is replaced.
 - `robots.txt` keeps `Disallow: /data/admin/` (nothing is there; old links stay out of indexes).
+- Project pages for search engines and link previews (`scripts/prerender.mjs`, UI track): `p/<id>/index.html` for every
+  project of the deployed dataset, `p/index.html`, `sitemap.xml` (the build's own entries plus the pages) and the
+  `aol-static-pages` marker in `index.html`. They are made from the dataset that is deployed: the data branch's, or the
+  kept one when the data branch's is rejected, never the rejected one; a `p/` of the build is dropped. Rendering is pure,
+  so an unchanged deploy keeps its deploy id. A dataset the renderer cannot read leaves the site without `p/` (logged);
+  the summary gives `pages`.
 - `/deploy.json` names the deploy: `{schema, deploy_id, build_id, dataset, admin: "not_published", source, data, at}`. `deploy_id` is a hash of the whole tree.
 
 `pipeline/verify-live.mjs` works in four steps:

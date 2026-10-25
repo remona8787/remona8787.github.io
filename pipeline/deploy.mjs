@@ -8,6 +8,8 @@
 //    outputs and the log say which);
 //  - .git, .github/, README.md, .nojekyll and CNAME on main are kept; everything else is replaced by the new tree;
 //  - robots.txt also disallows /data/admin/ (nothing is there any more; old links stay out of search indexes);
+//  - project pages for search engines and link previews (scripts/prerender.mjs): p/<id>/, p/, sitemap.xml and the
+//    aol-static-pages marker in index.html, made from the dataset that is deployed;
 //  - deploy.json at the site root names the deploy: {deploy_id, build_id, source, data, at, dataset}. deploy_id is a
 //    hash of the whole tree, so an unchanged deploy leaves main untouched (idempotent) and verify-live can wait for
 //    this exact deploy even when the dataset (build_id) did not change.
@@ -23,6 +25,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createHash } from 'node:crypto'
 import { listFiles } from './lib/io.mjs'
 import { checkDataset, checkReport, checkQuality, checkCandidates } from './lib/schema.mjs'
+import { prerenderSite } from '../scripts/prerender.mjs'
 
 /** Entries of main that the deploy never replaces or removes. */
 export const KEEP = ['.git', '.github', 'README.md', '.nojekyll', 'CNAME']
@@ -109,18 +112,30 @@ export async function assemble({ dist, dataDir, siteDir, sourceSha = null, dataS
   for (const [p, b] of await readTree(dist)) {
     const top = p.split('/')[0]
     if (KEEP.includes(top) && top !== '.nojekyll') continue
-    if (top === 'data' || p === 'deploy.json') continue
+    // p/ (project pages) is made below from the dataset that is deployed, never taken from a build.
+    if (top === 'data' || top === 'p' || p === 'deploy.json') continue
     tree.set(p, b)
   }
   // The dataset: the data branch's when it is valid, otherwise the one already deployed.
   const fresh = await loadDataset(dataDir ? path.join(dataDir, 'site-data') : null)
   const deployedData = path.join(siteDir, 'data')
   let dataset = 'none', buildId = null, datasetErrors = []
+  let old = null
   if (fresh.ok) { dataset = 'data_branch'; buildId = fresh.buildId; for (const [f, b] of fresh.files) tree.set('data/' + f, b) } else {
     datasetErrors = fresh.errors
-    const old = await loadDataset(deployedData)
+    old = await loadDataset(deployedData)
     if (old.ok) { dataset = 'kept_previous'; buildId = old.buildId; for (const [f, b] of old.files) tree.set('data/' + f, b) }
     log(`dataset of the data branch not deployed (${fresh.errors.slice(0, 5).join('; ')}); ${dataset === 'kept_previous' ? 'the deployed dataset stays' : 'no dataset is deployed'}`)
+  }
+  // Static project pages (scripts/prerender.mjs): p/<id>/index.html, p/index.html, sitemap.xml and the marker in
+  // index.html, from the dataset that is deployed (a rejected one never gets pages). Pure, so the deploy id stays a
+  // function of the inputs; a dataset it cannot read leaves the site without p/.
+  const used = fresh.ok ? fresh : old?.ok ? old : null
+  let pages = 0
+  if (used) {
+    try {
+      for (const [p, s] of prerenderSite(used.files, tree)) { tree.set(p, Buffer.from(s)); if (/^p\/[^/]+\/index\.html$/.test(p)) pages++ }
+    } catch (e) { log(`no project pages: ${e.message}`) }
   }
   // Admin data is internal: checked (so the summary can say whether it is valid) but never part of the site.
   const freshAdmin = await loadAdmin(dataDir ? path.join(dataDir, 'admin-data') : null)
@@ -132,7 +147,7 @@ export async function assemble({ dist, dataDir, siteDir, sourceSha = null, dataS
 
   const deployId = treeId(tree)
   const previous = (await readJSONFile(path.join(siteDir, 'deploy.json'))).value ?? null
-  const result = { deploy_id: deployId, build_id: buildId, dataset, admin, removed_admin: removedAdmin, dataset_errors: datasetErrors.slice(0, 20), admin_errors: adminErrors.slice(0, 20), changed: previous?.deploy_id !== deployId || removedAdmin, files: tree.size + 1 }
+  const result = { deploy_id: deployId, build_id: buildId, dataset, admin, pages, removed_admin: removedAdmin, dataset_errors: datasetErrors.slice(0, 20), admin_errors: adminErrors.slice(0, 20), changed: previous?.deploy_id !== deployId || removedAdmin, files: tree.size + 1 }
   if (!result.changed) { log(`deploy ${deployId} is already on main: nothing to change`); return result }
 
   // Replace main's tree: remove everything but KEEP, then write the new files and deploy.json.
@@ -146,7 +161,7 @@ export async function assemble({ dist, dataDir, siteDir, sourceSha = null, dataS
   }
   const stamp = { schema: 1, deploy_id: deployId, build_id: buildId, dataset, admin, source: sourceSha || null, data: dataSha || null, at: now }
   await writeFile(path.join(siteDir, 'deploy.json'), JSON.stringify(stamp, null, 1) + '\n')
-  log(`deploy ${deployId}: ${tree.size} files, dataset ${dataset}${buildId ? ' ' + buildId : ''}, admin data not published`)
+  log(`deploy ${deployId}: ${tree.size} files, dataset ${dataset}${buildId ? ' ' + buildId : ''}, ${pages} project pages, admin data not published`)
   return result
 }
 

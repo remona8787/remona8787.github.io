@@ -134,6 +134,55 @@ test('an invalid or missing dataset never replaces the deployed one; invalid adm
   } finally { await rm(w.dir, { recursive: true, force: true }) }
 })
 
+test('project pages: made from the deployed dataset (never a rejected one), with the sitemap and the marker; same inputs, same deploy id', async () => {
+  const w = await world()
+  try {
+    // A build with a canonical site URL (scripts/build.mjs writes SITE_URL) and its own sitemap, plus a stale p/.
+    await writeFile(path.join(w.dist, 'index.html'), '<!doctype html><html><head><title>x</title><link rel="canonical" href="https://remona8787.github.io/"></head><body></body></html>\n')
+    await writeFile(path.join(w.dist, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n<url><loc>https://remona8787.github.io/</loc></url>\n</urlset>\n')
+    await mkdir(path.join(w.dist, 'p/STALE'), { recursive: true })
+    await writeFile(path.join(w.dist, 'p/STALE/index.html'), 'stale\n')
+    const index = JSON.parse(await readFile(path.join(FIX, 'site-data/index.json'), 'utf8'))
+    const ids = index.rows.map((r) => r[index.fields.indexOf('id')])
+    const r = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site, now: '2026-10-25T20:00:00.000Z' })
+    assert.equal(r.dataset, 'data_branch')
+    assert.equal(r.pages, ids.length)
+    for (const id of ids) assert.ok(existsSync(path.join(w.site, 'p', id, 'index.html')), id)
+    assert.ok(existsSync(path.join(w.site, 'p/index.html')))
+    assert.ok(!existsSync(path.join(w.site, 'p/STALE')), 'p/ of a build never mixes with the pages of the dataset')
+    const sitemap = await readFile(path.join(w.site, 'sitemap.xml'), 'utf8')
+    assert.match(sitemap, /<loc>https:\/\/remona8787\.github\.io\/<\/loc>/, 'the site\'s own entries stay')
+    assert.ok(ids.every((id) => sitemap.includes(`/p/${encodeURIComponent(id)}/`)))
+    assert.match(await readFile(path.join(w.site, 'index.html'), 'utf8'), /<meta name="aol-static-pages" content="p\/">/)
+    const page = await readFile(path.join(w.site, 'p', 'SEOUL018', 'index.html'), 'utf8')
+    assert.match(page, /<link rel="canonical" href="https:\/\/remona8787\.github\.io\/p\/SEOUL018\/"/)
+    // Idempotent: the same inputs give the same tree, so nothing changes on main.
+    const again = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site, now: '2026-10-25T21:00:00.000Z' })
+    assert.equal(again.changed, false)
+    assert.equal(again.deploy_id, r.deploy_id)
+    // A rejected dataset on the data branch (a project without its record): the deployed dataset and its pages stay,
+    // and the rejected dataset's new project never gets a page.
+    const bad = { ...index, rows: [...index.rows, index.rows[0].map((v, i) => (index.fields[i] === 'id' ? 'Q99999991' : v))] }
+    await writeFile(path.join(w.data, 'site-data/index.json'), JSON.stringify(bad))
+    const kept = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })
+    assert.equal(kept.dataset, 'kept_previous')
+    assert.equal(kept.changed, false, 'the same deployed dataset gives the same pages')
+    assert.equal(kept.pages, ids.length)
+    assert.ok(!existsSync(path.join(w.site, 'p/Q99999991')))
+    // Nothing deployed and no valid dataset: no pages at all (and no stale ones from the build).
+    const none = await world()
+    try {
+      await writeFile(path.join(none.dist, 'index.html'), '<!doctype html><html><head><link rel="canonical" href="https://remona8787.github.io/"></head></html>\n')
+      await mkdir(path.join(none.dist, 'p/STALE'), { recursive: true })
+      await writeFile(path.join(none.dist, 'p/STALE/index.html'), 'stale\n')
+      const r3 = await assemble({ dist: none.dist, dataDir: path.join(none.dir, 'missing'), siteDir: none.site })
+      assert.equal(r3.dataset, 'none')
+      assert.equal(r3.pages, 0)
+      assert.ok(!existsSync(path.join(none.site, 'p')))
+    } finally { await rm(none.dir, { recursive: true, force: true }) }
+  } finally { await rm(w.dir, { recursive: true, force: true }) }
+})
+
 test('loadDataset checks the whole dataset; robots.txt and the tree id', async () => {
   const ok = await loadDataset(path.join(FIX, 'site-data'))
   assert.equal(ok.ok, true, ok.errors.join('\n'))
