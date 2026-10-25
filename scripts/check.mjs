@@ -2,7 +2,7 @@ import {readFile,readdir} from 'node:fs/promises';
 import {spawnSync} from 'node:child_process';
 import path from 'node:path';
 const root=path.resolve(import.meta.dirname,'..');let count=0;
-for(const relative of ['site-public-cleared/app.js','site-public-cleared/core.js','site-public-cleared/sw.js','site-public-cleared/account.js','site-public-cleared/catalog.js','client/cloud.js','client/private-photos.js','client/image-safety.js','client/native.js','admin/app.js','site-public-cleared/admin/app.js']){
+for(const relative of ['site-public-cleared/app.js','site-public-cleared/core.js','site-public-cleared/sw.js','site-public-cleared/account.js','site-public-cleared/catalog.js','client/cloud.js','client/cloud-boot.js','client/private-photos.js','client/image-safety.js','client/native.js','admin/app.js','site-public-cleared/admin/app.js']){
  const r=spawnSync(process.execPath,['--check',path.join(root,relative)],{encoding:'utf8'});if(r.status!==0)throw Error(r.stderr);count++;
 }
 const index=await readFile(path.join(root,'site-public-cleared/index.html'),'utf8');

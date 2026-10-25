@@ -79,7 +79,7 @@ function widest(m){const s=sizesOf(m);return s.length?s[s.length-1][0]:null}
 // Slots and the largest rendition a photo needs to fill one sharply (the slot's widest CSS width at 2× density, as a
 // Commons standard width). A smaller photo never fills a larger slot: the next photo of the project that is large
 // enough, else the designed placeholder. Small slots also take a photo of unknown size (a provider thumbnail).
-const SLOT_MIN={hero:1600,lead:960,tile:640,card:320,row:120,gallery:0};
+const SLOT_MIN={hero:1600,lead:960,tile:480,card:320,row:120,gallery:0};
 function fits(m,slot='card'){const need=SLOT_MIN[slot]||0,w=widest(m);return !need||(w===null?need<=SLOT_MIN.card:w>=need)}
 // The home page shows only images with media-active evidence (tiers 1–3); other cards may fall back to tier 4.
 function photoFor(p,surface='card',slot='card'){const list=photos(p).filter(m=>fits(m,slot));return surface==='home'?list.find(m=>tierOf(m)<=3&&m.home_ok!==false&&!m.context)||null:list[0]||null}
