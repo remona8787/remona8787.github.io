@@ -1,7 +1,7 @@
 {
  "broken_links": [
   {
-   "checked_at": "2026-10-20T06:19:35.240Z",
+   "checked_at": "2026-10-20T06:26:43.280Z",
    "consecutive_failures": 1,
    "field": "official_url",
    "http_status": 404,
@@ -10,7 +10,7 @@
    "url": "https://centercity.example/"
   }
  ],
- "build_id": "20261020T061700Z-584d36e2",
+ "build_id": "20261020T061700Z-61a8105f",
  "coordinate_checks": [
   {
    "distance_m": 6135,
@@ -196,12 +196,6 @@
   },
   {
    "country_iso2": "KR",
-   "id": "KTO-2900002",
-   "name": "픽스처 미디어아트 페스티벌 대전",
-   "project_type": "festival_program"
-  },
-  {
-   "country_iso2": "KR",
    "id": "KTO-2900006",
    "name": "픽스처 루미나리에 축제",
    "project_type": "festival_program"
@@ -223,12 +217,6 @@
    "id": "Q99000503",
    "name": "Fixture Jeju Light Field",
    "project_type": "light_art"
-  },
-  {
-   "country_iso2": "KR",
-   "id": "SEOUL001",
-   "name": "Atelier Nodeul",
-   "project_type": "media_facade"
   },
   {
    "country_iso2": "KR",
@@ -509,11 +497,15 @@
  ],
  "no_home_image": [
   {
-   "best_tier": 4,
+   "best_tier": 2,
+   "id": "KTO-2900002"
+  },
+  {
+   "best_tier": 5,
    "id": "Q2001578"
   },
   {
-   "best_tier": 4,
+   "best_tier": 5,
    "id": "Q7899954"
   }
  ],

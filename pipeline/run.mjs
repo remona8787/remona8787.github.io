@@ -29,18 +29,17 @@ import { readJSON, writeJSON, writeFileAtomic, swapDir, listFiles } from './lib/
 import { discoverClasses, addClassCounts, classInstances, countryClassInstances, fetchEntities, fetchAux, auxRefs, auxNext, factsOf } from './lib/wikidata.mjs'
 import { compileGazetteer, discoverKrDivisions, krRegionOf, KR_REGIONS } from './lib/korea.mjs'
 import { discoverTourApi, tourObservation } from './lib/tourapi.mjs'
-import { discoverCategories, categoryRules, isNightCategory, isEventCategory, nightParent, fileInfo, categoryMembers, categoryFiles, depictsFiles } from './lib/commons.mjs'
+import { discoverCategories, categoryRules, nightParent } from './lib/commons.mjs'
 import { discoverWikipedia, acceptEntity } from './lib/wikipedia.mjs'
 import { webRules, collectWeb, mergeCandidates } from './lib/web.mjs'
 import { checkCoordinates } from './lib/overpass.mjs'
 import { checkLinks } from './lib/links.mjs'
 import { loadSeed, seedObservations } from './lib/seed.mjs'
 import { clusterObservations, mergeByNameAndUrl, buildProject, eligibility, newId } from './lib/entities.mjs'
-import { assessCandidate, tierOf, heroEligible, chooseImages, nameEvidence, BAD_NAME } from './lib/images.mjs'
-import { measureImage } from './lib/visual.mjs'
-import { contactSheet, COLUMNS } from './lib/contact-sheet.mjs'
-import { loadEditorial, compileEditorial, heroAllowSet, imageBlocked, applyToProject, finishLog } from './lib/editorial.mjs'
-import { publicRecord, buildIndex, buildHome, buildStats, buildManifest, shardCount, shardOf, contentHash } from './lib/output.mjs'
+import { imageStage } from './lib/image-stage.mjs'
+import { writeContactSheets, SHEET_ABOUT } from './lib/contact-sheet.mjs'
+import { loadEditorial, compileEditorial, heroAllowSet, applyToProject, finishLog } from './lib/editorial.mjs'
+import { publicRecord, buildIndex, buildHome, buildStats, buildManifest, shardCount, shardOf, contentHash, upgradeRecord } from './lib/output.mjs'
 import { checkDataset, checkReport, checkQuality, checkCandidates } from './lib/schema.mjs'
 import { loadState, saveState, updateFailures, trackProjects, ORIGIN_SOURCE } from './lib/state.mjs'
 import { compactTime, uniq, chunk, isQid, stableStringify, sha256, compareStrings, wikidataPage, bareFile, redactKeys } from './lib/util.mjs'
@@ -402,138 +401,22 @@ export async function runPipeline(o) {
   }
   say(`[pipeline] resolved ${projects.length} projects from ${kept.length} observations: ${published.length} eligible, ${excluded.length} excluded`)
 
-  // ---------------------------------------------------------------- images
+  // ---------------------------------------------------------------- images (lib/image-stage.mjs; Korean projects first)
   client.setDeadline(stageDeadline('images'))
-  const IC = P.images || {}
-  const imageResults = new Map(), imageReview = [], sheetTiles = { hero: [], cards: [] }
   const evidenceByKey = new Map()
   for (const c of evidenceCats) {
     const parent = nightParent(c.title)
     for (const key of [c.qid && 'q:' + c.qid, parent && 'c:' + parent].filter(Boolean)) evidenceByKey.set(key, [...(evidenceByKey.get(key) || []), c.title])
   }
-  const typeOrder = ['media_facade', 'projection_mapping', 'media_wall', 'urban_screen', 'interactive_installation', 'light_art', 'media_architecture', 'festival_program', 'other']
-  // Korea first: Korean projects get their images before any foreign one, so a short budget cuts foreign images first.
-  const order = [...published].sort((a, b) => (b.country_iso2 === 'KR' ? 1 : 0) - (a.country_iso2 === 'KR' ? 1 : 0) || (b.curated_id ? 1 : 0) - (a.curated_id ? 1 : 0) || (prev.records.get(b.id)?.images?.length ? 1 : 0) - (prev.records.get(a.id)?.images?.length ? 1 : 0) || typeOrder.indexOf(a.project_type) - typeOrder.indexOf(b.project_type) || (b.p18.length ? 1 : 0) - (a.p18.length ? 1 : 0) || compareStrings(a.id, b.id))
-  let thumbsFetched = 0, depictsAsked = 0
-  const heroOutcome = new Map()
-  const imageStats = { processed: 0, kept_previous: 0, none: 0, candidates: 0, rejected: {}, measured: 0, measure_errors: 0 }
+  const krRegionNames = Object.fromEntries(KC.regions.map((r) => [r.key, [r.ko, r.en, ...r.divisions.flatMap((d) => [...(d.ko || []), ...(d.en || [])])]]))
+  let imageOut_ = { imageResults: new Map(), imageReview: [], tiles: [], heroOutcome: new Map(), providerLog: [], imageCandidates: [], stats: {} }
   await st.run('images', async () => {
-    const groups = chunk(order, 6)
-    for (let gi = 0; gi < groups.length; gi++) {
-      const group = groups[gi]
-      if (client.clock() >= client.deadline) { for (const p of groups.slice(gi).flat()) keepPrevImages(p); st.mark('images', 'partial'); break }
-      try {
-        const cands = new Map()
-        for (const p of group) cands.set(p.id, await gatherCandidates(p))
-        const files = uniq([...cands.values()].flat().map((c) => c.file))
-        const info = files.length ? await fileInfo(client, files, { cache, ttlHours: ttl.commons_files ?? 336, thumbWidth: IC.thumb_width ?? 330 }) : new Map()
-        for (const p of group) await scoreProject(p, cands.get(p.id), info)
-      } catch (x) {
-        if (!isBudget(x)) err('images', x, { projects: group.map((p) => p.id) })
-        for (const p of group) if (!imageResults.has(p.id)) keepPrevImages(p)
-        if (isBudget(x)) { for (const p of groups.slice(gi + 1).flat()) keepPrevImages(p); st.mark('images', 'partial'); break }
-      }
-    }
+    imageOut_ = await imageStage({ client, cache, P, env, ed, heroAllow, prev, state, published, evidenceByKey, catRules: catRulesLite, krRegionNames, startedAt, err, stages: st })
   })
-
-  function keepPrevImages(p) {
-    if (imageResults.has(p.id)) return
-    const old = prev.records.get(p.id) || p.merged_ids.map((id) => prev.records.get(id)).find(Boolean)
-    const images = (old?.images || []).filter((i) => !imageBlocked(ed, p.id, i.page?.split('File:')[1] ? decodeURIComponent(i.page.split('File:')[1]).replace(/_/g, ' ') : ''))
-    const pick = state.imagePicks?.[p.id] || old && state.imagePicks?.[old.id] || null
-    imageResults.set(p.id, { images, status: 'kept_previous', home: pick?.home ? images.find((i) => i.page === pick.home && i.tier <= 3) || null : null, hero: images.find((i) => i.role === 'hero') || null, score: pick?.score ?? 0 })
-    imageStats.kept_previous++
-  }
-
-  async function gatherCandidates(p) {
-    const out = []
-    const add = (file, source, category = null) => {
-      const f = bareFile(file)
-      if (!f || out.some((c) => c.file === f)) return
-      if (!/\.(jpe?g|png|webp)$/i.test(f) || BAD_NAME.test(f.replace(/\.[a-z0-9]+$/i, ''))) return
-      out.push({ file: f, source, category })
-    }
-    for (const f of p.p18 || []) add(f, 'p18')
-    const cats = [...(p.image_categories || [])]
-    for (const key of [p.qid && 'q:' + p.qid, p.commons_category && 'c:' + p.commons_category].filter(Boolean)) for (const t of evidenceByKey.get(key) || []) cats.push({ title: t, source: 'night_category' })
-    const seenCats = new Set()
-    let subcatBudget = IC.max_subcategories ?? 3
-    for (const c of cats.slice(0, IC.max_categories_per_project ?? 4)) {
-      if (seenCats.has(c.title)) continue
-      seenCats.add(c.title)
-      const m = await categoryMembers(client, c.title, { cache, ttlHours: ttl.commons_members ?? 72, limit: IC.members_per_category ?? 200 })
-      for (const f of m.files) add(f, isNightCategory(c.title, catRulesLite) && c.source === 'category' ? 'night_category' : c.source, c.title)
-      if (c.source !== 'category') continue
-      // The project category's own "at night" / illuminated / event subcategories.
-      const subs = m.subcats.filter((s) => isNightCategory(s, catRulesLite) || isEventCategory(s, catRulesLite)).sort((a, b) => (isNightCategory(b, catRulesLite) ? 1 : 0) - (isNightCategory(a, catRulesLite) ? 1 : 0) || compareStrings(b, a))
-      for (const s of subs) {
-        if (subcatBudget-- <= 0 || seenCats.has(s)) break
-        seenCats.add(s)
-        for (const f of await categoryFiles(client, s, { cache, ttlHours: ttl.commons_members ?? 72, limit: IC.files_per_subcategory ?? 40 })) add(f, isNightCategory(s, catRulesLite) ? 'night_category' : 'event_category', s)
-      }
-    }
-    // Files whose structured data depicts the item (P180), only for a project none of whose candidates names both
-    // night and media evidence: one search per project, at most depicts_max_per_run new searches, cached two weeks.
-    if (p.qid && IC.depicts !== false && !out.some((c) => { const n = nameEvidence(c.file); return n.night >= 30 && n.media >= 30 })) {
-      const cached = cache.fresh('commons-depicts', p.qid) !== undefined
-      if (cached || depictsAsked < (IC.depicts_max_per_run ?? 80)) {
-        if (!cached) depictsAsked++
-        for (const f of await depictsFiles(client, p.qid, { cache, ttlHours: ttl.commons_depicts ?? 336, limit: IC.depicts_per_project ?? 30 })) add(f, 'depicts')
-      }
-    }
-    const bonus = { p18: 15, night_category: 40, event_category: 20, part_category: 10, depicts: 5, category: 0 }
-    const ranked = out.map((c) => { const n = nameEvidence(c.file); return { ...c, pre: n.night + n.media + (bonus[c.source] ?? 0) } }).sort((a, b) => b.pre - a.pre || compareStrings(a.file, b.file))
-    imageStats.candidates += ranked.length
-    return ranked.slice(0, IC.max_candidates_per_project ?? 16)
-  }
-
-  async function scoreProject(p, cands, info) {
-    const assessed = []
-    for (const c of cands) {
-      const i = info.get(c.file)
-      const a = assessCandidate(c, i, { project_type: p.project_type, rightsPolicy: IC.rights_policy, minWidth: IC.min_width, minHeight: IC.min_height })
-      for (const r of a.reasons) imageStats.rejected[r.split(':')[0] === 'rights' ? r : r.replace(/:.*/, '')] = (imageStats.rejected[r.split(':')[0] === 'rights' ? r : r.replace(/:.*/, '')] || 0) + 1
-      assessed.push({ ...c, a, info: i })
-    }
-    const usable = assessed.filter((s) => s.a.ok && !imageBlocked(ed, p.id, s.file))
-    // Measure the most promising few (thumbnail downloads are the costly part).
-    const toMeasure = [...usable].sort((x, y) => (y.a.night + y.a.media + (y.source === 'p18' ? 10 : 0)) - (x.a.night + x.a.media + (x.source === 'p18' ? 10 : 0)) || compareStrings(x.file, y.file)).slice(0, IC.max_scored_per_project ?? 6)
-    const buffers = new Map()
-    for (const s of toMeasure) {
-      const key = s.file + '|' + (s.info.sha1 || '')
-      let m = cache.fresh('visual', key)
-      if (m === undefined && thumbsFetched < (IC.max_thumbs_per_run ?? 1800) && s.info.thumburl) {
-        try {
-          const b = await client.bytes(s.info.thumburl, { stage: 'images' })
-          thumbsFetched++
-          m = await measureImage(b.bytes, IC.score_width ?? 320)
-          buffers.set(s.file, b.bytes)
-          cache.set('visual', key, m, { ttlMs: (ttl.visual ?? 8760) * HOUR })
-          imageStats.measured++
-        } catch (x) { if (isBudget(x)) throw x; imageStats.measure_errors++; m = null; err('images_thumb', x, { file: s.file }) }
-      }
-      s.m = m ?? null
-    }
-    for (const s of usable) { s.m = s.m ?? null; s.t = tierOf(s.a, s.m, IC) }
-    const choice = chooseImages(p, usable.map((s) => ({ file: s.file, source: s.source, a: s.a, m: s.m, info: s.info, t: s.t })), { heroAllow, blocked: new Set(), galleryMax: IC.gallery_max ?? 12, th: IC })
-    const homePick = choice.hero || choice.usable.find((s) => s.t.home_ok) || null
-    const images = choice.images
-    const homeImage = homePick ? images.find((i) => i.file === homePick.file) || null : null
-    imageResults.set(p.id, { images, status: 'scored', hero: choice.hero ? images.find((i) => i.role === 'hero') : null, home: homeImage && homeImage.tier <= 3 ? homeImage : null, score: homePick ? (homePick.m?.visual ?? 0) + (4 - homePick.t.tier) * 20 : 0 })
-    imageStats.processed++
-    if (!images.length) imageStats.none++
-    imageReview.push({
-      project: p.id, name: p.name_en || p.name_ko, type: p.project_type, card: choice.card?.file ?? null, hero: choice.hero?.file ?? null,
-      candidates: assessed.map((s) => ({ file: s.file, source: s.source, ok: s.a.ok, reasons: s.a.reasons, night: s.a.night ?? null, media: s.a.media ?? null, night_terms: s.a.night_terms, media_terms: s.a.media_terms, evidence: s.a.evidence, visual: s.m ?? null, tier: s.t?.tier ?? null, home_ok: s.t?.home_ok ?? false })),
-      hero_decisions: choice.decisions,
-    })
-    for (const d of choice.decisions) if (d.allowlisted) heroOutcome.set(p.id + '|' + d.file, { hero: choice.hero?.file === d.file, reasons: d.reasons })
-    for (const d of choice.decisions) {
-      const s = usable.find((x) => x.file === d.file)
-      sheetTiles.hero.push({ project: p.id, file: d.file, tier: s?.t?.tier, visual: s?.m?.visual ?? null, night: s?.a.night, media: s?.a.media, hero_candidate: d.hero_candidate, allowlisted: d.allowlisted, buffer: buffers.get(d.file) || null, thumb: s?.info?.thumburl })
-    }
-    if (choice.card && choice.card.t.tier <= 3) sheetTiles.cards.push({ project: p.id, file: choice.card.file, tier: choice.card.t.tier, visual: choice.card.m?.visual ?? null, night: choice.card.a.night, media: choice.card.a.media, buffer: buffers.get(choice.card.file) || null, thumb: choice.card.info.thumburl })
-  }
+  const { imageResults, imageReview, tiles: sheetTiles, heroOutcome, providerLog, imageCandidates } = imageOut_
+  const imageStats = imageOut_.stats
+  // set_image decisions: applied when their project is published.
+  for (const [target, list] of ed.setImages || []) for (const d of list) { if (published.some((p) => p.id === target)) { d.entry.status = 'applied'; d.entry.project = target } }
 
   // Hero allowlist outcomes (hero.json entries and set_hero/unset_hero decisions).
   const publishedIds = new Set(published.map((p) => p.id))
@@ -550,24 +433,17 @@ export async function runPipeline(o) {
   })
 
   // ---------------------------------------------------------------- contact sheets (review/contact-sheets/)
+  // One set of sheets per kind and provider (hero and featured candidates, cards), Korean projects first; each tile
+  // names the image id, provider, original size, sharpness, tier and the project in ASCII (lib/contact-sheet.mjs).
   const sheets = []
   await st.run('contact_sheets', async () => {
     const dir = path.join(dirs.review, 'contact-sheets')
     await rm(dir, { recursive: true, force: true })
     await mkdir(dir, { recursive: true })
-    const perSheet = COLUMNS * 8
-    for (const [kind, tiles] of Object.entries(sheetTiles)) {
-      for (let s = 0; s * perSheet < tiles.length; s++) {
-        const part = tiles.slice(s * perSheet, (s + 1) * perSheet)
-        const name = `${kind === 'hero' ? 'hero-candidates' : 'cards'}-${String(s + 1).padStart(2, '0')}.jpg`
-        try {
-          const jpg = await contactSheet(part.map((t, i) => ({ buffer: t.buffer, lines: [`#${s * perSheet + i + 1} ${t.project}`, `T${t.tier ?? '-'} V${t.visual ?? '-'} ${t.allowlisted ? 'OK' : t.hero_candidate ? 'H?' : ''}`.trim()] })))
-          await writeFileAtomic(path.join(dir, name), jpg)
-          sheets.push({ sheet: name, kind, tiles: part.map((t, i) => ({ n: s * perSheet + i + 1, project: t.project, file: t.file, thumb: t.thumb || null, tier: t.tier ?? null, visual: t.visual, night: t.night ?? null, media: t.media ?? null, hero_candidate: !!t.hero_candidate, allowlisted: !!t.allowlisted, image_in_sheet: !!t.buffer })) })
-        } catch (x) { err('contact_sheets', x, { sheet: name }) }
-      }
-    }
-    await writeJSON(path.join(dir, 'index.json'), { schema: 1, generated_at: startedAt, about: 'Tiles of each sheet: #n, project id, file, tier (1 media active at night … 4 context), visual score, keyword scores. "OK" = on the hero allowlist; "H?" = hero candidate awaiting review (add it to editorial/hero.json after looking at it).', sheets }, { pretty: true })
+    // Tiles measured in an earlier run have no image in memory: their small rendition is fetched (a few minutes at most).
+    client.setDeadline(Math.min(runDeadline, clock() + (P.images?.contact_sheet_minutes ?? 3) * 60e3))
+    sheets.push(...await writeContactSheets(dir, sheetTiles, { err, fetchBytes: (u) => client.bytes(u, { stage: 'contact_sheets' }), maxFetch: P.images?.contact_sheet_fetch_max ?? 300 }))
+    await writeJSON(path.join(dir, 'index.json'), { schema: 2, generated_at: startedAt, about: SHEET_ABOUT, sheets }, { pretty: true })
   })
 
   // ---------------------------------------------------------------- link checks
@@ -625,16 +501,20 @@ export async function runPipeline(o) {
   }
   for (const id of carriedIds) {
     const old = prev.records.get(id)
-    if (old) records.push({ ...old, shard: shardOf(id, count) })
+    // A record carried over from a v0.17 run gets the v0.18 shape (image objects, kr_region), nothing else changes.
+    if (old) records.push({ ...upgradeRecord(old), shard: shardOf(id, count) })
   }
   records.sort((a, b) => compareStrings(a.id, b.id))
   const newIds = records.filter((r) => !prev.records.has(r.id)).map((r) => r.id)
   const changed = records.filter((r) => prev.records.has(r.id) && stableStringify({ ...prev.records.get(r.id), shard: null }) !== stableStringify({ ...r, shard: null })).map((r) => r.id)
+  // Home picks: the hero (approved, tier 1–2), the featured image (≥ 1600 px, reviewed unless from Commons) and the
+  // home image of every record (tier ≤ 3 in a dark frame, as measured), with the record's score.
   const picks = new Map()
   for (const r of records) {
     const ir = imageResults.get(r.id)
-    const hero = r.images.find((i) => i.role === 'hero' && i.tier === 1) || null
-    picks.set(r.id, { hero, home: ir?.home ?? (r.images.find((i) => i.role === 'hero') || null), score: ir?.score ?? (hero ? 80 : 0) })
+    const hero = r.images.find((i) => i.role === 'hero' && i.tier <= 2) || null
+    const featured = r.images.find((i) => i.role === 'featured') || null
+    picks.set(r.id, { hero, featured, home: ir?.home ?? featured ?? hero ?? null, score: ir?.score ?? (hero ? 80 : 0) })
   }
   const sourcesManifest = Object.fromEntries(['wikidata', 'commons', 'wikipedia', 'tourapi', 'curated', 'web'].filter((k) => sourceStatus[k]).map((k) => [k, { status: sourceStatus[k].status, last_success: sourceStatus[k].last_success, items: sourceStatus[k].items ?? null }]))
   const hashParts = { records }
@@ -674,7 +554,7 @@ export async function runPipeline(o) {
 
   // ---------------------------------------------------------------- admin-data, review, state
   const decisions = finishLog(ed)
-  const heroCandidates = sheetTiles.hero.filter((t) => t.hero_candidate && !t.allowlisted).length
+  const heroCandidates = sheetTiles.filter((t) => t.kind === 'hero' && t.hero_candidate && !t.allowlisted).length
   const candidates = mergeCandidates(state.candidates, webOut?.items || [], { now: clock() })
   const reviewQueue = Object.values(candidates).filter((c) => c.status === 'needs_review' || c.status === 'uncertain').length
   // Suspected duplicates: pairs the merge rules refused to join (two QIDs) that are still separate projects.
@@ -693,7 +573,8 @@ export async function runPipeline(o) {
     image_rejections: imageStats.rejected,
   }
   const counts = {
-    observations: observations.length, observations_kept: kept.length, projects_built: projects.length, published: records.length,
+    observations: observations.length, observations_kept: kept.length, projects_built: projects.length, collected: projects.length, eligible: published.length, published: records.length,
+    kr: records.filter((r) => r.country_iso2 === 'KR').length, foreign: records.filter((r) => r.country_iso2 !== 'KR').length, kr_with_region: records.filter((r) => r.kr_region).length,
     new: newIds.length, changed: changed.length, merged: merges.length + ed.merges.filter((m) => m.entry.status === 'applied').length,
     removed: track.removed.length, carried_over: track.carried.length, stale: track.stale.length, excluded: excluded.length,
     with_images: records.filter((r) => r.images.length).length, with_hero: records.filter((r) => r.images.some((i) => i.role === 'hero')).length,
@@ -712,7 +593,7 @@ export async function runPipeline(o) {
     reachability: Object.fromEntries(Object.entries(client.stats).map(([host, s]) => [host, s.ok + s.not_modified + s.cached > 0 ? 'reachable' : s.requests ? 'failed' : 'not_used'])),
     cache: { sizes: cache.sizes(), ...cache.stats },
     counts,
-    images: { ...imageStats, thumbnails_fetched: thumbsFetched, depicts_searches: depictsAsked, contact_sheets: sheets.map((s) => s.sheet) },
+    images: { ...imageStats, hero: files.home.hero.length, contact_sheets: sheets.map((s) => s.sheet) },
     changes: { new: newIds.slice(0, 200), changed: changed.slice(0, 200), removed: track.removed, carried_over: track.carried, merges: [...merges, ...ed.merges.filter((m) => m.entry.status === 'applied').map((m) => ({ rule: 'editorial_merge', a: m.from, b: m.into }))] },
     decisions,
     hero_list: heroList,
@@ -722,7 +603,13 @@ export async function runPipeline(o) {
   }
   state.failures = updateFailures(state.failures, sourceStatus, startedAt)
   for (const [k, v] of Object.entries(report.sources)) v.consecutive_failures = state.failures.sources?.[k]?.consecutive_failures ?? 0
-  const candidatesOut = { schema: 1, generated_at: startedAt, about: 'Web-derived candidates (GDELT, RSS; NAVER/Brave when keyed). Never public until an editorial approve decision names one (editorial/decisions/*.json with target = candidate id and fields).', candidates: Object.values(candidates).sort((a, b) => (b.confidence ?? 0) - (a.confidence ?? 0) || compareStrings(a.id, b.id)) }
+  const candidatesOut = {
+    schema: 1, generated_at: startedAt,
+    about: 'Web-derived candidates (GDELT, RSS; NAVER/Brave when keyed). Never public until an editorial approve decision names one (editorial/decisions/*.json with target = candidate id and fields). image_candidates: NAVER image search results (discovery only, never displayed) and provider images awaiting an approve_image after the contact-sheet review; tourapi: accepted TourAPI items that are not public yet (no public source).',
+    candidates: Object.values(candidates).sort((a, b) => (b.confidence ?? 0) - (a.confidence ?? 0) || compareStrings(a.id, b.id)),
+    image_candidates: imageCandidates,
+    tourapi: (tourOut?.accepted || []).filter((t) => excluded.some((x) => x.id === 'KTO-' + t.contentid)).map((t) => ({ id: 'KTO-' + t.contentid, title: t.title, addr1: t.addr1, terms: t.decision.terms, project_type: t.decision.project_type, reasons: excluded.find((x) => x.id === 'KTO-' + t.contentid)?.reasons || [] })),
+  }
   const adminErrors = [...checkReport(report), ...checkQuality(quality), ...checkCandidates(candidatesOut)]
   if (adminErrors.length) report.run.admin_validation_errors = adminErrors.slice(0, 50)
   const adminStaging = dirs.admin + '.staging-' + process.pid
@@ -738,7 +625,8 @@ export async function runPipeline(o) {
   await writeJSON(path.join(dirs.review, 'properties.json'), { schema: 1, at: startedAt, properties: classReview?.properties ?? null, not_used_this_run: [...badProps] }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'categories.json'), { schema: 1, at: startedAt, partial: categories?.partial ?? null, errors: categories?.errors ?? [], decisions: [...(categories?.categories?.values() || [])].sort((a, b) => compareStrings(a.title, b.title)) }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'wikipedia.json'), { schema: 1, at: startedAt, accept_score: accept, hits: wikiHits, entity_decisions: wikiDecisions }, { pretty: true })
-  await writeJSON(path.join(dirs.review, 'images.json'), { schema: 1, at: startedAt, projects: imageReview }, { pretty: true })
+  await writeJSON(path.join(dirs.review, 'images.json'), { schema: 2, at: startedAt, about: 'Per project: every image candidate (Commons and the other providers) with rights, identity, keyword evidence, visual and quality measurements, tier, approval, the hero and featured decisions and the near-duplicates removed.', projects: imageReview }, { pretty: true })
+  await writeJSON(path.join(dirs.review, 'providers.json'), { schema: 1, at: startedAt, about: 'Image provider requests of this run: TourAPI name matches, caps reached, errors (keys never appear).', stats: { requests: imageStats.provider_requests, new_requests: imageStats.provider_new_requests, errors: imageStats.provider_errors, rejected: imageStats.provider_rejected, openverse_rate_limit: imageStats.openverse_rate_limit }, log: providerLog.slice(0, 2000) }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'web.json'), { schema: 1, at: startedAt, rules: webOut?.results ?? null, errors: webOut?.errors ?? [] }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'http-log.json'), { schema: 1, at: startedAt, entries: httpLog }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'tourapi.json'), { schema: 1, at: startedAt, about: 'TourAPI KorService2 keyword discovery: every item seen, the terms found in its title or overview, the classifier verdict and the decision. Accepted items become projects (origin tourapi) when they also have a public source (their homepage) or merge with a known project.', status: sourceStatus.tourapi ?? null, overviews_read: tourOut?.overviews_read ?? 0, items: tourOut?.items ?? [], errors: tourOut?.errors ?? [] }, { pretty: true })
@@ -755,7 +643,7 @@ export async function runPipeline(o) {
   state.runs = { schema: 1, runs: runNo, last_run: { at: startedAt, status: report.run.status, build_id: report.run.build_id, duration_ms: report.run.duration_ms }, last_good: published_ ? { build_id: buildId, at: generatedAt, projects: records.length, content_hash: hash } : state.runs.last_good }
   if (published_) state.tracker = track.tracker
   state.webRules = webOut?.state ?? state.webRules
-  if (published_) state.imagePicks = Object.fromEntries(records.map((r) => [r.id, { home: picks.get(r.id)?.home?.page ?? null, score: picks.get(r.id)?.score ?? 0 }]).filter(([, v]) => v.home))
+  if (published_) state.imagePicks = Object.fromEntries(records.map((r) => [r.id, { home: picks.get(r.id)?.home?.id ?? null, score: picks.get(r.id)?.score ?? 0 }]).filter(([, v]) => v.home))
   state.candidates = candidates
   await saveState(dirs.state, state)
   await cache.save()

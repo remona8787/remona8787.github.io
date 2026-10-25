@@ -21,7 +21,8 @@ export function loadFixtures() {
   const wikis = {}
   for (const f of readdirSync(path.join(DIR, 'wikipedia'))) wikis[f.replace(/\.json$/, '')] = read('wikipedia/' + f)
   const classes = JSON.parse(readFileSync(path.join(DIR, '../../../pipeline/config/classes.json'), 'utf8'))
-  return { entities, categories, files, thumbs, wikis, search: read('commons/search.json'), links: read('links.json'), overpass: read('overpass.json'), gdelt: read('web/gdelt.json'), feed: readFileSync(path.join(DIR, 'web/feed.xml'), 'utf8'), properties: classes.properties, tourapi: read('tourapi/korservice2.json') }
+  return { entities, categories, files, thumbs, wikis, search: read('commons/search.json'), links: read('links.json'), overpass: read('overpass.json'), gdelt: read('web/gdelt.json'), feed: readFileSync(path.join(DIR, 'web/feed.xml'), 'utf8'), properties: classes.properties, tourapi: read('tourapi/korservice2.json'),
+    openverse: read('providers/openverse.json'), flickr: read('providers/flickr.json'), providerImages: read('providers/images.json') }
 }
 
 const FIX = loadFixtures()
@@ -35,7 +36,7 @@ export const FIXTURE_OVERRIDES = {
 }
 
 // The keys of a fixture run (never real keys): the keyed sources and image providers answer from the fixtures.
-export const FIXTURE_ENV = { TOURAPI_SERVICE_KEY: 'fixture-tourapi-key' }
+export const FIXTURE_ENV = { TOURAPI_SERVICE_KEY: 'fixture-tourapi-key', FLICKR_API_KEY: 'fixture-flickr-key' }
 
 const jsonRes = (v, { status = 200, type = 'application/json; charset=utf-8', headers = {} } = {}) => new Response(JSON.stringify(v), { status, headers: { 'content-type': type, ...headers } })
 const normTitle = (t) => String(t || '').replace(/_/g, ' ').trim()
@@ -250,10 +251,33 @@ export function fixtureEnvironment({ start = Date.parse('2026-10-20T06:17:00Z'),
     if (u.host === 'www.wikidata.org' && p.get('action') === 'wbgetentities') return wbgetentities(p)
     if (u.host === 'commons.wikimedia.org' && u.pathname === '/w/api.php') return commons(p, state)
     if (/^[a-z-]+\.wikipedia\.org$/.test(u.host) && u.pathname === '/w/api.php') return wikipedia(u.host.split('.')[0], p)
-    if (u.host === 'upload.wikimedia.org') {
-      const base = url.replace(/\/\d+px-([^/]+)$/, '/330px-$1')
+    if (u.host === 'upload.wikimedia.org' || u.host === 'thumb.wikimedia.org') {
+      // Like the CDN: standard thumbnail widths only; 960 px and wider get the large rendition of the scene, the
+      // original file path too (its bytes stand in for the original).
+      const clean = url.replace(/\?.*$/, '')
+      const w = Number(/\/(\d+)px-[^/]+$/.exec(clean)?.[1] || 0)
+      if (w && ![120, 250, 330, 500, 960, 1280, 1920, 3840].includes(w)) return new Response('non-standard width', { status: 400 })
+      const base = w ? clean.replace(/^https:\/\/thumb\./, 'https://upload.').replace(/\/\d+px-([^/]+)$/, '/330px-$1') : [...FIX.files.values()].find((f) => f.page.imageinfo[0].url === clean.replace(/^https:\/\/thumb\./, 'https://upload.'))?.page.imageinfo[0].thumburl
       const thumb = FIX.thumbs.get(base)
-      return thumb ? new Response(readFileSync(path.join(DIR, thumb)), { status: 200, headers: { 'content-type': 'image/jpeg' } }) : new Response('not found', { status: 404 })
+      if (!thumb) return new Response('not found', { status: 404 })
+      const file = w && w < 960 ? thumb : thumb.replace(/^thumbs\/(.+)\.jpg$/, 'renditions/$1-960.jpg')
+      return new Response(readFileSync(path.join(DIR, file)), { status: 200, headers: { 'content-type': 'image/jpeg' } })
+    }
+    if (FIX.providerImages[url]) return new Response(readFileSync(path.join(DIR, 'renditions', FIX.providerImages[url] + '.jpg')), { status: 200, headers: { 'content-type': 'image/jpeg' } })
+    if (u.host === 'api.openverse.org' && u.pathname === '/v1/images/') {
+      const results = FIX.openverse[p.get('q')] || []
+      if (p.get('license') !== 'cc0,pdm,by,by-sa') return jsonRes({ detail: 'fixture: unexpected licence filter' }, { status: 400 })
+      return jsonRes({ result_count: results.length, page_count: results.length ? 1 : 0, page_size: Number(p.get('page_size') || 20), page: 1, results }, { headers: { 'x-ratelimit-limit-anon_burst': '20/min', 'x-ratelimit-available-anon_burst': '19' } })
+    }
+    if (u.host === 'api.flickr.com') {
+      if (p.get('api_key') !== FIXTURE_ENV.FLICKR_API_KEY) return jsonRes({ stat: 'fail', code: 100, message: 'Invalid API Key (Key has invalid format)' })
+      if (p.get('method') === 'flickr.photos.licenses.getInfo') return jsonRes(FIX.flickr.licenses)
+      if (p.get('method') === 'flickr.photos.search') {
+        const allowed = new Set((p.get('license') || '').split(','))
+        const photo = (FIX.flickr.search[p.get('text')] || []).filter((x) => allowed.has(String(x.license)))
+        return jsonRes({ photos: { page: 1, pages: 1, perpage: 30, total: photo.length, photo }, stat: 'ok' })
+      }
+      return jsonRes({ stat: 'fail', code: 112, message: 'Method not found' })
     }
     if (u.host === 'apis.data.go.kr') return dataGoKr(u)
     if (u.host === 'api.gdeltproject.org') return jsonRes(FIX.gdelt)

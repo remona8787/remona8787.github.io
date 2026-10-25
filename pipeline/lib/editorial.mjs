@@ -14,15 +14,20 @@
 //   merge       target = project id, into = project id (the kept record; all sources stay attached)
 //   edit        target = project id, fields = {name_ko, name_en, name_original, name_original_lang, country_iso2,
 //               city, city_ko, lat, lng, project_type, official_url, description_ko, description_en, visit}
-//   block_image target = project id or "*", image = Commons file name
-//   set_hero / unset_hero  target = project id, image = Commons file name
+//   block_image target = project id or "*", image = Commons file name or image id (img-…)
+//   set_hero / unset_hero  target = project id, image = Commons file name or image id; set_hero also approves it
+//   approve_image  target = project id, image = image id (img-…) or Commons file name: the image was reviewed on the
+//               contact sheets (identity and quality); it may then be featured, and hero when its tier is 1 or 2
+//   set_image   target = project id, src (https image URL), page (https source page), author, and license (with
+//               license_url) or permission_note; optional provider ("official" by default, or "editor"),
+//               no_derivatives: true when the licence forbids changes. An official image only enters this way.
 import { readdir, readFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import T from '../../site-public-cleared/archive-taxonomy.js'
 import { bareFile, isQid, validLat, validLng, slugify, fnv1a } from './util.mjs'
 
-export const ACTIONS = ['approve', 'hide', 'unhide', 'merge', 'edit', 'block_image', 'set_hero', 'unset_hero']
+export const ACTIONS = ['approve', 'hide', 'unhide', 'merge', 'edit', 'block_image', 'set_hero', 'unset_hero', 'approve_image', 'set_image']
 const ID_RE = /^(?:Q[1-9]\d{0,11}|[A-Z]{2,12}\d{1,6}|CAT-[0-9A-Z]{1,13}|ED-[a-z0-9-]{1,60}|X-[0-9A-Z]{1,13}|KTO-\d{1,12}|cand-[0-9a-z]{1,13}|new:[a-z0-9-]{1,60})$/
 const EDIT_FIELDS = ['name_ko', 'name_en', 'name_original', 'name_original_lang', 'country_iso2', 'city', 'city_ko', 'lat', 'lng', 'project_type', 'kr_region', 'official_url', 'description_ko', 'description_en', 'visit']
 const VISIT_STATUS = new Set(['operating', 'seasonal', 'event_based', 'ended', 'inactive', 'demolished', 'unknown'])
@@ -67,7 +72,16 @@ export function validateDecision(d) {
   if (!ACTIONS.includes(d.action)) problems.push('unknown_action')
   if (typeof d.target !== 'string' || !(d.target === '*' ? d.action === 'block_image' : ID_RE.test(d.target))) problems.push('bad_target')
   if (d.action === 'merge' && (typeof d.into !== 'string' || !ID_RE.test(d.into) || d.into === d.target)) problems.push('bad_into')
-  if (['block_image', 'set_hero', 'unset_hero'].includes(d.action) && !text(d.image, 240)) problems.push('image_required')
+  if (['block_image', 'set_hero', 'unset_hero', 'approve_image'].includes(d.action) && !text(d.image, 240)) problems.push('image_required')
+  if (d.action === 'set_image') {
+    const https = (v) => { try { return new URL(String(v || '')).protocol === 'https:' } catch { return false } }
+    if (!https(d.src)) problems.push('src_must_be_https')
+    if (!https(d.page)) problems.push('page_must_be_https')
+    if (!text(d.author, 200)) problems.push('author_required')
+    if (!text(d.license, 120) && !text(d.permission_note, 500)) problems.push('license_or_permission_note_required')
+    if (d.license_url !== undefined && d.license_url !== null && !https(d.license_url) && !/^http:\/\//.test(String(d.license_url))) problems.push('bad_license_url')
+    if (d.provider !== undefined && !['official', 'editor'].includes(d.provider)) problems.push('provider_must_be_official_or_editor')
+  }
   if (d.action === 'edit' && (!d.fields || typeof d.fields !== 'object')) problems.push('fields_required')
   if (d.action === 'approve' && /^(cand-|new:)/.test(String(d.target || '')) && (!d.fields || typeof d.fields !== 'object')) problems.push('fields_required')
   if (!text(d.by, 120)) problems.push('by_required')
@@ -106,7 +120,7 @@ export async function loadEditorial(dir) {
 export function compileEditorial(loaded, { candidates = {} } = {}) {
   const log = []
   const approvals = new Map(), hidden = new Map(), edits = new Map(), merges = [], created = []
-  const blockedImages = new Set(), heroAllow = new Map()
+  const blockedImages = new Set(), heroAllow = new Map(), imageApprovals = new Map(), setImages = new Map()
   for (const { file, content, error } of loaded.decisions) {
     const entry = { file, action: content?.action ?? null, target: content?.target ?? null, by: text(content?.by, 120), at: content?.at ?? null, note: text(content?.note, 300), status: 'pending', reasons: [] }
     log.push(entry)
@@ -153,11 +167,19 @@ export function compileEditorial(loaded, { candidates = {} } = {}) {
         edits.set(d.target, { entries: [...(prev?.entries || []), entry], fields: { ...(prev?.fields || {}), ...fields } })
         break
       }
-      case 'block_image': blockedImages.add(d.target + '|' + bareFile(d.image)); entry.status = 'applied'; break
+      case 'block_image': blockedImages.add(d.target + '|' + bareFile(d.image)); imageApprovals.set(d.target + '|' + bareFile(d.image), false); entry.status = 'applied'; break
+      case 'approve_image': imageApprovals.set(d.target + '|' + bareFile(d.image), true); entry.status = 'applied'; break
+      case 'set_image': {
+        const list = setImages.get(d.target) || []
+        list.push({ src: d.src, page: d.page, author: text(d.author, 200), license: text(d.license, 120), license_url: d.license_url || null, permission_note: text(d.permission_note, 500), provider: d.provider || 'official', no_derivatives: d.no_derivatives === true, width: Number.isInteger(d.width) ? d.width : null, height: Number.isInteger(d.height) ? d.height : null, note: entry.note, entry })
+        setImages.set(d.target, list)
+        break
+      }
       case 'set_hero': case 'unset_hero': {
         const key = d.target + '|' + bareFile(d.image)
         supersede(heroAllow, key)
         heroAllow.set(key, { entry, on: d.action === 'set_hero', note: entry.note })
+        if (d.action === 'set_hero') imageApprovals.set(key, true)
         break
       }
     }
@@ -171,7 +193,8 @@ export function compileEditorial(loaded, { candidates = {} } = {}) {
     if (!project || !image) { log.push({ file: 'hero.json', action: 'hero_list', target: h?.project ?? null, status: 'invalid', reasons: ['project_and_image_required'] }); continue }
     heroList.push({ project, image: bareFile(image), note: text(h.note, 300) })
   }
-  return { log, approvals, hidden, edits, merges, created, blockedImages, heroAllow, heroList }
+  for (const h of heroList) if (!imageApprovals.has(h.project + '|' + h.image)) imageApprovals.set(h.project + '|' + h.image, true)
+  return { log, approvals, hidden, edits, merges, created, blockedImages, heroAllow, heroList, imageApprovals, setImages }
 }
 
 /** The effective hero allowlist: hero.json plus set_hero, minus unset_hero. Set of "project|file". */

@@ -2,10 +2,10 @@
   "schema": 1,
   "budget_minutes": 25,
   "stage_shares": {
-    "sources": 0.42,
-    "enrich": 0.16,
-    "images": 0.3,
-    "links": 0.08
+    "sources": 0.38,
+    "enrich": 0.14,
+    "images": 0.4,
+    "links": 0.06
   },
   "sources": {
     "wikidata": {
@@ -49,7 +49,8 @@
     "overpass": 720,
     "commons_depicts": 336,
     "tourapi": 72,
-    "kr_divisions": 168
+    "kr_divisions": 168,
+    "quality": 8760
   },
   "wikipedia": {
     "about": "Media-facade discovery: phrase searches of the local terms in each Wikipedia; each hit is mapped to its Wikidata item and accepted only by the rules in lib/wikipedia.mjs (score and reasons in review/wikipedia.json).",
@@ -385,7 +386,7 @@
     "gallery_max": 12,
     "min_width": 640,
     "min_height": 400,
-    "hero_min_width": 1600,
+    "hero_min_width": 2400,
     "visual_media_threshold": 40,
     "hero_visual_threshold": 45,
     "home_max_mean_luminance": 0.4,
@@ -401,8 +402,57 @@
     "depicts": true,
     "depicts_max_per_run": 80,
     "depicts_per_project": 30,
-    "public_thumb_width": 500,
-    "about": "thumb_width: the Commons thumbnail read for scoring (330 px, a standard step); score_width: the size measured (320 px); public_thumb_width: the card thumbnail published (500 px). A home image needs mean luminance <= home_max_mean_luminance, saturated bright share >= home_min_saturated_bright and colourfulness >= home_min_colourfulness; a hero also needs visual >= hero_visual_threshold, an original >= hero_min_width and the reviewed allowlist. depicts: files whose structured data says they depict the item (P180, haswbstatement search), asked only for projects without a candidate named with both night and media evidence; at most depicts_max_per_run new searches per run, cached two weeks."
+    "about": "thumb_width: the Commons thumbnail read for visual scoring (330 px, a standard step); score_width: the size measured (320 px). Widths of the original by role (v0.18): hero >= hero_min_width (hero_fallback_min_width when the project has nothing larger, flagged below_target), featured >= featured_min_width, card >= card_min_width (a smaller card only when nothing larger exists, flagged), tier 1 needs tier1_min_width. quality: sharpness (0-100, Laplacian variance at 1024 px) and blockiness (0-100, 8x8 block-edge energy) gates for hero and featured, measured on a ~1024 px rendition of at most quality_per_project candidates per project and max_quality_per_run downloads per run, cached a year. near_duplicate_hamming: dHash distance under which two images are one (the larger and sharper stays). A home image needs mean luminance <= home_max_mean_luminance, saturated bright share >= home_min_saturated_bright and colourfulness >= home_min_colourfulness. depicts: P180 searches, at most depicts_max_per_run new ones per run, cached two weeks. kto_photo.default_license_when_missing stays null: gallery photos without a copyright field in the answer are review candidates only.",
+    "hero_fallback_min_width": 1920,
+    "featured_min_width": 1600,
+    "card_min_width": 1200,
+    "tier1_min_width": 1600,
+    "quality": {
+      "hero_min_sharpness": 35,
+      "hero_max_blockiness": 20,
+      "featured_min_sharpness": 25,
+      "featured_max_blockiness": 30
+    },
+    "near_duplicate_hamming": 8,
+    "max_quality_per_run": 600,
+    "quality_per_project": 3,
+    "max_provider_measured_per_project": 6,
+    "max_measure_bytes": 12000000,
+    "contact_sheet_minutes": 3,
+    "contact_sheet_fetch_max": 300,
+    "providers": {
+      "about": "Image providers beyond Commons (lib/providers.mjs). Each is asked only for Korean projects, or for projects with fewer than min_commons_candidates Commons files of at least featured_min_width; new (uncached) requests are capped per run; answers are cached two weeks. A 429 answer pauses the provider for its Retry-After.",
+      "min_commons_candidates": 3,
+      "tourapi": {
+        "enabled": true,
+        "max_requests_per_run": 300
+      },
+      "kto_photo": {
+        "enabled": true,
+        "max_requests_per_run": 150
+      },
+      "openverse": {
+        "enabled": true,
+        "max_requests_per_run": 120
+      },
+      "flickr": {
+        "enabled": true,
+        "max_requests_per_run": 300,
+        "radius_m": 1000
+      },
+      "unsplash": {
+        "enabled": true,
+        "max_requests_per_run": 10
+      },
+      "pexels": {
+        "enabled": true,
+        "max_requests_per_run": 30
+      },
+      "naver": {
+        "enabled": true,
+        "max_requests_per_run": 100
+      }
+    }
   },
   "links": {
     "max_per_run": 400,
@@ -459,5 +509,12 @@
     "detail_images": true,
     "detail_images_max_per_run": 200,
     "mobile_app": "LightArchitecture"
+  },
+  "kto_photo": {
+    "about": "Korea Tourism Organization photo gallery (PhotoGalleryService1, the TourAPI key).",
+    "base": "https://apis.data.go.kr/B551011/PhotoGalleryService1",
+    "rows": 20,
+    "mobile_app": "LightArchitecture",
+    "default_license_when_missing": null
   }
 }

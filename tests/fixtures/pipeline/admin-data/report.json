@@ -1,25 +1,29 @@
 {
  "cache": {
   "hits": 5,
-  "misses": 561,
+  "misses": 1169,
   "sizes": {
    "commons-category": 25,
    "commons-depicts": 18,
-   "commons-files": 21,
+   "commons-files": 24,
    "commons-members": 26,
    "commons-search": 72,
    "entities": 30,
    "entities-aux": 56,
+   "flickr": 64,
+   "kto-photo": 55,
    "links": 97,
+   "openverse": 114,
    "overpass": 16,
+   "quality": 26,
    "sparql": 37,
-   "tourapi": 52,
-   "visual": 17,
+   "tourapi": 107,
+   "visual": 20,
    "wiki-pages": 13,
    "wiki-search": 59
   },
   "stale": 0,
-  "writes": 539
+  "writes": 859
  },
  "changes": {
   "carried_over": [],
@@ -123,8 +127,13 @@
   "candidates_awaiting_review": 2,
   "carried_over": 0,
   "changed": 0,
+  "collected": 71,
+  "eligible": 66,
   "excluded": 5,
-  "hero_candidates_awaiting_review": 8,
+  "foreign": 10,
+  "hero_candidates_awaiting_review": 6,
+  "kr": 56,
+  "kr_with_region": 56,
   "merged": 4,
   "new": 66,
   "observations": 86,
@@ -133,8 +142,8 @@
   "published": 66,
   "removed": 0,
   "stale": 0,
-  "with_hero": 3,
-  "with_images": 13
+  "with_hero": 5,
+  "with_images": 15
  },
  "decisions": [
   {
@@ -248,6 +257,61 @@
    "reasons": [],
    "status": "applied",
    "target": "SEOUL050"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-10-11T09:00:00Z",
+   "by": "fixture-editor",
+   "file": "2026-10-11T09-00-00Z-approve_image.json",
+   "note": "Fixture: the Openverse photo shows this media facade (contact sheet reviewed).",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL018"
+  },
+  {
+   "action": "set_image",
+   "at": "2026-10-12T09:00:00Z",
+   "by": "fixture-editor",
+   "file": "2026-10-12T09-00-00Z-set_image.json",
+   "note": "Fixture: an official image.",
+   "project": "SEOUL001",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL001"
+  },
+  {
+   "action": "set_hero",
+   "at": "2026-10-13T09:00:00Z",
+   "by": "fixture-editor",
+   "file": "2026-10-13T09-00-00Z-set_hero.json",
+   "note": "Fixture: Seoul Light running on the DDP facade, reviewed.",
+   "project": "SEOUL006",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL006"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-10-14T09:00:00Z",
+   "by": "fixture-editor",
+   "file": "2026-10-14T09-00-00Z-block_image.json",
+   "note": "Fixture: a daytime view of the tower from TourAPI, blocked by its image id.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL018"
+  },
+  {
+   "action": "set_image",
+   "at": "2026-10-15T09:00:00Z",
+   "by": "fixture-editor",
+   "file": "2026-10-15T09-00-00Z-set_image.json",
+   "note": "Fixture: not https, refused.",
+   "reasons": [
+    "src_must_be_https",
+    "license_or_permission_note_required"
+   ],
+   "status": "invalid",
+   "target": "SEOUL002"
   }
  ],
  "errors": [],
@@ -271,26 +335,60 @@
    "note": "Fixture: an allowlisted daytime photo; the visual gate must still refuse it as a hero.",
    "project": "Q7899954",
    "reasons": [
+    "tier_5",
     "not_home_ok",
     "no_night_evidence",
     "no_media_evidence",
     "visual_below_threshold"
    ],
    "status": "not_eligible"
+  },
+  {
+   "image": "Fixture Media Art Museum Busan immersive hall night.jpg",
+   "note": "Fixture: immersive media art at night, a Korean hero (contact sheet reviewed).",
+   "project": "Q99000501",
+   "reasons": [],
+   "status": "hero"
   }
  ],
  "http": {
-  "apis.data.go.kr": {
-   "bytes": 12194,
+  "api.flickr.com": {
+   "bytes": 6694,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 25540,
+   "ms": 3520,
    "not_modified": 0,
-   "ok": 52,
-   "requests": 52,
+   "ok": 64,
+   "requests": 64,
    "statuses": {
-    "200": 52
+    "200": 64
+   }
+  },
+  "api.openverse.org": {
+   "bytes": 10757,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 395760,
+   "not_modified": 0,
+   "ok": 114,
+   "requests": 114,
+   "statuses": {
+    "200": 114
+   }
+  },
+  "apis.data.go.kr": {
+   "bytes": 27062,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 55620,
+   "not_modified": 0,
+   "ok": 162,
+   "requests": 162,
+   "statuses": {
+    "200": 162
    }
   },
   "ar.wikipedia.org": {
@@ -307,16 +405,16 @@
    }
   },
   "commons.wikimedia.org": {
-   "bytes": 70941,
+   "bytes": 81696,
    "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 148520,
+   "ms": 143440,
    "not_modified": 0,
-   "ok": 152,
-   "requests": 152,
+   "ok": 154,
+   "requests": 154,
    "statuses": {
-    "200": 152
+    "200": 154
    }
   },
   "de.wikipedia.org": {
@@ -410,8 +508,34 @@
     "200": 33
    }
   },
+  "live.staticflickr.com": {
+   "bytes": 185395,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 80,
+   "not_modified": 0,
+   "ok": 2,
+   "requests": 2,
+   "statuses": {
+    "200": 2
+   }
+  },
   "nl.wikipedia.org": {
    "bytes": 73,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 40,
+   "not_modified": 0,
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
+  },
+  "official.fixture.example": {
+   "bytes": 52088,
    "cached": 0,
    "errors": 0,
    "last_error": null,
@@ -488,6 +612,19 @@
     "200": 1
    }
   },
+  "tong.visitkorea.or.kr": {
+   "bytes": 74696,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 120,
+   "not_modified": 0,
+   "ok": 3,
+   "requests": 3,
+   "statuses": {
+    "200": 3
+   }
+  },
   "tr.wikipedia.org": {
    "bytes": 146,
    "cached": 0,
@@ -502,16 +639,16 @@
    }
   },
   "upload.wikimedia.org": {
-   "bytes": 115330,
+   "bytes": 740056,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 680,
+   "ms": 1600,
    "not_modified": 0,
-   "ok": 17,
-   "requests": 17,
+   "ok": 40,
+   "requests": 40,
    "statuses": {
-    "200": 17
+    "200": 40
    }
   },
   "www.wikidata.org": {
@@ -542,25 +679,68 @@
   }
  },
  "images": {
-  "candidates": 21,
+  "awaiting_review": 0,
+  "below_threshold": 0,
+  "by_provider": {
+   "commons": 17,
+   "official": 1,
+   "openverse": 1,
+   "tourapi": 2
+  },
+  "candidates": 24,
   "contact_sheets": [
-   "hero-candidates-01.jpg",
+   "hero-commons-01.jpg",
+   "hero-official-01.jpg",
+   "hero-openverse-01.jpg",
+   "featured-commons-01.jpg",
+   "featured-official-01.jpg",
+   "featured-openverse-01.jpg",
    "cards-01.jpg"
   ],
   "depicts_searches": 18,
+  "duplicates": 5,
+  "hero": 4,
+  "identity_rejected": 3,
   "kept_previous": 0,
   "measure_errors": 0,
-  "measured": 17,
-  "none": 53,
+  "measured": 20,
+  "none": 51,
+  "openverse_rate_limit": {
+   "x-ratelimit-available-anon_burst": 19
+  },
   "processed": 66,
+  "provider_errors": {},
+  "provider_new_requests": {
+   "flickr": 64,
+   "kto_photo": 55,
+   "openverse": 114,
+   "tourapi": 55
+  },
+  "provider_rejected": {
+   "flickr:identity_unproven": 1,
+   "kto_photo:rights": 1,
+   "openverse:identity_unproven": 2,
+   "openverse:rights": 1,
+   "tourapi:rights": 1
+  },
+  "provider_requests": {
+   "flickr": 64,
+   "kto_photo": 55,
+   "openverse": 114,
+   "tourapi": 55
+  },
+  "quality_fetched": 26,
+  "quality_measured": 26,
   "rejected": {
    "interior_unrelated_to_work": 1,
    "rights:foreign_no_freedom_of_panorama": 1,
    "rights:license_not_allowed": 1
   },
-  "thumbnails_fetched": 17
+  "thumbnails_fetched": 20
  },
  "reachability": {
+  "api.flickr.com": "reachable",
+  "api.openverse.org": "reachable",
   "apis.data.go.kr": "reachable",
   "ar.wikipedia.org": "reachable",
   "commons.wikimedia.org": "reachable",
@@ -571,12 +751,15 @@
   "it.wikipedia.org": "reachable",
   "ja.wikipedia.org": "reachable",
   "ko.wikipedia.org": "reachable",
+  "live.staticflickr.com": "reachable",
   "nl.wikipedia.org": "reachable",
+  "official.fixture.example": "reachable",
   "overpass-api.de": "reachable",
   "pl.wikipedia.org": "reachable",
   "pt.wikipedia.org": "reachable",
   "query.wikidata.org": "reachable",
   "ru.wikipedia.org": "reachable",
+  "tong.visitkorea.or.kr": "reachable",
   "tr.wikipedia.org": "reachable",
   "upload.wikimedia.org": "reachable",
   "www.wikidata.org": "reachable",
@@ -584,14 +767,14 @@
  },
  "review_queue": {
   "candidates": 2,
-  "hero_candidates": 8
+  "hero_candidates": 6
  },
  "run": {
   "budget_minutes": 25,
-  "build_id": "20261020T061700Z-584d36e2",
+  "build_id": "20261020T061700Z-61a8105f",
   "drop_guard": null,
-  "duration_ms": 252480,
-  "finished_at": "2026-10-20T06:21:12.480Z",
+  "duration_ms": 680520,
+  "finished_at": "2026-10-20T06:28:20.520Z",
   "number": 1,
   "publish": "published",
   "started_at": "2026-10-20T06:17:00.000Z",
@@ -798,7 +981,7 @@
    "status": "ok"
   },
   "images": {
-   "duration_ms": 52080,
+   "duration_ms": 480120,
    "status": "ok"
   },
   "links": {

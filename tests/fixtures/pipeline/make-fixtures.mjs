@@ -11,6 +11,10 @@
 //   web/gdelt.json, web/feed.xml   a GDELT DOC ArtList answer and an RSS feed
 //   links.json, overpass.json      link check and Overpass answers
 //   thumbs/*.jpg                   330 px thumbnails generated with sharp (night LED facade, projection, daytime…)
+//   renditions/*.jpg               960 px renditions of the same scenes (quality measurements), a blocky and a blurry
+//                                  one, and 1200–2048 px originals of the provider images (TourAPI, Openverse, Flickr,
+//                                  an official site)
+//   providers/*.json               Openverse and Flickr API answers
 // The world below is TEST DATA: well-known projects with fixture values (coordinates, years, files) that are not
 // verified facts; QIDs Q99000xxxx do not exist on Wikidata. Run: node tests/fixtures/pipeline/make-fixtures.mjs
 import { mkdir, writeFile, rm } from 'node:fs/promises'
@@ -170,7 +174,7 @@ const LIC = {
 const FILES = [
   ['The Bay Lights at night 2013.jpg', 'night_led', 4000, 2667, 'CC BY-SA 4.0', 'Fixture Photographer 1', ['The Bay Lights'], 'The Bay Lights LED installation on the Bay Bridge at night'],
   ['Bay Bridge from Embarcadero daytime.jpg', 'day', 3600, 2400, 'CC BY 2.0', 'Fixture Photographer 2', ['The Bay Lights'], 'The western span of the Bay Bridge seen from the Embarcadero'],
-  ['The Bay Lights reflection night.jpg', 'night_led2', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 3', ['The Bay Lights at night'], 'LED patterns reflected in the bay'],
+  ['The Bay Lights reflection night.jpg', 'night_field', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 3', ['The Bay Lights at night'], 'LED patterns reflected in the bay'],
   ['The Bay Lights map.png', 'day', 1200, 800, 'CC BY-SA 4.0', 'Fixture Mapper', ['The Bay Lights'], 'Map'],
   ['Fete des Lumieres 2015 Cathedrale Saint-Jean projection.jpg', 'night_projection', 4200, 2800, 'CC BY-SA 3.0', 'Fixture Photographer 4', ['Fête des Lumières 2015'], 'Projection mapping on the cathedral during the Fête des Lumières'],
   ['Fete des Lumieres Place des Terreaux.jpg', 'night_projection2', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 5', ['Fête des Lumières'], 'Light show on the Place des Terreaux', ['Template:NoFoP-France']],
@@ -192,6 +196,10 @@ const FILES = [
   ['Dongdaemun Design Plaza exterior daytime.jpg', 'day', 4000, 2667, 'CC BY-SA 4.0', 'Fixture Photographer 20', ['Dongdaemun Design Plaza'], 'Dongdaemun Design Plaza in daylight'],
   ['Fixture Media Art Museum Busan immersive hall night.jpg', 'night_projection', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 21', ['Fixture Media Art Museum Busan'], '미디어아트 몰입형 전시 공간'],
   ['Seoul Lantern Festival 2024 Cheonggyecheon.jpg', 'night_field', 2400, 1600, 'CC BY-SA 4.0', 'Fixture Photographer 22', ['Seoul Lantern Festival'], 'Seoul Lantern Festival lights on the stream at night'],
+  // Quality gates: a heavily compressed and a blurred copy of night scenes (the near-duplicate is a smaller copy).
+  ['Signal festival 2019 projection compressed.jpg', 'blocky', 2400, 1600, 'CC BY-SA 4.0', 'Fixture Photographer 23', ['Signal Festival'], 'Videomapping at Signal Festival at night'],
+  ['Festival of Lights Berlin 2013 Brandenburg Gate blurred.jpg', 'blurry', 3000, 2000, 'CC BY-SA 3.0', 'Fixture Photographer 24', ['Festival of Lights (Berlin, 2013)'], 'Projection on the Brandenburg Gate at night'],
+  ['The Bay Lights at night 2013 small copy.jpg', 'night_led', 1500, 1000, 'CC BY-SA 4.0', 'Fixture Photographer 1', ['The Bay Lights'], 'The Bay Lights LED installation on the Bay Bridge at night'],
 ]
 const COMMON_TEMPLATES = ['Template:Information', 'Template:Own', 'Template:Self', 'Template:Cc-by-sa-4.0', 'Template:Location', 'Template:Taken on', 'Template:Lang', 'Template:Description']
 const files = FILES.map(([file, kind, width, height, license, author, cats, description, extraTemplates = []]) => ({
@@ -223,7 +231,7 @@ const CATS = [
   ['Category:Projection mapping in Prague', null, null, ['Category:Signal Festival'], []],
   ['Category:Projection mapping in Europe', null, null, [], []],
   ['Category:Projection mapping in the Quartier des Spectacles', null, null, [], []],
-  ['Category:Signal Festival', 'Q18391691', [50.0872, 14.421], [], fileTitles('Signal festival 2019 projection.jpg')],
+  ['Category:Signal Festival', 'Q18391691', [50.0872, 14.421], [], fileTitles('Signal festival 2019 projection.jpg', 'Signal festival 2019 projection compressed.jpg')],
   ['Category:Schlosslichtspiele Karlsruhe', 'Q56089114', null, [], fileTitles('Schlosslichtspiele 2018 Karlsruhe Schloss projection.jpg')],
   ['Category:Light art', 'Q8590079', null, ['Category:Light artists', 'Category:Light art in Karlsruhe', 'Category:Field of Light', 'Category:Urban Light', 'Category:Tribute in Light', 'Category:The Bay Lights', 'Category:Lumino Kinetic art', 'Category:Bradford Garden of Light'], []],
   ['Category:Light artists', 'Q8590080', null, [], []],
@@ -231,7 +239,7 @@ const CATS = [
   ['Category:Field of Light', 'Q5447104', null, [], fileTitles('Field of Light Uluru 2016.jpg')],
   ['Category:Urban Light', 'Q7899954', null, [], fileTitles('Urban Light LACMA daytime.jpg')],
   ['Category:Tribute in Light', 'Q2001578', null, [], fileTitles('Tribute in Light 2011.jpg')],
-  ['Category:The Bay Lights', 'Q7715933', null, ['Category:The Bay Lights at night'], fileTitles('The Bay Lights at night 2013.jpg', 'Bay Bridge from Embarcadero daytime.jpg', 'The Bay Lights map.png')],
+  ['Category:The Bay Lights', 'Q7715933', null, ['Category:The Bay Lights at night'], fileTitles('The Bay Lights at night 2013.jpg', 'Bay Bridge from Embarcadero daytime.jpg', 'The Bay Lights map.png', 'The Bay Lights at night 2013 small copy.jpg')],
   ['Category:The Bay Lights at night', null, null, [], fileTitles('The Bay Lights reflection night.jpg')],
   ['Category:Lumino Kinetic art', 'Q6703289', null, [], []],
   ['Category:Bradford Garden of Light', null, null, [], fileTitles('Bradford Garden of Light lanterns.jpg')],
@@ -239,7 +247,7 @@ const CATS = [
   ['Category:Fête des Lumières', 'Q4167', null, ['Category:Fête des Lumières 2015'], fileTitles('Fete des Lumieres Place des Terreaux.jpg', 'Lyon Fete des lumieres crowd.jpg')],
   ['Category:Fête des Lumières 2015', null, null, [], fileTitles('Fete des Lumieres 2015 Cathedrale Saint-Jean projection.jpg')],
   ['Category:Festival of Lights (Berlin)', 'Q125715', null, ['Category:Festival of Lights (Berlin, 2013)'], []],
-  ['Category:Festival of Lights (Berlin, 2013)', null, null, [], fileTitles('Festival of Lights Berlin 2013 Brandenburg Gate.jpg')],
+  ['Category:Festival of Lights (Berlin, 2013)', null, null, [], fileTitles('Festival of Lights Berlin 2013 Brandenburg Gate.jpg', 'Festival of Lights Berlin 2013 Brandenburg Gate blurred.jpg')],
   ['Category:Media Facade', null, null, [], []],
   ['Category:Facades', 'Q8952318', null, [], []],
   ['Category:Illuminated buildings by city', 'Q116262580', null, ['Category:Illuminated buildings in Seoul'], []],
@@ -364,6 +372,47 @@ const tourapi = {
   },
 }
 
+// ---------------------------------------------------------------- Openverse and Flickr
+// Openverse /v1/images/?q=… answers (keys: q), shaped like api.openverse.org results.
+const OV = (o) => ({ title: null, indexed_on: '2025-01-01T00:00:00Z', foreign_landing_url: null, url: null, creator: null, creator_url: null, license: 'by', license_version: '2.0', license_url: 'https://creativecommons.org/licenses/by/2.0/', provider: 'flickr', source: 'flickr', category: 'photograph', genres: null, filesize: null, filetype: 'jpg', tags: [], attribution: '', fields_matched: ['title'], mature: false, height: null, width: null, thumbnail: null, detail_url: null, related_url: null, unstable__sensitivity: [], ...o })
+const openverse = {
+  'lotte world tower': [
+    OV({ id: 'ov-lotte-1', title: 'Lotte World Tower media facade, Seoul', foreign_landing_url: 'https://www.flickr.com/photos/fixture/1110001/', url: 'https://live.staticflickr.com/65535/1110001_abc_k.jpg', creator: 'Fixture Flickr User', creator_url: 'https://www.flickr.com/photos/fixture', width: 2048, height: 1365, filesize: 900000, tags: [{ name: 'seoul', accuracy: null }, { name: 'night', accuracy: null }, { name: 'media facade', accuracy: null }] }),
+    OV({ id: 'ov-lotte-nc', title: 'Lotte World Tower at night', license: 'by-nc', license_url: 'https://creativecommons.org/licenses/by-nc/2.0/', foreign_landing_url: 'https://www.flickr.com/photos/fixture/1110002/', url: 'https://live.staticflickr.com/65535/1110002_def_b.jpg', creator: 'Fixture NC User', width: 1024, height: 683 }),
+    OV({ id: 'ov-tower', title: 'A tower at night', foreign_landing_url: 'https://www.flickr.com/photos/fixture/1110003/', url: 'https://live.staticflickr.com/65535/1110003_ghi_b.jpg', creator: 'Fixture User 3', width: 1024, height: 683 }),
+    OV({ id: 'ov-wiki', title: 'Lotte World Tower', provider: 'wikimedia', source: 'wikimedia', foreign_landing_url: 'https://commons.wikimedia.org/w/index.php?curid=1', url: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/X.jpg', creator: 'Someone', width: 3000, height: 2000 }),
+  ],
+}
+// Flickr REST answers: the licence list (fixture values in Flickr's shape) and photo searches (keys: text).
+const flickr = {
+  licenses: { licenses: { license: [
+    { id: 0, name: 'All Rights Reserved', url: '' }, { id: 1, name: 'Attribution-NonCommercial-ShareAlike License', url: 'https://creativecommons.org/licenses/by-nc-sa/2.0/' },
+    { id: 4, name: 'Attribution License', url: 'https://creativecommons.org/licenses/by/2.0/' }, { id: 5, name: 'Attribution-ShareAlike License', url: 'https://creativecommons.org/licenses/by-sa/2.0/' },
+    { id: 9, name: 'Public Domain Dedication (CC0)', url: 'https://creativecommons.org/publicdomain/zero/1.0/' }, { id: 10, name: 'Public Domain Mark', url: 'https://creativecommons.org/publicdomain/mark/1.0/' },
+  ] }, stat: 'ok' },
+  search: {
+    '동대문디자인플라자': [
+      { id: '2220001', owner: '12345@N00', secret: 'aaa', server: '65535', farm: 66, title: '동대문디자인플라자 DDP Seoul Light media facade', ispublic: 1, license: '5', ownername: 'Fixture Flickr Night', latitude: '37.566700', longitude: '127.009700', accuracy: '16', tags: 'ddp seoullight mediafacade night', description: { _content: 'Seoul Light at Dongdaemun Design Plaza' },
+        url_z: 'https://live.staticflickr.com/65535/2220001_aaa_z.jpg', width_z: 640, height_z: 427, url_l: 'https://live.staticflickr.com/65535/2220001_aaa_b.jpg', width_l: 1024, height_l: 683, url_k: 'https://live.staticflickr.com/65535/2220001_aaa_k.jpg', width_k: 2048, height_k: 1365, url_o: 'https://live.staticflickr.com/65535/2220001_zzz_o.jpg', width_o: 5000, height_o: 3333, originalformat: 'jpg' },
+      { id: '2220002', owner: '99999@N00', secret: 'bbb', server: '65535', farm: 66, title: 'Night walk', ispublic: 1, license: '4', ownername: 'Fixture Far Away', latitude: '37.600000', longitude: '127.100000', accuracy: '16', tags: 'night', description: { _content: '' },
+        url_z: 'https://live.staticflickr.com/65535/2220002_bbb_z.jpg', width_z: 640, height_z: 427, url_l: 'https://live.staticflickr.com/65535/2220002_bbb_b.jpg', width_l: 1024, height_l: 683 },
+    ],
+  },
+}
+// Image bytes of the providers (URL → rendition fixture).
+const providerImages = {
+  'https://tong.visitkorea.or.kr/cms/resource/01/2900001_image2_1.jpg': 'tour-day',
+  'https://tong.visitkorea.or.kr/cms/resource/11/2900011_image2_1.jpg': 'tour-night_projection',
+  'https://tong.visitkorea.or.kr/cms/resource/12/2900012_image2_1.jpg': 'tour-day',
+  'https://tong.visitkorea.or.kr/cms/resource/13/2900013_image2_1.jpg': 'tour-day',
+  'https://tong.visitkorea.or.kr/cms/resource/02/2900002_image2_1.jpg': 'tour-night_projection',
+  'https://tong.visitkorea.or.kr/cms2/website/01/3000001.jpg': 'tour-night_led',
+  'https://live.staticflickr.com/65535/1110001_abc_k.jpg': 'wide-night_field',
+  'https://live.staticflickr.com/65535/2220001_aaa_b.jpg': 'night_led2-960',
+  'https://live.staticflickr.com/65535/2220001_aaa_k.jpg': 'wide-night_led2',
+  'https://official.fixture.example/media/nodeul-night.jpg': 'wide-night_projection',
+}
+
 // ---------------------------------------------------------------- web, links, Overpass
 const gdelt = { articles: [
   { url: 'https://news.fixture.example/2026/10/seoul-city-hall-media-facade', url_mobile: '', title: 'Seoul unveils a new media facade on the city hall building', seendate: '20261018T101500Z', socialimage: '', domain: 'news.fixture.example', language: 'English', sourcecountry: 'South Korea' },
@@ -399,6 +448,8 @@ const svg = {
   colourful_day: () => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#f4f6ff"/>${Array.from({ length: 11 }, (_, i) => `<rect x="${i * 30}" y="30" width="15" height="190" fill="${['#ff3b6b', '#ffd400', '#00c2ff', '#ff8a00'][i % 4]}"/>`).join('')}</svg>`,
   dark_only: () => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#040406"/><rect x="140" y="0" width="8" height="${H}" fill="#9a9aa4"/><rect x="180" y="0" width="8" height="${H}" fill="#9a9aa4"/><rect y="200" width="${W}" height="20" fill="#0c0c10"/></svg>`,
   night_dim: () => building('#0a0a10', '#1c1c22', Array.from({ length: 12 }, (_, i) => `<rect x="${112 + (i % 4) * 28}" y="${70 + Math.floor(i / 4) * 40}" width="10" height="14" fill="#8a7a5a"/>`).join('')),
+  blocky: () => svg.night_projection2(),
+  blurry: () => svg.night_projection(),
   interior: () => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#9a8f80"/><rect x="20" y="20" width="290" height="120" fill="#d8d0c0"/><rect x="0" y="160" width="${W}" height="60" fill="#5b5248"/></svg>`,
 }
 function grid(colors, share) {
@@ -440,4 +491,20 @@ const sharp = await loadSharp()
 await rm(path.join(OUT, 'thumbs'), { recursive: true, force: true })
 await mkdir(path.join(OUT, 'thumbs'), { recursive: true })
 for (const [kind, make] of Object.entries(svg)) await writeFile(path.join(OUT, 'thumbs', kind + '.jpg'), await sharp(Buffer.from(make())).jpeg({ quality: 82 }).toBuffer())
+// Larger renditions: the same vector scenes rendered at 960 px (Commons quality renditions), 1200 px (TourAPI
+// originals) and 2048 px (Openverse, Flickr, official), plus the compressed and blurred variants.
+await rm(path.join(OUT, 'renditions'), { recursive: true, force: true })
+await mkdir(path.join(OUT, 'renditions'), { recursive: true })
+const render = (kind, width) => sharp(Buffer.from(svg[kind]()), { density: Math.round(72 * width / W) }).resize({ width })
+for (const kind of Object.keys(svg)) {
+  let img = render(kind === 'blocky' ? 'night_projection2' : kind === 'blurry' ? 'night_projection' : kind, 960)
+  if (kind === 'blurry') img = img.blur(6)
+  await writeFile(path.join(OUT, 'renditions', kind + '-960.jpg'), await img.jpeg({ quality: kind === 'blocky' ? 3 : 90 }).toBuffer())
+}
+for (const kind of ['night_led', 'night_led2', 'night_projection', 'day']) await writeFile(path.join(OUT, 'renditions', `tour-${kind}.jpg`), await render(kind, 1200).jpeg({ quality: 88 }).toBuffer())
+for (const kind of ['night_led', 'night_led2', 'night_projection', 'night_field']) await writeFile(path.join(OUT, 'renditions', `wide-${kind}.jpg`), await render(kind, 2048).jpeg({ quality: 88 }).toBuffer())
+await mkdir(path.join(OUT, 'providers'), { recursive: true })
+await writeFile(path.join(OUT, 'providers/openverse.json'), json(openverse))
+await writeFile(path.join(OUT, 'providers/flickr.json'), json(flickr))
+await writeFile(path.join(OUT, 'providers/images.json'), json(providerImages))
 console.log(`fixtures: ${E.length} entities, ${categories.length} categories, ${files.length} files, ${Object.keys(svg).length} thumbnails`)

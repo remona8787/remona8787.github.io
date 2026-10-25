@@ -14,7 +14,9 @@ const str = (v) => typeof v === 'string' && v.trim().length > 0
 const opt = (f) => (v) => v === null || v === undefined || f(v)
 const counts = (v) => v && typeof v === 'object' && !Array.isArray(v) && Object.values(v).every((n) => isInt(n) && n >= 0)
 const SOURCE_STATUS = new Set(['ok', 'partial', 'error', 'skipped', 'kept_previous', 'disabled'])
-const ROLES = new Set(['hero', 'card', 'detail'])
+const ROLES = new Set(['hero', 'featured', 'card', 'gallery', 'context'])
+const PROVIDERS = new Set(['commons', 'openverse', 'flickr', 'tourapi', 'kto_photo', 'unsplash', 'pexels', 'official', 'editor'])
+const pct = (v) => isInt(v) && v >= 0 && v <= 100
 const SOURCE_KINDS = new Set(['official', 'public_agency', 'academic', 'specialist_media', 'news', 'blog', 'wikidata', 'wikipedia', 'commons', 'reference', 'search_result'])
 
 function make() {
@@ -23,17 +25,32 @@ function make() {
   return { errors, need }
 }
 
-/** An image object: https links, a role, a tier, a licence and an author or attribution (never shown without). */
-export function checkImage(img, path, need, { maxTier = 4 } = {}) {
+/**
+ * An image object (docs/STATIC_ARCHIVE.md v0.18 "Data fields"): a stable id, a known provider, https links, display
+ * sizes never wider than the original, a licence and an author or attribution (never shown without), the usage, the
+ * measurements, a tier (1–5; 6 is "no image") and a role; an image from a provider other than Commons carries its
+ * identity proof.
+ */
+export function checkImage(img, path, need, { maxTier = 5 } = {}) {
   if (!need(img && typeof img === 'object', path, 'not an object')) return
+  need(typeof img.id === 'string' && /^img-[0-9a-f]{12}$/.test(img.id), path + '.id', 'img-<12 hex>')
+  need(PROVIDERS.has(img.provider), path + '.provider', 'unknown provider ' + img.provider)
   need(https(img.thumb), path + '.thumb', 'not https')
   need(https(img.src), path + '.src', 'not https')
   need(https(img.page), path + '.page', 'not https')
+  need(Array.isArray(img.display) && img.display.every((d) => Array.isArray(d) && d.length === 2 && isInt(d[0]) && d[0] > 0 && https(d[1]) && (!img.width || d[0] <= img.width)), path + '.display', '[[width, https url]…], never wider than the original')
+  need(![...(img.display || []), [0, img.src], [0, img.thumb]].some((d) => /[?&]utm_/.test(String(d[1]))), path + '.display', 'no analytics parameters in stored URLs')
   need(str(img.license), path + '.license', 'missing')
   need(str(img.author) || str(img.attribution), path + '.author', 'author or attribution required')
   need(opt(httpAny)(img.license_url), path + '.license_url', 'not a URL')
+  need(img.usage === 'hotlink' || img.usage === 'cache', path + '.usage', 'hotlink or cache')
   need(ROLES.has(img.role), path + '.role', 'unknown role ' + img.role)
   need(isInt(img.tier) && img.tier >= 1 && img.tier <= maxTier, path + '.tier', `tier must be 1..${maxTier}`)
+  need(opt((v) => isInt(v) && v > 0)(img.width) && opt((v) => isInt(v) && v > 0)(img.height), path + '.width', 'positive integers or null')
+  need(img.quality === null || img.quality === undefined || (pct(img.quality.sharpness) && pct(img.quality.blockiness) && pct(img.quality.score)), path + '.quality', '{sharpness, blockiness, score} 0..100')
+  need(img.media_active && pct(img.media_active.score) && Array.isArray(img.media_active.reasons), path + '.media_active', '{score 0..100, reasons[]}')
+  need(img.approved === true || img.approved === false || img.approved === null, path + '.approved', 'true, false or null')
+  if (img.provider && img.provider !== 'commons') need(img.identity?.ok === true && str(img.identity.method), path + '.identity', 'an identity proof is required outside Commons')
 }
 
 export function checkManifest(m) {
@@ -79,7 +96,8 @@ export function checkIndex(ix) {
     need(T.valid('project_type', v('project_type')), p + '.project_type', 'unknown type')
     need(opt(isInt)(v('year')), p + '.year', 'not a year')
     need(opt(https)(expandThumb(v('thumb'), ix.thumb_template)), p + '.thumb', 'not https')
-    need(v('visual_rank') === null ? v('thumb') === null : isInt(v('visual_rank')) && v('visual_rank') >= 1 && v('visual_rank') <= 4, p + '.visual_rank', 'tier 1..4 with a thumb, null without')
+    need(v('visual_rank') === null ? v('thumb') === null : isInt(v('visual_rank')) && v('visual_rank') >= 1 && v('visual_rank') <= 5, p + '.visual_rank', 'tier 1..5 with a thumb, null without')
+    if ('thumb_w' in at) need((v('thumb') === null ? v('thumb_w') === null : opt(isInt)(v('thumb_w'))) && opt(isInt)(v('thumb_h')), p + '.thumb_w', 'the thumb size (integers) or null')
     need(SHARD.test(v('shard')), p + '.shard', 'bad shard')
     need(opt((d) => /^\d{4}-\d{2}-\d{2}$/.test(d))(v('added_at')), p + '.added_at', 'not a date')
     if ('kr_region' in at) need(v('kr_region') === null || (v('country_iso2') === 'KR' && T.valid('kr_region', v('kr_region'))), p + '.kr_region', 'a Korean region of a KR project, or null')
@@ -103,7 +121,9 @@ export function checkRecord(r, path, need) {
   need(opt((s) => T.valid('operating_status', s))(r.operating_status), path + '.operating_status', 'unknown status')
   need(Array.isArray(r.images) && r.images.length <= 12, path + '.images', 'array of at most 12')
   ;(r.images || []).forEach((img, i) => checkImage(img, `${path}.images[${i}]`, need))
-  need((r.images || []).filter((i) => i.role === 'hero').length <= 1 && (r.images || []).filter((i) => i.role === 'card').length <= 1, path + '.images', 'one hero and one card at most')
+  need(['hero', 'featured', 'card'].every((role) => (r.images || []).filter((i) => i.role === role).length <= 1), path + '.images', 'one hero, one featured and one card at most')
+  need(new Set((r.images || []).map((i) => i.id)).size === (r.images || []).length, path + '.images', 'image ids are unique')
+  ;(r.images || []).forEach((img, i) => need(img?.project === r.id, `${path}.images[${i}].project`, 'names its project'))
   need(Array.isArray(r.sources) && r.sources.length > 0, path + '.sources', 'at least one source')
   ;(r.sources || []).forEach((s, i) => { need(httpAny(s.url), `${path}.sources[${i}].url`, 'not a URL'); need(SOURCE_KINDS.has(s.kind), `${path}.sources[${i}].kind`, 'unknown kind ' + s.kind) })
   need(r.sources?.some((s) => ['wikidata', 'wikipedia', 'commons', 'official'].includes(s.kind)) || (r.curated_place_id && r.sources.length), path + '.sources', 'needs a public source (Wikidata, Wikipedia, Commons or official)')
@@ -129,9 +149,23 @@ export function checkHome(h) {
   need(h.schema === 1 && str(h.build_id) && ISO_TIME(h.generated_at), 'home', 'schema, build_id, generated_at')
   const known = h.projects && typeof h.projects === 'object' ? h.projects : {}
   const ref = (id, p) => need(typeof id === 'string' && id in known, p, 'names a project missing from projects')
-  ;(h.hero || []).forEach((x, i) => { ref(x.project, `home.hero[${i}].project`); checkImage(x.image, `home.hero[${i}].image`, need, { maxTier: 1 }); need(x.image?.role === 'hero', `home.hero[${i}].image.role`, 'must be hero') })
-  ;(h.featured || []).forEach((id, i) => ref(id, `home.featured[${i}]`))
-  ;(h.recent || []).forEach((id, i) => ref(id, `home.recent[${i}]`))
+  ;(h.hero || []).forEach((x, i) => { ref(x.project, `home.hero[${i}].project`); checkImage(x.image, `home.hero[${i}].image`, need, { maxTier: 2 }); need(x.image?.role === 'hero', `home.hero[${i}].image.role`, 'must be hero') })
+  // Korea first: at least 70 % Korean hero slides when any Korean one exists.
+  const krHero = (h.hero || []).filter((x) => known[x.project]?.country_iso2 === 'KR').length
+  need(!krHero || krHero / (h.hero || []).length >= 0.7 - 1e-9, 'home.hero', 'at least 70 % Korean when Korean heroes exist')
+  for (const k of ['featured', 'recent', 'kr_featured', 'kr_programs']) (h[k] || []).forEach((id, i) => ref(id, `home.${k}[${i}]`))
+  ;(h.kr_featured || []).forEach((id, i) => need(known[id]?.country_iso2 === 'KR', `home.kr_featured[${i}]`, 'a Korean project'))
+  ;(h.kr_programs || []).forEach((id, i) => need(known[id]?.country_iso2 === 'KR', `home.kr_programs[${i}]`, 'a Korean project'))
+  if (h.world) { need(Array.isArray(h.world.highlights) && isInt(h.world.count), 'home.world', 'highlights and count'); (h.world.highlights || []).forEach((id, i) => { ref(id, `home.world.highlights[${i}]`); need(known[id]?.country_iso2 !== 'KR', `home.world.highlights[${i}]`, 'not Korean') }) }
+  if (h.kr_regions) {
+    need(Array.isArray(h.kr_regions) && h.kr_regions.length === T.keys('kr_region').length, 'home.kr_regions', 'all eight regions')
+    ;(h.kr_regions || []).forEach((g, i) => {
+      need(T.valid('kr_region', g.key) && isInt(g.count) && g.count >= 0, `home.kr_regions[${i}]`, 'key and count')
+      if (g.project !== null) ref(g.project, `home.kr_regions[${i}].project`)
+      if (g.image !== null) checkImage(g.image, `home.kr_regions[${i}].image`, need, { maxTier: 3 })
+      ;(g.projects || []).forEach((id, j) => { ref(id, `home.kr_regions[${i}].projects[${j}]`); need(known[id]?.kr_region === g.key, `home.kr_regions[${i}].projects[${j}]`, 'in the region') })
+    })
+  }
   for (const [k, vocab] of [['regions', 'region'], ['types', 'project_type']]) {
     ;(h[k] || []).forEach((g, i) => {
       need(T.valid(vocab, g.key) && isInt(g.count) && g.count > 0, `home.${k}[${i}]`, 'key and count')
@@ -144,6 +178,7 @@ export function checkHome(h) {
     if (c.image !== null) checkImage(c.image, `home.projects.${id}.image`, need, { maxTier: 3 })
   }
   need(isInt(h.counts?.projects), 'home.counts.projects', 'not a count')
+  if (h.counts && 'korea' in h.counts) need(isInt(h.counts.korea) && isInt(h.counts.world) && h.counts.korea + h.counts.world === h.counts.projects, 'home.counts.korea', 'korea + world = projects')
   return errors
 }
 

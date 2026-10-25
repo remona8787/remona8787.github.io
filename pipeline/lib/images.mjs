@@ -1,18 +1,26 @@
-// Images per project (docs/STATIC_ARCHIVE.md "Images (per-surface rules)").
+// Images per project (docs/STATIC_ARCHIVE.md "Images (per-surface rules)" and the v0.18 "Image rules").
 // Candidates: the item's P18, the project's Commons category, its night/illuminated/event subcategories and the
-// categories found as parts or editions of it. Each candidate is
+// categories found as parts or editions of it, plus the providers of lib/providers.mjs (identity-proven, lib/identity.mjs).
+// Each Commons candidate is
 //  - rights-checked with live-media.mjs assessRights (licence allowlist, deletion and permission templates, NoFoP of
 //    other countries, the Korean FoP policy) and attributed like live-media.mjs toMediaRow;
 //  - scored: night (keywords in many languages, the "at night" subcategory), media (media/light keywords, the
 //    work's own category for light works), visual (visual.mjs on a 320 px thumbnail), relevance (own entity, not a
 //    map/plan/logo/diagram/portrait/signature, not an unrelated interior, usable size and format);
-//  - given a tier: 1 media active at night, 2 media art content, 3 LED/projection/lighting characteristics,
-//    4 an architectural image of the project. No image → the UI draws its designed placeholder.
-// Surfaces: a home image must show active media in a dark frame (never a daytime photo, never darkness alone); a
-// hero additionally needs night and media evidence, a high visual score, a large original and an entry in the
-// visually reviewed allowlist (editorial/hero.json or a set_hero decision).
+//  - given a tier (the brief's priority list): 1 a media facade running, high resolution; 2 architectural media art at
+//    night; 3 LED or projection technology and content visible; 4 an exhibition or public-art installation scene; 5 an
+//    architectural photo of the same project; 6 none (the designed placeholder);
+//  - measured for quality on a ~1024 px rendition (lib/quality.mjs: sharpness, blockiness, perceptual hash).
+// Surfaces and widths of the original: hero ≥ 2400 px (1920 only when the project has nothing larger, flagged),
+// featured ≥ 1600, card ≥ 1200 (a smaller card only when nothing larger exists, flagged); never shown wider than the
+// original. A home image must show active media in a dark frame (never a daytime photo, never darkness alone); a hero
+// additionally needs night and media evidence, a high visual score, the quality gates and a reviewed approval
+// (editorial/hero.json, set_hero, or approve_image); a featured image from a provider other than Commons needs an
+// approval too (the contact sheets).
+import { createHash } from 'node:crypto'
 import { assessRights, toMediaRow, DEFAULT_POLICY } from '../../edge-functions/_shared/live-media.mjs'
 import { fold } from './util.mjs'
+import { hamming, qualityScore } from './quality.mjs'
 
 const T = (weight, ...terms) => terms.map((t) => [t, weight])
 // Night and illumination words (folded matching; CJK as substrings).
@@ -88,38 +96,6 @@ export function assessCandidate(cand, info, ctx) {
   }
 }
 
-/**
- * Tier (1–4) and surface flags of an assessed, measured candidate.
- * @param {{night: number, media: number}} a @param {{mean_luminance: number, saturated_bright: number, colourfulness: number, visual: number}|null} m
- */
-export function tierOf(a, m, th = {}) {
-  const v = m?.visual ?? null
-  const mediaThreshold = th.visual_media_threshold ?? 40
-  let tier = 4
-  if (v !== null && v >= mediaThreshold && (a.night >= 30 || m.mean_luminance <= 0.3) && (a.media >= 30 || v >= 60)) tier = 1
-  else if (a.media >= 50 && ((v !== null && v >= 20) || a.evidence?.includes('event_subcategory'))) tier = 2
-  else if (a.media >= 30 || a.night >= 50 || (v !== null && v >= 25)) tier = 3
-  // Home: active media in a dark frame. A bright (daytime) frame or a frame without saturated light never qualifies.
-  const homeOk = !!m && tier <= 3 && m.mean_luminance <= (th.home_max_mean_luminance ?? 0.4) && m.saturated_bright >= (th.home_min_saturated_bright ?? 0.02) &&
-    m.colourfulness >= (th.home_min_colourfulness ?? 20) && (a.night >= 30 || a.media >= 30 || v >= 50)
-  return { tier, home_ok: homeOk }
-}
-
-/** Whether a candidate may be a home hero (the allowlist decides last). */
-export function heroEligible(a, m, info, t, th = {}) {
-  const reasons = []
-  if (!t.home_ok) reasons.push('not_home_ok')
-  if (a.night < 30) reasons.push('no_night_evidence')
-  if (a.media < 30) reasons.push('no_media_evidence')
-  if (!m || m.visual < (th.hero_visual_threshold ?? 45)) reasons.push('visual_below_threshold')
-  if ((info?.width || 0) < (th.hero_min_width ?? 1600)) reasons.push('original_too_small')
-  return { ok: reasons.length === 0, reasons }
-}
-
-/** Thumbnail URL of another standard width from a Commons thumburl ("…/330px-Name.jpg"). */
-export function thumbAt(thumburl, width) {
-  return thumburl ? thumburl.replace(/\/(\d+)px-([^/]+)$/, `/${width}px-$2`) : null
-}
 
 /** Name evidence of a file before its metadata is read (used to choose which candidates to read). */
 export function nameEvidence(text) {
@@ -127,67 +103,218 @@ export function nameEvidence(text) {
   return { night: keywordScore(t, NIGHT).score, media: keywordScore(t, MEDIA).score }
 }
 
-// Standard Wikimedia thumbnail steps (other widths are refused or rendered on demand more slowly).
-export const THUMB_STEPS = [120, 250, 330, 500, 960, 1280, 1920, 3840]
-const step = (w, width) => (width && width <= w ? null : w)
+const FACADE_TYPES = new Set(['media_facade', 'media_wall', 'urban_screen', 'projection_mapping'])
+const SCENE_TYPES = new Set(['media_architecture', 'interactive_installation', 'light_art', 'festival_program', 'other'])
+const SCENE_TERMS = /\b(exhibition|exhibit|installation|immersive|gallery|museum|artwork|public art|sculpture|ausstellung|exposition|mostra)\b|전시|설치|몰입|작품|조형물|展示|展覧/i
 
-/**
- * The public image object (licence and author always present; attribution as live-media.mjs builds it): a 500 px
- * card thumbnail, a 1280 px display file (1920 px for a hero), the file page, licence, author, role and tier.
- */
-export function publicImage(info, role, extra = {}) {
-  const page = { imageinfo: [{ url: info.url, thumburl: info.thumburl, extmetadata: { Artist: { value: info.artist || '' }, Credit: { value: info.credit || '' }, LicenseShortName: { value: info.license || '' }, LicenseUrl: { value: info.license_url || '' }, DateTimeOriginal: { value: info.date || '' } } }] }
-  const row = toMediaRow('x', info.file, page, { qid: null, krFop: !!extra.kr_fop, now: null })
-  const w = info.width || 0
-  const thumbW = step(extra.thumbWidth ?? 500, w), bigW = step(role === 'hero' ? 1920 : 1280, w)
-  const thumb = thumbW && info.thumburl ? thumbAt(info.thumburl, thumbW) : info.thumburl || info.url
-  const big = bigW && info.thumburl ? thumbAt(info.thumburl, bigW) : info.url
-  return {
-    file: info.file,
-    thumb,
-    src: big || info.url,
-    page: info.page || row.source_url,
-    width: info.width ?? null,
-    height: info.height ?? null,
-    license: row.license_code,
-    license_url: info.license_url || null,
-    author: row.creator,
-    attribution: row.attribution_text,
-    role,
-    ...extra.fields,
-  }
+/** Keyword evidence of a provider candidate (title, tags, description), like assessCandidate does for Commons files. */
+export function assessText(c, ctx = {}) {
+  const text = [c.title, ...(c.tags || []), c.description].filter(Boolean).join(' · ')
+  const night = keywordScore(text, NIGHT), media = keywordScore(text, MEDIA)
+  const reasons = []
+  if (BAD_NAME.test(c.title || '')) reasons.push('name:map_plan_logo_diagram_portrait_signature')
+  if (EXTERIOR_TYPES.has(ctx.project_type) && INTERIOR.test(text)) reasons.push('interior_unrelated_to_work')
+  return { ok: reasons.length === 0, reasons, night: night.score, media: media.score, night_terms: night.terms, media_terms: media.terms, evidence: SCENE_TERMS.test(text) ? ['scene_terms'] : [], kr_fop: false, text }
 }
 
 /**
- * Chooses card, hero and gallery from scored candidates.
- * @param {{file: string, source: string, a: any, m: any, info: any, t: any}[]} scored
- * @param {{heroAllow: Set<string>, blocked: Set<string>, galleryMax?: number, th?: any}} o
+ * Tier (1–5) and the home flag of an assessed, measured candidate (6, the placeholder, is a project without images).
+ * @param {{night: number, media: number, evidence?: string[], text?: string}} a @param {any} m visual metrics or null
+ * @param {any} th thresholds @param {{project_type?: string, width?: number|null}} [ctx]
+ */
+export function tierOf(a, m, th = {}, ctx = {}) {
+  const v = m?.visual ?? null
+  const mediaThreshold = th.visual_media_threshold ?? 40
+  const running = v !== null && v >= mediaThreshold && (a.night >= 30 || m.mean_luminance <= 0.3) && (a.media >= 30 || v >= 60)
+  let tier
+  if (running) tier = FACADE_TYPES.has(ctx.project_type) && (ctx.width ?? 0) >= (th.tier1_min_width ?? 1600) ? 1 : 2
+  else if ((a.media >= 50 && ((v !== null && v >= 20) || a.evidence?.includes('event_subcategory'))) || a.media >= 30 || a.night >= 50 || (v !== null && v >= 25)) tier = 3
+  else if (SCENE_TYPES.has(ctx.project_type) && (a.evidence?.includes('own_category_of_light_work') || a.evidence?.includes('scene_terms') || SCENE_TERMS.test(a.text || ''))) tier = 4
+  else tier = 5
+  // Home: active media in a dark frame. A bright (daytime) frame or a frame without saturated light never qualifies.
+  const homeOk = !!m && tier <= 3 && m.mean_luminance <= (th.home_max_mean_luminance ?? 0.4) && m.saturated_bright >= (th.home_min_saturated_bright ?? 0.02) &&
+    m.colourfulness >= (th.home_min_colourfulness ?? 20) && (a.night >= 30 || a.media >= 30 || v >= 50)
+  return { tier, home_ok: homeOk }
+}
+
+/** media_active (0–100) with its reasons: the visual score of the frame and the night and media evidence. */
+export function mediaActive(a, m) {
+  const v = m?.visual ?? 0
+  const reasons = []
+  if (m) {
+    reasons.push('visual:' + v)
+    if (m.mean_luminance <= 0.3) reasons.push('dark_frame')
+    if (m.saturated_bright >= 0.02) reasons.push('saturated_light')
+  } else reasons.push('not_measured')
+  if (a.night_terms?.length) reasons.push('night_terms:' + a.night_terms.slice(0, 3).join('|'))
+  if (a.media_terms?.length) reasons.push('media_terms:' + a.media_terms.slice(0, 3).join('|'))
+  for (const e of a.evidence || []) reasons.push(e)
+  const score = Math.round(Math.min(100, 0.6 * v + 0.2 * Math.min(100, a.night || 0) + 0.2 * Math.min(100, a.media || 0)))
+  return { score: m ? score : Math.min(score, 40), reasons }
+}
+
+/** Whether a candidate may be the home hero; the approval (reviewed allowlist) is checked by chooseImages. */
+export function heroEligible(a, m, info, t, th = {}, q = null, { fallbackWidth = false } = {}) {
+  const reasons = []
+  if (t.tier > 2) reasons.push('tier_' + t.tier)
+  if (!t.home_ok) reasons.push('not_home_ok')
+  if (a.night < 30 && !(m && m.mean_luminance <= 0.3)) reasons.push('no_night_evidence')
+  if (a.media < 30) reasons.push('no_media_evidence')
+  if (!m || m.visual < (th.hero_visual_threshold ?? 45)) reasons.push('visual_below_threshold')
+  const w = info?.width || 0
+  if (w < (fallbackWidth ? th.hero_fallback_min_width ?? 1920 : th.hero_min_width ?? 2400)) reasons.push('original_too_small')
+  const Q = th.quality || {}
+  if (!q) reasons.push('quality_not_measured')
+  else {
+    if (q.sharpness < (Q.hero_min_sharpness ?? 35)) reasons.push('not_sharp_enough')
+    if (q.blockiness > (Q.hero_max_blockiness ?? 20)) reasons.push('compression_artefacts')
+  }
+  return { ok: reasons.length === 0, reasons }
+}
+
+/** Whether a candidate may be a featured image of the home page (approval checked by chooseImages for non-Commons). */
+export function featuredEligible(s, th = {}) {
+  const reasons = []
+  if (s.t.tier > 3) reasons.push('tier_' + s.t.tier)
+  if (!s.t.home_ok) reasons.push('not_home_ok')
+  if ((s.width || 0) < (th.featured_min_width ?? 1600)) reasons.push('original_too_small')
+  const Q = th.quality || {}
+  if (!s.q) reasons.push('quality_not_measured')
+  else {
+    if (s.q.sharpness < (Q.featured_min_sharpness ?? 25)) reasons.push('not_sharp_enough')
+    if (s.q.blockiness > (Q.featured_max_blockiness ?? 30)) reasons.push('compression_artefacts')
+  }
+  return { ok: reasons.length === 0, reasons }
+}
+
+// ---------------------------------------------------------------- Commons URLs
+
+// The standard Wikimedia thumbnail widths: since the 2025/2026 thumbnail standardisation the CDN refuses any other
+// width requested directly (mediawiki.org "Common thumbnail sizes"). Display URLs use only these.
+export const THUMB_STEPS = [120, 250, 330, 500, 960, 1280, 1920, 3840]
+/** A media URL without analytics parameters (Wikimedia adds utm_* to API thumbnail URLs, $wgTrackMediaRequestProvenance). */
+export function cleanMediaUrl(url) {
+  if (!url) return null
+  try {
+    const u = new URL(url)
+    for (const k of [...u.searchParams.keys()]) if (/^utm_/i.test(k)) u.searchParams.delete(k)
+    return u.href
+  } catch { return null }
+}
+/** Thumbnail URL of another standard width from a Commons thumburl ("…/330px-Name.jpg"), on the host the API named. */
+export function thumbAt(thumburl, width) {
+  const clean = cleanMediaUrl(thumburl)
+  return clean ? clean.replace(/\/(\d+)px-([^/?#]+)$/, `/${width}px-$2`) : null
+}
+/** The sizes Wikimedia serves for a file: standard steps below the original's width, and the original when it is not too heavy. */
+export function commonsDisplay(info, { maxOriginalBytes = 8e6 } = {}) {
+  const w = info.width || 0
+  const out = []
+  if (info.thumburl) for (const step of THUMB_STEPS) if (step >= 330 && step < w) out.push([step, thumbAt(info.thumburl, step)])
+  const original = cleanMediaUrl(info.url)
+  if (original && w && w <= 4000 && (info.size ?? Infinity) <= maxOriginalBytes && /^image\/(jpeg|png|webp)$/.test(info.mime || 'image/jpeg')) out.push([w, original])
+  return out
+}
+
+/** A Commons file (fileRecord) as a provider-neutral candidate. */
+export function commonsCandidate(info, a) {
+  const row = toMediaRow('x', info.file, { imageinfo: [{ url: info.url, thumburl: info.thumburl, extmetadata: { Artist: { value: info.artist || '' }, Credit: { value: info.credit || '' }, LicenseShortName: { value: info.license || '' }, LicenseUrl: { value: info.license_url || '' }, DateTimeOriginal: { value: info.date || '' } } }] }, { qid: null, krFop: !!a?.kr_fop, now: null })
+  const w = info.width || null
+  return {
+    provider: 'commons', source_id: info.file, file: info.file, src: cleanMediaUrl(info.url), page: info.page || row.source_url, sizes: commonsDisplay(info),
+    width: w, height: info.height ?? null, bytes: info.size ?? null, format: (info.mime || '').replace(/^image\//, '') || null,
+    thumb: info.thumburl ? thumbAt(info.thumburl, w && w <= 500 ? 330 : 500) : cleanMediaUrl(info.url),
+    visual_url: info.thumburl ? thumbAt(info.thumburl, 330) : null,
+    measure_url: info.thumburl && w > 960 ? thumbAt(info.thumburl, 960) : cleanMediaUrl(info.url), measure_width: w > 960 ? 960 : w,
+    author: row.creator, rights_holder: row.creator, license: row.license_code, license_url: info.license_url || null, attribution: row.attribution_text,
+    usage: 'cache', no_derivatives: false, sha1: info.sha1 || null, date: info.date || null,
+  }
+}
+
+// ---------------------------------------------------------------- roles and the image object
+
+export const stableImageId = (provider, sourceId) => 'img-' + createHash('sha256').update(provider + '|' + sourceId).digest('hex').slice(0, 12)
+const rankOf = (s) => [s.t.tier, -(s.q?.score ?? -1), -(s.m?.visual ?? -1), -(s.a.night + s.a.media), s.source === 'p18' ? 0 : 1, -(s.width || 0), s.key]
+const cmp = (x, y) => { const a = rankOf(x), b = rankOf(y); for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return a[i] < b[i] ? -1 : 1; return 0 }
+
+/**
+ * Hero, featured, card and gallery from scored candidates. Each s: {key, file?, cand, source, a, m, q, t, width,
+ * approved: true|false|null, identity}. Near-duplicates (perceptual hash) keep the larger and sharper copy.
+ * @param {{heroAllow: Set<string>, blocked: Set<string>, galleryMax?: number, th?: any}} o heroAllow holds "project|key" (and "project|file" for Commons)
  */
 export function chooseImages(project, scored, { heroAllow, blocked, galleryMax = 12, th = {} }) {
-  const usable = scored.filter((s) => s.a.ok && !blocked.has(s.file))
-  const rank = (s) => [s.t.tier, -(s.m?.visual ?? -1), -(s.a.night + s.a.media), s.source === 'p18' ? 0 : 1, -(s.info.width || 0), s.file]
-  const cmp = (x, y) => { const a = rank(x), b = rank(y); for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return a[i] < b[i] ? -1 : 1; return 0 }
+  const usable = scored.filter((s) => s.a.ok && !blocked.has(s.key) && !(s.file && blocked.has(s.file)) && s.approved !== false)
   usable.sort(cmp)
+  // Near-duplicates: the same photo from two providers or two sizes. A reviewed copy (allowlisted or approved) stays,
+  // otherwise the larger, then sharper one.
+  const duplicates = []
+  const kept = []
+  const hamMax = th.near_duplicate_hamming ?? 8
+  const allowed = (s) => heroAllow.has(`${project.id}|${s.key}`) || (s.file ? heroAllow.has(`${project.id}|${s.file}`) : false)
+  const reviewed = (s) => (allowed(s) || s.approved === true ? 1 : 0)
+  for (const s of [...usable].sort((x, y) => reviewed(y) - reviewed(x) || (y.width || 0) - (x.width || 0) || (y.q?.sharpness ?? -1) - (x.q?.sharpness ?? -1) || cmp(x, y))) {
+    const twin = s.q?.phash ? kept.find((k) => k.q?.phash && hamming(k.q.phash, s.q.phash) <= hamMax) : null
+    if (twin) duplicates.push({ key: s.key, kept: twin.key, distance: hamming(twin.q.phash, s.q.phash) }); else kept.push(s)
+  }
+  const list = usable.filter((s) => kept.includes(s))
+  const hasLarge = list.some((s) => (s.width || 0) >= (th.hero_min_width ?? 2400) && s.t.tier <= 2)
   const decisions = []
   let hero = null
-  for (const s of usable) {
-    const he = heroEligible(s.a, s.m, s.info, s.t, th)
-    const allowed = heroAllow.has(`${project.id}|${s.file}`)
-    if (allowed && he.ok && !hero) hero = s
-    if (allowed || he.ok) decisions.push({ file: s.file, hero_candidate: he.ok, allowlisted: allowed, reasons: he.reasons })
+  for (const s of list) {
+    const he = heroEligible(s.a, s.m, { width: s.width }, s.t, th, s.q, { fallbackWidth: !hasLarge })
+    const ok = allowed(s) || (s.approved === true && s.t.tier <= 2)
+    if (ok && he.ok && !hero) hero = s
+    if (ok || he.ok || s.t.tier <= 2) decisions.push({ key: s.key, file: s.file || null, provider: s.cand.provider, hero_candidate: he.ok, allowlisted: ok, reasons: he.reasons, below_target: he.ok && (s.width || 0) < (th.hero_min_width ?? 2400) })
   }
-  const card = usable[0] || null
-  const ordered = [...(hero ? [hero] : []), ...usable.filter((s) => s !== hero)]
-  const gallery = ordered.slice(0, galleryMax)
-  const fields = (s) => ({ tier: s.t.tier, home_ok: s.t.home_ok })
-  const images = gallery.map((s) => publicImage(s.info, s === hero ? 'hero' : s === card ? 'card' : 'detail', { kr_fop: s.a.kr_fop, fields: fields(s) }))
-  return { images, hero, card, decisions, usable }
+  // Featured: the best home image ≥ 1600 px; from a provider other than Commons only after an approval.
+  let featured = null
+  const featuredDecisions = []
+  for (const s of list) {
+    const fe = featuredEligible(s, th)
+    const needsReview = s.cand.provider !== 'commons' && s.approved !== true
+    if (fe.ok && !needsReview && !featured) featured = s
+    if (s.t.tier <= 3) featuredDecisions.push({ key: s.key, provider: s.cand.provider, featured_candidate: fe.ok, awaiting_review: fe.ok && needsReview, reasons: fe.reasons })
+  }
+  // Card: the best image whose original is at least card_min_width; a smaller one only when nothing larger exists.
+  const cardMin = th.card_min_width ?? 1200
+  const card = list.find((s) => (s.width || 0) >= cardMin) || list[0] || null
+  const ordered = [...new Set([hero, featured, card, ...list].filter(Boolean))].slice(0, galleryMax)
+  const roleOf = (s) => (s === hero ? 'hero' : s === featured ? 'featured' : s === card ? 'card' : s.t.tier >= 5 ? 'context' : 'gallery')
+  return { ordered: ordered.map((s) => ({ s, role: roleOf(s) })), hero, featured, card, decisions, featuredDecisions, duplicates, usable: list }
 }
 
-/** visual_rank for the index: 0 (no image) … 100 (media active at night with a strong visual). */
+/**
+ * The public image object (docs/STATIC_ARCHIVE.md v0.18 "Data fields"), plus thumb and attribution, which the v0.17
+ * app reads, and identity for every provider other than Commons (the proof that it shows the project).
+ */
+export function imageObject(s, role, { project, checkedAt = null, th = {} } = {}) {
+  const c = s.cand
+  const width = s.width ?? c.width ?? null, height = s.height ?? c.height ?? null
+  const display = (c.sizes || []).filter(([w]) => !width || w <= width)
+  const thumbOf = () => {
+    if (c.thumb) return c.thumb
+    const small = display.find(([w]) => w >= 500) || display[display.length - 1]
+    return small ? small[1] : c.src
+  }
+  const name = PROVIDER_LABELS[c.provider] || c.provider
+  return {
+    id: stableImageId(c.provider, c.source_id), project: project.id, provider: c.provider,
+    src: c.src, page: c.page, display, thumb: thumbOf(),
+    author: c.author ?? null, rights_holder: c.rights_holder ?? c.author ?? null, license: c.license, license_url: c.license_url ?? null,
+    attribution: c.attribution || [c.author, c.license, name].filter(Boolean).join(' · '),
+    usage: c.usage || 'hotlink', ...(c.no_derivatives ? { no_derivatives: true } : {}), ...(c.permission_note ? { permission_note: c.permission_note } : {}),
+    width, height, bytes: s.q?.decoded && s.q.decoded.width === width ? s.q.decoded.bytes : c.bytes ?? null, format: c.format ?? s.q?.decoded?.format ?? null,
+    quality: s.q ? { sharpness: s.q.sharpness, blockiness: s.q.blockiness, score: qualityScore(s.q, width) } : null,
+    media_active: mediaActive(s.a, s.m), tier: s.t.tier, role,
+    ...(c.provider !== 'commons' ? { identity: s.identity } : {}),
+    ...(role === 'hero' && width && width < (th.hero_min_width ?? 2400) ? { below_target: true } : {}),
+    ...(role === 'card' && width && width < (th.card_min_width ?? 1200) ? { below_target: true } : {}),
+    checked_at: checkedAt, approved: s.approved ?? null,
+  }
+}
+export const PROVIDER_LABELS = { commons: 'Wikimedia Commons', openverse: 'Openverse', flickr: 'Flickr', tourapi: '한국관광공사', kto_photo: '한국관광공사 관광사진', unsplash: 'Unsplash', pexels: 'Pexels', official: 'official site', editor: 'editor' }
+
+/** visual_rank for the index: the card image's tier (1 media facade running … 5 architectural), null without an image. */
 export function visualRank(card) {
-  if (!card) return 0
-  const v = card.m?.visual ?? 0
-  const base = { 1: 70, 2: 50, 3: 30, 4: 10 }[card.t.tier] ?? 0
-  return Math.min(100, base + Math.round(v * 0.3))
+  return card ? card.t.tier : null
 }
