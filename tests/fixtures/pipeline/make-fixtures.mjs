@@ -5,9 +5,16 @@
 //   commons/files.json             file pages (imageinfo with extmetadata, templates) and their thumbnail fixture
 //   commons/search.json            category and file name search results
 //   wikipedia/<lang>.json          full-text search results and page details (pageprops, extracts, coordinates)
+//   wikidata/sparql/kr-*.json      the Korea-first queries: first-level divisions (P150/P300) and class items in Korea
+//   tourapi/*.json                 TourAPI KorService2 answers (searchKeyword2, detailCommon2, detailImage2) and the
+//                                  tourism photo gallery (PhotoGalleryService1 gallerySearchList1)
 //   web/gdelt.json, web/feed.xml   a GDELT DOC ArtList answer and an RSS feed
 //   links.json, overpass.json      link check and Overpass answers
 //   thumbs/*.jpg                   330 px thumbnails generated with sharp (night LED facade, projection, daytime…)
+//   renditions/*.jpg               960 px renditions of the same scenes (quality measurements), a blocky and a blurry
+//                                  one, and 1200–2048 px originals of the provider images (TourAPI, Openverse, Flickr,
+//                                  an official site)
+//   providers/*.json               Openverse and Flickr API answers
 // The world below is TEST DATA: well-known projects with fixture values (coordinates, years, files) that are not
 // verified facts; QIDs Q99000xxxx do not exist on Wikidata. Run: node tests/fixtures/pipeline/make-fixtures.mjs
 import { mkdir, writeFile, rm } from 'node:fs/promises'
@@ -33,7 +40,7 @@ const claimMakers = {
   id: (s, pid, v) => stmt(s, pid, { value: v, type: 'string' }, 'external-id'),
   mono: (s, pid, [text, language]) => stmt(s, pid, { value: { text, language }, type: 'monolingualtext' }, 'monolingualtext'),
 }
-const KIND = { P31: 'item', P279: 'item', P17: 'item', P131: 'item', P276: 'item', P84: 'item', P170: 'item', P137: 'item', P301: 'item', P5817: 'item', P625: 'coord', P571: 'year', P580: 'year', P582: 'year', P856: 'url', P373: 'string', P18: 'media', P297: 'id', P1705: 'mono', P1448: 'mono' }
+const KIND = { P31: 'item', P279: 'item', P17: 'item', P131: 'item', P276: 'item', P84: 'item', P170: 'item', P137: 'item', P301: 'item', P5817: 'item', P150: 'item', P625: 'coord', P571: 'year', P580: 'year', P582: 'year', P856: 'url', P373: 'string', P18: 'media', P297: 'id', P300: 'id', P1705: 'mono', P1448: 'mono' }
 const WIKI_HOST = { enwiki: 'en.wikipedia.org', kowiki: 'ko.wikipedia.org', dewiki: 'de.wikipedia.org', frwiki: 'fr.wikipedia.org', cswiki: 'cs.wikipedia.org', commonswiki: 'commons.wikimedia.org' }
 
 function entity(id, { labels = {}, descriptions = {}, claims = {}, sitelinks = {} }) {
@@ -70,7 +77,7 @@ for (const [q, en, ko, cls, country, parent] of [
   ['Q62', 'San Francisco', '샌프란시스코', 'Q1093829', 'Q30'], ['Q65', 'Los Angeles', '로스앤젤레스', 'Q1093829', 'Q30'], ['Q60', 'New York City', '뉴욕', 'Q1093829', 'Q30'],
   ['Q456', 'Lyon', '리옹', 'Q484170', 'Q142'], ['Q64', 'Berlin', '베를린', 'Q5119', 'Q183'], ['Q1040', 'Karlsruhe', '카를스루에', 'Q1549591', 'Q183'],
   ['Q1085', 'Prague', '프라하', 'Q5119', 'Q213'], ['Q8684', 'Seoul', '서울', 'Q5119', 'Q884'], ['Q1741', 'Vienna', '빈', 'Q5119', 'Q40'],
-  ['Q99000301', 'Cheonan', '천안시', 'Q515', 'Q884'], ['Q99000302', 'Songpa District', '송파구', 'Q99000401', 'Q884', 'Q8684'],
+  ['Q99000301', 'Cheonan', '천안시', 'Q515', 'Q884', 'Q99000410'], ['Q99000302', 'Songpa District', '송파구', 'Q99000401', 'Q884', 'Q8684'],
   ['Q99000303', 'Jung District', '중구', 'Q99000401', 'Q884', 'Q8684'], ['Q3235', 'Northern Territory', '노던 준주', 'Q99000402', 'Q408'],
 ]) add(q, { labels: { en, ko }, claims: { P31: cls, P17: country, ...(parent ? { P131: parent } : {}) } })
 // People (fixture ids).
@@ -118,12 +125,40 @@ add('Q99000108', { labels: { en: 'Fixture Neon Sign' }, claims: { P31: 'Q1823448
 add('Q6703289', { labels: { en: 'Lumino Kinetic art' }, claims: { P31: 'Q968159' } })
 add('Q8590079', { labels: { en: 'Category:Light art' }, claims: { P31: 'Q4167836', P301: 'Q1421557' } })
 
+// ---- Korea first (v0.18): first-level divisions, places under them, Korean projects of every Korean source.
+for (const [q, en, ko, cls] of [['Q99000411', 'province of South Korea', '대한민국의 도'], ['Q99000412', 'metropolitan city of South Korea', '대한민국의 광역시'], ['Q99000419', 'special city of South Korea', '대한민국의 특별시'],
+  ['Q33506', 'museum', '박물관'], ['Q12280', 'bridge', '다리'], ['Q926949', 'musical fountain', '음악 분수'], ['Q99000418', 'district of South Korea', '대한민국의 구']]) add(q, { labels: { en, ko } })
+for (const [q, en, ko, cls, parent] of [
+  ['Q99000410', 'South Chungcheong', '충청남도', 'Q99000411'], ['Q16520', 'Busan', '부산광역시', 'Q99000412'], ['Q41071', 'Gangwon State', '강원특별자치도', 'Q99000411'],
+  ['Q41164', 'Jeju Province', '제주특별자치도', 'Q99000411'], ['Q20934', 'Incheon', '인천광역시', 'Q99000412'], ['Q41283', 'Gwangju', '광주광역시', 'Q99000412'],
+  ['Q99000415', 'Jeonnam-Gwangju Special Metropolitan City', '전남광주특별시', 'Q99000419'],
+  ['Q99000413', 'Haeundae District', '해운대구', 'Q99000418', 'Q16520'], ['Q99000414', 'Gangneung', '강릉시', 'Q515', 'Q41071'], ['Q99000417', 'Seocho District', '서초구', 'Q99000401', 'Q8684'],
+  ['Q99000416', 'Jeju City', '제주시', 'Q515', 'Q41164'],
+]) add(q, { labels: { en, ko }, claims: { P31: cls, P17: 'Q884', ...(parent ? { P131: parent } : {}) } })
+add('Q99000501', { labels: { ko: '픽스처 미디어아트 뮤지엄 부산', en: 'Fixture Media Art Museum Busan' }, descriptions: { ko: '부산 해운대구의 미디어아트 전시관' },
+  claims: { P31: 'Q33506', P17: 'Q884', P131: 'Q99000413', P625: [[35.1601, 129.1636]], P571: 2021, P373: 'Fixture Media Art Museum Busan' }, sitelinks: { kowiki: '픽스처 미디어아트 뮤지엄 부산', commonswiki: 'Category:Fixture Media Art Museum Busan' } })
+add('Q99000502', { labels: { ko: '픽스처 강릉 빛축제', en: 'Fixture Gangneung Light Festival' }, descriptions: { ko: '강릉에서 열리는 빛 축제' },
+  claims: { P31: 'Q132241', P17: 'Q884', P131: 'Q99000414', P625: [[37.7519, 128.8761]], P571: 2019 }, sitelinks: { kowiki: '픽스처 강릉 빛축제' } })
+add('Q99000504', { labels: { ko: '픽스처 미디어 작가' }, claims: { P31: 'Q5' }, sitelinks: { kowiki: '픽스처 미디어 작가' } })
+add('Q99000505', { labels: { ko: '픽스처 시립도서관' }, claims: { P31: 'Q33506', P17: 'Q884', P131: 'Q99000417', P625: [[37.48, 127.01]] }, sitelinks: { kowiki: '픽스처 시립도서관' } })
+add('Q255506', { labels: { en: 'Banpo Bridge', ko: '반포대교' }, descriptions: { en: 'bridge in Seoul with a musical fountain' },
+  claims: { P31: ['Q12280', 'Q926949'], P17: 'Q884', P131: 'Q99000417', P625: [[37.5152, 126.9958]], P571: 1982 }, sitelinks: { kowiki: '반포대교', enwiki: 'Banpo Bridge' } })
+add('Q99000503', { labels: { ko: '픽스처 제주 빛 설치', en: 'Fixture Jeju Light Field' }, descriptions: { en: 'light installation in Jeju' },
+  claims: { P31: 'Q1823448', P17: 'Q884', P131: 'Q99000416', P625: [[33.4996, 126.5312]], P571: 2022 } })
+
 // SPARQL answers (class discovery counts and instances), shaped like query.wikidata.org results.
 const INT = (n) => ({ datatype: 'http://www.w3.org/2001/XMLSchema#integer', type: 'literal', value: String(n) })
 const COUNTS = { Q17158007: [0, 0], Q4287692: [0, 0], Q776483: [1, 1], Q1421557: [14, 8], Q1823448: [138, 94], Q29885984: [26, 9], Q1798004: [0, 0], Q124414048: [23, 3],
   Q126682969: [0, 0], Q126682939: [0, 0], Q1136999: [0, 0], Q63442021: [5, 1], Q110409771: [0, 0], Q115452528: [0, 0], Q378604: [265, 4], Q860372: [0, 0], Q550484: [0, 0],
   Q20437094: [0, 0], Q380051: [0, 0], Q926949: [0, 0], Q110775916: [26875, 30], Q116262603: [0, 0] }
-const INSTANCES = { Q1823448: ['Q7715933', 'Q5447104', 'Q7899954', 'Q2001578', 'Q99000108'], Q1421557: ['Q7715933', 'Q99000107'], Q124414048: ['Q4167', 'Q15140473', 'Q125715'], Q378604: ['Q99000106'] }
+const INSTANCES = { Q1823448: ['Q7715933', 'Q5447104', 'Q7899954', 'Q2001578', 'Q99000108', 'Q99000503'], Q1421557: ['Q7715933', 'Q99000107'], Q124414048: ['Q4167', 'Q15140473', 'Q125715'], Q378604: ['Q99000106'] }
+// Korea first: the items of each usable class located in South Korea (P17 = Q884), read before any worldwide query.
+const KR_INSTANCES = { Q1823448: ['Q99000503'], Q1421557: ['Q99000107'], Q926949: ['Q255506'] }
+// The first-level divisions of South Korea as wd:Q884 p:P150 lists them, with ISO 3166-2 codes (P300); Gwangju ended
+// with the 2026 merger and the merged city has no ISO code yet (its label decides).
+const KR_DIVISIONS = [['Q8684', 'KR-11', 'Seoul', '서울특별시'], ['Q16520', 'KR-26', 'Busan', '부산광역시'], ['Q20934', 'KR-28', 'Incheon', '인천광역시'],
+  ['Q41283', 'KR-29', 'Gwangju', '광주광역시', '2026-07-01T00:00:00Z'], ['Q41071', 'KR-42', 'Gangwon State', '강원특별자치도'], ['Q99000410', 'KR-44', 'South Chungcheong', '충청남도'],
+  ['Q41164', 'KR-49', 'Jeju Province', '제주특별자치도'], ['Q99000415', null, 'Jeonnam-Gwangju Special Metropolitan City', '전남광주특별시']]
 
 // ---------------------------------------------------------------- Commons
 const thumbUrl = (file, w) => { const f = file.replace(/ /g, '_'), h = md5(f); return `https://upload.wikimedia.org/wikipedia/commons/thumb/${h[0]}/${h.slice(0, 2)}/${encodeURIComponent(f)}/${w}px-${encodeURIComponent(f)}` }
@@ -139,7 +174,7 @@ const LIC = {
 const FILES = [
   ['The Bay Lights at night 2013.jpg', 'night_led', 4000, 2667, 'CC BY-SA 4.0', 'Fixture Photographer 1', ['The Bay Lights'], 'The Bay Lights LED installation on the Bay Bridge at night'],
   ['Bay Bridge from Embarcadero daytime.jpg', 'day', 3600, 2400, 'CC BY 2.0', 'Fixture Photographer 2', ['The Bay Lights'], 'The western span of the Bay Bridge seen from the Embarcadero'],
-  ['The Bay Lights reflection night.jpg', 'night_led2', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 3', ['The Bay Lights at night'], 'LED patterns reflected in the bay'],
+  ['The Bay Lights reflection night.jpg', 'night_field', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 3', ['The Bay Lights at night'], 'LED patterns reflected in the bay'],
   ['The Bay Lights map.png', 'day', 1200, 800, 'CC BY-SA 4.0', 'Fixture Mapper', ['The Bay Lights'], 'Map'],
   ['Fete des Lumieres 2015 Cathedrale Saint-Jean projection.jpg', 'night_projection', 4200, 2800, 'CC BY-SA 3.0', 'Fixture Photographer 4', ['Fête des Lumières 2015'], 'Projection mapping on the cathedral during the Fête des Lumières'],
   ['Fete des Lumieres Place des Terreaux.jpg', 'night_projection2', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 5', ['Fête des Lumières'], 'Light show on the Place des Terreaux', ['Template:NoFoP-France']],
@@ -159,6 +194,12 @@ const FILES = [
   // Found only through structured data (P180 depicts Q5295847): the building has no P18 and no Commons category.
   ['Seoul Light DDP 2019 media facade night.jpg', 'night_led2', 4000, 2250, 'CC BY-SA 4.0', 'Fixture Photographer 19', ['Seoul Light'], 'Seoul Light DDP media facade on the building at night'],
   ['Dongdaemun Design Plaza exterior daytime.jpg', 'day', 4000, 2667, 'CC BY-SA 4.0', 'Fixture Photographer 20', ['Dongdaemun Design Plaza'], 'Dongdaemun Design Plaza in daylight'],
+  ['Fixture Media Art Museum Busan immersive hall night.jpg', 'night_projection', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 21', ['Fixture Media Art Museum Busan'], '미디어아트 몰입형 전시 공간'],
+  ['Seoul Lantern Festival 2024 Cheonggyecheon.jpg', 'night_field', 2400, 1600, 'CC BY-SA 4.0', 'Fixture Photographer 22', ['Seoul Lantern Festival'], 'Seoul Lantern Festival lights on the stream at night'],
+  // Quality gates: a heavily compressed and a blurred copy of night scenes (the near-duplicate is a smaller copy).
+  ['Signal festival 2019 projection compressed.jpg', 'blocky', 2400, 1600, 'CC BY-SA 4.0', 'Fixture Photographer 23', ['Signal Festival'], 'Videomapping at Signal Festival at night'],
+  ['Festival of Lights Berlin 2013 Brandenburg Gate blurred.jpg', 'blurry', 3000, 2000, 'CC BY-SA 3.0', 'Fixture Photographer 24', ['Festival of Lights (Berlin, 2013)'], 'Projection on the Brandenburg Gate at night'],
+  ['The Bay Lights at night 2013 small copy.jpg', 'night_led', 1500, 1000, 'CC BY-SA 4.0', 'Fixture Photographer 1', ['The Bay Lights'], 'The Bay Lights LED installation on the Bay Bridge at night'],
 ]
 const COMMON_TEMPLATES = ['Template:Information', 'Template:Own', 'Template:Self', 'Template:Cc-by-sa-4.0', 'Template:Location', 'Template:Taken on', 'Template:Lang', 'Template:Description']
 const files = FILES.map(([file, kind, width, height, license, author, cats, description, extraTemplates = []]) => ({
@@ -190,7 +231,7 @@ const CATS = [
   ['Category:Projection mapping in Prague', null, null, ['Category:Signal Festival'], []],
   ['Category:Projection mapping in Europe', null, null, [], []],
   ['Category:Projection mapping in the Quartier des Spectacles', null, null, [], []],
-  ['Category:Signal Festival', 'Q18391691', [50.0872, 14.421], [], fileTitles('Signal festival 2019 projection.jpg')],
+  ['Category:Signal Festival', 'Q18391691', [50.0872, 14.421], [], fileTitles('Signal festival 2019 projection.jpg', 'Signal festival 2019 projection compressed.jpg')],
   ['Category:Schlosslichtspiele Karlsruhe', 'Q56089114', null, [], fileTitles('Schlosslichtspiele 2018 Karlsruhe Schloss projection.jpg')],
   ['Category:Light art', 'Q8590079', null, ['Category:Light artists', 'Category:Light art in Karlsruhe', 'Category:Field of Light', 'Category:Urban Light', 'Category:Tribute in Light', 'Category:The Bay Lights', 'Category:Lumino Kinetic art', 'Category:Bradford Garden of Light'], []],
   ['Category:Light artists', 'Q8590080', null, [], []],
@@ -198,7 +239,7 @@ const CATS = [
   ['Category:Field of Light', 'Q5447104', null, [], fileTitles('Field of Light Uluru 2016.jpg')],
   ['Category:Urban Light', 'Q7899954', null, [], fileTitles('Urban Light LACMA daytime.jpg')],
   ['Category:Tribute in Light', 'Q2001578', null, [], fileTitles('Tribute in Light 2011.jpg')],
-  ['Category:The Bay Lights', 'Q7715933', null, ['Category:The Bay Lights at night'], fileTitles('The Bay Lights at night 2013.jpg', 'Bay Bridge from Embarcadero daytime.jpg', 'The Bay Lights map.png')],
+  ['Category:The Bay Lights', 'Q7715933', null, ['Category:The Bay Lights at night'], fileTitles('The Bay Lights at night 2013.jpg', 'Bay Bridge from Embarcadero daytime.jpg', 'The Bay Lights map.png', 'The Bay Lights at night 2013 small copy.jpg')],
   ['Category:The Bay Lights at night', null, null, [], fileTitles('The Bay Lights reflection night.jpg')],
   ['Category:Lumino Kinetic art', 'Q6703289', null, [], []],
   ['Category:Bradford Garden of Light', null, null, [], fileTitles('Bradford Garden of Light lanterns.jpg')],
@@ -206,7 +247,7 @@ const CATS = [
   ['Category:Fête des Lumières', 'Q4167', null, ['Category:Fête des Lumières 2015'], fileTitles('Fete des Lumieres Place des Terreaux.jpg', 'Lyon Fete des lumieres crowd.jpg')],
   ['Category:Fête des Lumières 2015', null, null, [], fileTitles('Fete des Lumieres 2015 Cathedrale Saint-Jean projection.jpg')],
   ['Category:Festival of Lights (Berlin)', 'Q125715', null, ['Category:Festival of Lights (Berlin, 2013)'], []],
-  ['Category:Festival of Lights (Berlin, 2013)', null, null, [], fileTitles('Festival of Lights Berlin 2013 Brandenburg Gate.jpg')],
+  ['Category:Festival of Lights (Berlin, 2013)', null, null, [], fileTitles('Festival of Lights Berlin 2013 Brandenburg Gate.jpg', 'Festival of Lights Berlin 2013 Brandenburg Gate blurred.jpg')],
   ['Category:Media Facade', null, null, [], []],
   ['Category:Facades', 'Q8952318', null, [], []],
   ['Category:Illuminated buildings by city', 'Q116262580', null, ['Category:Illuminated buildings in Seoul'], []],
@@ -214,6 +255,10 @@ const CATS = [
   ['Category:Lotte World Tower at night', null, null, [], fileTitles('Lotte World Tower media facade at night.jpg')],
   ['Category:Lotte World Tower', 'Q494895', [37.5125, 127.1025], ['Category:Lotte World Tower at night'], fileTitles('Lotte World Tower daytime 2017.jpg', 'Lotte World Tower interior lobby.jpg')],
   ['Category:Uniqa Tower', 'Q99000103', [48.2117, 16.38], [], fileTitles('Uniqa Tower Medienfassade Nacht.jpg', 'Uniqa Tower media facade colourful day.jpg')],
+  // Korea first: "media art" + "Busan" finds an aggregate; its member is the museum's own category (linked to its item).
+  ['Category:Media art in Busan', null, null, ['Category:Fixture Media Art Museum Busan'], []],
+  ['Category:Fixture Media Art Museum Busan', 'Q99000501', [35.1601, 129.1636], [], fileTitles('Fixture Media Art Museum Busan immersive hall night.jpg')],
+  ['Category:Seoul Lantern Festival', null, [37.5689, 126.9786], [], fileTitles('Seoul Lantern Festival 2024 Cheonggyecheon.jpg')],
 ]
 const categories = CATS.map(([title, qid, coord, subcats, members]) => ({
   page: {
@@ -228,7 +273,9 @@ const categories = CATS.map(([title, qid, coord, subcats, members]) => ({
   ],
 }))
 const search = {
-  category: { 'media facade': ['Category:Media Facade', 'Category:Facades'], 'projection mapping': ['Category:Projection mapping', 'Category:Projection mapping in Prague'], 'light festival': ['Category:Festivals of lights'] },
+  // Keys are the searched phrases; several phrases (all in the name) are joined with " + ".
+  category: { 'media facade': ['Category:Media Facade', 'Category:Facades'], 'projection mapping': ['Category:Projection mapping', 'Category:Projection mapping in Prague'], 'light festival': ['Category:Festivals of lights'],
+    'media art + Busan': ['Category:Media art in Busan'], 'lantern festival + Seoul': ['Category:Seoul Lantern Festival'] },
   file: { 'media facade': [{ title: 'File:Uniqa Tower media facade colourful day.jpg', categories: ['Category:Uniqa Tower'] }] },
   // haswbstatement:P180=<QID> answers (files whose structured data depicts the item).
   depicts: { Q5295847: ['File:Dongdaemun Design Plaza exterior daytime.jpg', 'File:Seoul Light DDP 2019 media facade night.jpg'] },
@@ -258,8 +305,20 @@ const wikis = {
     ],
   },
   ko: {
-    search: { '미디어파사드': [['롯데월드타워', '외벽에 미디어파사드가 설치되어']] },
-    pages: [['롯데월드타워', 'Q494895', '롯데월드타워는 서울특별시 송파구에 있는 초고층 빌딩이다. 외벽 상부에 미디어파사드가 설치되어 있어 야간에 영상을 상영한다.', [37.5125, 127.1025]]],
+    search: {
+      '미디어파사드': [['롯데월드타워', '외벽에 미디어파사드가 설치되어']],
+      // The wide Korean term list (v0.18): a media art museum (broad term: needs the higher score), a light festival,
+      // an artist (never a project) and a library that mentions media art only in passing (below the broad-term score).
+      '미디어아트': [['픽스처 미디어아트 뮤지엄 부산', '해운대구의 미디어아트 전시관'], ['픽스처 미디어 작가', '미디어아트 작가'], ['픽스처 시립도서관', '미디어아트 강좌']],
+      '빛축제': [['픽스처 강릉 빛축제', '강릉 빛축제']],
+    },
+    pages: [
+      ['롯데월드타워', 'Q494895', '롯데월드타워는 서울특별시 송파구에 있는 초고층 빌딩이다. 외벽 상부에 미디어파사드가 설치되어 있어 야간에 영상을 상영한다.', [37.5125, 127.1025]],
+      ['픽스처 미디어아트 뮤지엄 부산', 'Q99000501', '픽스처 미디어아트 뮤지엄 부산은 부산광역시 해운대구에 있는 미디어아트 전시관이다. 건물 전체를 몰입형 미디어아트 공간으로 쓴다.', [35.1601, 129.1636]],
+      ['픽스처 미디어 작가', 'Q99000504', '픽스처 미디어 작가는 대한민국의 미디어아트 작가이다.', null],
+      ['픽스처 시립도서관', 'Q99000505', '픽스처 시립도서관은 서울특별시 서초구에 있는 공공 도서관이다. 여러 문화 강좌를 연다.', [37.48, 127.01]],
+      ['픽스처 강릉 빛축제', 'Q99000502', '픽스처 강릉 빛축제는 강원특별자치도 강릉시에서 매년 겨울 열리는 빛축제이다. 경포호 일대에 빛 조형물과 미디어 파사드를 설치한다.', [37.7519, 128.8761]],
+    ],
   },
   de: {
     search: { 'Medienfassade': [['Uniqa Tower', 'Die Medienfassade des Gebäudes']] },
@@ -272,6 +331,86 @@ for (const [lang, w] of Object.entries(wikis)) {
     search: Object.fromEntries(Object.entries(w.search).map(([term, hits]) => [term, hits.map(([title, snippet], i) => ({ ns: 0, title, pageid: 7000000 + i + lang.charCodeAt(0) * 1000, size: 4000 + i * 100, wordcount: 600 + i * 20, snippet: SM(snippet, term), titlesnippet: '', timestamp: '2026-09-30T10:00:00Z' }))])),
     pages: w.pages.map(([title, qid, extract, coord], i) => ({ pageid: 7000000 + i + lang.charCodeAt(0) * 1000, ns: 0, title, pageprops: { wikibase_item: qid }, extract, ...(coord ? { coordinates: [{ lat: coord[0], lon: coord[1], primary: true, globe: 'earth' }] } : {}) })),
   }
+}
+
+// ---------------------------------------------------------------- TourAPI (KorService2) and the photo gallery
+// Shaped like apis.data.go.kr JSON answers (response.header / response.body.items.item). Keys: "<keyword>|<contentTypeId>".
+const TI = (o) => ({ addr2: '', areacode: '', cat1: '', cat2: '', cat3: '', createdtime: '20200101000000', firstimage: '', firstimage2: '', cpyrhtDivCd: '', mapx: '', mapy: '', mlevel: '6', modifiedtime: '20260901000000', sigungucode: '', tel: '', zipcode: '', lDongRegnCd: '', lDongSignguCd: '', lclsSystm1: '', lclsSystm2: '', lclsSystm3: '', ...o })
+const TOUR = {
+  // An attraction whose title lacks the term: its overview (detailCommon2) names the media facade.
+  lotte: TI({ contentid: '2900001', contenttypeid: '12', title: '롯데월드타워', addr1: '서울특별시 송파구 올림픽로 300', mapx: '127.1026000000', mapy: '37.5126000000', areacode: '1', sigungucode: '18', lDongRegnCd: '11', lDongSignguCd: '710', firstimage: 'https://tong.visitkorea.or.kr/cms/resource/01/2900001_image2_1.jpg', firstimage2: 'https://tong.visitkorea.or.kr/cms/resource/01/2900001_image3_1.jpg', cpyrhtDivCd: 'Type3' }),
+  festival: TI({ contentid: '2900002', contenttypeid: '15', title: '픽스처 미디어아트 페스티벌 대전', addr1: '대전광역시 유성구 엑스포로 1', mapx: '127.3880000000', mapy: '36.3760000000', areacode: '3', lDongRegnCd: '30', firstimage: 'https://tong.visitkorea.or.kr/cms/resource/02/2900002_image2_1.jpg', cpyrhtDivCd: 'Type1' }),
+  rental: TI({ contentid: '2900003', contenttypeid: '12', title: '미디어파사드 LED 전광판 렌탈 견적', addr1: '경기도 성남시 분당구 판교로 1', mapx: '127.1100000000', mapy: '37.4000000000', areacode: '31', lDongRegnCd: '41' }),
+  jeju: TI({ contentid: '2900004', contenttypeid: '15', title: '픽스처 빛축제 제주', addr1: '제주특별자치도 제주시 연동 1', mapx: '126.4900000000', mapy: '33.4890000000', areacode: '39', lDongRegnCd: '50' }),
+  lumi: TI({ contentid: '2900006', contenttypeid: '15', title: '픽스처 루미나리에 축제', addr1: '부산광역시 중구 광복로 1', mapx: '129.0300000000', mapy: '35.0990000000', areacode: '', lDongRegnCd: '99' }),
+}
+const tourapi = {
+  search: {
+    '미디어파사드|12': [TOUR.lotte, TOUR.rental],
+    '미디어아트|15': [TOUR.festival],
+    '빛축제|15': [TOUR.jeju],
+    '루미나리에|15': [TOUR.lumi],
+    // Searches by a project's Korean name (image identity): searchKeyword2 without a content type.
+    '롯데월드타워 미디어파사드|': [TOUR.lotte],
+    '롯데월드타워|': [TOUR.lotte],
+  },
+  common: {
+    2900001: { ...TOUR.lotte, homepage: '<a href="https://www.lwt.co.kr/" target="_blank" title="새창 : 롯데월드타워 홈페이지">https://www.lwt.co.kr</a>', overview: '롯데월드타워는 서울 송파구의 초고층 건물이다. 건물 외벽 상부에 미디어파사드가 설치되어 있어 저녁마다 영상 작품을 상영한다.' },
+    2900002: { ...TOUR.festival, homepage: '<a href="https://mediaart.fixture.example/">mediaart.fixture.example</a>', overview: '대전 엑스포과학공원 일대에서 열리는 미디어아트 축제. 건물 외벽 프로젝션 매핑과 미디어파사드 공연을 선보인다.' },
+    2900004: { ...TOUR.jeju, homepage: '', overview: '제주 연동 일대의 겨울 빛축제. 빛 조형물과 조명 터널을 설치한다.' },
+    2900006: { ...TOUR.lumi, homepage: 'https://lumi.fixture.example/', overview: '부산 광복로 일대에서 열리는 루미나리에 빛축제. 거리 전체에 빛 구조물을 설치한다.' },
+  },
+  images: {
+    2900001: [
+      { contentid: '2900001', originimgurl: 'https://tong.visitkorea.or.kr/cms/resource/11/2900011_image2_1.jpg', smallimageurl: 'https://tong.visitkorea.or.kr/cms/resource/11/2900011_image3_1.jpg', imgname: '롯데월드타워 미디어파사드 야경', cpyrhtDivCd: 'Type1', serialnum: '2900011_1' },
+      { contentid: '2900001', originimgurl: 'https://tong.visitkorea.or.kr/cms/resource/12/2900012_image2_1.jpg', smallimageurl: 'https://tong.visitkorea.or.kr/cms/resource/12/2900012_image3_1.jpg', imgname: '롯데월드타워 주간 전경', cpyrhtDivCd: 'Type3', serialnum: '2900012_1' },
+      { contentid: '2900001', originimgurl: 'https://tong.visitkorea.or.kr/cms/resource/13/2900013_image2_1.jpg', smallimageurl: 'https://tong.visitkorea.or.kr/cms/resource/13/2900013_image3_1.jpg', imgname: '롯데월드타워 전망대', cpyrhtDivCd: '', serialnum: '2900013_1' },
+    ],
+  },
+  gallery: {
+    '롯데월드타워': [{ galContentId: '3000001', galContentTypeId: '17', galTitle: '롯데월드타워 미디어파사드 야경', galWebImageUrl: 'https://tong.visitkorea.or.kr/cms2/website/01/3000001.jpg', galCreatedtime: '20240101000000', galModifiedtime: '20240101000000', galPhotographyMonth: '202312', galPhotographyLocation: '서울특별시 송파구', galPhotographer: '한국관광공사 픽스처', galSearchKeyword: '롯데월드타워, 미디어파사드, 야경, 송파구' }],
+  },
+}
+
+// ---------------------------------------------------------------- Openverse and Flickr
+// Openverse /v1/images/?q=… answers (keys: q), shaped like api.openverse.org results.
+const OV = (o) => ({ title: null, indexed_on: '2025-01-01T00:00:00Z', foreign_landing_url: null, url: null, creator: null, creator_url: null, license: 'by', license_version: '2.0', license_url: 'https://creativecommons.org/licenses/by/2.0/', provider: 'flickr', source: 'flickr', category: 'photograph', genres: null, filesize: null, filetype: 'jpg', tags: [], attribution: '', fields_matched: ['title'], mature: false, height: null, width: null, thumbnail: null, detail_url: null, related_url: null, unstable__sensitivity: [], ...o })
+const openverse = {
+  'lotte world tower': [
+    OV({ id: 'ov-lotte-1', title: 'Lotte World Tower media facade, Seoul', foreign_landing_url: 'https://www.flickr.com/photos/fixture/1110001/', url: 'https://live.staticflickr.com/65535/1110001_abc_k.jpg', creator: 'Fixture Flickr User', creator_url: 'https://www.flickr.com/photos/fixture', width: 2048, height: 1365, filesize: 900000, tags: [{ name: 'seoul', accuracy: null }, { name: 'night', accuracy: null }, { name: 'media facade', accuracy: null }] }),
+    OV({ id: 'ov-lotte-nc', title: 'Lotte World Tower at night', license: 'by-nc', license_url: 'https://creativecommons.org/licenses/by-nc/2.0/', foreign_landing_url: 'https://www.flickr.com/photos/fixture/1110002/', url: 'https://live.staticflickr.com/65535/1110002_def_b.jpg', creator: 'Fixture NC User', width: 1024, height: 683 }),
+    OV({ id: 'ov-tower', title: 'A tower at night', foreign_landing_url: 'https://www.flickr.com/photos/fixture/1110003/', url: 'https://live.staticflickr.com/65535/1110003_ghi_b.jpg', creator: 'Fixture User 3', width: 1024, height: 683 }),
+    OV({ id: 'ov-wiki', title: 'Lotte World Tower', provider: 'wikimedia', source: 'wikimedia', foreign_landing_url: 'https://commons.wikimedia.org/w/index.php?curid=1', url: 'https://upload.wikimedia.org/wikipedia/commons/a/ab/X.jpg', creator: 'Someone', width: 3000, height: 2000 }),
+  ],
+}
+// Flickr REST answers: the licence list (fixture values in Flickr's shape) and photo searches (keys: text).
+const flickr = {
+  licenses: { licenses: { license: [
+    { id: 0, name: 'All Rights Reserved', url: '' }, { id: 1, name: 'Attribution-NonCommercial-ShareAlike License', url: 'https://creativecommons.org/licenses/by-nc-sa/2.0/' },
+    { id: 4, name: 'Attribution License', url: 'https://creativecommons.org/licenses/by/2.0/' }, { id: 5, name: 'Attribution-ShareAlike License', url: 'https://creativecommons.org/licenses/by-sa/2.0/' },
+    { id: 9, name: 'Public Domain Dedication (CC0)', url: 'https://creativecommons.org/publicdomain/zero/1.0/' }, { id: 10, name: 'Public Domain Mark', url: 'https://creativecommons.org/publicdomain/mark/1.0/' },
+  ] }, stat: 'ok' },
+  search: {
+    '동대문디자인플라자': [
+      { id: '2220001', owner: '12345@N00', secret: 'aaa', server: '65535', farm: 66, title: '동대문디자인플라자 DDP Seoul Light media facade', ispublic: 1, license: '5', ownername: 'Fixture Flickr Night', latitude: '37.566700', longitude: '127.009700', accuracy: '16', tags: 'ddp seoullight mediafacade night', description: { _content: 'Seoul Light at Dongdaemun Design Plaza' },
+        url_z: 'https://live.staticflickr.com/65535/2220001_aaa_z.jpg', width_z: 640, height_z: 427, url_l: 'https://live.staticflickr.com/65535/2220001_aaa_b.jpg', width_l: 1024, height_l: 683, url_k: 'https://live.staticflickr.com/65535/2220001_aaa_k.jpg', width_k: 2048, height_k: 1365, url_o: 'https://live.staticflickr.com/65535/2220001_zzz_o.jpg', width_o: 5000, height_o: 3333, originalformat: 'jpg' },
+      { id: '2220002', owner: '99999@N00', secret: 'bbb', server: '65535', farm: 66, title: 'Night walk', ispublic: 1, license: '4', ownername: 'Fixture Far Away', latitude: '37.600000', longitude: '127.100000', accuracy: '16', tags: 'night', description: { _content: '' },
+        url_z: 'https://live.staticflickr.com/65535/2220002_bbb_z.jpg', width_z: 640, height_z: 427, url_l: 'https://live.staticflickr.com/65535/2220002_bbb_b.jpg', width_l: 1024, height_l: 683 },
+    ],
+  },
+}
+// Image bytes of the providers (URL → rendition fixture).
+const providerImages = {
+  'https://tong.visitkorea.or.kr/cms/resource/01/2900001_image2_1.jpg': 'tour-day',
+  'https://tong.visitkorea.or.kr/cms/resource/11/2900011_image2_1.jpg': 'tour-night_projection',
+  'https://tong.visitkorea.or.kr/cms/resource/12/2900012_image2_1.jpg': 'tour-day',
+  'https://tong.visitkorea.or.kr/cms/resource/13/2900013_image2_1.jpg': 'tour-day',
+  'https://tong.visitkorea.or.kr/cms/resource/02/2900002_image2_1.jpg': 'tour-night_projection',
+  'https://tong.visitkorea.or.kr/cms2/website/01/3000001.jpg': 'tour-night_led',
+  'https://live.staticflickr.com/65535/1110001_abc_k.jpg': 'wide-night_field',
+  'https://live.staticflickr.com/65535/2220001_aaa_b.jpg': 'night_led2-960',
+  'https://live.staticflickr.com/65535/2220001_aaa_k.jpg': 'wide-night_led2',
+  'https://official.fixture.example/media/nodeul-night.jpg': 'wide-night_projection',
 }
 
 // ---------------------------------------------------------------- web, links, Overpass
@@ -309,6 +448,8 @@ const svg = {
   colourful_day: () => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#f4f6ff"/>${Array.from({ length: 11 }, (_, i) => `<rect x="${i * 30}" y="30" width="15" height="190" fill="${['#ff3b6b', '#ffd400', '#00c2ff', '#ff8a00'][i % 4]}"/>`).join('')}</svg>`,
   dark_only: () => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#040406"/><rect x="140" y="0" width="8" height="${H}" fill="#9a9aa4"/><rect x="180" y="0" width="8" height="${H}" fill="#9a9aa4"/><rect y="200" width="${W}" height="20" fill="#0c0c10"/></svg>`,
   night_dim: () => building('#0a0a10', '#1c1c22', Array.from({ length: 12 }, (_, i) => `<rect x="${112 + (i % 4) * 28}" y="${70 + Math.floor(i / 4) * 40}" width="10" height="14" fill="#8a7a5a"/>`).join('')),
+  blocky: () => svg.night_projection2(),
+  blurry: () => svg.night_projection(),
   interior: () => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#9a8f80"/><rect x="20" y="20" width="290" height="120" fill="#d8d0c0"/><rect x="0" y="160" width="${W}" height="60" fill="#5b5248"/></svg>`,
 }
 function grid(colors, share) {
@@ -327,6 +468,14 @@ await mkdir(path.join(OUT, 'wikidata/sparql'), { recursive: true })
 for (const e of E) await writeFile(path.join(OUT, 'wikidata/entities', e.id + '.json'), json(e))
 for (const [q, [n, c]] of Object.entries(COUNTS)) await writeFile(path.join(OUT, 'wikidata/sparql', `class-count-${q}.json`), json({ head: { vars: ['instances', 'with_coords'] }, results: { bindings: [{ instances: INT(n), with_coords: INT(c) }] } }))
 for (const [q, list] of Object.entries(INSTANCES)) await writeFile(path.join(OUT, 'wikidata/sparql', `class-instances-${q}.json`), json({ head: { vars: ['item'] }, results: { bindings: list.map((x) => ({ item: { type: 'uri', value: 'http://www.wikidata.org/entity/' + x } })) } }))
+for (const [q, list] of Object.entries(KR_INSTANCES)) await writeFile(path.join(OUT, 'wikidata/sparql', `kr-class-instances-${q}.json`), json({ head: { vars: ['item'] }, results: { bindings: list.map((x) => ({ item: { type: 'uri', value: 'http://www.wikidata.org/entity/' + x } })) } }))
+await writeFile(path.join(OUT, 'wikidata/sparql', 'kr-divisions.json'), json({ head: { vars: ['div', 'iso', 'en', 'ko', 'end'] }, results: { bindings: KR_DIVISIONS.map(([q, iso, en, ko, end]) => ({
+  div: { type: 'uri', value: 'http://www.wikidata.org/entity/' + q }, ...(iso ? { iso: { type: 'literal', value: iso } } : {}),
+  en: { 'xml:lang': 'en', type: 'literal', value: en }, ko: { 'xml:lang': 'ko', type: 'literal', value: ko },
+  ...(end ? { end: { datatype: 'http://www.w3.org/2001/XMLSchema#dateTime', type: 'literal', value: end } } : {}),
+})) } }))
+await mkdir(path.join(OUT, 'tourapi'), { recursive: true })
+await writeFile(path.join(OUT, 'tourapi/korservice2.json'), json(tourapi))
 await mkdir(path.join(OUT, 'commons'), { recursive: true })
 await writeFile(path.join(OUT, 'commons/categories.json'), json(categories))
 await writeFile(path.join(OUT, 'commons/files.json'), json(files))
@@ -342,4 +491,20 @@ const sharp = await loadSharp()
 await rm(path.join(OUT, 'thumbs'), { recursive: true, force: true })
 await mkdir(path.join(OUT, 'thumbs'), { recursive: true })
 for (const [kind, make] of Object.entries(svg)) await writeFile(path.join(OUT, 'thumbs', kind + '.jpg'), await sharp(Buffer.from(make())).jpeg({ quality: 82 }).toBuffer())
+// Larger renditions: the same vector scenes rendered at 960 px (Commons quality renditions), 1200 px (TourAPI
+// originals) and 2048 px (Openverse, Flickr, official), plus the compressed and blurred variants.
+await rm(path.join(OUT, 'renditions'), { recursive: true, force: true })
+await mkdir(path.join(OUT, 'renditions'), { recursive: true })
+const render = (kind, width) => sharp(Buffer.from(svg[kind]()), { density: Math.round(72 * width / W) }).resize({ width })
+for (const kind of Object.keys(svg)) {
+  let img = render(kind === 'blocky' ? 'night_projection2' : kind === 'blurry' ? 'night_projection' : kind, 960)
+  if (kind === 'blurry') img = img.blur(6)
+  await writeFile(path.join(OUT, 'renditions', kind + '-960.jpg'), await img.jpeg({ quality: kind === 'blocky' ? 3 : 90 }).toBuffer())
+}
+for (const kind of ['night_led', 'night_led2', 'night_projection', 'day']) await writeFile(path.join(OUT, 'renditions', `tour-${kind}.jpg`), await render(kind, 1200).jpeg({ quality: 88 }).toBuffer())
+for (const kind of ['night_led', 'night_led2', 'night_projection', 'night_field']) await writeFile(path.join(OUT, 'renditions', `wide-${kind}.jpg`), await render(kind, 2048).jpeg({ quality: 88 }).toBuffer())
+await mkdir(path.join(OUT, 'providers'), { recursive: true })
+await writeFile(path.join(OUT, 'providers/openverse.json'), json(openverse))
+await writeFile(path.join(OUT, 'providers/flickr.json'), json(flickr))
+await writeFile(path.join(OUT, 'providers/images.json'), json(providerImages))
 console.log(`fixtures: ${E.length} entities, ${categories.length} categories, ${files.length} files, ${Object.keys(svg).length} thumbnails`)

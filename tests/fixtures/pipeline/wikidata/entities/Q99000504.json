@@ -1,0 +1,48 @@
+{
+ "pageid": 99000504,
+ "ns": 0,
+ "title": "Q99000504",
+ "lastrevid": 2400000504,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000504",
+ "labels": {
+  "ko": {
+   "language": "ko",
+   "value": "픽스처 미디어 작가"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "d4dbcc27e531604dc1b2d8d0dd62b7ae",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 5,
+       "id": "Q5"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000504$d4dbcc27-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "kowiki": {
+   "site": "kowiki",
+   "title": "픽스처 미디어 작가",
+   "badges": [],
+   "url": "https://ko.wikipedia.org/wiki/%ED%94%BD%EC%8A%A4%EC%B2%98_%EB%AF%B8%EB%94%94%EC%96%B4_%EC%9E%91%EA%B0%80"
+  }
+ }
+}

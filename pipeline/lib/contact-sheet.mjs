@@ -1,6 +1,12 @@
 // Contact sheets for human (or Claude) visual verification: a JPEG grid of thumbnails, each labelled with ASCII ids
 // drawn from a built-in 5×7 bitmap font (no system fonts needed on the runner), plus an index of what each tile is.
+// v0.18: one set of sheets per kind (hero and featured candidates, cards) and provider, Korean projects first; each tile
+// shows the image id, provider, the original's width×height, sharpness, blockiness, tier, visual score, the review
+// state, and the project's name in ASCII (Korean names romanized).
+import path from 'node:path'
 import { loadSharp } from './visual.mjs'
+import { writeFileAtomic } from './io.mjs'
+import { fold } from './util.mjs'
 
 // 5×7 glyphs, one 5-bit row per entry (MSB = leftmost pixel).
 const G = {
@@ -42,33 +48,99 @@ export function drawText(buf, bufWidth, x0, y0, text, { scale = 2, color = [255,
 }
 
 export const TILE_W = 220, TILE_H = 165, LABEL_H = 36, COLUMNS = 6
+// The v0.18 review sheets: larger tiles and five label lines.
+export const REVIEW = { columns: 5, tileW: 320, tileH: 214, lines: 5, rows: 8 }
 
 /**
- * Builds one contact sheet. tiles: [{buffer|null, lines: [string, string]}]. Returns a JPEG buffer.
+ * Builds one contact sheet. tiles: [{buffer|null, lines: string[]}]. Returns a JPEG buffer.
  * A tile without an image (download failed) is drawn as a grey box with its labels.
  */
-export async function contactSheet(tiles, { columns = COLUMNS, quality = 70 } = {}) {
+export async function contactSheet(tiles, { columns = COLUMNS, quality = 70, tileW = TILE_W, tileH = TILE_H, lines: lineCount = 2 } = {}) {
   const sharp = await loadSharp()
+  const labelH = lineCount === 2 ? LABEL_H : lineCount * 17 + 4
+  const chars = Math.floor((tileW - 8) / 12)
   const rows = Math.max(1, Math.ceil(tiles.length / columns))
-  const width = columns * TILE_W, cellH = TILE_H + LABEL_H, height = rows * cellH
+  const width = columns * tileW, cellH = tileH + labelH, height = rows * cellH
   const canvas = Buffer.alloc(width * height * 3, 18)
   for (let i = 0; i < tiles.length; i++) {
     const t = tiles[i]
-    const x0 = (i % columns) * TILE_W, y0 = Math.floor(i / columns) * cellH
+    const x0 = (i % columns) * tileW, y0 = Math.floor(i / columns) * cellH
     let raw = null
     if (t.buffer) {
       try {
-        raw = await sharp(t.buffer).rotate().resize(TILE_W - 4, TILE_H - 4, { fit: 'contain', background: { r: 18, g: 18, b: 18 } }).removeAlpha().toColourspace('srgb').raw().toBuffer()
+        raw = await sharp(t.buffer).rotate().resize(tileW - 4, tileH - 4, { fit: 'contain', background: { r: 18, g: 18, b: 18 } }).removeAlpha().toColourspace('srgb').raw().toBuffer()
       } catch { raw = null }
     }
-    for (let y = 0; y < TILE_H - 4; y++) {
-      for (let x = 0; x < TILE_W - 4; x++) {
+    for (let y = 0; y < tileH - 4; y++) {
+      for (let x = 0; x < tileW - 4; x++) {
         const o = ((y0 + 2 + y) * width + (x0 + 2 + x)) * 3
-        if (raw) { const s = (y * (TILE_W - 4) + x) * 3; canvas[o] = raw[s]; canvas[o + 1] = raw[s + 1]; canvas[o + 2] = raw[s + 2] } else { canvas[o] = canvas[o + 1] = canvas[o + 2] = 70 }
+        if (raw) { const s = (y * (tileW - 4) + x) * 3; canvas[o] = raw[s]; canvas[o + 1] = raw[s + 1]; canvas[o + 2] = raw[s + 2] } else { canvas[o] = canvas[o + 1] = canvas[o + 2] = 70 }
       }
     }
-    const lines = (t.lines || []).slice(0, 2)
-    lines.forEach((line, k) => drawText(canvas, width, x0 + 4, y0 + TILE_H + 2 + k * 17, String(line).slice(0, 17), { scale: 2, color: k === 0 ? [255, 230, 120] : [235, 235, 235] }))
+    ;(t.lines || []).slice(0, lineCount).forEach((line, k) => drawText(canvas, width, x0 + 4, y0 + tileH + 2 + k * 17, String(line).slice(0, chars), { scale: 2, color: k === 0 ? [255, 230, 120] : k === lineCount - 1 ? [160, 220, 255] : [235, 235, 235] }))
   }
   return sharp(canvas, { raw: { width, height, channels: 3 } }).jpeg({ quality, mozjpeg: true }).toBuffer()
 }
+
+// ---------------------------------------------------------------- ASCII names
+
+const RR_INITIAL = ['g', 'kk', 'n', 'd', 'tt', 'r', 'm', 'b', 'pp', 's', 'ss', '', 'j', 'jj', 'ch', 'k', 't', 'p', 'h']
+const RR_MEDIAL = ['a', 'ae', 'ya', 'yae', 'eo', 'e', 'yeo', 'ye', 'o', 'wa', 'wae', 'oe', 'yo', 'u', 'wo', 'we', 'wi', 'yu', 'eu', 'ui', 'i']
+const RR_FINAL = ['', 'k', 'k', 'k', 'n', 'n', 'n', 't', 'l', 'k', 'm', 'l', 'l', 'l', 'p', 'l', 'm', 'p', 'p', 't', 't', 'ng', 't', 't', 'k', 't', 'p', 't']
+/** Hangul syllables in the Revised Romanization, syllable by syllable (no sound-change rules: a label, not a name). */
+export function romanize(text) {
+  let out = ''
+  for (const ch of String(text || '')) {
+    const c = ch.codePointAt(0) - 0xac00
+    if (c >= 0 && c < 11172) out += RR_INITIAL[Math.floor(c / 588)] + RR_MEDIAL[Math.floor((c % 588) / 28)] + RR_FINAL[c % 28]
+    else out += ch
+  }
+  return out
+}
+/** A project name in the characters the bitmap font draws. */
+export function asciiName(name) {
+  return fold(romanize(name)).replace(/[^a-z0-9 .:#+()/=_|?-]+/gi, ' ').replace(/\s+/g, ' ').trim().toUpperCase() || '?'
+}
+
+export const SHEET_ABOUT = 'Contact sheets per kind (hero: hero candidates and allowlisted images; featured: featured candidates; cards: the card of each project) and provider, Korean projects first. Tile lines: #n and image id; provider and the original width x height; S sharpness B blockiness T tier V visual, then OK (approved), R? (needs an approve_image after review) or H? (hero candidate, needs hero.json/set_hero); the project id; the project name in ASCII. index.json maps every tile to its project, image id, file or source URL.'
+
+/**
+ * Writes every sheet of the run and returns the index entries. Tiles: [{kind, provider, korean, project, name, id, key,
+ * file, width, height, sharpness, blockiness, tier, visual, allowlisted, hero_candidate, awaiting_review, buffer, thumb}].
+ * Tiles without an image buffer (measured in an earlier run) get one by fetch(url) when given (capped).
+ */
+export async function writeContactSheets(dir, tiles, { err = () => {}, fetchBytes = null, maxFetch = 300 } = {}) {
+  const out = []
+  let fetched = 0
+  const per = REVIEW.columns * REVIEW.rows
+  const kinds = ['hero', 'featured', 'cards']
+  const sorted = [...tiles].sort((a, b) => kinds.indexOf(a.kind) - kinds.indexOf(b.kind) || (b.korean ? 1 : 0) - (a.korean ? 1 : 0) || (a.project < b.project ? -1 : a.project > b.project ? 1 : 0) || (a.key < b.key ? -1 : 1))
+  const groups = new Map()
+  for (const t of sorted) { const g = t.kind === 'cards' ? 'cards' : `${t.kind}-${t.provider}`; if (!groups.has(g)) groups.set(g, []); groups.get(g).push(t) }
+  for (const [g, list] of groups) {
+    for (let s = 0; s * per < list.length; s++) {
+      const part = list.slice(s * per, (s + 1) * per)
+      const name = `${g}-${String(s + 1).padStart(2, '0')}.jpg`
+      for (const t of part) {
+        if (t.buffer || !t.thumb || !fetchBytes || fetched >= maxFetch) continue
+        try { t.buffer = (await fetchBytes(t.thumb)).bytes; fetched++ } catch (e) { if (e?.code === 'budget') break }
+      }
+      try {
+        const jpg = await contactSheet(part.map((t, i) => ({
+          buffer: t.buffer,
+          lines: [
+            `#${s * per + i + 1} ${t.id}`,
+            `${t.provider} ${t.width ?? '-'}X${t.height ?? '-'}`,
+            `S${t.sharpness ?? '-'} B${t.blockiness ?? '-'} T${t.tier ?? '-'} V${t.visual ?? '-'} ${t.allowlisted ? 'OK' : t.awaiting_review ? 'R?' : t.hero_candidate ? 'H?' : ''}`.trim(),
+            t.project,
+            asciiName(t.name_ko || t.name),
+          ],
+        })), { columns: REVIEW.columns, tileW: REVIEW.tileW, tileH: REVIEW.tileH, lines: REVIEW.lines })
+        await writeFileAtomic(path.join(dir, name), jpg)
+        out.push({ sheet: name, kind: t0(part).kind, provider: t0(part).kind === 'cards' ? null : t0(part).provider, tiles: part.map((t, i) => ({ n: s * per + i + 1, project: t.project, image: t.id, provider: t.provider, file: t.file || null, thumb: t.thumb || null, width: t.width ?? null, height: t.height ?? null, sharpness: t.sharpness ?? null, blockiness: t.blockiness ?? null, tier: t.tier ?? null, visual: t.visual ?? null, korean: !!t.korean, hero_candidate: !!t.hero_candidate, allowlisted: !!t.allowlisted, awaiting_review: !!t.awaiting_review, image_in_sheet: !!t.buffer })) })
+      } catch (x) { err('contact_sheets', x, { sheet: name }) }
+    }
+  }
+  return out
+}
+const t0 = (part) => part[0]

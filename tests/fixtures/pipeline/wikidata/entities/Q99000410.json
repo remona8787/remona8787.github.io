@@ -1,0 +1,66 @@
+{
+ "pageid": 99000410,
+ "ns": 0,
+ "title": "Q99000410",
+ "lastrevid": 2400000410,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000410",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "South Chungcheong"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "충청남도"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "919e18b0a7ea1b396b6204cee0f5e63c",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000411,
+       "id": "Q99000411"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000410$919e18b0-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "6e4710168fecbd277170ec88ff9779ac",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000410$6e471016-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

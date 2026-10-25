@@ -1,0 +1,87 @@
+{
+ "pageid": 99000413,
+ "ns": 0,
+ "title": "Q99000413",
+ "lastrevid": 2400000413,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000413",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Haeundae District"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "해운대구"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "e126779fc206221e07147d2d59f0388b",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000418,
+       "id": "Q99000418"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000413$e126779f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "954a07db88627a99ada4740cad2b47f5",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000413$954a07db-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "bafc9fd6b827c029ad7a56c4ebe2eb7c",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 16520,
+       "id": "Q16520"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000413$bafc9fd6-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

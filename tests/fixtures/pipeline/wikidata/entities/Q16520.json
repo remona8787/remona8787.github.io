@@ -1,0 +1,66 @@
+{
+ "pageid": 16520,
+ "ns": 0,
+ "title": "Q16520",
+ "lastrevid": 2400016520,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q16520",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Busan"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "부산광역시"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "44a373c0a99b691e3a7d05d4bec5382b",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000412,
+       "id": "Q99000412"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q16520$44a373c0-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "4c8758eee6ab4ba8cbd3372a5dba398f",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q16520$4c8758ee-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

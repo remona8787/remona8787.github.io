@@ -1,0 +1,66 @@
+{
+ "pageid": 41071,
+ "ns": 0,
+ "title": "Q41071",
+ "lastrevid": 2400041071,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q41071",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Gangwon State"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "강원특별자치도"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "7d8a2aabb575a532e6e964f1595122dc",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000411,
+       "id": "Q99000411"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q41071$7d8a2aab-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "455d6fc446791637f091d0b921ad326c",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q41071$455d6fc4-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

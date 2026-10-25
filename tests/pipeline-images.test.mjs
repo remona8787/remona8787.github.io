@@ -6,7 +6,7 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { metricsFromRaw, visualScore, measureImage, loadSharp } from '../pipeline/lib/visual.mjs'
-import { assessCandidate, tierOf, heroEligible, chooseImages, publicImage, nameEvidence, BAD_NAME, thumbAt } from '../pipeline/lib/images.mjs'
+import { assessCandidate, tierOf, heroEligible, chooseImages, commonsCandidate, imageObject, nameEvidence, BAD_NAME, thumbAt, cleanMediaUrl, commonsDisplay, mediaActive, stableImageId } from '../pipeline/lib/images.mjs'
 import { contactSheet, drawText } from '../pipeline/lib/contact-sheet.mjs'
 import { loadConfig } from '../pipeline/run.mjs'
 import { FIXTURES } from './fixtures/pipeline/fake-fetch.mjs'
@@ -89,66 +89,122 @@ test('keyword evidence in many languages; the night subcategory counts as night 
 
 const M = { night: { mean_luminance: 0.1, colourfulness: 63, saturated_bright: 0.09, visual: 92 }, day: { mean_luminance: 0.79, colourfulness: 38, saturated_bright: 0, visual: 0 }, dark: { mean_luminance: 0.04, colourfulness: 3, saturated_bright: 0, visual: 0 }, brightColour: { mean_luminance: 0.8, colourfulness: 150, saturated_bright: 0.43, visual: 0 } }
 
-test('tiers and surfaces: a daytime photo is never a home or hero image; darkness alone never qualifies', () => {
-  const a = (night, media) => ({ night, media, evidence: [] })
-  // Daytime photo of a media facade building with every keyword in its name: still tier 3 at best, never home/hero.
-  const day = tierOf(a(60, 100), M.day, TH)
+const Q = { good: { sharpness: 80, blockiness: 3, phash: null }, blurred: { sharpness: 20, blockiness: 3, phash: null }, blocky: { sharpness: 80, blockiness: 60, phash: null } }
+
+test('tiers 1–5 and surfaces: a daytime photo is never a home or hero image; darkness alone never qualifies', () => {
+  const a = (night, media, evidence = []) => ({ night, media, evidence })
+  const facade = { project_type: 'media_facade', width: 4000 }
+  // Daytime photo of a media facade building with every keyword in its name: tier 3 at best, never home/hero.
+  const day = tierOf(a(60, 100), M.day, TH, facade)
   assert.equal(day.home_ok, false)
-  assert.ok(day.tier >= 2)
-  assert.equal(heroEligible(a(60, 100), M.day, { width: 5000 }, day, TH).ok, false)
-  // A bright colourful daytime frame.
-  assert.equal(tierOf(a(0, 50), M.brightColour, TH).home_ok, false)
+  assert.ok(day.tier >= 3)
+  assert.equal(heroEligible(a(60, 100), M.day, { width: 5000 }, day, TH, Q.good).ok, false)
+  assert.equal(tierOf(a(0, 50), M.brightColour, TH, facade).home_ok, false)
   // Darkness alone, even with night keywords.
-  const dark = tierOf(a(70, 0), M.dark, TH)
+  const dark = tierOf(a(70, 0), M.dark, TH, facade)
   assert.equal(dark.home_ok, false)
-  assert.notEqual(dark.tier, 1)
-  assert.deepEqual(heroEligible(a(70, 0), M.dark, { width: 5000 }, dark, TH).reasons, ['not_home_ok', 'no_media_evidence', 'visual_below_threshold'])
-  // Media running at night.
-  const n = tierOf(a(55, 45), M.night, TH)
-  assert.deepEqual(n, { tier: 1, home_ok: true })
-  assert.equal(heroEligible(a(55, 45), M.night, { width: 4000 }, n, TH).ok, true)
-  assert.deepEqual(heroEligible(a(55, 45), M.night, { width: 1200 }, n, TH).reasons, ['original_too_small'])
-  // No measurement: never home.
-  assert.equal(tierOf(a(55, 45), null, TH).home_ok, false)
+  assert.ok(dark.tier >= 3)
+  assert.deepEqual(heroEligible(a(70, 0), M.dark, { width: 5000 }, dark, TH, Q.good).reasons, ['tier_3', 'not_home_ok', 'no_media_evidence', 'visual_below_threshold'])
+  // A media facade running at night, large: tier 1; the same on a light artwork: tier 2; a small original: tier 2.
+  assert.deepEqual(tierOf(a(55, 45), M.night, TH, facade), { tier: 1, home_ok: true })
+  assert.equal(tierOf(a(55, 45), M.night, TH, { project_type: 'light_art', width: 4000 }).tier, 2)
+  assert.equal(tierOf(a(55, 45), M.night, TH, { project_type: 'media_facade', width: 1200 }).tier, 2)
+  // An exhibition scene (tier 4) and a plain architectural photo (tier 5).
+  assert.equal(tierOf({ ...a(0, 0, ['scene_terms']) }, M.day, TH, { project_type: 'media_architecture' }).tier, 4)
+  assert.equal(tierOf(a(0, 0), M.day, TH, { project_type: 'media_architecture' }).tier, 5)
+  const n = tierOf(a(55, 45), M.night, TH, facade)
+  assert.equal(heroEligible(a(55, 45), M.night, { width: 4000 }, n, TH, Q.good).ok, true)
+  // Widths: 2400 for a hero; 1920 only when the project has nothing larger (then flagged by chooseImages).
+  assert.deepEqual(heroEligible(a(55, 45), M.night, { width: 2000 }, n, TH, Q.good).reasons, ['original_too_small'])
+  assert.equal(heroEligible(a(55, 45), M.night, { width: 2000 }, n, TH, Q.good, { fallbackWidth: true }).ok, true)
+  // Quality gates: a blurred or a heavily compressed image, or one never measured, is not a hero.
+  assert.deepEqual(heroEligible(a(55, 45), M.night, { width: 4000 }, n, TH, Q.blurred).reasons, ['not_sharp_enough'])
+  assert.deepEqual(heroEligible(a(55, 45), M.night, { width: 4000 }, n, TH, Q.blocky).reasons, ['compression_artefacts'])
+  assert.deepEqual(heroEligible(a(55, 45), M.night, { width: 4000 }, n, TH, null).reasons, ['quality_not_measured'])
+  assert.equal(tierOf(a(55, 45), null, TH, facade).home_ok, false, 'no measurement: never home')
+  // media_active: the frame and the evidence, with reasons.
+  const ma = mediaActive({ ...a(55, 45), night_terms: ['at night'], media_terms: ['media facade'] }, M.night)
+  assert.ok(ma.score >= 60)
+  assert.ok(ma.reasons.includes('dark_frame') && ma.reasons.includes('saturated_light'))
+  assert.equal(mediaActive(a(55, 45), null).reasons[0], 'not_measured')
 })
 
-const cand = (file, m, night, media, width = 4000) => ({ file, source: 'category', a: { ok: true, night, media, evidence: [], kr_fop: false }, m, info: { ...info('The Bay Lights at night 2013.jpg'), file, width }, t: tierOf({ night, media, evidence: [] }, m, TH) })
+const cand = (file, m, night, media, { width = 4000, q = Q.good, provider = 'commons', approved = null, type = 'media_facade' } = {}) => {
+  const i = { ...info('The Bay Lights at night 2013.jpg'), file, width }
+  const c = provider === 'commons' ? commonsCandidate(i, { kr_fop: false }) : { provider, source_id: file, src: 'https://example.org/' + file, page: 'https://example.org/p', sizes: [[width, 'https://example.org/' + file]], width, license: 'CC BY 2.0', author: 'A', usage: 'cache' }
+  return { key: provider === 'commons' ? file : stableImageId(provider, file), file: provider === 'commons' ? file : null, source: 'category', cand: c, a: { ok: true, night, media, evidence: [] }, m, q, width, height: Math.round(width * 2 / 3), approved, identity: { ok: true, method: provider === 'commons' ? 'commons_category_or_item' : 'name_location' }, t: tierOf({ night, media, evidence: [] }, m, TH, { project_type: type, width }) }
+}
 
-test('roles: hero only from the reviewed allowlist and the visual gates; card by tier; gallery of 12, hero first', () => {
+test('roles: hero only when reviewed and through every gate; featured needs a review outside Commons; card by tier and width; gallery of 12', () => {
   const p = { id: 'Q1' }
   const scored = [cand('Day.jpg', M.day, 0, 0), cand('Night.jpg', M.night, 55, 45), cand('Dark.jpg', M.dark, 60, 0), ...Array.from({ length: 14 }, (_, i) => cand(`Extra ${String(i).padStart(2, '0')}.jpg`, M.day, 0, 0))]
   const none = chooseImages(p, scored, { heroAllow: new Set(), blocked: new Set(), galleryMax: 12, th: TH })
-  assert.equal(none.hero, null, 'no hero without the allowlist')
-  assert.equal(none.card.file, 'Night.jpg')
-  assert.equal(none.images.length, 12)
-  assert.deepEqual(none.images.filter((i) => i.role === 'card').map((i) => i.file), ['Night.jpg'])
+  assert.equal(none.hero, null, 'no hero without a review')
+  assert.equal(none.featured.key, 'Night.jpg', 'a Commons image may be featured without a review')
+  assert.equal(none.card.key, 'Night.jpg')
+  assert.equal(none.ordered.length, 12)
+  assert.deepEqual(none.ordered.filter((x) => x.role === 'featured').map((x) => x.s.key), ['Night.jpg'])
+  assert.ok(none.ordered.filter((x) => x.s.t.tier === 5).every((x) => x.role === 'context'))
   const allowDay = chooseImages(p, scored, { heroAllow: new Set(['Q1|Day.jpg', 'Q1|Dark.jpg']), blocked: new Set(), th: TH })
   assert.equal(allowDay.hero, null, 'an allowlisted daytime or dark-only photo is still refused')
   const allowNight = chooseImages(p, scored, { heroAllow: new Set(['Q1|Night.jpg']), blocked: new Set(), th: TH })
-  assert.equal(allowNight.hero.file, 'Night.jpg')
-  assert.equal(allowNight.images[0].role, 'hero')
-  assert.equal(allowNight.images[0].tier, 1)
+  assert.equal(allowNight.hero.key, 'Night.jpg')
+  assert.equal(allowNight.ordered[0].role, 'hero')
   const blocked = chooseImages(p, scored, { heroAllow: new Set(['Q1|Night.jpg']), blocked: new Set(['Night.jpg']), th: TH })
   assert.equal(blocked.hero, null)
-  // Only daytime photos: the card is tier 4 (allowed below the media tiers, never on the home page).
-  const dayOnly = chooseImages(p, [cand('Day.jpg', M.day, 0, 0)], { heroAllow: new Set(), blocked: new Set(), th: TH })
-  assert.equal(dayOnly.card.t.tier, 4)
-  assert.equal(dayOnly.card.t.home_ok, false)
+  // approve_image (approved: true) makes a tier-1/2 image a hero without the allowlist.
+  assert.equal(chooseImages(p, [cand('Night.jpg', M.night, 55, 45, { approved: true })], { heroAllow: new Set(), blocked: new Set(), th: TH }).hero.key, 'Night.jpg')
+  // 1920 px only when nothing larger exists: then flagged below target.
+  const mid = chooseImages(p, [cand('Mid.jpg', M.night, 55, 45, { width: 2000, approved: true })], { heroAllow: new Set(), blocked: new Set(), th: TH })
+  assert.equal(mid.hero.key, 'Mid.jpg')
+  assert.equal(mid.decisions[0].below_target, true)
+  assert.equal(imageObject(mid.hero, 'hero', { project: p, th: TH }).below_target, true)
+  assert.equal(chooseImages(p, [cand('Mid.jpg', M.night, 55, 45, { width: 2000, approved: true }), cand('Big.jpg', M.night, 55, 45, { width: 3000 })], { heroAllow: new Set(), blocked: new Set(), th: TH }).hero, null, 'a larger image exists (not reviewed): the 2000 px one waits')
+  // Featured from another provider only after a review; card prefers ≥ 1200 px.
+  const ov = cand('ov-1', M.night, 55, 45, { provider: 'openverse' })
+  assert.equal(chooseImages(p, [ov], { heroAllow: new Set(), blocked: new Set(), th: TH }).featured, null)
+  assert.ok(chooseImages(p, [ov], { heroAllow: new Set(), blocked: new Set(), th: TH }).featuredDecisions[0].awaiting_review)
+  assert.equal(chooseImages(p, [{ ...ov, approved: true }], { heroAllow: new Set(), blocked: new Set(), th: TH }).featured.key, ov.key)
+  const cards = chooseImages(p, [cand('Small night.jpg', M.night, 55, 45, { width: 900 }), cand('Big day.jpg', M.day, 0, 0, { width: 3000 })], { heroAllow: new Set(), blocked: new Set(), th: TH })
+  assert.equal(cards.card.key, 'Big day.jpg', 'the card needs 1200 px when an image that large exists')
+  assert.equal(chooseImages(p, [cand('Small night.jpg', M.night, 55, 45, { width: 900 })], { heroAllow: new Set(), blocked: new Set(), th: TH }).card.key, 'Small night.jpg', 'a smaller card only when nothing larger exists')
+  // Near-duplicates: the reviewed copy stays, else the larger one.
+  const twinA = { ...cand('Copy A.jpg', M.night, 55, 45, { width: 4000 }), q: { ...Q.good, phash: '0123456789abcdef' } }
+  const twinB = { ...cand('Copy B.jpg', M.night, 55, 45, { width: 1500 }), q: { ...Q.good, phash: '0123456789abcdee' } }
+  const d = chooseImages(p, [twinA, twinB], { heroAllow: new Set(), blocked: new Set(), th: TH })
+  assert.deepEqual(d.duplicates.map((x) => [x.key, x.kept]), [['Copy B.jpg', 'Copy A.jpg']])
+  assert.deepEqual(chooseImages(p, [twinA, { ...twinB, approved: true }], { heroAllow: new Set(), blocked: new Set(), th: TH }).duplicates.map((x) => x.kept), ['Copy B.jpg'])
 })
 
-test('public image objects: licence and author always present, standard thumbnail steps', () => {
+test('image objects: Commons URLs at standard widths without analytics parameters; licence, author, display never wider than the original', () => {
   const i = info('The Bay Lights at night 2013.jpg')
-  const card = publicImage(i, 'card')
-  assert.match(card.thumb, /\/500px-The_Bay_Lights_at_night_2013\.jpg$/)
-  assert.match(card.src, /\/1280px-/)
-  assert.match(publicImage(i, 'hero').src, /\/1920px-/)
-  assert.equal(card.license, 'CC BY-SA 4.0')
-  assert.equal(card.author, 'Fixture Photographer 1')
-  assert.equal(card.attribution, 'Fixture Photographer 1 · CC BY-SA 4.0 · Wikimedia Commons')
-  assert.match(card.page, /^https:\/\/commons\.wikimedia\.org\/wiki\/File:/)
-  const small = publicImage({ ...i, width: 900 }, 'card')
-  assert.equal(small.src, i.url, 'no upscaled thumbnail: a narrow original is used as it is')
-  assert.equal(thumbAt('https://x/thumb/a/ab/F.jpg/330px-F.jpg', 500), 'https://x/thumb/a/ab/F.jpg/500px-F.jpg')
+  const live = { ...i, thumburl: i.thumburl.replace('https://upload.', 'https://thumb.') + '?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail', url: i.url + '?utm_source=x' }
+  const c = commonsCandidate(live, { kr_fop: false })
+  assert.match(c.thumb, /^https:\/\/thumb\.wikimedia\.org\/.+\/500px-The_Bay_Lights_at_night_2013\.jpg$/, 'the host the API names, no utm')
+  assert.equal(c.src, i.url, 'the original file')
+  assert.deepEqual(c.sizes.map(([w]) => w), [330, 500, 960, 1280, 1920, 3840, 4000])
+  assert.ok(c.sizes.every(([, u]) => !/utm_/.test(u)))
+  assert.deepEqual(commonsDisplay({ ...i, width: 900 }).map(([w]) => w), [330, 500, 900], 'a narrow original: smaller steps, then the original')
+  assert.deepEqual(commonsDisplay({ ...i, width: 5000, size: 20e6 }).map(([w]) => w), [330, 500, 960, 1280, 1920, 3840], 'a heavy original is not a display size')
+  assert.equal(cleanMediaUrl('https://x.org/a.jpg?utm_source=a&w=3'), 'https://x.org/a.jpg?w=3')
+  assert.equal(thumbAt('https://x/thumb/a/ab/F.jpg/330px-F.jpg?utm_content=thumbnail', 960), 'https://x/thumb/a/ab/F.jpg/960px-F.jpg')
+  const s = cand('The Bay Lights at night 2013.jpg', M.night, 55, 45)
+  const o = imageObject(s, 'card', { project: { id: 'Q7715933' }, checkedAt: '2026-10-20', th: TH })
+  assert.equal(o.id, stableImageId('commons', 'The Bay Lights at night 2013.jpg'))
+  assert.equal(o.project, 'Q7715933')
+  assert.equal(o.license, 'CC BY-SA 4.0')
+  assert.equal(o.author, 'Fixture Photographer 1')
+  assert.equal(o.attribution, 'Fixture Photographer 1 · CC BY-SA 4.0 · Wikimedia Commons')
+  assert.equal(o.usage, 'cache')
+  assert.deepEqual(o.quality, { sharpness: 80, blockiness: 3, score: 88 })
+  assert.equal(o.tier, 1)
+  assert.equal(o.approved, null)
+  assert.ok(!('identity' in o), 'Commons images prove identity by their category or item')
+  assert.ok(o.display.every(([w]) => w <= o.width))
+  const ov = imageObject({ ...cand('ov-1', M.night, 55, 45, { provider: 'openverse', width: 2048 }), cand: { provider: 'openverse', source_id: 'ov-1', src: 'https://live.staticflickr.com/1_k.jpg', page: 'https://www.flickr.com/photos/a/1/', sizes: [[2048, 'https://live.staticflickr.com/1_k.jpg'], [4096, 'https://too.big/x.jpg']], license: 'CC BY 2.0', author: 'A', usage: 'hotlink' } }, 'gallery', { project: { id: 'Q1' } })
+  assert.deepEqual(ov.display, [[2048, 'https://live.staticflickr.com/1_k.jpg']], 'never wider than the original')
+  assert.equal(ov.identity.method, 'name_location')
+  assert.equal(ov.attribution, 'A · CC BY 2.0 · Openverse')
 })
 
 test('contact sheets: a JPEG grid with ASCII labels, missing images drawn as grey tiles', needSharp, async () => {

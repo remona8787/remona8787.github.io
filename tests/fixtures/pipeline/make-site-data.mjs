@@ -6,12 +6,12 @@ import { mkdtemp, rm, cp } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { runPipeline } from '../../../pipeline/run.mjs'
-import { fixtureEnvironment, FIXTURE_OVERRIDES } from './fake-fetch.mjs'
+import { fixtureEnvironment, FIXTURE_OVERRIDES, FIXTURE_ENV } from './fake-fetch.mjs'
 
 const here = import.meta.dirname
 const dir = await mkdtemp(path.join(tmpdir(), 'aol-fixture-run-'))
 const env = fixtureEnvironment({ start: Date.parse('2026-10-20T06:17:00Z') })
-const r = await runPipeline({ dataDir: dir, editorialDir: path.join(here, 'editorial'), fetch: env.fetch, clock: env.clock, sleep: env.sleep, overrides: FIXTURE_OVERRIDES, log: () => {} })
+const r = await runPipeline({ dataDir: dir, editorialDir: path.join(here, 'editorial'), fetch: env.fetch, clock: env.clock, sleep: env.sleep, overrides: FIXTURE_OVERRIDES, env: FIXTURE_ENV, log: () => {} })
 for (const d of ['site-data', 'admin-data']) {
   await rm(path.join(here, d), { recursive: true, force: true })
   await cp(path.join(dir, d), path.join(here, d), { recursive: true })

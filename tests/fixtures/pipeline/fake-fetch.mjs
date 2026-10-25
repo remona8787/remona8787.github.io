@@ -21,7 +21,8 @@ export function loadFixtures() {
   const wikis = {}
   for (const f of readdirSync(path.join(DIR, 'wikipedia'))) wikis[f.replace(/\.json$/, '')] = read('wikipedia/' + f)
   const classes = JSON.parse(readFileSync(path.join(DIR, '../../../pipeline/config/classes.json'), 'utf8'))
-  return { entities, categories, files, thumbs, wikis, search: read('commons/search.json'), links: read('links.json'), overpass: read('overpass.json'), gdelt: read('web/gdelt.json'), feed: readFileSync(path.join(DIR, 'web/feed.xml'), 'utf8'), properties: classes.properties }
+  return { entities, categories, files, thumbs, wikis, search: read('commons/search.json'), links: read('links.json'), overpass: read('overpass.json'), gdelt: read('web/gdelt.json'), feed: readFileSync(path.join(DIR, 'web/feed.xml'), 'utf8'), properties: classes.properties, tourapi: read('tourapi/korservice2.json'),
+    openverse: read('providers/openverse.json'), flickr: read('providers/flickr.json'), providerImages: read('providers/images.json') }
 }
 
 const FIX = loadFixtures()
@@ -34,6 +35,9 @@ export const FIXTURE_OVERRIDES = {
   },
 }
 
+// The keys of a fixture run (never real keys): the keyed sources and image providers answer from the fixtures.
+export const FIXTURE_ENV = { TOURAPI_SERVICE_KEY: 'fixture-tourapi-key', FLICKR_API_KEY: 'fixture-flickr-key' }
+
 const jsonRes = (v, { status = 200, type = 'application/json; charset=utf-8', headers = {} } = {}) => new Response(JSON.stringify(v), { status, headers: { 'content-type': type, ...headers } })
 const normTitle = (t) => String(t || '').replace(/_/g, ' ').trim()
 const TEMPLATE_PAGE = 12 // templates per response (the real API: 500); small so continuation is exercised
@@ -43,7 +47,8 @@ function sparql(body) {
   const kind = /#aol:([a-z-]+)(?: (Q\d+))?/.exec(query)
   if (!kind) return jsonRes({ head: { vars: [] }, results: { bindings: [] } }, { type: 'application/sparql-results+json' })
   const [, k, q] = kind
-  if (k === 'class-count' || k === 'class-instances') {
+  if (k === 'kr-divisions') return jsonRes(read('wikidata/sparql/kr-divisions.json'), { type: 'application/sparql-results+json' })
+  if (k === 'class-count' || k === 'class-instances' || k === 'kr-class-instances') {
     const f = `wikidata/sparql/${k}-${q}.json`
     if (existsSync(path.join(DIR, f))) return jsonRes(read(f), { type: 'application/sparql-results+json' })
     return jsonRes(k === 'class-count' ? { head: { vars: ['instances', 'with_coords'] }, results: { bindings: [{ instances: { datatype: 'http://www.w3.org/2001/XMLSchema#integer', type: 'literal', value: '0' }, with_coords: { datatype: 'http://www.w3.org/2001/XMLSchema#integer', type: 'literal', value: '0' } }] } } : { head: { vars: ['item'] }, results: { bindings: [] } }, { type: 'application/sparql-results+json' })
@@ -112,7 +117,7 @@ function commons(p, state) {
     return jsonRes({ batchcomplete: true, query: { searchinfo: { totalhits: list.length }, search: list } })
   }
   if (p.get('list') === 'search') {
-    const term = /intitle:"(.+)"/.exec(p.get('srsearch') || '')?.[1] || ''
+    const term = [...(p.get('srsearch') || '').matchAll(/intitle:"([^"]+)"/g)].map((m) => m[1]).join(' + ')
     const list = (FIX.search.category[term] || []).map((title, i) => ({ ns: 14, title, pageid: FIX.categories.get(title)?.page.pageid ?? 1000 + i, size: 0, wordcount: 0, snippet: '', timestamp: '2025-01-01T00:00:00Z' }))
     return jsonRes({ batchcomplete: true, query: { searchinfo: { totalhits: list.length }, search: list } })
   }
@@ -184,6 +189,20 @@ function wikipedia(lang, p) {
   return jsonRes({ batchcomplete: true, query: { pages: titles.map((t) => w.pages.find((x) => x.title === t) || { ns: 0, title: t, missing: true }) } })
 }
 
+const goEnvelope = (items, total = items.length, page = 1, rows = 10) => jsonRes({ response: { header: { resultCode: '0000', resultMsg: 'OK' }, body: { items: items.length ? { item: items } : '', numOfRows: rows, pageNo: page, totalCount: total } } })
+/** apis.data.go.kr: TourAPI KorService2 and PhotoGalleryService1 (a wrong key gets the gateway's error header). */
+function dataGoKr(u) {
+  const p = u.searchParams, T = FIX.tourapi
+  if (p.get('serviceKey') !== FIXTURE_ENV.TOURAPI_SERVICE_KEY) return jsonRes({ response: { header: { resultCode: '30', resultMsg: 'SERVICE_KEY_IS_NOT_REGISTERED_ERROR' } } })
+  if (p.get('_type') !== 'json' || !p.get('MobileOS') || !p.get('MobileApp')) return jsonRes({ response: { header: { resultCode: '10', resultMsg: 'INVALID_REQUEST_PARAMETER_ERROR' } } })
+  const op = u.pathname.split('/').pop(), page = Number(p.get('pageNo') || 1), rows = Number(p.get('numOfRows') || 10)
+  if (op === 'searchKeyword2') { const all = page > 1 ? [] : T.search[`${p.get('keyword')}|${p.get('contentTypeId') || ''}`] || []; return goEnvelope(all, all.length, page, rows) }
+  if (op === 'detailCommon2') { const it = T.common[p.get('contentId')]; return goEnvelope(it ? [it] : []) }
+  if (op === 'detailImage2') return goEnvelope(T.images[p.get('contentId')] || [])
+  if (op === 'gallerySearchList1') return goEnvelope(T.gallery[p.get('keyword')] || [])
+  return jsonRes({ response: { header: { resultCode: '04', resultMsg: 'HTTP_ROUTING_ERROR' } } })
+}
+
 function linkCheck(u, method) {
   const host = FIX.links.hosts[u.hostname] || FIX.links.default
   if (u.pathname === '/robots.txt') return new Response(host.robots ?? '', { status: host.robots === '' ? 404 : 200, headers: { 'content-type': 'text/plain' } })
@@ -232,11 +251,35 @@ export function fixtureEnvironment({ start = Date.parse('2026-10-20T06:17:00Z'),
     if (u.host === 'www.wikidata.org' && p.get('action') === 'wbgetentities') return wbgetentities(p)
     if (u.host === 'commons.wikimedia.org' && u.pathname === '/w/api.php') return commons(p, state)
     if (/^[a-z-]+\.wikipedia\.org$/.test(u.host) && u.pathname === '/w/api.php') return wikipedia(u.host.split('.')[0], p)
-    if (u.host === 'upload.wikimedia.org') {
-      const base = url.replace(/\/\d+px-([^/]+)$/, '/330px-$1')
+    if (u.host === 'upload.wikimedia.org' || u.host === 'thumb.wikimedia.org') {
+      // Like the CDN: standard thumbnail widths only; 960 px and wider get the large rendition of the scene, the
+      // original file path too (its bytes stand in for the original).
+      const clean = url.replace(/\?.*$/, '')
+      const w = Number(/\/(\d+)px-[^/]+$/.exec(clean)?.[1] || 0)
+      if (w && ![120, 250, 330, 500, 960, 1280, 1920, 3840].includes(w)) return new Response('non-standard width', { status: 400 })
+      const base = w ? clean.replace(/^https:\/\/thumb\./, 'https://upload.').replace(/\/\d+px-([^/]+)$/, '/330px-$1') : [...FIX.files.values()].find((f) => f.page.imageinfo[0].url === clean.replace(/^https:\/\/thumb\./, 'https://upload.'))?.page.imageinfo[0].thumburl
       const thumb = FIX.thumbs.get(base)
-      return thumb ? new Response(readFileSync(path.join(DIR, thumb)), { status: 200, headers: { 'content-type': 'image/jpeg' } }) : new Response('not found', { status: 404 })
+      if (!thumb) return new Response('not found', { status: 404 })
+      const file = w && w < 960 ? thumb : thumb.replace(/^thumbs\/(.+)\.jpg$/, 'renditions/$1-960.jpg')
+      return new Response(readFileSync(path.join(DIR, file)), { status: 200, headers: { 'content-type': 'image/jpeg' } })
     }
+    if (FIX.providerImages[url]) return new Response(readFileSync(path.join(DIR, 'renditions', FIX.providerImages[url] + '.jpg')), { status: 200, headers: { 'content-type': 'image/jpeg' } })
+    if (u.host === 'api.openverse.org' && u.pathname === '/v1/images/') {
+      const results = FIX.openverse[p.get('q')] || []
+      if (p.get('license') !== 'cc0,pdm,by,by-sa') return jsonRes({ detail: 'fixture: unexpected licence filter' }, { status: 400 })
+      return jsonRes({ result_count: results.length, page_count: results.length ? 1 : 0, page_size: Number(p.get('page_size') || 20), page: 1, results }, { headers: { 'x-ratelimit-limit-anon_burst': '20/min', 'x-ratelimit-available-anon_burst': '19' } })
+    }
+    if (u.host === 'api.flickr.com') {
+      if (p.get('api_key') !== FIXTURE_ENV.FLICKR_API_KEY) return jsonRes({ stat: 'fail', code: 100, message: 'Invalid API Key (Key has invalid format)' })
+      if (p.get('method') === 'flickr.photos.licenses.getInfo') return jsonRes(FIX.flickr.licenses)
+      if (p.get('method') === 'flickr.photos.search') {
+        const allowed = new Set((p.get('license') || '').split(','))
+        const photo = (FIX.flickr.search[p.get('text')] || []).filter((x) => allowed.has(String(x.license)))
+        return jsonRes({ photos: { page: 1, pages: 1, perpage: 30, total: photo.length, photo }, stat: 'ok' })
+      }
+      return jsonRes({ stat: 'fail', code: 112, message: 'Method not found' })
+    }
+    if (u.host === 'apis.data.go.kr') return dataGoKr(u)
     if (u.host === 'api.gdeltproject.org') return jsonRes(FIX.gdelt)
     if (u.host === 'www.dezeen.com' && u.pathname === '/feed/') {
       if (headers.get('if-none-match') === '"fixture-feed-1"') return new Response(null, { status: 304, headers: { etag: '"fixture-feed-1"' } })

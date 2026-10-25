@@ -1,0 +1,169 @@
+{
+ "pageid": 99000501,
+ "ns": 0,
+ "title": "Q99000501",
+ "lastrevid": 2400000501,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000501",
+ "labels": {
+  "ko": {
+   "language": "ko",
+   "value": "픽스처 미디어아트 뮤지엄 부산"
+  },
+  "en": {
+   "language": "en",
+   "value": "Fixture Media Art Museum Busan"
+  }
+ },
+ "descriptions": {
+  "ko": {
+   "language": "ko",
+   "value": "부산 해운대구의 미디어아트 전시관"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "98d8f253ab5364c2968dad7f44bb4d5c",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 33506,
+       "id": "Q33506"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000501$98d8f253-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "5e3a9f811e20de199985e276f46a73a9",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000501$5e3a9f81-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "cc8dba58d73862b0516dec2d5588893a",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000413,
+       "id": "Q99000413"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000501$cc8dba58-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "455c801b2c075744875bc75a1c20ce03",
+     "datavalue": {
+      "value": {
+       "latitude": 35.1601,
+       "longitude": 129.1636,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q99000501$455c801b-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "8ad48a53c113e9055870052982457f5e",
+     "datavalue": {
+      "value": {
+       "time": "+2021-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q99000501$8ad48a53-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P373": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P373",
+     "hash": "d91916e1cd0d994808b316ae9177f0c3",
+     "datavalue": {
+      "value": "Fixture Media Art Museum Busan",
+      "type": "string"
+     },
+     "datatype": "string"
+    },
+    "type": "statement",
+    "id": "Q99000501$d91916e1-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "kowiki": {
+   "site": "kowiki",
+   "title": "픽스처 미디어아트 뮤지엄 부산",
+   "badges": [],
+   "url": "https://ko.wikipedia.org/wiki/%ED%94%BD%EC%8A%A4%EC%B2%98_%EB%AF%B8%EB%94%94%EC%96%B4%EC%95%84%ED%8A%B8_%EB%AE%A4%EC%A7%80%EC%97%84_%EB%B6%80%EC%82%B0"
+  },
+  "commonswiki": {
+   "site": "commonswiki",
+   "title": "Category:Fixture Media Art Museum Busan",
+   "badges": [],
+   "url": "https://commons.wikimedia.org/wiki/Category:Fixture_Media_Art_Museum_Busan"
+  }
+ }
+}

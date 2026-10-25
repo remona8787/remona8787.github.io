@@ -4,9 +4,11 @@
 // source is null. docs/PIPELINE.md documents every field.
 import T from '../../site-public-cleared/archive-taxonomy.js'
 import { fnv1a, round, compareStrings, sha256, stableStringify } from './util.mjs'
+import { stableImageId, cleanMediaUrl, THUMB_STEPS } from './images.mjs'
 
 export const DATA_SCHEMA = 1
-export const INDEX_FIELDS = ['id', 'name_ko', 'name_en', 'name_original', 'country_iso2', 'city', 'lat', 'lng', 'project_type', 'year', 'thumb', 'visual_rank', 'shard', 'added_at']
+// The v0.17 fields first (readers find columns by name), then v0.18: kr_region, and the thumbnail's size.
+export const INDEX_FIELDS = ['id', 'name_ko', 'name_en', 'name_original', 'country_iso2', 'city', 'lat', 'lng', 'project_type', 'year', 'thumb', 'visual_rank', 'shard', 'added_at', 'kr_region', 'thumb_w', 'thumb_h']
 export const SHARD_TARGET = 200
 
 /** Number of shards: a power of two, so ids move between shards only when the archive doubles. */
@@ -20,14 +22,61 @@ export const shardOf = (id, count) => String(fnv1a(id) % count).padStart(3, '0')
 const coord = (v) => (typeof v === 'number' && Number.isFinite(v) ? round(v, 5) : null)
 const yearOf = (r) => r.year_installed ?? r.year_completed ?? r.year_operating_since ?? null
 
-/** The public image object (what the record, the home picks and the index use). */
+/**
+ * The public image object (docs/STATIC_ARCHIVE.md v0.18 "Data fields"; what the records, the home picks and the index
+ * use), with a fixed key order. thumb and attribution are kept for the v0.17 app.
+ */
 export function imageOut(img) {
   if (!img) return null
   return {
-    thumb: img.thumb, src: img.src, page: img.page, license: img.license, license_url: img.license_url ?? null,
-    author: img.author ?? null, attribution: img.attribution ?? null, role: img.role, tier: img.tier,
-    width: img.width ?? null, height: img.height ?? null,
+    id: img.id, project: img.project ?? null, provider: img.provider, src: img.src, page: img.page, display: img.display || [], thumb: img.thumb,
+    author: img.author ?? null, rights_holder: img.rights_holder ?? null, license: img.license, license_url: img.license_url ?? null, attribution: img.attribution ?? null,
+    usage: img.usage, ...(img.no_derivatives ? { no_derivatives: true } : {}), ...(img.permission_note ? { permission_note: img.permission_note } : {}),
+    width: img.width ?? null, height: img.height ?? null, bytes: img.bytes ?? null, format: img.format ?? null,
+    quality: img.quality ?? null, media_active: img.media_active ?? null, tier: img.tier, role: img.role,
+    ...(img.identity ? { identity: img.identity } : {}), ...(img.below_target ? { below_target: true } : {}),
+    checked_at: img.checked_at ?? null, approved: img.approved ?? null,
   }
+}
+
+/**
+ * A v0.17 image object (Commons only: thumb, src, page, licence, author, attribution, role hero|card|detail, tier 1–4)
+ * as a v0.18 one, so a previous record that is carried over (or whose images are kept) stays valid. The original file
+ * URL is derived from the thumbnail path; tier 4 (context) becomes 5; detail becomes gallery or context.
+ */
+export function upgradeImage(img, projectId) {
+  if (!img || (img.id && img.provider)) return img
+  const page = String(img.page || '')
+  const file = page.includes('File:') ? decodeURIComponent(page.split('File:')[1]).replace(/_/g, ' ') : img.src
+  const thumb = cleanMediaUrl(img.thumb)
+  const m = /^https:\/\/(?:upload|thumb)\.wikimedia\.org\/wikipedia\/([a-z-]+)\/thumb\/([0-9a-f])\/([0-9a-f]{2})\/([^/?#]+)\//.exec(thumb || cleanMediaUrl(img.src) || '')
+  const original = m ? `https://upload.wikimedia.org/wikipedia/${m[1]}/${m[2]}/${m[3]}/${m[4]}` : cleanMediaUrl(img.src)
+  const w = img.width || 0
+  const base = thumb && /\/\d+px-[^/?#]+$/.test(thumb) ? thumb : null
+  const display = base ? THUMB_STEPS.filter((s) => s >= 330 && s < w).map((s) => [s, base.replace(/\/\d+px-([^/?#]+)$/, `/${s}px-$1`)]) : []
+  const tier = img.tier === 4 ? 5 : Number.isInteger(img.tier) ? img.tier : 5
+  const role = img.role === 'detail' ? (tier >= 5 ? 'context' : 'gallery') : img.role || 'gallery'
+  return {
+    id: stableImageId('commons', file), project: projectId, provider: 'commons', src: original, page: img.page, display, thumb: thumb || original,
+    author: img.author ?? null, rights_holder: img.author ?? null, license: img.license, license_url: img.license_url ?? null, attribution: img.attribution ?? null,
+    usage: 'cache', width: img.width ?? null, height: img.height ?? null, bytes: null, format: null,
+    quality: null, media_active: { score: 0, reasons: ['legacy_v017'] }, tier, role, checked_at: null, approved: role === 'hero' ? true : null,
+  }
+}
+
+/** A previously published record in the v0.18 shape (images upgraded, kr_region present). */
+export function upgradeRecord(r) {
+  if (!r) return r
+  return { ...r, kr_region: r.kr_region ?? null, images: (r.images || []).map((i) => upgradeImage(i, r.id)) }
+}
+
+/** The width and height of an image's thumb rendition (from its display list, or the "/<w>px-" of a Commons URL). */
+export function thumbSize(img) {
+  if (!img?.thumb) return [null, null]
+  const d = (img.display || []).find(([, u]) => u === img.thumb)
+  const w = d ? d[0] : Number(/\/(\d+)px-[^/?#]+(?:[?#]|$)/.exec(img.thumb)?.[1]) || (img.thumb === img.src ? img.width : null)
+  if (!w) return [null, null]
+  return [w, img.width && img.height ? Math.round(w * img.height / img.width) : null]
 }
 
 // Field names of the build step → the public record's names (field_sources names the record's own fields).
@@ -51,6 +100,7 @@ export function publicRecord(p, { shard, addedAt }) {
     aliases: p.aliases || [],
     country_iso2: p.country_iso2 ?? null,
     region: p.region ?? null,
+    kr_region: p.country_iso2 === 'KR' ? p.kr_region ?? null : null,
     city: p.city ?? null,
     city_ko: p.city_ko ?? null,
     district: p.district ?? null,
@@ -102,17 +152,23 @@ export function periodText(period) {
 // Reader rule (docs/PIPELINE.md): a thumb that is not an https URL is template.replace('{path}', thumb)
 // .replace('{file}', last path segment). Below the threshold every thumb is a full https URL.
 export const THUMB_TEMPLATE = 'https://upload.wikimedia.org/wikipedia/commons/thumb/{path}/500px-{file}'
-const COMMONS_THUMB = /^https:\/\/upload\.wikimedia\.org\/wikipedia\/commons\/thumb\/([0-9a-f]\/[0-9a-f]{2}\/([^/]+))\/500px-([^/]+)$/
+// Wikimedia now names thumb.wikimedia.org for thumbnails; upload.wikimedia.org serves the same paths (the old URLs keep
+// working), and the template stays on the host the v0.17 app accepts.
+const COMMONS_THUMB = /^https:\/\/(?:upload|thumb)\.wikimedia\.org\/wikipedia\/commons\/thumb\/([0-9a-f]\/[0-9a-f]{2}\/([^/]+))\/500px-([^/]+)$/
 export const compactThumb = (url) => { const m = COMMONS_THUMB.exec(url || ''); return m && m[2] === m[3] ? m[1] : url }
 export const expandThumb = (thumb, template) => (thumb && template && !/^https:/.test(thumb) ? template.replace('{path}', thumb).replace('{file}', thumb.slice(thumb.lastIndexOf('/') + 1)) : thumb)
 
-/** index.json: compact rows (the card image's thumbnail and tier: 1 media active at night … 4 context). */
+/** The card image of a record: the card, else the featured or the hero image. */
+export const cardOf = (r) => r.images.find((i) => i.role === 'card') || r.images.find((i) => i.role === 'featured') || r.images.find((i) => i.role === 'hero') || null
+
+/** index.json: compact rows (the card image's thumbnail, its size, and its tier: 1 media facade running … 5 architectural). */
 export function buildIndex(records, { compactAboveBytes = 512 * 1024 } = {}) {
   const rows = records.map((r) => {
-    const card = r.images.find((i) => i.role === 'card') || r.images.find((i) => i.role === 'hero') || null
+    const card = cardOf(r)
+    const [tw, th] = thumbSize(card)
     return [r.id, r.name_ko, r.name_en, r.name_original && r.name_original !== r.name_en && r.name_original !== r.name_ko ? r.name_original : null,
       r.country_iso2, r.city, r.lat === null ? null : round(r.lat, 4), r.lng === null ? null : round(r.lng, 4), r.project_type, yearOf(r),
-      card?.thumb ?? null, card?.tier ?? null, r.shard, r.added_at ? r.added_at.slice(0, 10) : null]
+      card?.thumb ?? null, card?.tier ?? null, r.shard, r.added_at ? r.added_at.slice(0, 10) : null, r.kr_region ?? null, card ? tw : null, card ? th : null]
   })
   const full = { schema: DATA_SCHEMA, fields: INDEX_FIELDS, rows }
   if (Buffer.byteLength(JSON.stringify(full)) <= compactAboveBytes) return full
@@ -121,42 +177,82 @@ export function buildIndex(records, { compactAboveBytes = 512 * 1024 } = {}) {
 }
 
 const compact = (r, image) => ({
-  id: r.id, name_ko: r.name_ko, name_en: r.name_en, name_original: r.name_original, country_iso2: r.country_iso2, city: r.city,
+  id: r.id, name_ko: r.name_ko, name_en: r.name_en, name_original: r.name_original, country_iso2: r.country_iso2, kr_region: r.kr_region ?? null, city: r.city,
   lat: r.lat, lng: r.lng, project_type: r.project_type, year: yearOf(r), shard: r.shard, ...(r.curated_place_id ? { curated_place_id: r.curated_place_id } : {}),
   ...(r.wikidata ? { wikidata: r.wikidata } : {}), added_at: r.added_at, image: image ? imageOut(image) : null,
 })
 
+// Korean exhibitions, festivals and media art (the home section "국내 미디어아트·전시").
+const PROGRAM_TYPES = new Set(['festival_program', 'media_architecture', 'interactive_installation'])
+const VISIT_FIRST = { operating: 0, seasonal: 1, event_based: 2 }
+
 /**
- * home.json: hero slides (allowlisted, media visibly running at night), featured projects, region and type collections
- * with counts and a representative image, recently added projects, and the compact record of every project named.
- * Only images that passed the home rule (homeOk: active media in a dark frame) appear here; a project without one is
- * shown with the designed placeholder (image null). A daytime photo never reaches the home page.
- * @param {any[]} records public records @param {Map<string, {hero: any|null, home: any|null, score: number}>} picks per project id
+ * home.json (docs/STATIC_ARCHIVE.md v0.18 "Home and navigation"): Korean first.
+ *  - hero: approved hero images (tier 1–2, editorial/hero.json, set_hero or approve_image); at least 70 % Korean when
+ *    any Korean hero exists (foreign slides ≤ 3/7 of the Korean ones);
+ *  - kr_regions: the eight Korean regions with counts, a representative image and their top projects;
+ *  - kr_featured: Korean projects by the strength of their home image (then curated ones without one: the designed
+ *    placeholder, never a daytime photo);
+ *  - kr_programs: Korean exhibitions, festivals and media art (running ones first);
+ *  - world: worldwide highlights (about a quarter of the home picks) with the world counts;
+ *  - counts: projects, countries, with_images, korea, world, by_kr_region;
+ *  - kept for the v0.17 app: featured (Korean first), regions, types, themes, recent and projects (the compact record of
+ *    every id named, with its home image).
+ * Images here passed the home rule (active media in a dark frame) and carry their display sizes (up to 1920 px and,
+ * when the original allows it, 2560/3840).
+ * @param {any[]} records @param {Map<string, {hero: any|null, featured?: any|null, home: any|null, score: number}>} picks
  */
-export function buildHome(records, picks, { buildId, generatedAt, heroMax = 6, featuredMax = 12, recentMax = 8 }) {
+export function buildHome(records, picks, { buildId, generatedAt, heroMax = 6, featuredMax = 12, recentMax = 8, krShare = 0.7, regionTop = 6, programsMax = 12, worldMax = 8 }) {
   const named = new Map()
   const name = (r, image) => { if (!named.has(r.id) || (image && !named.get(r.id).image)) named.set(r.id, compact(r, image)); return r.id }
   const homeImage = (r) => picks.get(r.id)?.home || null
   const score = (r) => picks.get(r.id)?.score ?? 0
-  const ranked = records.filter((r) => homeImage(r)).sort((a, b) => score(b) - score(a) || compareStrings(a.id, b.id))
+  const byScore = (a, b) => score(b) - score(a) || compareStrings(a.id, b.id)
+  const kr = (r) => r.country_iso2 === 'KR'
+  const ranked = records.filter((r) => homeImage(r)).sort(byScore)
 
-  const hero = []
-  for (const r of records.filter((x) => picks.get(x.id)?.hero).sort((a, b) => score(b) - score(a) || compareStrings(a.id, b.id))) {
-    if (hero.length >= heroMax) break
-    const img = picks.get(r.id).hero
-    hero.push({ project: name(r, img), image: imageOut(img) })
-  }
+  // Hero: Korean first, at least krShare Korean when any Korean hero exists.
+  const heroes = records.filter((x) => picks.get(x.id)?.hero).sort(byScore)
+  const krHeroes = heroes.filter(kr), worldHeroes = heroes.filter((r) => !kr(r))
+  const krN = Math.min(krHeroes.length, heroMax)
+  const worldN = krN ? Math.min(worldHeroes.length, heroMax - krN, Math.floor(krN * (1 - krShare) / krShare)) : Math.min(worldHeroes.length, heroMax)
+  const hero = [...krHeroes.slice(0, krN), ...worldHeroes.slice(0, worldN)].map((r) => { const img = picks.get(r.id).hero; return { project: name(r, img), image: imageOut(img) } })
   const heroIds = new Set(hero.map((h) => h.project))
-  // Featured: the strongest home images, at most two per country and three per type, so the home page shows range.
-  const featured = [], perCountry = {}, perType = {}
-  for (const r of ranked) {
-    if (featured.length >= featuredMax) break
-    if (heroIds.has(r.id)) continue
-    if ((perCountry[r.country_iso2] || 0) >= 2 || (perType[r.project_type] || 0) >= 3) continue
-    perCountry[r.country_iso2] = (perCountry[r.country_iso2] || 0) + 1
-    perType[r.project_type] = (perType[r.project_type] || 0) + 1
-    featured.push(name(r, homeImage(r)))
+
+  // Korean featured: the strongest home images, then curated places without one (placeholder).
+  const krFeatured = []
+  for (const r of ranked.filter(kr)) { if (krFeatured.length >= featuredMax) break; if (!heroIds.has(r.id)) krFeatured.push(name(r, homeImage(r))) }
+  for (const r of records.filter((x) => kr(x) && !homeImage(x) && x.curated_place_id && ['media_facade', 'media_wall', 'projection_mapping'].includes(x.project_type)).sort((a, b) => compareStrings(a.id, b.id))) {
+    if (krFeatured.length >= featuredMax) break
+    if (!heroIds.has(r.id) && !krFeatured.includes(r.id)) krFeatured.push(name(r, null))
   }
+  // Korean regions: all eight, with counts, the region's strongest home image and its top projects.
+  const krRegions = T.keys('kr_region').map((key) => {
+    const inRegion = records.filter((r) => r.kr_region === key)
+    const top = [...inRegion].sort((a, b) => (homeImage(b) ? 1 : 0) - (homeImage(a) ? 1 : 0) || byScore(a, b)).slice(0, regionTop)
+    const rep = inRegion.filter((r) => homeImage(r)).sort(byScore)[0] || null
+    return { key, count: inRegion.length, project: rep ? name(rep, homeImage(rep)) : null, image: rep ? imageOut(homeImage(rep)) : null, projects: top.map((r) => name(r, homeImage(r))) }
+  })
+  // Korean exhibitions, festivals and media art: running ones first, then by image strength.
+  const krPrograms = records.filter((r) => kr(r) && PROGRAM_TYPES.has(r.project_type))
+    .sort((a, b) => (VISIT_FIRST[a.visit?.status] ?? 9) - (VISIT_FIRST[b.visit?.status] ?? 9) || (homeImage(b) ? 1 : 0) - (homeImage(a) ? 1 : 0) || byScore(a, b))
+    .slice(0, programsMax).map((r) => name(r, homeImage(r)))
+  // World highlights: at most two per country.
+  const worldHighlights = [], perWorld = {}
+  for (const r of ranked.filter((x) => !kr(x))) {
+    if (worldHighlights.length >= worldMax) break
+    if (heroIds.has(r.id) || (perWorld[r.country_iso2] || 0) >= 2) continue
+    perWorld[r.country_iso2] = (perWorld[r.country_iso2] || 0) + 1
+    worldHighlights.push(name(r, homeImage(r)))
+  }
+  // v0.17 featured: Korean first (about three quarters), then the world highlights; two per country and three per type.
+  const featured = [], perCountry = {}, perType = {}
+  const krSlots = Math.round(featuredMax * 0.75)
+  const takeFeatured = (list, limit) => { for (const r of list) { if (featured.length >= limit) break; if (heroIds.has(r.id) || featured.includes(r.id)) continue; if (!kr(r) && ((perCountry[r.country_iso2] || 0) >= 2)) continue; if ((perType[r.project_type] || 0) >= (kr(r) ? 6 : 3)) continue; perCountry[r.country_iso2] = (perCountry[r.country_iso2] || 0) + 1; perType[r.project_type] = (perType[r.project_type] || 0) + 1; featured.push(name(r, homeImage(r))) } }
+  takeFeatured(ranked.filter(kr), krSlots)
+  takeFeatured(ranked.filter((r) => !kr(r)), featuredMax)
+  takeFeatured(ranked.filter(kr), featuredMax)
+
   const group = (keyOf, vocab) => {
     const counts = new Map()
     for (const r of records) { const k = keyOf(r); if (k && T.valid(vocab, k)) counts.set(k, (counts.get(k) || 0) + 1) }
@@ -167,14 +263,21 @@ export function buildHome(records, picks, { buildId, generatedAt, heroMax = 6, f
   }
   const regions = group((r) => r.region, 'region')
   const types = group((r) => r.project_type, 'project_type')
-  const recent = [...records].sort((a, b) => compareStrings(b.added_at || '', a.added_at || '') || compareStrings(a.id, b.id)).slice(0, recentMax).map((r) => name(r, homeImage(r)))
+  const recent = [...records].sort((a, b) => (kr(b) ? 1 : 0) - (kr(a) ? 1 : 0) || compareStrings(b.added_at || '', a.added_at || '') || compareStrings(a.id, b.id)).slice(0, recentMax).map((r) => name(r, homeImage(r)))
   const countries = new Set(records.map((r) => r.country_iso2).filter(Boolean))
+  const korea = records.filter(kr)
   const projects = {}
   for (const id of [...named.keys()].sort()) { const { id: _, ...rest } = named.get(id); projects[id] = rest }
   return {
     schema: DATA_SCHEMA, build_id: buildId, generated_at: generatedAt,
-    counts: { projects: records.length, countries: countries.size, with_images: records.filter((r) => r.images.length).length },
-    hero, featured, regions, types, themes: [], recent, projects,
+    counts: {
+      projects: records.length, countries: countries.size, with_images: records.filter((r) => r.images.length).length,
+      korea: korea.length, korea_with_images: korea.filter((r) => r.images.length).length, world: records.length - korea.length, world_countries: new Set(records.filter((r) => !kr(r)).map((r) => r.country_iso2)).size,
+      by_kr_region: Object.fromEntries(T.keys('kr_region').map((k) => [k, records.filter((r) => r.kr_region === k).length])),
+    },
+    hero, kr_regions: krRegions, kr_featured: krFeatured, kr_programs: krPrograms,
+    world: { highlights: worldHighlights, count: records.length - korea.length, countries: new Set(records.filter((r) => !kr(r)).map((r) => r.country_iso2)).size },
+    featured, regions, types, themes: [], recent, projects,
   }
 }
 
@@ -200,6 +303,7 @@ export function buildStats(records, { buildId, generatedAt }) {
     },
     by_type: tally(records, (r) => r.project_type),
     by_region: tally(records, (r) => r.region),
+    by_kr_region: tally(records, (r) => r.kr_region),
     by_country: tally(records, (r) => r.country_iso2),
     by_decade: tally(records, (r) => { const y = yearOf(r); return y ? String(Math.floor(y / 10) * 10) + 's' : null }),
     by_year: tally(records, (r) => yearOf(r)),
@@ -223,6 +327,9 @@ export function buildManifest({ buildId, generatedAt, records, shards, sources }
       by_type: tally(records, (r) => r.project_type),
       by_region: tally(records, (r) => r.region),
       by_country: tally(records, (r) => r.country_iso2),
+      by_kr_region: tally(records, (r) => r.kr_region),
+      korea: records.filter((r) => r.country_iso2 === 'KR').length,
+      world: records.filter((r) => r.country_iso2 !== 'KR').length,
     },
     files: { index: 'index.json', home: 'home.json', stats: 'stats.json', shards: shards.map((s) => `projects/${s}.json`) },
     sources,

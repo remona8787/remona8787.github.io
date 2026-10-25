@@ -1,7 +1,7 @@
 {
  "broken_links": [
   {
-   "checked_at": "2026-10-20T06:18:47.240Z",
+   "checked_at": "2026-10-20T06:26:43.280Z",
    "consecutive_failures": 1,
    "field": "official_url",
    "http_status": 404,
@@ -10,7 +10,7 @@
    "url": "https://centercity.example/"
   }
  ],
- "build_id": "20261020T061700Z-e4924ffe",
+ "build_id": "20261020T061700Z-61a8105f",
  "coordinate_checks": [
   {
    "distance_m": 6135,
@@ -31,6 +31,17 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city"
+   ]
+  },
+  {
+   "id": "KTO-2900004",
+   "name": "픽스처 빛축제 제주",
+   "origins": [
+    "tourapi"
+   ],
+   "qid": null,
+   "reasons": [
+    "no_public_source"
    ]
   },
   {
@@ -78,6 +89,11 @@
   {
    "id": "Q56089114",
    "project_type": "projection_mapping",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "CAT-1VRD089",
+   "project_type": "festival_program",
    "type_source": "commons_category"
   },
   {
@@ -159,6 +175,16 @@
    "id": "SEOUL039",
    "project_type": "other",
    "type_source": "curated_category"
+  },
+  {
+   "id": "KTO-2900002",
+   "project_type": "festival_program",
+   "type_source": "tourapi_term"
+  },
+  {
+   "id": "KTO-2900006",
+   "project_type": "festival_program",
+   "type_source": "tourapi_term"
   }
  ],
  "missing_images": [
@@ -170,15 +196,27 @@
   },
   {
    "country_iso2": "KR",
+   "id": "KTO-2900006",
+   "name": "픽스처 루미나리에 축제",
+   "project_type": "festival_program"
+  },
+  {
+   "country_iso2": "KR",
    "id": "Q99000101",
    "name": "Galleria Centercity",
    "project_type": "media_facade"
   },
   {
    "country_iso2": "KR",
-   "id": "SEOUL001",
-   "name": "Atelier Nodeul",
-   "project_type": "media_facade"
+   "id": "Q99000502",
+   "name": "Fixture Gangneung Light Festival",
+   "project_type": "festival_program"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "Q99000503",
+   "name": "Fixture Jeju Light Field",
+   "project_type": "light_art"
   },
   {
    "country_iso2": "KR",
@@ -459,11 +497,15 @@
  ],
  "no_home_image": [
   {
-   "best_tier": 4,
+   "best_tier": 2,
+   "id": "KTO-2900002"
+  },
+  {
+   "best_tier": 5,
    "id": "Q2001578"
   },
   {
-   "best_tier": 4,
+   "best_tier": 5,
    "id": "Q7899954"
   }
  ],

@@ -1,0 +1,904 @@
+{
+ "schema": 1,
+ "about": [
+  "Korea-first configuration (docs/STATIC_ARCHIVE.md v0.18 addendum, operations in docs/PIPELINE.md).",
+  "kr_region: derived from the Wikidata P131 chain up to the first-level division, else from a gazetteer of Korean place names, else null; never guessed. The first-level divisions are read live every run (wd:Q884 p:P150, with ISO 3166-2 codes P300) and logged to review/korea.json; a division QID is used only when that live query returned it and its ISO code or label maps to exactly one region. expected_qid values come from web searches (verified_by) and are compared with the live answer, never used on their own.",
+  "Ambiguous names (a district name used in several cities, Gwangju the metropolitan city vs. Gwangju in Gyeonggi, Goseong in Gangwon and Gyeongnam) never decide a region alone."
+ ],
+ "country": {
+  "qid": "Q884",
+  "label": "South Korea",
+  "iso2": "KR",
+  "verified_by": "https://www.wikidata.org/wiki/Q884"
+ },
+ "regions": [
+  {
+   "key": "seoul",
+   "ko": "서울",
+   "en": "Seoul",
+   "iso": [
+    "KR-11"
+   ],
+   "divisions": [
+    {
+     "ko": [
+      "서울특별시",
+      "서울시",
+      "서울"
+     ],
+     "en": [
+      "Seoul",
+      "Seoul Special City"
+     ],
+     "expected_qid": "Q8684",
+     "verified_by": "https://conceptnet.io/c/en/seoul (DBpedia-Wikidata resource Q8684)"
+    }
+   ],
+   "places_ko": [
+    "종로",
+    "용산",
+    "성동",
+    "광진",
+    "동대문",
+    "중랑",
+    "성북",
+    "강북",
+    "도봉",
+    "노원",
+    "은평",
+    "서대문",
+    "마포",
+    "양천",
+    "구로",
+    "금천",
+    "영등포",
+    "동작",
+    "관악",
+    "서초",
+    "강남",
+    "송파",
+    "강동",
+    "여의도",
+    "잠실",
+    "홍대",
+    "명동",
+    "광화문",
+    "성수",
+    "이태원",
+    "한남",
+    "압구정",
+    "청담",
+    "삼성동",
+    "을지로",
+    "청계천",
+    "반포",
+    "노들섬",
+    "뚝섬",
+    "상암",
+    "마곡",
+    "목동",
+    "신촌",
+    "망원",
+    "합정",
+    "익선동",
+    "북촌",
+    "서촌",
+    "동대문디자인플라자"
+   ],
+   "places_en": [
+    "Jongno",
+    "Yongsan",
+    "Seongdong",
+    "Gwangjin",
+    "Dongdaemun",
+    "Jungnang",
+    "Seongbuk",
+    "Gangbuk",
+    "Dobong",
+    "Nowon",
+    "Eunpyeong",
+    "Seodaemun",
+    "Mapo",
+    "Yangcheon",
+    "Guro",
+    "Geumcheon",
+    "Yeongdeungpo",
+    "Dongjak",
+    "Gwanak",
+    "Seocho",
+    "Gangnam",
+    "Songpa",
+    "Gangdong",
+    "Yeouido",
+    "Jamsil",
+    "Hongdae",
+    "Myeongdong",
+    "Gwanghwamun",
+    "Seongsu",
+    "Itaewon",
+    "Hannam",
+    "Apgujeong",
+    "Cheongdam",
+    "Euljiro",
+    "Cheonggyecheon",
+    "Banpo",
+    "Nodeulseom",
+    "Ttukseom",
+    "Sangam",
+    "Magok",
+    "Mokdong",
+    "Sinchon"
+   ]
+  },
+  {
+   "key": "gyeonggi_incheon",
+   "ko": "경기·인천",
+   "en": "Gyeonggi & Incheon",
+   "iso": [
+    "KR-41",
+    "KR-28"
+   ],
+   "divisions": [
+    {
+     "ko": [
+      "경기도",
+      "경기"
+     ],
+     "en": [
+      "Gyeonggi",
+      "Gyeonggi Province",
+      "Gyeonggi-do"
+     ],
+     "expected_qid": "Q20937",
+     "verified_by": "https://commons.wikimedia.org/wiki/Category:Gyeonggi-do (authority file Q20937)"
+    },
+    {
+     "ko": [
+      "인천광역시",
+      "인천시",
+      "인천"
+     ],
+     "en": [
+      "Incheon",
+      "Incheon Metropolitan City"
+     ],
+     "expected_qid": "Q20934",
+     "verified_by": "https://www.wikidata.org/wiki/Q20934"
+    }
+   ],
+   "places_ko": [
+    "수원",
+    "성남",
+    "의정부",
+    "안양",
+    "부천",
+    "광명",
+    "평택",
+    "동두천",
+    "안산",
+    "고양",
+    "과천",
+    "구리",
+    "남양주",
+    "오산",
+    "시흥",
+    "군포",
+    "의왕",
+    "하남",
+    "용인",
+    "파주",
+    "이천",
+    "안성",
+    "김포",
+    "화성",
+    "양주",
+    "포천",
+    "여주",
+    "연천",
+    "가평",
+    "양평",
+    "분당",
+    "판교",
+    "일산",
+    "강화",
+    "옹진",
+    "송도",
+    "영종",
+    "청라",
+    "부평",
+    "계양"
+   ],
+   "places_en": [
+    "Suwon",
+    "Seongnam",
+    "Uijeongbu",
+    "Anyang",
+    "Bucheon",
+    "Gwangmyeong",
+    "Pyeongtaek",
+    "Dongducheon",
+    "Ansan",
+    "Goyang",
+    "Gwacheon",
+    "Guri",
+    "Namyangju",
+    "Osan",
+    "Siheung",
+    "Gunpo",
+    "Uiwang",
+    "Hanam",
+    "Yongin",
+    "Paju",
+    "Icheon",
+    "Anseong",
+    "Gimpo",
+    "Hwaseong",
+    "Yangju",
+    "Pocheon",
+    "Yeoju",
+    "Yeoncheon",
+    "Gapyeong",
+    "Yangpyeong",
+    "Bundang",
+    "Pangyo",
+    "Ilsan",
+    "Ganghwa",
+    "Ongjin",
+    "Songdo",
+    "Yeongjong",
+    "Cheongna",
+    "Bupyeong",
+    "Gyeyang"
+   ]
+  },
+  {
+   "key": "gangwon",
+   "ko": "강원",
+   "en": "Gangwon",
+   "iso": [
+    "KR-42",
+    "KR-51"
+   ],
+   "divisions": [
+    {
+     "ko": [
+      "강원특별자치도",
+      "강원도",
+      "강원"
+     ],
+     "en": [
+      "Gangwon",
+      "Gangwon Province",
+      "Gangwon State",
+      "Gangwon-do"
+     ],
+     "expected_qid": "Q41071",
+     "verified_by": "https://openhistoricalmap.org/relation/2741610/history (wikidata=Q41071, 강원도)"
+    }
+   ],
+   "places_ko": [
+    "춘천",
+    "원주",
+    "강릉",
+    "동해",
+    "태백",
+    "속초",
+    "삼척",
+    "홍천",
+    "횡성",
+    "영월",
+    "평창",
+    "정선",
+    "철원",
+    "화천",
+    "양구",
+    "인제",
+    "양양"
+   ],
+   "places_en": [
+    "Chuncheon",
+    "Wonju",
+    "Gangneung",
+    "Donghae",
+    "Taebaek",
+    "Sokcho",
+    "Samcheok",
+    "Hongcheon",
+    "Hoengseong",
+    "Yeongwol",
+    "Pyeongchang",
+    "Jeongseon",
+    "Cheorwon",
+    "Hwacheon",
+    "Yanggu",
+    "Inje",
+    "Yangyang"
+   ]
+  },
+  {
+   "key": "daejeon_sejong_chungcheong",
+   "ko": "대전·세종·충청",
+   "en": "Daejeon, Sejong & Chungcheong",
+   "iso": [
+    "KR-30",
+    "KR-50",
+    "KR-43",
+    "KR-44"
+   ],
+   "divisions": [
+    {
+     "ko": [
+      "대전광역시",
+      "대전시",
+      "대전"
+     ],
+     "en": [
+      "Daejeon",
+      "Daejeon Metropolitan City"
+     ],
+     "expected_qid": "Q20921",
+     "verified_by": "https://commons.wikimedia.org/wiki/%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C (Wikidata Q20921)"
+    },
+    {
+     "ko": [
+      "세종특별자치시",
+      "세종시",
+      "세종"
+     ],
+     "en": [
+      "Sejong",
+      "Sejong City",
+      "Sejong Special Self-Governing City"
+     ],
+     "expected_qid": null,
+     "verified_by": null
+    },
+    {
+     "ko": [
+      "충청북도",
+      "충북"
+     ],
+     "en": [
+      "North Chungcheong",
+      "North Chungcheong Province",
+      "Chungcheongbuk-do",
+      "Chungbuk"
+     ],
+     "expected_qid": "Q41066",
+     "verified_by": "https://www.wikidata.org/wiki/Q41066"
+    },
+    {
+     "ko": [
+      "충청남도",
+      "충남"
+     ],
+     "en": [
+      "South Chungcheong",
+      "South Chungcheong Province",
+      "Chungcheongnam-do",
+      "Chungnam"
+     ],
+     "expected_qid": null,
+     "verified_by": null
+    }
+   ],
+   "places_ko": [
+    "청주",
+    "충주",
+    "제천",
+    "보은",
+    "옥천",
+    "영동",
+    "증평",
+    "진천",
+    "괴산",
+    "음성",
+    "단양",
+    "천안",
+    "공주",
+    "보령",
+    "아산",
+    "서산",
+    "논산",
+    "계룡",
+    "당진",
+    "금산",
+    "부여",
+    "서천",
+    "청양",
+    "홍성",
+    "예산",
+    "태안",
+    "유성"
+   ],
+   "places_en": [
+    "Cheongju",
+    "Chungju",
+    "Jecheon",
+    "Boeun",
+    "Okcheon",
+    "Yeongdong",
+    "Jeungpyeong",
+    "Jincheon",
+    "Goesan",
+    "Eumseong",
+    "Danyang",
+    "Cheonan",
+    "Gongju",
+    "Boryeong",
+    "Asan",
+    "Seosan",
+    "Nonsan",
+    "Gyeryong",
+    "Dangjin",
+    "Geumsan",
+    "Buyeo",
+    "Seocheon",
+    "Cheongyang",
+    "Hongseong",
+    "Yesan",
+    "Taean",
+    "Yuseong"
+   ]
+  },
+  {
+   "key": "gwangju_jeolla",
+   "ko": "광주·전라",
+   "en": "Gwangju & Jeolla",
+   "iso": [
+    "KR-29",
+    "KR-45",
+    "KR-46",
+    "KR-52"
+   ],
+   "divisions": [
+    {
+     "ko": [
+      "광주광역시"
+     ],
+     "en": [
+      "Gwangju Metropolitan City"
+     ],
+     "expected_qid": "Q41283",
+     "verified_by": "https://www.wikidata.org/wiki/Q41283"
+    },
+    {
+     "ko": [
+      "전남광주특별시",
+      "전남광주통합특별시",
+      "전남광주"
+     ],
+     "en": [
+      "Jeonnam-Gwangju",
+      "Jeonnam-Gwangju Special Metropolitan City"
+     ],
+     "expected_qid": null,
+     "verified_by": null,
+     "note": "Gwangju and South Jeolla merged on 2026-07-01 (gwangjunewsgic.com, koreatimes.co.kr 2026-08-24); both were in this region."
+    },
+    {
+     "ko": [
+      "전북특별자치도",
+      "전라북도",
+      "전북"
+     ],
+     "en": [
+      "North Jeolla",
+      "North Jeolla Province",
+      "Jeonbuk",
+      "Jeonbuk State",
+      "Jeollabuk-do"
+     ],
+     "expected_qid": null,
+     "verified_by": null
+    },
+    {
+     "ko": [
+      "전라남도",
+      "전남"
+     ],
+     "en": [
+      "South Jeolla",
+      "South Jeolla Province",
+      "Jeonnam",
+      "Jeollanam-do"
+     ],
+     "expected_qid": null,
+     "verified_by": null
+    }
+   ],
+   "places_ko": [
+    "전주",
+    "군산",
+    "익산",
+    "정읍",
+    "남원",
+    "김제",
+    "완주",
+    "진안",
+    "무주",
+    "장수",
+    "임실",
+    "순창",
+    "고창",
+    "부안",
+    "목포",
+    "여수",
+    "순천",
+    "나주",
+    "광양",
+    "담양",
+    "곡성",
+    "구례",
+    "고흥",
+    "보성",
+    "화순",
+    "장흥",
+    "강진",
+    "해남",
+    "영암",
+    "무안",
+    "함평",
+    "영광",
+    "장성",
+    "완도",
+    "진도",
+    "신안"
+   ],
+   "places_en": [
+    "Jeonju",
+    "Gunsan",
+    "Iksan",
+    "Jeongeup",
+    "Namwon",
+    "Gimje",
+    "Wanju",
+    "Jinan",
+    "Muju",
+    "Imsil",
+    "Sunchang",
+    "Gochang",
+    "Buan",
+    "Mokpo",
+    "Yeosu",
+    "Suncheon",
+    "Naju",
+    "Gwangyang",
+    "Damyang",
+    "Gokseong",
+    "Gurye",
+    "Goheung",
+    "Boseong",
+    "Hwasun",
+    "Jangheung",
+    "Gangjin",
+    "Haenam",
+    "Yeongam",
+    "Muan",
+    "Hampyeong",
+    "Yeonggwang",
+    "Jangseong",
+    "Wando",
+    "Jindo",
+    "Sinan"
+   ]
+  },
+  {
+   "key": "daegu_gyeongbuk",
+   "ko": "대구·경북",
+   "en": "Daegu & Gyeongbuk",
+   "iso": [
+    "KR-27",
+    "KR-47"
+   ],
+   "divisions": [
+    {
+     "ko": [
+      "대구광역시",
+      "대구시",
+      "대구"
+     ],
+     "en": [
+      "Daegu",
+      "Daegu Metropolitan City"
+     ],
+     "expected_qid": "Q20927",
+     "verified_by": "https://www.wikidata.org/wiki/Q20927"
+    },
+    {
+     "ko": [
+      "경상북도",
+      "경북"
+     ],
+     "en": [
+      "North Gyeongsang",
+      "North Gyeongsang Province",
+      "Gyeongsangbuk-do",
+      "Gyeongbuk"
+     ],
+     "expected_qid": "Q41154",
+     "verified_by": "https://www.wisski.uni-bayreuth.de/wisski/navigate/43593/view (http://www.wikidata.org/entity/Q41154)"
+    }
+   ],
+   "places_ko": [
+    "포항",
+    "경주",
+    "김천",
+    "안동",
+    "구미",
+    "영주",
+    "영천",
+    "상주",
+    "문경",
+    "경산",
+    "의성",
+    "청송",
+    "영양",
+    "영덕",
+    "청도",
+    "고령",
+    "성주",
+    "칠곡",
+    "예천",
+    "봉화",
+    "울진",
+    "울릉",
+    "군위",
+    "수성"
+   ],
+   "places_en": [
+    "Pohang",
+    "Gyeongju",
+    "Gimcheon",
+    "Andong",
+    "Gumi",
+    "Yeongju",
+    "Yeongcheon",
+    "Sangju",
+    "Mungyeong",
+    "Gyeongsan",
+    "Uiseong",
+    "Cheongsong",
+    "Yeongyang",
+    "Yeongdeok",
+    "Cheongdo",
+    "Goryeong",
+    "Seongju",
+    "Chilgok",
+    "Yecheon",
+    "Bonghwa",
+    "Uljin",
+    "Ulleung",
+    "Gunwi",
+    "Suseong"
+   ]
+  },
+  {
+   "key": "busan_ulsan_gyeongnam",
+   "ko": "부산·울산·경남",
+   "en": "Busan, Ulsan & Gyeongnam",
+   "iso": [
+    "KR-26",
+    "KR-31",
+    "KR-48"
+   ],
+   "divisions": [
+    {
+     "ko": [
+      "부산광역시",
+      "부산시",
+      "부산"
+     ],
+     "en": [
+      "Busan",
+      "Busan Metropolitan City"
+     ],
+     "expected_qid": "Q16520",
+     "verified_by": "https://gateway.okhistory.org/explore/locations/p13513/ (Wikidata Q16520)"
+    },
+    {
+     "ko": [
+      "울산광역시",
+      "울산시",
+      "울산"
+     ],
+     "en": [
+      "Ulsan",
+      "Ulsan Metropolitan City"
+     ],
+     "expected_qid": null,
+     "verified_by": null
+    },
+    {
+     "ko": [
+      "경상남도",
+      "경남"
+     ],
+     "en": [
+      "South Gyeongsang",
+      "South Gyeongsang Province",
+      "Gyeongsangnam-do",
+      "Gyeongnam"
+     ],
+     "expected_qid": null,
+     "verified_by": null
+    }
+   ],
+   "places_ko": [
+    "창원",
+    "진주",
+    "통영",
+    "사천",
+    "김해",
+    "밀양",
+    "거제",
+    "양산",
+    "의령",
+    "함안",
+    "창녕",
+    "남해",
+    "하동",
+    "산청",
+    "함양",
+    "거창",
+    "합천",
+    "해운대",
+    "광안리",
+    "기장",
+    "수영",
+    "센텀",
+    "마산",
+    "진해"
+   ],
+   "places_en": [
+    "Changwon",
+    "Jinju",
+    "Tongyeong",
+    "Sacheon",
+    "Gimhae",
+    "Miryang",
+    "Geoje",
+    "Yangsan",
+    "Uiryeong",
+    "Haman",
+    "Changnyeong",
+    "Namhae",
+    "Hadong",
+    "Sancheong",
+    "Hamyang",
+    "Geochang",
+    "Hapcheon",
+    "Haeundae",
+    "Gwangalli",
+    "Gijang",
+    "Suyeong",
+    "Centum",
+    "Masan",
+    "Jinhae"
+   ]
+  },
+  {
+   "key": "jeju",
+   "ko": "제주",
+   "en": "Jeju",
+   "iso": [
+    "KR-49"
+   ],
+   "divisions": [
+    {
+     "ko": [
+      "제주특별자치도",
+      "제주도",
+      "제주"
+     ],
+     "en": [
+      "Jeju",
+      "Jeju Province",
+      "Jeju Special Self-Governing Province",
+      "Jeju-do"
+     ],
+     "expected_qid": "Q41164",
+     "verified_by": "https://www.wikidata.org/wiki/Q41164"
+    }
+   ],
+   "places_ko": [
+    "서귀포",
+    "제주시",
+    "애월",
+    "성산",
+    "한림",
+    "중문",
+    "조천",
+    "구좌",
+    "표선",
+    "남원읍",
+    "대정",
+    "안덕",
+    "우도"
+   ],
+   "places_en": [
+    "Seogwipo",
+    "Aewol",
+    "Seongsan",
+    "Hallim",
+    "Jungmun",
+    "Jocheon",
+    "Gujwa",
+    "Pyoseon",
+    "Daejeong",
+    "Andeok",
+    "Udo"
+   ]
+  }
+ ],
+ "ambiguous_ko": [
+  "중구",
+  "동구",
+  "서구",
+  "남구",
+  "북구",
+  "강서구",
+  "광주",
+  "광주시",
+  "고성",
+  "고성군",
+  "중",
+  "동",
+  "서",
+  "남",
+  "북"
+ ],
+ "ambiguous_en": [
+  "Jung-gu",
+  "Jung District",
+  "Dong-gu",
+  "Seo-gu",
+  "Nam-gu",
+  "Buk-gu",
+  "Gangseo",
+  "Gangseo-gu",
+  "Gwangju",
+  "Goseong"
+ ],
+ "tourapi_areacode": {
+  "1": "seoul",
+  "2": "gyeonggi_incheon",
+  "3": "daejeon_sejong_chungcheong",
+  "4": "daegu_gyeongbuk",
+  "5": "gwangju_jeolla",
+  "6": "busan_ulsan_gyeongnam",
+  "7": "busan_ulsan_gyeongnam",
+  "8": "daejeon_sejong_chungcheong",
+  "31": "gyeonggi_incheon",
+  "32": "gangwon",
+  "33": "daejeon_sejong_chungcheong",
+  "34": "daejeon_sejong_chungcheong",
+  "35": "daegu_gyeongbuk",
+  "36": "busan_ulsan_gyeongnam",
+  "37": "gwangju_jeolla",
+  "38": "gwangju_jeolla",
+  "39": "jeju"
+ },
+ "tourapi_ldong": {
+  "11": "seoul",
+  "26": "busan_ulsan_gyeongnam",
+  "27": "daegu_gyeongbuk",
+  "28": "gyeonggi_incheon",
+  "29": "gwangju_jeolla",
+  "30": "daejeon_sejong_chungcheong",
+  "31": "busan_ulsan_gyeongnam",
+  "36": "daejeon_sejong_chungcheong",
+  "41": "gyeonggi_incheon",
+  "42": "gangwon",
+  "43": "daejeon_sejong_chungcheong",
+  "44": "daejeon_sejong_chungcheong",
+  "45": "gwangju_jeolla",
+  "46": "gwangju_jeolla",
+  "47": "daegu_gyeongbuk",
+  "48": "busan_ulsan_gyeongnam",
+  "50": "jeju",
+  "51": "gangwon",
+  "52": "gwangju_jeolla"
+ },
+ "tourapi_codes_about": "TourAPI areacode (the older area codes) and lDongRegnCd (the legal-dong province code of KorService2) are kept apart: code 31 is Gyeonggi as an areacode and Ulsan as an lDongRegnCd. A code is used only when the address (addr1) does not name a different region; an unknown code falls back to the address."
+}

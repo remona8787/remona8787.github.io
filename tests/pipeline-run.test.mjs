@@ -11,7 +11,7 @@ import { runPipeline } from '../pipeline/run.mjs'
 import { USER_AGENT } from '../pipeline/lib/net.mjs'
 import { loadSharp } from '../pipeline/lib/visual.mjs'
 import { checkDataset, checkReport, checkQuality, checkCandidates } from '../pipeline/lib/schema.mjs'
-import { fixtureEnvironment, FIXTURE_OVERRIDES } from './fixtures/pipeline/fake-fetch.mjs'
+import { fixtureEnvironment, FIXTURE_OVERRIDES, FIXTURE_ENV } from './fixtures/pipeline/fake-fetch.mjs'
 
 const FIX = path.join(import.meta.dirname, 'fixtures/pipeline')
 const EDITORIAL = path.join(FIX, 'editorial')
@@ -20,10 +20,10 @@ const HOUR = 3600e3
 const SHARP = await loadSharp().then(() => true, () => false)
 const needSharp = SHARP ? {} : { skip: 'sharp is not installed (npm ci --prefix pipeline)' }
 
-async function run(dataDir, { start = START, fail = null, pipeline = {} } = {}) {
+async function run(dataDir, { start = START, fail = null, pipeline = {}, keys = FIXTURE_ENV } = {}) {
   const env = fixtureEnvironment({ start, fail })
   const overrides = { ...FIXTURE_OVERRIDES, pipeline: { ...FIXTURE_OVERRIDES.pipeline, ...pipeline } }
-  const r = await runPipeline({ dataDir, editorialDir: EDITORIAL, fetch: env.fetch, clock: env.clock, sleep: env.sleep, overrides, log: () => {} })
+  const r = await runPipeline({ dataDir, editorialDir: EDITORIAL, fetch: env.fetch, clock: env.clock, sleep: env.sleep, overrides, env: keys, log: () => {} })
   return { ...r, env }
 }
 const readJSON = async (f) => JSON.parse(await readFile(f, 'utf8'))
@@ -55,8 +55,8 @@ test('dry run: a complete, schema-valid dataset with every output file', needSha
   assert.deepEqual(checkReport(await readJSON(path.join(admin, 'report.json'))), [])
   assert.deepEqual(checkQuality(await readJSON(path.join(admin, 'quality.json'))), [])
   assert.deepEqual(checkCandidates(await readJSON(path.join(admin, 'candidates.json'))), [])
-  for (const f of ['classes.json', 'properties.json', 'categories.json', 'wikipedia.json', 'images.json', 'web.json', 'http-log.json', 'contact-sheets/index.json', 'contact-sheets/hero-candidates-01.jpg', 'contact-sheets/cards-01.jpg']) assert.ok(existsSync(path.join(dir, 'review', f)), f)
-  for (const f of ['runs.json', 'tracker.json', 'failures.json', 'web-rules.json', 'candidates.json', 'image-picks.json', 'cache/entities.json', 'cache/sparql.json', 'cache/commons-files.json', 'cache/visual.json', 'cache/links.json']) assert.ok(existsSync(path.join(dir, 'state', f)), f)
+  for (const f of ['classes.json', 'properties.json', 'categories.json', 'wikipedia.json', 'images.json', 'providers.json', 'korea.json', 'tourapi.json', 'web.json', 'http-log.json', 'contact-sheets/index.json', 'contact-sheets/hero-commons-01.jpg', 'contact-sheets/featured-commons-01.jpg', 'contact-sheets/cards-01.jpg']) assert.ok(existsSync(path.join(dir, 'review', f)), f)
+  for (const f of ['runs.json', 'tracker.json', 'failures.json', 'web-rules.json', 'candidates.json', 'image-picks.json', 'cache/entities.json', 'cache/sparql.json', 'cache/commons-files.json', 'cache/visual.json', 'cache/quality.json', 'cache/tourapi.json', 'cache/openverse.json', 'cache/links.json']) assert.ok(existsSync(path.join(dir, 'state', f)), f)
   assert.equal(data.manifest.build_id, result.buildId)
   assert.ok(Object.values(data.manifest.sources).every((s) => s.status === 'ok'))
   // All 49 curated seed places are part of the dataset, with their own ids.
@@ -117,44 +117,74 @@ test('dry run: sources become projects only through the rules (merges, rejection
 test('dry run: images follow the per-surface rules', needSharp, async () => {
   const { data } = await firstRun()
   const r = (id) => data.records.get(id)
+  const role = (rec, re) => rec.images.find((i) => re.test(i.page) || re.test(i.src))
   const bay = r('Q7715933')
   assert.equal(bay.images[0].role, 'hero')
-  assert.equal(bay.images[0].tier, 1)
-  assert.match(bay.images[0].src, /1920px-The_Bay_Lights_at_night_2013\.jpg$/)
+  assert.equal(bay.images[0].tier, 2, 'light art running at night (tier 1 is a media facade)')
+  assert.equal(bay.images[0].src, 'https://upload.wikimedia.org/wikipedia/commons/e/ed/The_Bay_Lights_at_night_2013.jpg', 'src is the original file')
+  assert.deepEqual(bay.images[0].display.map(([w]) => w), [330, 500, 960, 1280, 1920, 3840, 4000], 'standard widths below the original, then the original itself (under 8 MB)')
+  assert.equal(bay.images[0].display.at(-1)[1], bay.images[0].src)
+  assert.ok(bay.images[0].quality.sharpness >= 35 && bay.images[0].quality.blockiness <= 20)
   assert.ok(!bay.images.some((i) => /Embarcadero_daytime/.test(i.page)), 'block_image applied')
   assert.ok(!bay.images.some((i) => /map\.png/.test(i.page)), 'a map is never a project image')
+  assert.ok(!bay.images.some((i) => /small_copy/.test(i.page)), 'a smaller near-duplicate is removed')
   // Rights: NoFoP of another country and a non-free licence are rejected; the Korean FoP policy allows display.
   assert.ok(!r('Q4167').images.some((i) => /Terreaux|crowd/.test(i.page)))
   assert.equal(r('Q4167').images[0].role, 'hero', 'set_hero decision on a reviewed night projection')
-  assert.ok(r('SEOUL018').images.some((i) => i.role === 'hero' && /media_facade_at_night/.test(i.page)))
+  assert.ok(r('SEOUL018').images.some((i) => i.role === 'hero' && i.tier === 1 && /media_facade_at_night/.test(i.page)))
   assert.ok(!r('SEOUL018').images.some((i) => /interior/.test(i.page)), 'an interior photo is unrelated to a media facade')
-  // A daytime photo may be a card below the media tiers, never on the home page; darkness alone never qualifies.
-  assert.equal(r('Q7899954').images[0].tier, 4)
-  assert.equal(r('Q2001578').images[0].tier, 4)
-  const homeImages = [...data.home.hero.map((h) => h.image), ...data.home.regions.map((g) => g.image), ...data.home.types.map((g) => g.image), ...Object.values(data.home.projects).map((p) => p.image)].filter(Boolean)
+  // Quality gates: a heavily compressed or blurred copy is never a hero or featured image.
+  for (const [id, re] of [['Q15140473', /compressed/], ['Q125715', /blurred/]]) {
+    const i = role(r(id), re)
+    if (i) assert.ok(!['hero', 'featured'].includes(i.role), id)
+  }
+  // A daytime photo may be a card below the media tiers (tier 5), never on the home page; darkness alone never qualifies.
+  assert.equal(r('Q7899954').images[0].tier, 5)
+  assert.equal(r('Q2001578').images[0].tier, 5)
+  const homeImages = [...data.home.hero.map((h) => h.image), ...data.home.regions.map((g) => g.image), ...data.home.types.map((g) => g.image), ...data.home.kr_regions.map((g) => g.image), ...Object.values(data.home.projects).map((p) => p.image)].filter(Boolean)
   assert.ok(homeImages.length >= 5)
   for (const i of homeImages) {
     assert.ok(i.tier <= 3, i.page)
     assert.ok(!/daytime|Tribute_in_Light|colourful_day/.test(i.page), 'never a daytime or dark-only photo on the home page: ' + i.page)
   }
-  assert.ok(data.home.hero.length >= 2)
-  for (const h of data.home.hero) assert.equal(h.image.tier, 1)
+  // Hero: reviewed tier-1/2 images, Korean first (3 Korean slides allow one foreign).
+  assert.deepEqual(data.home.hero.map((h) => h.project), ['SEOUL018', 'Q99000501', 'SEOUL006', 'Q4167'])
+  for (const h of data.home.hero) { assert.ok(h.image.tier <= 2); assert.ok(h.image.width >= 2400); assert.equal(h.image.approved, true) }
   assert.equal(data.home.projects.Q7899954?.image ?? null, null)
-  // P180 depicts: a building without P18 or a Commons category gets images through structured data, scored like any
-  // other candidate: the media facade at night is the card, the daytime exterior only a tier-4 detail image.
+  // P180 depicts: the media facade at night is found through structured data; the daytime exterior is context.
   const ddp = r('SEOUL006')
-  assert.equal(ddp.images[0].role, 'card')
-  assert.equal(ddp.images[0].tier, 1)
+  assert.equal(ddp.images[0].role, 'hero')
   assert.match(ddp.images[0].page, /Seoul_Light_DDP_2019_media_facade_night\.jpg$/)
-  assert.deepEqual(ddp.images.filter((i) => /exterior_daytime/.test(i.page)).map((i) => [i.role, i.tier]), [['detail', 4]])
-  assert.match(data.home.projects.SEOUL006?.image?.page || '', /media_facade_night/)
-  // Every published image names its licence and its author.
-  for (const rec of data.records.values()) for (const i of rec.images) assert.ok(i.license && (i.author || i.attribution) && i.page.startsWith('https://commons.wikimedia.org/'), rec.id)
-  // An allowlisted daytime photo is refused by the visual gates and reported.
+  assert.deepEqual(ddp.images.filter((i) => /exterior_daytime/.test(i.page)).map((i) => [i.role, i.tier]), [['context', 5]])
+  assert.ok(!ddp.images.some((i) => i.provider === 'flickr'), 'the Flickr copy of the reviewed Commons photo is a near-duplicate')
+  // Other providers: an approved Openverse photo, TourAPI images with their KOGL licences, an official image set by an editor.
+  const lotte = r('SEOUL018')
+  const ov = lotte.images.find((i) => i.provider === 'openverse')
+  assert.ok(ov, 'the approved Openverse photo')
+  assert.equal(ov.identity.method, 'name_location')
+  assert.equal(ov.license, 'CC BY 2.0')
+  assert.equal(ov.usage, 'hotlink', 'a Flickr-hosted file is shown from Flickr')
+  assert.equal(ov.approved, true)
+  const tour = lotte.images.filter((i) => i.provider === 'tourapi')
+  assert.ok(tour.length >= 1)
+  for (const i of tour) { assert.equal(i.identity.method, 'provider_id'); assert.match(i.license, /^KOGL Type [13]$/); assert.equal(!!i.no_derivatives, i.license === 'KOGL Type 3') }
+  assert.ok(!lotte.images.some((i) => i.id === 'img-bbcdb0f8ce01'), 'block_image by image id')
+  const official = r('SEOUL001').images[0]
+  assert.equal(official.provider, 'official')
+  assert.equal(official.permission_note, 'Fixture: the operator allows display with credit (e-mail of 2026-10-10).')
+  assert.equal(official.role, 'featured')
+  assert.equal(official.width, 2048, 'the size of the decoded original')
+  // Every published image names its licence and its author; display sizes never exceed the original.
+  for (const rec of data.records.values()) for (const i of rec.images) {
+    assert.ok(i.license && (i.author || i.attribution), rec.id)
+    assert.ok(i.display.every(([w]) => !i.width || w <= i.width), rec.id + ' ' + i.id)
+    assert.ok(![i.src, i.thumb, ...i.display.map((d) => d[1])].some((u) => /utm_/.test(u)), 'no analytics parameters')
+  }
   const report = first.result.report
   assert.equal(report.hero_list.find((h) => h.project === 'Q7899954').status, 'not_eligible')
   assert.ok(report.images.rejected['rights:foreign_no_freedom_of_panorama'] >= 1)
   assert.ok(report.images.rejected['rights:license_not_allowed'] >= 1)
+  assert.ok(report.images.by_provider.commons > 0 && report.images.by_provider.tourapi > 0)
 })
 
 test('dry run: quality, candidates and the decision log', needSharp, async () => {
@@ -320,9 +350,10 @@ test('a short time budget gives partial but consistent output', needSharp, async
   assert.deepEqual(checkDataset(after), [])
 })
 
-test('without sharp or any thumbnail the run still publishes, with no home images', async () => {
+test('without sharp or any image file the run still publishes, with no home images', async () => {
   const dir = await tmp()
-  const r = await run(dir, { fail: (url) => (url.startsWith('https://upload.wikimedia.org/') ? new Response('gone', { status: 404 }) : null) })
+  const imageHost = /^https:\/\/(upload\.wikimedia\.org|thumb\.wikimedia\.org|tong\.visitkorea\.or\.kr|live\.staticflickr\.com|official\.fixture\.example)\//
+  const r = await run(dir, { fail: (url) => (imageHost.test(url) ? new Response('gone', { status: 404 }) : null) })
   const d = await site(dir)
   assert.deepEqual(checkDataset(d), [])
   assert.equal(d.home.hero.length, 0, 'no measured image → no hero')

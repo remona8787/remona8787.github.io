@@ -42,6 +42,13 @@ SELECT DISTINCT ?item WHERE {
   ?item wdt:P31/wdt:P279* wd:${qid} .
 } LIMIT ${limit}`
 
+/** Instances of a class located in one country (P17): the Korea-first discovery (#aol:kr-class-instances). */
+export const countryClassInstancesQuery = (qid, countryQid, limit = 2000) => `#aol:kr-class-instances ${qid}
+SELECT DISTINCT ?item WHERE {
+  ?item wdt:P31/wdt:P279* wd:${qid} .
+  ?item wdt:P17 wd:${countryQid} .
+} LIMIT ${limit}`
+
 export const auxQuery = (qids) => `#aol:aux
 SELECT ?e (SAMPLE(?en_) AS ?en) (SAMPLE(?ko_) AS ?ko) (SAMPLE(?mul_) AS ?mul) (SAMPLE(?iso_) AS ?iso)
   (GROUP_CONCAT(DISTINCT STRAFTER(STR(?c), "/entity/"); separator=" ") AS ?p31)
@@ -146,10 +153,12 @@ export function entitiesUrl(ids, { languages, props = 'labels|descriptions|claim
 /**
  * Project items by QID, cached per item ('entities'). Returns {entities: Map, redirects: Map(from → to), missing: [], errors: []}.
  */
-export async function fetchEntities(client, qids, { cache, ttlHours = 72, properties, languages, wikis, stage = 'enrich' }) {
+export async function fetchEntities(client, qids, { cache, ttlHours = 72, properties, languages, wikis, stage = 'enrich', priority = null }) {
   const entities = new Map(), redirects = new Map(), missing = [], errors = []
   const want = []
-  for (const q of uniq(qids).filter(isQid).sort()) {
+  // Korea first: the priority items (from the Korean sources) are asked before the others.
+  const first = (q) => (priority?.has(q) ? 0 : 1)
+  for (const q of uniq(qids).filter(isQid).sort((a, b) => first(a) - first(b) || (a < b ? -1 : a > b ? 1 : 0))) {
     const hit = cache?.fresh('entities', q)
     if (hit !== undefined) {
       if (hit?.redirect) redirects.set(q, hit.redirect)
@@ -181,10 +190,11 @@ export async function fetchEntities(client, qids, { cache, ttlHours = 72, proper
 }
 
 /** Aux entities by QID, cached per item ('entities-aux'). Returns Map(qid → aux). */
-export async function fetchAux(client, qids, { cache, ttlHours = 720, stage = 'enrich' }) {
+export async function fetchAux(client, qids, { cache, ttlHours = 720, stage = 'enrich', priority = null }) {
   const out = new Map(), errors = []
   const want = []
-  for (const q of uniq(qids).filter(isQid).sort()) {
+  const first = (q) => (priority?.has(q) ? 0 : 1)
+  for (const q of uniq(qids).filter(isQid).sort((a, b) => first(a) - first(b) || (a < b ? -1 : a > b ? 1 : 0))) {
     const hit = cache?.fresh('entities-aux', q)
     if (hit !== undefined) { if (hit) out.set(q, hit) } else want.push(q)
   }
@@ -232,24 +242,16 @@ const norm = (s) => String(s || '').toLowerCase().normalize('NFKC').replace(/\s+
  * Class discovery: live label, instance counts and the publish decision of every configured class and blocklist
  * item, and the live labels of every configured property.
  */
-export async function discoverClasses(client, classesConfig, { cache, ttlHours = 24 }) {
+export async function discoverClasses(client, classesConfig, { cache, ttlHours = 24, counts = true, extraItems = [] }) {
   const classes = classesConfig.classes || []
   const block = classesConfig.blocklist || []
   const props = Object.entries(classesConfig.properties || {}).filter(([k]) => /^P\d+$/.test(k))
   const errors = []
-  const { labels, errors: e1 } = await fetchLabels(client, [...classes.map((c) => c.qid), ...block.map((b) => b.qid), ...props.map(([p]) => p)])
+  const { labels, errors: e1 } = await fetchLabels(client, [...classes.map((c) => c.qid), ...block.map((b) => b.qid), ...props.map(([p]) => p), ...extraItems.map((x) => x.qid)])
   errors.push(...e1)
   const review = []
   for (const c of classes) {
     const live = labels.get(c.qid) || null
-    let counts = { instances: null, with_coords: null }, error = null
-    try {
-      counts = parseCount(await sparql(client, classCountQuery(c.qid), { cache: { ns: 'sparql', key: 'count:' + c.qid, ttlMs: ttlHours * HOUR }, stage: 'discovery' }))
-    } catch (e) {
-      if (e?.code === 'budget') throw e
-      error = String(e?.message || e).slice(0, 300)
-      errors.push({ stage: 'discovery', class: c.qid, message: error })
-    }
     const labelOk = live && !live.missing ? norm(live.en) === norm(c.label) : null
     const reasons = []
     if (!c.verified) reasons.push('not_verified')
@@ -257,13 +259,18 @@ export async function discoverClasses(client, classesConfig, { cache, ttlHours =
     if (live?.missing) reasons.push('item_missing')
     if (live?.redirect) reasons.push('redirects_to_' + live.redirect)
     if (labelOk === false) reasons.push('live_label_differs')
-    const publish = !!(c.verified && c.include && labelOk !== false && !live?.missing && !live?.redirect)
+    const usable = !!(c.verified && labelOk !== false && !live?.missing && !live?.redirect)
+    const publish = !!(usable && c.include)
     review.push({
       qid: c.qid, configured_label: c.label, live_label: live?.en ?? null, live_label_ko: live?.ko ?? null, live_description: live?.description ?? null,
-      label_matches: labelOk, verified: !!c.verified, include: !!c.include, project_type: c.project_type, publish,
-      reasons, instances: counts.instances, with_coords: counts.with_coords, error,
+      label_matches: labelOk, verified: !!c.verified, include: !!c.include, korea_include: !!c.korea_include, project_type: c.project_type, publish,
+      // Korea first: a verified class with a matching live label is also read for its items located in Korea (P17),
+      // and published from there when it is included or korea_include (config/classes.json).
+      publish_korea: !!(usable && (c.include || c.korea_include)),
+      reasons, instances: null, with_coords: null, error: null,
     })
   }
+  if (counts) await addClassCounts(client, review, { ttlHours, errors })
   const blocklist = block.map((b) => {
     const live = labels.get(b.qid) || null
     return { qid: b.qid, configured_label: b.label, live_label: live?.en ?? null, label_matches: live && !live.missing ? norm(live.en) === norm(b.label) : null, verified: !!b.verified, reason: b.reason }
@@ -273,7 +280,46 @@ export async function discoverClasses(client, classesConfig, { cache, ttlHours =
     const ok = live && !live.missing ? norm(live.en).includes(norm(expected)) || norm(expected).includes(norm(live.en)) : null
     return { pid, expected, live_label: live?.en ?? null, ok }
   })
-  return { classes: review, blocklist, properties, errors }
+  const items = extraItems.map((x) => {
+    const live = labels.get(x.qid) || null
+    return { qid: x.qid, purpose: x.purpose || null, expected: x.label, live_label: live?.en ?? null, ok: live && !live.missing && !live.redirect ? norm(live.en) === norm(x.label) : null }
+  })
+  return { classes: review, blocklist, properties, items, errors }
+}
+
+/** Live instance counts of every class (review/classes.json); fills review entries in place. */
+export async function addClassCounts(client, review, { ttlHours = 24, errors = [] } = {}) {
+  for (const c of review) {
+    try {
+      const n = parseCount(await sparql(client, classCountQuery(c.qid), { cache: { ns: 'sparql', key: 'count:' + c.qid, ttlMs: ttlHours * HOUR }, stage: 'discovery' }))
+      c.instances = n.instances; c.with_coords = n.with_coords
+    } catch (e) {
+      if (e?.code === 'budget') throw e
+      c.error = String(e?.message || e).slice(0, 300)
+      errors.push({ stage: 'discovery', class: c.qid, message: c.error })
+    }
+  }
+  return review
+}
+
+/**
+ * Korea first: items of the usable classes located in the country (P17), before any worldwide instance query.
+ * Returns {byQid: Map(qid → [class qids]), perClass, errors}.
+ */
+export async function countryClassInstances(client, review, countryQid, { cache, ttlHours = 24, limit = 2000 }) {
+  const byQid = new Map(), perClass = {}, errors = []
+  for (const c of review.filter((x) => x.publish_korea)) {
+    try {
+      const qids = parseInstances(await sparql(client, countryClassInstancesQuery(c.qid, countryQid, limit), { cache: { ns: 'sparql', key: `country-instances:${countryQid}:${c.qid}`, ttlMs: ttlHours * HOUR }, stage: 'korea' }))
+      perClass[c.qid] = qids.length
+      for (const q of qids) byQid.set(q, [...(byQid.get(q) || []), c.qid])
+    } catch (e) {
+      if (e?.code === 'budget') throw e
+      perClass[c.qid] = null
+      errors.push({ stage: 'korea', class: c.qid, message: String(e?.message || e).slice(0, 300) })
+    }
+  }
+  return { byQid, perClass, errors }
 }
 
 /** Instances of the classes that may be published from. Returns {byQid: Map(qid → [class qids]), perClass, errors}. */
@@ -391,6 +437,8 @@ export function factsOf(entity, auxMap, { cityPattern, originalLanguageByCountry
     commons_category: commons ? 'Category:' + commons.replace(/^Category:/i, '') : null,
     images,
     p31: (c.P31 || []).map((v) => v.item).filter(Boolean),
+    // The administrative chain starts here (an event's location, P276, leads to it too): kr_region (lib/korea.mjs).
+    p131: [...(c.P131 || []), ...(c.P276 || [])].map((v) => v.item).filter(Boolean),
     p31_labels: (c.P31 || []).map((v) => auxName(v.item)).filter(Boolean),
     p301: (c.P301 || []).map((v) => v.item).filter(Boolean),
     state_of_use: (c.P5817 || []).map((v) => auxName(v.item)).filter(Boolean),

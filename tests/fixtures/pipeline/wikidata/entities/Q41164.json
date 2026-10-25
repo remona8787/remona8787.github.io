@@ -1,0 +1,66 @@
+{
+ "pageid": 41164,
+ "ns": 0,
+ "title": "Q41164",
+ "lastrevid": 2400041164,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q41164",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Jeju Province"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "제주특별자치도"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "2badc2fd04b753a3a4f873d0932ebbc4",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000411,
+       "id": "Q99000411"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q41164$2badc2fd-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "ec9da7ad51d81daa3ae941a2e2b3cefb",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q41164$ec9da7ad-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

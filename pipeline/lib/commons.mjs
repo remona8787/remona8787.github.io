@@ -21,6 +21,7 @@ export function categoryRules(config) {
     aggregate: compile(config.aggregate_patterns),
     edition: compile(config.edition_patterns),
     blocklist: compile(config.blocklist_patterns),
+    koreaAllow: compile(config.korea_allow_patterns),
     night: (config.night_subcategory_patterns || []).map((p) => new RegExp(p, 'i')),
     event: (config.event_subcategory_patterns || []).map((p) => new RegExp(p, 'i')),
     heuristics: config.aggregate_heuristics || { min_subcats_for_aggregate: 25, max_files_for_aggregate: 5 },
@@ -34,7 +35,9 @@ export function categoryRules(config) {
  */
 export function classifyCategory(title, info, root, rules) {
   const n = name(title)
-  for (const r of rules.blocklist) if (r.re.test(n)) return { decision: 'rejected', reason: 'blocklist_' + r.reason }
+  // Korean light festivals named with words the worldwide blocklist rejects (lanterns): allowed under a Korean root.
+  const allowed = root?.korea && (rules.koreaAllow || []).some((r) => r.re.test(n))
+  if (!allowed) for (const r of rules.blocklist) if (r.re.test(n)) return { decision: 'rejected', reason: 'blocklist_' + r.reason }
   for (const r of rules.edition) if (r.re.test(n)) return { decision: 'edition', reason: r.reason }
   for (const r of rules.aggregate) if (r.re.test(n)) return { decision: 'aggregate', reason: r.reason }
   const h = rules.heuristics
@@ -144,9 +147,10 @@ export async function categoryMembers(client, title, { cache, ttlHours = 72, lim
   return out
 }
 
-/** Category name search (namespace 14) for a phrase. */
+/** Category name search (namespace 14) for a phrase, or for several phrases that must all be in the name. */
 export async function searchCategories(client, term, { limit = 50, cache, ttlHours = 72 } = {}) {
-  const json = await client.json(api({ action: 'query', list: 'search', srsearch: `intitle:"${term}"`, srnamespace: '14', srlimit: String(Math.min(500, limit)), srprop: 'size' }), { stage: 'commons', cache: cache ? { ns: 'commons-search', key: 'cat:' + term, ttlMs: ttlHours * HOUR } : null })
+  const terms = [].concat(term)
+  const json = await client.json(api({ action: 'query', list: 'search', srsearch: terms.map((t) => `intitle:"${t}"`).join(' '), srnamespace: '14', srlimit: String(Math.min(500, limit)), srprop: 'size' }), { stage: 'commons', cache: cache ? { ns: 'commons-search', key: 'cat:' + terms.join(' + '), ttlMs: ttlHours * HOUR } : null })
   return (json?.query?.search || []).filter((s) => s.ns === 14).map((s) => s.title)
 }
 
@@ -168,9 +172,13 @@ export async function depictsFiles(client, qid, { limit = 30, cache, ttlHours = 
 
 /**
  * Category discovery: searches and walks. Returns {categories: Map(title → {info, decision, reason, root, parent,
- * project_type, place_hint, night_subcats[], editions[]}), errors, partial}.
+ * project_type, place_hint, night_subcats[], editions[], korea}), errors, partial}.
+ * Korea first: the Korean searches (config.korea_search: Korean terms, and English terms together with a Korean place
+ * name) and the Korean roots (config.korea_roots) run before everything else and on `client`; the worldwide searches
+ * and walks run on `foreign` (a view of the client that stops earlier when time runs short).
  */
-export async function discoverCategories(client, config, { cache, ttlHours = 72, log = () => {}, classQids = [] } = {}) {
+export async function discoverCategories(client, config, { cache, ttlHours = 72, log = () => {}, classQids = [], foreign = null, korea = true } = {}) {
+  const fc = foreign || client
   const rules = categoryRules(config)
   const rootTitles = new Set((config.roots || []).map((r) => categoryTitle(r.title)))
   const classSet = new Set(classQids)
@@ -185,21 +193,29 @@ export async function discoverCategories(client, config, { cache, ttlHours = 72,
     log({ kind: 'category', ...entry })
     return entry
   }
-  // 1. Name searches.
+  // 0. Korean name searches (Korea first).
   const searched = []
-  for (const s of config.search_terms || []) {
+  for (const s of korea ? config.korea_search || [] : []) {
+    const terms = [].concat(s.terms || s.term)
     try {
-      for (const t of await searchCategories(client, s.term, { limit: config.search_limit ?? 50, cache, ttlHours })) searched.push({ title: t, term: s.term, root: { title: 'search:' + s.term, mode: 'candidates', project_type: s.project_type } })
-    } catch (e) { if (e?.code === 'budget') { partial = true; break } errors.push({ stage: 'commons_search', term: s.term, message: String(e?.message || e).slice(0, 300) }) }
+      for (const t of await searchCategories(client, terms, { limit: config.search_limit ?? 50, cache, ttlHours })) searched.push({ title: t, terms, korea: true, root: { title: 'korea-search:' + terms.join(' + '), mode: 'candidates', project_type: s.project_type, country_iso2: 'KR', korea: true } })
+    } catch (e) { if (e?.code === 'budget') { partial = true; break } errors.push({ stage: 'commons_search_korea', term: terms.join(' + '), message: String(e?.message || e).slice(0, 300) }) }
+  }
+  // 1. Name searches.
+  for (const s of config.search_terms || []) {
+    if (partial) break
+    try {
+      for (const t of await searchCategories(fc, s.term, { limit: config.search_limit ?? 50, cache, ttlHours })) searched.push({ title: t, terms: [s.term], root: { title: 'search:' + s.term, mode: 'candidates', project_type: s.project_type } })
+    } catch (e) { if (e?.code === 'budget') break; errors.push({ stage: 'commons_search', term: s.term, message: String(e?.message || e).slice(0, 300) }) }
   }
   // 2. Files named "media facade": their categories are candidates (same rules).
   for (const term of config.file_search_terms || []) {
     if (partial) break
     try {
-      for (const f of await searchFiles(client, term, { limit: config.file_search_limit ?? 100, cache, ttlHours })) {
+      for (const f of await searchFiles(fc, term, { limit: config.file_search_limit ?? 100, cache, ttlHours })) {
         for (const c of f.categories) searched.push({ title: c, root: { title: 'file-search:' + term, mode: 'candidates', project_type: 'media_facade' }, via_file: f.file })
       }
-    } catch (e) { if (e?.code === 'budget') { partial = true; break } errors.push({ stage: 'commons_file_search', term, message: String(e?.message || e).slice(0, 300) }) }
+    } catch (e) { if (e?.code === 'budget') break; errors.push({ stage: 'commons_file_search', term, message: String(e?.message || e).slice(0, 300) }) }
   }
   if (searched.length && !partial) {
     try {
@@ -208,12 +224,13 @@ export async function discoverCategories(client, config, { cache, ttlHours = 72,
         const i = info.get(categoryTitle(s.title))
         if (!i || !i.exists || seen.has(i.title) || rootTitles.has(i.title)) continue
         // The category of a whole class ("Projection mapping" ↔ Q776483) is a topic, never one project.
-        if (i.qid && classSet.has(i.qid)) { record(i, { decision: 'aggregate', reason: 'topic_category_of_a_class' }, { root: s.root.title, parent: null, project_type: s.root.project_type ?? null, place_hint: null }); continue }
-        // A name search also returns loosely related categories ("Facades" for "media facade"): the searched phrase
+        const hint = s.korea ? koreanHint(i.title) : null
+        if (i.qid && classSet.has(i.qid)) { record(i, { decision: 'aggregate', reason: 'topic_category_of_a_class' }, { root: s.root.title, parent: null, project_type: s.root.project_type ?? null, place_hint: hint, korea: !!s.korea }); continue }
+        // A name search also returns loosely related categories ("Facades" for "media facade"): the searched phrases
         // must be in the category name itself. (Categories of files named with the phrase are exempt.)
-        if (!s.via_file && s.term && !termPattern(s.term).test(name(i.title))) { record(i, { decision: 'rejected', reason: 'term_not_in_name' }, { root: s.root.title, parent: null, project_type: null, place_hint: null }); continue }
+        if (!s.via_file && s.terms?.length && !s.terms.every((t) => termPattern(t).test(name(i.title)))) { record(i, { decision: 'rejected', reason: 'term_not_in_name' }, { root: s.root.title, parent: null, project_type: null, place_hint: null, korea: !!s.korea }); continue }
         const d = classifyCategory(i.title, i, s.root, rules)
-        record(i, d, { root: s.root.title, parent: null, project_type: s.root.project_type, place_hint: null, via_file: s.via_file || null })
+        record(i, d, { root: s.root.title, parent: null, project_type: s.root.project_type, place_hint: hint, via_file: s.via_file || null, korea: !!s.korea })
       }
     } catch (e) { if (e?.code === 'budget') partial = true; else errors.push({ stage: 'commons_info', message: String(e?.message || e).slice(0, 300) }) }
   }
@@ -221,7 +238,12 @@ export async function discoverCategories(client, config, { cache, ttlHours = 72,
   // such as "Projection mapping in Prague" is an aggregate whose members are the projects).
   const expanded = new Set()
   const WALK = new Set(['aggregate', 'candidate', 'evidence', 'part'])
-  async function walkFrom(root, startInfo, maxDepth) {
+  // A category found by a Korean search or under a Korean root: its own place name if it has one, else Korea.
+  function koreanHint(title) {
+    const own = detectLocation(name(title))
+    return own?.country_iso2 ? { country_iso2: own.country_iso2, city: own.city, from: title } : { country_iso2: 'KR', city: null, from: 'korea_search' }
+  }
+  async function walkFrom(root, startInfo, maxDepth, cl = client) {
     const queue = [{ info: startInfo, depth: 0, hint: seen.get(startInfo.title)?.place_hint ?? null }]
     let count = 0
     while (queue.length && seen.size < maxCategories && count < (walk.max_per_root ?? 600)) {
@@ -230,13 +252,13 @@ export async function discoverCategories(client, config, { cache, ttlHours = 72,
       if (depth >= maxDepth || !info.subcats || expanded.has(info.title)) continue
       expanded.add(info.title)
       let children
-      try { children = await subcategories(client, info.title, { cache, ttlHours }) } catch (e) {
+      try { children = await subcategories(cl, info.title, { cache, ttlHours }) } catch (e) {
         if (e?.code === 'budget') { partial = true; return }
         errors.push({ stage: 'commons_walk', category: info.title, message: String(e?.message || e).slice(0, 300) }); continue
       }
       // A place named by an aggregate ancestor ("Projection mapping in Poland") is a location hint for its members.
       const own = parentEntry?.decision === 'aggregate' ? detectLocation(name(info.title)) : null
-      const placeHint = own?.country_iso2 ? { country_iso2: own.country_iso2, city: own.city, from: info.title } : hint
+      const placeHint = own?.country_iso2 ? { country_iso2: own.country_iso2, city: own.city, from: info.title } : hint || (root.country_iso2 ? { country_iso2: root.country_iso2, city: null, from: root.title } : null)
       for (const child of children) {
         count++
         if (seen.has(child.title)) {
@@ -247,7 +269,7 @@ export async function discoverCategories(client, config, { cache, ttlHours = 72,
           continue
         }
         const d = classifyCategory(child.title, child, root, rules)
-        const entry = record(child, d, { root: root.title, parent: info.title, project_type: root.project_type ?? null, place_hint: placeHint })
+        const entry = record(child, d, { root: root.title, parent: info.title, project_type: root.project_type ?? null, place_hint: placeHint, korea: !!root.korea })
         if (d.decision === 'candidate' && parentEntry?.decision === 'candidate') {
           // A specific category inside a project category is part of that project (a work of a festival, its night views).
           entry.decision = 'part'; entry.reason = 'inside_project_category'
@@ -260,24 +282,36 @@ export async function discoverCategories(client, config, { cache, ttlHours = 72,
     }
   }
   const warnings = []
-  for (const root of config.roots || []) {
+  // Korean roots and the aggregates the Korean searches found first (on client), then the worldwide ones (on fc).
+  const rootList = [...(korea ? (config.korea_roots || []).map((r) => ({ ...r, korea: true, country_iso2: r.country_iso2 || 'KR' })) : []), ...(config.roots || [])]
+  const walkSearched = async (onlyKorea) => {
+    for (const s of searched) {
+      if (partial) return
+      if (!!s.korea !== onlyKorea) continue
+      const e = seen.get(categoryTitle(s.title))
+      if (!e || e.decision !== 'aggregate' || expanded.has(e.title)) continue
+      try { await walkFrom({ title: s.root.title, mode: 'candidates', project_type: s.root.project_type, korea: !!s.korea, country_iso2: s.root.country_iso2 }, e, 1, onlyKorea ? client : fc) } catch (x) { if (x?.code === 'budget') return; throw x }
+    }
+  }
+  for (const root of rootList) {
     if (partial) break
+    const cl = root.korea ? client : fc
     let rootInfo
-    try { rootInfo = (await categoryInfo(client, [root.title], { cache, ttlHours })).get(root.title) } catch (e) {
-      if (e?.code === 'budget') { partial = true; break }
+    try { rootInfo = (await categoryInfo(cl, [root.title], { cache, ttlHours })).get(categoryTitle(root.title)) } catch (e) {
+      if (e?.code === 'budget') { if (root.korea) { partial = true; break } continue }
       errors.push({ stage: 'commons_root', root: root.title, message: String(e?.message || e).slice(0, 300) }); continue
     }
     // A configured root that does not exist is a configuration warning, not a source failure.
     if (!rootInfo?.exists) { log({ kind: 'root_missing', root: root.title }); warnings.push({ stage: 'commons_root', root: root.title, message: 'category does not exist' }); continue }
-    record(rootInfo, { decision: 'aggregate', reason: 'configured_root' }, { root: root.title, parent: null, project_type: root.project_type ?? null, place_hint: null })
-    await walkFrom(root, rootInfo, root.depth ?? 2)
+    record(rootInfo, { decision: 'aggregate', reason: 'configured_root' }, { root: root.title, parent: null, project_type: root.project_type ?? null, place_hint: root.country_iso2 ? { country_iso2: root.country_iso2, city: null, from: root.title } : null, korea: !!root.korea })
+    await walkFrom(root, rootInfo, root.depth ?? 2, cl)
+    // Right after the last Korean root: the Korean search aggregates, before any worldwide walk.
+    if (root.korea && !rootList[rootList.indexOf(root) + 1]?.korea) await walkSearched(true)
   }
-  for (const s of searched) {
-    if (partial) break
-    const e = seen.get(categoryTitle(s.title))
-    if (!e || e.decision !== 'aggregate' || expanded.has(e.title)) continue
-    await walkFrom({ title: s.root.title, mode: 'candidates', project_type: s.root.project_type }, e, 1)
-  }
+  if (!rootList.some((r) => r.korea)) await walkSearched(true)
+  await walkSearched(false)
+  // The worldwide part may stop early for the Korean sources (the foreign deadline): that is partial too.
+  if (fc !== client && fc.remaining() <= 0) partial = true
   return { categories: seen, errors, warnings, partial, rules }
 }
 
