@@ -238,6 +238,8 @@ export async function runPipeline(o) {
   // Observations from the sources (Korean ones first: they are enriched first).
   const classByQid = new Map((classReview?.classes || []).map((c) => [c.qid, c]))
   const classCfg = new Map((cfg.classes.classes || []).map((c) => [c.qid, c]))
+  // Light-work classes: an item of one of them is the work itself (entities.mjs item_is_work).
+  const workClasses = new Set([...classCfg.keys(), ...classByQid.keys()])
   const classObservation = (qid, classQids, korea) => ({
     origin: 'wikidata_class', qid, korea,
     class_types: classQids.map((c) => ({ qid: c, project_type: classByQid.get(c)?.project_type, publish: !!(korea ? classByQid.get(c)?.publish_korea : classByQid.get(c)?.publish), low_confidence: !!classCfg.get(c)?.low_confidence, require_coordinates: !!classCfg.get(c)?.require_coordinates })),
@@ -348,7 +350,7 @@ export async function runPipeline(o) {
         const intoQid = obs.find((x) => x.merge_into_qid)?.merge_into_qid
         const curatedQid = obs.find((x) => x.origin === 'curated' && x.qid)?.qid
         const primary = curatedQid || (intoQid && qids.includes(intoQid) ? intoQid : null) || qids.find((q) => facts.has(q)) || qids[0] || null
-        const p = buildProject(obs, primary ? facts.get(primary) || null : null, { year: Number(today.slice(0, 4)) })
+        const p = buildProject(obs, primary ? facts.get(primary) || null : null, { year: Number(today.slice(0, 4)), workClasses })
         if (primary && !p.qid) p.qid = primary
         for (const q of qids) if (q !== primary && !p.sources.some((s) => s.url === wikidataPage(q))) p.sources.push({ id: 'wikidata:' + q, kind: 'wikidata', title: `Wikidata ${q}`, url: wikidataPage(q), publisher: 'Wikidata' })
         p.all_qids = qids

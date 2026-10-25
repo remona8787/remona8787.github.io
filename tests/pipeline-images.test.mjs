@@ -7,7 +7,8 @@ import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { metricsFromRaw, visualScore, measureImage, loadSharp } from '../pipeline/lib/visual.mjs'
 import { assessCandidate, tierOf, heroEligible, chooseImages, commonsCandidate, imageObject, nameEvidence, BAD_NAME, thumbAt, cleanMediaUrl, commonsDisplay, mediaActive, stableImageId } from '../pipeline/lib/images.mjs'
-import { contactSheet, drawText } from '../pipeline/lib/contact-sheet.mjs'
+import { workNames } from '../pipeline/lib/identity.mjs'
+import { contactSheet, drawText, tilePixels, tileShowsPicture } from '../pipeline/lib/contact-sheet.mjs'
 import { loadConfig } from '../pipeline/run.mjs'
 import { FIXTURES } from './fixtures/pipeline/fake-fetch.mjs'
 import { fileRecord } from '../pipeline/lib/commons.mjs'
@@ -209,13 +210,79 @@ test('image objects: Commons URLs at standard widths without analytics parameter
 
 test('contact sheets: a JPEG grid with ASCII labels, missing images drawn as grey tiles', needSharp, async () => {
   const sharp = await loadSharp()
-  const jpg = await contactSheet([{ buffer: thumb('night_led'), lines: ['#1 Q7715933', 'T1 V92 OK'] }, { buffer: null, lines: ['#2 SEOUL018', 'T- V-'] }, { buffer: Buffer.from('not an image'), lines: ['#3 X', '?'] }])
+  const tiles = [{ buffer: thumb('night_led'), lines: ['#1 Q7715933', 'T1 V92 OK'] }, { buffer: null, lines: ['#2 SEOUL018', 'T- V-'] }, { buffer: Buffer.from('not an image'), lines: ['#3 X', '?'] }, { buffer: thumb('day'), lines: ['#4 Y', 'T5'] }]
+  const jpg = await contactSheet(tiles)
   const meta = await sharp(jpg).metadata()
   assert.equal(meta.format, 'jpeg')
   assert.equal(meta.width, 6 * 220)
   assert.equal(meta.height, 165 + 36)
+  // The pictures are composited, not just laid out: the fixture images' pixels are in their tiles, a missing or
+  // undecodable image is the flat grey box (and reported as not drawn).
+  assert.deepEqual(tiles.map((t) => t.drawn), [true, false, false, true])
+  for (const i of [0, 3]) { const px = await tilePixels(jpg, i); assert.ok(tileShowsPicture(px) && px.grey < 0.2 && px.stdev > 8, `tile ${i} shows the picture ${JSON.stringify(px)}`) }
+  for (const i of [1, 2]) { const px = await tilePixels(jpg, i); assert.ok(!tileShowsPicture(px) && px.grey > 0.95 && px.stdev < 3, `tile ${i} is grey ${JSON.stringify(px)}`) }
   const buf = Buffer.alloc(60 * 10 * 3)
   const x = drawText(buf, 60, 0, 0, 'A?', { scale: 1 })
   assert.equal(x, 12)
   assert.ok(buf.some((b) => b === 255))
+})
+
+test('institution files: the item\'s P18, depicts and category files are context unless they name the work, media or (outside works) the night', () => {
+  const base = info('Signal festival 2019 projection.jpg')
+  const file = (title, description, source, o = {}) => assessCandidate({ file: title + '.jpg', source, institution: o.institution ?? true },
+    { ...base, object_name: title, description, categories: o.categories || [] }, { project_type: o.type || 'media_architecture', host: o.host ?? false, names: o.names || [], workNames: o.workNames || [], rightsPolicy: TH.rights_policy })
+  const only = (a) => a.evidence.includes('host_building_only')
+  // The museum's other views and the tower's neighbourhood: context.
+  assert.ok(only(file('Connect Terrace Seoul Station', 'Connect Terrace at Seoul Station', 'category', { type: 'light_art' })))
+  assert.ok(only(file('Seoul Aerial Shot 07', 'Aerial view of Seoul', 'depicts', { type: 'light_art' })))
+  // A night view of the museum is not the immersive gallery inside it; a night view of the lit tower is its lighting.
+  assert.ok(only(file('국립중앙박물관야간모습01', '국립중앙박물관 야간 모습', 'category', { host: true })))
+  assert.ok(!only(file('N Seoul Tower at night 2019', 'The tower lit up at night', 'category', { type: 'light_art' })))
+  assert.ok(only(file('N Seoul Tower at night 2019', 'The tower lit up at night', 'category', { type: 'light_art', host: true })), 'a host building at night is not a light work on it')
+  assert.ok(!only(file('Lotte World Tower at night', 'Tower at night', 'category', { type: 'media_facade', host: true })), 'a facade shows after dark')
+  // Naming the work or media rescues the file.
+  const p = { name_ko: '국립중앙박물관 디지털 실감 영상관', name_en: 'NMK Immersive Digital Gallery', qid_match: 'host', item_institution: true, item_names: ['국립중앙박물관', 'National Museum of Korea'], building_name: '국립중앙박물관' }
+  const wn = workNames(p)
+  assert.ok(wn.length >= 2 && !wn.some((n) => n === '국립중앙박물관' || n === 'national museum of korea'), JSON.stringify(wn))
+  // A curated place whose item is the place itself goes by the place's names: a photo naming it is the project's.
+  assert.deepEqual(workNames({ name_en: 'Leeum Museum of Art', name_ko: '리움미술관', item_institution: true, item_names: ['Leeum, Samsung Museum of Art'] }).sort(), ['leeum', 'leeum museum of art', 'leeum samsung museum of art', 'samsung museum of art', '리움미술관'])
+  assert.ok(workNames({ name_en: 'SeMA Seosomun Main Building', item_institution: true, item_names: ['Seoul Museum of Art'] }).includes('seoul museum of art'), 'a whole name of generic words is still a name')
+  const lotte = workNames({ name_ko: '롯데월드타워 미디어파사드', name_en: 'Lotte World Tower Media Facade', qid_match: 'host', item_institution: true, item_names: ['롯데월드타워', 'Lotte World Tower'], building_name: '롯데월드타워' })
+  assert.ok(lotte.length && !lotte.includes('롯데월드타워') && !lotte.includes('lotte world tower'), JSON.stringify(lotte))
+  const tower = { name_en: 'N Seoul Tower', name_ko: 'N서울타워', item_institution: true, item_names: ['N Seoul Tower', 'N서울타워'] }
+  const at = (title) => assessCandidate({ file: title + '.jpg', source: 'category', institution: true }, { ...base, object_name: title, description: '', categories: [] }, { project_type: 'light_art', workNames: workNames(tower), rightsPolicy: TH.rights_policy })
+  assert.ok(!only(at('N-Seoul tower from Itaewon bridge pinhole')), 'names the place')
+  for (const t of ['Cable car up the Seoul Tower (33580430468)', 'Korea Namsan NTower 06 (13238790903)', 'Haebangchon (55192249973)', 'Panoramic view of Seoul, South Korea']) assert.ok(only(at(t)), t)
+  const named = file('국립중앙박물관 디지털 실감 영상관 파노라마', '몰입형 영상 전시', 'category', { host: true, workNames: wn })
+  assert.ok(!only(named) && named.evidence.includes('institution_file:names_work'))
+  assert.ok(!only(file('Museum media art wall', 'A media art wall in the lobby', 'category', { host: true })))
+  // Event subcategories of an institution are not the work's editions; outside an institution they are.
+  assert.ok(!file('Event 2012', 'A crowd', 'event_category', { type: 'festival_program' }).evidence.includes('event_subcategory'))
+  assert.ok(file('Event 2012', 'A crowd', 'event_category', { type: 'festival_program', institution: false }).evidence.includes('event_subcategory'))
+  // Not an institution file: unchanged.
+  assert.ok(!only(file('Connect Terrace Seoul Station', 'Connect Terrace', 'category', { institution: false })))
+  // People and ceremonies are irrelevant anywhere outside a festival's own photos.
+  assert.ok(file('KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195536)', 'Reenactment of a royal wedding', 'event_category').reasons.some((r) => r.startsWith('subject:people_or_event')))
+  assert.ok(file('2010.11.11 G20 서울 정상회의 (7445962682)', 'G20 정상회의', 'event_category').reasons.some((r) => r.startsWith('subject:people_or_event')))
+})
+
+test('a light work\'s own category may show animals and objects as its motifs; elsewhere they are another subject', () => {
+  const base = info('Signal festival 2019 projection.jpg')
+  const at = (source, type = 'festival_program', institution = false) => assessCandidate({ file: 'Mirai Mizue, The Baby Birds of Norman McLaren.jpg', source, institution }, { ...base, object_name: 'The Baby Birds of Norman McLaren', description: 'Animation projected at the festival', categories: [] }, { project_type: type, rightsPolicy: TH.rights_policy })
+  assert.deepEqual(at('category').reasons, [], 'own category of a festival')
+  assert.ok(at('p18').reasons.some((r) => r.startsWith('subject:object_or_animal')), 'through P18')
+  assert.ok(at('category', 'festival_program', true).reasons.some((r) => r.startsWith('subject:object_or_animal')), 'through an institution category')
+  assert.ok(at('category', 'media_facade').reasons.some((r) => r.startsWith('subject:object_or_animal')), 'a facade has no motifs of its own category')
+})
+
+test('roles: an institution file is never the card, only context; a project with nothing else has no card', () => {
+  const s = (key, width, evidence = [], tier = 5) => ({ key, file: key, cand: { provider: 'commons', source_id: key }, source: 'category', a: { ok: true, night: 0, media: 0, evidence }, m: null, q: null, t: { tier, home_ok: false }, width, approved: null })
+  const p = { id: 'SEOUL043' }
+  const opts = { heroAllow: new Set(), blocked: new Set(), th: TH }
+  const mixed = chooseImages(p, [s('aerial.jpg', 4000, ['host_building_only']), s('tower small.jpg', 1000)], opts)
+  assert.equal(mixed.card.key, 'tower small.jpg')
+  assert.deepEqual(mixed.ordered.map((o) => [o.s.key, o.role]), [['tower small.jpg', 'card'], ['aerial.jpg', 'context']])
+  const onlyInst = chooseImages(p, [s('aerial.jpg', 4000, ['host_building_only']), s('station.png', 1920, ['host_building_only'])], opts)
+  assert.equal(onlyInst.card, null)
+  assert.ok(onlyInst.ordered.every((o) => o.role === 'context'))
 })

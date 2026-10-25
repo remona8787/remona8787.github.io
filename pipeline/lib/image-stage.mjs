@@ -11,10 +11,10 @@
 //   4. tiers, roles (hero, featured, card, gallery, context) and the public image objects (lib/images.mjs).
 // What the budget did not reach keeps the previous run's images (upgraded to the v0.18 image object when needed).
 import { fileInfo, categoryMembers, categoryFiles, depictsFiles, isNightCategory, isEventCategory } from './commons.mjs'
-import { assessCandidate, assessText, tierOf, chooseImages, imageObject, nameEvidence, commonsCandidate, BAD_NAME, stableImageId, cleanMediaUrl } from './images.mjs'
+import { assessCandidate, assessText, tierOf, chooseImages, imageObject, nameEvidence, commonsCandidate, otherSubject, BAD_NAME, stableImageId, cleanMediaUrl } from './images.mjs'
 import { measureImage } from './visual.mjs'
 import { measureQuality, qualityScore } from './quality.mjs'
-import { identityOf, projectNames, queryNames, nameIn } from './identity.mjs'
+import { identityOf, projectNames, queryNames, nameIn, workNames } from './identity.mjs'
 import { openverseSearch, flickrLicenses, flickrSearch, unsplashSearch, pexelsSearch, naverImageSearch, tourapiCandidate, ktoPhotoCandidate, editorialCandidate } from './providers.mjs'
 import { searchByName, detailImages, galleryPhotos } from './tourapi.mjs'
 import { naverConfig } from '../../edge-functions/_shared/archive/adapters/naver.mjs'
@@ -34,7 +34,7 @@ export async function imageStage(ctx) {
   const { client, cache, P, env, ed, heroAllow, prev, state, published, evidenceByKey, catRules, startedAt, err } = ctx
   const IC = P.images || {}, PV = IC.providers || {}, ttl = P.cache_ttl_hours || {}
   const imageResults = new Map(), imageReview = [], tiles = [], heroOutcome = new Map(), providerLog = [], imageCandidates = []
-  const stats = { processed: 0, kept_previous: 0, none: 0, candidates: 0, rejected: {}, measured: 0, measure_errors: 0, quality_measured: 0, duplicates: 0, by_provider: {}, provider_requests: {}, provider_errors: {}, provider_rejected: {}, identity_rejected: 0, below_threshold: 0, awaiting_review: 0 }
+  const stats = { processed: 0, kept_previous: 0, none: 0, candidates: 0, rejected: {}, measured: 0, measure_errors: 0, quality_measured: 0, duplicates: 0, by_provider: {}, provider_requests: {}, provider_errors: {}, provider_rejected: {}, identity_rejected: 0, institution_context: 0, kept_dropped_irrelevant: 0, kept_demoted_context: 0, below_threshold: 0, awaiting_review: 0 }
   const count = (o, k, n = 1) => { o[k] = (o[k] || 0) + n }
   let thumbsFetched = 0, depictsAsked = 0, qualityFetched = 0
   const used = {}
@@ -52,39 +52,45 @@ export async function imageStage(ctx) {
   // ---------------------------------------------------------------- Commons candidates of one project
   async function commonsFiles(p) {
     const out = []
-    const add = (file, source, category = null) => {
+    // institution: the file comes from the item's P18, depicts or Commons category (or a subcategory of it) while the
+    // item is an institution, building, tower or district rather than the work (entities.mjs item_institution).
+    const add = (file, source, category = null, institution = false) => {
       const f = bareFile(file)
       if (!f || out.some((c) => c.file === f)) return
       if (!/\.(jpe?g|png|webp)$/i.test(f) || BAD_NAME.test(f.replace(/\.[a-z0-9]+$/i, ''))) return
-      out.push({ file: f, source, category })
+      out.push({ file: f, source, category, ...(institution ? { institution: true } : {}) })
     }
+    // The item's own P18 is its representative photo: of the place itself when the item is the place (a host
+    // building has none here, entities.mjs), so it is never an institution file.
+    const inst = !!p.item_institution
     for (const f of p.p18 || []) add(f, 'p18')
     const cats = [...(p.image_categories || [])]
-    for (const key of [p.qid && 'q:' + p.qid, p.commons_category && 'c:' + p.commons_category].filter(Boolean)) for (const t of evidenceByKey.get(key) || []) cats.push({ title: t, source: 'night_category' })
+    for (const key of [p.qid && 'q:' + p.qid, p.commons_category && 'c:' + p.commons_category].filter(Boolean)) for (const t of evidenceByKey.get(key) || []) cats.push({ title: t, source: 'night_category', ...(inst ? { institution: true } : {}) })
     const seenCats = new Set()
     let subcatBudget = IC.max_subcategories ?? 3
     for (const c of cats.slice(0, IC.max_categories_per_project ?? 4)) {
       if (seenCats.has(c.title)) continue
       seenCats.add(c.title)
       const m = await categoryMembers(client, c.title, { cache, ttlHours: ttl.commons_members ?? 72, limit: IC.members_per_category ?? 200 })
-      for (const f of m.files) add(f, isNightCategory(c.title, catRules) && c.source === 'category' ? 'night_category' : c.source, c.title)
+      for (const f of m.files) add(f, isNightCategory(c.title, catRules) && c.source === 'category' ? 'night_category' : c.source, c.title, !!c.institution)
       if (c.source !== 'category') continue
       const subs = m.subcats.filter((s) => isNightCategory(s, catRules) || isEventCategory(s, catRules)).sort((a, b) => (isNightCategory(b, catRules) ? 1 : 0) - (isNightCategory(a, catRules) ? 1 : 0) || compareStrings(b, a))
       for (const s of subs) {
         if (subcatBudget-- <= 0 || seenCats.has(s)) break
         seenCats.add(s)
-        for (const f of await categoryFiles(client, s, { cache, ttlHours: ttl.commons_members ?? 72, limit: IC.files_per_subcategory ?? 40 })) add(f, isNightCategory(s, catRules) ? 'night_category' : 'event_category', s)
+        for (const f of await categoryFiles(client, s, { cache, ttlHours: ttl.commons_members ?? 72, limit: IC.files_per_subcategory ?? 40 })) add(f, isNightCategory(s, catRules) ? 'night_category' : 'event_category', s, !!c.institution)
       }
     }
     if (p.qid && IC.depicts !== false && !out.some((c) => { const n = nameEvidence(c.file); return n.night >= 30 && n.media >= 30 })) {
       const cached = cache.fresh('commons-depicts', p.qid) !== undefined
       if (cached || depictsAsked < (IC.depicts_max_per_run ?? 80)) {
         if (!cached) depictsAsked++
-        for (const f of await depictsFiles(client, p.qid, { cache, ttlHours: ttl.commons_depicts ?? 336, limit: IC.depicts_per_project ?? 30 })) add(f, 'depicts')
+        for (const f of await depictsFiles(client, p.qid, { cache, ttlHours: ttl.commons_depicts ?? 336, limit: IC.depicts_per_project ?? 30 })) add(f, 'depicts', null, inst)
       }
     }
     const bonus = { p18: 15, night_category: 40, event_category: 20, part_category: 10, depicts: 5, category: 0 }
-    const ranked = out.map((c) => { const n = nameEvidence(c.file); return { ...c, pre: n.night + n.media + (bonus[c.source] ?? 0) } }).sort((a, b) => b.pre - a.pre || compareStrings(a.file, b.file))
+    // An institution's file that names neither night nor media comes last (it can only be context).
+    const ranked = out.map((c) => { const n = nameEvidence(c.file); return { ...c, pre: n.night + n.media + (bonus[c.source] ?? 0) - (c.institution && !n.night && !n.media ? 30 : 0) } }).sort((a, b) => b.pre - a.pre || compareStrings(a.file, b.file))
     stats.candidates += ranked.length
     return ranked.slice(0, IC.max_candidates_per_project ?? 16)
   }
@@ -202,12 +208,17 @@ export async function imageStage(ctx) {
   async function scoreProject(p, commons, info, providers) {
     const assessed = []
     const ownNames = [p.name_ko, p.name_en, p.name_original, p.building_name, ...(p.aliases || [])].filter(Boolean)
+    const ownWorkNames = workNames(p)
     for (const c of commons) {
       const i = info.get(c.file)
-      const a = assessCandidate(c, i, { project_type: p.project_type, rightsPolicy: IC.rights_policy, minWidth: IC.min_width, minHeight: IC.min_height, names: ownNames, host: p.qid_match === 'host' })
+      const a = assessCandidate(c, i, { project_type: p.project_type, rightsPolicy: IC.rights_policy, minWidth: IC.min_width, minHeight: IC.min_height, names: ownNames, workNames: ownWorkNames, host: p.qid_match === 'host' })
       for (const r of a.reasons) count(stats.rejected, r.split(':')[0] === 'rights' ? r : r.split(':')[0] === 'subject' ? r.split(':').slice(0, 2).join(':') : r.replace(/:.*/, ''))
+      const approved = approvalOf(p, c.file, 'commons', c.file)
+      // An editor who approved an institution's file has looked at it: it may be used beyond context.
+      if (approved === true && a.evidence?.includes('host_building_only')) a.evidence = [...a.evidence.filter((e) => e !== 'host_building_only'), 'editorial_review']
+      if (a.ok && a.evidence?.includes('host_building_only')) stats.institution_context++
       const cand = i && !i.missing ? commonsCandidate(i, a) : { provider: 'commons', source_id: c.file, file: c.file }
-      assessed.push({ key: c.file, file: c.file, source: c.source, cand, a, info: i, width: i?.width ?? null, height: i?.height ?? null, approved: approvalOf(p, c.file, 'commons', c.file), identity: { ok: true, method: 'commons_category_or_item' } })
+      assessed.push({ key: c.file, file: c.file, source: c.source, cand, a, info: i, width: i?.width ?? null, height: i?.height ?? null, approved, identity: { ok: true, method: 'commons_category_or_item' } })
     }
     const providerReview = []
     for (const c of providers) {
@@ -296,7 +307,25 @@ export async function imageStage(ctx) {
   function keepPrevImages(p) {
     if (imageResults.has(p.id)) return
     const old = prev.records.get(p.id) || (p.merged_ids || []).map((id) => prev.records.get(id)).find(Boolean)
-    const images = (old?.images || []).map((i) => upgradeImage(i, p.id)).filter((i) => !imageBlocked(ed, p.id, i.page?.split('File:')[1] ? decodeURIComponent(i.page.split('File:')[1]).replace(/_/g, ' ') : '') && !imageBlocked(ed, p.id, i.id))
+    const fileOf = (i) => (i.page?.split('File:')[1] ? decodeURIComponent(i.page.split('File:')[1]).replace(/_/g, ' ') : '')
+    // Kept images were chosen by an earlier run, maybe under older rules: the relevance and institution rules apply
+    // again to their Commons file names (a mislinked file is dropped; an institution's file is context, never card).
+    const ownNames = [p.name_ko, p.name_en, p.name_original, p.building_name, ...(p.aliases || [])].filter(Boolean)
+    const wn = workNames(p)
+    const recheck = (i) => {
+      if (i.provider !== 'commons' || i.approved === true) return i
+      const title = fileOf(i).replace(/\.[a-z0-9]+$/i, '').replace(/[_-]+/g, ' ')
+      if (!title) return i
+      const isP18 = (p.p18 || []).some((f) => bareFile(f) === fileOf(i))
+      if (otherSubject(title, { names: ownNames, project_type: p.project_type })) { stats.kept_dropped_irrelevant++; return null }
+      const n = nameEvidence(title)
+      const nightShows = ['media_facade', 'media_wall', 'urban_screen', 'projection_mapping'].includes(p.project_type) || (p.project_type === 'light_art' && p.qid_match !== 'host')
+      const institutional = (p.item_institution || p.qid_match === 'host') && !isP18 && !(wn.length && nameIn(title, wn)) && n.media < 30 && !(nightShows && n.night >= 30)
+      if (!institutional || (i.role === 'context' && i.tier >= 5)) return i
+      stats.kept_demoted_context++
+      return { ...i, role: 'context', tier: 5 }
+    }
+    const images = (old?.images || []).map((i) => upgradeImage(i, p.id)).filter((i) => !imageBlocked(ed, p.id, fileOf(i)) && !imageBlocked(ed, p.id, i.id)).map(recheck).filter(Boolean)
     const pick = state.imagePicks?.[p.id] || (old && state.imagePicks?.[old.id]) || null
     const home = pick?.home ? images.find((i) => (i.page === pick.home || i.id === pick.home) && i.tier <= 3) || null : null
     imageResults.set(p.id, { images, status: 'kept_previous', home, hero: images.find((i) => i.role === 'hero') || null, featured: images.find((i) => i.role === 'featured') || null, score: pick?.score ?? 0 })
