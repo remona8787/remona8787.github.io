@@ -1,5 +1,5 @@
-const CACHE='aol-3096bb9e2541';
-const ASSETS=['./index.html','./styles.css','./app.js','./core.js','./catalog.js','./account.js','./assets/cloud.js','./assets/native.js','./assets/symbol.svg','./assets/seed.js','./assets/reviewed-media.js','./assets/media-blocklist.js','./assets/live-media.js','./assets/global-places.js','./assets/archive.js','./assets/dataset.js','./assets/led-facade.js','./archive-taxonomy.js','./i18n.js','./config.js','./manifest.webmanifest','./assets/icon-192.png','./assets/icon-512.png','./assets/symbol-dark.svg','./assets/favicon.svg','./assets/logo-ko-light-compact.svg','./assets/logo-ko-dark-compact.svg','./assets/fonts/pretendard/pretendardvariable-dynamic-subset.css'];
+const CACHE='aol-d924cefa6d63';
+const ASSETS=['./index.html','./styles.css','./app.js','./core.js','./catalog.js','./account.js','./assets/cloud-boot.js','./assets/cloud.js','./assets/native.js','./assets/symbol.svg','./assets/seed.js','./assets/reviewed-media.js','./assets/media-blocklist.js','./assets/live-media.js','./assets/global-places.js','./assets/archive.js','./assets/dataset.js','./assets/led-facade.js','./archive-taxonomy.js','./i18n.js','./config.js','./manifest.webmanifest','./assets/icon-192.png','./assets/icon-512.png','./assets/symbol-dark.svg','./assets/favicon.svg','./assets/logo-ko-light-compact.svg','./assets/logo-ko-dark-compact.svg','./assets/fonts/pretendard/pretendardvariable-dynamic-subset.css'];
 // The static archive dataset (data/, docs/STATIC_ARCHIVE.md "Output") lives in its own cache, stale-while-revalidate:
 // a cached copy answers at once and the network refreshes it for next time. client/dataset.js asks for the index and
 // the shards with ?v=<build_id>, so a new build is a new address; manifest.json and home.json carry the build_id, and
@@ -30,6 +30,8 @@ self.addEventListener('fetch',event=>{
  const relative=url.pathname.slice(scopeURL.pathname.length);
  // Never cache admin/auth/API responses or external images. Cache the shell only.
  if(relative.startsWith('admin/')||relative.startsWith('api/')||relative.startsWith('auth/')||relative.startsWith('data/admin/'))return;
+ // Static project pages (p/, scripts/prerender.mjs) are plain pages: never answered with the app shell.
+ if(relative.startsWith('p/'))return;
  if(relative.startsWith('data/')&&relative.endsWith('.json')){event.respondWith(data(event,req,url));return}
  if(req.mode==='navigate'){
   event.respondWith(fetch(req).catch(async()=>{const hit=await caches.match(new URL('index.html',scopeURL).href);return hit||Response.error()}));return;
