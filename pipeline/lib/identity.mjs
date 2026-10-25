@@ -39,6 +39,36 @@ export function projectNames(p) {
 }
 
 /**
+ * The names that make an institution's file (entities.mjs item_institution) a photo of the project: the project's own
+ * names, never its host building's. A curated place whose item is the place itself (N Seoul Tower, Starfield Library,
+ * Leeum) also goes by its item's names; a work in a host building (the NMK Immersive Digital Gallery in the National
+ * Museum of Korea, the Lotte World Tower media facade) keeps only what is not the building's name ("롯데월드타워" is
+ * the core of "롯데월드타워 미디어파사드" and is dropped).
+ */
+export function workNames(p) {
+  const own = projectNames({ name_ko: p.name_ko, name_en: p.name_en, name_original: p.name_original, aliases: p.aliases })
+  if (p.qid_match === 'host') {
+    const inst = [...(p.item_names || []), p.building_name].filter(Boolean).map(compact).filter((m) => m.length >= 3)
+    return own.filter((n) => !inst.some((m) => m.includes(compact(n))))
+  }
+  if (p.item_institution) return uniq([...own, ...projectNames({ aliases: p.item_names || [] }), ...phrases(p.item_names || [])])
+  return own
+}
+/** Whole names as phrases ("Seoul Museum of Art"): two words or more, or one distinctive word, or Hangul of 3+. */
+function phrases(list) {
+  const out = []
+  for (const raw of list) {
+    for (const base of String(raw || '').replace(/\([^)]*\)/g, ' ').split(/\s*[/·|,]\s*/).filter(Boolean)) {
+      const n = norm(base)
+      if (!n) continue
+      const words = n.split(' ')
+      if (/\p{Script=Hangul}/u.test(n) ? compact(n).length >= 3 : (words.length >= 2 && n.length >= 8) || (words.length === 1 && n.length >= 5 && !GENERIC.has(n))) out.push(n)
+    }
+  }
+  return out
+}
+
+/**
  * The names a provider search uses: the first core name per script, in the order of the project's names (Korean, then
  * English, then the original) and of their parts ("동대문디자인플라자(DDP) / 서울라이트" → 동대문디자인플라자), with the
  * archive's type words removed ("Lotte World Tower Media Facade" → lotte world tower).

@@ -21,6 +21,7 @@ import { createHash } from 'node:crypto'
 import { assessRights, toMediaRow, DEFAULT_POLICY } from '../../edge-functions/_shared/live-media.mjs'
 import { fold } from './util.mjs'
 import { hamming, qualityScore } from './quality.mjs'
+import { nameIn as nameInText } from './identity.mjs'
 
 const T = (weight, ...terms) => terms.map((t) => [t, weight])
 // Night and illumination words (folded matching; CJK as substrings).
@@ -65,10 +66,10 @@ const INTERIOR = /\b(interior|inside|indoors?|lobby|atrium|foyer|innenraum|innen
 // building (people, a political event, an animal or an object, a show) is not a photo of the work, however colourful
 // its frame. Found on the live site: "Nanta Cooking Teddy Bears" on N Seoul Tower, a G-20 summit photo on an immersive
 // gallery, a neon sign on an LED-facade arena, a lion sculpture on a light column.
-export const PEOPLE_EVENT = /\b(portraits?|politicians?|presidents?|prime minister|ministers?|chancellors?|mayors?|kings?|queens?|princes?|princess|ambassadors?|delegations?|summits?|g-?20|g-?7|g-?8|apec|conferences?|press conference|state visit|official visit|weddings?|selfies?|celebrities|actors?|actresses|footballers?)\b|대통령|정상회의|총리|장관|기자회견|초상/i
+export const PEOPLE_EVENT = /\b(portraits?|politicians?|presidents?|prime minister|ministers?|chancellors?|mayors?|kings?|queens?|princes?|princess|ambassadors?|delegations?|summits?|g-?20|g-?7|g-?8|apec|conferences?|press conference|state visit|official visit|weddings?|ceremon(?:y|ies)|reenactments?|re-enactments?|selfies?|celebrities|actors?|actresses|footballers?)\b|대통령|정상회의|총리|장관|기자회견|초상|혼례|결혼식|재현행사|기념식|시상식|개막식/i
 export const OBJECT_ANIMAL = /\b(teddy ?bears?|bears?|lions?|l[öo]we|loewe|tigers?|dogs?|cats?|birds?|pigeons?|horses?|animals?|cooking|food|meals?|menus?|restaurants?|toys?|dolls?|figurines?|mascots?|costumes?|statues?|neon signs?|signboards?|shop signs?|street signs?|road signs?|posters?|tickets?|souvenirs?|merchandise|t-shirts?)\b|곰인형|테디베어|사자상|호랑이|강아지|고양이|음식|요리|인형|동상|간판|포스터/i
 // Event words that belong to a festival's own photos.
-const FESTIVAL_OK = /\b(ceremon(y|ies)|weddings?)\b/i
+const FESTIVAL_OK = /\b(ceremon(y|ies)|weddings?)\b|개막식|기념식/i
 /**
  * Whether a candidate's text names a different subject than the project. A word that is part of the project's own
  * names ("Teddy Bear Museum", a neon work) never counts.
@@ -80,7 +81,9 @@ export function otherSubject(text, ctx = {}) {
   const hit = (re) => { const m = re.exec(t); return m && !own.includes(m[0].toLowerCase().replace(/s$/, '')) ? m[0] : null }
   const people = hit(PEOPLE_EVENT)
   if (people && !(ctx.project_type === 'festival_program' && FESTIVAL_OK.test(people))) return 'subject:people_or_event:' + people.toLowerCase()
-  const thing = hit(OBJECT_ANIMAL)
+  // In a light work's own Commons category, animals and objects are the work's motifs (a tiger lantern, "The Baby Birds
+  // of Norman McLaren" projected at a festival); anywhere else they are another subject.
+  const thing = ctx.ownWorkCategory ? null : hit(OBJECT_ANIMAL)
   if (thing && !(/neon/i.test(thing) && ['light_art', 'other'].includes(ctx.project_type) && /neon/i.test(own))) return 'subject:object_or_animal:' + thing.toLowerCase()
   return null
 }
@@ -89,6 +92,9 @@ export function otherSubject(text, ctx = {}) {
 const EXTERIOR_TYPES = new Set(['media_facade', 'projection_mapping', 'urban_screen', 'festival_program'])
 // Types whose own category is about the light work itself (a photo in it shows the work): media evidence.
 const WORK_TYPES = new Set(['light_art', 'projection_mapping', 'festival_program', 'interactive_installation'])
+// Types whose work is shown on the outside of its structure after dark: a night photo of the structure shows the work.
+const NIGHT_SHOWS_WORK = new Set(['media_facade', 'media_wall', 'urban_screen', 'projection_mapping'])
+const OWN_CATEGORY_SOURCES = new Set(['category', 'part_category', 'event_category'])
 const IMAGE_MIME = new Set(['image/jpeg', 'image/png', 'image/webp'])
 
 /**
@@ -102,10 +108,15 @@ export function assessCandidate(cand, info, ctx) {
   if (!rights.ok) reasons.push(...rights.reasons.map((r) => 'rights:' + r))
   if (!IMAGE_MIME.has(info.mime)) reasons.push('format:' + (info.mime || 'unknown'))
   if (BAD_NAME.test(cand.file.replace(/\.[a-z0-9]+$/i, ''))) reasons.push('name:map_plan_logo_diagram_portrait_signature')
-  const text = [cand.file.replace(/\.[a-z0-9]+$/i, '').replace(/[_-]+/g, ' '), info.object_name, info.description, ...(info.categories || []), cand.category ? cand.category.replace(/^Category:/, '') : ''].filter(Boolean).join(' · ')
+  const title = cand.file.replace(/\.[a-z0-9]+$/i, '').replace(/[_-]+/g, ' ')
+  const text = [title, info.object_name, info.description, ...(info.categories || []), cand.category ? cand.category.replace(/^Category:/, '') : ''].filter(Boolean).join(' · ')
   if (EXTERIOR_TYPES.has(ctx.project_type) && INTERIOR.test(text)) reasons.push('interior_unrelated_to_work')
+  // From the item's P18, depicts or category while the item is an institution, building, tower or district (or a
+  // host building) rather than the work: entities.mjs item_institution, image-stage.mjs commonsFiles.
+  const institution = cand.institution === true || (!!ctx.host && ['p18', 'category', 'depicts', 'event_category', 'night_category'].includes(cand.source))
+  const ownWorkCategory = !institution && OWN_CATEGORY_SOURCES.has(cand.source) && WORK_TYPES.has(ctx.project_type)
   // The title and description decide the subject (categories also name the place, events held there, etc.).
-  const subject = otherSubject([cand.file.replace(/\.[a-z0-9]+$/i, '').replace(/[_-]+/g, ' '), info.object_name, info.description, ...(info.categories || []).filter((c) => PEOPLE_EVENT.test(c))].filter(Boolean).join(' · '), ctx)
+  const subject = otherSubject([title, info.object_name, info.description, ...(info.categories || []).filter((c) => PEOPLE_EVENT.test(c))].filter(Boolean).join(' · '), { ...ctx, ownWorkCategory })
   if (subject) reasons.push(subject)
   const w = info.width || 0, h = info.height || 0
   if (w < (ctx.minWidth ?? 640) || h < (ctx.minHeight ?? 400)) reasons.push('too_small')
@@ -113,13 +124,23 @@ export function assessCandidate(cand, info, ctx) {
   const night = keywordScore(text, NIGHT)
   const media = keywordScore(text, MEDIA)
   let nightScore = night.score, mediaScore = media.score
-  const evidence = []
+  // An exhibition or installation scene named by the file's own title or description (tier 4 for scene types).
+  const evidence = SCENE_TERMS.test([title, info.object_name, info.description].filter(Boolean).join(' · ')) ? ['scene_terms'] : []
   if (cand.source === 'night_category') { nightScore = Math.max(nightScore, 40); evidence.push('night_subcategory') }
-  // A file of the host building's P18, category or depicts search that names neither night nor media shows the
-  // building, not the work: context at best (tier 5).
-  if (ctx.host && ['p18', 'category', 'depicts'].includes(cand.source) && night.score < 30 && media.score < 30) evidence.push('host_building_only')
-  if (cand.source === 'event_category') { mediaScore = Math.min(100, mediaScore + 20); evidence.push('event_subcategory') }
-  if ((cand.source === 'category' || cand.source === 'part_category' || cand.source === 'event_category') && WORK_TYPES.has(ctx.project_type)) { mediaScore = Math.min(100, mediaScore + 40); evidence.push('own_category_of_light_work') }
+  if (institution) {
+    // An institution's file shows the institution, its other rooms and the events held there, not the work: it is
+    // context at most (tier 5, never card, hero, featured or gallery) unless its title or description names the work,
+    // its text names media, or, for a work shown on the outside of its structure after dark (a facade, a projection,
+    // the lighting of the item itself), it is a night photo. Its event subcategories (a summit, a royal-wedding
+    // reenactment) are not the work's editions.
+    const namesWork = ctx.workNames?.length ? nameInText([title, info.object_name, info.description].filter(Boolean).join(' · '), ctx.workNames) : null
+    const nightShows = NIGHT_SHOWS_WORK.has(ctx.project_type) || (ctx.project_type === 'light_art' && !ctx.host)
+    const rescued = !!namesWork || media.score >= 30 || (nightShows && (night.score >= 30 || cand.source === 'night_category'))
+    evidence.push(rescued ? 'institution_file:' + (namesWork ? 'names_work' : media.score >= 30 ? 'media_terms' : 'night_view') : 'host_building_only')
+  } else {
+    if (cand.source === 'event_category') { mediaScore = Math.min(100, mediaScore + 20); evidence.push('event_subcategory') }
+    if (ownWorkCategory) { mediaScore = Math.min(100, mediaScore + 40); evidence.push('own_category_of_light_work') }
+  }
   return {
     ok: reasons.length === 0, reasons, rights, kr_fop: rights.krFop,
     night: nightScore, media: mediaScore, night_terms: night.terms, media_terms: media.terms, evidence,
@@ -316,7 +337,9 @@ export function chooseImages(project, scored, { heroAllow, blocked, galleryMax =
   }
   // Card: the best image whose original is at least card_min_width; a smaller one only when nothing larger exists.
   const cardMin = th.card_min_width ?? 1200
-  const card = list.find((s) => (s.width || 0) >= cardMin) || list[0] || null
+  // An institution's file without the work (host_building_only) is never the card: context only.
+  const cardable = list.filter((s) => !(s.a.evidence || []).includes('host_building_only'))
+  const card = cardable.find((s) => (s.width || 0) >= cardMin) || cardable[0] || null
   const ordered = [...new Set([hero, featured, card, ...list].filter(Boolean))].slice(0, galleryMax)
   const roleOf = (s) => (s === hero ? 'hero' : s === featured ? 'featured' : s === card ? 'card' : s.t.tier >= 5 ? 'context' : 'gallery')
   return { ordered: ordered.map((s) => ({ s, role: roleOf(s) })), hero, featured, card, decisions, featuredDecisions, duplicates, usable: list }

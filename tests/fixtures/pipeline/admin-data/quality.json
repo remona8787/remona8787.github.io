@@ -1,7 +1,7 @@
 {
  "broken_links": [
   {
-   "checked_at": "2026-10-20T06:26:51.420Z",
+   "checked_at": "2026-10-20T06:27:01.080Z",
    "consecutive_failures": 1,
    "field": "official_url",
    "http_status": 404,
@@ -10,7 +10,7 @@
    "url": "https://centercity.example/"
   }
  ],
- "build_id": "20261020T061700Z-a0d8c163",
+ "build_id": "20261020T061700Z-184976a2",
  "coordinate_checks": [
   {
    "distance_m": 6135,
@@ -84,8 +84,8 @@
   "interior_unrelated_to_work": 1,
   "rights:foreign_no_freedom_of_panorama": 1,
   "rights:license_not_allowed": 1,
-  "subject:object_or_animal": 3,
-  "subject:people_or_event": 1
+  "subject:object_or_animal": 4,
+  "subject:people_or_event": 5
  },
  "low_confidence_types": [
   {
@@ -336,12 +336,6 @@
   },
   {
    "country_iso2": "KR",
-   "id": "SEOUL022",
-   "name": "NMK Immersive Digital Gallery",
-   "project_type": "media_architecture"
-  },
-  {
-   "country_iso2": "KR",
    "id": "SEOUL023",
    "name": "Lightroom Seoul",
    "project_type": "media_architecture"
@@ -509,6 +503,10 @@
   {
    "best_tier": 5,
    "id": "Q7899954"
+  },
+  {
+   "best_tier": 4,
+   "id": "SEOUL022"
   }
  ],
  "robots_disallowed": [

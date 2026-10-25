@@ -183,7 +183,7 @@ let pageid = 90000000
 const META = (value, source = 'commons-desc-page') => ({ value, source, hidden: '' })
 const LIC = {
   'CC BY-SA 4.0': 'https://creativecommons.org/licenses/by-sa/4.0', 'CC BY 2.0': 'https://creativecommons.org/licenses/by/2.0', 'CC BY-SA 3.0': 'https://creativecommons.org/licenses/by-sa/3.0',
-  CC0: 'http://creativecommons.org/publicdomain/zero/1.0/deed.en', 'CC BY-NC-SA 2.0': 'https://creativecommons.org/licenses/by-nc-sa/2.0/',
+  CC0: 'http://creativecommons.org/publicdomain/zero/1.0/deed.en', 'CC BY-NC-SA 2.0': 'https://creativecommons.org/licenses/by-nc-sa/2.0/', 'CC BY-SA 2.0': 'https://creativecommons.org/licenses/by-sa/2.0',
 }
 // [file, thumbnail kind, width, height, licence, author, categories, description, extra templates]
 const FILES = [
@@ -222,6 +222,20 @@ const FILES = [
   ['20231021 184556 weźże wyluzuj neon sign.jpg', 'night_led2', 4032, 3024, 'CC BY-SA 4.0', 'Fixture Photographer 28', ['Tauron Arena Kraków'], 'Neon sign at night'],
   ['Tauron Arena Kraków LED facade at night.jpg', 'night_led', 4000, 2667, 'CC BY-SA 4.0', 'Fixture Photographer 29', ['Tauron Arena Kraków'], 'The LED facade of the arena at night'],
   ['2021-01-27-Bergischer Löwe-1.jpg', 'night_field', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 30', ['Light Column'], 'Bergischer Löwe'],
+  // Second live review (2026-10-25): curated places inherited their institution's whole Commons category and depicts
+  // files (the museum's events, the tower's neighbourhood). The exact live file names; colourful frames on purpose.
+  ['2010.11.11 G20 서울 정상회의 (7445962682).jpg', 'night_projection2', 3000, 2000, 'CC BY 2.0', 'Fixture Photographer 31', ['2010 G-20 Seoul summit at the National Museum of Korea'], 'G20 정상회의 만찬'],
+  ['G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (01).jpg', 'night_projection', 3000, 2000, 'CC BY 2.0', 'Fixture Photographer 27', ['2010 G-20 Seoul summit at the National Museum of Korea'], 'Leaders at the summit dinner'],
+  ['KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195536).jpg', 'night_led', 3000, 2000, 'CC BY-SA 2.0', 'Fixture Photographer 32', ['KOCIS Reenactment of a royal wedding (2012)'], 'Reenactment of a royal wedding at the National Museum of Korea'],
+  ['KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195870).jpg', 'night_led2', 3000, 2000, 'CC BY-SA 2.0', 'Fixture Photographer 32', ['KOCIS Reenactment of a royal wedding (2012)'], 'Reenactment of a royal wedding'],
+  ['국립중앙박물관야간모습01.jpg', 'night_field', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 33', ['National Museum of Korea'], '국립중앙박물관 야간 모습'],
+  ['국립중앙박물관 디지털 실감 영상관 파노라마 2021.jpg', 'night_projection', 3600, 2025, 'CC BY-SA 4.0', 'Fixture Photographer 34', ['National Museum of Korea'], '디지털 실감 영상관의 몰입형 파노라마 영상 전시'],
+  ['Goong Teddy Bears.JPG', 'night_led', 3000, 2000, 'CC BY-SA 3.0', 'Fixture Photographer 35', ['N Seoul Tower'], 'Teddy bears in palace costume'],
+  ['Connect Terrace Seoul Station.png', 'colourful_day', 1920, 1080, 'CC BY-SA 4.0', 'Fixture Photographer 36', ['N Seoul Tower', 'Seoul Station'], 'Connect Terrace at Seoul Station'],
+  ['Haebangchon (55192249973).jpg', 'night_field', 3000, 2000, 'CC BY 2.0', 'Fixture Photographer 37', ['N Seoul Tower', 'Haebangchon'], 'Haebangchon with the tower above'],
+  ['Cable car up the Seoul Tower (33580430468).jpg', 'day', 3000, 2000, 'CC BY 2.0', 'Fixture Photographer 38', ['N Seoul Tower'], 'Namsan cable car'],
+  ['서울역 앞 대우빌딩 전경.jpg', 'colourful_day', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 39', ['Seoul Square'], '서울역 앞 대우빌딩'],
+  ['Seoul Aerial Shot 07.jpg', 'day', 4000, 2250, 'CC BY-SA 4.0', 'Fixture Photographer 40', ['Aerial photographs of Seoul'], 'Aerial view of Seoul'],
 ]
 const COMMON_TEMPLATES = ['Template:Information', 'Template:Own', 'Template:Self', 'Template:Cc-by-sa-4.0', 'Template:Location', 'Template:Taken on', 'Template:Lang', 'Template:Description']
 const files = FILES.map(([file, kind, width, height, license, author, cats, description, extraTemplates = []]) => ({
@@ -281,8 +295,11 @@ const CATS = [
   ['Category:Media art in Busan', null, null, ['Category:Fixture Media Art Museum Busan'], []],
   ['Category:Fixture Media Art Museum Busan', 'Q99000501', [35.1601, 129.1636], [], fileTitles('Fixture Media Art Museum Busan immersive hall night.jpg')],
   ['Category:Seoul Lantern Festival', null, [37.5689, 126.9786], [], fileTitles('Seoul Lantern Festival 2024 Cheonggyecheon.jpg')],
-  ['Category:N Seoul Tower', 'Q69134', [37.5512, 126.9882], [], fileTitles('Nanta Cooking Teddy Bears.JPG', 'N Seoul Tower at night 2019.jpg')],
-  ['Category:National Museum of Korea', 'Q494407', [37.5239, 126.9803], [], fileTitles('G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (02).jpg')],
+  ['Category:N Seoul Tower', 'Q69134', [37.5512, 126.9882], [], fileTitles('Nanta Cooking Teddy Bears.JPG', 'N Seoul Tower at night 2019.jpg', 'Goong Teddy Bears.JPG', 'Connect Terrace Seoul Station.png', 'Haebangchon (55192249973).jpg', 'Cable car up the Seoul Tower (33580430468).jpg')],
+  ['Category:National Museum of Korea', 'Q494407', [37.5239, 126.9803], ['Category:2010 G-20 Seoul summit at the National Museum of Korea', 'Category:KOCIS Reenactment of a royal wedding (2012)'],
+    fileTitles('G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (02).jpg', '국립중앙박물관야간모습01.jpg', '국립중앙박물관 디지털 실감 영상관 파노라마 2021.jpg')],
+  ['Category:2010 G-20 Seoul summit at the National Museum of Korea', null, null, [], fileTitles('2010.11.11 G20 서울 정상회의 (7445962682).jpg', 'G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (01).jpg')],
+  ['Category:KOCIS Reenactment of a royal wedding (2012)', null, null, [], fileTitles('KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195536).jpg', 'KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195870).jpg')],
   ['Category:Tauron Arena Kraków', 'Q15014400', [50.0675, 19.9914], [], fileTitles('20231021 184556 weźże wyluzuj neon sign.jpg', 'Tauron Arena Kraków LED facade at night.jpg')],
 ]
 const categories = CATS.map(([title, qid, coord, subcats, members]) => ({
@@ -303,7 +320,7 @@ const search = {
     'media art + Busan': ['Category:Media art in Busan'], 'lantern festival + Seoul': ['Category:Seoul Lantern Festival'] },
   file: { 'media facade': [{ title: 'File:Uniqa Tower media facade colourful day.jpg', categories: ['Category:Uniqa Tower'] }] },
   // haswbstatement:P180=<QID> answers (files whose structured data depicts the item).
-  depicts: { Q5295847: ['File:Dongdaemun Design Plaza exterior daytime.jpg', 'File:Seoul Light DDP 2019 media facade night.jpg'] },
+  depicts: { Q5295847: ['File:Dongdaemun Design Plaza exterior daytime.jpg', 'File:Seoul Light DDP 2019 media facade night.jpg'], Q69134: ['File:서울역 앞 대우빌딩 전경.jpg', 'File:Seoul Aerial Shot 07.jpg'] },
 }
 
 // ---------------------------------------------------------------- Wikipedia

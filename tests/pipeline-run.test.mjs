@@ -12,6 +12,7 @@ import { USER_AGENT } from '../pipeline/lib/net.mjs'
 import { loadSharp } from '../pipeline/lib/visual.mjs'
 import { checkDataset, checkReport, checkQuality, checkCandidates } from '../pipeline/lib/schema.mjs'
 import { fixtureEnvironment, FIXTURE_OVERRIDES, FIXTURE_ENV } from './fixtures/pipeline/fake-fetch.mjs'
+import { tilePixels, tileShowsPicture, REVIEW } from '../pipeline/lib/contact-sheet.mjs'
 
 const FIX = path.join(import.meta.dirname, 'fixtures/pipeline')
 const EDITORIAL = path.join(FIX, 'editorial')
@@ -203,6 +204,41 @@ test('relevance: files that name another subject never rank (regressions of the 
   assert.ok(reasons('Q127587129', /Löwe/).some((r) => r.startsWith('subject:object_or_animal')))
 })
 
+test('institution files: a curated place never inherits its museum, tower or district category (second live review)', needSharp, async () => {
+  const { dir, data } = await firstRun()
+  const fileOf = (i) => decodeURIComponent(i.page).split('File:').pop().replace(/_/g, ' ')
+  const roles = (id) => new Map((data.records.get(id)?.images || []).map((i) => [fileOf(i), i.role]))
+  // The exact files of the live site (2026-10-25): SEOUL022 NMK Immersive Digital Gallery (host: the museum) and
+  // SEOUL043 N Seoul Tower (its item is the tower, not the lighting work).
+  const live = {
+    SEOUL022: ['2010.11.11 G20 서울 정상회의 (7445962682).jpg', 'G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (01).jpg', 'G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (02).jpg',
+      'KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195536).jpg', 'KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195870).jpg', '국립중앙박물관야간모습01.jpg'],
+    SEOUL043: ['Goong Teddy Bears.JPG', 'Nanta Cooking Teddy Bears.JPG', 'Connect Terrace Seoul Station.png', 'Haebangchon (55192249973).jpg', '서울역 앞 대우빌딩 전경.jpg', 'Seoul Aerial Shot 07.jpg', 'Cable car up the Seoul Tower (33580430468).jpg'],
+  }
+  for (const [id, files] of Object.entries(live)) {
+    const r = roles(id)
+    for (const f of files) assert.ok(!r.has(f) || r.get(f) === 'context', `${id}: ${f} is ${r.get(f)}`)
+    const rec = data.records.get(id)
+    for (const i of rec.images) if (live[id].includes(fileOf(i))) assert.equal(i.tier, 5, fileOf(i))
+    // Its card (index thumb) is never one of them.
+    const row = data.index.rows.find((x) => x[data.index.fields.indexOf('id')] === id)
+    const thumb = decodeURIComponent(row[data.index.fields.indexOf('thumb')] || '')
+    assert.ok(thumb, id + ' has a card')
+    for (const f of files) assert.ok(!thumb.includes(f.replace(/ /g, '_')), `${id} thumb ${f}`)
+  }
+  // People, events and objects are rejected outright; the institution's own views are context.
+  const review = JSON.parse(await readFile(path.join(dir, 'review/images.json'), 'utf8'))
+  const cand = (id, re) => review.projects.find((p) => p.project === id).candidates.find((c) => re.test(c.key))
+  for (const re of [/^2010\.11\.11 G20/, /\(01\)\.jpg$/, /6812195536/]) assert.ok(cand('SEOUL022', re).reasons.some((x) => x.startsWith('subject:people_or_event')), String(re))
+  assert.ok(cand('SEOUL043', /^Goong Teddy/).reasons.some((x) => x.startsWith('subject:object_or_animal')))
+  for (const re of [/^Connect Terrace/, /^Haebangchon/, /대우빌딩/, /Aerial Shot 07/, /^Cable car/]) assert.ok(cand('SEOUL043', re).evidence.includes('host_building_only'), String(re))
+  assert.ok(cand('SEOUL022', /야간모습01/).evidence.includes('host_building_only'), 'a night view of the museum is not the immersive gallery inside')
+  // What shows the work stays: the gallery's own photo (it names the work) and the tower lit at night.
+  assert.equal(roles('SEOUL022').get('국립중앙박물관 디지털 실감 영상관 파노라마 2021.jpg'), 'card')
+  assert.ok(['card', 'featured', 'hero'].includes(roles('SEOUL043').get('N Seoul Tower at night 2019.jpg')))
+  assert.ok(first.result.report.images.institution_context >= 6)
+})
+
 test('contact sheets show real pictures on every run, also when the measurements come from the cache', needSharp, async () => {
   const { dir } = await firstRun()
   const first = JSON.parse(await readFile(path.join(dir, 'review/contact-sheets/index.json'), 'utf8'))
@@ -217,6 +253,17 @@ test('contact sheets show real pictures on every run, also when the measurements
   const second = JSON.parse(await readFile(path.join(copy, 'review/contact-sheets/index.json'), 'utf8'))
   assert.equal(tiles(second).length, tiles(first).length)
   assert.ok(tiles(second).every((t) => t.image_in_sheet), 'a cached run fetches the small renditions it shows')
+  // The written JPEGs read back: every tile of every sheet shows the fixture picture's pixels, not the grey box.
+  for (const [d, ix] of [[dir, first], [copy, second]]) {
+    for (const s of ix.sheets) {
+      assert.equal(s.grey_tiles, 0, s.sheet)
+      const jpg = await readFile(path.join(d, 'review/contact-sheets', s.sheet))
+      for (let i = 0; i < s.tiles.length; i++) {
+        const px = await tilePixels(jpg, i, REVIEW)
+        assert.ok(tileShowsPicture(px), `${d === dir ? 'first' : 'cached'} run ${s.sheet} tile ${i + 1} ${s.tiles[i].image}: ${JSON.stringify(px)}`)
+      }
+    }
+  }
   assert.ok(r2.env.requests.filter((q) => /wikimedia\.org$/.test(q.host) && /\/330px-/.test(q.url)).every((q) => !/utm_/.test(q.url)))
 })
 
@@ -360,9 +407,12 @@ test('P180 depicts searches: only for projects without named night and media evi
   const capped = await run(dir, { pipeline: { images: { depicts_max_per_run: 3 } } })
   assert.deepEqual(depicts(capped.env), all.slice(0, 3), 'the cap counts new searches, in the image stage order')
   assert.equal(capped.report.images.depicts_searches, 3)
-  // The next run continues with the items not asked yet; the answers of the first three come from the cache.
+  // The next run continues with the items not asked yet (projects that got images move ahead in its order); the
+  // answers of the first three come from the cache.
   const next = await run(dir, { start: START + 6 * HOUR, pipeline: { images: { depicts_max_per_run: 3 } } })
-  assert.deepEqual(depicts(next.env), all.slice(3, 6))
+  const asked = depicts(next.env)
+  assert.equal(asked.length, Math.min(3, all.length - 3))
+  assert.ok(asked.every((q) => all.includes(q) && !all.slice(0, 3).includes(q)), JSON.stringify(asked))
 })
 
 test('a short time budget gives partial but consistent output', needSharp, async () => {

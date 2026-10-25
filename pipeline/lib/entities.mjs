@@ -118,6 +118,8 @@ export function mergeByNameAndUrl(cl, projects) {
 
 const first = (...v) => v.find((x) => x !== null && x !== undefined && x !== '') ?? null
 const typeRank = (t) => { const i = TYPE_PRIORITY.indexOf(t); return i < 0 ? 99 : i }
+// Types whose work is the building's own surface: the building item is the work's carrier, not an institution.
+const FACADE_CARRIERS = new Set(['media_facade', 'media_wall', 'urban_screen'])
 
 /** Project type with its source and confidence. */
 export function projectType({ editorial, curated, classTypes, wikipedia, wikipediaType = null, commonsTypes, tourType = null }) {
@@ -264,10 +266,20 @@ export function buildProject(obs, facts, ctx = {}) {
 
   // Image inputs.
   p.p18 = host ? [] : f?.images || []
+  // The item is an institution, building, tower or district rather than the work itself (a host building, or a
+  // curated place whose item is not of a light-work class): its P18, depicts files and Commons category show the
+  // institution and the events held there, not the work, unless a file names the work or media (images.mjs). A media
+  // facade, media wall or urban screen is the building's own surface, so its building item is not an institution.
+  // Only a curated place's item can be the institution: the other sources found their item as the work itself (a
+  // class instance, a light-work category, an article about it). A curated item of a light-work class is the work.
+  p.item_is_work = itemIsWork || (!!f && !host && (f.p31 || []).some((q) => ctx.workClasses?.has(q)))
+  p.item_institution = !!f && (host || (!!curated && !p.item_is_work && !FACADE_CARRIERS.has(p.project_type)))
+  p.item_names = f ? uniq([f.name_ko, f.name_en, f.name_original, f.any_label].filter(Boolean)) : []
+  const ownCats = new Set(cats.map((c) => c.category))
   p.image_categories = uniq([
     ...(p.commons_category ? [p.commons_category] : []),
     ...cats.map((c) => c.category),
-  ]).map((title) => ({ title, source: 'category' }))
+  ]).map((title) => ({ title, source: 'category', ...(p.item_institution && !ownCats.has(title) ? { institution: true } : {}) }))
   for (const c of cats) {
     for (const t of c.parts || []) p.image_categories.push({ title: t, source: 'part_category' })
     for (const t of c.editions || []) p.image_categories.push({ title: t, source: 'event_category' })

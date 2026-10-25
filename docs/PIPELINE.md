@@ -312,9 +312,34 @@ Otherwise the image is refused (`identity_unproven`, in `review/images.json`).
 **Relevance.** Maps, plans, logos, diagrams, portraits, signatures, small files, extreme aspect ratios and interiors of
 exterior works are rejected, and so are files whose title or description names another subject than the project and
 its building: people and political events (summit, G-20, ministers, press conferences…), animals and objects
-(teddy bears, a lion, food, a neon sign, posters…), unless the word is part of the project's own name. A file of a host
-building (P18, category or depicts of the building that carries the work) that names neither night nor media is
-context (tier 5). The four mislinked images of the October live review are regression fixtures.
+(teddy bears, a lion, food, a neon sign, posters…), ceremonies and reenactments (a royal-wedding reenactment, an
+opening ceremony), unless the word is part of the project's own name (or, for animals and objects, the file is in the
+light work's own category: a tiger lantern at a lantern festival). The four mislinked images of the first October
+live review are regression fixtures.
+
+**Institution files.** A curated place's Wikidata item is often the institution, building, tower or district rather
+than the work (the National Museum of Korea for its Immersive Digital Gallery, N Seoul Tower for its lighting), and a
+host building always is. Files from such an item's Commons category (and its night and event subcategories) and its
+P180 depicts search are *institution files*: they show the institution, its other rooms and the events held there.
+An institution file is at most `context` (tier 5; never card, hero, featured or gallery) unless its title or
+description
+
+- names the project (its own names; a place whose item is the place itself also by the item's names, so "Leeum,
+  Samsung Museum of Art.jpg" is Leeum's; a work in a host building never by the building's name), or
+- names media (media facade, LED, projection, light show, installation…), or
+- is a night photo of a work shown on the outside of its structure after dark (media facade, media wall, urban
+  screen, projection mapping, or the lighting of the item itself such as a tower's).
+
+Their event subcategories are not the work's editions (no event evidence). The item's own P18 (its representative
+photo) is not an institution file. A light-work class instance, a light-work category and a Wikipedia article are
+about the work itself, so only curated places and host buildings have institution files; a media facade, media wall or
+urban screen is its building's surface, so its building item is not an institution. An `approve_image` lifts the rule
+for one file. Images kept from an earlier run (budget) are rechecked by file name: a file naming another subject is
+dropped, an institution file is demoted to context. The second October live review's exact files (SEOUL022: the G20
+summit and KOCIS royal-wedding photos and the museum's night views; SEOUL043: Goong Teddy Bears, Connect Terrace Seoul
+Station, Haebangchon, 서울역 앞 대우빌딩 전경, Seoul Aerial Shot, the cable car) are regression fixtures. Offline replay
+of the 2026-10-25 data branch: 139 of 274 projects keep a card (140 before), the only one lost is SEOUL022, whose
+previous card was the G20 summit photo; `institution_context` counts the demoted files.
 
 **Measurements.**
 
@@ -362,7 +387,10 @@ page's largest image (`summary.home_lcp_image_px`).
 
 **Gray contact sheets (v0.17).** A tile only had a picture when its thumbnail was downloaded in that run; with the
 measurement cached (every run after the first) the tile stayed gray. The sheets now fetch the small rendition of every
-tile that has none (≤ 300 per run, standard widths, no utm), so every run's sheets show real pictures.
+tile that has none (≤ 300 per run, standard widths, no utm), so every run's sheets show real pictures. Each written
+sheet is read back: `review/contact-sheets/index.json` gives per sheet `grey_tiles` (tiles whose pixels are the flat
+grey of a missing picture) and per tile `image_in_sheet` (the picture decoded and was composited). Tests composite the
+fixture photos and check the tiles' pixels on a first and a cached run.
 
 **Approving heroes and provider images.**
 
@@ -488,7 +516,8 @@ v0.17 → v0.18 transition, an **offline replay of the live data branch**; no li
   `items` string, a gateway error for a wrong key, overviews with HTML homepages, `cpyrhtDivCd` Type1/Type3/missing),
   the photo gallery, Openverse and Flickr answers (licence list, sizes, geotags, a by-nc and an unidentifiable photo, a
   Wikimedia duplicate), 960 px renditions with a blurred and a heavily compressed variant, provider originals of
-  1200–2048 px, an official image, and the four mislinked files of the live review. The fake fetch refuses
+  1200–2048 px, an official image, the four mislinked files of the first live review and the exact institution files
+  of the second (SEOUL022, SEOUL043, with the museum's event subcategories and the tower's depicts files). The fake fetch refuses
   non-standard Wikimedia widths like the CDN.
 - **Tests** (`tests/pipeline-korea.test.mjs`, `pipeline-providers.test.mjs`, and the updated run, images, output,
   editorial, deploy and workflow tests): the gazetteer (addresses, cities, ambiguous names, conflicts), the live
@@ -497,7 +526,8 @@ v0.17 → v0.18 transition, an **offline replay of the live data branch**; no li
   429 pause; every provider adapter; identity rules; quality metrics (blur, blocking, near-duplicate hashes); tiers
   1–5, the width and quality gates, roles, approvals, near-duplicates; the v0.18 image object and the upgrade of v0.17
   images; home.json sections and the 70 % Korean hero share; every new editorial action; relevance regressions;
-  contact sheets with real pictures on a cached run; admin data never deployed and an old `data/admin/` removed; the
+  institution files never card, hero, featured or gallery; contact sheets whose written JPEGs, read back pixel by
+  pixel, show the fixture photos in every tile on a first and a cached run (`grey_tiles` 0); admin data never deployed and an old `data/admin/` removed; the
   workflow's secrets only in the collect step and the two source copies identical; the step summary.
 - **Dry run** (`npm run dry-run --prefix pipeline`): 68 projects, 56 Korean with a region each, 4 hero slides (3
   Korean), contact sheets per provider; equal to the committed fixture dataset.
@@ -523,6 +553,9 @@ v0.17 → v0.18 transition, an **offline replay of the live data branch**; no li
    secrets if the run is limited); Flickr with `FLICKR_API_KEY`.
 7. `review/images.json` and the contact sheets: quality thresholds on real photographs (`images.quality`), the
    near-duplicate distance, tiers, and identity decisions; approve good provider images (`approve_image`) and heroes.
+   `review/contact-sheets/index.json`: `grey_tiles` should be 0 on every sheet (a non-zero count means thumbnails were
+   refused or the fetch budget ran out). The curated Korean places: their cards should show the place or the work,
+   never an event, a person or the neighbourhood (`institution_context` in the report counts what was demoted).
 8. The step summary of the run: images by provider, hero count, below-threshold count, failures.
 9. verify-live: `summary.admin_data_public` false, `summary.home_lcp_image_px` ≥ 1280 on desktop once a hero exists.
 10. Whether the 25-minute budget covers the cold image caches (quality renditions and provider searches are cached a
