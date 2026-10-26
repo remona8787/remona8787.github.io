@@ -26,6 +26,17 @@ test.describe('sign-in',()=>{
   await expect(page.locator('#nav')).toBeHidden();
   expect(m.rpcs('archive_role')).toHaveLength(0);
  });
+ test('the login button waits for the client, and the form never sends the password in a URL',async({page})=>{
+  await mockSupabase(page);
+  let release;const held=new Promise(r=>{release=r});
+  await page.route('**/assets/supabase.js',async r=>{await held;await r.continue()});
+  await page.goto('/admin/');
+  await expect(page.locator('#loginForm')).toHaveAttribute('method','post');
+  await expect(page.getByRole('button',{name:'로그인'})).toBeDisabled();
+  release();
+  await expect(page.getByRole('button',{name:'로그인'})).toBeEnabled();
+  expect(page.url()).not.toContain('password');
+ });
  test('an account without a role is signed out with a clear message',async({page})=>{
   const m=await mockSupabase(page);
   await page.goto('/admin/');
@@ -542,6 +553,7 @@ test('change detection resolves updates and opens the project',async({page})=>{
  await expect(cards).toHaveCount(2);
  await cards.first().getByRole('button',{name:'무시'}).click();
  await expect.poll(()=>m.last('archive_admin_resolve_update')?.body).toEqual({p_id:ID.u1,p_action:'dismiss'});
+ await expect(cards).toHaveCount(1);
  await cards.first().getByRole('button',{name:'프로젝트 열기'}).click();
  await expect(page.locator('#view-projects')).toBeVisible();
  await expect(page.locator('#editorTitle')).toHaveText(XSS_ATTR);

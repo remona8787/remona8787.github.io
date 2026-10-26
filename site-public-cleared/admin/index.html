@@ -32,10 +32,10 @@
       <p class="eyebrow">빛의 건축 아카이브</p>
       <h1 id="loginTitle">운영 콘솔</h1>
       <p class="muted">역할(관리자·편집자·연구자)이 있는 계정만 들어올 수 있어요. 저장 장소 같은 개인 기록은 앱에서 관리하세요.</p>
-      <form id="loginForm" class="stack" novalidate>
+      <form id="loginForm" class="stack" method="post" novalidate>
         <label for="email">이메일</label><input id="email" name="email" type="email" autocomplete="email" required>
         <label for="password">비밀번호</label><input id="password" name="password" type="password" autocomplete="current-password" required>
-        <button class="btn primary" id="loginBtn" type="submit">로그인</button>
+        <button class="btn primary" id="loginBtn" type="submit" disabled>로그인</button>
       </form>
       <div id="loginMsg" class="notice error" role="alert" hidden></div>
     </section>
