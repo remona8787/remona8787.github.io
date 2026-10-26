@@ -79,3 +79,19 @@ test('a date category is never recovered: "April 2017 in Daegu" names a city, bu
   }
   assert.equal(ps[0].country_iso2, null, 'nothing is filled in')
 })
+
+test('the same thing found twice: a recovered project named like a known one in its country is kept out', needCc, async () => {
+  const { recoverPlaces, sameNameAs } = await import('../pipeline/lib/places.mjs')
+  const known = [{ id: 'CAT-080XNRV', name_en: 'Lotus Lantern Festival', commons_category: 'Category:Lotus Lantern Festival (Seoul)', country_iso2: 'KR' },
+    { id: 'Q125715', name_en: 'Festival of Lights', country_iso2: 'DE' }]
+  assert.equal(sameNameAs({ id: 'Q625724', name_en: 'Lotus Lantern Festival', name_ko: '연등회' }, known, 'KR'), 'CAT-080XNRV', 'the category name without its parenthesis')
+  assert.equal(sameNameAs({ id: 'Q625724', name_en: 'Lotus Lantern Festival' }, known, 'JP'), null, 'another country')
+  assert.equal(sameNameAs({ id: 'Q4167', name_en: 'Festival of Lights' }, known, 'DE'), null, 'a name of generic words never matches')
+  const offline = { json: async () => { throw new Error('offline') }, text: async () => { throw new Error('offline') } }
+  const p = { id: 'Q625724', qid: 'Q625724', name_en: 'Lotus Lantern Festival', name_ko: '연등회', commons_category: 'Category:Lotus Lantern Festival', country_iso2: null, latitude: null, longitude: null, city: null, field_sources: {} }
+  const facts = new Map([['Q625724', { latitude: 37.5729, longitude: 126.9794, sitelinks: {} }]])
+  const { decisions, stats } = await recoverPlaces(offline, [p], { cc, auxMap: new Map(), facts, gaz: compileGazetteer(loadKoreaConfig()), regionOf: () => 'east_asia', known })
+  assert.deepEqual([decisions[0].outcome, decisions[0].duplicate_of], ['duplicate_of_project', 'CAT-080XNRV'])
+  assert.equal(stats.duplicate_of_project, 1)
+  assert.equal(p.country_iso2, null, 'nothing is filled in')
+})

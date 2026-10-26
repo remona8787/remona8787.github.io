@@ -31,7 +31,7 @@ export const FIXTURES = FIX
 // The web rules of a fixture run: the English GDELT group and the Dezeen feed (the others need no new code paths).
 export const FIXTURE_OVERRIDES = {
   // Korea: the fixture search terms and probes (the real titles are checked by the live runs only).
-  korea: { search_terms: ['유등축제', '미디어아트'], probes: ['픽스처 강릉 빛축제', '픽스처 경포 유등축제', '픽스처 없는 문서'] },
+  korea: { search_terms: ['유등축제', '미디어아트'], probes: ['픽스처 강릉 빛축제', '픽스처 경포 유등축제', '픽스처 없는 문서', '픽스처미디어아트 뮤지엄 부산'] },
   pipeline: {
     sources: { web: { rules: [SEED_RULES.find((r) => r.kind === 'gdelt' && r.language === 'en'), SEED_RULES.find((r) => r.kind === 'rss' && r.name === 'Dezeen')] } },
   },
@@ -64,6 +64,19 @@ function sparql(body) {
     const f = `wikidata/sparql/${k}-${q}.json`
     if (existsSync(path.join(DIR, f))) return jsonRes(read(f), { type: 'application/sparql-results+json' })
     return jsonRes(k === 'class-count' ? { head: { vars: ['instances', 'with_coords'] }, results: { bindings: [{ instances: { datatype: 'http://www.w3.org/2001/XMLSchema#integer', type: 'literal', value: '0' }, with_coords: { datatype: 'http://www.w3.org/2001/XMLSchema#integer', type: 'literal', value: '0' } }] } } : { head: { vars: ['item'] }, results: { bindings: [] } }, { type: 'application/sparql-results+json' })
+  }
+  if (k === 'kr-label-scan') {
+    // The Korean labels of the fixture items in Korea (P17) that contain one of the terms.
+    const terms = [...query.matchAll(/CONTAINS\(\?label, ("(?:[^"\\]|\\.)*")\)/g)].map((m) => JSON.parse(m[1]))
+    const country = /wdt:P17 wd:(Q\d+)/.exec(query)?.[1]
+    const bindings = []
+    for (const e of FIX.entities.values()) {
+      const ko = e.labels?.ko?.value
+      if (!ko || !terms.some((t) => ko.includes(t))) continue
+      if (!(e.claims?.P17 || []).some((c) => c.mainsnak?.datavalue?.value?.id === country)) continue
+      bindings.push({ item: { type: 'uri', value: ENTITY + e.id }, label: { 'xml:lang': 'ko', type: 'literal', value: ko } })
+    }
+    return jsonRes({ head: { vars: ['item', 'label'] }, results: { bindings } }, { type: 'application/sparql-results+json' })
   }
   if (k === 'aux') {
     const ids = [...query.matchAll(/wd:(Q\d+)/g)].map((m) => m[1])
@@ -130,7 +143,10 @@ function wikidataSearch(p) {
   const term = q.replace(/\s*haswbstatement:\S+/g, '').trim()
   const country = /haswbstatement:P17=(Q\d+)/.exec(q)?.[1] || null
   const ids = (FIX.search.wikidata?.[term] || []).filter((id) => !country || (FIX.entities.get(id)?.claims?.P17 || []).some((c) => c.mainsnak?.datavalue?.value?.id === country))
-  return jsonRes({ batchcomplete: true, query: { searchinfo: { totalhits: ids.length }, search: ids.map((title) => ({ ns: 0, title })) } })
+  // Pages like the real API: srlimit hits from sroffset, and continue.sroffset while more remain.
+  const offset = Number(p.get('sroffset') || 0), limit = Number(p.get('srlimit') || 10)
+  const page = ids.slice(offset, offset + limit)
+  return jsonRes({ batchcomplete: offset + limit >= ids.length, ...(offset + limit < ids.length ? { continue: { sroffset: offset + limit, continue: '-||' } } : {}), query: { searchinfo: { totalhits: ids.length }, search: page.map((title) => ({ ns: 0, title })) } })
 }
 
 const catPage = (title, props) => {

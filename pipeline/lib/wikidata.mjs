@@ -63,14 +63,35 @@ SELECT DISTINCT ?item ?class WHERE {
 
 /**
  * Wikidata full-text search (CirrusSearch) for a term among items of a country (haswbstatement:P17=…): labels,
- * descriptions and aliases in any language. Cached per term. Returns QIDs.
+ * descriptions and aliases in any language, every page up to max (sroffset). Cached per term and page. Returns QIDs.
  */
-export async function searchItems(client, term, { country = null, limit = 50, cache = null, ttlHours = 72, stage = 'korea' } = {}) {
+export async function searchItems(client, term, { country = null, limit = 50, max = 200, cache = null, ttlHours = 72, stage = 'korea' } = {}) {
   const q = [term, country ? `haswbstatement:P17=${country}` : ''].filter(Boolean).join(' ')
-  const url = `${WD_API}?${new URLSearchParams({ action: 'query', list: 'search', srsearch: q, srnamespace: '0', srlimit: String(Math.min(500, limit)), srprop: '', format: 'json', formatversion: '2' })}`
-  const json = await client.json(url, { stage, cache: cache ? { ns: 'wikidata-search', key: q, ttlMs: ttlHours * HOUR } : null })
-  return uniq((json?.query?.search || []).map((x) => x.title).filter(isQid))
+  const out = []
+  // Every page of hits up to max: the API's continue.sroffset names the next page.
+  let offset = 0
+  while (offset < max) {
+    const url = `${WD_API}?${new URLSearchParams({ action: 'query', list: 'search', srsearch: q, srnamespace: '0', srlimit: String(Math.min(500, limit, max - offset)), sroffset: String(offset), srprop: '', format: 'json', formatversion: '2' })}`
+    const json = await client.json(url, { stage, cache: cache ? { ns: 'wikidata-search', key: q + (offset ? '@' + offset : ''), ttlMs: ttlHours * HOUR } : null })
+    out.push(...(json?.query?.search || []).map((x) => x.title).filter(isQid))
+    const next = Number(json?.continue?.sroffset)
+    if (!Number.isFinite(next) || next <= offset) break
+    offset = next
+  }
+  return uniq(out)
 }
+
+/**
+ * Korean labels that contain a term (#aol:kr-label-scan): full-text search splits no Korean compounds, so
+ * "유등축제" never finds "진주남강유등축제"; this scan of the Korean labels of the country's items does. One query
+ * for all terms; returns [{qid, label}].
+ */
+export const krLabelScanQuery = (terms, countryQid, limit = 500) => `#aol:kr-label-scan
+SELECT ?item ?label WHERE {
+  ?item wdt:P17 wd:${countryQid} ; rdfs:label ?label .
+  FILTER(LANG(?label) = "ko")
+  FILTER(${terms.map((t) => `CONTAINS(?label, ${JSON.stringify(t)})`).join(' || ')})
+} LIMIT ${limit}`
 
 /** Items of Korean Wikipedia articles by title (probes): Map(title → {qid, ko, en, p31[], p17[], p131[]} | null). */
 export async function itemsOfArticles(client, wiki, titles, { stage = 'korea', cache = null, ttlHours = 24 } = {}) {

@@ -1,7 +1,7 @@
 {
  "broken_links": [
   {
-   "checked_at": "2026-10-20T06:28:25.120Z",
+   "checked_at": "2026-10-20T06:28:26.840Z",
    "consecutive_failures": 1,
    "field": "official_url",
    "http_status": 404,
@@ -10,7 +10,7 @@
    "url": "https://centercity.example/"
   }
  ],
- "build_id": "20261020T061700Z-7f240db3",
+ "build_id": "20261020T061700Z-9f41c980",
  "coordinate_checks": [
   {
    "distance_m": 6135,
@@ -286,6 +286,12 @@
    "country_iso2": "KR",
    "id": "Q99000506",
    "name": "Fixture Gyeongpo Lantern Festival",
+   "project_type": "festival_program"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "Q99000508",
+   "name": "Fixture Hangang Light Festival",
    "project_type": "festival_program"
   },
   {

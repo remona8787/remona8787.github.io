@@ -160,6 +160,9 @@ add('Q99000504', { labels: { ko: '픽스처 미디어 작가' }, claims: { P31: 
 // and an association (an organisation without a place class: refused).
 add('Q99000506', { labels: { ko: '픽스처 경포 유등축제', en: 'Fixture Gyeongpo Lantern Festival' }, descriptions: { ko: '강릉 경포호의 유등축제' },
   claims: { P31: 'Q132241', P17: 'Q884', P131: 'Q99000414', P625: [[37.7955, 128.9086]], P361: 'Q99000502' }, sitelinks: { kowiki: '픽스처 경포 유등축제' } })
+// Found only by the Korean label scan: a compound label ("…빛축제") that the full-text search does not split.
+add('Q99000508', { labels: { ko: '픽스처한강빛축제', en: 'Fixture Hangang Light Festival' }, descriptions: { ko: '한강공원의 빛축제' },
+  claims: { P31: 'Q132241', P17: 'Q884', P131: 'Q99000303', P625: [[37.5284, 126.9326]] } })
 add('Q48204', { labels: { en: 'voluntary association', ko: '자원 단체' } })
 add('Q99000507', { labels: { ko: '픽스처 미디어아트 협회' }, descriptions: { ko: '미디어아트 작가 단체' }, claims: { P31: 'Q48204', P17: 'Q884', P131: 'Q99000417' } })
 // Country recovery: the Giza complex's item gives Egypt; a lights festival located (P276) in a city of the United
@@ -458,6 +461,10 @@ const wikis = {
       // media art only in passing (below the term's score).
       '미디어아트 전시관': [['픽스처 미디어아트 뮤지엄 부산', '해운대구의 미디어아트 전시관'], ['픽스처 미디어 작가', '미디어아트 전시관 작가'], ['픽스처 시립도서관', '미디어아트 전시관 강좌']],
       '빛축제': [['픽스처 강릉 빛축제', '강릉 빛축제']],
+      // Probe titles that are not article titles: an article under the same name written with a space exists (it is
+      // used); a list whose title only starts with the name does not count.
+      '픽스처미디어아트 뮤지엄 부산': [['픽스처 미디어아트 뮤지엄 부산', '해운대구의 미디어아트 전시관'], ['픽스처 미디어아트 협회', '미디어아트 작가 단체']],
+      '픽스처 없는 문서': [['픽스처 없는 문서 목록', '목록']],
     },
     pages: [
       ['롯데월드타워', 'Q494895', '롯데월드타워는 서울특별시 송파구에 있는 초고층 빌딩이다. 외벽 상부에 미디어파사드가 설치되어 있어 야간에 영상을 상영한다.', [37.5125, 127.1025]],

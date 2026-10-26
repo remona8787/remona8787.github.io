@@ -12,6 +12,25 @@ import { HOUR } from './cache.mjs'
 
 export const wikiApi = (lang, params) => `https://${lang}.wikipedia.org/w/api.php?${new URLSearchParams({ format: 'json', formatversion: '2', ...params })}`
 
+/** A title without spaces, punctuation or a trailing disambiguation ("빛의 벙커 (제주)" → "빛의벙커"). */
+export const compactTitle = (t) => String(t || '').normalize('NFKC').replace(/\s*\([^)]*\)\s*$/u, '').toLowerCase().replace(/[\s\p{P}\p{S}]+/gu, '')
+
+/**
+ * The existing article for each title that has none under that exact name: a full-text search of the wiki, and a hit
+ * whose title is the same name written differently (spacing, punctuation, a disambiguation in parentheses). Never a
+ * guess: no such hit, no title. Map(title → resolved title | null). Cached per title.
+ */
+export async function resolveArticleTitles(client, lang, titles, { cache = null, ttlHours = 72, stage = 'korea', limit = 10 } = {}) {
+  const out = new Map()
+  for (const title of uniq(titles)) {
+    const json = await client.json(wikiApi(lang, { action: 'query', list: 'search', srsearch: title, srnamespace: '0', srlimit: String(limit), srprop: '' }), { stage, cache: cache ? { ns: 'wiki-search', key: `${lang}:resolve:${title}`, ttlMs: ttlHours * HOUR } : null })
+    const want = compactTitle(title)
+    const hit = (json?.query?.search || []).map((h) => h.title).find((t) => t !== title && compactTitle(t) === want) || null
+    out.set(title, hit)
+  }
+  return out
+}
+
 /** A tolerant pattern for a term: case-insensitive, façade/facade, spaces/hyphens optional between words. */
 export function termPattern(term) {
   const t = String(term).trim()

@@ -28,11 +28,11 @@ import { defaultSleep, errorText } from '../edge-functions/_shared/archive/http.
 import { createClient, USER_AGENT } from './lib/net.mjs'
 import { Cache, HOUR } from './lib/cache.mjs'
 import { readJSON, writeJSON, writeFileAtomic, swapDir, listFiles } from './lib/io.mjs'
-import { discoverClasses, addClassCounts, classInstances, countryClassInstances, countryClassInstancesQuery, classMembershipQuery, searchItems, itemsOfArticles, sparql, qidFromUri, fetchEntities, fetchAux, auxRefs, auxNext, factsOf } from './lib/wikidata.mjs'
+import { discoverClasses, addClassCounts, classInstances, countryClassInstances, countryClassInstancesQuery, classMembershipQuery, krLabelScanQuery, searchItems, itemsOfArticles, sparql, qidFromUri, fetchEntities, fetchAux, auxRefs, auxNext, factsOf } from './lib/wikidata.mjs'
 import { compileGazetteer, discoverKrDivisions, krRegionOf, koreanPlaceOf, krPlaceFromChain, KR_REGIONS } from './lib/korea.mjs'
 import { discoverTourApi, tourObservation } from './lib/tourapi.mjs'
 import { discoverCategories, categoryRules, nightParent } from './lib/commons.mjs'
-import { discoverWikipedia, acceptEntity } from './lib/wikipedia.mjs'
+import { discoverWikipedia, acceptEntity, resolveArticleTitles } from './lib/wikipedia.mjs'
 import { webRules, collectWeb, mergeCandidates } from './lib/web.mjs'
 import { checkCoordinates } from './lib/overpass.mjs'
 import { checkLinks } from './lib/links.mjs'
@@ -42,7 +42,7 @@ import { imageStage } from './lib/image-stage.mjs'
 import { writeContactSheets, SHEET_ABOUT } from './lib/contact-sheet.mjs'
 import { imageAudit, auditSummary } from './lib/image-audit.mjs'
 import { discoverSeoulEvents, linkEvents, eventOut, DATASET as SEOUL_DATASET } from './lib/seoul-events.mjs'
-import { recoverPlaces, loadCountryCoder, countryAt } from './lib/places.mjs'
+import { recoverPlaces, loadCountryCoder, countryAt, sameNameAs } from './lib/places.mjs'
 import { relationsOf } from './lib/relations.mjs'
 import T from '../site-public-cleared/archive-taxonomy.js'
 import { loadEditorial, compileEditorial, heroAllowSet, applyToProject, finishLog } from './lib/editorial.mjs'
@@ -186,10 +186,28 @@ export async function runPipeline(o) {
             // named things among Korean items (labels, descriptions, aliases) finds them; the entity rules decide later.
             for (const term of KC.search_terms || []) {
               try {
-                const qs = await searchItems(client, term, { country: KC.country.qid, limit: KO.search_limit ?? 50, cache, ttlHours: ttl.wikidata_search ?? 72 })
+                const qs = await searchItems(client, term, { country: KC.country.qid, limit: KO.search_limit ?? 50, max: KO.search_max ?? 200, cache, ttlHours: ttl.wikidata_search ?? 72 })
                 krSearch.terms[term] = qs.length
                 for (const q of qs) krSearch.byQid.set(q, [...(krSearch.byQid.get(q) || []), term])
               } catch (x) { if (isBudget(x)) throw x; krSearch.errors.push({ stage: 'korea_search', term, message: msg(x) }) }
+            }
+            // Korean compounds: the Korean labels that contain a term (one SPARQL scan for all of them).
+            const scanTerms = (KC.label_scan_terms || []).filter((t) => /\p{Script=Hangul}/u.test(t))
+            if (scanTerms.length) {
+              try {
+                const rows = await sparql(client, krLabelScanQuery(scanTerms, KC.country.qid, KC.label_scan_limit ?? 500), { stage: 'korea', cache: { ns: 'sparql', key: 'kr-label-scan:' + scanTerms.join('|'), ttlMs: (ttl.sparql ?? 24) * 3600e3 } })
+                const limit = KC.label_scan_limit ?? 500, byTerm = Object.fromEntries(scanTerms.map((t) => [t, 0]))
+                let n = 0
+                for (const r of rows) {
+                  const q = qidFromUri(r.item?.value), label = r.label?.value || ''
+                  if (!q) continue
+                  const hit = scanTerms.filter((t) => label.includes(t))
+                  for (const t of hit) byTerm[t]++
+                  if (!krSearch.byQid.has(q)) n++
+                  krSearch.byQid.set(q, uniq([...(krSearch.byQid.get(q) || []), ...hit.map((t) => 'label:' + t)]))
+                }
+                krSearch.label_scan = { rows: rows.length, new_items: n, limit, truncated: rows.length >= limit, by_term: byTerm }
+              } catch (x) { if (isBudget(x)) throw x; krSearch.errors.push({ stage: 'korea_label_scan', message: msg(x) }) }
             }
             e.push(...krSearch.errors)
           }
@@ -197,6 +215,12 @@ export async function runPipeline(o) {
           if ((KC.probes || []).length) {
             try {
               const found = await itemsOfArticles(client, 'kowiki', KC.probes, { cache, ttlHours: ttl.sparql ?? 24 })
+              // A missing title: the existing article under the same name written differently, found by a search.
+              const missing = KC.probes.filter((t) => !found.get(t))
+              const resolved = missing.length ? await resolveArticleTitles(client, 'ko', missing, { cache, ttlHours: ttl.wiki_search ?? 72 }) : new Map()
+              const again = [...resolved.values()].filter(Boolean)
+              const more = again.length ? await itemsOfArticles(client, 'kowiki', again, { cache, ttlHours: ttl.sparql ?? 24 }) : new Map()
+              for (const [t, r] of resolved) if (r && more.get(r)) found.set(t, { ...more.get(r), resolved_title: r })
               const qids = [...found.values()].filter(Boolean).map((x) => x.qid)
               const usable = classReview.classes.filter((c) => c.publish_korea || c.publish).map((c) => c.qid)
               const member = new Map()
@@ -290,7 +314,8 @@ export async function runPipeline(o) {
   // Wikidata full-text search hits among Korean items: accepted after enrichment by the entity rules, a Korean
   // location and a place, event or work class (like the Korean Wikipedia hits).
   const krTermRules = P.wikipedia?.term_rules || {}
-  for (const [qid, terms] of krSearch.byQid) if (!krInst?.byQid.has(qid)) observations.push({ origin: 'wikidata_search', qid, korea: true, sources: [], evidence: [{ kind: 'wikidata_search', terms, accepted: false, ...(terms.map((t) => krTermRules[t]?.type).find(Boolean) ? { type: terms.map((t) => krTermRules[t]?.type).find(Boolean) } : {}) }] })
+  const termType = (terms) => terms.map((t) => krTermRules[t.replace(/^label:/, '')]?.type).find(Boolean)
+  for (const [qid, terms] of krSearch.byQid) if (!krInst?.byQid.has(qid)) observations.push({ origin: 'wikidata_search', qid, korea: true, sources: [], evidence: [{ kind: 'wikidata_search', terms, accepted: false, ...(termType(terms) ? { type: termType(terms) } : {}) }] })
   for (const [qid, classQids] of classReview?.instances?.byQid || []) observations.push(classObservation(qid, classQids, false))
   for (const t of tourOut?.accepted || []) observations.push(tourObservation(t))
   const evidenceCats = []
@@ -716,6 +741,15 @@ export async function runPipeline(o) {
   const reviewQueue = Object.values(candidates).filter((c) => c.status === 'needs_review' || c.status === 'uncertain').length
   // Suspected duplicates: pairs the merge rules refused to join (two QIDs) that are still separate projects.
   const dupes = (clusters?.conflicts || []).map((c) => ({ rule: c.reason, qids: c.qids, detail: c.detail ?? null, projects: uniq(c.qids.map((q) => projects.find((p) => (p.all_qids || []).includes(q))?.id)) })).filter((d) => d.projects.length > 1)
+  // Published twice under the same distinctive name in one country (one has no coordinates, so rule 3 cannot join them),
+  // and the twins the country recovery kept out (lib/places.mjs duplicate_of_project): an editor merges them.
+  const twinSeen = new Set()
+  for (const p of published) {
+    const t = sameNameAs(p, published)
+    const key = [p.id, t].sort().join('|')
+    if (t && !twinSeen.has(key)) { twinSeen.add(key); dupes.push({ rule: 'same_name_same_country', qids: uniq([p.qid, published.find((x) => x.id === t)?.qid].filter(Boolean)), detail: { name: p.name_en || p.name_ko || p.name_original, country_iso2: p.country_iso2 }, projects: [p.id, t].sort() }) }
+  }
+  for (const d of placeOut.decisions.filter((x) => x.outcome === 'duplicate_of_project')) dupes.push({ rule: 'duplicate_of_project', qids: [d.qid].filter(Boolean), detail: { name: d.name, category: d.category ?? null, kept_out: d.id }, projects: [d.id, d.duplicate_of] })
   const quality = {
     schema: 1, build_id: buildId, generated_at: startedAt,
     missing_images: records.filter((r) => !r.images.length).map((r) => ({ id: r.id, name: r.name_en || r.name_ko, project_type: r.project_type, country_iso2: r.country_iso2 })),
@@ -813,7 +847,7 @@ export async function runPipeline(o) {
     divisions: krDiv ? { from: krDiv.from, list: krDiv.divisions, expected: krDiv.expected, errors: krDiv.errors } : null,
     class_instances: krInst?.perClass ?? null,
     class_query_example: classReview?.classes?.[0] ? countryClassInstancesQuery(classReview.classes[0].qid, KC.country.qid, KO.class_instance_limit ?? 2000) : null,
-    search: { terms: krSearch.terms, items: krSearch.byQid.size, errors: krSearch.errors, decisions: krSearchDecisions.sort((a, b) => compareStrings(a.qid, b.qid)) },
+    search: { terms: krSearch.terms, label_scan: krSearch.label_scan ?? null, items: krSearch.byQid.size, errors: krSearch.errors, decisions: krSearchDecisions.sort((a, b) => compareStrings(a.qid, b.qid)) },
     probes: (krProbes || []).map((pr) => ({ ...pr, found_by: pr.qid ? [krInst?.byQid.has(pr.qid) && 'class_query', krSearch.byQid.has(pr.qid) && 'wikidata_search', wikiHits.some((h) => h.qid === pr.qid && h.lang === 'ko') && 'kowiki_search', published.some((p) => p.qid === pr.qid || (p.all_qids || []).includes(pr.qid)) && 'published'].filter(Boolean) : [] })),
     regions: Object.fromEntries(KR_REGIONS.map((k) => [k, krDecisions.filter((d) => d.region === k).length])),
     decisions: krDecisions.sort((a, b) => compareStrings(a.id, b.id)),
