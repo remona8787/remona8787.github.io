@@ -17,6 +17,10 @@ const run = promisify(execFile)
 const root = path.resolve(import.meta.dirname, '..')
 const pages = path.join(root, 'deploy/pages-repo')
 const workflowFile = path.join(pages, '.github/workflows/archive.yml')
+// The same workflow at the root of the source branch (this project's .github/): a push to source starts it.
+const sourceWorkflowFile = path.join(root, '.github/workflows/archive.yml')
+// Repository secrets the collect step may read (docs/PIPELINE.md "Keys"); nothing else may name a secret.
+const SECRETS = ['TOURAPI_SERVICE_KEY', 'FLICKR_API_KEY', 'OPENVERSE_CLIENT_ID', 'OPENVERSE_CLIENT_SECRET', 'UNSPLASH_ACCESS_KEY', 'PEXELS_API_KEY', 'NAVER_API_KEY_ID', 'NAVER_API_KEY', 'BRAVE_API_KEY']
 let YAML = null
 try { YAML = createRequire(path.join(root, 'pipeline/package.json'))('yaml') } catch {}
 const needYaml = { skip: YAML ? false : 'yaml is not installed (npm ci --prefix pipeline)' }
@@ -31,6 +35,11 @@ test('the Pages repository files exist: workflow, README, empty .nojekyll', asyn
   for (const s of ['https://remona8787.github.io/', 'Deploy from a branch', 'Read and write permissions', '[collect]', 'editorial/decisions/', 'source', 'data']) assert.ok(readme.includes(s), s)
 })
 
+test('archive.yml: the copy at the source branch root is identical to the canonical copy', async () => {
+  assert.ok(existsSync(sourceWorkflowFile), '.github/workflows/archive.yml on the source branch')
+  assert.equal(await readFile(sourceWorkflowFile, 'utf8'), text, 'cp deploy/pages-repo/.github/workflows/archive.yml .github/workflows/archive.yml')
+})
+
 test('archive.yml: triggers, concurrency, permissions, environment', needYaml, () => {
   const wf = YAML.parse(text)
   assert.equal(wf.name, 'archive')
@@ -39,7 +48,8 @@ test('archive.yml: triggers, concurrency, permissions, environment', needYaml, (
   assert.equal(wf.on.workflow_dispatch.inputs.collect.type, 'boolean')
   assert.deepEqual(wf.on.push, { branches: ['source'] })
   assert.deepEqual(Object.keys(wf.on).sort(), ['push', 'schedule', 'workflow_dispatch'], 'no pull_request trigger: never runs code from forks')
-  assert.deepEqual(wf.concurrency, { group: 'archive', 'cancel-in-progress': false })
+  assert.deepEqual(wf.concurrency, { group: 'archive', 'cancel-in-progress': false }, 'one run at a time; a running one is never cancelled')
+  assert.deepEqual(wf.jobs.deploy.concurrency, { group: 'archive-deploy', 'cancel-in-progress': false }, 'a running deploy is never cancelled')
   assert.deepEqual(wf.permissions, { contents: 'write' })
   assert.equal(wf.env.NODE_VERSION, '22')
   assert.equal(wf.env.SITE_URL, 'https://remona8787.github.io')
@@ -91,7 +101,7 @@ test('archive.yml: what each job runs', needYaml, () => {
   assert.match(steps(verify).find((s) => /commit-push\.sh data data/.test(s.run || '')).if, /steps\.verify\.outcome != 'skipped'/)
 })
 
-test('archive.yml: every commit goes through commit-push.sh (bot identity); no force pushes, no secrets, no untrusted text in scripts', needYaml, () => {
+test('archive.yml: every commit goes through commit-push.sh (bot identity); no force pushes, secrets only as the collect step\'s env, no untrusted text in scripts', needYaml, () => {
   const wf = YAML.parse(text)
   const all = Object.values(wf.jobs).flatMap(steps)
   for (const s of all.filter((x) => x.run)) {
@@ -99,14 +109,31 @@ test('archive.yml: every commit goes through commit-push.sh (bot identity); no f
     assert.doesNotMatch(s.run, /--force|-f\b.*push/)
     assert.doesNotMatch(s.run, /github\.event\.(head_commit|commits|pull_request|issue)/, 'event text never reaches a shell script')
   }
-  assert.doesNotMatch(text, /secrets\./)
+  // Keys reach only the collect step, as environment variables named like the secret; never a script or another job.
+  const collectStep = wf.jobs.collect.steps.find((x) => x.id === 'run')
+  const named = [...text.matchAll(/\$\{\{\s*secrets\.([A-Z0-9_]+)\s*\}\}/g)].map((m) => m[1])
+  assert.deepEqual([...new Set(named)].sort(), [...SECRETS].sort())
+  for (const k of SECRETS) assert.equal(collectStep.env[k], `\${{ secrets.${k} }}`, k)
+  for (const x of all) if (x !== collectStep) assert.doesNotMatch(JSON.stringify(x), /secrets\./, 'only the collect step reads secrets')
+  assert.doesNotMatch(collectStep.run, /secrets|\$\{\{/, 'the script reads keys from its environment')
+  assert.doesNotMatch(text, /GITHUB_TOKEN\s*:/, 'no token is passed explicitly')
   for (const f of ['pipeline/ci/use-branch.sh', 'pipeline/ci/commit-push.sh', 'pipeline/run.mjs', 'pipeline/deploy.mjs', 'pipeline/verify-live.mjs', 'pipeline/package-lock.json', 'package-lock.json']) assert.ok(existsSync(path.join(root, f)), f)
 })
 
-test('the step summary of a run names the status, counts and every source', () => {
-  const md = runSummary({ run: { status: 'partial', publish: 'published', build_id: 'B1', duration_ms: 61000, budget_minutes: 25 }, counts: { published: 3, new: 1, with_images: 2 }, sources: { wikidata: { status: 'ok', items: 2, consecutive_failures: 0 }, commons: { status: 'error', items: 0, consecutive_failures: 2 } } })
+test('the step summary of a run names the status, counts, images by provider, failures and every source', () => {
+  const md = runSummary({
+    run: { status: 'partial', publish: 'published', build_id: 'B1', duration_ms: 61000, budget_minutes: 25 },
+    counts: { collected: 40, eligible: 30, published: 31, kr: 20, foreign: 11, kr_with_region: 19, new: 1, with_images: 2, with_hero: 1 },
+    images: { by_provider: { commons: 12, openverse: 3, tourapi: 0 }, hero: 2, below_threshold: 5, awaiting_review: 4 },
+    sources: { wikidata: { status: 'ok', items: 2, consecutive_failures: 0 }, commons: { status: 'error', items: 0, consecutive_failures: 2 } },
+    errors: [{ stage: 'commons' }],
+  })
   assert.match(md, /Collect: partial \(published\)/)
   assert.match(md, /`B1`, 61 s of a 25 min budget/)
+  assert.match(md, /40 collected, 30 eligible, 31 published \(20 Korean, 11 foreign; 19 Korean with a region\)/)
+  assert.match(md, /images by provider: commons 12, openverse 3$/m)
+  assert.match(md, /2 hero images on the home page, 5 images below their role's width target/)
+  assert.match(md, /failures: commons error \(2 in a row\); 1 errors logged/)
   assert.match(md, /\| commons \| error \| 0 \| 2 \|/)
 })
 

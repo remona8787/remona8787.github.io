@@ -1,0 +1,87 @@
+{
+ "pageid": 99000417,
+ "ns": 0,
+ "title": "Q99000417",
+ "lastrevid": 2400000417,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000417",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Seocho District"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "서초구"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "a5dc5857abf7bb886b1925a83d39dec0",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000401,
+       "id": "Q99000401"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000417$a5dc5857-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "8e8596f6283c6483822fe766de246067",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000417$8e8596f6-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "c7f806b48a459736f9488ac135c5c475",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 8684,
+       "id": "Q8684"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000417$c7f806b4-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

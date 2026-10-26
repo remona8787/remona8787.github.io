@@ -1,17 +1,24 @@
 # Light Architecture archive: collect → deploy → verify-live.
 # Contract: docs/STATIC_ARCHIVE.md; operations: docs/PIPELINE.md (both on the source branch).
-# Canonical copy: deploy/pages-repo/.github/workflows/archive.yml on the source branch. Copy it here by hand: a
-# GITHUB_TOKEN push may not change workflow files, so the deploy job only warns when the two differ.
+# Canonical copy: deploy/pages-repo/.github/workflows/archive.yml on the source branch. The same file also lives at
+# .github/workflows/archive.yml on the source branch (so a push to source starts this workflow: GitHub reads a push's
+# workflow from the pushed commit) and on main (schedules run from the default branch). The tests keep the source
+# copies identical; copy the file to main by hand: a GITHUB_TOKEN push may not change workflow files, so the deploy job
+# only warns when main's copy differs.
 #
 # Branches of remona8787/remona8787.github.io:
 #   main    the built site served by GitHub Pages (Settings → Pages → Deploy from a branch → main, / (root)), plus this
 #           workflow, README.md and .nojekyll. Written only by the deploy job.
 #   source  the light-architecture project at the branch root, plus editorial/. Humans and Claude push here.
-#   data    pipeline output: site-data/ (published at /data/), admin-data/ (published at /data/admin/), review/
+#   data    pipeline output: site-data/ (published at /data/), admin-data/ (internal: never published), review/
 #           (contact sheets, query logs, live checks) and state/ (caches, ETags, failure counters). Written only by
 #           this workflow.
 #
 # Pushes made with GITHUB_TOKEN do not start other workflows, so collect, deploy and verify are jobs of this one.
+# One concurrency group for the whole workflow (never cancelled in progress: a waiting run starts when the running one
+# ends), and one more for the deploy job, so no deploy is ever cancelled or runs next to another.
+# API keys come only from repository secrets, passed to the collect step's environment (docs/PIPELINE.md lists them);
+# without a key the source or image provider is skipped and the report says so.
 # Every commit is made as github-actions[bot]. Every step is idempotent and no job deletes data: a failed collect
 # commits nothing, so deploy publishes the last good dataset; deploy never replaces a valid deployed dataset with an
 # invalid one; an unchanged deploy commits nothing.
@@ -81,6 +88,15 @@ jobs:
         id: run
         env:
           BUDGET_MINUTES: ${{ inputs.budget_minutes || 25 }}
+          TOURAPI_SERVICE_KEY: ${{ secrets.TOURAPI_SERVICE_KEY }}
+          FLICKR_API_KEY: ${{ secrets.FLICKR_API_KEY }}
+          OPENVERSE_CLIENT_ID: ${{ secrets.OPENVERSE_CLIENT_ID }}
+          OPENVERSE_CLIENT_SECRET: ${{ secrets.OPENVERSE_CLIENT_SECRET }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          NAVER_API_KEY_ID: ${{ secrets.NAVER_API_KEY_ID }}
+          NAVER_API_KEY: ${{ secrets.NAVER_API_KEY }}
+          BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}
         run: node source/pipeline/run.mjs --data=data --budget="$BUDGET_MINUTES"
       - name: Commit to the data branch
         if: steps.run.outcome == 'success'
@@ -92,6 +108,9 @@ jobs:
     needs: collect
     # After collect whatever its result (a failed collect left the data branch as it was), or alone when it was skipped.
     if: ${{ !cancelled() && github.event.deleted != true }}
+    concurrency:
+      group: archive-deploy
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 20
     outputs:
@@ -128,7 +147,7 @@ jobs:
         run: |
           npm ci --no-audit --no-fund
           npm run build
-      - name: Assemble main (site, data/ and data/admin/; .github, README.md and .nojekyll kept)
+      - name: Assemble main (site and data/; .github, README.md and .nojekyll kept; admin data never published)
         id: assemble
         run: >-
           node source/pipeline/deploy.mjs --dist=source/dist --data=data --site=site
@@ -137,6 +156,9 @@ jobs:
         run: |
           if ! cmp -s source/deploy/pages-repo/.github/workflows/archive.yml site/.github/workflows/archive.yml; then
             echo "::warning title=archive.yml differs from its canonical copy::Copy deploy/pages-repo/.github/workflows/archive.yml of the source branch to .github/workflows/archive.yml on main."
+          fi
+          if ! cmp -s source/deploy/pages-repo/.github/workflows/archive.yml source/.github/workflows/archive.yml; then
+            echo "::warning title=archive.yml of the source branch differs::.github/workflows/archive.yml on source must equal deploy/pages-repo/.github/workflows/archive.yml."
           fi
       - name: Commit and push main
         if: steps.assemble.outputs.changed == 'true'

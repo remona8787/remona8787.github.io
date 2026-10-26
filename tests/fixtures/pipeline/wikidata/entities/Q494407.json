@@ -1,0 +1,175 @@
+{
+ "pageid": 494407,
+ "ns": 0,
+ "title": "Q494407",
+ "lastrevid": 2400494407,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q494407",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "National Museum of Korea"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "국립중앙박물관"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "national museum in Seoul"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "ee65734076a9f4dc047ebd225f6592ee",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 207694,
+       "id": "Q207694"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q494407$ee657340-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "e1168c76f3d01df9712ae09e6b2d4eac",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q494407$e1168c76-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "d6888c497231eab16f6972445de288d3",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000417,
+       "id": "Q99000417"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q494407$d6888c49-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "1cb2baeebeda62a25fee4bfb2b548c1a",
+     "datavalue": {
+      "value": {
+       "latitude": 37.5239,
+       "longitude": 126.9803,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q494407$1cb2baee-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "e08a4d0c58ab32c53ed2390fdf7885f6",
+     "datavalue": {
+      "value": {
+       "time": "+1945-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q494407$e08a4d0c-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P373": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P373",
+     "hash": "728c6feedfea0b744b017d9ddea0e560",
+     "datavalue": {
+      "value": "National Museum of Korea",
+      "type": "string"
+     },
+     "datatype": "string"
+    },
+    "type": "statement",
+    "id": "Q494407$728c6fee-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "kowiki": {
+   "site": "kowiki",
+   "title": "국립중앙박물관",
+   "badges": [],
+   "url": "https://ko.wikipedia.org/wiki/%EA%B5%AD%EB%A6%BD%EC%A4%91%EC%95%99%EB%B0%95%EB%AC%BC%EA%B4%80"
+  },
+  "enwiki": {
+   "site": "enwiki",
+   "title": "National Museum of Korea",
+   "badges": [],
+   "url": "https://en.wikipedia.org/wiki/National_Museum_of_Korea"
+  },
+  "commonswiki": {
+   "site": "commonswiki",
+   "title": "Category:National Museum of Korea",
+   "badges": [],
+   "url": "https://commons.wikimedia.org/wiki/Category:National_Museum_of_Korea"
+  }
+ }
+}

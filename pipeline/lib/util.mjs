@@ -103,3 +103,8 @@ export function slugify(text) {
 
 export const byKey = (key) => (a, b) => (a[key] < b[key] ? -1 : a[key] > b[key] ? 1 : 0)
 export const compareStrings = (a, b) => (a < b ? -1 : a > b ? 1 : 0)
+
+/** Removes API keys from URLs and messages before they reach a log, a report or an error (keys come from env only). */
+export function redactKeys(text) {
+  return String(text ?? '').replace(/([?&](?:serviceKey|ServiceKey|api_key|apiKey|client_id|client_secret|key|access_key)=)[^&\s"']+/g, '$1***')
+}

@@ -11,7 +11,7 @@
 import path from 'node:path'
 import { readJSON, writeJSON } from './io.mjs'
 
-export const ORIGIN_SOURCE = { wikidata_class: 'wikidata', commons: 'commons', wikipedia: 'wikipedia', curated: 'curated', editorial: 'editorial', web: 'web' }
+export const ORIGIN_SOURCE = { wikidata_class: 'wikidata', commons: 'commons', wikipedia: 'wikipedia', tourapi: 'tourapi', curated: 'curated', editorial: 'editorial', web: 'web' }
 
 export async function loadState(stateDir) {
   const read = (name, fallback) => readJSON(path.join(stateDir, name), fallback)

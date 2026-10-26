@@ -65,6 +65,7 @@ export function clusterObservations(observations, facts) {
     if (o.category) cl.union(k, cl.add('c:' + o.category), o.qid ? 'identity' : 'commons_category', { force: !!o.qid && !o.qid_from_category_conflict })
     if (o.curated_id) cl.union(k, cl.add('cur:' + o.curated_id), 'identity', { force: true })
     if (o.editorial_id) cl.union(k, cl.add('ed:' + o.editorial_id), 'identity', { force: true })
+    if (o.tourapi_id) cl.union(k, cl.add('t:' + o.tourapi_id), 'identity', { force: true })
   })
   // Rule 2: the item's own Commons category (P373) is the same project as that category.
   for (const [qid, f] of facts) {
@@ -97,14 +98,31 @@ export function mergeByNameAndUrl(cl, projects) {
     if (list.length < 2 || list.length > 3) continue
     for (let i = 1; i < list.length; i++) if (cl.union(list[0]._root, list[i]._root, 'same_official_url', { detail: u })) made.push({ rule: 'same_official_url', a: list[0]._root, b: list[i]._root, url: u })
   }
+  // A TourAPI place (an attraction, a cultural facility) and a project named after it within 300 m: TourAPI titles
+  // name the place ("롯데월드타워"), the archive the work on it ("롯데월드타워 미디어파사드"), so one name containing the
+  // other is enough. Never between two TourAPI items, never across two QIDs.
+  const tour = projects.filter((p) => p.tourapi_id && validLat(p.latitude))
+  for (const t of tour) {
+    const tk = nameKeys(t)
+    for (const p of projects) {
+      if (p === t || p.tourapi_id || !validLat(p.latitude)) continue
+      const d = haversine({ lat: t.latitude, lng: t.longitude }, { lat: p.latitude, lng: p.longitude })
+      if (d > MERGE_DISTANCE_M) continue
+      const pk = nameKeys(p)
+      const hit = tk.find((a) => pk.some((b) => a.length >= 3 && b.length >= 3 && (a.includes(b) || b.includes(a))))
+      if (hit && cl.union(p._root, t._root, 'tourapi_name_within_300m', { detail: { name: hit, distance_m: Math.round(d) } })) { made.push({ rule: 'tourapi_name_within_300m', a: p._root, b: t._root, distance_m: Math.round(d) }); break }
+    }
+  }
   return made
 }
 
 const first = (...v) => v.find((x) => x !== null && x !== undefined && x !== '') ?? null
 const typeRank = (t) => { const i = TYPE_PRIORITY.indexOf(t); return i < 0 ? 99 : i }
+// Types whose work is the building's own surface: the building item is the work's carrier, not an institution.
+const FACADE_CARRIERS = new Set(['media_facade', 'media_wall', 'urban_screen'])
 
 /** Project type with its source and confidence. */
-export function projectType({ editorial, curated, classTypes, wikipedia, wikipediaType = null, commonsTypes }) {
+export function projectType({ editorial, curated, classTypes, wikipedia, wikipediaType = null, commonsTypes, tourType = null }) {
   if (editorial && PROJECT_TYPES.includes(editorial)) return { project_type: editorial, source: 'editorial', low_confidence: false }
   if (curated?.project_type) return { project_type: curated.project_type, source: curated.type_source, low_confidence: !!curated.type_low_confidence }
   // A class that is the item's own P31 says more than one reached through P279*; then the most specific type.
@@ -114,6 +132,8 @@ export function projectType({ editorial, curated, classTypes, wikipedia, wikiped
   if (wikipedia) return { project_type: PROJECT_TYPES.includes(wikipediaType) ? wikipediaType : 'media_facade', source: 'wikipedia_media_facade', low_confidence: false }
   const ct = commonsTypes.filter((t) => PROJECT_TYPES.includes(t)).sort((a, b) => typeRank(a) - typeRank(b))
   if (ct.length) return { project_type: ct[0], source: 'commons_category', low_confidence: true }
+  // A TourAPI item whose title or overview names the term and that the keyword classifier accepted.
+  if (tourType && PROJECT_TYPES.includes(tourType)) return { project_type: tourType, source: 'tourapi_term', low_confidence: true }
   return { project_type: null, source: null, low_confidence: true }
 }
 
@@ -125,6 +145,15 @@ export function yearsOf(f, projectType, itemIsWork) {
   return { year_completed: f.inception, year_operating_since: f.start, year_ended: f.end }
 }
 
+/** The first administrative name of a Korean address that is a city ("서울특별시 중구 …" → 서울특별시, "경기도 수원시 …" → 수원시). */
+export function koreanCityOf(address) {
+  const tokens = String(address || '').trim().split(/\s+/)
+  if (/(특별시|광역시|특별자치시)$/.test(tokens[0] || '')) return tokens[0]
+  if (/(도)$/.test(tokens[0] || '') && /(시|군)$/.test(tokens[1] || '')) return tokens[1]
+  if (/^(서울|부산|대구|인천|광주|대전|울산|세종)$/.test(tokens[0] || '')) return tokens[0]
+  return null
+}
+
 const cleanCategoryName = (t) => String(t || '').replace(/^Category:/, '').replace(/\s*\([^)]*\)\s*$/, '').trim() || null
 
 /**
@@ -134,6 +163,7 @@ const cleanCategoryName = (t) => String(t || '').replace(/^Category:/, '').repla
 export function buildProject(obs, facts, ctx = {}) {
   const curated = obs.find((o) => o.origin === 'curated') || null
   const editorialObs = obs.find((o) => o.origin === 'editorial') || null
+  const tour = obs.find((o) => o.origin === 'tourapi') || null
   const cats = obs.filter((o) => o.category)
   const wiki = obs.flatMap((o) => o.evidence || []).filter((e) => e.kind === 'wikipedia' && e.accepted)
   const classTypes = obs.flatMap((o) => o.class_types || [])
@@ -150,33 +180,39 @@ export function buildProject(obs, facts, ctx = {}) {
     qid_match: curated?.qid_match || (f ? 'exact' : null),
     curated_id: curated?.curated_id || null,
     editorial_id: editorialObs?.editorial_id || null,
+    tourapi_id: tour?.tourapi_id || null,
     origins: uniq(obs.map((o) => o.origin)).sort(),
   }
+  p.tourapi = tour?.tourapi || null
+  p.korea = obs.some((o) => o.korea)
   const host = p.qid_match === 'host'
-  p.name_ko = set('name_ko', first(editorialObs?.name?.ko, curated?.name?.ko, host ? null : f?.name_ko, wikiTitle('ko')), curated?.name?.ko ? 'curated' : editorialObs?.name?.ko ? 'editorial' : f?.name_ko && !host ? 'wikidata' : 'wikipedia:ko')
+  p.name_ko = set('name_ko', first(editorialObs?.name?.ko, curated?.name?.ko, host ? null : f?.name_ko, wikiTitle('ko'), tour?.name?.ko), curated?.name?.ko ? 'curated' : editorialObs?.name?.ko ? 'editorial' : f?.name_ko && !host ? 'wikidata' : wikiTitle('ko') ? 'wikipedia:ko' : 'tourapi')
   p.name_en = set('name_en', first(editorialObs?.name?.en, curated?.name?.en, host ? null : f?.name_en, wikiTitle('en'), /^[\p{Script=Latin}\d\s\p{P}]+$/u.test(catName || '') ? catName : null), curated?.name?.en ? 'curated' : editorialObs?.name?.en ? 'editorial' : f?.name_en && !host ? 'wikidata' : wikiTitle('en') ? 'wikipedia:en' : 'commons')
-  p.name_original = set('name_original', first(editorialObs?.name?.original, curated?.name?.original, host ? null : f?.name_original), curated ? 'curated' : editorialObs?.name?.original ? 'editorial' : 'wikidata')
+  p.name_original = set('name_original', first(editorialObs?.name?.original, curated?.name?.original, host ? null : f?.name_original, tour?.name?.original), curated ? 'curated' : editorialObs?.name?.original ? 'editorial' : f?.name_original && !host ? 'wikidata' : 'tourapi')
   p.name_original_lang = p.name_original ? first(editorialObs?.name?.original_lang, curated?.name?.original_lang, f?.name_original_lang) : null
   if (!p.name_en && !p.name_ko && !p.name_original) {
     const any = first(f?.any_label, catName, wiki[0]?.title)
     p.name_en = set('name_en', any, f?.any_label ? 'wikidata' : catName ? 'commons' : 'wikipedia')
   }
   p.building_name = host ? first(f?.name_ko, f?.name_en) : null
-  p.country_iso2 = set('country_iso2', first(editorialObs?.country_iso2, curated?.country_iso2, f?.country_iso2, hint?.country_iso2), editorialObs?.country_iso2 ? 'editorial' : curated?.country_iso2 ? 'curated' : f?.country_iso2 ? 'wikidata' : 'derived:commons_parent_category')
+  p.country_iso2 = set('country_iso2', first(editorialObs?.country_iso2, curated?.country_iso2, f?.country_iso2, tour?.country_iso2, hint?.country_iso2), editorialObs?.country_iso2 ? 'editorial' : curated?.country_iso2 ? 'curated' : f?.country_iso2 ? 'wikidata' : tour ? 'tourapi' : 'derived:commons_parent_category')
   p.region = p.country_iso2 ? T.regionOf(p.country_iso2) : null
   p.city = set('city', first(editorialObs?.city, curated?.city, f?.city, hint?.city), editorialObs?.city ? 'editorial' : curated?.city ? 'curated' : f?.city ? 'wikidata' : 'derived:commons_parent_category')
   p.city_ko = first(editorialObs?.city_ko, curated?.city_ko, f?.city_ko)
   p.district = curated?.district || null
-  p.address = curated?.address || null
-  const lat = first(editorialObs?.lat, curated?.lat, f?.latitude, catCoord?.lat), lng = first(editorialObs?.lng, curated?.lng, f?.longitude, catCoord?.lng)
-  const coordSource = editorialObs?.lat != null ? 'editorial' : curated?.lat != null ? 'curated' : f?.latitude != null ? 'wikidata' : 'commons'
+  p.address = curated?.address || tour?.address || null
+  if (p.address && !curated?.address) fs.address = 'tourapi'
+  // A TourAPI-only place: the city is the address's first administrative name (서울특별시, 수원시…).
+  if (!p.city && !p.city_ko && tour?.address) { const c = koreanCityOf(tour.address); if (c) { p.city_ko = c; fs.city_ko = 'tourapi' } }
+  const lat = first(editorialObs?.lat, curated?.lat, f?.latitude, tour?.lat, catCoord?.lat), lng = first(editorialObs?.lng, curated?.lng, f?.longitude, tour?.lng, catCoord?.lng)
+  const coordSource = editorialObs?.lat != null ? 'editorial' : curated?.lat != null ? 'curated' : f?.latitude != null ? 'wikidata' : tour?.lat != null ? 'tourapi' : 'commons'
   p.latitude = validLat(lat) && validLng(lng) ? set('latitude', lat, coordSource) : null
   p.longitude = p.latitude !== null ? set('longitude', lng, coordSource) : null
   p.location_precision = p.latitude !== null ? 'exact' : p.city ? 'city' : 'unknown'
 
-  const typed = projectType({ editorial: editorialObs?.project_type, curated, classTypes, wikipedia: wiki.length > 0, wikipediaType: wiki.find((w) => w.type)?.type ?? null, commonsTypes: cats.map((c) => c.project_type).filter(Boolean) })
+  const typed = projectType({ editorial: editorialObs?.project_type, curated, classTypes, wikipedia: wiki.length > 0, wikipediaType: wiki.find((w) => w.type)?.type ?? null, commonsTypes: cats.map((c) => c.project_type).filter(Boolean), tourType: tour?.project_type ?? null })
   p.project_type = typed.project_type
-  if (typed.source) fs.project_type = typed.source === 'editorial' ? 'editorial' : typed.source.startsWith('curated') ? 'curated' : typed.source.startsWith('class:') || typed.source.startsWith('wikipedia') ? (typed.source.startsWith('class:') ? 'wikidata' : 'wikipedia') : 'derived:commons_category'
+  if (typed.source) fs.project_type = typed.source === 'editorial' ? 'editorial' : typed.source.startsWith('curated') ? 'curated' : typed.source.startsWith('class:') || typed.source.startsWith('wikipedia') ? (typed.source.startsWith('class:') ? 'wikidata' : 'wikipedia') : typed.source === 'tourapi_term' ? 'derived:tourapi' : 'derived:commons_category'
   p.type_source = typed.source
   p.type_low_confidence = typed.low_confidence
   const itemIsWork = classTypes.length > 0 && !host
@@ -193,7 +229,7 @@ export function buildProject(obs, facts, ctx = {}) {
   }
   p.credits = credits
   if (credits.length) fs.credits = 'wikidata'
-  p.official_url = set('official_url', first(editorialObs?.official_url, curated?.official_url, host ? null : f?.official_url), editorialObs?.official_url ? 'editorial' : curated?.official_url ? 'curated' : 'wikidata')
+  p.official_url = set('official_url', first(editorialObs?.official_url, curated?.official_url, host ? null : f?.official_url, tour?.official_url), editorialObs?.official_url ? 'editorial' : curated?.official_url ? 'curated' : f?.official_url && !host ? 'wikidata' : 'tourapi')
   p.description_ko = set('description_ko', first(editorialObs?.description_ko, curated?.description_ko, host ? null : f?.description_ko), editorialObs?.description_ko ? 'editorial' : curated?.description_ko ? 'curated' : 'wikidata')
   p.description_en = set('description_en', first(editorialObs?.description_en, host ? null : f?.description_en), editorialObs?.description_en ? 'editorial' : 'wikidata')
   p.commons_category = first(f?.commons_category, cats[0]?.category)
@@ -230,10 +266,20 @@ export function buildProject(obs, facts, ctx = {}) {
 
   // Image inputs.
   p.p18 = host ? [] : f?.images || []
+  // The item is an institution, building, tower or district rather than the work itself (a host building, or a
+  // curated place whose item is not of a light-work class): its P18, depicts files and Commons category show the
+  // institution and the events held there, not the work, unless a file names the work or media (images.mjs). A media
+  // facade, media wall or urban screen is the building's own surface, so its building item is not an institution.
+  // Only a curated place's item can be the institution: the other sources found their item as the work itself (a
+  // class instance, a light-work category, an article about it). A curated item of a light-work class is the work.
+  p.item_is_work = itemIsWork || (!!f && !host && (f.p31 || []).some((q) => ctx.workClasses?.has(q)))
+  p.item_institution = !!f && (host || (!!curated && !p.item_is_work && !FACADE_CARRIERS.has(p.project_type)))
+  p.item_names = f ? uniq([f.name_ko, f.name_en, f.name_original, f.any_label].filter(Boolean)) : []
+  const ownCats = new Set(cats.map((c) => c.category))
   p.image_categories = uniq([
     ...(p.commons_category ? [p.commons_category] : []),
     ...cats.map((c) => c.category),
-  ]).map((title) => ({ title, source: 'category' }))
+  ]).map((title) => ({ title, source: 'category', ...(p.item_institution && !ownCats.has(title) ? { institution: true } : {}) }))
   for (const c of cats) {
     for (const t of c.parts || []) p.image_categories.push({ title: t, source: 'part_category' })
     for (const t of c.editions || []) p.image_categories.push({ title: t, source: 'event_category' })
@@ -255,7 +301,7 @@ export function eligibility(p, ctx = {}) {
   const reasons = []
   const approved = !!p.editorial?.approved
   if (p.editorial?.hidden) reasons.push('hidden_by_editor')
-  if (!(p.qid || p.commons_category || p.curated_id || p.editorial_id || approved)) reasons.push('no_stable_identity')
+  if (!(p.qid || p.commons_category || p.curated_id || p.editorial_id || p.tourapi_id || approved)) reasons.push('no_stable_identity')
   if (!(p.name_en || p.name_ko || p.name_original)) reasons.push('no_name')
   if (!p.country_iso2) reasons.push('no_country')
   if (p.latitude === null && !p.city) reasons.push('no_coordinates_or_city')
@@ -282,5 +328,6 @@ export function newId(p) {
   if (p.editorial_id) return 'ED-' + p.editorial_id
   if (isQid(p.qid)) return p.qid
   if (p.commons_category) return 'CAT-' + fnv1a(p.commons_category).toString(36).toUpperCase().padStart(7, '0')
+  if (p.tourapi_id && /^\d{1,12}$/.test(p.tourapi_id)) return 'KTO-' + p.tourapi_id
   return 'X-' + fnv1a(JSON.stringify([p.name_en, p.name_ko, p.country_iso2])).toString(36).toUpperCase()
 }

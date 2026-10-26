@@ -1,0 +1,175 @@
+{
+ "pageid": 69134,
+ "ns": 0,
+ "title": "Q69134",
+ "lastrevid": 2400069134,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q69134",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "N Seoul Tower"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "N서울타워"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "communication and observation tower in Seoul"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "1b5b949d51578905fe8087070b993cc6",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 12518,
+       "id": "Q12518"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q69134$1b5b949d-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "94157f00ee4b12434aa3a99c22332321",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q69134$94157f00-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "b5cd575bccbd85d5f65456462ef6c45e",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000417,
+       "id": "Q99000417"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q69134$b5cd575b-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "ad49806e79781d9240e050cdfe6b6da1",
+     "datavalue": {
+      "value": {
+       "latitude": 37.5512,
+       "longitude": 126.9882,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q69134$ad49806e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "839bcba2bd339a9686607a2addf2260e",
+     "datavalue": {
+      "value": {
+       "time": "+1975-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q69134$839bcba2-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P373": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P373",
+     "hash": "e7b0f53595207b825cbb558017d387fa",
+     "datavalue": {
+      "value": "N Seoul Tower",
+      "type": "string"
+     },
+     "datatype": "string"
+    },
+    "type": "statement",
+    "id": "Q69134$e7b0f535-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "kowiki": {
+   "site": "kowiki",
+   "title": "N서울타워",
+   "badges": [],
+   "url": "https://ko.wikipedia.org/wiki/N%EC%84%9C%EC%9A%B8%ED%83%80%EC%9B%8C"
+  },
+  "enwiki": {
+   "site": "enwiki",
+   "title": "N Seoul Tower",
+   "badges": [],
+   "url": "https://en.wikipedia.org/wiki/N_Seoul_Tower"
+  },
+  "commonswiki": {
+   "site": "commonswiki",
+   "title": "Category:N Seoul Tower",
+   "badges": [],
+   "url": "https://commons.wikimedia.org/wiki/Category:N_Seoul_Tower"
+  }
+ }
+}

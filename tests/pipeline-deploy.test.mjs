@@ -1,6 +1,7 @@
 // Deploy assembly (pipeline/deploy.mjs) and the live check helpers (pipeline/verify-live.mjs): main = built site +
-// data/ + data/admin/, the kept files of main, an invalid dataset never replacing a valid one, the idempotent deploy id,
-// robots.txt, and the waiting/summary logic of verify-live (the browser part runs on Actions).
+// data/ (admin data is never published, and an old data/admin/ on main is removed), the kept files of main, an invalid
+// dataset never replacing a valid one, the idempotent deploy id, robots.txt, and the waiting/summary logic of
+// verify-live (the browser part runs on Actions).
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { mkdtemp, mkdir, writeFile, readFile, rm, cp, readdir } from 'node:fs/promises'
@@ -8,7 +9,7 @@ import { existsSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { assemble, loadDataset, robotsWithAdmin, treeId, KEEP } from '../pipeline/deploy.mjs'
-import { waitForDeploy, pickDetail, screens, summarize, VIEWPORTS, INTERNAL_TERMS } from '../pipeline/verify-live.mjs'
+import { waitForDeploy, pickDetail, screens, summarize, renditionWidth, VIEWPORTS, INTERNAL_TERMS } from '../pipeline/verify-live.mjs'
 
 const root = path.resolve(import.meta.dirname, '..')
 const FIX = path.join(root, 'tests/fixtures/pipeline')
@@ -38,13 +39,13 @@ async function world() {
   return { dir, dist, data, site }
 }
 
-test('assemble: dist + site-data → data/ + admin-data → data/admin/; main keeps .git, .github, README.md, .nojekyll, CNAME', async () => {
+test('assemble: dist + site-data → data/; admin-data is never published; main keeps .git, .github, README.md, .nojekyll, CNAME', async () => {
   const w = await world()
   try {
     const r = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site, sourceSha: 'aaa', dataSha: 'bbb', now: '2026-10-20T07:00:00.000Z' })
     assert.equal(r.changed, true)
     assert.equal(r.dataset, 'data_branch')
-    assert.equal(r.admin, 'data_branch')
+    assert.equal(r.admin, 'not_published')
     const manifest = JSON.parse(await readFile(path.join(FIX, 'site-data/manifest.json'), 'utf8'))
     assert.equal(r.build_id, manifest.build_id)
     assert.match(r.deploy_id, /^[0-9a-f]{12}$/)
@@ -58,10 +59,11 @@ test('assemble: dist + site-data → data/ + admin-data → data/admin/; main ke
       assert.deepEqual(await readFile(path.join(w.site, 'data', f)), await readFile(path.join(FIX, 'site-data', f)), f + ' copied byte for byte')
     }
     assert.ok(!existsSync(path.join(w.site, 'data/stale.json')), 'a data/ folder of the build never mixes with the dataset')
-    assert.deepEqual((await readdir(path.join(w.site, 'data/admin'))).sort(), ['candidates.json', 'quality.json', 'report.json'])
+    assert.ok(!existsSync(path.join(w.site, 'data/admin')), 'internal admin data stays on the data branch')
+    assert.deepEqual((await readdir(path.join(w.site, 'data'))).sort(), ['home.json', 'index.json', 'manifest.json', 'projects', 'stats.json'])
     assert.match(await readFile(path.join(w.site, 'robots.txt'), 'utf8'), /^Disallow: \/admin\/\nDisallow: \/data\/admin\/\nSitemap:/m)
     const stamp = JSON.parse(await readFile(path.join(w.site, 'deploy.json'), 'utf8'))
-    assert.deepEqual(stamp, { schema: 1, deploy_id: r.deploy_id, build_id: manifest.build_id, dataset: 'data_branch', admin: 'data_branch', source: 'aaa', data: 'bbb', at: '2026-10-20T07:00:00.000Z' })
+    assert.deepEqual(stamp, { schema: 1, deploy_id: r.deploy_id, build_id: manifest.build_id, dataset: 'data_branch', admin: 'not_published', source: 'aaa', data: 'bbb', at: '2026-10-20T07:00:00.000Z' })
     // The deploy id is the content: an unchanged deploy touches nothing, even with other commit ids and times.
     const again = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site, sourceSha: 'ccc', dataSha: 'ddd', now: '2026-10-20T13:00:00.000Z' })
     assert.equal(again.changed, false)
@@ -75,7 +77,27 @@ test('assemble: dist + site-data → data/ + admin-data → data/admin/; main ke
   } finally { await rm(w.dir, { recursive: true, force: true }) }
 })
 
-test('an invalid or missing dataset never replaces the deployed one; invalid admin data keeps the deployed admin data', async () => {
+test('an old data/admin/ on main is removed by the next deploy, even when nothing else changed', async () => {
+  const w = await world()
+  try {
+    const first = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })
+    // What a v0.17 deploy left on main: data/admin/ next to the dataset, and the same deploy id in deploy.json.
+    await mkdir(path.join(w.site, 'data/admin'), { recursive: true })
+    for (const f of ['report.json', 'quality.json', 'candidates.json']) await writeFile(path.join(w.site, 'data/admin', f), '{}')
+    const logs = []
+    const r = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site, log: (s) => logs.push(s) })
+    assert.equal(r.deploy_id, first.deploy_id, 'the tree is the same')
+    assert.equal(r.removed_admin, true)
+    assert.equal(r.changed, true, 'so the commit removes data/admin/')
+    assert.ok(!existsSync(path.join(w.site, 'data/admin')))
+    assert.ok(existsSync(path.join(w.site, 'data/manifest.json')))
+    assert.ok(logs.some((l) => /data\/admin\/ on main is removed/.test(l)))
+    const again = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })
+    assert.equal(again.changed, false)
+  } finally { await rm(w.dir, { recursive: true, force: true }) }
+})
+
+test('an invalid or missing dataset never replaces the deployed one; invalid admin data is reported, never published', async () => {
   const w = await world()
   try {
     const first = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })
@@ -87,7 +109,7 @@ test('an invalid or missing dataset never replaces the deployed one; invalid adm
     const logs = []
     const r = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site, log: (s) => logs.push(s) })
     assert.equal(r.dataset, 'kept_previous')
-    assert.equal(r.admin, 'kept_previous')
+    assert.equal(r.admin, 'not_published')
     assert.ok(r.dataset_errors.length > 0)
     assert.ok(r.admin_errors.some((e) => /report\.json: invalid JSON/.test(e)))
     assert.equal(r.build_id, first.build_id)
@@ -99,7 +121,7 @@ test('an invalid or missing dataset never replaces the deployed one; invalid adm
     const r2 = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })
     assert.equal(r2.changed, true)
     assert.deepEqual(await readFile(path.join(w.site, 'data/index.json')), deployed)
-    assert.ok(existsSync(path.join(w.site, 'data/admin/report.json')))
+    assert.ok(!existsSync(path.join(w.site, 'data/admin')))
     // No data branch yet and nothing deployed: the site goes out without data/.
     const fresh = await world()
     try {
@@ -109,6 +131,55 @@ test('an invalid or missing dataset never replaces the deployed one; invalid adm
       assert.ok(!existsSync(path.join(fresh.site, 'data')))
       assert.ok(existsSync(path.join(fresh.site, 'deploy.json')))
     } finally { await rm(fresh.dir, { recursive: true, force: true }) }
+  } finally { await rm(w.dir, { recursive: true, force: true }) }
+})
+
+test('project pages: made from the deployed dataset (never a rejected one), with the sitemap and the marker; same inputs, same deploy id', async () => {
+  const w = await world()
+  try {
+    // A build with a canonical site URL (scripts/build.mjs writes SITE_URL) and its own sitemap, plus a stale p/.
+    await writeFile(path.join(w.dist, 'index.html'), '<!doctype html><html><head><title>x</title><link rel="canonical" href="https://remona8787.github.io/"></head><body></body></html>\n')
+    await writeFile(path.join(w.dist, 'sitemap.xml'), '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n<url><loc>https://remona8787.github.io/</loc></url>\n</urlset>\n')
+    await mkdir(path.join(w.dist, 'p/STALE'), { recursive: true })
+    await writeFile(path.join(w.dist, 'p/STALE/index.html'), 'stale\n')
+    const index = JSON.parse(await readFile(path.join(FIX, 'site-data/index.json'), 'utf8'))
+    const ids = index.rows.map((r) => r[index.fields.indexOf('id')])
+    const r = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site, now: '2026-10-25T20:00:00.000Z' })
+    assert.equal(r.dataset, 'data_branch')
+    assert.equal(r.pages, ids.length)
+    for (const id of ids) assert.ok(existsSync(path.join(w.site, 'p', id, 'index.html')), id)
+    assert.ok(existsSync(path.join(w.site, 'p/index.html')))
+    assert.ok(!existsSync(path.join(w.site, 'p/STALE')), 'p/ of a build never mixes with the pages of the dataset')
+    const sitemap = await readFile(path.join(w.site, 'sitemap.xml'), 'utf8')
+    assert.match(sitemap, /<loc>https:\/\/remona8787\.github\.io\/<\/loc>/, 'the site\'s own entries stay')
+    assert.ok(ids.every((id) => sitemap.includes(`/p/${encodeURIComponent(id)}/`)))
+    assert.match(await readFile(path.join(w.site, 'index.html'), 'utf8'), /<meta name="aol-static-pages" content="p\/">/)
+    const page = await readFile(path.join(w.site, 'p', 'SEOUL018', 'index.html'), 'utf8')
+    assert.match(page, /<link rel="canonical" href="https:\/\/remona8787\.github\.io\/p\/SEOUL018\/"/)
+    // Idempotent: the same inputs give the same tree, so nothing changes on main.
+    const again = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site, now: '2026-10-25T21:00:00.000Z' })
+    assert.equal(again.changed, false)
+    assert.equal(again.deploy_id, r.deploy_id)
+    // A rejected dataset on the data branch (a project without its record): the deployed dataset and its pages stay,
+    // and the rejected dataset's new project never gets a page.
+    const bad = { ...index, rows: [...index.rows, index.rows[0].map((v, i) => (index.fields[i] === 'id' ? 'Q99999991' : v))] }
+    await writeFile(path.join(w.data, 'site-data/index.json'), JSON.stringify(bad))
+    const kept = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })
+    assert.equal(kept.dataset, 'kept_previous')
+    assert.equal(kept.changed, false, 'the same deployed dataset gives the same pages')
+    assert.equal(kept.pages, ids.length)
+    assert.ok(!existsSync(path.join(w.site, 'p/Q99999991')))
+    // Nothing deployed and no valid dataset: no pages at all (and no stale ones from the build).
+    const none = await world()
+    try {
+      await writeFile(path.join(none.dist, 'index.html'), '<!doctype html><html><head><link rel="canonical" href="https://remona8787.github.io/"></head></html>\n')
+      await mkdir(path.join(none.dist, 'p/STALE'), { recursive: true })
+      await writeFile(path.join(none.dist, 'p/STALE/index.html'), 'stale\n')
+      const r3 = await assemble({ dist: none.dist, dataDir: path.join(none.dir, 'missing'), siteDir: none.site })
+      assert.equal(r3.dataset, 'none')
+      assert.equal(r3.pages, 0)
+      assert.ok(!existsSync(path.join(none.site, 'p')))
+    } finally { await rm(none.dir, { recursive: true, force: true }) }
   } finally { await rm(w.dir, { recursive: true, force: true }) }
 })
 
@@ -174,4 +245,10 @@ test('verify-live: screens, viewports, detail pick and the summary', () => {
   assert.deepEqual(s.internal_terms, ['검토 목록'])
   assert.equal(s.home_loads_index, false, 'only explore loaded index.json')
   assert.equal(summarize([page({ data_files: [{ path: 'data/index.json' }] })]).home_loads_index, true)
+  // The live hero of v0.17 was a 500 px thumbnail: the summary names the rendition the home page painted.
+  const hero = 'https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/A.jpg/1920px-A.jpg'
+  assert.deepEqual(summarize([page({ lcp: { ms: 900, url: hero } })]).home_lcp_image_px, { mobile: 1920 })
+  assert.equal(renditionWidth('https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/A.jpg/500px-A.jpg?utm_source=x'), 500)
+  assert.equal(renditionWidth('https://live.staticflickr.com/65535/123_abc_k.jpg'), 2048)
+  assert.equal(renditionWidth('https://example.org/a.jpg'), null)
 })

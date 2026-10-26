@@ -1,18 +1,23 @@
 #!/usr/bin/env node
 // Deploy assembly: job "deploy" of archive.yml (docs/STATIC_ARCHIVE.md, operations in docs/PIPELINE.md). The built
 // site (dist/ of the source branch) and the published dataset of the data branch become the new tree of main:
-//  - data branch site-data/ → data/, admin-data/ → data/admin/ (only the files the contract names);
-//  - a dataset that is missing or fails the schema checks is never deployed: the data/ already on main stays, and so
-//    does data/admin/ when the admin files are invalid (the outputs and the log say which);
+//  - data branch site-data/ → data/ (only the files the contract names);
+//  - admin-data/ is never published (v0.18): it stays on the data branch, and a data/admin/ left on main by an earlier
+//    deploy is removed by this one (the new tree replaces everything but the kept files);
+//  - a dataset that is missing or fails the schema checks is never deployed: the data/ already on main stays (the
+//    outputs and the log say which);
 //  - .git, .github/, README.md, .nojekyll and CNAME on main are kept; everything else is replaced by the new tree;
-//  - robots.txt also disallows /data/admin/ (the admin data is public like the repository, but not for indexing);
+//  - robots.txt also disallows /data/admin/ (nothing is there any more; old links stay out of search indexes);
+//  - project pages for search engines and link previews (scripts/prerender.mjs): p/<id>/, p/, sitemap.xml and the
+//    aol-static-pages marker in index.html, made from the dataset that is deployed;
 //  - deploy.json at the site root names the deploy: {deploy_id, build_id, source, data, at, dataset}. deploy_id is a
 //    hash of the whole tree, so an unchanged deploy leaves main untouched (idempotent) and verify-live can wait for
 //    this exact deploy even when the dataset (build_id) did not change.
 //
 // CLI: node pipeline/deploy.mjs --dist=<built site> --data=<data branch checkout> --site=<main checkout>
 //        [--source-sha=<sha>] [--data-sha=<sha>] [--now=<iso>]
-// Prints a summary and, on GitHub Actions, writes the step outputs deploy_id, build_id, changed, dataset and admin.
+// Prints a summary and, on GitHub Actions, writes the step outputs deploy_id, build_id, changed, dataset and admin
+// (always "not_published").
 import path from 'node:path'
 import { readFile, writeFile, rm, readdir, mkdir, appendFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
@@ -20,10 +25,13 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createHash } from 'node:crypto'
 import { listFiles } from './lib/io.mjs'
 import { checkDataset, checkReport, checkQuality, checkCandidates } from './lib/schema.mjs'
+import { prerenderSite } from '../scripts/prerender.mjs'
 
 /** Entries of main that the deploy never replaces or removes. */
 export const KEEP = ['.git', '.github', 'README.md', '.nojekyll', 'CNAME']
 export const ADMIN_FILES = ['report.json', 'quality.json', 'candidates.json']
+/** The admin data stays on the data branch; the public site never carries it (docs/STATIC_ARCHIVE.md "Internal data"). */
+export const ADMIN_PUBLISHED = false
 const sha256 = (data) => createHash('sha256').update(data).digest('hex')
 
 async function readJSONFile(file) {
@@ -57,7 +65,7 @@ export async function loadDataset(dir) {
   return { ok: errors.length === 0, buildId: typeof manifest?.build_id === 'string' ? manifest.build_id : null, files: errors.length ? new Map() : files, errors }
 }
 
-/** Reads and checks admin-data (report, quality, candidates). Returns {ok, files, errors}. */
+/** Reads and checks admin-data (report, quality, candidates) on the data branch. Returns {ok, files, errors}. */
 export async function loadAdmin(dir) {
   const errors = [], files = new Map()
   const checks = { 'report.json': checkReport, 'quality.json': checkQuality, 'candidates.json': checkCandidates }
@@ -104,33 +112,42 @@ export async function assemble({ dist, dataDir, siteDir, sourceSha = null, dataS
   for (const [p, b] of await readTree(dist)) {
     const top = p.split('/')[0]
     if (KEEP.includes(top) && top !== '.nojekyll') continue
-    if (top === 'data' || p === 'deploy.json') continue
+    // p/ (project pages) is made below from the dataset that is deployed, never taken from a build.
+    if (top === 'data' || top === 'p' || p === 'deploy.json') continue
     tree.set(p, b)
   }
   // The dataset: the data branch's when it is valid, otherwise the one already deployed.
   const fresh = await loadDataset(dataDir ? path.join(dataDir, 'site-data') : null)
   const deployedData = path.join(siteDir, 'data')
   let dataset = 'none', buildId = null, datasetErrors = []
+  let old = null
   if (fresh.ok) { dataset = 'data_branch'; buildId = fresh.buildId; for (const [f, b] of fresh.files) tree.set('data/' + f, b) } else {
     datasetErrors = fresh.errors
-    const old = await loadDataset(deployedData)
+    old = await loadDataset(deployedData)
     if (old.ok) { dataset = 'kept_previous'; buildId = old.buildId; for (const [f, b] of old.files) tree.set('data/' + f, b) }
     log(`dataset of the data branch not deployed (${fresh.errors.slice(0, 5).join('; ')}); ${dataset === 'kept_previous' ? 'the deployed dataset stays' : 'no dataset is deployed'}`)
   }
-  const freshAdmin = await loadAdmin(dataDir ? path.join(dataDir, 'admin-data') : null)
-  let admin = 'none', adminErrors = []
-  if (freshAdmin.ok) { admin = 'data_branch'; for (const [f, b] of freshAdmin.files) tree.set('data/admin/' + f, b) } else {
-    adminErrors = freshAdmin.errors
-    const old = await loadAdmin(path.join(deployedData, 'admin'))
-    if (old.ok) { admin = 'kept_previous'; for (const [f, b] of old.files) tree.set('data/admin/' + f, b) }
-    log(`admin data of the data branch not deployed (${freshAdmin.errors.slice(0, 5).join('; ')}); ${admin === 'kept_previous' ? 'the deployed admin data stays' : 'none is deployed'}`)
+  // Static project pages (scripts/prerender.mjs): p/<id>/index.html, p/index.html, sitemap.xml and the marker in
+  // index.html, from the dataset that is deployed (a rejected one never gets pages). Pure, so the deploy id stays a
+  // function of the inputs; a dataset it cannot read leaves the site without p/.
+  const used = fresh.ok ? fresh : old?.ok ? old : null
+  let pages = 0
+  if (used) {
+    try {
+      for (const [p, s] of prerenderSite(used.files, tree)) { tree.set(p, Buffer.from(s)); if (/^p\/[^/]+\/index\.html$/.test(p)) pages++ }
+    } catch (e) { log(`no project pages: ${e.message}`) }
   }
+  // Admin data is internal: checked (so the summary can say whether it is valid) but never part of the site.
+  const freshAdmin = await loadAdmin(dataDir ? path.join(dataDir, 'admin-data') : null)
+  const admin = 'not_published', adminErrors = freshAdmin.ok ? [] : freshAdmin.errors
+  const removedAdmin = existsSync(path.join(deployedData, 'admin'))
+  if (removedAdmin) log('data/admin/ on main is removed: admin data is no longer published (it stays on the data branch)')
   tree.set('robots.txt', Buffer.from(robotsWithAdmin(tree.get('robots.txt')?.toString('utf8'))))
   if (!tree.has('.nojekyll')) tree.set('.nojekyll', Buffer.alloc(0))
 
   const deployId = treeId(tree)
   const previous = (await readJSONFile(path.join(siteDir, 'deploy.json'))).value ?? null
-  const result = { deploy_id: deployId, build_id: buildId, dataset, admin, dataset_errors: datasetErrors.slice(0, 20), admin_errors: adminErrors.slice(0, 20), changed: previous?.deploy_id !== deployId, files: tree.size + 1 }
+  const result = { deploy_id: deployId, build_id: buildId, dataset, admin, pages, removed_admin: removedAdmin, dataset_errors: datasetErrors.slice(0, 20), admin_errors: adminErrors.slice(0, 20), changed: previous?.deploy_id !== deployId || removedAdmin, files: tree.size + 1 }
   if (!result.changed) { log(`deploy ${deployId} is already on main: nothing to change`); return result }
 
   // Replace main's tree: remove everything but KEEP, then write the new files and deploy.json.
@@ -144,7 +161,7 @@ export async function assemble({ dist, dataDir, siteDir, sourceSha = null, dataS
   }
   const stamp = { schema: 1, deploy_id: deployId, build_id: buildId, dataset, admin, source: sourceSha || null, data: dataSha || null, at: now }
   await writeFile(path.join(siteDir, 'deploy.json'), JSON.stringify(stamp, null, 1) + '\n')
-  log(`deploy ${deployId}: ${tree.size} files, dataset ${dataset}${buildId ? ' ' + buildId : ''}, admin ${admin}`)
+  log(`deploy ${deployId}: ${tree.size} files, dataset ${dataset}${buildId ? ' ' + buildId : ''}, ${pages} project pages, admin data not published`)
   return result
 }
 
@@ -161,7 +178,7 @@ if (process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === imp
     const r = await assemble({ dist: path.resolve(a.dist), dataDir: a.data ? path.resolve(a.data) : null, siteDir: path.resolve(a.site), sourceSha: a['source-sha'] || null, dataSha: a['data-sha'] || null, now: a.now || undefined, log: (s) => console.log('[deploy] ' + s) })
     console.log('[deploy] ' + JSON.stringify(r))
     if (process.env.GITHUB_OUTPUT) await appendFile(process.env.GITHUB_OUTPUT, `deploy_id=${r.deploy_id}\nbuild_id=${r.build_id ?? ''}\nchanged=${r.changed}\ndataset=${r.dataset}\nadmin=${r.admin}\n`)
-    if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, `### Deploy\n\n- deploy id: \`${r.deploy_id}\` (${r.changed ? 'new' : 'unchanged, already on main'})\n- dataset: ${r.dataset}${r.build_id ? ` (build \`${r.build_id}\`)` : ''}\n- admin data: ${r.admin}\n${r.dataset_errors.length ? `- dataset problems: ${r.dataset_errors.slice(0, 5).join('; ')}\n` : ''}`)
+    if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, `### Deploy\n\n- deploy id: \`${r.deploy_id}\` (${r.changed ? 'new' : 'unchanged, already on main'})\n- dataset: ${r.dataset}${r.build_id ? ` (build \`${r.build_id}\`)` : ''}\n- admin data: not published (stays on the data branch)${r.removed_admin ? '; data/admin/ removed from main' : ''}\n${r.dataset_errors.length ? `- dataset problems: ${r.dataset_errors.slice(0, 5).join('; ')}\n` : ''}`)
   } catch (e) {
     console.error('[deploy] failed:', e?.stack || e)
     process.exitCode = 1

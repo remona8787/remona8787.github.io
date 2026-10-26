@@ -1,0 +1,66 @@
+{
+ "pageid": 2946,
+ "ns": 0,
+ "title": "Q2946",
+ "lastrevid": 2400002946,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q2946",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Solingen"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "졸링겐"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "72e2f13c1f0ca4d4a9e72567abff760e",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 515,
+       "id": "Q515"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q2946$72e2f13c-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "9006bfde4e320afdf8683b0503cd4faf",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 183,
+       "id": "Q183"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q2946$9006bfde-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

@@ -11,6 +11,50 @@
     "titlesnippet": "",
     "timestamp": "2026-09-30T10:00:00Z"
    }
+  ],
+  "미디어아트": [
+   {
+    "ns": 0,
+    "title": "픽스처 미디어아트 뮤지엄 부산",
+    "pageid": 7107000,
+    "size": 4000,
+    "wordcount": 600,
+    "snippet": "해운대구의 <span class=\"searchmatch\">미디어아트</span> 전시관",
+    "titlesnippet": "",
+    "timestamp": "2026-09-30T10:00:00Z"
+   },
+   {
+    "ns": 0,
+    "title": "픽스처 미디어 작가",
+    "pageid": 7107001,
+    "size": 4100,
+    "wordcount": 620,
+    "snippet": "<span class=\"searchmatch\">미디어아트</span> 작가",
+    "titlesnippet": "",
+    "timestamp": "2026-09-30T10:00:00Z"
+   },
+   {
+    "ns": 0,
+    "title": "픽스처 시립도서관",
+    "pageid": 7107002,
+    "size": 4200,
+    "wordcount": 640,
+    "snippet": "<span class=\"searchmatch\">미디어아트</span> 강좌",
+    "titlesnippet": "",
+    "timestamp": "2026-09-30T10:00:00Z"
+   }
+  ],
+  "빛축제": [
+   {
+    "ns": 0,
+    "title": "픽스처 강릉 빛축제",
+    "pageid": 7107000,
+    "size": 4000,
+    "wordcount": 600,
+    "snippet": "강릉 <span class=\"searchmatch\">빛축제</span>",
+    "titlesnippet": "",
+    "timestamp": "2026-09-30T10:00:00Z"
+   }
   ]
  },
  "pages": [
@@ -26,6 +70,66 @@
     {
      "lat": 37.5125,
      "lon": 127.1025,
+     "primary": true,
+     "globe": "earth"
+    }
+   ]
+  },
+  {
+   "pageid": 7107001,
+   "ns": 0,
+   "title": "픽스처 미디어아트 뮤지엄 부산",
+   "pageprops": {
+    "wikibase_item": "Q99000501"
+   },
+   "extract": "픽스처 미디어아트 뮤지엄 부산은 부산광역시 해운대구에 있는 미디어아트 전시관이다. 건물 전체를 몰입형 미디어아트 공간으로 쓴다.",
+   "coordinates": [
+    {
+     "lat": 35.1601,
+     "lon": 129.1636,
+     "primary": true,
+     "globe": "earth"
+    }
+   ]
+  },
+  {
+   "pageid": 7107002,
+   "ns": 0,
+   "title": "픽스처 미디어 작가",
+   "pageprops": {
+    "wikibase_item": "Q99000504"
+   },
+   "extract": "픽스처 미디어 작가는 대한민국의 미디어아트 작가이다."
+  },
+  {
+   "pageid": 7107003,
+   "ns": 0,
+   "title": "픽스처 시립도서관",
+   "pageprops": {
+    "wikibase_item": "Q99000505"
+   },
+   "extract": "픽스처 시립도서관은 서울특별시 서초구에 있는 공공 도서관이다. 여러 문화 강좌를 연다.",
+   "coordinates": [
+    {
+     "lat": 37.48,
+     "lon": 127.01,
+     "primary": true,
+     "globe": "earth"
+    }
+   ]
+  },
+  {
+   "pageid": 7107004,
+   "ns": 0,
+   "title": "픽스처 강릉 빛축제",
+   "pageprops": {
+    "wikibase_item": "Q99000502"
+   },
+   "extract": "픽스처 강릉 빛축제는 강원특별자치도 강릉시에서 매년 겨울 열리는 빛축제이다. 경포호 일대에 빛 조형물과 미디어 파사드를 설치한다.",
+   "coordinates": [
+    {
+     "lat": 37.7519,
+     "lon": 128.8761,
      "primary": true,
      "globe": "earth"
     }

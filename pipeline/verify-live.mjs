@@ -7,7 +7,9 @@
 //  3. Records per page: HTTP status, console errors, page errors, failed requests, HTTP errors, Largest Contentful
 //     Paint, navigation timings, transfer sizes (total, by resource type, the data/ files fetched), broken images and
 //     any internal review vocabulary visible on a public screen; saves a JPEG screenshot.
-//  4. Writes <out>/report.json and <out>/<viewport>-<page>.jpg (the job commits them to the data branch: review/live/).
+//  4. Checks that the internal admin data is not on the site (/data/admin/report.json must not be served, v0.18) and
+//     reads the rendition width of the home page's largest image (a hero must not be a 500 px thumbnail).
+//  5. Writes <out>/report.json and <out>/<viewport>-<page>.jpg (the job commits them to the data branch: review/live/).
 //
 // CLI: node pipeline/verify-live.mjs --site=https://remona8787.github.io/ --out=<dir> [--build-id=<id>] [--deploy-id=<id>]
 //        [--wait-minutes=15] [--strict]
@@ -148,6 +150,15 @@ async function measure(browser, base, screen, vp, outDir, { settleMs = 1500 } = 
   return r
 }
 
+/** The pixel width of an image URL's rendition when the URL names it (Commons "/<w>px-", Flickr size suffixes). */
+export function renditionWidth(url) {
+  const s = String(url || '')
+  const commons = /\/(\d{2,5})px-[^/?#]+(?:[?#]|$)/.exec(s)
+  if (commons) return Number(commons[1])
+  const flickr = /staticflickr\.com\/.+_([mnzcbhk]|3k|4k|5k|6k)\.jpe?g/i.exec(s)
+  return flickr ? { m: 500, n: 320, z: 640, c: 800, b: 1024, h: 1600, k: 2048, '3k': 3072, '4k': 4096, '5k': 5120, '6k': 6144 }[flickr[1].toLowerCase()] : null
+}
+
 export function summarize(pages) {
   const sum = (f) => pages.reduce((n, p) => n + f(p), 0)
   const lcps = pages.filter((p) => p.lcp?.ms != null)
@@ -164,6 +175,8 @@ export function summarize(pages) {
     transfer_bytes: Object.fromEntries(pages.map((p) => [`${p.viewport}-${p.page}`, p.transfer.total_bytes])),
     // The home page's first paint needs home.json only: index.json and the shards are loaded lazily elsewhere.
     home_loads_index: pages.some((p) => p.page === 'home' && p.data_files.some((d) => /(^|\/)data\/(index\.json|projects\/)/.test(d.path))),
+    // The rendition width of the largest image on the home page per viewport (null when the URL does not name one).
+    home_lcp_image_px: Object.fromEntries(pages.filter((p) => p.page === 'home' && p.lcp?.url).map((p) => [p.viewport, renditionWidth(p.lcp.url)])),
   }
 }
 
@@ -179,9 +192,12 @@ export async function verifyLive({ site, outDir, buildId = null, deployId = null
   log(`waiting for deploy ${deployId ?? '-'} / build ${buildId ?? '-'} on ${base}`)
   const wait = await waitForDeploy({ site: base, buildId, deployId, fetch, timeoutMs: waitMinutes * 60e3 })
   log(wait.ok ? `live after ${Math.round(wait.waited_ms / 1000)} s` : `not live: ${wait.error}`)
-  let pages = [], detailId = null
+  let pages = [], detailId = null, adminPublic = null
   if (wait.ok) {
     const json = async (rel) => { try { const r = await fetch(new URL(rel + '?t=' + Date.now(), base).href); return r.ok ? await r.json() : null } catch { return null } }
+    // Internal data must not be on the public site (it stays on the data branch).
+    try { adminPublic = (await fetch(new URL('data/admin/report.json?t=' + Date.now(), base).href)).ok } catch { adminPublic = null }
+    if (adminPublic) log('data/admin/report.json is served: internal data is public')
     detailId = pickDetail(await json('data/home.json'), null) || pickDetail(null, await json('data/index.json'))
     if (!chromium) ({ chromium } = await import('playwright').catch(() => import('@playwright/test')))
     const browser = await chromium.launch()
@@ -198,7 +214,7 @@ export async function verifyLive({ site, outDir, buildId = null, deployId = null
     schema: 1, site: base, started_at: startedAt, finished_at: new Date().toISOString(),
     expected: { build_id: buildId, deploy_id: deployId }, wait, detail_project: detailId,
     viewports: VIEWPORTS.map(({ name, width, height, deviceScaleFactor }) => ({ name, width, height, device_scale_factor: deviceScaleFactor })),
-    summary: { ...summary, ok: wait.ok && pages.length > 0 && summary.loaded === pages.length },
+    summary: { ...summary, admin_data_public: adminPublic, ok: wait.ok && pages.length > 0 && summary.loaded === pages.length && adminPublic !== true },
     pages,
   }
   await writeFile(path.join(outDir, 'report.json'), JSON.stringify(report, null, 1) + '\n')

@@ -29,7 +29,7 @@ test('every request carries the pipeline User-Agent; MediaWiki APIs get maxlag=5
   await c.json('https://query.wikidata.org/sparql', { method: 'POST', body: 'query=x' })
   await c.json('https://api.gdeltproject.org/api/v2/doc/doc?query=x')
   assert.ok(v.calls.every((x) => x.ua === USER_AGENT))
-  assert.equal(USER_AGENT, 'LightArchitectureArchive/0.17 (+https://remona8787.github.io/; remona56@hanmail.net)')
+  assert.equal(USER_AGENT, 'LightArchitectureArchive/0.18 (+https://remona8787.github.io/; remona56@hanmail.net)')
   assert.match(v.calls[0].url, /maxlag=5/)
   assert.match(v.calls[1].url, /maxlag=5/)
   assert.doesNotMatch(v.calls[2].url, /maxlag/)

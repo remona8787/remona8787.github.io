@@ -11,7 +11,8 @@ import { runPipeline } from '../pipeline/run.mjs'
 import { USER_AGENT } from '../pipeline/lib/net.mjs'
 import { loadSharp } from '../pipeline/lib/visual.mjs'
 import { checkDataset, checkReport, checkQuality, checkCandidates } from '../pipeline/lib/schema.mjs'
-import { fixtureEnvironment, FIXTURE_OVERRIDES } from './fixtures/pipeline/fake-fetch.mjs'
+import { fixtureEnvironment, FIXTURE_OVERRIDES, FIXTURE_ENV } from './fixtures/pipeline/fake-fetch.mjs'
+import { tilePixels, tileShowsPicture, REVIEW } from '../pipeline/lib/contact-sheet.mjs'
 
 const FIX = path.join(import.meta.dirname, 'fixtures/pipeline')
 const EDITORIAL = path.join(FIX, 'editorial')
@@ -20,10 +21,10 @@ const HOUR = 3600e3
 const SHARP = await loadSharp().then(() => true, () => false)
 const needSharp = SHARP ? {} : { skip: 'sharp is not installed (npm ci --prefix pipeline)' }
 
-async function run(dataDir, { start = START, fail = null, pipeline = {} } = {}) {
+async function run(dataDir, { start = START, fail = null, pipeline = {}, keys = FIXTURE_ENV } = {}) {
   const env = fixtureEnvironment({ start, fail })
   const overrides = { ...FIXTURE_OVERRIDES, pipeline: { ...FIXTURE_OVERRIDES.pipeline, ...pipeline } }
-  const r = await runPipeline({ dataDir, editorialDir: EDITORIAL, fetch: env.fetch, clock: env.clock, sleep: env.sleep, overrides, log: () => {} })
+  const r = await runPipeline({ dataDir, editorialDir: EDITORIAL, fetch: env.fetch, clock: env.clock, sleep: env.sleep, overrides, env: keys, log: () => {} })
   return { ...r, env }
 }
 const readJSON = async (f) => JSON.parse(await readFile(f, 'utf8'))
@@ -55,8 +56,8 @@ test('dry run: a complete, schema-valid dataset with every output file', needSha
   assert.deepEqual(checkReport(await readJSON(path.join(admin, 'report.json'))), [])
   assert.deepEqual(checkQuality(await readJSON(path.join(admin, 'quality.json'))), [])
   assert.deepEqual(checkCandidates(await readJSON(path.join(admin, 'candidates.json'))), [])
-  for (const f of ['classes.json', 'properties.json', 'categories.json', 'wikipedia.json', 'images.json', 'web.json', 'http-log.json', 'contact-sheets/index.json', 'contact-sheets/hero-candidates-01.jpg', 'contact-sheets/cards-01.jpg']) assert.ok(existsSync(path.join(dir, 'review', f)), f)
-  for (const f of ['runs.json', 'tracker.json', 'failures.json', 'web-rules.json', 'candidates.json', 'image-picks.json', 'cache/entities.json', 'cache/sparql.json', 'cache/commons-files.json', 'cache/visual.json', 'cache/links.json']) assert.ok(existsSync(path.join(dir, 'state', f)), f)
+  for (const f of ['classes.json', 'properties.json', 'categories.json', 'wikipedia.json', 'images.json', 'providers.json', 'korea.json', 'tourapi.json', 'web.json', 'http-log.json', 'contact-sheets/index.json', 'contact-sheets/hero-commons-01.jpg', 'contact-sheets/featured-commons-01.jpg', 'contact-sheets/cards-01.jpg']) assert.ok(existsSync(path.join(dir, 'review', f)), f)
+  for (const f of ['runs.json', 'tracker.json', 'failures.json', 'web-rules.json', 'candidates.json', 'image-picks.json', 'cache/entities.json', 'cache/sparql.json', 'cache/commons-files.json', 'cache/visual.json', 'cache/quality.json', 'cache/tourapi.json', 'cache/openverse.json', 'cache/links.json']) assert.ok(existsSync(path.join(dir, 'state', f)), f)
   assert.equal(data.manifest.build_id, result.buildId)
   assert.ok(Object.values(data.manifest.sources).every((s) => s.status === 'ok'))
   // All 49 curated seed places are part of the dataset, with their own ids.
@@ -115,46 +116,163 @@ test('dry run: sources become projects only through the rules (merges, rejection
 })
 
 test('dry run: images follow the per-surface rules', needSharp, async () => {
-  const { data } = await firstRun()
+  const { dir, data } = await firstRun()
   const r = (id) => data.records.get(id)
+  const role = (rec, re) => rec.images.find((i) => re.test(i.page) || re.test(i.src))
   const bay = r('Q7715933')
   assert.equal(bay.images[0].role, 'hero')
-  assert.equal(bay.images[0].tier, 1)
-  assert.match(bay.images[0].src, /1920px-The_Bay_Lights_at_night_2013\.jpg$/)
+  assert.equal(bay.images[0].tier, 2, 'light art running at night (tier 1 is a media facade)')
+  assert.equal(bay.images[0].src, 'https://upload.wikimedia.org/wikipedia/commons/e/ed/The_Bay_Lights_at_night_2013.jpg', 'src is the original file')
+  assert.deepEqual(bay.images[0].display.map(([w]) => w), [330, 500, 960, 1280, 1920, 3840, 4000], 'standard widths below the original, then the original itself (under 8 MB)')
+  assert.equal(bay.images[0].display.at(-1)[1], bay.images[0].src)
+  assert.ok(bay.images[0].quality.sharpness >= 35 && bay.images[0].quality.blockiness <= 20)
   assert.ok(!bay.images.some((i) => /Embarcadero_daytime/.test(i.page)), 'block_image applied')
   assert.ok(!bay.images.some((i) => /map\.png/.test(i.page)), 'a map is never a project image')
+  assert.ok(!bay.images.some((i) => /small_copy/.test(i.page)), 'a smaller near-duplicate is removed')
   // Rights: NoFoP of another country and a non-free licence are rejected; the Korean FoP policy allows display.
   assert.ok(!r('Q4167').images.some((i) => /Terreaux|crowd/.test(i.page)))
   assert.equal(r('Q4167').images[0].role, 'hero', 'set_hero decision on a reviewed night projection')
-  assert.ok(r('SEOUL018').images.some((i) => i.role === 'hero' && /media_facade_at_night/.test(i.page)))
+  assert.ok(r('SEOUL018').images.some((i) => i.role === 'hero' && i.tier === 1 && /media_facade_at_night/.test(i.page)))
   assert.ok(!r('SEOUL018').images.some((i) => /interior/.test(i.page)), 'an interior photo is unrelated to a media facade')
-  // A daytime photo may be a card below the media tiers, never on the home page; darkness alone never qualifies.
-  assert.equal(r('Q7899954').images[0].tier, 4)
-  assert.equal(r('Q2001578').images[0].tier, 4)
-  const homeImages = [...data.home.hero.map((h) => h.image), ...data.home.regions.map((g) => g.image), ...data.home.types.map((g) => g.image), ...Object.values(data.home.projects).map((p) => p.image)].filter(Boolean)
+  // Quality gates: a heavily compressed or blurred copy is never a hero or featured image.
+  for (const [id, re] of [['Q15140473', /compressed/], ['Q125715', /blurred/]]) {
+    const i = role(r(id), re)
+    if (i) assert.ok(!['hero', 'featured'].includes(i.role), id)
+  }
+  // A daytime photo may be a card below the media tiers (tier 5), never on the home page; darkness alone never qualifies.
+  assert.equal(r('Q7899954').images[0].tier, 5)
+  assert.equal(r('Q2001578').images[0].tier, 5)
+  const homeImages = [...data.home.hero.map((h) => h.image), ...data.home.regions.map((g) => g.image), ...data.home.types.map((g) => g.image), ...data.home.kr_regions.map((g) => g.image), ...Object.values(data.home.projects).map((p) => p.image)].filter(Boolean)
   assert.ok(homeImages.length >= 5)
   for (const i of homeImages) {
     assert.ok(i.tier <= 3, i.page)
     assert.ok(!/daytime|Tribute_in_Light|colourful_day/.test(i.page), 'never a daytime or dark-only photo on the home page: ' + i.page)
   }
-  assert.ok(data.home.hero.length >= 2)
-  for (const h of data.home.hero) assert.equal(h.image.tier, 1)
+  // Hero: reviewed tier-1/2 images, Korean first (3 Korean slides allow one foreign).
+  assert.deepEqual(data.home.hero.map((h) => h.project), ['SEOUL018', 'Q99000501', 'SEOUL006', 'Q4167'])
+  for (const h of data.home.hero) { assert.ok(h.image.tier <= 2); assert.ok(h.image.width >= 2400); assert.equal(h.image.approved, true) }
   assert.equal(data.home.projects.Q7899954?.image ?? null, null)
-  // P180 depicts: a building without P18 or a Commons category gets images through structured data, scored like any
-  // other candidate: the media facade at night is the card, the daytime exterior only a tier-4 detail image.
+  // P180 depicts: the media facade at night is found through structured data; the daytime exterior is context.
   const ddp = r('SEOUL006')
-  assert.equal(ddp.images[0].role, 'card')
-  assert.equal(ddp.images[0].tier, 1)
+  assert.equal(ddp.images[0].role, 'hero')
   assert.match(ddp.images[0].page, /Seoul_Light_DDP_2019_media_facade_night\.jpg$/)
-  assert.deepEqual(ddp.images.filter((i) => /exterior_daytime/.test(i.page)).map((i) => [i.role, i.tier]), [['detail', 4]])
-  assert.match(data.home.projects.SEOUL006?.image?.page || '', /media_facade_night/)
-  // Every published image names its licence and its author.
-  for (const rec of data.records.values()) for (const i of rec.images) assert.ok(i.license && (i.author || i.attribution) && i.page.startsWith('https://commons.wikimedia.org/'), rec.id)
-  // An allowlisted daytime photo is refused by the visual gates and reported.
+  assert.deepEqual(ddp.images.filter((i) => /exterior_daytime/.test(i.page)).map((i) => [i.role, i.tier]), [['context', 5]])
+  assert.ok(!ddp.images.some((i) => i.provider === 'flickr'), 'the Flickr copy of the reviewed Commons photo is a near-duplicate')
+  // Name and place prove where a provider photo was taken, not what it shows: unapproved, it stays in review.
+  const imageReview = JSON.parse(await readFile(path.join(dir, 'review', 'images.json'), 'utf8'))
+  const venue = imageReview.projects.find((x) => x.project === 'SEOUL006')?.providers.find((l) => l.source_id === '2220003')
+  assert.ok(venue, 'the venue photo was assessed')
+  assert.ok(['name_location', 'geotag_name'].includes(venue.identity.method))
+  assert.equal(venue.ok, false)
+  assert.ok(venue.reasons.includes('awaiting_review'))
+  assert.ok(![...data.records.values()].some((rec) => rec.images?.some((i) => i.page === 'https://www.flickr.com/photos/30760976@N04/2220003/')), 'never published')
+  // Other providers: an approved Openverse photo, TourAPI images with their KOGL licences, an official image set by an editor.
+  const lotte = r('SEOUL018')
+  const ov = lotte.images.find((i) => i.provider === 'openverse')
+  assert.ok(ov, 'the approved Openverse photo')
+  assert.equal(ov.identity.method, 'name_location')
+  assert.equal(ov.license, 'CC BY 2.0')
+  assert.equal(ov.usage, 'hotlink', 'a Flickr-hosted file is shown from Flickr')
+  assert.equal(ov.approved, true)
+  const tour = lotte.images.filter((i) => i.provider === 'tourapi')
+  assert.ok(tour.length >= 1)
+  for (const i of tour) { assert.equal(i.identity.method, 'provider_id'); assert.match(i.license, /^KOGL Type [13]$/); assert.equal(!!i.no_derivatives, i.license === 'KOGL Type 3') }
+  assert.ok(!lotte.images.some((i) => i.id === 'img-bbcdb0f8ce01'), 'block_image by image id')
+  const official = r('SEOUL001').images[0]
+  assert.equal(official.provider, 'official')
+  assert.equal(official.permission_note, 'Fixture: the operator allows display with credit (e-mail of 2026-10-10).')
+  assert.equal(official.role, 'featured')
+  assert.equal(official.width, 2048, 'the size of the decoded original')
+  // Every published image names its licence and its author; display sizes never exceed the original.
+  for (const rec of data.records.values()) for (const i of rec.images) {
+    assert.ok(i.license && (i.author || i.attribution), rec.id)
+    assert.ok(i.display.every(([w]) => !i.width || w <= i.width), rec.id + ' ' + i.id)
+    assert.ok(![i.src, i.thumb, ...i.display.map((d) => d[1])].some((u) => /utm_/.test(u)), 'no analytics parameters')
+  }
   const report = first.result.report
   assert.equal(report.hero_list.find((h) => h.project === 'Q7899954').status, 'not_eligible')
   assert.ok(report.images.rejected['rights:foreign_no_freedom_of_panorama'] >= 1)
   assert.ok(report.images.rejected['rights:license_not_allowed'] >= 1)
+  assert.ok(report.images.by_provider.commons > 0 && report.images.by_provider.tourapi > 0)
+})
+
+test('relevance: files that name another subject never rank (regressions of the live review)', needSharp, async () => {
+  const { dir, data } = await firstRun()
+  const pages = (id) => (data.records.get(id)?.images || []).map((i) => decodeURIComponent(i.page))
+  const mislinked = [['SEOUL043', 'Nanta Cooking Teddy Bears'], ['SEOUL022', 'G-20 Seoul 2010'], ['Q15014400', 'neon sign'], ['Q127587129', 'Bergischer Löwe']]
+  for (const [id, name] of mislinked) assert.ok(!pages(id).some((p) => p.includes(name.replace(/ /g, '_'))), `${id}: ${name}`)
+  // The real photos of the same projects stay.
+  assert.ok(pages('SEOUL043').some((p) => /N_Seoul_Tower_at_night/.test(p)))
+  assert.ok(pages('Q15014400').some((p) => /LED_facade_at_night/.test(p)))
+  const review = JSON.parse(await readFile(path.join(dir, 'review/images.json'), 'utf8'))
+  const reasons = (id, re) => review.projects.find((p) => p.project === id).candidates.find((c) => re.test(c.key)).reasons
+  assert.ok(reasons('SEOUL043', /Teddy/).some((r) => r.startsWith('subject:object_or_animal')))
+  assert.ok(reasons('SEOUL022', /G-20/).some((r) => r.startsWith('subject:people_or_event')))
+  assert.ok(reasons('Q15014400', /neon sign/).some((r) => r.startsWith('subject:object_or_animal')))
+  assert.ok(reasons('Q127587129', /Löwe/).some((r) => r.startsWith('subject:object_or_animal')))
+})
+
+test('institution files: a curated place never inherits its museum, tower or district category (second live review)', needSharp, async () => {
+  const { dir, data } = await firstRun()
+  const fileOf = (i) => decodeURIComponent(i.page).split('File:').pop().replace(/_/g, ' ')
+  const roles = (id) => new Map((data.records.get(id)?.images || []).map((i) => [fileOf(i), i.role]))
+  // The exact files of the live site (2026-10-25): SEOUL022 NMK Immersive Digital Gallery (host: the museum) and
+  // SEOUL043 N Seoul Tower (its item is the tower, not the lighting work).
+  const live = {
+    SEOUL022: ['2010.11.11 G20 서울 정상회의 (7445962682).jpg', 'G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (01).jpg', 'G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (02).jpg',
+      'KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195536).jpg', 'KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195870).jpg', '국립중앙박물관야간모습01.jpg'],
+    SEOUL043: ['Goong Teddy Bears.JPG', 'Nanta Cooking Teddy Bears.JPG', 'Connect Terrace Seoul Station.png', 'Haebangchon (55192249973).jpg', '서울역 앞 대우빌딩 전경.jpg', 'Seoul Aerial Shot 07.jpg', 'Cable car up the Seoul Tower (33580430468).jpg'],
+  }
+  for (const [id, files] of Object.entries(live)) {
+    const r = roles(id)
+    for (const f of files) assert.ok(!r.has(f) || r.get(f) === 'context', `${id}: ${f} is ${r.get(f)}`)
+    const rec = data.records.get(id)
+    for (const i of rec.images) if (live[id].includes(fileOf(i))) assert.equal(i.tier, 5, fileOf(i))
+    // Its card (index thumb) is never one of them.
+    const row = data.index.rows.find((x) => x[data.index.fields.indexOf('id')] === id)
+    const thumb = decodeURIComponent(row[data.index.fields.indexOf('thumb')] || '')
+    assert.ok(thumb, id + ' has a card')
+    for (const f of files) assert.ok(!thumb.includes(f.replace(/ /g, '_')), `${id} thumb ${f}`)
+  }
+  // People, events and objects are rejected outright; the institution's own views are context.
+  const review = JSON.parse(await readFile(path.join(dir, 'review/images.json'), 'utf8'))
+  const cand = (id, re) => review.projects.find((p) => p.project === id).candidates.find((c) => re.test(c.key))
+  for (const re of [/^2010\.11\.11 G20/, /\(01\)\.jpg$/, /6812195536/]) assert.ok(cand('SEOUL022', re).reasons.some((x) => x.startsWith('subject:people_or_event')), String(re))
+  assert.ok(cand('SEOUL043', /^Goong Teddy/).reasons.some((x) => x.startsWith('subject:object_or_animal')))
+  for (const re of [/^Connect Terrace/, /^Haebangchon/, /대우빌딩/, /Aerial Shot 07/, /^Cable car/]) assert.ok(cand('SEOUL043', re).evidence.includes('host_building_only'), String(re))
+  assert.ok(cand('SEOUL022', /야간모습01/).evidence.includes('host_building_only'), 'a night view of the museum is not the immersive gallery inside')
+  // What shows the work stays: the gallery's own photo (it names the work) and the tower lit at night.
+  assert.equal(roles('SEOUL022').get('국립중앙박물관 디지털 실감 영상관 파노라마 2021.jpg'), 'card')
+  assert.ok(['card', 'featured', 'hero'].includes(roles('SEOUL043').get('N Seoul Tower at night 2019.jpg')))
+  assert.ok(first.result.report.images.institution_context >= 6)
+})
+
+test('contact sheets show real pictures on every run, also when the measurements come from the cache', needSharp, async () => {
+  const { dir } = await firstRun()
+  const first = JSON.parse(await readFile(path.join(dir, 'review/contact-sheets/index.json'), 'utf8'))
+  const tiles = (ix) => ix.sheets.flatMap((s) => s.tiles)
+  assert.ok(tiles(first).length >= 5)
+  assert.ok(tiles(first).every((t) => t.image_in_sheet), 'first run')
+  assert.ok(first.sheets.some((s) => s.kind === 'hero' && s.provider === 'commons'))
+  assert.ok(tiles(first).every((t) => /^img-[0-9a-f]{12}$/.test(t.image) && t.thumb && !/utm_/.test(t.thumb)))
+  const copy = await tmp()
+  await cp(dir, copy, { recursive: true })
+  const r2 = await run(copy, { start: START + 6 * HOUR })
+  const second = JSON.parse(await readFile(path.join(copy, 'review/contact-sheets/index.json'), 'utf8'))
+  assert.equal(tiles(second).length, tiles(first).length)
+  assert.ok(tiles(second).every((t) => t.image_in_sheet), 'a cached run fetches the small renditions it shows')
+  // The written JPEGs read back: every tile of every sheet shows the fixture picture's pixels, not the grey box.
+  for (const [d, ix] of [[dir, first], [copy, second]]) {
+    for (const s of ix.sheets) {
+      assert.equal(s.grey_tiles, 0, s.sheet)
+      const jpg = await readFile(path.join(d, 'review/contact-sheets', s.sheet))
+      for (let i = 0; i < s.tiles.length; i++) {
+        const px = await tilePixels(jpg, i, REVIEW)
+        assert.ok(tileShowsPicture(px), `${d === dir ? 'first' : 'cached'} run ${s.sheet} tile ${i + 1} ${s.tiles[i].image}: ${JSON.stringify(px)}`)
+      }
+    }
+  }
+  assert.ok(r2.env.requests.filter((q) => /wikimedia\.org$/.test(q.host) && /\/330px-/.test(q.url)).every((q) => !/utm_/.test(q.url)))
 })
 
 test('dry run: quality, candidates and the decision log', needSharp, async () => {
@@ -297,9 +415,12 @@ test('P180 depicts searches: only for projects without named night and media evi
   const capped = await run(dir, { pipeline: { images: { depicts_max_per_run: 3 } } })
   assert.deepEqual(depicts(capped.env), all.slice(0, 3), 'the cap counts new searches, in the image stage order')
   assert.equal(capped.report.images.depicts_searches, 3)
-  // The next run continues with the items not asked yet; the answers of the first three come from the cache.
+  // The next run continues with the items not asked yet (projects that got images move ahead in its order); the
+  // answers of the first three come from the cache.
   const next = await run(dir, { start: START + 6 * HOUR, pipeline: { images: { depicts_max_per_run: 3 } } })
-  assert.deepEqual(depicts(next.env), all.slice(3, 6))
+  const asked = depicts(next.env)
+  assert.equal(asked.length, Math.min(3, all.length - 3))
+  assert.ok(asked.every((q) => all.includes(q) && !all.slice(0, 3).includes(q)), JSON.stringify(asked))
 })
 
 test('a short time budget gives partial but consistent output', needSharp, async () => {
@@ -320,9 +441,10 @@ test('a short time budget gives partial but consistent output', needSharp, async
   assert.deepEqual(checkDataset(after), [])
 })
 
-test('without sharp or any thumbnail the run still publishes, with no home images', async () => {
+test('without sharp or any image file the run still publishes, with no home images', async () => {
   const dir = await tmp()
-  const r = await run(dir, { fail: (url) => (url.startsWith('https://upload.wikimedia.org/') ? new Response('gone', { status: 404 }) : null) })
+  const imageHost = /^https:\/\/(upload\.wikimedia\.org|thumb\.wikimedia\.org|tong\.visitkorea\.or\.kr|live\.staticflickr\.com|official\.fixture\.example)\//
+  const r = await run(dir, { fail: (url) => (imageHost.test(url) ? new Response('gone', { status: 404 }) : null) })
   const d = await site(dir)
   assert.deepEqual(checkDataset(d), [])
   assert.equal(d.home.hero.length, 0, 'no measured image → no hero')

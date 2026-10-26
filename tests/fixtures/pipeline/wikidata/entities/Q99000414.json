@@ -1,0 +1,87 @@
+{
+ "pageid": 99000414,
+ "ns": 0,
+ "title": "Q99000414",
+ "lastrevid": 2400000414,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000414",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Gangneung"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "강릉시"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "676978db12efee22155ef2fadc46f249",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 515,
+       "id": "Q515"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000414$676978db-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "28f1c70473d0208bceed71752bae07c0",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000414$28f1c704-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "0fcad73d03028adc581f375b7d119fd5",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 41071,
+       "id": "Q41071"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000414$0fcad73d-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

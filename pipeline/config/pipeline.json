@@ -2,10 +2,10 @@
   "schema": 1,
   "budget_minutes": 25,
   "stage_shares": {
-    "sources": 0.42,
-    "enrich": 0.16,
-    "images": 0.3,
-    "links": 0.08
+    "sources": 0.38,
+    "enrich": 0.14,
+    "images": 0.4,
+    "links": 0.06
   },
   "sources": {
     "wikidata": {
@@ -25,6 +25,12 @@
     "overpass": {
       "enabled": true,
       "max_items": 50
+    },
+    "korea": {
+      "enabled": true
+    },
+    "tourapi": {
+      "enabled": true
     }
   },
   "cache_ttl_hours": {
@@ -41,7 +47,10 @@
     "wiki_pages": 168,
     "links": 168,
     "overpass": 720,
-    "commons_depicts": 336
+    "commons_depicts": 336,
+    "tourapi": 72,
+    "kr_divisions": 168,
+    "quality": 8760
   },
   "wikipedia": {
     "about": "Media-facade discovery: phrase searches of the local terms in each Wikipedia; each hit is mapped to its Wikidata item and accepted only by the rules in lib/wikipedia.mjs (score and reasons in review/wikipedia.json).",
@@ -58,7 +67,35 @@
       ],
       "ko": [
         "미디어파사드",
-        "미디어 파사드"
+        "미디어 파사드",
+        "미디어아트",
+        "미디어 아트",
+        "프로젝션 매핑",
+        "프로젝션맵핑",
+        "프로젝션 맵핑",
+        "빛 축제",
+        "빛축제",
+        "라이트쇼",
+        "라이트 쇼",
+        "루미나리에",
+        "야간경관",
+        "경관조명",
+        "미디어월",
+        "미디어 월",
+        "미디어 캔버스",
+        "미디어캔버스",
+        "몰입형 전시",
+        "실감형 전시",
+        "실감 미디어",
+        "미디어아트 전시",
+        "미디어아트 축제",
+        "빛 조형물",
+        "빛의 축제",
+        "레이저쇼",
+        "미디어 타워",
+        "LED 파사드",
+        "디지털 사이니지 아트",
+        "빛초롱"
       ],
       "ja": [
         "メディアファサード"
@@ -107,7 +144,114 @@
       ]
     },
     "max_results_per_term": 200,
-    "accept_score": 50
+    "accept_score": 50,
+    "term_rules": {
+      "미디어파사드": {
+        "type": "media_facade"
+      },
+      "미디어 파사드": {
+        "type": "media_facade"
+      },
+      "LED 파사드": {
+        "type": "media_facade"
+      },
+      "미디어 캔버스": {
+        "type": "media_facade"
+      },
+      "미디어캔버스": {
+        "type": "media_facade"
+      },
+      "미디어 타워": {
+        "type": "media_facade"
+      },
+      "미디어월": {
+        "type": "media_wall"
+      },
+      "미디어 월": {
+        "type": "media_wall"
+      },
+      "프로젝션 매핑": {
+        "type": "projection_mapping"
+      },
+      "프로젝션맵핑": {
+        "type": "projection_mapping"
+      },
+      "프로젝션 맵핑": {
+        "type": "projection_mapping"
+      },
+      "빛 축제": {
+        "type": "festival_program"
+      },
+      "빛축제": {
+        "type": "festival_program"
+      },
+      "루미나리에": {
+        "type": "festival_program"
+      },
+      "빛의 축제": {
+        "type": "festival_program"
+      },
+      "빛초롱": {
+        "type": "festival_program"
+      },
+      "라이트쇼": {
+        "type": "festival_program",
+        "min_score": 65
+      },
+      "라이트 쇼": {
+        "type": "festival_program",
+        "min_score": 65
+      },
+      "레이저쇼": {
+        "type": "festival_program",
+        "min_score": 65
+      },
+      "미디어아트": {
+        "type": "media_architecture",
+        "min_score": 65
+      },
+      "미디어 아트": {
+        "type": "media_architecture",
+        "min_score": 65
+      },
+      "몰입형 전시": {
+        "type": "media_architecture",
+        "min_score": 65
+      },
+      "실감형 전시": {
+        "type": "media_architecture",
+        "min_score": 65
+      },
+      "실감 미디어": {
+        "type": "media_architecture",
+        "min_score": 65
+      },
+      "미디어아트 전시": {
+        "type": "media_architecture",
+        "min_score": 65
+      },
+      "디지털 사이니지 아트": {
+        "type": "media_architecture",
+        "min_score": 65
+      },
+      "미디어아트 축제": {
+        "type": "festival_program",
+        "min_score": 65
+      },
+      "야간경관": {
+        "type": "light_art",
+        "min_score": 70
+      },
+      "경관조명": {
+        "type": "light_art",
+        "min_score": 70
+      },
+      "빛 조형물": {
+        "type": "light_art",
+        "min_score": 70
+      }
+    },
+    "about_term_rules": "Korea first (v0.18): the Korean Wikipedia searches a wide Korean term list. term_rules gives each term the project type of what it describes and, for broad terms (media art, immersive exhibitions, light shows, night landscape lighting), a higher acceptance score (min_score) than accept_score, so the term must be in the lead with more support. The entity rules are the same for every term."
   },
   "entity_rules": {
     "about": "Label-based checks of an item's P31 classes (no class QIDs needed). A strong exclusion (person, company, product, technology, work type...) removes the item; a weak one (organisation, institution) removes it unless a place class matches too; otherwise a place class or coordinates keep it.",
@@ -242,7 +386,7 @@
     "gallery_max": 12,
     "min_width": 640,
     "min_height": 400,
-    "hero_min_width": 1600,
+    "hero_min_width": 2400,
     "visual_media_threshold": 40,
     "hero_visual_threshold": 45,
     "home_max_mean_luminance": 0.4,
@@ -258,8 +402,57 @@
     "depicts": true,
     "depicts_max_per_run": 80,
     "depicts_per_project": 30,
-    "public_thumb_width": 500,
-    "about": "thumb_width: the Commons thumbnail read for scoring (330 px, a standard step); score_width: the size measured (320 px); public_thumb_width: the card thumbnail published (500 px). A home image needs mean luminance <= home_max_mean_luminance, saturated bright share >= home_min_saturated_bright and colourfulness >= home_min_colourfulness; a hero also needs visual >= hero_visual_threshold, an original >= hero_min_width and the reviewed allowlist. depicts: files whose structured data says they depict the item (P180, haswbstatement search), asked only for projects without a candidate named with both night and media evidence; at most depicts_max_per_run new searches per run, cached two weeks."
+    "about": "thumb_width: the Commons thumbnail read for visual scoring (330 px, a standard step); score_width: the size measured (320 px). Widths of the original by role (v0.18): hero >= hero_min_width (hero_fallback_min_width when the project has nothing larger, flagged below_target), featured >= featured_min_width, card >= card_min_width (a smaller card only when nothing larger exists, flagged), tier 1 needs tier1_min_width. quality: sharpness (0-100, Laplacian variance at 1024 px) and blockiness (0-100, 8x8 block-edge energy) gates for hero and featured, measured on a ~1024 px rendition of at most quality_per_project candidates per project and max_quality_per_run downloads per run, cached a year. near_duplicate_hamming: dHash distance under which two images are one (the larger and sharper stays). A home image needs mean luminance <= home_max_mean_luminance, saturated bright share >= home_min_saturated_bright and colourfulness >= home_min_colourfulness. depicts: P180 searches, at most depicts_max_per_run new ones per run, cached two weeks. kto_photo.default_license_when_missing stays null: gallery photos without a copyright field in the answer are review candidates only.",
+    "hero_fallback_min_width": 1920,
+    "featured_min_width": 1600,
+    "card_min_width": 1200,
+    "tier1_min_width": 1600,
+    "quality": {
+      "hero_min_sharpness": 35,
+      "hero_max_blockiness": 20,
+      "featured_min_sharpness": 25,
+      "featured_max_blockiness": 30
+    },
+    "near_duplicate_hamming": 8,
+    "max_quality_per_run": 600,
+    "quality_per_project": 3,
+    "max_provider_measured_per_project": 6,
+    "max_measure_bytes": 12000000,
+    "contact_sheet_minutes": 3,
+    "contact_sheet_fetch_max": 300,
+    "providers": {
+      "about": "Image providers beyond Commons (lib/providers.mjs). Each is asked only for Korean projects, or for projects with fewer than min_commons_candidates Commons files of at least featured_min_width; new (uncached) requests are capped per run; answers are cached two weeks. A 429 answer pauses the provider for its Retry-After.",
+      "min_commons_candidates": 3,
+      "tourapi": {
+        "enabled": true,
+        "max_requests_per_run": 300
+      },
+      "kto_photo": {
+        "enabled": true,
+        "max_requests_per_run": 150
+      },
+      "openverse": {
+        "enabled": true,
+        "max_requests_per_run": 120
+      },
+      "flickr": {
+        "enabled": true,
+        "max_requests_per_run": 300,
+        "radius_m": 1000
+      },
+      "unsplash": {
+        "enabled": true,
+        "max_requests_per_run": 10
+      },
+      "pexels": {
+        "enabled": true,
+        "max_requests_per_run": 30
+      },
+      "naver": {
+        "enabled": true,
+        "max_requests_per_run": 100
+      }
+    }
   },
   "links": {
     "max_per_run": 400,
@@ -278,5 +471,50 @@
     "stale_after_missing_runs": 3,
     "max_drop_ratio": 0.5
   },
-  "editorial_repo": "remona8787/remona8787.github.io"
+  "editorial_repo": "remona8787/remona8787.github.io",
+  "korea": {
+    "about": "Korea first (v0.18): Korean sources start first on every shared host and run until the stage deadline; the foreign sources stop foreign_reserve_share of the sources stage earlier. The images and links stages handle Korean projects first.",
+    "foreign_reserve_share": 0.2,
+    "class_instance_limit": 2000
+  },
+  "tourapi": {
+    "about": "Korea Tourism Organization TourAPI 4.x, KorService2 (data.go.kr, key TOURAPI_SERVICE_KEY). searchKeyword2 for the terms below by content type (12 attractions, 14 cultural facilities, 15 festivals); an item is a project candidate only when a term is in its title, or in its overview (detailCommon2, read only for items without the term in the title, at most overview_max_per_run new reads per run), and the classifier agrees. Every decision goes to review/tourapi.json.",
+    "base": "https://apis.data.go.kr/B551011/KorService2",
+    "terms": [
+      "미디어파사드",
+      "미디어 파사드",
+      "미디어아트",
+      "미디어 아트",
+      "프로젝션 매핑",
+      "프로젝션맵핑",
+      "빛축제",
+      "빛 축제",
+      "라이트쇼",
+      "루미나리에",
+      "미디어월",
+      "미디어 캔버스",
+      "몰입형 전시",
+      "실감 미디어",
+      "빛초롱",
+      "야간경관"
+    ],
+    "content_types": {
+      "12": "attraction",
+      "14": "cultural_facility",
+      "15": "festival"
+    },
+    "rows_per_page": 50,
+    "max_pages": 2,
+    "overview_max_per_run": 120,
+    "detail_images": true,
+    "detail_images_max_per_run": 200,
+    "mobile_app": "LightArchitecture"
+  },
+  "kto_photo": {
+    "about": "Korea Tourism Organization photo gallery (PhotoGalleryService1, the TourAPI key).",
+    "base": "https://apis.data.go.kr/B551011/PhotoGalleryService1",
+    "rows": 20,
+    "mobile_app": "LightArchitecture",
+    "default_license_when_missing": null
+  }
 }
