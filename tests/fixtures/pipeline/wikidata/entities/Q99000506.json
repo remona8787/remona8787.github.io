@@ -1,0 +1,122 @@
+{
+ "pageid": 99000506,
+ "ns": 0,
+ "title": "Q99000506",
+ "lastrevid": 2400000506,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000506",
+ "labels": {
+  "ko": {
+   "language": "ko",
+   "value": "픽스처 경포 유등축제"
+  },
+  "en": {
+   "language": "en",
+   "value": "Fixture Gyeongpo Lantern Festival"
+  }
+ },
+ "descriptions": {
+  "ko": {
+   "language": "ko",
+   "value": "강릉 경포호의 유등축제"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "51cc65bce47a6cb2fe71dc3165ef9e2d",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 132241,
+       "id": "Q132241"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000506$51cc65bc-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "b406c26b9483bec4537a275d0202a768",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000506$b406c26b-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "781e8bd592088d882701b6799c30463c",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000414,
+       "id": "Q99000414"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000506$781e8bd5-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "08f44372dbf0e7afb5b79baffc0ad0cb",
+     "datavalue": {
+      "value": {
+       "latitude": 37.7955,
+       "longitude": 128.9086,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q99000506$08f44372-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "kowiki": {
+   "site": "kowiki",
+   "title": "픽스처 경포 유등축제",
+   "badges": [],
+   "url": "https://ko.wikipedia.org/wiki/%ED%94%BD%EC%8A%A4%EC%B2%98_%EA%B2%BD%ED%8F%AC_%EC%9C%A0%EB%93%B1%EC%B6%95%EC%A0%9C"
+  }
+ }
+}

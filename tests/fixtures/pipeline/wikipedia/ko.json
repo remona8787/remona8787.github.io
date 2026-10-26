@@ -10,16 +10,26 @@
     "snippet": "외벽에 <span class=\"searchmatch\">미디어파사드</span>가 설치되어",
     "titlesnippet": "",
     "timestamp": "2026-09-30T10:00:00Z"
+   },
+   {
+    "ns": 0,
+    "title": "픽스처 도쿄 미디어 타워",
+    "pageid": 7107001,
+    "size": 4100,
+    "wordcount": 620,
+    "snippet": "외벽 <span class=\"searchmatch\">미디어파사드</span>",
+    "titlesnippet": "",
+    "timestamp": "2026-09-30T10:00:00Z"
    }
   ],
-  "미디어아트": [
+  "미디어아트 전시관": [
    {
     "ns": 0,
     "title": "픽스처 미디어아트 뮤지엄 부산",
     "pageid": 7107000,
     "size": 4000,
     "wordcount": 600,
-    "snippet": "해운대구의 <span class=\"searchmatch\">미디어아트</span> 전시관",
+    "snippet": "해운대구의 <span class=\"searchmatch\">미디어아트</span> <span class=\"searchmatch\">전시관</span>",
     "titlesnippet": "",
     "timestamp": "2026-09-30T10:00:00Z"
    },
@@ -29,7 +39,7 @@
     "pageid": 7107001,
     "size": 4100,
     "wordcount": 620,
-    "snippet": "<span class=\"searchmatch\">미디어아트</span> 작가",
+    "snippet": "<span class=\"searchmatch\">미디어아트</span> <span class=\"searchmatch\">전시관</span> 작가",
     "titlesnippet": "",
     "timestamp": "2026-09-30T10:00:00Z"
    },
@@ -39,7 +49,7 @@
     "pageid": 7107002,
     "size": 4200,
     "wordcount": 640,
-    "snippet": "<span class=\"searchmatch\">미디어아트</span> 강좌",
+    "snippet": "<span class=\"searchmatch\">미디어아트</span> <span class=\"searchmatch\">전시관</span> 강좌",
     "titlesnippet": "",
     "timestamp": "2026-09-30T10:00:00Z"
    }
@@ -130,6 +140,23 @@
     {
      "lat": 37.7519,
      "lon": 128.8761,
+     "primary": true,
+     "globe": "earth"
+    }
+   ]
+  },
+  {
+   "pageid": 7107005,
+   "ns": 0,
+   "title": "픽스처 도쿄 미디어 타워",
+   "pageprops": {
+    "wikibase_item": "Q99000604"
+   },
+   "extract": "픽스처 도쿄 미디어 타워는 일본 도쿄에 있는 초고층 건물이다. 외벽에 미디어파사드가 있으며 밤마다 미디어파사드 영상을 상영한다.",
+   "coordinates": [
+    {
+     "lat": 35.66,
+     "lon": 139.76,
      "primary": true,
      "globe": "earth"
     }

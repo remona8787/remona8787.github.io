@@ -203,6 +203,24 @@ Every Wikidata class and property id is confirmed by a live query in each run:
 
 ## 5. Discovery and eligibility
 
+**Korea coverage (2026-10-26 live review).** The Korean class query found 0 items for all 18 classes: Korean
+festivals, venues and works are rarely instances of the light-work classes, and many Korean items have P131 but no
+P17. Now:
+
+- the class query also accepts items located in Korea through P131 (one or two levels) or P276
+  (`review/korea.json` `class_query_example` shows the exact query);
+- a Wikidata full-text search of named Korean things (`korea.json` `search_terms`: 빛축제, 빛초롱, 유등축제,
+  루미나리에, 미디어아트, 미디어파사드, 프로젝션 매핑, 빛의 벙커, 아르떼뮤지엄…, with `haswbstatement:P17=Q884`) adds
+  items that the entity rules accept, that are located in Korea and that have a place, venue, event or work class
+  (`search.decisions`);
+- probes: known Korean articles (`korea.json` `probes`: 서울빛초롱축제, 진주남강유등축제, 보성차밭빛축제, 빛의 벙커,
+  아르떼뮤지엄, 국립아시아문화전당, 포항 스페이스워크) are looked up live each run: item, Korean location, the
+  configured classes they belong to, and which source found them (`probes[].found_by`); a missing title is reported;
+- Korean Wikipedia searches named things (빛축제, 빛초롱축제, 유등축제, 루미나리에, 불빛축제, 야간경관,
+  미디어아트 전시관, 몰입형 미디어아트, 디지털 테마파크, 미디어월, 미디어캔버스, 라이트쇼, 빛의 벙커, 아르떼뮤지엄,
+  미디어아트플랫폼…) instead of generic concepts, and a Korean hit must be located in Korea and have a place, venue,
+  event or work class (`not_in_korea`, `no_place_event_or_work_class`).
+
 **Korea first.**
 
 - Before anything else the Wikidata task reads the live labels of the classes, properties and the country item

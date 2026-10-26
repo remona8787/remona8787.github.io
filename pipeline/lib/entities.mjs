@@ -207,7 +207,7 @@ export function buildProject(obs, facts, ctx = {}) {
   const editorialObs = obs.find((o) => o.origin === 'editorial') || null
   const tour = obs.find((o) => o.origin === 'tourapi') || null
   const cats = obs.filter((o) => o.category)
-  const wiki = obs.flatMap((o) => o.evidence || []).filter((e) => e.kind === 'wikipedia' && e.accepted)
+  const wiki = obs.flatMap((o) => o.evidence || []).filter((e) => (e.kind === 'wikipedia' || e.kind === 'wikidata_search') && e.accepted)
   const classTypes = obs.flatMap((o) => o.class_types || [])
   const f = facts || null
   const fs = {}

@@ -1,0 +1,88 @@
+{
+ "pageid": 99000507,
+ "ns": 0,
+ "title": "Q99000507",
+ "lastrevid": 2400000507,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000507",
+ "labels": {
+  "ko": {
+   "language": "ko",
+   "value": "픽스처 미디어아트 협회"
+  }
+ },
+ "descriptions": {
+  "ko": {
+   "language": "ko",
+   "value": "미디어아트 작가 단체"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "c0564cc1befbbc6742e03ba2183e3a4b",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 48204,
+       "id": "Q48204"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000507$c0564cc1-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "df74cdfab97e5581c6448e92ee9bd793",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000507$df74cdfa-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "376ed70dfdb80d664eb6c8bc8840a8ff",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000417,
+       "id": "Q99000417"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000507$376ed70d-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

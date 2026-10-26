@@ -28,7 +28,7 @@ import { defaultSleep, errorText } from '../edge-functions/_shared/archive/http.
 import { createClient, USER_AGENT } from './lib/net.mjs'
 import { Cache, HOUR } from './lib/cache.mjs'
 import { readJSON, writeJSON, writeFileAtomic, swapDir, listFiles } from './lib/io.mjs'
-import { discoverClasses, addClassCounts, classInstances, countryClassInstances, fetchEntities, fetchAux, auxRefs, auxNext, factsOf } from './lib/wikidata.mjs'
+import { discoverClasses, addClassCounts, classInstances, countryClassInstances, countryClassInstancesQuery, classMembershipQuery, searchItems, itemsOfArticles, sparql, qidFromUri, fetchEntities, fetchAux, auxRefs, auxNext, factsOf } from './lib/wikidata.mjs'
 import { compileGazetteer, discoverKrDivisions, krRegionOf, koreanPlaceOf, krPlaceFromChain, KR_REGIONS } from './lib/korea.mjs'
 import { discoverTourApi, tourObservation } from './lib/tourapi.mjs'
 import { discoverCategories, categoryRules, nightParent } from './lib/commons.mjs'
@@ -156,6 +156,8 @@ export async function runPipeline(o) {
   const sourcesMs = budgetMs * (shares.sources ?? 0.42)
   const foreign = client.view(() => client.deadline - sourcesMs * (KO.foreign_reserve_share ?? 0.2))
   let classReview = null, categories = null, wikiHits = [], webOut = null, krDiv = null, krInst = null, tourOut = null, seoulOut = null
+  // Korea: items found by a Wikidata full-text search among Korean items, and the probes (known Korean articles).
+  let krSearch = { byQid: new Map(), terms: {}, errors: [] }, krProbes = null
   const S = P.sources || {}
   const koreaOn = S.korea?.enabled !== false
   await st.run('sources', async () => {
@@ -175,6 +177,27 @@ export async function runPipeline(o) {
           if (props.get('P17') !== false) {
             krInst = await countryClassInstances(client, classReview.classes, KC.country.qid, { cache, ttlHours: ttl.sparql ?? 24, limit: KO.class_instance_limit ?? 2000 })
             e.push(...krInst.errors)
+            // Korean festivals, venues and works are rarely instances of the light-work classes: a full-text search of
+            // named things among Korean items (labels, descriptions, aliases) finds them; the entity rules decide later.
+            for (const term of KC.search_terms || []) {
+              try {
+                const qs = await searchItems(client, term, { country: KC.country.qid, limit: KO.search_limit ?? 50, cache, ttlHours: ttl.wikidata_search ?? 72 })
+                krSearch.terms[term] = qs.length
+                for (const q of qs) krSearch.byQid.set(q, [...(krSearch.byQid.get(q) || []), term])
+              } catch (x) { if (isBudget(x)) throw x; krSearch.errors.push({ stage: 'korea_search', term, message: msg(x) }) }
+            }
+            e.push(...krSearch.errors)
+          }
+          // Probes: known Korean articles, their items, and which configured classes they belong to (review/korea.json).
+          if ((KC.probes || []).length) {
+            try {
+              const found = await itemsOfArticles(client, 'kowiki', KC.probes, { cache, ttlHours: ttl.sparql ?? 24 })
+              const qids = [...found.values()].filter(Boolean).map((x) => x.qid)
+              const usable = classReview.classes.filter((c) => c.publish_korea || c.publish).map((c) => c.qid)
+              const member = new Map()
+              if (qids.length && usable.length) for (const r of await sparql(client, classMembershipQuery(qids, usable), { stage: 'korea', cache: { ns: 'sparql', key: 'membership:' + qids.join(','), ttlMs: (ttl.sparql ?? 24) * 3600e3 } })) { const i = qidFromUri(r.item?.value), c = qidFromUri(r.class?.value); if (i && c) member.set(i, [...(member.get(i) || []), c]) }
+              krProbes = KC.probes.map((title) => { const x = found.get(title); return x ? { title, ...x, located_kr: x.p17.includes(KC.country.qid) || x.p131.length > 0, configured_classes: member.get(x.qid) || [] } : { title, qid: null, missing: true } })
+            } catch (x) { if (isBudget(x)) throw x; e.push({ stage: 'korea_probes', message: msg(x) }) }
           }
         } else if (koreaOn) e.push({ stage: 'korea', message: `country item ${KC.country.qid} not confirmed this run (live label differs or was not read)` })
         // Discovery counts and the worldwide instances (foreign: stops first when time runs short).
@@ -183,7 +206,7 @@ export async function runPipeline(o) {
         e.push(...inst.errors)
         classReview.instances = inst
         const n = new Set([...inst.byQid.keys(), ...(krInst?.byQid.keys() || [])]).size
-        status('wikidata', { status: e.length ? (n ? 'partial' : 'error') : 'ok', items: n, korea_items: krInst?.byQid.size ?? 0, errors: e, duration_ms: clock() - t })
+        status('wikidata', { status: e.length ? (n ? 'partial' : 'error') : 'ok', items: n, korea_items: krInst?.byQid.size ?? 0, korea_search_items: krSearch.byQid.size, errors: e, duration_ms: clock() - t })
       } catch (x) {
         err('wikidata', x)
         const n = (classReview?.instances?.byQid.size ?? 0) + (krInst?.byQid.size ?? 0)
@@ -259,6 +282,10 @@ export async function runPipeline(o) {
     sources: [], evidence: [{ kind: 'wikidata_class', classes: classQids, ...(korea ? { country: KC.country.qid } : {}) }],
   })
   for (const [qid, classQids] of krInst?.byQid || []) observations.push(classObservation(qid, classQids, true))
+  // Wikidata full-text search hits among Korean items: accepted after enrichment by the entity rules, a Korean
+  // location and a place, event or work class (like the Korean Wikipedia hits).
+  const krTermRules = P.wikipedia?.term_rules || {}
+  for (const [qid, terms] of krSearch.byQid) if (!krInst?.byQid.has(qid)) observations.push({ origin: 'wikidata_search', qid, korea: true, sources: [], evidence: [{ kind: 'wikidata_search', terms, accepted: false, ...(terms.map((t) => krTermRules[t]?.type).find(Boolean) ? { type: terms.map((t) => krTermRules[t]?.type).find(Boolean) } : {}) }] })
   for (const [qid, classQids] of classReview?.instances?.byQid || []) observations.push(classObservation(qid, classQids, false))
   for (const t of tourOut?.accepted || []) observations.push(tourObservation(t))
   const evidenceCats = []
@@ -345,7 +372,26 @@ export async function runPipeline(o) {
     else if (a.ok && f.p31_labels.some((l) => /\b(museum|gallery|exhibition|art centre|art center)\b/i.test(l)) && (ev.type ?? 'media_facade') === 'media_facade' && !/파사드|facade|façade|fassade/i.test(ev.term)) ev.type = 'media_architecture'
     wikiDecisions.push({ qid: x.qid, url: ev.url, lang: ev.lang, term: ev.term, score: ev.score, reasons: ev.reasons, accepted: a.ok, entity_reasons: a.reasons, p31_labels: f?.p31_labels || [] })
   }
-  const kept = observations.filter((x) => x.origin !== 'wikipedia' || x.evidence[0].accepted)
+  // Korean hits (Korean Wikipedia, Wikidata search) describe Korean projects: the item must be located in Korea (P17,
+  // or the P131/P276 chain) and be a place, venue, event or work (a place class), never a concept or an organisation.
+  const krSearchDecisions = []
+  for (const x of observations.filter((y) => y.origin === 'wikidata_search')) {
+    const ev = x.evidence[0]
+    const f = facts.get(x.qid)
+    const a = f ? acceptEntity(f, rules) : { ok: false, reasons: ['no_wikidata_facts'] }
+    const reasons = [...a.reasons]
+    if (f && f.country_iso2 !== 'KR') reasons.push('not_in_korea')
+    if (f && !a.place_class) reasons.push('no_place_event_or_work_class')
+    ev.accepted = reasons.length === 0
+    ev.entity_reasons = reasons
+    krSearchDecisions.push({ qid: x.qid, name: f?.name_ko || f?.name_en || null, terms: ev.terms, accepted: ev.accepted, reasons, p31_labels: f?.p31_labels || [] })
+  }
+  for (const x of observations.filter((y) => y.origin === 'wikipedia' && y.evidence[0].lang === 'ko' && y.evidence[0].accepted)) {
+    const ev = x.evidence[0], f = facts.get(x.qid), a = acceptEntity(f, rules)
+    const more = [...(f.country_iso2 !== 'KR' ? ['not_in_korea'] : []), ...(!a.place_class ? ['no_place_event_or_work_class'] : [])]
+    if (more.length) { ev.accepted = false; ev.entity_reasons = [...(ev.entity_reasons || []), ...more]; const d = wikiDecisions.find((w) => w.qid === x.qid && w.lang === 'ko' && w.url === ev.url); if (d) { d.accepted = false; d.entity_reasons = ev.entity_reasons } }
+  }
+  const kept = observations.filter((x) => (x.origin !== 'wikipedia' && x.origin !== 'wikidata_search') || x.evidence[0].accepted)
   // Class instances: typing by the item's own P31, blocklist and exclusion rules.
   const exclude = rules.exclude_class_pattern ? new RegExp(rules.exclude_class_pattern, 'i') : null
   for (const x of kept) for (const c of x.class_types || []) c.direct = (entityP31.get(x.qid) || []).includes(c.qid)
@@ -700,6 +746,9 @@ export async function runPipeline(o) {
     country: classReview?.items?.find((x) => x.qid === KC.country.qid) ?? null,
     divisions: krDiv ? { from: krDiv.from, list: krDiv.divisions, expected: krDiv.expected, errors: krDiv.errors } : null,
     class_instances: krInst?.perClass ?? null,
+    class_query_example: classReview?.classes?.[0] ? countryClassInstancesQuery(classReview.classes[0].qid, KC.country.qid, KO.class_instance_limit ?? 2000) : null,
+    search: { terms: krSearch.terms, items: krSearch.byQid.size, errors: krSearch.errors, decisions: krSearchDecisions.sort((a, b) => compareStrings(a.qid, b.qid)) },
+    probes: (krProbes || []).map((pr) => ({ ...pr, found_by: pr.qid ? [krInst?.byQid.has(pr.qid) && 'class_query', krSearch.byQid.has(pr.qid) && 'wikidata_search', wikiHits.some((h) => h.qid === pr.qid && h.lang === 'ko') && 'kowiki_search', published.some((p) => p.qid === pr.qid || (p.all_qids || []).includes(pr.qid)) && 'published'].filter(Boolean) : [] })),
     regions: Object.fromEntries(KR_REGIONS.map((k) => [k, krDecisions.filter((d) => d.region === k).length])),
     decisions: krDecisions.sort((a, b) => compareStrings(a.id, b.id)),
   }, { pretty: true })
