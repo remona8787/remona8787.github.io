@@ -25,6 +25,10 @@ import { chunk, uniq, compareStrings, bareFile, haversine, validLat, redactKeys 
 
 const isBudget = (e) => e?.code === 'budget'
 const msg = (e) => redactKeys(String(e?.message || e)).slice(0, 300)
+// A project name in a photo's title or tags plus a place (or a geotag near the project) shows where a photo was taken,
+// not what it shows: portraits, fashion shows and other events at the venue pass that test (SEOUL006, DDP). Provider
+// photos proven only this way stay in the review queue until an editor approves them (approve_image).
+const WEAK_IDENTITY = new Set(['name_location', 'geotag_name'])
 
 /**
  * @param {{client: any, cache: any, P: any, env: Record<string, string|undefined>, ed: any, heroAllow: Set<string>, prev: any, state: any,
@@ -34,7 +38,7 @@ export async function imageStage(ctx) {
   const { client, cache, P, env, ed, heroAllow, prev, state, published, evidenceByKey, catRules, startedAt, err } = ctx
   const IC = P.images || {}, PV = IC.providers || {}, ttl = P.cache_ttl_hours || {}
   const imageResults = new Map(), imageReview = [], tiles = [], heroOutcome = new Map(), providerLog = [], imageCandidates = []
-  const stats = { processed: 0, kept_previous: 0, none: 0, candidates: 0, rejected: {}, measured: 0, measure_errors: 0, quality_measured: 0, duplicates: 0, by_provider: {}, provider_requests: {}, provider_errors: {}, provider_rejected: {}, identity_rejected: 0, institution_context: 0, kept_dropped_irrelevant: 0, kept_demoted_context: 0, below_threshold: 0, awaiting_review: 0 }
+  const stats = { processed: 0, kept_previous: 0, none: 0, candidates: 0, rejected: {}, measured: 0, measure_errors: 0, quality_measured: 0, duplicates: 0, by_provider: {}, provider_requests: {}, provider_errors: {}, provider_rejected: {}, identity_rejected: 0, provider_unverified: 0, kept_dropped_unverified: 0, institution_context: 0, kept_dropped_irrelevant: 0, kept_demoted_context: 0, below_threshold: 0, awaiting_review: 0 }
   const count = (o, k, n = 1) => { o[k] = (o[k] || 0) + n }
   let thumbsFetched = 0, depictsAsked = 0, qualityFetched = 0
   const used = {}
@@ -233,7 +237,15 @@ export async function imageStage(ctx) {
       if (!ok) for (const r of reasons) count(stats.provider_rejected, `${c.provider}:${r.replace(/:.*/, '')}`)
       providerReview.push({ provider: c.provider, id: key, source_id: c.source_id, title: c.title, src: c.src, page: c.page, license: c.license, identity, ok, reasons })
       if (!ok) continue
-      assessed.push({ key, file: null, source: c.provider, cand: c, a: { ...a, ok: true }, width: c.width, height: c.height, approved: c.editorial ? true : approvalOf(p, key, c.provider, c.source_id), identity })
+      const approved = c.editorial ? true : approvalOf(p, key, c.provider, c.source_id)
+      if (WEAK_IDENTITY.has(identity.method) && approved !== true) {
+        stats.provider_unverified++
+        const review = providerReview[providerReview.length - 1]
+        review.ok = false
+        review.reasons = [...review.reasons, 'awaiting_review']
+        continue
+      }
+      assessed.push({ key, file: null, source: c.provider, cand: c, a: { ...a, ok: true }, width: c.width, height: c.height, approved, identity })
     }
     const usable = assessed.filter((s) => s.a.ok && !imageBlocked(ed, p.id, s.key) && !(s.file && imageBlocked(ed, p.id, s.file)))
     // Visual scores: Commons from a 330 px thumbnail (the strongest few); providers from their measured rendition.
@@ -313,7 +325,12 @@ export async function imageStage(ctx) {
     const ownNames = [p.name_ko, p.name_en, p.name_original, p.building_name, ...(p.aliases || [])].filter(Boolean)
     const wn = workNames(p)
     const recheck = (i) => {
-      if (i.provider !== 'commons' || i.approved === true) return i
+      if (i.approved === true) return i
+      if (i.provider !== 'commons') {
+        if (!WEAK_IDENTITY.has(i.identity?.method)) return i
+        stats.kept_dropped_unverified++
+        return null
+      }
       const title = fileOf(i).replace(/\.[a-z0-9]+$/i, '').replace(/[_-]+/g, ' ')
       if (!title) return i
       const isP18 = (p.p18 || []).some((f) => bareFile(f) === fileOf(i))

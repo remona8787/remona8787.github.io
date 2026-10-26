@@ -116,7 +116,7 @@ test('dry run: sources become projects only through the rules (merges, rejection
 })
 
 test('dry run: images follow the per-surface rules', needSharp, async () => {
-  const { data } = await firstRun()
+  const { dir, data } = await firstRun()
   const r = (id) => data.records.get(id)
   const role = (rec, re) => rec.images.find((i) => re.test(i.page) || re.test(i.src))
   const bay = r('Q7715933')
@@ -158,6 +158,14 @@ test('dry run: images follow the per-surface rules', needSharp, async () => {
   assert.match(ddp.images[0].page, /Seoul_Light_DDP_2019_media_facade_night\.jpg$/)
   assert.deepEqual(ddp.images.filter((i) => /exterior_daytime/.test(i.page)).map((i) => [i.role, i.tier]), [['context', 5]])
   assert.ok(!ddp.images.some((i) => i.provider === 'flickr'), 'the Flickr copy of the reviewed Commons photo is a near-duplicate')
+  // Name and place prove where a provider photo was taken, not what it shows: unapproved, it stays in review.
+  const imageReview = JSON.parse(await readFile(path.join(dir, 'review', 'images.json'), 'utf8'))
+  const venue = imageReview.projects.find((x) => x.project === 'SEOUL006')?.providers.find((l) => l.source_id === '2220003')
+  assert.ok(venue, 'the venue photo was assessed')
+  assert.ok(['name_location', 'geotag_name'].includes(venue.identity.method))
+  assert.equal(venue.ok, false)
+  assert.ok(venue.reasons.includes('awaiting_review'))
+  assert.ok(![...data.records.values()].some((rec) => rec.images?.some((i) => i.page === 'https://www.flickr.com/photos/30760976@N04/2220003/')), 'never published')
   // Other providers: an approved Openverse photo, TourAPI images with their KOGL licences, an official image set by an editor.
   const lotte = r('SEOUL018')
   const ov = lotte.images.find((i) => i.provider === 'openverse')

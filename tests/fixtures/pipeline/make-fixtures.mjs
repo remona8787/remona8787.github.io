@@ -438,6 +438,10 @@ const flickr = {
         url_z: 'https://live.staticflickr.com/65535/2220001_aaa_z.jpg', width_z: 640, height_z: 427, url_l: 'https://live.staticflickr.com/65535/2220001_aaa_b.jpg', width_l: 1024, height_l: 683, url_k: 'https://live.staticflickr.com/65535/2220001_aaa_k.jpg', width_k: 2048, height_k: 1365, url_o: 'https://live.staticflickr.com/65535/2220001_zzz_o.jpg', width_o: 5000, height_o: 3333, originalformat: 'jpg' },
       { id: '2220002', owner: '99999@N00', secret: 'bbb', server: '65535', farm: 66, title: 'Night walk', ispublic: 1, license: '4', ownername: 'Fixture Far Away', latitude: '37.600000', longitude: '127.100000', accuracy: '16', tags: 'night', description: { _content: '' },
         url_z: 'https://live.staticflickr.com/65535/2220002_bbb_z.jpg', width_z: 640, height_z: 427, url_l: 'https://live.staticflickr.com/65535/2220002_bbb_b.jpg', width_l: 1024, height_l: 683 },
+      // Regression (live SEOUL006): taken at DDP and named after it, but nothing says what it shows (on live, such
+      // photos were people and events at the venue). Name plus place is not identity of the work: review queue only.
+      { id: '2220003', owner: '30760976@N04', secret: 'ccc', server: '65535', farm: 66, title: '동대문디자인플라자', ispublic: 1, license: '5', ownername: 'Fixture Venue Visitor', latitude: '37.566500', longitude: '127.009400', accuracy: '16', tags: 'ddp dongdaemun seoul', description: { _content: '' },
+        url_z: 'https://live.staticflickr.com/65535/2220003_ccc_z.jpg', width_z: 640, height_z: 427, url_l: 'https://live.staticflickr.com/65535/2220003_ccc_b.jpg', width_l: 1024, height_l: 683, url_k: 'https://live.staticflickr.com/65535/2220003_ccc_k.jpg', width_k: 2048, height_k: 1365 },
     ],
   },
 }
