@@ -1,4 +1,4 @@
-const CACHE='aol-e896a31e6eb5';
+const CACHE='aol-632ea5060d8d';
 const ASSETS=['./index.html','./styles.css','./app.js','./core.js','./catalog.js','./account.js','./assets/cloud-boot.js','./assets/cloud.js','./assets/native.js','./assets/symbol.svg','./assets/seed.js','./assets/reviewed-media.js','./assets/media-blocklist.js','./assets/live-media.js','./assets/global-places.js','./assets/archive.js','./assets/dataset.js','./assets/led-facade.js','./archive-taxonomy.js','./i18n.js','./config.js','./manifest.webmanifest','./assets/icon-192.png','./assets/icon-512.png','./assets/symbol-dark.svg','./assets/favicon.svg','./assets/logo-ko-light-compact.svg','./assets/logo-ko-dark-compact.svg','./assets/fonts/pretendard/pretendardvariable-dynamic-subset.css'];
 // The static archive dataset (data/, docs/STATIC_ARCHIVE.md "Output") lives in its own cache, stale-while-revalidate:
 // a cached copy answers at once and the network refreshes it for next time. client/dataset.js asks for the index and
