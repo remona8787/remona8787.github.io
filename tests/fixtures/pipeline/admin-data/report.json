@@ -1,15 +1,16 @@
 {
  "cache": {
   "hits": 5,
-  "misses": 1233,
+  "misses": 1289,
   "sizes": {
    "commons-category": 25,
    "commons-depicts": 19,
-   "commons-files": 42,
+   "commons-file-depicts": 47,
+   "commons-files": 47,
    "commons-members": 31,
    "commons-search": 72,
    "entities": 32,
-   "entities-aux": 63,
+   "entities-aux": 65,
    "flickr": 66,
    "kto-photo": 55,
    "links": 97,
@@ -18,12 +19,12 @@
    "quality": 31,
    "sparql": 41,
    "tourapi": 107,
-   "visual": 29,
+   "visual": 31,
    "wiki-pages": 13,
    "wiki-search": 59
   },
   "stale": 0,
-  "writes": 918
+  "writes": 974
  },
  "changes": {
   "carried_over": [],
@@ -133,7 +134,7 @@
   "eligible": 68,
   "excluded": 5,
   "foreign": 12,
-  "hero_candidates_awaiting_review": 7,
+  "hero_candidates_awaiting_review": 6,
   "kr": 56,
   "kr_with_region": 56,
   "merged": 4,
@@ -341,7 +342,8 @@
     "not_home_ok",
     "no_night_evidence",
     "no_media_evidence",
-    "visual_below_threshold"
+    "visual_below_threshold",
+    "kind:architecture_context"
    ],
    "status": "not_eligible"
   },
@@ -372,7 +374,7 @@
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 393840,
+   "ms": 393440,
    "not_modified": 0,
    "ok": 116,
    "requests": 116,
@@ -407,16 +409,16 @@
    }
   },
   "commons.wikimedia.org": {
-   "bytes": 127903,
+   "bytes": 152384,
    "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 160480,
+   "ms": 172480,
    "not_modified": 0,
-   "ok": 172,
-   "requests": 172,
+   "ok": 184,
+   "requests": 184,
    "statuses": {
-    "200": 172
+    "200": 184
    }
   },
   "de.wikipedia.org": {
@@ -589,16 +591,16 @@
    }
   },
   "query.wikidata.org": {
-   "bytes": 30210,
+   "bytes": 30810,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 42080,
+   "ms": 42120,
    "not_modified": 0,
-   "ok": 44,
-   "requests": 44,
+   "ok": 45,
+   "requests": 45,
    "statuses": {
-    "200": 44
+    "200": 45
    }
   },
   "ru.wikipedia.org": {
@@ -641,16 +643,16 @@
    }
   },
   "upload.wikimedia.org": {
-   "bytes": 1065298,
+   "bytes": 1042961,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 2200,
+   "ms": 2280,
    "not_modified": 0,
-   "ok": 55,
-   "requests": 55,
+   "ok": 57,
+   "requests": 57,
    "statuses": {
-    "200": 55
+    "200": 57
    }
   },
   "www.wikidata.org": {
@@ -680,16 +682,49 @@
    }
   }
  },
+ "image_audit": {
+  "cards": {
+   "all": {
+    "projects": 68,
+    "rate_pct": 26.5,
+    "with_valid_card": 18
+   },
+   "korea": {
+    "projects": 56,
+    "rate_pct": 14.3,
+    "with_valid_card": 8
+   },
+   "world": {
+    "projects": 12,
+    "rate_pct": 83.3,
+    "with_valid_card": 10
+   }
+  },
+  "duplicates_removed": 0,
+  "duplicates_this_run": 4,
+  "images": 31,
+  "low_res_rejected": 0,
+  "mislinked_rejected": 5,
+  "mislinked_removed": 0,
+  "newly_added_valid": 31,
+  "person_rejected": 8,
+  "person_removed": 0,
+  "portraits": 1,
+  "previous_images": 0,
+  "rechecked_kept": 0,
+  "relevance_verified": 31,
+  "removed_total": 0
+ },
  "images": {
   "awaiting_review": 0,
   "below_threshold": 0,
   "by_provider": {
-   "commons": 26,
+   "commons": 27,
    "official": 1,
    "openverse": 1,
    "tourapi": 2
   },
-  "candidates": 42,
+  "candidates": 47,
   "contact_sheets": [
    "hero-commons-01.jpg",
    "hero-official-01.jpg",
@@ -699,6 +734,7 @@
    "featured-openverse-01.jpg",
    "cards-01.jpg"
   ],
+  "depicts_errors": 0,
   "depicts_searches": 19,
   "duplicates": 4,
   "hero": 4,
@@ -706,14 +742,16 @@
   "institution_context": 7,
   "kept_demoted_context": 0,
   "kept_dropped_irrelevant": 0,
+  "kept_dropped_person": 0,
   "kept_dropped_unverified": 0,
   "kept_previous": 0,
   "measure_errors": 0,
-  "measured": 29,
+  "measured": 31,
   "none": 50,
   "openverse_rate_limit": {
    "x-ratelimit-available-anon_burst": 19
   },
+  "portraits": 1,
   "processed": 68,
   "provider_errors": {},
   "provider_new_requests": {
@@ -743,9 +781,10 @@
    "rights:foreign_no_freedom_of_panorama": 1,
    "rights:license_not_allowed": 1,
    "subject:object_or_animal": 4,
-   "subject:people_or_event": 5
+   "subject:people_or_event": 6,
+   "subject:person": 3
   },
-  "thumbnails_fetched": 29
+  "thumbnails_fetched": 31
  },
  "reachability": {
   "api.flickr.com": "reachable",
@@ -776,14 +815,14 @@
  },
  "review_queue": {
   "candidates": 2,
-  "hero_candidates": 7
+  "hero_candidates": 6
  },
  "run": {
   "budget_minutes": 25,
-  "build_id": "20261020T061700Z-184976a2",
+  "build_id": "20261020T061700Z-2c1e202d",
   "drop_guard": null,
-  "duration_ms": 698320,
-  "finished_at": "2026-10-20T06:28:38.320Z",
+  "duration_ms": 710360,
+  "finished_at": "2026-10-20T06:28:50.360Z",
   "number": 1,
   "publish": "published",
   "started_at": "2026-10-20T06:17:00.000Z",
@@ -990,7 +1029,7 @@
    "status": "ok"
   },
   "images": {
-   "duration_ms": 497920,
+   "duration_ms": 509960,
    "status": "ok"
   },
   "links": {
