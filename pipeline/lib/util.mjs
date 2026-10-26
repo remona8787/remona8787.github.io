@@ -106,5 +106,8 @@ export const compareStrings = (a, b) => (a < b ? -1 : a > b ? 1 : 0)
 
 /** Removes API keys from URLs and messages before they reach a log, a report or an error (keys come from env only). */
 export function redactKeys(text) {
-  return String(text ?? '').replace(/([?&](?:serviceKey|ServiceKey|api_key|apiKey|client_id|client_secret|key|access_key)=)[^&\s"']+/g, '$1***')
+  return String(text ?? '')
+    .replace(/([?&](?:serviceKey|ServiceKey|api_key|apiKey|client_id|client_secret|key|access_key)=)[^&\s"']+/g, '$1***')
+    // Seoul OpenAPI puts the key in the path: http://openapi.seoul.go.kr:8088/{KEY}/json/…
+    .replace(/(openapi\.seoul\.go\.kr(?::\d+)?\/)(?!sample\/)[^/\s"']+\//g, '$1***/')
 }

@@ -20,7 +20,7 @@ const workflowFile = path.join(pages, '.github/workflows/archive.yml')
 // The same workflow at the root of the source branch (this project's .github/): a push to source starts it.
 const sourceWorkflowFile = path.join(root, '.github/workflows/archive.yml')
 // Repository secrets the collect step may read (docs/PIPELINE.md "Keys"); nothing else may name a secret.
-const SECRETS = ['TOURAPI_SERVICE_KEY', 'FLICKR_API_KEY', 'OPENVERSE_CLIENT_ID', 'OPENVERSE_CLIENT_SECRET', 'UNSPLASH_ACCESS_KEY', 'PEXELS_API_KEY', 'NAVER_API_KEY_ID', 'NAVER_API_KEY', 'BRAVE_API_KEY']
+const SECRETS = ['TOURAPI_SERVICE_KEY', 'SEOUL_OPEN_DATA_KEY', 'FLICKR_API_KEY', 'OPENVERSE_CLIENT_ID', 'OPENVERSE_CLIENT_SECRET', 'UNSPLASH_ACCESS_KEY', 'PEXELS_API_KEY', 'NAVER_API_KEY_ID', 'NAVER_API_KEY', 'BRAVE_API_KEY']
 let YAML = null
 try { YAML = createRequire(path.join(root, 'pipeline/package.json'))('yaml') } catch {}
 const needYaml = { skip: YAML ? false : 'yaml is not installed (npm ci --prefix pipeline)' }

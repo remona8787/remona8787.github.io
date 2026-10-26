@@ -131,8 +131,9 @@ export function classifyTourItem(item, terms, termRules = {}) {
  */
 export async function discoverTourApi(client, cfg, { key, cache, ttlHours = 72, termRules = {} }) {
   const errors = [], seen = new Map()
-  let partial = false, overviews = 0
+  let partial = false, overviews = 0, requests = 0
   const ask = async (op, params, cacheKey, ttl = ttlHours) => {
+    requests++
     const json = await client.json(tourUrl(op, params, { key, base: cfg.base || TOURAPI_BASE, app: cfg.mobile_app }), { stage: 'tourapi', cache: cache ? { ns: 'tourapi', key: cacheKey, ttlMs: ttl * HOUR } : null, redactUrl: redactKeys, timeoutMs: 20000 })
     return itemsOf(json)
   }
@@ -183,7 +184,7 @@ export async function discoverTourApi(client, cfg, { key, cache, ttlHours = 72, 
     out.push({ ...it, overview: it.overview ? it.overview.slice(0, 300) : it.overview ?? null, decision: { accepted: !!d.accepted, reasons: d.reasons, terms: d.terms || [], project_type: d.project_type ?? null, classifier: d.classification ? { label: d.classification.label, score: d.classification.score } : null } })
   }
   out.sort((a, b) => (a.contentid < b.contentid ? -1 : 1))
-  return { items: out, accepted: out.filter((x) => x.decision.accepted), errors, partial, overviews_read: overviews }
+  return { items: out, accepted: out.filter((x) => x.decision.accepted), errors, partial, overviews_read: overviews, requests }
 }
 
 /** Items named like a project (searchKeyword2 with the project's Korean name), for image identity and merges. */

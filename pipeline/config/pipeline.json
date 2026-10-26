@@ -31,6 +31,9 @@
     },
     "tourapi": {
       "enabled": true
+    },
+    "seoul_events": {
+      "enabled": true
     }
   },
   "cache_ttl_hours": {
@@ -50,7 +53,9 @@
     "commons_depicts": 336,
     "tourapi": 72,
     "kr_divisions": 168,
-    "quality": 8760
+    "quality": 8760,
+    "seoul_events": 20,
+    "commons_file_depicts": 720
   },
   "wikipedia": {
     "about": "Media-facade discovery: phrase searches of the local terms in each Wikipedia; each hit is mapped to its Wikidata item and accepted only by the rules in lib/wikipedia.mjs (score and reasons in review/wikipedia.json).",
@@ -476,6 +481,16 @@
     "about": "Korea first (v0.18): Korean sources start first on every shared host and run until the stage deadline; the foreign sources stop foreign_reserve_share of the sources stage earlier. The images and links stages handle Korean projects first.",
     "foreign_reserve_share": 0.2,
     "class_instance_limit": 2000
+  },
+  "seoul_events": {
+    "about": "Seoul cultural events (서울 열린데이터광장 OA-15486, service culturalEventInfo, 공공누리 제1유형; key SEOUL_OPEN_DATA_KEY). Without a key, one probe with the portal's sample key records reachability and the live field names (never published). An event is kept only when its title, programme or place names media art, a media facade, projection, mapping, light, LED, digital or immersive and the classifier agrees; it is linked to a published project by name within link_radius_m, else it becomes a place candidate (admin-data/candidates.json) for an editor. lib/seoul-events.mjs, review/seoul-events.json.",
+    "base": "http://openapi.seoul.go.kr:8088",
+    "service": "culturalEventInfo",
+    "page_rows": 1000,
+    "max_rows": 6000,
+    "probe": true,
+    "link_radius_m": 300,
+    "max_events_per_project": 20
   },
   "tourapi": {
     "about": "Korea Tourism Organization TourAPI 4.x, KorService2 (data.go.kr, key TOURAPI_SERVICE_KEY). searchKeyword2 for the terms below by content type (12 attractions, 14 cultural facilities, 15 festivals); an item is a project candidate only when a term is in its title, or in its overview (detailCommon2, read only for items without the term in the title, at most overview_max_per_run new reads per run), and the classifier agrees. Every decision goes to review/tourapi.json.",

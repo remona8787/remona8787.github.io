@@ -133,6 +133,8 @@ export function publicRecord(p, { shard, addedAt }) {
     spatial_context: [],
     summary_ko: p.description_ko ?? null,
     summary_en: p.description_en ?? null,
+    // Events and exhibitions at this place from public data (Seoul cultural events): their own dates, status and source.
+    ...(p.events?.length ? { events: p.events } : {}),
     // A creator's portrait (image kind artist_portrait) belongs to the credit it names, never to images[].
     credits: (p.credits || []).map((c) => {
       const portrait = (p.portraits || []).find((i) => i.creator && [c.name, c.name_en].filter(Boolean).includes(i.creator))
