@@ -1,6 +1,6 @@
 {
  "dataset": "light-architecture-archive",
- "version": "20261026T162303Z-adb294d4",
+ "version": "20261026T163656Z-308e76e3",
  "data_as_of": "2026-10-26",
  "projects": [
   {
@@ -10323,10 +10323,12 @@
    "field_sources": {
     "city": "wikidata",
     "country_iso2": "wikidata",
+    "end_date": "wikidata",
     "name_en": "wikidata",
     "name_original": "wikidata",
     "operating_status": "wikidata",
     "project_type": "wikidata",
+    "start_date": "wikidata",
     "status": "wikidata",
     "summary_en": "wikidata",
     "year_ended": "wikidata",
@@ -11428,7 +11430,7 @@
    "image_count": 0,
    "has_valid_image": false,
    "field_sources": {
-    "country_iso2": "wikidata",
+    "country_iso2": "derived:coordinates_in_borders",
     "credits": "wikidata",
     "lat": "wikidata",
     "lng": "wikidata",
@@ -11472,7 +11474,7 @@
    "image_count": 0,
    "has_valid_image": false,
    "field_sources": {
-    "country_iso2": "wikidata",
+    "country_iso2": "derived:coordinates_in_borders",
     "credits": "wikidata",
     "lat": "wikidata",
     "lng": "wikidata",
@@ -11516,7 +11518,7 @@
    "image_count": 0,
    "has_valid_image": false,
    "field_sources": {
-    "country_iso2": "wikidata",
+    "country_iso2": "derived:coordinates_in_borders",
     "lat": "wikidata",
     "lng": "wikidata",
     "name_original": "wikidata",
@@ -11559,7 +11561,7 @@
    "image_count": 0,
    "has_valid_image": false,
    "field_sources": {
-    "country_iso2": "wikidata",
+    "country_iso2": "derived:coordinates_in_borders",
     "lat": "wikidata",
     "lng": "wikidata",
     "name_original": "wikidata",
@@ -11602,7 +11604,7 @@
    "image_count": 0,
    "has_valid_image": false,
    "field_sources": {
-    "country_iso2": "wikidata",
+    "country_iso2": "derived:coordinates_in_borders",
     "lat": "wikidata",
     "lng": "wikidata",
     "name_original": "wikidata",
@@ -12888,6 +12890,7 @@
     "city": "wikidata",
     "country_iso2": "wikidata",
     "credits": "wikidata",
+    "end_date": "wikidata",
     "name_en": "wikidata",
     "name_original": "wikidata",
     "operating_status": "wikidata",
@@ -13073,6 +13076,7 @@
    "field_sources": {
     "city": "wikidata",
     "country_iso2": "wikidata",
+    "end_date": "wikidata",
     "lat": "wikidata",
     "lng": "wikidata",
     "name_en": "wikidata",
@@ -13218,6 +13222,7 @@
     "name_original": "wikidata",
     "official_url": "wikidata",
     "project_type": "derived:commons_category",
+    "start_date": "wikidata",
     "summary_en": "wikidata",
     "year_operating_since": "wikidata"
    }
@@ -14088,11 +14093,13 @@
    "field_sources": {
     "city": "wikidata",
     "country_iso2": "wikidata",
+    "end_date": "wikidata",
     "name_en": "wikidata",
     "name_original": "wikidata",
     "official_url": "wikidata",
     "operating_status": "wikidata",
     "project_type": "derived:commons_category",
+    "start_date": "wikidata",
     "status": "wikidata",
     "summary_en": "wikidata",
     "year_ended": "wikidata",
@@ -14368,11 +14375,13 @@
    "field_sources": {
     "city": "wikidata",
     "country_iso2": "wikidata",
+    "end_date": "wikidata",
     "lat": "wikidata",
     "lng": "wikidata",
     "name_original": "wikidata",
     "operating_status": "wikidata",
     "project_type": "wikidata",
+    "start_date": "wikidata",
     "status": "wikidata",
     "summary_en": "wikidata",
     "year_ended": "wikidata",
@@ -14843,6 +14852,7 @@
     "name_original": "wikidata",
     "official_url": "wikidata",
     "project_type": "wikidata",
+    "start_date": "wikidata",
     "summary_en": "wikidata",
     "year_operating_since": "wikidata"
    }
