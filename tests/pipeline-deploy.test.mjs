@@ -10,6 +10,7 @@ import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { assemble, loadDataset, robotsWithAdmin, treeId, KEEP } from '../pipeline/deploy.mjs'
 import { waitForDeploy, pickDetail, screens, summarize, renditionWidth, galleryCheck, imageKey, VIEWPORTS, INTERNAL_TERMS } from '../pipeline/verify-live.mjs'
+import { packageVersion } from '../scripts/research-package.mjs'
 
 const root = path.resolve(import.meta.dirname, '..')
 const FIX = path.join(root, 'tests/fixtures/pipeline')
@@ -191,10 +192,23 @@ test('research package: the deployed dataset\'s version (latest.json = build id)
     const r1 = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site, now: '2026-10-26T01:00:00.000Z' })
     assert.ok(r1.research_files >= 8)
     const latest = JSON.parse(await readFile(path.join(w.site, 'data/research/latest.json'), 'utf8'))
-    assert.equal(latest.version, A)
-    for (const f of ['projects.csv', 'projects.json', 'projects.geojson', 'sources.csv', 'images.csv', 'relations.csv', 'events.csv', 'datapackage.json', 'README.md', 'CITATION.txt']) assert.ok(existsSync(path.join(w.site, 'data/research', A, f)), f)
-    assert.ok(!existsSync(path.join(w.site, 'data/research', A, 'CHANGELOG.md')), 'nothing was on main before')
+    assert.equal(latest.version, packageVersion(A))
+    for (const f of ['projects.csv', 'projects.json', 'projects.geojson', 'sources.csv', 'images.csv', 'relations.csv', 'events.csv', 'datapackage.json', 'README.md', 'CITATION.txt']) assert.ok(existsSync(path.join(w.site, 'data/research', packageVersion(A), f)), f)
+    assert.ok(!existsSync(path.join(w.site, 'data/research', packageVersion(A), 'CHANGELOG.md')), 'nothing was on main before')
     assert.equal((await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })).changed, false, 'same inputs, same deploy')
+    // The same build with a package of the earlier format on main (data/research/<build id>/, latest.version = build id,
+    // as on the live site before format 2): the package is built again as the new version, not kept.
+    const { rename } = await import('node:fs/promises')
+    await rename(path.join(w.site, 'data/research', packageVersion(A)), path.join(w.site, 'data/research', A))
+    const old = JSON.parse(await readFile(path.join(w.site, 'data/research/latest.json'), 'utf8'))
+    await writeFile(path.join(w.site, 'data/research/latest.json'), JSON.stringify({ ...old, version: A, path: `data/research/${A}/` }))
+    const dj = JSON.parse(await readFile(path.join(w.site, 'deploy.json'), 'utf8'))
+    await writeFile(path.join(w.site, 'deploy.json'), JSON.stringify({ ...dj, deploy_id: '0123456789ab' }))
+    const r1b = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })
+    assert.equal(r1b.changed, true)
+    assert.equal(JSON.parse(await readFile(path.join(w.site, 'data/research/latest.json'), 'utf8')).version, packageVersion(A))
+    assert.ok(existsSync(path.join(w.site, 'data/research', packageVersion(A), 'archive.xlsx')))
+    assert.ok(!existsSync(path.join(w.site, 'data/research', A)), 'the old-format directory is not in the new tree')
     // A new build on the data branch: its package has a change log against A; deploying it again changes nothing.
     const B = A.slice(0, -8) + 'b0b0b0b0'
     // Every file of a dataset carries its build id.
@@ -208,20 +222,20 @@ test('research package: the deployed dataset\'s version (latest.json = build id)
     await rebuild(B)
     const r2 = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })
     assert.equal(r2.changed, true)
-    assert.equal(JSON.parse(await readFile(path.join(w.site, 'data/research/latest.json'), 'utf8')).version, B)
-    assert.match(await readFile(path.join(w.site, 'data/research', B, 'CHANGELOG.md'), 'utf8'), new RegExp(A))
-    assert.ok(!existsSync(path.join(w.site, 'data/research', A)), 'one version in the tree; older ones stay in the history of main')
+    assert.equal(JSON.parse(await readFile(path.join(w.site, 'data/research/latest.json'), 'utf8')).version, packageVersion(B))
+    assert.match(await readFile(path.join(w.site, 'data/research', packageVersion(B), 'CHANGELOG.md'), 'utf8'), new RegExp(A))
+    assert.ok(!existsSync(path.join(w.site, 'data/research', packageVersion(A))), 'one version in the tree; older ones stay in the history of main')
     const again = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })
     assert.equal(again.changed, false, 'the published version (with its change log) is kept as it is')
-    assert.ok(existsSync(path.join(w.site, 'data/research', B, 'CHANGELOG.md')))
+    assert.ok(existsSync(path.join(w.site, 'data/research', packageVersion(B), 'CHANGELOG.md')))
     // A rejected dataset on the data branch: the deployed version stays, the rejected build never gets a package.
     const C = A.slice(0, -8) + 'c0c0c0c0'
     await rebuild(C, { counts: { ...manifest.counts, projects: -1 } })
     const r3 = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })
     assert.equal(r3.dataset, 'kept_previous')
     assert.equal(r3.changed, false)
-    assert.ok(!existsSync(path.join(w.site, 'data/research', C)))
-    assert.equal(JSON.parse(await readFile(path.join(w.site, 'data/research/latest.json'), 'utf8')).version, B)
+    assert.ok(!existsSync(path.join(w.site, 'data/research', packageVersion(C))))
+    assert.equal(JSON.parse(await readFile(path.join(w.site, 'data/research/latest.json'), 'utf8')).version, packageVersion(B))
   } finally { await rm(w.dir, { recursive: true, force: true }) }
 })
 

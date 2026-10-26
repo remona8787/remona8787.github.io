@@ -6,7 +6,7 @@ import assert from 'node:assert/strict'
 import { readFile, readdir } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import path from 'node:path'
-import { researchPackage, PROJECT_FIELDS, RELATION_FIELDS, EVENT_FIELDS, AGENT_FIELDS } from '../scripts/research-package.mjs'
+import { researchPackage, packageVersion, PACKAGE_FORMAT, PROJECT_FIELDS, RELATION_FIELDS, EVENT_FIELDS, AGENT_FIELDS } from '../scripts/research-package.mjs'
 
 const DIR = path.join(import.meta.dirname, 'fixtures/pipeline/site-data')
 async function dataset() {
@@ -31,11 +31,13 @@ function parseCSV(text) {
 test('research package: every file under data/research/<build id>/ with a latest.json that names them with checksums', async () => {
   const files = await dataset(), manifest = JSON.parse(files.get('manifest.json')), index = JSON.parse(files.get('index.json'))
   const out = researchPackage(files)
-  const base = `data/research/${manifest.build_id}/`
+  const version = packageVersion(manifest.build_id), base = `data/research/${version}/`
+  assert.equal(version, `${manifest.build_id}-p${PACKAGE_FORMAT}`)
   for (const f of ['projects.csv', 'projects.json', 'projects.geojson', 'sources.csv', 'images.csv', 'relations.csv', 'events.csv', 'agents.csv', 'archive.xlsx', 'datapackage.json', 'README.md', 'CITATION.txt']) assert.ok(out.has(base + f), f)
   assert.ok(!out.has(base + 'CHANGELOG.md'), 'no change log without a previous dataset')
   const latest = JSON.parse(out.get('data/research/latest.json'))
-  assert.equal(latest.version, manifest.build_id)
+  assert.equal(latest.version, version)
+  assert.equal(latest.build_id, manifest.build_id)
   assert.equal(latest.path, base)
   for (const [f, meta] of Object.entries(latest.files)) { assert.equal(meta.sha256, sha(out.get(base + f)), f); assert.equal(meta.bytes, Buffer.byteLength(out.get(base + f)), f) }
   const csv = parseCSV(out.get(base + 'projects.csv'))
@@ -44,7 +46,8 @@ test('research package: every file under data/research/<build id>/ with a latest
   assert.equal(latest.counts.projects, index.rows.length)
   // The data dictionary in datapackage.json is the CSV header, and every resource checksum matches.
   const dp = JSON.parse(out.get(base + 'datapackage.json'))
-  assert.equal(dp.version, manifest.build_id)
+  assert.equal(dp.version, version)
+  assert.equal(dp.build_id, manifest.build_id)
   assert.equal(dp.data_as_of, manifest.generated_at.slice(0, 10))
   assert.deepEqual(dp.resources.find((r) => r.name === 'projects').schema.fields.map((f) => f.name), csv[0])
   for (const r of dp.resources) assert.equal(r.hash, 'sha256:' + sha(out.get(base + r.path)), r.path)
@@ -90,7 +93,7 @@ test('research package: a change log against the previous dataset; a dataset wit
   const pi = JSON.parse(prev.get('index.json')), gone = pi.rows.pop()[pi.fields.indexOf('id')]; prev.set('index.json', JSON.stringify(pi))
   const out = researchPackage(now, { previous: prev })
   const base = [...out.keys()][0].replace(/[^/]+$/, ''), log = out.get(base + 'CHANGELOG.md')
-  assert.match(log, /이전 버전 20261001T000000Z-00000000/)
+  assert.match(log, /이전 데이터 빌드 20261001T000000Z-00000000/)
   assert.match(log, new RegExp(`추가 1건: ${gone}`))
   assert.equal(JSON.parse(out.get(base + 'datapackage.json')).changes.added, 1)
   const bad = await dataset(), m = JSON.parse(bad.get('manifest.json')); delete m.build_id; bad.set('manifest.json', JSON.stringify(m))

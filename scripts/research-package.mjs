@@ -17,7 +17,8 @@
 //  - README.md (Korean: contents, missing values, terms of use, citation), CITATION.txt and, when the previous
 //    dataset is given, CHANGELOG.md (added, removed and changed projects);
 // and data/research/latest.json, which names the current version and the checksum of each file.
-// The version is the dataset's build id, so a version names exactly one dataset; earlier versions stay in the
+// The version is the dataset's build id and the package format (<build id>-p<format>), so a version names exactly one
+// dataset in one file layout and never changes; a new format is a new version of the same data. Earlier versions stay in the
 // history of the site's main branch. Editorial summaries (summary_ko/summary_en) are left out until the operator sets
 // their terms of use; images are listed with their own licence and author, never copied.
 // Pure and deterministic: the same dataset gives byte-identical files (no clock, no network, no file access).
@@ -35,6 +36,10 @@ const SHARD = /^projects\/[a-z0-9_-]+\.json$/
 const DATASET_ID = 'light-architecture-archive'
 const TITLE = '빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋'
 const str = (/** @type {any} */ v) => typeof v === 'string' ? v : Buffer.isBuffer(v) ? v.toString('utf8') : String(v ?? '')
+// The package format: raised whenever the files or their columns change (1: projects, sources, images; 2: kind, status,
+// field confidence, relations, events, agents, archive.xlsx).
+export const PACKAGE_FORMAT = 2
+export const packageVersion = (/** @type {string} */ buildId) => `${buildId}-p${PACKAGE_FORMAT}`
 const sha256 = (/** @type {string|Buffer} */ s) => createHash('sha256').update(s).digest('hex')
 
 // The keys of a record's field_confidence (pipeline/lib/output.mjs FIELD_CONFIDENCE_KEYS), one column each.
@@ -203,8 +208,9 @@ export function readDataset(/** @type {Map<string, any>} */ files) {
  */
 export function researchPackage(datasetFiles, { previous = null, siteURL = 'https://remona8787.github.io' } = {}) {
   const { manifest, records } = readDataset(datasetFiles)
-  const version = String(manifest.build_id || '')
-  if (!/^[0-9A-Za-z-]{6,80}$/.test(version)) throw Error('manifest.json: no usable build_id')
+  const buildId = String(manifest.build_id || '')
+  if (!/^[0-9A-Za-z-]{6,76}$/.test(buildId)) throw Error('manifest.json: no usable build_id')
+  const version = packageVersion(buildId)
   const site = siteURL.replace(/\/+$/, '')
   const base = `data/research/${version}/`
   const created = manifest.generated_at || null
@@ -252,7 +258,7 @@ export function researchPackage(datasetFiles, { previous = null, siteURL = 'http
     try {
       const prev = readDataset(previous), before = new Map(prev.records.map((p) => [p.id, JSON.stringify(projectRow(p))])), now = new Map(rows.map((r) => [r.id, JSON.stringify(r)]))
       changes = { from: String(prev.manifest.build_id || ''), added: [...now.keys()].filter((k) => !before.has(k)), removed: [...before.keys()].filter((k) => !now.has(k)), changed: [...now.keys()].filter((k) => before.has(k) && before.get(k) !== now.get(k)) }
-      data.set('CHANGELOG.md', `# 변경 내역\n\n이전 버전 ${changes.from} → 이번 버전 ${version}\n\n- 추가 ${changes.added.length}건${changes.added.length ? ': ' + changes.added.join(', ') : ''}\n- 삭제 ${changes.removed.length}건${changes.removed.length ? ': ' + changes.removed.join(', ') : ''}\n- 변경 ${changes.changed.length}건${changes.changed.length ? ': ' + changes.changed.join(', ') : ''}\n\n변경은 projects.csv의 열 값 기준입니다. 이전 버전 파일은 사이트 저장소(main 브랜치)의 기록에 남아 있습니다.\n`)
+      data.set('CHANGELOG.md', `# 변경 내역\n\n이전 데이터 빌드 ${changes.from} → 이번 데이터 빌드 ${buildId} (버전 ${version})\n\n- 추가 ${changes.added.length}건${changes.added.length ? ': ' + changes.added.join(', ') : ''}\n- 삭제 ${changes.removed.length}건${changes.removed.length ? ': ' + changes.removed.join(', ') : ''}\n- 변경 ${changes.changed.length}건${changes.changed.length ? ': ' + changes.changed.join(', ') : ''}\n\n변경은 projects.csv의 열 값 기준입니다. 이전 버전 파일은 사이트 저장소(main 브랜치)의 기록에 남아 있습니다.\n`)
     } catch { changes = null }
   }
   const schema = (/** @type {readonly (readonly string[])[]} */ fields) => ({ fields: fields.map(([name, type, title, description]) => ({ name, type, title, ...(description ? { description } : {}) })) })
@@ -261,7 +267,7 @@ export function researchPackage(datasetFiles, { previous = null, siteURL = 'http
     return { name, path: file, format, mediatype, encoding: 'utf-8', bytes: Buffer.byteLength(body), hash: 'sha256:' + sha256(body), ...(fields ? { schema: schema(fields) } : {}) }
   }
   const descriptor = {
-    profile: 'tabular-data-package', id: `${DATASET_ID}@${version}`, name: DATASET_ID, title: TITLE, version, created, data_as_of: asOf,
+    profile: 'tabular-data-package', id: `${DATASET_ID}@${version}`, name: DATASET_ID, title: TITLE, version, build_id: buildId, package_format: PACKAGE_FORMAT, created, data_as_of: asOf,
     homepage: site + '/', description: '미디어파사드·건축 미디어아트·빛 설치 작품의 사실 정보(이름, 유형, 위치, 연도, 운영 상태, 식별자, 출처, 필드별 신뢰도), 레코드 사이의 관계, 공공 행사 정보, 공개 이미지의 저작권 정보. 편집부 해설문과 이미지 파일은 포함하지 않습니다.',
     counts: { projects: rows.length, with_coordinates: geo.features.length, sources: sources.length, images: images.length, relations: relations.length, events: events.length, agents: agents.length, agents_by_type: Object.fromEntries(AGENT_TYPE_ORDER.concat('other').map((t) => [t, agents.filter((a) => a.entity_type === t).length]).filter(([, n]) => n)), by_country: count('country_iso2'), by_kr_region: count('kr_region'), by_type: count('project_type'), by_kind: count('kind'), by_status: count('status') },
     licenses: [{ name: 'CC0-1.0', path: 'https://creativecommons.org/publicdomain/zero/1.0/', title: 'Wikidata에서 온 사실 정보' }, { name: 'other', title: '그 밖의 출처: sources.csv의 각 출처 조건, 이미지는 images.csv의 각 라이선스' }],
@@ -280,7 +286,7 @@ export function researchPackage(datasetFiles, { previous = null, siteURL = 'http
   const dict = (/** @type {string} */ file, /** @type {readonly (readonly string[])[]} */ fields) => `### ${file}\n\n| 열 | 형식 | 이름 | 설명 |\n|---|---|---|---|\n${fields.map(([n, t, ti, d]) => `| \`${n}\` | ${t} | ${ti} | ${d || ''} |`).join('\n')}\n`
   data.set('README.md', `# ${TITLE}
 
-- 데이터셋 ID: \`${DATASET_ID}\` · 버전: \`${version}\` (수집 빌드 ID와 같음)
+- 데이터셋 ID: \`${DATASET_ID}\` · 버전: \`${version}\` (수집 빌드 ID \`${buildId}\`와 패키지 형식 p${PACKAGE_FORMAT})
 - 생성: ${created || '미상'} · 데이터 기준일: ${asOf || '미상'}
 - 프로젝트 ${rows.length}건 (좌표 있음 ${geo.features.length}건) · 출처 ${sources.length}건 · 이미지 정보 ${images.length}건 · 관계 ${relations.length}건 · 행사 ${events.length}건 · 작가·건축가·기관 ${agents.length}건
 - 국가 ${Object.keys(descriptor.counts.by_country).length}곳 · 국내 권역 ${Object.entries(descriptor.counts.by_kr_region).map(([k, v]) => `${k} ${v}`).join(', ') || '없음'}
@@ -335,7 +341,7 @@ ${dict('agents.csv', AGENT_FIELDS)}`)
   const out = new Map()
   for (const [f, body] of data) out.set(base + f, body)
   out.set('data/research/latest.json', JSON.stringify({
-    dataset: DATASET_ID, title: TITLE, version, created, data_as_of: asOf, path: base, citation,
+    dataset: DATASET_ID, title: TITLE, version, build_id: buildId, package_format: PACKAGE_FORMAT, created, data_as_of: asOf, path: base, citation,
     counts: { projects: rows.length, sources: sources.length, images: images.length, relations: relations.length, events: events.length, agents: agents.length },
     files: Object.fromEntries([...data].map(([f, body]) => [f, { bytes: Buffer.byteLength(body), sha256: sha256(body) }])),
   }, null, 1) + '\n')
