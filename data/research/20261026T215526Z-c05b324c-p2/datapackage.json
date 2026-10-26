@@ -1,9 +1,11 @@
 {
  "profile": "tabular-data-package",
- "id": "light-architecture-archive@20261026T215526Z-c05b324c",
+ "id": "light-architecture-archive@20261026T215526Z-c05b324c-p2",
  "name": "light-architecture-archive",
  "title": "빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋",
- "version": "20261026T215526Z-c05b324c",
+ "version": "20261026T215526Z-c05b324c-p2",
+ "build_id": "20261026T215526Z-c05b324c",
+ "package_format": 2,
  "created": "2026-10-26T21:55:26.281Z",
  "data_as_of": "2026-10-26",
  "homepage": "https://remona8787.github.io/",
@@ -118,13 +120,7 @@
    "path": "https://remona8787.github.io/"
   }
  ],
- "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261026T215526Z-c05b324c, 데이터 기준일 2026-10-26). https://remona8787.github.io/data/research/20261026T215526Z-c05b324c/",
- "changes": {
-  "from": "20261026T213455Z-f082e9a0",
-  "added": 0,
-  "removed": 1,
-  "changed": 0
- },
+ "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261026T215526Z-c05b324c-p2, 데이터 기준일 2026-10-26). https://remona8787.github.io/data/research/20261026T215526Z-c05b324c-p2/",
  "resources": [
   {
    "name": "projects",
@@ -422,8 +418,8 @@
    "format": "json",
    "mediatype": "application/json",
    "encoding": "utf-8",
-   "bytes": 641437,
-   "hash": "sha256:7316de9243cb716b911b9c2eb5f3e58a3d3637028e2d0208bc1c7b8bd06d24c0"
+   "bytes": 641440,
+   "hash": "sha256:a63241c54c5216642d9054154c48aadc8d635621c7833c79ac232a508b5095c1"
   },
   {
    "name": "projects-geojson",
@@ -813,17 +809,8 @@
    "format": "txt",
    "mediatype": "text/plain",
    "encoding": "utf-8",
-   "bytes": 268,
-   "hash": "sha256:3b363e088a2472c0c93b1bf52c571bea9f7d96b680b7ae26d8b1482c968aac42"
-  },
-  {
-   "name": "changelog",
-   "path": "CHANGELOG.md",
-   "format": "md",
-   "mediatype": "text/markdown",
-   "encoding": "utf-8",
-   "bytes": 301,
-   "hash": "sha256:69fb5b5b56f50eb4f1a3c985883dbf9bb9f3409298357ab7a2fabda340557dfd"
+   "bytes": 274,
+   "hash": "sha256:8ded42ee354aff98f8d3d289f1a727894933afc62acef3e852704256091961da"
   }
  ]
 }
