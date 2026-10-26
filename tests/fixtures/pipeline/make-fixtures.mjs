@@ -145,6 +145,15 @@ add('Q99000501', { labels: { ko: '픽스처 미디어아트 뮤지엄 부산', e
 add('Q99000502', { labels: { ko: '픽스처 강릉 빛축제', en: 'Fixture Gangneung Light Festival' }, descriptions: { ko: '강릉에서 열리는 빛 축제' },
   claims: { P31: 'Q132241', P17: 'Q884', P131: 'Q99000414', P625: [[37.7519, 128.8761]], P571: 2019, P580: '2026-12-20', P582: '2027-01-10', P2257: [[1, 'Q577']] }, sitelinks: { kowiki: '픽스처 강릉 빛축제' } })
 add('Q99000504', { labels: { ko: '픽스처 미디어 작가' }, claims: { P31: 'Q5' }, sitelinks: { kowiki: '픽스처 미디어 작가' } })
+// Korea: found only by the Wikidata full-text search among Korean items — a lantern festival (a festival: accepted)
+// and an association (an organisation without a place class: refused).
+add('Q99000506', { labels: { ko: '픽스처 경포 유등축제', en: 'Fixture Gyeongpo Lantern Festival' }, descriptions: { ko: '강릉 경포호의 유등축제' },
+  claims: { P31: 'Q132241', P17: 'Q884', P131: 'Q99000414', P625: [[37.7955, 128.9086]] }, sitelinks: { kowiki: '픽스처 경포 유등축제' } })
+add('Q48204', { labels: { en: 'voluntary association', ko: '자원 단체' } })
+add('Q99000507', { labels: { ko: '픽스처 미디어아트 협회' }, descriptions: { ko: '미디어아트 작가 단체' }, claims: { P31: 'Q48204', P17: 'Q884', P131: 'Q99000417' } })
+// A foreign building found by the Korean Wikipedia: never a Korean hit (the ko search is for Korean projects).
+add('Q17', { labels: { en: 'Japan', ko: '일본' }, claims: { P31: 'Q6256', P297: 'JP' } })
+add('Q99000604', { labels: { ko: '픽스처 도쿄 미디어 타워', en: 'Fixture Tokyo Media Tower' }, claims: { P31: 'Q11303', P17: 'Q17', P625: [[35.66, 139.76]] }, sitelinks: { kowiki: '픽스처 도쿄 미디어 타워' } })
 add('Q99000505', { labels: { ko: '픽스처 시립도서관' }, claims: { P31: 'Q33506', P17: 'Q884', P131: 'Q99000417', P625: [[37.48, 127.01]] }, sitelinks: { kowiki: '픽스처 시립도서관' } })
 add('Q255506', { labels: { en: 'Banpo Bridge', ko: '반포대교' }, descriptions: { en: 'bridge in Seoul with a musical fountain' },
   claims: { P31: ['Q12280', 'Q926949'], P17: 'Q884', P131: 'Q99000417', P625: [[37.5152, 126.9958]], P571: 1982 }, sitelinks: { kowiki: '반포대교', enwiki: 'Banpo Bridge' } })
@@ -336,6 +345,8 @@ const search = {
   file: { 'media facade': [{ title: 'File:Uniqa Tower media facade colourful day.jpg', categories: ['Category:Uniqa Tower'] }] },
   // haswbstatement:P180=<QID> answers (files whose structured data depicts the item).
   file_depicts: FILE_DEPICTS,
+  // Wikidata full-text search (CirrusSearch) answers by term; the fake fetch applies haswbstatement:P17.
+  wikidata: { '유등축제': ['Q99000506'], '미디어아트': ['Q99000507', 'Q99000501'] },
   depicts: { Q5295847: ['File:Dongdaemun Design Plaza exterior daytime.jpg', 'File:Seoul Light DDP 2019 media facade night.jpg'], Q69134: ['File:서울역 앞 대우빌딩 전경.jpg', 'File:Seoul Aerial Shot 07.jpg'] },
 }
 
@@ -364,10 +375,10 @@ const wikis = {
   },
   ko: {
     search: {
-      '미디어파사드': [['롯데월드타워', '외벽에 미디어파사드가 설치되어']],
-      // The wide Korean term list (v0.18): a media art museum (broad term: needs the higher score), a light festival,
-      // an artist (never a project) and a library that mentions media art only in passing (below the broad-term score).
-      '미디어아트': [['픽스처 미디어아트 뮤지엄 부산', '해운대구의 미디어아트 전시관'], ['픽스처 미디어 작가', '미디어아트 작가'], ['픽스처 시립도서관', '미디어아트 강좌']],
+      '미디어파사드': [['롯데월드타워', '외벽에 미디어파사드가 설치되어'], ['픽스처 도쿄 미디어 타워', '외벽 미디어파사드']],
+      // Named things (v0.18 live review): a media art museum, an artist (never a project) and a library that mentions
+      // media art only in passing (below the term's score).
+      '미디어아트 전시관': [['픽스처 미디어아트 뮤지엄 부산', '해운대구의 미디어아트 전시관'], ['픽스처 미디어 작가', '미디어아트 전시관 작가'], ['픽스처 시립도서관', '미디어아트 전시관 강좌']],
       '빛축제': [['픽스처 강릉 빛축제', '강릉 빛축제']],
     },
     pages: [
@@ -376,6 +387,7 @@ const wikis = {
       ['픽스처 미디어 작가', 'Q99000504', '픽스처 미디어 작가는 대한민국의 미디어아트 작가이다.', null],
       ['픽스처 시립도서관', 'Q99000505', '픽스처 시립도서관은 서울특별시 서초구에 있는 공공 도서관이다. 여러 문화 강좌를 연다.', [37.48, 127.01]],
       ['픽스처 강릉 빛축제', 'Q99000502', '픽스처 강릉 빛축제는 강원특별자치도 강릉시에서 매년 겨울 열리는 빛축제이다. 경포호 일대에 빛 조형물과 미디어 파사드를 설치한다.', [37.7519, 128.8761]],
+      ['픽스처 도쿄 미디어 타워', 'Q99000604', '픽스처 도쿄 미디어 타워는 일본 도쿄에 있는 초고층 건물이다. 외벽에 미디어파사드가 있으며 밤마다 미디어파사드 영상을 상영한다.', [35.66, 139.76]],
     ],
   },
   de: {

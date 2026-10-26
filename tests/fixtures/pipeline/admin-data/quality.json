@@ -1,7 +1,7 @@
 {
  "broken_links": [
   {
-   "checked_at": "2026-10-20T06:27:17.440Z",
+   "checked_at": "2026-10-20T06:27:25.960Z",
    "consecutive_failures": 1,
    "field": "official_url",
    "http_status": 404,
@@ -10,7 +10,7 @@
    "url": "https://centercity.example/"
   }
  ],
- "build_id": "20261020T061700Z-cb2cf9ed",
+ "build_id": "20261020T061700Z-1edd6667",
  "coordinate_checks": [
   {
    "distance_m": 6135,
@@ -237,6 +237,12 @@
    "id": "Q99000503",
    "name": "Fixture Jeju Light Field",
    "project_type": "light_art"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "Q99000506",
+   "name": "Fixture Gyeongpo Lantern Festival",
+   "project_type": "festival_program"
   },
   {
    "country_iso2": "KR",

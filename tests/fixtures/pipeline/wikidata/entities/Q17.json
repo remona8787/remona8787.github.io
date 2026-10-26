@@ -1,0 +1,62 @@
+{
+ "pageid": 17,
+ "ns": 0,
+ "title": "Q17",
+ "lastrevid": 2400000017,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q17",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Japan"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "일본"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "5d17fdb56ce3e6f91ea438c4f3f8782b",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 6256,
+       "id": "Q6256"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q17$5d17fdb5-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P297": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P297",
+     "hash": "bb5c5abfa7cb737aa67bed520050edf4",
+     "datavalue": {
+      "value": "JP",
+      "type": "string"
+     },
+     "datatype": "external-id"
+    },
+    "type": "statement",
+    "id": "Q17$bb5c5abf-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

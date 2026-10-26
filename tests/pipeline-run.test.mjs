@@ -496,7 +496,7 @@ test('the drop guard keeps the previous dataset when more than half would disapp
 })
 
 test('P180 depicts searches: only for projects without named night and media evidence, capped per run, then cached', needSharp, async () => {
-  const depicts = (env) => env.requests.filter((q) => /haswbstatement/.test(decodeURIComponent(q.url))).map((q) => decodeURIComponent(q.url).match(/P180=(Q\d+)/)[1])
+  const depicts = (env) => env.requests.filter((q) => /haswbstatement:P180/.test(decodeURIComponent(q.url))).map((q) => decodeURIComponent(q.url).match(/P180=(Q\d+)/)[1])
   const { result } = await firstRun()
   const all = depicts(result.env)
   assert.equal(result.report.images.depicts_searches, all.length)
