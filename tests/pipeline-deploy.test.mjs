@@ -192,7 +192,7 @@ test('research package: the deployed dataset\'s version (latest.json = build id)
     assert.ok(r1.research_files >= 8)
     const latest = JSON.parse(await readFile(path.join(w.site, 'data/research/latest.json'), 'utf8'))
     assert.equal(latest.version, A)
-    for (const f of ['projects.csv', 'projects.json', 'projects.geojson', 'sources.csv', 'images.csv', 'datapackage.json', 'README.md', 'CITATION.txt']) assert.ok(existsSync(path.join(w.site, 'data/research', A, f)), f)
+    for (const f of ['projects.csv', 'projects.json', 'projects.geojson', 'sources.csv', 'images.csv', 'relations.csv', 'events.csv', 'datapackage.json', 'README.md', 'CITATION.txt']) assert.ok(existsSync(path.join(w.site, 'data/research', A, f)), f)
     assert.ok(!existsSync(path.join(w.site, 'data/research', A, 'CHANGELOG.md')), 'nothing was on main before')
     assert.equal((await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })).changed, false, 'same inputs, same deploy')
     // A new build on the data branch: its package has a change log against A; deploying it again changes nothing.

@@ -6,7 +6,7 @@ import assert from 'node:assert/strict'
 import { readFile, readdir } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import path from 'node:path'
-import { researchPackage, PROJECT_FIELDS } from '../scripts/research-package.mjs'
+import { researchPackage, PROJECT_FIELDS, RELATION_FIELDS, EVENT_FIELDS } from '../scripts/research-package.mjs'
 
 const DIR = path.join(import.meta.dirname, 'fixtures/pipeline/site-data')
 async function dataset() {
@@ -32,7 +32,7 @@ test('research package: every file under data/research/<build id>/ with a latest
   const files = await dataset(), manifest = JSON.parse(files.get('manifest.json')), index = JSON.parse(files.get('index.json'))
   const out = researchPackage(files)
   const base = `data/research/${manifest.build_id}/`
-  for (const f of ['projects.csv', 'projects.json', 'projects.geojson', 'sources.csv', 'images.csv', 'datapackage.json', 'README.md', 'CITATION.txt']) assert.ok(out.has(base + f), f)
+  for (const f of ['projects.csv', 'projects.json', 'projects.geojson', 'sources.csv', 'images.csv', 'relations.csv', 'events.csv', 'datapackage.json', 'README.md', 'CITATION.txt']) assert.ok(out.has(base + f), f)
   assert.ok(!out.has(base + 'CHANGELOG.md'), 'no change log without a previous dataset')
   const latest = JSON.parse(out.get('data/research/latest.json'))
   assert.equal(latest.version, manifest.build_id)
@@ -95,4 +95,42 @@ test('research package: a change log against the previous dataset; a dataset wit
   const bad = await dataset(), m = JSON.parse(bad.get('manifest.json')); delete m.build_id; bad.set('manifest.json', JSON.stringify(m))
   assert.throws(() => researchPackage(bad), /build_id/)
   assert.throws(() => researchPackage(new Map()), /manifest\.json: missing/)
+})
+
+test('research package: record kind, status with its source, field confidence, relations and events with their licence', async () => {
+  const files = await dataset(), out = researchPackage(files), base = [...out.keys()][0].replace(/[^/]+$/, '')
+  const records = [...files].filter(([k]) => k.startsWith('projects/')).flatMap(([, v]) => JSON.parse(v).projects)
+  const byId = new Map(records.map((p) => [p.id, p]))
+  const rows = parseCSV(out.get(base + 'projects.csv')), head = rows[0], col = (r, k) => r[head.indexOf(k)]
+  for (const r of rows.slice(1)) {
+    const p = byId.get(r[0])
+    assert.equal(col(r, 'kind'), p.kind, r[0])
+    assert.equal(col(r, 'status'), p.status, r[0])
+    assert.equal(col(r, 'status_source'), p.status === 'unknown' ? '' : p.status_source, r[0])
+    for (const k of Object.keys(p.field_confidence)) assert.equal(col(r, 'confidence_' + k), p.field_confidence[k], `${r[0]} ${k}`)
+    assert.equal(Number(col(r, 'relation_count')), p.relations.length, r[0])
+    assert.equal(Number(col(r, 'event_count')), (p.events || []).length, r[0])
+  }
+  // Every relation of every record, one row each, and every target is a published project.
+  const rel = parseCSV(out.get(base + 'relations.csv'))
+  assert.deepEqual(rel[0], RELATION_FIELDS.map((f) => f[0]))
+  assert.equal(rel.length - 1, records.reduce((n, p) => n + p.relations.length, 0))
+  assert.ok(rel.length > 1)
+  for (const r of rel.slice(1)) assert.ok(byId.has(r[rel[0].indexOf('target')]), r.join(','))
+  const seoul = rel.find((r) => r[0] === 'SEOUL006' && r[1] === 'exhibition_at')
+  assert.ok(seoul && seoul[rel[0].indexOf('subject_event')].startsWith('SEV-'), 'an event of a place keeps its event id')
+  // Events carry the dataset and licence of the public data they came from.
+  const ev = parseCSV(out.get(base + 'events.csv'))
+  assert.deepEqual(ev[0], EVENT_FIELDS.map((f) => f[0]))
+  assert.equal(ev.length - 1, records.reduce((n, p) => n + (p.events || []).length, 0))
+  for (const r of ev.slice(1)) { assert.ok(r[ev[0].indexOf('license')], 'licence on every event'); assert.match(r[ev[0].indexOf('source_url')], /^https:\/\//) }
+  const dp = JSON.parse(out.get(base + 'datapackage.json'))
+  assert.equal(dp.counts.relations, rel.length - 1)
+  assert.equal(dp.counts.events, ev.length - 1)
+  assert.equal(Object.values(dp.counts.by_kind).reduce((a, b) => a + b, 0), rows.length - 1)
+  for (const name of ['relations', 'events']) assert.ok(dp.resources.find((r) => r.name === name)?.schema.fields.length, name)
+  const readme = out.get(base + 'README.md')
+  assert.match(readme, /### relations\.csv/)
+  assert.match(readme, /### events\.csv/)
+  assert.match(readme, /confidence_/)
 })

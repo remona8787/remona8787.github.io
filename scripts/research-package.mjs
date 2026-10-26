@@ -6,7 +6,8 @@
 //  - projects.csv, projects.json, projects.geojson: one row per project with the factual fields (names, type,
 //    location, years, status, identifiers, provenance) and counts of sources and images;
 //  - sources.csv: every source link of every project; images.csv: the metadata and licence of every published image
-//    (not the image files);
+//    (not the image files); relations.csv: the links between records (event_at, exhibition_at, part_of, edition_of);
+//    events.csv: the dated events and exhibitions of a place from public event data, each with its own licence;
 //  - datapackage.json: a Frictionless-style descriptor (id, version, created, data as of, counts, countries and
 //    regions, licences, sources, every resource with its bytes, SHA-256 and field schema = the data dictionary);
 //  - README.md (Korean: contents, missing values, terms of use, citation), CITATION.txt and, when the previous
@@ -31,6 +32,9 @@ const TITLE = '빛의 건축 미디어파사드·미디어아트 아카이브 �
 const str = (/** @type {any} */ v) => typeof v === 'string' ? v : Buffer.isBuffer(v) ? v.toString('utf8') : String(v ?? '')
 const sha256 = (/** @type {string} */ s) => createHash('sha256').update(s, 'utf8').digest('hex')
 
+// The keys of a record's field_confidence (pipeline/lib/output.mjs FIELD_CONFIDENCE_KEYS), one column each.
+const FIELD_CONFIDENCE_KEYS = /** @type {const} */ (['project_type', 'region', 'dates', 'artist', 'architect', 'coordinates'])
+const CONFIDENCE_TITLES = { project_type: '유형', region: '지역', dates: '날짜', artist: '작가', architect: '건축가', coordinates: '좌표' }
 // The data dictionary: [name, type, Korean title, description]. Order = column order of projects.csv.
 export const PROJECT_FIELDS = /** @type {const} */ ([
   ['id', 'string', 'ID', '아카이브 프로젝트 ID. Wikidata 항목이면 QID, 편집부 수록이면 SEOUL001 형식, Commons 분류 기반이면 CAT-…'],
@@ -50,6 +54,11 @@ export const PROJECT_FIELDS = /** @type {const} */ ([
   ['lng', 'number', '경도', 'WGS84'],
   ['location_precision', 'string', '위치 정밀도', 'exact, approximate, city 등'],
   ['operating_status', 'string', '운영 상태', '출처에 근거한 값만. 모르면 빈 값'],
+  ['kind', 'string', '레코드 종류', 'facility(상설 시설·작품), program(정기 프로그램), festival(축제), exhibition(전시)'],
+  ['start_date', 'string', '시작일', 'YYYY, YYYY-MM 또는 YYYY-MM-DD. 출처에 있는 경우만'],
+  ['end_date', 'string', '종료일', 'YYYY, YYYY-MM 또는 YYYY-MM-DD'],
+  ['status', 'string', '진행 상태', 'running, seasonal, ended, upcoming, unknown. 출처가 없으면 unknown'],
+  ['status_source', 'string', '진행 상태 출처', 'tourapi, wikidata, editorial, curated. status가 unknown이면 빈 값'],
   ['year_installed', 'integer', '설치 연도', ''],
   ['year_completed', 'integer', '완공 연도', ''],
   ['year_operating_since', 'integer', '운영 시작 연도', ''],
@@ -68,6 +77,22 @@ export const PROJECT_FIELDS = /** @type {const} */ ([
   ['image_count', 'integer', '공개 이미지 수', 'images.csv의 행 수'],
   ['has_valid_image', 'boolean', '대표 이미지 있음', '프로젝트 사진(project_media, project_installation) 또는 건축 맥락 사진이 카드·대표로 지정됨'],
   ['field_sources', 'string', '필드별 출처', 'JSON 객체: 필드 이름 → 출처 ID (sources.csv의 source_id)'],
+  ...FIELD_CONFIDENCE_KEYS.map((k) => /** @type {const} */ ([`confidence_${k}`, 'string', `신뢰도: ${CONFIDENCE_TITLES[k]}`, 'sourced(출처가 밝힘), inferred(규칙으로 추정, 확인 필요), editorial(편집부 입력), unknown(자료 없음)'])),
+  ['relation_count', 'integer', '관계 수', 'relations.csv의 행 수'],
+  ['event_count', 'integer', '행사·전시 수', 'events.csv의 행 수'],
+])
+export const RELATION_FIELDS = /** @type {const} */ ([
+  ['project_id', 'string', '프로젝트 ID', '관계를 가진 레코드'], ['type', 'string', '관계', 'event_at(그 장소에서 열림), exhibition_at(그 장소에서 전시), part_of(그 일부), edition_of(그 회차)'],
+  ['target', 'string', '대상 프로젝트 ID', '이 데이터셋에 실린 프로젝트'], ['source', 'string', '근거', 'wikidata:P361, commons:edition_category, seoul_events 등'],
+  ['subject_event', 'string', '대상 행사 ID', '레코드 안에 든 행사(events.csv의 event_id)의 관계일 때'], ['subject_name', 'string', '대상 이름', '레코드 안에 든 회차·부분·행사의 이름'],
+  ['subject_commons_category', 'string', '대상 Commons 분류', ''],
+])
+export const EVENT_FIELDS = /** @type {const} */ ([
+  ['project_id', 'string', '프로젝트 ID', '행사가 열리는 장소의 레코드'], ['event_id', 'string', '행사 ID', ''], ['kind', 'string', '종류', 'event(행사), exhibition(전시)'],
+  ['title', 'string', '행사명', ''], ['program', 'string', '프로그램', ''], ['start', 'date', '시작일', ''], ['end', 'date', '종료일', ''], ['date_text', 'string', '기간(원문)', ''],
+  ['status', 'string', '진행 상태', 'checked_at 기준'], ['checked_at', 'string', '확인일', 'YYYY-MM-DD'], ['place', 'string', '장소(원문)', ''], ['district', 'string', '구·군', ''],
+  ['org', 'string', '주최·주관', ''], ['fee', 'string', '요금(원문)', ''], ['is_free', 'boolean', '무료', ''], ['url', 'string', '행사 URL', ''],
+  ['source_dataset', 'string', '원천 데이터셋', '예: OA-15486'], ['publisher', 'string', '제공 기관', ''], ['license', 'string', '라이선스', '예: KOGL Type 1'], ['license_url', 'string', '라이선스 URL', ''], ['source_url', 'string', '원천 페이지', ''],
 ])
 export const SOURCE_FIELDS = /** @type {const} */ ([
   ['project_id', 'string', '프로젝트 ID', ''], ['source_id', 'string', '출처 ID', ''], ['kind', 'string', '종류', 'wikidata, wikipedia, official, public_agency, news …'],
@@ -102,13 +127,16 @@ function projectRow(/** @type {any} */ p) {
     id: p.id, name_ko: p.name_ko, name_en: p.name_en, name_original: p.name_original, name_original_lang: p.name_original_lang,
     project_type: p.project_type, country_iso2: p.country_iso2, region: p.region, kr_region: p.kr_region, city: p.city, city_ko: p.city_ko,
     district: p.district, address: p.address, lat: num(p.lat), lng: num(p.lng), location_precision: p.location_precision,
-    operating_status: p.operating_status, year_installed: int(p.year_installed), year_completed: int(p.year_completed),
+    operating_status: p.operating_status, kind: p.kind, start_date: p.start_date, end_date: p.end_date, status: p.status, status_source: p.status_source,
+    year_installed: int(p.year_installed), year_completed: int(p.year_completed),
     year_operating_since: int(p.year_operating_since), year_ended: int(p.year_ended), installation_method: p.installation_method,
     envelope_type: p.envelope_type, technologies: list(p.technologies).join(';'), spatial_context: list(p.spatial_context).join(';'),
     content_types: list(p.content_types).join(';'), wikidata: p.wikidata, commons_category: p.commons_category, official_url: p.official_url,
     record_origin: p.record_origin, added_at: p.added_at, source_count: Array.isArray(p.sources) ? p.sources.length : 0, image_count: images.length,
     has_valid_image: images.some((i) => ['hero', 'featured', 'card'].includes(i?.role) && VALID_CARD_KINDS.has(i?.kind ?? 'project_media')),
     field_sources: p.field_sources && typeof p.field_sources === 'object' ? JSON.stringify(p.field_sources) : '',
+    ...Object.fromEntries(FIELD_CONFIDENCE_KEYS.map((k) => [`confidence_${k}`, p.field_confidence?.[k]])),
+    relation_count: Array.isArray(p.relations) ? p.relations.length : 0, event_count: Array.isArray(p.events) ? p.events.length : 0,
   }
 }
 
@@ -146,6 +174,14 @@ export function researchPackage(datasetFiles, { previous = null, siteURL = 'http
     project_id: p.id, image_id: i.id, kind: i.kind, role: i.role, title: i.title, provider: i.provider, author: i.author, license: i.license, license_url: i.license_url,
     commercial_use: typeof i.commercial_use === 'boolean' ? i.commercial_use : null, width: int(i.width), height: int(i.height), page: i.page,
   })))
+  const relations = records.flatMap((p) => (Array.isArray(p.relations) ? p.relations : []).map((x) => ({
+    project_id: p.id, type: x.type, target: x.target, source: x.source, subject_event: x.subject?.event, subject_name: x.subject?.name ?? x.subject?.title, subject_commons_category: x.subject?.commons_category,
+  })))
+  const events = records.flatMap((p) => (Array.isArray(p.events) ? p.events : []).map((e) => ({
+    project_id: p.id, event_id: e.id, kind: e.kind, title: e.title, program: e.program, start: e.start, end: e.end, date_text: e.date_text, status: e.status, checked_at: e.checked_at,
+    place: e.place, district: e.district, org: e.org, fee: e.fee, is_free: typeof e.is_free === 'boolean' ? e.is_free : null, url: e.url,
+    source_dataset: e.source?.dataset, publisher: e.source?.publisher, license: e.source?.license, license_url: e.source?.license_url, source_url: e.source?.url,
+  })))
   const count = (/** @type {string} */ k) => Object.fromEntries([...rows.reduce((m, r) => (r[k] && m.set(r[k], (m.get(r[k]) || 0) + 1), m), new Map())].sort((a, b) => b[1] - a[1] || String(a[0]).localeCompare(String(b[0]))))
   const geo = { type: 'FeatureCollection', features: rows.filter((r) => r.lat != null && r.lng != null).map((r) => ({
     type: 'Feature', id: r.id, geometry: { type: 'Point', coordinates: [r.lng, r.lat] },
@@ -158,6 +194,8 @@ export function researchPackage(datasetFiles, { previous = null, siteURL = 'http
     ['projects.geojson', JSON.stringify(geo) + '\n'],
     ['sources.csv', csv(SOURCE_FIELDS, sources)],
     ['images.csv', csv(IMAGE_FIELDS, images)],
+    ['relations.csv', csv(RELATION_FIELDS, relations)],
+    ['events.csv', csv(EVENT_FIELDS, events)],
     ['CITATION.txt', citation + '\n'],
   ])
   let changes = null
@@ -175,15 +213,16 @@ export function researchPackage(datasetFiles, { previous = null, siteURL = 'http
   }
   const descriptor = {
     profile: 'tabular-data-package', id: `${DATASET_ID}@${version}`, name: DATASET_ID, title: TITLE, version, created, data_as_of: asOf,
-    homepage: site + '/', description: '미디어파사드·건축 미디어아트·빛 설치 작품의 사실 정보(이름, 유형, 위치, 연도, 운영 상태, 식별자, 출처)와 공개 이미지의 저작권 정보. 편집부 해설문과 이미지 파일은 포함하지 않습니다.',
-    counts: { projects: rows.length, with_coordinates: geo.features.length, sources: sources.length, images: images.length, by_country: count('country_iso2'), by_kr_region: count('kr_region'), by_type: count('project_type') },
+    homepage: site + '/', description: '미디어파사드·건축 미디어아트·빛 설치 작품의 사실 정보(이름, 유형, 위치, 연도, 운영 상태, 식별자, 출처, 필드별 신뢰도), 레코드 사이의 관계, 공공 행사 정보, 공개 이미지의 저작권 정보. 편집부 해설문과 이미지 파일은 포함하지 않습니다.',
+    counts: { projects: rows.length, with_coordinates: geo.features.length, sources: sources.length, images: images.length, relations: relations.length, events: events.length, by_country: count('country_iso2'), by_kr_region: count('kr_region'), by_type: count('project_type'), by_kind: count('kind'), by_status: count('status') },
     licenses: [{ name: 'CC0-1.0', path: 'https://creativecommons.org/publicdomain/zero/1.0/', title: 'Wikidata에서 온 사실 정보' }, { name: 'other', title: '그 밖의 출처: sources.csv의 각 출처 조건, 이미지는 images.csv의 각 라이선스' }],
-    sources: [{ title: 'Wikidata', path: 'https://www.wikidata.org/' }, { title: 'Wikimedia Commons', path: 'https://commons.wikimedia.org/' }, { title: 'Wikipedia', path: 'https://www.wikipedia.org/' }, { title: '빛의 건축 편집부 수록 레코드', path: site + '/' }],
+    sources: [{ title: 'Wikidata', path: 'https://www.wikidata.org/' }, { title: 'Wikimedia Commons', path: 'https://commons.wikimedia.org/' }, { title: 'Wikipedia', path: 'https://www.wikipedia.org/' }, { title: '빛의 건축 편집부 수록 레코드', path: site + '/' }, ...(events.length ? [{ title: '공공 행사 데이터 (events.csv의 source_dataset·license)', path: site + '/' }] : [])],
     citation, ...(changes ? { changes: { from: changes.from, added: changes.added.length, removed: changes.removed.length, changed: changes.changed.length } } : {}),
     resources: [
       resource('projects', 'projects.csv', 'csv', 'text/csv', PROJECT_FIELDS), resource('projects-json', 'projects.json', 'json', 'application/json', null),
       resource('projects-geojson', 'projects.geojson', 'geojson', 'application/geo+json', null), resource('sources', 'sources.csv', 'csv', 'text/csv', SOURCE_FIELDS),
-      resource('images', 'images.csv', 'csv', 'text/csv', IMAGE_FIELDS), resource('citation', 'CITATION.txt', 'txt', 'text/plain', null),
+      resource('images', 'images.csv', 'csv', 'text/csv', IMAGE_FIELDS), resource('relations', 'relations.csv', 'csv', 'text/csv', RELATION_FIELDS),
+      resource('events', 'events.csv', 'csv', 'text/csv', EVENT_FIELDS), resource('citation', 'CITATION.txt', 'txt', 'text/plain', null),
       ...(data.has('CHANGELOG.md') ? [resource('changelog', 'CHANGELOG.md', 'md', 'text/markdown', null)] : []),
     ],
   }
@@ -193,17 +232,19 @@ export function researchPackage(datasetFiles, { previous = null, siteURL = 'http
 
 - 데이터셋 ID: \`${DATASET_ID}\` · 버전: \`${version}\` (수집 빌드 ID와 같음)
 - 생성: ${created || '미상'} · 데이터 기준일: ${asOf || '미상'}
-- 프로젝트 ${rows.length}건 (좌표 있음 ${geo.features.length}건) · 출처 ${sources.length}건 · 이미지 정보 ${images.length}건
+- 프로젝트 ${rows.length}건 (좌표 있음 ${geo.features.length}건) · 출처 ${sources.length}건 · 이미지 정보 ${images.length}건 · 관계 ${relations.length}건 · 행사 ${events.length}건
 - 국가 ${Object.keys(descriptor.counts.by_country).length}곳 · 국내 권역 ${Object.entries(descriptor.counts.by_kr_region).map(([k, v]) => `${k} ${v}`).join(', ') || '없음'}
 
 ## 파일
 
-projects.csv · projects.json · projects.geojson · sources.csv · images.csv · datapackage.json(필드 정의와 체크섬) · CITATION.txt${data.has('CHANGELOG.md') ? ' · CHANGELOG.md' : ''}
+projects.csv · projects.json · projects.geojson · sources.csv · images.csv · relations.csv · events.csv · datapackage.json(필드 정의와 체크섬) · CITATION.txt${data.has('CHANGELOG.md') ? ' · CHANGELOG.md' : ''}
 
 ## 결측치와 검증 상태
 
 - 빈 값은 '출처에서 확인하지 못함'을 뜻합니다. 추정한 값으로 채우지 않습니다.
 - 필드별 출처는 \`field_sources\`에 있습니다. 출처 ID는 sources.csv의 \`source_id\`입니다.
+- \`confidence_*\` 열은 유형·지역·날짜·작가·건축가·좌표가 어디서 왔는지 나타냅니다: sourced(출처가 밝힘), inferred(규칙으로 추정한 값이라 확인 필요), editorial(편집부 입력), unknown(자료 없음).
+- \`status\`는 출처가 진행 상태를 밝힌 경우에만 unknown이 아니며, 그 출처는 \`status_source\`에 있습니다.
 - 이미지는 자동 규칙(동일성·관련성·권리)을 통과한 것만 실립니다. 사람의 육안 검수를 거쳤다는 뜻은 아닙니다.
 - 편집부 해설문(summary)은 이용 조건이 정해질 때까지 이 데이터셋에 넣지 않습니다.
 - CSV에서 \`=\`, \`+\`, \`-\`, \`@\`로 시작하는 텍스트는 스프레드시트가 수식으로 실행하지 않도록 앞에 \`'\`를 붙였습니다.
@@ -212,6 +253,7 @@ projects.csv · projects.json · projects.geojson · sources.csv · images.csv �
 
 - Wikidata에서 온 사실 정보는 CC0 1.0입니다.
 - 그 밖의 정보는 sources.csv에 적힌 각 출처의 조건을 따릅니다.
+- events.csv의 행사 정보는 행마다 적힌 원천 데이터셋과 라이선스(예: 공공누리 제1유형, 출처 표시)를 따릅니다.
 - 이미지는 이 데이터셋에 들어 있지 않습니다. 쓰려면 images.csv의 원본 페이지에서 저작자와 라이선스를 확인하고 그 조건을 지켜야 합니다. \`commercial_use\`가 false인 이미지는 상업적으로 이용할 수 없습니다.
 - 이 데이터셋에 대해 독점적 권리를 주장하지 않습니다.
 
@@ -223,12 +265,14 @@ ${citation}
 
 ${dict('projects.csv', PROJECT_FIELDS)}
 ${dict('sources.csv', SOURCE_FIELDS)}
-${dict('images.csv', IMAGE_FIELDS)}`)
+${dict('images.csv', IMAGE_FIELDS)}
+${dict('relations.csv', RELATION_FIELDS)}
+${dict('events.csv', EVENT_FIELDS)}`)
   const out = new Map()
   for (const [f, body] of data) out.set(base + f, body)
   out.set('data/research/latest.json', JSON.stringify({
     dataset: DATASET_ID, title: TITLE, version, created, data_as_of: asOf, path: base, citation,
-    counts: { projects: rows.length, sources: sources.length, images: images.length },
+    counts: { projects: rows.length, sources: sources.length, images: images.length, relations: relations.length, events: events.length },
     files: Object.fromEntries([...data].map(([f, body]) => [f, { bytes: Buffer.byteLength(body), sha256: sha256(body) }])),
   }, null, 1) + '\n')
   return out
