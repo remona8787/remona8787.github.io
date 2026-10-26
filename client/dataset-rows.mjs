@@ -225,6 +225,14 @@ const CONFIDENCE_KEYS = ['project_type', 'region', 'dates', 'artist', 'architect
 function fieldConfidence(v) { if (!v || typeof v !== 'object') return null; const out = /** @type {Record<string,string>} */ ({}); for (const k of CONFIDENCE_KEYS) if (CONFIDENCE.has(v[k])) out[k] = v[k]; return Object.keys(out).length ? out : null }
 /** Which source states a field (field_sources: field → source id or kind). @param {any} v */
 function fieldSources(v) { if (!v || typeof v !== 'object') return {}; const out = /** @type {Record<string,string>} */ ({}); for (const [k, x] of Object.entries(v).slice(0, 60)) { const t = text(x, 80); if (/^[a-z_]{1,40}$/.test(k) && t) out[k] = t } return out }
+// Relations to other records (pipeline relations[]): event_at | exhibition_at | part_of | edition_of. Without a subject
+// the record itself is related to target; with one, it is a thing kept inside the record (an edition, an event).
+const RELATION_TYPES = new Set(['event_at', 'exhibition_at', 'part_of', 'edition_of'])
+/** @param {any} v @param {any} self */
+function relations(v, self) {
+  if (!Array.isArray(v)) return []
+  return v.slice(0, 200).map(x => { const target = datasetId(x?.target), s = x?.subject && typeof x.subject === 'object' ? { event: text(x.subject.event, 40), title: text(x.subject.title, 200), name: text(x.subject.name, 200), category: text(x.subject.commons_category, 200) } : null; return RELATION_TYPES.has(x?.type) && target ? { type: x.type, target, source: text(x.source, 80), subject: s && (s.event || s.title || s.name || s.category) ? s : null } : null }).filter(x => x && (x.subject || x.target !== self))
+}
 /** Events and exhibitions held at a project (records' events[]), each with its own source. @param {any} v */
 function events(v) {
   if (!Array.isArray(v)) return []
@@ -339,7 +347,7 @@ export function fromRecord(r, o = {}) {
     spatial_context: vocabList('spatial_context', r.spatial_context),
     credits: credits(r.credits, base.place_id), sources: src, official_url: official, website: official || '',
     visit: visit(r.visit), detail_loaded: true, events: events(r.events),
-    field_confidence: fieldConfidence(r.field_confidence), field_sources: fieldSources(r.field_sources),
+    field_confidence: fieldConfidence(r.field_confidence), field_sources: fieldSources(r.field_sources), relations: relations(r.relations, r.id),
   }
   const media = ordered.map((m, i) => mediaRow(place.place_id, m, i))
   const videos = (Array.isArray(r.videos) ? r.videos : []).slice(0, 4).map(video).filter(Boolean)

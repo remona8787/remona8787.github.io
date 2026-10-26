@@ -709,3 +709,18 @@ test('key facts say how sure they are: 확인 필요, 편집부, or their source
  await expect(page.locator('#dp-panel-art .kv',{hasText:'작가·제작사'}).locator('.dp-conf')).toHaveText('출처 Wikidata');
  await expect(page.locator('#dp-panel-visit .dp-coord-note')).toContainText('추정했어요');
 });
+
+// Relations between records (pipeline relations[]): only when present, in 작품·전시.
+test('relations: the venue an event is held at and the editions kept in a record, linked by name; none when absent',async({page})=>{
+ const recs=RECORDS.map(r=>r.id==='gwangju-media-art-festival'?{...r,kind:'festival',relations:[{type:'event_at',target:'acc-media-wall',source:'wikidata:P276'},{type:'edition_of',target:'gwangju-media-art-festival',source:'commons_category',subject:{name:'광주미디어아트페스티벌 2024'}}]}:r);
+ await serveDataset(page,filesOf(siteData(recs)));await serveImages(page);
+ await page.goto('/#place/gwangju-media-art-festival');
+ await expect.poll(()=>page.evaluate(()=>window.AOL_DATASET?.index)).toBe('ok');
+ const art=page.locator('#dp-panel-art');
+ await expect(art.locator('.kv',{hasText:'개최 장소'}).locator('a')).toHaveText('국립아시아문화전당 미디어월');
+ await expect(art.locator('.kv',{hasText:'개최 장소'}).locator('a')).toHaveAttribute('href','#place/acc-media-wall');
+ await expect(art.locator('.kv',{hasText:'회차'})).toContainText('광주미디어아트페스티벌 2024');
+ await expect(art).not.toContainText('상위 프로젝트');
+ await page.goto('/#place/acc-media-wall');
+ await expect(page.locator('#dp-panel-art')).not.toContainText(/개최 장소|회차|상위 프로젝트/);
+});
