@@ -122,7 +122,7 @@ function group(title, rows) {
 }
 const vl = (/** @type {string} */ name, /** @type {any} */ v) => Array.isArray(v) ? v.map(x => T.label(name, x, 'ko')).filter(Boolean).join(', ') : v ? T.label(name, v, 'ko') : ''
 /** @param {any} p @param {any[]} media @param {any[]} related @param {string} site */
-function projectPage(p, media, related, site) {
+function projectPage(p, media, related, site, names = new Map()) {
   const id = p.dataset_id, url = `${site}/p/${encodeURIComponent(id)}/`, up = '../../', app = `${up}#place/${encodeURIComponent(id)}`
   const name = p.name_kr, others = [p.name_en, p.name_original].filter(n => n && n !== name).filter((n, i, a) => a.indexOf(n) === i)
   const line = placeLine(p), type = typeLabel(p), year = yearOf(p), sec = sectionOf(p), grp = groupOf(p)
@@ -192,7 +192,10 @@ function projectPage(p, media, related, site) {
     [L('dp.f.interaction'), p.interactive === true ? '예' : p.interactive === false ? '아니요' : ''], [L('dp.f.operator'), operators.map((/** @type {any} */ c) => E(c.name)).join(', ')], [L('dp.f.specs'), x(specs)],
   ]) + tabLink('architecture') + '</section>'
   const history = [...events.map(e => `${E(e.title)}${e.start || e.end ? ` <span>${E([e.start, e.end].filter(Boolean).join(' – '))}</span>` : ''}${e.url ? ` <a href="${E(e.url)}" rel="noopener" target="_blank">${E(L('dp.eventPage'))}</a>` : ''}${e.source ? ` <small>${E(L('dp.eventSource', { s: e.source.title || '' }))}${e.source.license ? ' · ' + E(e.source.license) : ''}</small>` : ''}`)]
-  const art = sectionOpen('art') + group(L('dp.g.art'), [
+  const rel = Array.isArray(p.relations) ? p.relations : [], relLink = (/** @type {any} */ x) => `<a href="${up}p/${encodeURIComponent(x.target)}/">${E(names.get(x.target) || x.target)}</a>`
+  const editions = [...new Set(rel.filter((/** @type {any} */ x) => x.type === 'edition_of' && x.subject).map((/** @type {any} */ x) => x.subject.name || x.subject.title || String(x.subject.category || '').replace(/^Category:/, '')).filter(Boolean))]
+  const relRows = /** @type {[string, string][]} */ ([[L('dp.f.venue'), rel.filter((/** @type {any} */ x) => (x.type === 'event_at' || x.type === 'exhibition_at') && !x.subject).map(relLink).join(', ')], [L('dp.f.parent'), rel.filter((/** @type {any} */ x) => x.type === 'part_of' && !x.subject).map(relLink).join(', ')], [L('dp.f.series'), rel.filter((/** @type {any} */ x) => x.type === 'edition_of' && !x.subject).map(relLink).join(', ')], [L('dp.f.editions'), editions.length ? `<ul class="project-events">${editions.map(e => `<li>${E(e)}</li>`).join('')}</ul>` : '']]).filter(r => r[1])
+  const art = sectionOpen('art') + group(L('dp.g.art'), [...relRows,
     [L('dp.f.concept'), x(p.concept)], [L('dp.f.theme'), x(p.theme)],
     [L('dp.f.makers'), makers.length ? `<ul class="project-people">${makers.map((/** @type {any} */ c) => `<li>${c.portrait ? `<figure class="project-portrait" data-creator-portrait>${img(c.portrait, c.name, '40px', false)}${figcaption(c.portrait)}</figure>` : ''}${E(c.name)} <small>${E(T.label('credit_role', c.role, 'ko') || '')}</small></li>`).join('')}</ul>` : '', confNote(p, 'artist')],
     [L('dp.f.history'), history.length ? `<ul class="project-events">${history.map(h => `<li>${h}</li>`).join('')}</ul>` : ''], [L('dp.f.relation'), x(p.architecture_relation)],
@@ -258,11 +261,12 @@ export function prerender(dataset, { siteURL }) {
   // A project of index.json with its full record when its shard has it.
   const all = places.map(p => { const f = full.get(p.place_id), city_ko = cityKo.get(p.place_id) || null; return f ? { place: { ...p, ...f.place, kr_region: f.place.kr_region ?? p.kr_region, thumb: p.thumb, city_ko }, media: f.media.filter(Boolean) } : { place: { ...p, city_ko }, media: [] } })
   /** @type {Map<string, string>} */ const files = new Map()
+  const names = new Map(all.map(x => [x.place.dataset_id, x.place.name_kr]))
   for (const { place, media } of all) {
     const g = groupOf(place).id
     const related = all.filter(x => x.place !== place && groupOf(x.place).id === g).map(x => x.place)
       .sort((a, b) => (b.thumb ? 1 : 0) - (a.thumb ? 1 : 0) || a.name_kr.localeCompare(b.name_kr, 'ko')).slice(0, 8)
-    files.set(`p/${place.dataset_id}/index.html`, projectPage(place, media, related, site))
+    files.set(`p/${place.dataset_id}/index.html`, projectPage(place, media, related, site, names))
   }
   files.set('p/index.html', listPage(all.map(x => x.place), site))
   const day = (/** @type {any} */ t) => typeof t === 'string' && /^\d{4}-\d{2}-\d{2}/.test(t) ? t.slice(0, 10) : null
