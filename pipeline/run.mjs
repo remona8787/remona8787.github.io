@@ -658,12 +658,20 @@ export async function runPipeline(o) {
   // a Commons category this run rejected) is removed at once rather than carried over as unseen.
   const rejectedCats = new Map([...(categories?.categories?.values() || [])].filter((c) => c.decision === 'rejected').map((c) => [c.title, c.reason]))
   const neverRemoved = []
+  // So is a previous record an editor hid (the hide finds no built project to apply to while the record is only carried
+  // over), and one that came only from the Korean search and that this run saw and refused with its facts in hand
+  // (the live 송도달빛축제공원역, refused by the label-only rule a run after it was published).
+  const krRefused = new Map(krSearchDecisions.filter((d) => !d.accepted && !d.reasons.includes('no_wikidata_facts')).map((d) => [d.qid, d.reasons]))
   for (const [id, r] of prev.records) {
     if (publishedIds.has(id) || decided.has(id) || r.curated_place_id) continue
+    const hid = [id, r.wikidata].filter(Boolean).map((k) => ed.hidden.get(k)).find((h) => h && h.entry.status !== 'superseded')
+    if (hid?.hide) { hid.entry.status = 'applied'; hid.entry.project = id }
+    const origins = state.tracker.projects?.[id]?.origins || []
+    const refused = r.wikidata && origins.length && origins.every((o) => o === 'wikidata_search') ? krRefused.get(r.wikidata) : null
     const f = r.wikidata ? facts.get(r.wikidata) : null
     const never = neverProject({ qid: r.wikidata, name_en: r.name_en, name_ko: r.name_ko, name_original: r.name_original, commons_category: r.commons_category, p31_labels: f?.p31_labels || [] }, { p31: r.wikidata ? entityP31.get(r.wikidata) || [] : [], member: r.wikidata ? neverMember.get(r.wikidata) || [] : [], blocks: neverBlocks, workClasses, workPattern: workOrEvent })
     const cat = r.commons_category && rejectedCats.get(r.commons_category)
-    if (never.length || cat) { decided.add(id); neverRemoved.push({ id, name: r.name_en || r.name_ko || r.name_original, reasons: [...never, ...(cat ? ['category_rejected:' + cat] : [])] }) }
+    if (never.length || cat || hid?.hide || refused) { decided.add(id); neverRemoved.push({ id, name: r.name_en || r.name_ko || r.name_original, reasons: [...never, ...(cat ? ['category_rejected:' + cat] : []), ...(hid?.hide ? ['editorial_hide'] : []), ...(refused ? refused.map((x) => 'korea_search:' + x) : [])] }) }
   }
   const publishedInfo = new Map(published.map((p) => [p.id, { origins: p.origins }]))
   const track = trackProjects(state.tracker, prev.records, { published: publishedInfo, decided, sourceStatus, runNo, nowIso: startedAt, staleAfter: P.output?.stale_after_missing_runs ?? 3, aliases: idAliases })
