@@ -1931,9 +1931,6 @@ html[lang=ko] .section-eyebrow,html[lang=ko] .page-eyebrow,html[lang=ko] .hero-k
 .area-filters .chips{margin-top:0;margin-bottom:var(--s-2)}
 /* A card's status badge sits where a placeholder prints its type: the type moves to the bottom corner there. */
 .place-card:has(.card-badge) .ph-type{top:auto;bottom:12px}
-/* The place page's gallery is laid out (and its lazy photos fetched) only near the viewport, so on a phone its photos
-   do not compete with the lead photo for the first paint. */
-#detailPhotos{content-visibility:auto;contain-intrinsic-size:auto 1200px}
 
 /* A <picture> (formats a provider serves, imgTag) lays out as its image. */
 picture{display:contents}
@@ -2054,3 +2051,14 @@ picture{display:contents}
 .dp-stage.no-photo .card-art .ph{position:absolute;inset:0}
 .dp-frame>.ph{position:absolute;inset:0}
 @media (max-width:1023px){.dp-report,.dp-capmore,.dp-credit a{min-height:44px}}
+/* Sponsor slot: below the main content, clearly labelled, quiet. */
+.sponsor-slot{display:grid;gap:4px;max-width:720px;margin:var(--s-8) 0 0;padding:var(--s-4) var(--s-5);border:1px dashed var(--line);border-radius:var(--r-md);background:var(--surface)}
+.sponsor-label{justify-self:start;padding:1px 8px;border-radius:var(--r-xs);background:var(--panel);color:var(--text-muted);font-size:var(--fs-caption);font-weight:700}
+.sponsor-title{margin:0;font-weight:700}
+.sponsor-text{margin:0;color:var(--text-muted)}
+.sponsor-about{display:inline-flex;align-items:center;min-height:44px;color:var(--text-muted);font-size:var(--fs-caption);text-decoration:underline;text-underline-offset:3px}
+/* A photo whose shape differs from the frame (a panorama): its own image, blurred and dimmed, fills the bands
+   (set after it loads from its currentSrc: no new request); the photo itself is never cropped. */
+.dp-slide .dp-frame{isolation:isolate}
+.dp-slide .dp-frame.has-backdrop::before{content:'';position:absolute;inset:-24px;z-index:-1;background:var(--dp-bg) center/cover no-repeat;filter:blur(24px) brightness(.45) saturate(1.1)}
+@media (prefers-reduced-transparency:reduce){.dp-slide .dp-frame.has-backdrop::before{display:none}}
