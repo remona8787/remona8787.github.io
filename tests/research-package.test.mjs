@@ -6,7 +6,7 @@ import assert from 'node:assert/strict'
 import { readFile, readdir } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import path from 'node:path'
-import { researchPackage, PROJECT_FIELDS, RELATION_FIELDS, EVENT_FIELDS } from '../scripts/research-package.mjs'
+import { researchPackage, PROJECT_FIELDS, RELATION_FIELDS, EVENT_FIELDS, AGENT_FIELDS } from '../scripts/research-package.mjs'
 
 const DIR = path.join(import.meta.dirname, 'fixtures/pipeline/site-data')
 async function dataset() {
@@ -32,7 +32,7 @@ test('research package: every file under data/research/<build id>/ with a latest
   const files = await dataset(), manifest = JSON.parse(files.get('manifest.json')), index = JSON.parse(files.get('index.json'))
   const out = researchPackage(files)
   const base = `data/research/${manifest.build_id}/`
-  for (const f of ['projects.csv', 'projects.json', 'projects.geojson', 'sources.csv', 'images.csv', 'relations.csv', 'events.csv', 'datapackage.json', 'README.md', 'CITATION.txt']) assert.ok(out.has(base + f), f)
+  for (const f of ['projects.csv', 'projects.json', 'projects.geojson', 'sources.csv', 'images.csv', 'relations.csv', 'events.csv', 'agents.csv', 'datapackage.json', 'README.md', 'CITATION.txt']) assert.ok(out.has(base + f), f)
   assert.ok(!out.has(base + 'CHANGELOG.md'), 'no change log without a previous dataset')
   const latest = JSON.parse(out.get('data/research/latest.json'))
   assert.equal(latest.version, manifest.build_id)
@@ -133,4 +133,31 @@ test('research package: record kind, status with its source, field confidence, r
   assert.match(readme, /### relations\.csv/)
   assert.match(readme, /### events\.csv/)
   assert.match(readme, /confidence_/)
+})
+
+test('research package: agents from credits and event organisers, merged only by QID or the exact name', async () => {
+  const files = await dataset(), shardKey = [...files.keys()].find((k) => k.startsWith('projects/'))
+  const shard = JSON.parse(files.get(shardKey)), [a, b] = shard.projects
+  // The same artist (same QID) credited on two projects; a namesake without a QID stays a separate agent.
+  a.credits = [{ name: 'Fixture Artist', name_en: 'Fixture Artist', role: 'media_artist', wikidata_qid: 'Q99000999' }, { name: '픽스처 운영 재단', role: 'operator' }]
+  b.credits = [{ name: 'Fixture Artist', role: 'media_artist', wikidata_qid: 'Q99000999' }, { name: 'Fixture  Artist', role: 'lighting_designer' }]
+  files.set(shardKey, JSON.stringify(shard))
+  const out = researchPackage(files), base = [...out.keys()][0].replace(/[^/]+$/, '')
+  const rows = parseCSV(out.get(base + 'agents.csv')), head = rows[0], col = (r, k) => r[head.indexOf(k)]
+  assert.deepEqual(head, AGENT_FIELDS.map((f) => f[0]))
+  const byId = new Map(rows.slice(1).map((r) => [r[0], r]))
+  const artist = byId.get('Q99000999')
+  assert.equal(col(artist, 'project_count'), '2')
+  assert.equal(col(artist, 'project_ids'), [a.id, b.id].sort().join(';'))
+  assert.equal(col(artist, 'entity_type'), 'artist')
+  const namesake = byId.get('name:fixture artist')
+  assert.ok(namesake, 'no QID: keyed by the normalised exact name, never merged into the QID agent')
+  assert.equal(col(namesake, 'roles'), 'lighting_designer')
+  assert.equal(col(byId.get('name:픽스처 운영 재단'), 'entity_type'), 'organization')
+  // An event organiser (events[].org) is an organisation of the place's record.
+  assert.equal(col(byId.get('name:서울디자인재단'), 'roles'), 'event_organizer')
+  assert.equal(col(byId.get('name:서울디자인재단'), 'project_ids'), 'SEOUL006')
+  const dp = JSON.parse(out.get(base + 'datapackage.json'))
+  assert.equal(dp.counts.agents, rows.length - 1)
+  assert.match(out.get(base + 'README.md'), /## 엔터티 모델/)
 })

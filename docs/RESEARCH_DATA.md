@@ -89,8 +89,11 @@
 - `images.csv`: 공개 이미지마다 역할, 저작자, 라이선스, 상업적 이용 가능 여부, 원본 페이지 (이미지 파일은 넣지 않음)
 - `relations.csv`: 레코드 사이의 관계 (event_at, exhibition_at, part_of, edition_of)와 그 근거
 - `events.csv`: 공공 행사 데이터에서 온 장소별 행사·전시 (행마다 원천 데이터셋과 라이선스)
+- `agents.csv`: 크레딧과 행사 주최 기관에서 모은 작가·건축가·기관. Wikidata QID가 같거나 이름이 정확히 같을 때만 합칩니다. 사람인지 단체인지는 판단하지 않고 역할로만 나눕니다.
 - `CITATION.txt`
 - `CHANGELOG.md`: 이전 버전과의 차이
+
+README의 '엔터티 모델' 표는 5차 과제의 8개 엔터티(장소, 건축, 설치, 작품, 전시, 행사, 기관, 작가)가 이 파일들의 어디에 있는지 보여 줍니다. 작가와 기관은 아직 독립 레코드가 아니라 목록입니다.
 
 `projects.csv`에는 레코드 종류(`kind`), 시작·종료일, 진행 상태와 그 출처(`status`, `status_source`), 유형·지역·날짜·작가·건축가·좌표의 신뢰도(`confidence_*`: sourced, inferred, editorial, unknown)가 함께 들어갑니다. inferred는 화면의 '확인 필요', unknown은 '자료 없음'과 같습니다.
 
