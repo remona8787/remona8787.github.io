@@ -196,7 +196,7 @@ async function enter(session){
  try{role=await rpc('archive_role')}
  catch(e){await sb.auth.signOut().catch(()=>{});showLogin();loginMsg(e?.code==='PGRST202'?'서버에 archive_role 함수가 없어요. 아카이브 데이터베이스 마이그레이션을 먼저 적용하세요.':'역할을 확인하지 못해 로그아웃했어요. '+errText(e));return}
  if(!RANK[role]){await sb.auth.signOut().catch(()=>{});showLogin();loginMsg('이 계정에는 운영 역할이 없어서 로그아웃했어요. 관리자에게 역할(관리자·편집자·연구자)을 받아야 들어올 수 있어요.');return}
- S.role=role;S.email=session?.user?.email||'';
+ S.role=role;S.email=session?.user?.email||'';S.uid=session?.user?.id||null;
  $('#loginView').hidden=true;$('#nav').hidden=false;$('#who').hidden=false;$('#logoutBtn').hidden=false;
  $('#whoEmail').textContent=S.email;$('#whoRole').textContent=lbl('role',role);
  document.body.classList.add('signed-in');
@@ -205,7 +205,7 @@ async function enter(session){
  route(false);
 }
 
-const TABS=[['dashboard','대시보드','editor'],['queue','검수 대기열','editor'],['projects','프로젝트','editor'],['updates','변경 감지','editor'],['runs','수집 작업','editor'],['rules','수집 규칙·키워드','editor'],['settings','설정','admin'],['research','연구자 평가','researcher'],['magazine','매거진','editor'],['places','장소 후보','editor']];
+const TABS=[['dashboard','대시보드','editor'],['queue','검수 대기열','editor'],['reports','오류 신고','editor'],['quality','데이터 품질','editor'],['projects','프로젝트','editor'],['updates','변경 감지','editor'],['runs','수집 작업','editor'],['rules','수집 규칙·키워드','editor'],['settings','설정','admin'],['members','회원·연구 데이터','admin'],['research','연구자 평가','researcher'],['magazine','매거진','editor'],['places','장소 후보','editor']];
 function route(focus){
  if(!S.role)return;
  const allowed=TABS.filter(t=>can(t[2])).map(t=>t[0]);
@@ -822,7 +822,84 @@ acts['legacy-discover']=async el=>{
  finally{el.disabled=false}
 };
 
-const LOAD={dashboard:loadDashboard,queue:()=>loadQueue({keep:{id:curCand()?.id}}),projects:()=>{const id=S.p.pendingOpen||S.p.cur?.id;S.p.pendingOpen=null;return loadProjects({open:id})},updates:loadUpdates,runs:loadRuns,rules:loadRules,settings:loadSettings,research:loadResearch,magazine:()=>{},places:loadLegacy};
+// ---- 오류 신고 (public.content_reports; docs/RESEARCH_DATA.md §4) ----
+// A report never changes data: an accepted image report becomes an editorial decision (a file on the source branch,
+// committed by someone with write access), which the next collection applies.
+const REPORT_REASON={image_unrelated:'사진이 이 프로젝트와 관계없음',person_image:'인물 사진이 잘못 연결됨',low_quality:'화질이 낮음',rights_or_credit:'저작권·출처 오류',project_info:'프로젝트 정보 오류',other:'기타'};
+const REPORT_STATUS={open:'처리 대기',accepted:'반영',rejected:'반려',duplicate:'중복'};
+const REPORT_TONE={open:'warn',accepted:'ok',rejected:'muted',duplicate:'muted'};
+const DATA_REPO=()=>/^[\w.-]+\/[\w.-]+$/.test(cfg.DATA_REPO||'')?cfg.DATA_REPO:'remona8787/remona8787.github.io';
+const SITE=()=>safeURL(cfg.PUBLIC_SITE_URL||'')||'https://remona8787.github.io/';
+function decisionLink(r){
+ if(!r.image_id||!['image_unrelated','person_image','rights_or_credit'].includes(r.reason))return '';
+ const at=new Date().toISOString(),stamp=at.replace(/[:.]/g,'-').slice(0,23);
+ const value=JSON.stringify({action:'block_image',target:r.project_id,image:r.image_id,note:`오류 신고 #${r.id}: ${REPORT_REASON[r.reason]||r.reason}`,by:`editor (content report #${r.id})`,at});
+ const href=`https://github.com/${DATA_REPO()}/new/source?filename=${encodeURIComponent(`editorial/decisions/${stamp}-block_image.json`)}&value=${encodeURIComponent(value)}`;
+ return html`<p class="small">${link(href,'편집 결정 만들기 (GitHub에서 이미지 차단 파일 작성)')} <span class="muted">— 저장소 쓰기 권한이 있는 계정으로 커밋하면 다음 수집 때 반영돼요.</span></p>`;
+}
+async function loadReports(){
+ const box=$('#reportList');put(box,html`<p class="muted">불러오는 중…</p>`);
+ try{
+  const st=new FormData($('#reportsFilter')).get('status')||'open';
+  let q=sb.from('content_reports').select('id,created_at,project_id,image_id,reason,message,contact_email,status,handled_at,note').order('created_at',{ascending:false}).limit(PAGE);
+  if(st!=='all')q=q.eq('status',st);
+  const {data,error}=await q;if(error)throw error;
+  const list=rows(data);
+  put($('#reportCount'),`${num(list.length)}건${list.length===PAGE?` (최근 ${PAGE}건)`:''}`);
+  put(box,list.length?html`<ul class="cards">${list.map(r=>html`<li class="card report" data-report="${r.id}"><div class="card-head"><div><h2 class="h3">${REPORT_REASON[r.reason]||r.reason}</h2><p class="pills">${pill(REPORT_STATUS[r.status]||r.status,REPORT_TONE[r.status])} <span class="muted small">#${r.id} · ${when(r.created_at)}</span></p></div></div>
+   <dl class="kv"><dt>프로젝트</dt><dd>${link(SITE()+'#place/'+encodeURIComponent(r.project_id),r.project_id)}</dd>${r.image_id?html`<dt>이미지</dt><dd><code>${r.image_id}</code></dd>`:''}${r.message?html`<dt>내용</dt><dd class="prewrap">${r.message}</dd>`:''}${r.contact_email?html`<dt>회신 이메일</dt><dd>${r.contact_email} <span class="muted small">(처리하면 자동 삭제)</span></dd>`:''}${r.note?html`<dt>처리 메모</dt><dd>${r.note}</dd>`:''}${r.handled_at?html`<dt>처리</dt><dd>${when(r.handled_at)}</dd>`:''}</dl>
+   ${r.status==='open'?html`${decisionLink(r)}<form class="stack" data-form="report-handle" data-id="${r.id}"><label for="rn-${r.id}">처리 메모</label><input id="rn-${r.id}" name="note" maxlength="1000"><div class="actions" role="group" aria-label="신고 처리"><button class="btn primary" type="submit" name="status" value="accepted">반영으로 처리</button><button class="btn" type="submit" name="status" value="duplicate">중복</button><button class="btn danger" type="submit" name="status" value="rejected">반려</button></div></form>`:''}</li>`)}</ul>`:html`<p class="muted">해당하는 신고가 없어요.</p>`);
+ }catch(e){put(box,errBox(e,'오류 신고를 불러오지 못했어요.'))}
+}
+forms['reports-filter']=()=>loadReports();
+forms['report-handle']=async(f,fd,e)=>{
+ const status=e?.submitter?.value||'accepted';
+ if(!['accepted','rejected','duplicate'].includes(status))throw Error('처리 상태가 올바르지 않아요.');
+ const {error}=await sb.from('content_reports').update({status,handled_by:S.uid,handled_at:new Date().toISOString(),note:String(fd.get('note')||'').trim()||null}).eq('id',Number(f.dataset.id));
+ if(error)throw error;
+ toast(`신고 #${f.dataset.id}: ${REPORT_STATUS[status]}`);await loadReports();
+};
+
+// ---- 데이터 품질 (the collection's own report on the public data branch; no personal data) ----
+async function dataFile(path){
+ const r=await fetch(`https://raw.githubusercontent.com/${DATA_REPO()}/data/${path}`,{cache:'no-store'});
+ if(r.status===404)return null;if(!r.ok)throw Error(`${path}: HTTP ${r.status}`);return r.json();
+}
+const qtile=(label,v,hint)=>html`<div class="tile"><span class="tile-label">${label}</span><b class="tile-num">${num(v)}</b>${hint?html`<span class="muted small">${hint}</span>`:''}</div>`;
+async function loadQuality(){
+ const box=$('#qualityBox');put(box,html`<p class="muted">불러오는 중…</p>`);
+ try{
+  const [rep,audit]=await Promise.all([dataFile('admin-data/report.json'),dataFile('review/image-audit.json').catch(()=>null)]);
+  if(!rep){put(box,html`<p class="muted">수집 보고서가 아직 없어요.</p>`);return}
+  const c=rep.counts||{},im=rep.images||{},run=rep.run||{},src=rep.sources||{};
+  const a=audit||rep.image_audit||null;
+  put(box,html`<p class="muted small">마지막 수집 ${when(run.finished_at)} · 상태 ${pill(run.status||'—',RUN_TONE[run.status==='ok'?'success':run.status]||'muted')} · 빌드 <code>${run.build_id||'—'}</code> · ${link(`https://github.com/${DATA_REPO()}/tree/data/review`,'수집 기록 보기')}</p>
+  <h2 class="h3">공개 데이터</h2><div class="tiles">${qtile('수집',c.collected)}${qtile('공개 기준 통과',c.eligible)}${qtile('공개',c.published)}${qtile('국내',c.kr)}${qtile('해외',c.foreign)}${qtile('이미지 있음',c.with_images)}${qtile('대표 이미지',c.with_hero)}</div>
+  <h2 class="h3">검토가 필요한 것</h2><div class="tiles">${qtile('후보 검수 대기',c.candidates_awaiting_review)}${qtile('대표 이미지 후보 검토',c.hero_candidates_awaiting_review)}${qtile('승인 대기 외부 사진',im.provider_unverified,'장소명·위치로만 연결된 사진')}${qtile('동일성 미확인으로 제외',im.identity_rejected)}${qtile('기관 사진(참고용으로만)',im.institution_context)}${qtile('저해상도',im.below_threshold)}${qtile('중복',im.duplicates)}</div>
+  ${a?html`<h2 class="h3">이미지 점검</h2><div class="tiles">${qtile('공개 이미지',a.images_published??a.published)}${qtile('이번 실행에서 관련성 확인',a.relevance_verified??a.verified)}${qtile('인물 사진 제외',a.removed?.person??a.people_removed)}${qtile('오연결 제외',a.removed?.mislinked)}${qtile('새로 추가',a.added??a.new_images)}</div>${a.valid_card_rate?html`<p class="small">유효 대표 이미지 확보율: 전체 ${a.valid_card_rate.overall??'—'} · 국내 ${a.valid_card_rate.korea??'—'} · 해외 ${a.valid_card_rate.world??'—'}</p>`:''}`:''}
+  <h2 class="h3">수집원 상태</h2><div class="table-scroll" tabindex="0" role="region" aria-label="수집원 상태 표"><table><thead><tr><th scope="col">수집원</th><th scope="col">상태</th><th scope="col">항목</th><th scope="col">마지막 성공</th><th scope="col">연속 실패</th></tr></thead><tbody>${Object.entries(src).map(([k,v])=>html`<tr><th scope="row">${k}</th><td>${pill(v.status||'—',RUN_TONE[v.status==='ok'?'success':v.status]||'muted')}</td><td>${num(v.items)}</td><td>${when(v.last_success)}</td><td>${num(v.consecutive_failures)}</td></tr>`)}</tbody></table></div>
+  ${rows(rep.errors).length?html`<h2 class="h3">오류</h2><ul>${rows(rep.errors).slice(0,20).map(e=>html`<li><code>${e.stage||e.source||''}</code> ${e.message||String(e)}</li>`)}</ul>`:''}`);
+ }catch(e){put(box,errBox(e,'수집 보고서를 불러오지 못했어요.'))}
+}
+
+// ---- 회원·연구 데이터 (aggregates only: research_admin_stats) ----
+async function loadMembers(){
+ const box=$('#membersBox');put(box,html`<p class="muted">불러오는 중…</p>`);
+ try{
+  const days=Number(new FormData($('#membersFilter')).get('days'))||30;
+  const [st,ds,vs]=await Promise.all([rpc('research_admin_stats',{p_days:days}),sb.from('research_datasets').select('id,title_ko,tier,licence,active').order('id'),sb.from('research_dataset_versions').select('dataset_id,version,data_as_of,record_count,formats').order('created_at',{ascending:false})]);
+  if(ds.error)throw ds.error;if(vs.error)throw vs.error;
+  const done=(st.downloads||0)+(st.download_errors||0);
+  put(box,html`<div class="tiles">${qtile('회원',st.members)}${qtile(`최근 ${st.days}일 신규`,st.new_members)}${qtile('다운로드한 회원',st.active_downloaders)}${qtile('다운로드',st.downloads)}${qtile('다운로드 오류',st.download_errors,done?`오류율 ${Math.round(st.download_errors/done*100)}%`:'')}${qtile('미처리 오류 신고',st.open_reports)}</div>
+  <h2 class="h3">데이터셋별 다운로드</h2>${Object.keys(st.by_dataset||{}).length?html`<ul>${Object.entries(st.by_dataset).map(([k,v])=>html`<li><code>${k}</code> ${num(v)}회</li>`)}</ul>`:html`<p class="muted">기간 내 다운로드가 없어요.</p>`}
+  <h2 class="h3">이용자 유형 (선택 입력)</h2><ul>${Object.entries(st.user_types||{}).map(([k,v])=>html`<li>${({researcher:'연구자',student:'학생',professional:'전문가',public:'일반',other:'기타',not_given:'입력 안 함'})[k]||k} ${num(v)}명</li>`)}</ul>
+  <h2 class="h3">데이터셋</h2>${rows(ds.data).length?html`<div class="table-scroll" tabindex="0" role="region" aria-label="데이터셋 표"><table><thead><tr><th scope="col">ID</th><th scope="col">이름</th><th scope="col">등급</th><th scope="col">라이선스</th><th scope="col">최신 버전</th></tr></thead><tbody>${rows(ds.data).map(d=>{const v=rows(vs.data).find(x=>x.dataset_id===d.id);return html`<tr><th scope="row"><code>${d.id}</code></th><td>${d.title_ko}${d.active?'':' (중단)'}</td><td>${({public:'공개',member:'회원',institution:'기관'})[d.tier]||d.tier}</td><td>${d.licence}</td><td>${v?`${v.version} · ${day(v.data_as_of)} 기준 · ${num(v.record_count)}건`:'—'}</td></tr>`})}</tbody></table></div>`:html`<p class="muted">등록된 데이터셋이 없어요. docs/RESEARCH_DATA.md 5절의 방법으로 추가해요.</p>`}
+  <p class="muted small">개인 단위 기록(이메일, 다운로드 이력)은 이 화면에 나오지 않아요.</p>`);
+ }catch(e){put(box,errBox(e,e?.code==='PGRST202'?'서버에 연구 데이터 마이그레이션(20261026000000_research_data.sql)이 없어요.':'회원 통계를 불러오지 못했어요.'))}
+}
+forms['members-filter']=()=>loadMembers();
+
+const LOAD={dashboard:loadDashboard,queue:()=>loadQueue({keep:{id:curCand()?.id}}),projects:()=>{const id=S.p.pendingOpen||S.p.cur?.id;S.p.pendingOpen=null;return loadProjects({open:id})},updates:loadUpdates,runs:loadRuns,rules:loadRules,settings:loadSettings,research:loadResearch,magazine:()=>{},places:loadLegacy,reports:loadReports,quality:loadQuality,members:loadMembers};
 acts['reload']=()=>LOAD[S.tab]?.();
 forms['queue-filter']=()=>loadQueue();
 forms['project-filter']=()=>loadProjects({open:S.p.cur?.id});
@@ -840,7 +917,7 @@ document.addEventListener('submit',async e=>{
  const f=e.target,h=forms[f.dataset.form];if(!h)return;
  e.preventDefault();
  const btns=$$('button[type=submit]',f);for(const b of btns)b.disabled=true;
- try{await h(f,new FormData(f))}
+ try{await h(f,new FormData(f),e)}
  catch(err){
   if(err.field){const el=f.elements.namedItem(err.field),t=el?.focus?el:el?.[0];t?.setAttribute?.('aria-invalid','true');t?.focus?.()}
   toast(errText(err),true);

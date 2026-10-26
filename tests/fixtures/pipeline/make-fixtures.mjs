@@ -39,8 +39,11 @@ const claimMakers = {
   media: (s, pid, v) => stmt(s, pid, { value: v, type: 'string' }, 'commonsMedia'),
   id: (s, pid, v) => stmt(s, pid, { value: v, type: 'string' }, 'external-id'),
   mono: (s, pid, [text, language]) => stmt(s, pid, { value: { text, language }, type: 'monolingualtext' }, 'monolingualtext'),
+  // A day-precision date ('2026-12-20') and a quantity with a unit ([1, 'Q577']: one year).
+  date: (s, pid, d) => stmt(s, pid, { value: { time: `+${d}T00:00:00Z`, timezone: 0, before: 0, after: 0, precision: 11, calendarmodel: 'http://www.wikidata.org/entity/Q1985727' }, type: 'time' }, 'time'),
+  quantity: (s, pid, [amount, unit]) => stmt(s, pid, { value: { amount: '+' + amount, unit: 'http://www.wikidata.org/entity/' + unit }, type: 'quantity' }, 'quantity'),
 }
-const KIND = { P31: 'item', P279: 'item', P17: 'item', P131: 'item', P276: 'item', P84: 'item', P170: 'item', P137: 'item', P301: 'item', P5817: 'item', P150: 'item', P625: 'coord', P571: 'year', P580: 'year', P582: 'year', P856: 'url', P373: 'string', P18: 'media', P297: 'id', P300: 'id', P1705: 'mono', P1448: 'mono' }
+const KIND = { P31: 'item', P279: 'item', P17: 'item', P131: 'item', P276: 'item', P84: 'item', P170: 'item', P137: 'item', P301: 'item', P5817: 'item', P150: 'item', P625: 'coord', P571: 'year', P580: 'date', P582: 'date', P585: 'date', P2257: 'quantity', P50: 'item', P112: 'item', P856: 'url', P373: 'string', P18: 'media', P297: 'id', P300: 'id', P1705: 'mono', P1448: 'mono' }
 const WIKI_HOST = { enwiki: 'en.wikipedia.org', kowiki: 'ko.wikipedia.org', dewiki: 'de.wikipedia.org', frwiki: 'fr.wikipedia.org', cswiki: 'cs.wikipedia.org', commonswiki: 'commons.wikimedia.org' }
 
 function entity(id, { labels = {}, descriptions = {}, claims = {}, sitelinks = {} }) {
@@ -91,7 +94,7 @@ add('Q7715933', { labels: { en: 'The Bay Lights', fr: 'The Bay Lights' }, descri
   claims: { P31: 'Q1823448', P17: 'Q30', P131: 'Q62', P625: [[37.7985, -122.3778]], P571: 2013, P170: 'Q99000201', P856: 'https://thebaylights.org/', P373: 'The Bay Lights', P18: 'The Bay Lights at night 2013.jpg' },
   sitelinks: { enwiki: 'The Bay Lights', commonswiki: 'Category:The Bay Lights' } })
 add('Q4167', { labels: { en: 'Festival of Lights', fr: 'Fête des Lumières', ko: '리옹 빛의 축제' }, descriptions: { en: 'celebration on December 8 in Lyon, France' },
-  claims: { P31: 'Q124414048', P17: 'Q142', P131: 'Q456', P625: [[45.764, 4.8357]], P571: 1999, P856: 'https://www.fetedeslumieres.lyon.fr/', P373: 'Fête des Lumières', P1705: [['Fête des Lumières', 'fr']] },
+  claims: { P31: 'Q124414048', P17: 'Q142', P131: 'Q456', P625: [[45.764, 4.8357]], P571: 1999, P856: 'https://www.fetedeslumieres.lyon.fr/', P373: 'Fête des Lumières', P1705: [['Fête des Lumières', 'fr']], P2257: [[1, 'Q577']] },
   sitelinks: { enwiki: 'Festival of Lights (Lyon)', frwiki: 'Fête des Lumières', commonswiki: 'Category:Fête des Lumières' } })
 add('Q15140473', { labels: { en: 'Signal Festival', cs: 'Signal Festival' }, descriptions: { en: 'annual outdoor festival of videomapping in Prague' },
   claims: { P31: ['Q124414048', 'Q132241'], P17: 'Q213', P131: 'Q1085', P625: [[50.087, 14.4208]], P571: 2013, P856: 'https://www.signalfestival.com/' },
@@ -140,7 +143,7 @@ for (const [q, en, ko, cls, parent] of [
 add('Q99000501', { labels: { ko: '픽스처 미디어아트 뮤지엄 부산', en: 'Fixture Media Art Museum Busan' }, descriptions: { ko: '부산 해운대구의 미디어아트 전시관' },
   claims: { P31: 'Q33506', P17: 'Q884', P131: 'Q99000413', P625: [[35.1601, 129.1636]], P571: 2021, P373: 'Fixture Media Art Museum Busan' }, sitelinks: { kowiki: '픽스처 미디어아트 뮤지엄 부산', commonswiki: 'Category:Fixture Media Art Museum Busan' } })
 add('Q99000502', { labels: { ko: '픽스처 강릉 빛축제', en: 'Fixture Gangneung Light Festival' }, descriptions: { ko: '강릉에서 열리는 빛 축제' },
-  claims: { P31: 'Q132241', P17: 'Q884', P131: 'Q99000414', P625: [[37.7519, 128.8761]], P571: 2019 }, sitelinks: { kowiki: '픽스처 강릉 빛축제' } })
+  claims: { P31: 'Q132241', P17: 'Q884', P131: 'Q99000414', P625: [[37.7519, 128.8761]], P571: 2019, P580: '2026-12-20', P582: '2027-01-10', P2257: [[1, 'Q577']] }, sitelinks: { kowiki: '픽스처 강릉 빛축제' } })
 add('Q99000504', { labels: { ko: '픽스처 미디어 작가' }, claims: { P31: 'Q5' }, sitelinks: { kowiki: '픽스처 미디어 작가' } })
 add('Q99000505', { labels: { ko: '픽스처 시립도서관' }, claims: { P31: 'Q33506', P17: 'Q884', P131: 'Q99000417', P625: [[37.48, 127.01]] }, sitelinks: { kowiki: '픽스처 시립도서관' } })
 add('Q255506', { labels: { en: 'Banpo Bridge', ko: '반포대교' }, descriptions: { en: 'bridge in Seoul with a musical fountain' },
@@ -398,8 +401,15 @@ const TOUR = {
   rental: TI({ contentid: '2900003', contenttypeid: '12', title: '미디어파사드 LED 전광판 렌탈 견적', addr1: '경기도 성남시 분당구 판교로 1', mapx: '127.1100000000', mapy: '37.4000000000', areacode: '31', lDongRegnCd: '41' }),
   jeju: TI({ contentid: '2900004', contenttypeid: '15', title: '픽스처 빛축제 제주', addr1: '제주특별자치도 제주시 연동 1', mapx: '126.4900000000', mapy: '33.4890000000', areacode: '39', lDongRegnCd: '50' }),
   lumi: TI({ contentid: '2900006', contenttypeid: '15', title: '픽스처 루미나리에 축제', addr1: '부산광역시 중구 광복로 1', mapx: '129.0300000000', mapy: '35.0990000000', areacode: '', lDongRegnCd: '99' }),
+  // Only in the festival list (searchFestival2): a lantern festival named by a term, and a food festival that is not.
+  yudeung: TI({ contentid: '2900007', contenttypeid: '15', title: '픽스처 남강 유등축제', addr1: '경상남도 진주시 남강로 1', mapx: '128.0800000000', mapy: '35.1900000000', areacode: '36', lDongRegnCd: '48' }),
+  kimchi: TI({ contentid: '2900008', contenttypeid: '15', title: '픽스처 김치 축제', addr1: '광주광역시 남구 1', mapx: '126.9000000000', mapy: '35.1300000000', areacode: '5', lDongRegnCd: '29' }),
 }
+// searchFestival2 rows carry the edition's dates (YYYYMMDD).
+const FD = (t, start, end) => ({ ...t, eventstartdate: start, eventenddate: end })
 const tourapi = {
+  // searchFestival2 (eventStartDate …): on 2026-10-20 the Daejeon festival runs, Busan's is upcoming, Jinju's ended.
+  festivals: [FD(TOUR.festival, '20261015', '20261120'), FD(TOUR.lumi, '20261201', '20261231'), FD(TOUR.yudeung, '20261001', '20261015'), FD(TOUR.kimchi, '20261101', '20261103')],
   search: {
     '미디어파사드|12': [TOUR.lotte, TOUR.rental],
     '미디어아트|15': [TOUR.festival],
@@ -414,6 +424,7 @@ const tourapi = {
     2900002: { ...TOUR.festival, homepage: '<a href="https://mediaart.fixture.example/">mediaart.fixture.example</a>', overview: '대전 엑스포과학공원 일대에서 열리는 미디어아트 축제. 건물 외벽 프로젝션 매핑과 미디어파사드 공연을 선보인다.' },
     2900004: { ...TOUR.jeju, homepage: '', overview: '제주 연동 일대의 겨울 빛축제. 빛 조형물과 조명 터널을 설치한다.' },
     2900006: { ...TOUR.lumi, homepage: 'https://lumi.fixture.example/', overview: '부산 광복로 일대에서 열리는 루미나리에 빛축제. 거리 전체에 빛 구조물을 설치한다.' },
+    2900007: { ...TOUR.yudeung, homepage: 'https://yudeung.fixture.example/', overview: '진주 남강에 수만 개의 유등을 띄우는 빛축제. 강 위에 빛 조형물과 미디어아트 프로젝션 매핑을 선보인다.' },
   },
   images: {
     2900001: [

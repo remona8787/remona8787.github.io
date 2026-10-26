@@ -41,6 +41,7 @@ import { clusterObservations, mergeByNameAndUrl, buildProject, eligibility, newI
 import { imageStage } from './lib/image-stage.mjs'
 import { writeContactSheets, SHEET_ABOUT } from './lib/contact-sheet.mjs'
 import { imageAudit, auditSummary } from './lib/image-audit.mjs'
+import { discoverSeoulEvents, linkEvents, eventOut, DATASET as SEOUL_DATASET } from './lib/seoul-events.mjs'
 import { loadEditorial, compileEditorial, heroAllowSet, applyToProject, finishLog } from './lib/editorial.mjs'
 import { publicRecord, buildIndex, buildHome, buildStats, buildManifest, shardCount, shardOf, contentHash, upgradeRecord } from './lib/output.mjs'
 import { checkDataset, checkReport, checkQuality, checkCandidates } from './lib/schema.mjs'
@@ -154,7 +155,7 @@ export async function runPipeline(o) {
   const KC = cfg.korea, gaz = compileGazetteer(KC), KO = P.korea || {}
   const sourcesMs = budgetMs * (shares.sources ?? 0.42)
   const foreign = client.view(() => client.deadline - sourcesMs * (KO.foreign_reserve_share ?? 0.2))
-  let classReview = null, categories = null, wikiHits = [], webOut = null, krDiv = null, krInst = null, tourOut = null
+  let classReview = null, categories = null, wikiHits = [], webOut = null, krDiv = null, krInst = null, tourOut = null, seoulOut = null
   const S = P.sources || {}
   const koreaOn = S.korea?.enabled !== false
   await st.run('sources', async () => {
@@ -215,7 +216,7 @@ export async function runPipeline(o) {
       if (!key) { status('tourapi', { status: 'skipped', items: 0, errors: [], reason: 'TOURAPI_SERVICE_KEY not set' }); return }
       const t = clock()
       try {
-        tourOut = await discoverTourApi(client, P.tourapi || {}, { key, cache, ttlHours: ttl.tourapi ?? 72, termRules: P.wikipedia?.term_rules || {} })
+        tourOut = await discoverTourApi(client, P.tourapi || {}, { key, cache, ttlHours: ttl.tourapi ?? 72, termRules: P.wikipedia?.term_rules || {}, today })
         status('tourapi', { status: tourOut.partial ? 'partial' : tourOut.errors.length ? (tourOut.items.length ? 'partial' : 'error') : 'ok', items: tourOut.accepted.length, seen: tourOut.items.length, errors: tourOut.errors.slice(0, 50), duration_ms: clock() - t })
       } catch (x) { err('tourapi', x); status('tourapi', { status: isBudget(x) ? 'partial' : 'error', items: 0, errors: [{ message: msg(x) }], duration_ms: clock() - t }) }
     })()
@@ -232,7 +233,18 @@ export async function runPipeline(o) {
         status('web', { status: failed && !ok ? 'error' : failed || webOut.results.some((r) => r.reason === 'time_budget') ? 'partial' : 'ok', items: webOut.items.length, errors: webOut.errors.slice(0, 50), rules: webOut.results, duration_ms: clock() - t })
       } catch (x) { err('web', x); status('web', { status: 'error', items: 0, errors: [{ message: msg(x) }], duration_ms: clock() - t }) }
     })()
-    await Promise.all([wikidataTask, commonsTask, wikipediaTask, tourTask, webTask])
+    // Seoul cultural events (lib/seoul-events.mjs): with SEOUL_OPEN_DATA_KEY the whole list; without it one probe with
+    // the sample key (reachability and field names only, never published).
+    const seoulTask = (async () => {
+      if (!koreaOn || S.seoul_events?.enabled === false) { status('seoul_events', { status: 'disabled', items: 0, errors: [] }); return }
+      const key = env.SEOUL_OPEN_DATA_KEY || null
+      const t = clock()
+      try {
+        seoulOut = await discoverSeoulEvents(client, P.seoul_events || {}, { key, cache, ttlHours: ttl.seoul_events ?? 20, today })
+        status('seoul_events', { status: seoulOut.status, items: seoulOut.relevant.length, received: seoulOut.received, requested: seoulOut.requested, errors: seoulOut.errors.slice(0, 20), ...(key ? {} : { reason: 'SEOUL_OPEN_DATA_KEY not set; sample probe ' + (seoulOut.probe_result?.code || (seoulOut.errors.length ? 'failed' : 'not run')) }), duration_ms: clock() - t })
+      } catch (x) { err('seoul_events', x); status('seoul_events', { status: isBudget(x) ? 'partial' : 'error', items: 0, errors: [{ message: msg(x) }], duration_ms: clock() - t }) }
+    })()
+    await Promise.all([wikidataTask, commonsTask, wikipediaTask, tourTask, webTask, seoulTask])
   })
   say(`[pipeline] sources: ${Object.entries(sourceStatus).map(([k, v]) => `${k}=${v.status}(${v.items})`).join(' ')}`)
 
@@ -351,7 +363,7 @@ export async function runPipeline(o) {
         const intoQid = obs.find((x) => x.merge_into_qid)?.merge_into_qid
         const curatedQid = obs.find((x) => x.origin === 'curated' && x.qid)?.qid
         const primary = curatedQid || (intoQid && qids.includes(intoQid) ? intoQid : null) || qids.find((q) => facts.has(q)) || qids[0] || null
-        const p = buildProject(obs, primary ? facts.get(primary) || null : null, { year: Number(today.slice(0, 4)), workClasses })
+        const p = buildProject(obs, primary ? facts.get(primary) || null : null, { year: Number(today.slice(0, 4)), today, workClasses })
         if (primary && !p.qid) p.qid = primary
         for (const q of qids) if (q !== primary && !p.sources.some((s) => s.url === wikidataPage(q))) p.sources.push({ id: 'wikidata:' + q, kind: 'wikidata', title: `Wikidata ${q}`, url: wikidataPage(q), publisher: 'Wikidata' })
         p.all_qids = qids
@@ -415,6 +427,22 @@ export async function runPipeline(o) {
     else excluded.push({ id: p.id, qid: p.qid, name: p.name_en || p.name_ko || p.name_original, origins: p.origins, reasons: el.reasons })
   }
   say(`[pipeline] resolved ${projects.length} projects from ${kept.length} observations: ${published.length} eligible, ${excluded.length} excluded`)
+
+  // ---------------------------------------------------------------- events (Seoul cultural events, lib/seoul-events.mjs)
+  // A relevant event names a published project within 300 m: it is listed in that project's record. Otherwise its place
+  // is a candidate for an editor (admin-data/candidates.json): never a new public place without an approve decision.
+  const SE = P.seoul_events || {}
+  const eventLinks = linkEvents(seoulOut?.relevant || [], published, { radiusM: SE.link_radius_m ?? 300 })
+  for (const l of eventLinks.linked) {
+    const list = (l.project.events ||= [])
+    if (list.length < (SE.max_events_per_project ?? 20) && !list.some((e) => e.id === l.event.id)) list.push(eventOut(l.event, { checkedAt: today }))
+  }
+  for (const p of published) if (p.events) p.events.sort((a, b) => compareStrings(a.start || '9999', b.start || '9999') || compareStrings(a.id, b.id))
+  const eventPlaces = eventLinks.unlinked.map((ev) => ({ id: 'place:' + ev.id, kind: 'place_candidate', source: 'seoul_open_data', event: { id: ev.id, kind: ev.kind, title: ev.title, start: ev.start, end: ev.end, status: ev.status, place: ev.place, district: ev.district, org: ev.org, url: ev.url, lat: ev.lat, lng: ev.lng, terms: ev.terms, project_type: ev.project_type }, status: 'needs_review', note: 'An approve decision with this id and the place fields makes it public.' }))
+  const sourceCounts = {
+    tourapi: { requested: tourOut?.requests ?? 0, received: tourOut?.items?.length ?? 0, relevant: tourOut?.accepted?.length ?? 0, merged: published.filter((p) => p.origins.includes('tourapi') && p.origins.length > 1).length, new_candidates: excluded.filter((x) => String(x.id).startsWith('KTO-')).length, published: published.filter((p) => p.origins.includes('tourapi')).length, probe: false },
+    seoul_events: { requested: seoulOut?.requested ?? 0, received: seoulOut?.received ?? 0, relevant: seoulOut?.relevant.length ?? 0, merged: eventLinks.linked.length, new_candidates: eventPlaces.length, published: published.reduce((n, p) => n + (p.events?.length || 0), 0), probe: !!seoulOut?.probe },
+  }
 
   // ---------------------------------------------------------------- images (lib/image-stage.mjs; Korean projects first)
   client.setDeadline(stageDeadline('images'))
@@ -535,7 +563,7 @@ export async function runPipeline(o) {
     const featured = r.images.find((i) => i.role === 'featured') || null
     picks.set(r.id, { hero, featured, home: ir?.home ?? featured ?? hero ?? null, score: ir?.score ?? (hero ? 80 : 0) })
   }
-  const sourcesManifest = Object.fromEntries(['wikidata', 'commons', 'wikipedia', 'tourapi', 'curated', 'web'].filter((k) => sourceStatus[k]).map((k) => [k, { status: sourceStatus[k].status, last_success: sourceStatus[k].last_success, items: sourceStatus[k].items ?? null }]))
+  const sourcesManifest = Object.fromEntries(['wikidata', 'commons', 'wikipedia', 'tourapi', 'seoul_events', 'curated', 'web'].filter((k) => sourceStatus[k]).map((k) => [k, { status: sourceStatus[k].status, last_success: sourceStatus[k].last_success, items: sourceStatus[k].items ?? null }]))
   const hashParts = { records }
   const hash = contentHash(hashParts)
   const unchanged = state.runs.last_good?.content_hash === hash && prev.manifest
@@ -614,6 +642,9 @@ export async function runPipeline(o) {
     counts,
     images: { ...imageStats, hero: files.home.hero.length, contact_sheets: sheets.map((s) => s.sheet) },
     image_audit: audit.summary,
+    // Korean public data: requests, rows received, relevant items, merged into known projects, new place candidates and
+    // what reached the public dataset (docs/PUBLIC_DATA.md).
+    public_data: sourceCounts,
     changes: { new: newIds.slice(0, 200), changed: changed.slice(0, 200), removed: track.removed, carried_over: track.carried, merges: [...merges, ...ed.merges.filter((m) => m.entry.status === 'applied').map((m) => ({ rule: 'editorial_merge', a: m.from, b: m.into }))] },
     decisions,
     hero_list: heroList,
@@ -628,6 +659,7 @@ export async function runPipeline(o) {
     about: 'Web-derived candidates (GDELT, RSS; NAVER/Brave when keyed). Never public until an editorial approve decision names one (editorial/decisions/*.json with target = candidate id and fields). image_candidates: NAVER image search results (discovery only, never displayed) and provider images awaiting an approve_image after the contact-sheet review; tourapi: accepted TourAPI items that are not public yet (no public source).',
     candidates: Object.values(candidates).sort((a, b) => (b.confidence ?? 0) - (a.confidence ?? 0) || compareStrings(a.id, b.id)),
     image_candidates: imageCandidates,
+    event_places: eventPlaces,
     tourapi: (tourOut?.accepted || []).filter((t) => excluded.some((x) => x.id === 'KTO-' + t.contentid)).map((t) => ({ id: 'KTO-' + t.contentid, title: t.title, addr1: t.addr1, terms: t.decision.terms, project_type: t.decision.project_type, reasons: excluded.find((x) => x.id === 'KTO-' + t.contentid)?.reasons || [] })),
   }
   const adminErrors = [...checkReport(report), ...checkQuality(quality), ...checkCandidates(candidatesOut)]
@@ -650,6 +682,17 @@ export async function runPipeline(o) {
   await writeJSON(path.join(dirs.review, 'providers.json'), { schema: 1, at: startedAt, about: 'Image provider requests of this run: TourAPI name matches, caps reached, errors (keys never appear).', stats: { requests: imageStats.provider_requests, new_requests: imageStats.provider_new_requests, errors: imageStats.provider_errors, rejected: imageStats.provider_rejected, openverse_rate_limit: imageStats.openverse_rate_limit }, log: providerLog.slice(0, 2000) }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'web.json'), { schema: 1, at: startedAt, rules: webOut?.results ?? null, errors: webOut?.errors ?? [] }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'http-log.json'), { schema: 1, at: startedAt, entries: httpLog }, { pretty: true })
+  await writeJSON(path.join(dirs.review, 'seoul-events.json'), {
+    schema: 1, at: startedAt,
+    about: 'Seoul cultural events (OA-15486 culturalEventInfo): without SEOUL_OPEN_DATA_KEY one probe with the sample key (reachability and the live field names; never published). Every event with its relevance decision; the relevant ones linked to a project (name within 300 m) or listed as place candidates. Keys never appear.',
+    dataset: SEOUL_DATASET, status: sourceStatus.seoul_events ?? null, probe: seoulOut?.probe ?? null, probe_result: seoulOut?.probe_result ?? null,
+    fields: seoulOut?.fields ?? [], total: seoulOut?.total ?? null, counts: sourceCounts.seoul_events,
+    linked: eventLinks.linked.map((l) => ({ event: l.event.id, title: l.event.title, project: l.project.id, by: l.by, name: l.name, distance_m: l.distance_m })),
+    // Every relevant event and the first 300 others (the whole list is ~20,000 rows).
+    events: [...(seoulOut?.events || []).filter((e) => e.decision?.relevant), ...(seoulOut?.events || []).filter((e) => !e.decision?.relevant).slice(0, 300)],
+    decisions: (seoulOut?.events || []).reduce((o, e) => { const k = e.decision?.relevant ? (e.status === 'ended' ? 'relevant_ended' : 'relevant') : (e.decision?.reasons || []).slice(-1)[0] || 'other'; o[k] = (o[k] || 0) + 1; return o }, {}),
+    errors: seoulOut?.errors ?? [],
+  }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'tourapi.json'), { schema: 1, at: startedAt, about: 'TourAPI KorService2 keyword discovery: every item seen, the terms found in its title or overview, the classifier verdict and the decision. Accepted items become projects (origin tourapi) when they also have a public source (their homepage) or merge with a known project.', status: sourceStatus.tourapi ?? null, overviews_read: tourOut?.overviews_read ?? 0, items: tourOut?.items ?? [], errors: tourOut?.errors ?? [] }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'korea.json'), {
     schema: 1, at: startedAt,
@@ -695,8 +738,16 @@ export function runSummary(report) {
     ...Object.entries(report.sources || {}).map(([k, v]) => `| ${k} | ${v.status} | ${v.items ?? ''} | ${v.consecutive_failures ?? 0} |`),
     '',
     ...auditSummary(report.image_audit),
+    ...publicDataSummary(report.public_data),
   ]
   return lines.join('\n') + '\n'
+}
+
+/** Markdown table of the Korean public data sources' counts. */
+function publicDataSummary(pd) {
+  if (!pd) return []
+  return ['#### Korean public data', '', '| source | requested | received | relevant | merged | new candidates | published |', '|---|---|---|---|---|---|---|',
+    ...Object.entries(pd).map(([k, v]) => `| ${k}${v.probe ? ' (sample probe, never published)' : ''} | ${v.requested} | ${v.received} | ${v.relevant} | ${v.merged} | ${v.new_candidates} | ${v.published} |`), '']
 }
 
 function args(argv) {

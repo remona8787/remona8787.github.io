@@ -137,6 +137,23 @@ export function checkRecord(r, path, need) {
     if (c.portrait !== undefined) { checkImage(c.portrait, `${path}.credits[${i}].portrait`, need); need(c.portrait?.kind === 'artist_portrait', `${path}.credits[${i}].portrait.kind`, 'artist_portrait') }
   })
   ;(r.images || []).forEach((img, i) => need(img?.kind !== 'artist_portrait', `${path}.images[${i}].kind`, 'a creator portrait belongs to its credit, never to images[]'))
+  need(['facility', 'program', 'festival', 'exhibition'].includes(r.kind), path + '.kind', 'facility, program, festival or exhibition')
+  for (const k of ['start_date', 'end_date']) need(r[k] === null || r[k] === undefined || /^\d{4}(-\d{2}(-\d{2})?)?$/.test(r[k]), `${path}.${k}`, 'YYYY, YYYY-MM or YYYY-MM-DD')
+  need(['running', 'seasonal', 'ended', 'upcoming', 'unknown'].includes(r.status), path + '.status', 'running, seasonal, ended, upcoming or unknown')
+  need(r.status === 'unknown' ? !r.status_source : ['tourapi', 'wikidata', 'editorial', 'curated'].includes(r.status_source), path + '.status_source', 'the source of a known status')
+  if (r.events !== undefined) {
+    need(Array.isArray(r.events) && r.events.length <= 50, path + '.events', 'array of at most 50')
+    ;(Array.isArray(r.events) ? r.events : []).forEach((e, i) => {
+      const at = `${path}.events[${i}]`
+      need(/^SEV-[0-9A-Z]{7,}$/.test(e?.id || ''), at + '.id', 'SEV-<id>')
+      need(['event', 'exhibition'].includes(e?.kind), at + '.kind', 'event or exhibition')
+      need(str(e?.title), at + '.title', 'missing')
+      need(['upcoming', 'running', 'ended', 'unknown'].includes(e?.status), at + '.status', 'upcoming, running, ended or unknown')
+      for (const k of ['start', 'end']) need(e?.[k] === null || /^\d{4}-\d{2}-\d{2}$/.test(e?.[k] || ''), `${at}.${k}`, 'YYYY-MM-DD or null')
+      need(e?.url === null || https(e?.url), at + '.url', 'https or null')
+      need(str(e?.source?.license) && https(e?.source?.url), at + '.source', 'licence and dataset page')
+    })
+  }
   if (r.visit !== null) need(r.visit && typeof r.visit === 'object' && (r.visit.status === null || T.valid('operating_status', r.visit.status)), path + '.visit', 'bad visit')
   need(opt(ISO_TIME)(r.added_at), path + '.added_at', 'not a time')
   need(SHARD.test(r.shard), path + '.shard', 'bad shard')

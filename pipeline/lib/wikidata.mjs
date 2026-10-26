@@ -112,6 +112,16 @@ export function snakValue(snak) {
   }
 }
 
+/** A time value as an ISO date at its precision: YYYY (9), YYYY-MM (10), YYYY-MM-DD (11+); null otherwise. */
+export function dateOf(values) {
+  const v = (values || []).find((t) => t && t.year && t.precision >= 9)
+  if (!v) return null
+  const y = String(v.year).padStart(4, '0')
+  if (v.precision >= 11 && v.month && v.day) return `${y}-${String(v.month).padStart(2, '0')}-${String(v.day).padStart(2, '0')}`
+  if (v.precision >= 10 && v.month) return `${y}-${String(v.month).padStart(2, '0')}`
+  return y
+}
+
 /** Best-rank values of a property (preferred if any, else normal; deprecated never). */
 export function bestValues(claims, pid) {
   const list = Array.isArray(claims?.[pid]) ? claims[pid] : []
@@ -430,6 +440,9 @@ export function factsOf(entity, auxMap, { cityPattern, originalLanguageByCountry
     inception: year('P571'),
     start: year('P580'),
     end: year('P582'),
+    // Dates at their stated precision (YYYY, YYYY-MM or YYYY-MM-DD) for kind and status (entities.mjs scheduleOf).
+    start_date: dateOf(c.P580), end_date: dateOf(c.P582), point_in_time: dateOf(c.P585),
+    recurring: (c.P2257 || []).length > 0,
     architects: people('P84'),
     creators: [...people('P170'), ...people('P50').filter((x) => !(c.P170 || []).some((v) => v.item === x.qid))],
     // Founders (P112) are not credited; their names only mark a photo of them as a creator's portrait (images.mjs).

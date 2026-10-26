@@ -54,6 +54,8 @@ export const HOST_INTERVALS = {
   'api.flickr.com': 1000,
   'live.staticflickr.com': 200,
   'apis.data.go.kr': 500,
+  'openapi.seoul.go.kr:8088': 1000,
+  'openapi.seoul.go.kr': 1000,
   'tong.visitkorea.or.kr': 200,
   'api.unsplash.com': 75000,
   'images.unsplash.com': 200,
@@ -130,7 +132,8 @@ export function createClient({ fetch = globalThis.fetch, clock = Date.now, sleep
       const t0 = clock()
       let res
       try {
-        res = await fetchWithPolicy(target, { fetch: politeFetch, clock, sleep, limiter: callUntil === Infinity ? limiter : limiterUntil(callUntil), method, headers: h, body, retries, timeoutMs, maxBytes, userAgent })
+        // maxRedirects 0: a key in the URL is never sent on to another address (Seoul OpenAPI).
+        res = await fetchWithPolicy(target, { fetch: politeFetch, clock, sleep, limiter: callUntil === Infinity ? limiter : limiterUntil(callUntil), method, headers: h, body, retries, timeoutMs, maxBytes, userAgent, ...(o.maxRedirects !== undefined ? { maxRedirects: o.maxRedirects } : {}) })
       } catch (e) {
         s.errors++; s.ms += clock() - t0; s.last_error = redactUrl ? redactUrl(errorText(e)) : errorText(e)
         log({ kind: 'http_error', host, url: shown(target), message: s.last_error })

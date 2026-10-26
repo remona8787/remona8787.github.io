@@ -52,10 +52,13 @@ export function imageKey(url) {
 }
 
 /**
- * Which of a record's images a page shows (from the page's image URLs): their count, providers and kinds, and any image
- * of a kind that must never be in a gallery (artist_portrait, unverified) or that the record does not have.
+ * Which of a record's images a page shows (from the page's image URLs outside the creator sections): their count,
+ * providers and kinds, and any image of a kind that must never be shown there (artist_portrait, unverified) or that
+ * the record does not have. o.portraits: image URLs inside [data-creator-portrait] (where creator portraits belong);
+ * o.gallery: the main gallery's (#detailPhotos .dp-slide img). Hidden tab panels and closed details keep their images
+ * in the page: context, technical and event documentation are allowed there.
  */
-export function galleryCheck(urls, record) {
+export function galleryCheck(urls, record, o = {}) {
   const byKey = new Map()
   const add = (img, where) => { for (const u of [img.src, img.thumb, ...(img.display || []).map((d) => d[1])]) if (u) byKey.set(imageKey(u), { img, where }) }
   for (const i of record?.images || []) add(i, 'images')
@@ -69,10 +72,15 @@ export function galleryCheck(urls, record) {
     else if (/wikimedia\.org|staticflickr|openverse|visitkorea|unsplash|pexels/.test(String(u))) unknown.push(String(u).slice(0, 200))
   }
   const list = [...shown.values()]
-  const tally = (f) => list.reduce((o, x) => { const k = f(x); o[k] = (o[k] || 0) + 1; return o }, {})
+  const tally = (f, l = list) => l.reduce((acc, x) => { const k = f(x); acc[k] = (acc[k] || 0) + 1; return acc }, {})
+  const matched = (u) => [...new Set(u.map((x) => byKey.get(imageKey(x))).filter(Boolean))]
+  const gallery = o.gallery ? matched(o.gallery) : null
+  const portraits = o.portraits ? matched(o.portraits) : null
   return {
     project: record?.id ?? null, record_images: (record?.images || []).length, shown: list.length,
     providers: tally((x) => x.img.provider), kinds: tally((x) => x.img.kind || 'none'),
+    ...(gallery ? { main_gallery: { shown: o.gallery.length, matched: gallery.length, kinds: tally((x) => x.img.kind || 'none', gallery) } } : {}),
+    ...(portraits ? { creator_portraits: { shown: o.portraits.length, matched: portraits.filter((x) => x.img.kind === 'artist_portrait').length } } : {}),
     artist_portrait_visible: list.filter((x) => x.img.kind === 'artist_portrait').map((x) => x.img.id),
     unverified_visible: list.filter((x) => x.img.kind === 'unverified' || (x.img.provider !== 'commons' && x.img.identity?.ok !== true)).map((x) => x.img.id),
     not_in_record: unknown.slice(0, 20),
@@ -178,7 +186,15 @@ async function measure(browser, base, screen, vp, outDir, { settleMs = 1500 } = 
       const text = await page.evaluate(() => document.body?.innerText || '').catch(() => '')
       r.internal_terms = INTERNAL_TERMS.filter((t) => text.includes(t))
     }
-    if (screen.project) r.page_images = await page.evaluate(() => [...document.images].map((i) => i.currentSrc || i.src).filter(Boolean)).catch(() => [])
+    // Creator portraits belong inside [data-creator-portrait]; everything else on the page is checked against the record.
+    if (screen.project) r.page_images = await page.evaluate(() => {
+      const src = (i) => i.currentSrc || i.src
+      return {
+        all: [...document.images].filter((i) => !i.closest('[data-creator-portrait]')).map(src).filter(Boolean),
+        portraits: [...document.querySelectorAll('[data-creator-portrait] img')].map(src).filter(Boolean),
+        gallery: [...document.querySelectorAll('#detailPhotos .dp-slide img')].map(src).filter(Boolean),
+      }
+    }).catch(() => ({ all: [], portraits: [], gallery: [] }))
     const file = `${vp.name}-${screen.name}.jpg`
     await page.screenshot({ path: path.join(outDir, file), type: 'jpeg', quality: 60, fullPage: false })
     r.screenshot = file
@@ -221,7 +237,7 @@ export function summarize(pages) {
     // The rendition width of the largest image on the home page per viewport (null when the URL does not name one).
     home_lcp_image_px: Object.fromEntries(pages.filter((p) => p.page === 'home' && p.lcp?.url).map((p) => [p.viewport, renditionWidth(p.lcp.url)])),
     // Detail and regression pages: images shown, providers, and images that must never be in a gallery (should be 0).
-    galleries: Object.fromEntries(pages.filter((p) => p.gallery).map((p) => [`${p.viewport}-${p.page}`, { project: p.gallery.project, shown: p.gallery.shown, providers: p.gallery.providers, kinds: p.gallery.kinds }])),
+    galleries: Object.fromEntries(pages.filter((p) => p.gallery).map((p) => [`${p.viewport}-${p.page}`, { project: p.gallery.project, shown: p.gallery.shown, providers: p.gallery.providers, kinds: p.gallery.kinds, main_gallery: p.gallery.main_gallery ?? null, creator_portraits: p.gallery.creator_portraits ?? null }])),
     gallery_forbidden: pages.reduce((n, p) => n + (p.gallery ? p.gallery.artist_portrait_visible.length + p.gallery.unverified_visible.length : 0), 0),
   }
 }
@@ -260,7 +276,7 @@ export async function verifyLive({ site, outDir, buildId = null, deployId = null
     try {
       for (const vp of VIEWPORTS) for (const s of screens(detailId)) {
         const r = await measure(browser, base, s, vp, outDir)
-        if (s.project) { r.gallery = galleryCheck(r.page_images || [], records.get(s.project) || null); delete r.page_images }
+        if (s.project) { const pi = r.page_images || { all: [] }; r.gallery = galleryCheck(pi.all || [], records.get(s.project) || null, { portraits: pi.portraits || [], gallery: pi.gallery || [] }); delete r.page_images }
         log(`${vp.name} ${s.name}: ${r.ok ? 'ok' : 'FAILED ' + (r.error || r.status)} lcp ${r.lcp?.ms ?? '-'} ms, ${Math.round(r.transfer.total_bytes / 1024)} KB, ${r.console_errors.length + r.page_errors.length} console errors, ${r.failed_requests.length} failed requests`)
         pages.push(r)
       }

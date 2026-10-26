@@ -154,6 +154,48 @@ export function koreanCityOf(address) {
   return null
 }
 
+/** The first and the last day a partial ISO date (YYYY, YYYY-MM, YYYY-MM-DD) can mean. */
+export function dateBounds(d) {
+  if (!d) return [null, null]
+  if (/^\d{4}$/.test(d)) return [d + '-01-01', d + '-12-31']
+  if (/^\d{4}-\d{2}$/.test(d)) { const [y, m] = d.split('-').map(Number); const last = new Date(Date.UTC(y, m, 0)).getUTCDate(); return [d + '-01', `${d}-${String(last).padStart(2, '0')}`] }
+  return [d, d]
+}
+/** Status from sourced dates: upcoming, running, ended, else null. */
+export function statusFromDates(start, end, today) {
+  const [s0] = dateBounds(start), [, e1] = dateBounds(end)
+  if (e1 && e1 < today) return 'ended'
+  if (s0 && s0 > today) return 'upcoming'
+  if (s0 && e1 && s0 <= today && today <= e1) return 'running'
+  return null
+}
+const EXHIBITION_LABEL = /\b(exhibition|exposition|art exhibition|exhibit)\b/i
+const PROGRAM_LABEL = /\b(show|performance|projection show|light show|son et lumière|recurring event|programme|program)\b/i
+const ENDED_USE = /\b(closed|demolished|defunct|destroyed|out of (service|use)|abandoned|dismantled|decommissioned)\b/i
+const IN_USE = /\b(in use|operational|in operation|open)\b/i
+/**
+ * Kind (facility | program | festival | exhibition), dates and status (running | seasonal | ended | upcoming |
+ * unknown) from sourced facts only: TourAPI festivals (contenttypeid 15) and their eventstartdate/eventenddate,
+ * Wikidata P580/P582/P585 (dates), P5817 (state of use), P2257 (event interval: seasonal), P31 labels (kind).
+ */
+export function scheduleOf({ tour = null, facts = null, projectType = null, today = new Date().toISOString().slice(0, 10) } = {}) {
+  const labels = facts?.p31_labels || []
+  const kind = tour?.tourapi?.contenttypeid === '15' || projectType === 'festival_program' ? 'festival'
+    : labels.some((l) => EXHIBITION_LABEL.test(l)) ? 'exhibition'
+    : labels.some((l) => PROGRAM_LABEL.test(l)) ? 'program' : 'facility'
+  let start = null, end = null, source = null
+  if (tour?.tourapi?.eventstartdate || tour?.tourapi?.eventenddate) { start = tour.tourapi.eventstartdate || null; end = tour.tourapi.eventenddate || null; source = 'tourapi' }
+  else if (facts?.start_date || facts?.end_date) { start = facts.start_date; end = facts.end_date; source = 'wikidata' }
+  else if (facts?.point_in_time) { start = end = facts.point_in_time; source = 'wikidata' }
+  let status = statusFromDates(start, end, today)
+  const use = (facts?.state_of_use || []).join(' ')
+  if (!status && use) status = ENDED_USE.test(use) ? 'ended' : IN_USE.test(use) ? 'running' : null
+  if (status && !source) source = 'wikidata'
+  // A recurring festival (P2257, event interval) that is not on now or soon is seasonal: its last edition ended.
+  if (kind === 'festival' && facts?.recurring && status !== 'running' && status !== 'upcoming') { status = 'seasonal'; source = 'wikidata' }
+  return { kind, start_date: start, end_date: end, status: status || 'unknown', status_source: status ? source : null }
+}
+
 const cleanCategoryName = (t) => String(t || '').replace(/^Category:/, '').replace(/\s*\([^)]*\)\s*$/, '').trim() || null
 
 /**
@@ -218,6 +260,9 @@ export function buildProject(obs, facts, ctx = {}) {
   const itemIsWork = classTypes.length > 0 && !host
   Object.assign(p, { year_installed: null, year_completed: null, year_operating_since: null, year_ended: null }, yearsOf(host ? null : f, p.project_type, itemIsWork))
   for (const k of ['year_installed', 'year_completed', 'year_operating_since', 'year_ended']) if (p[k] != null) fs[k] = 'wikidata'
+  // Kind, dates and status (facility | program | festival | exhibition), only from sourced facts.
+  Object.assign(p, scheduleOf({ tour, facts: host ? null : f, projectType: p.project_type, today: ctx.today }))
+  if (p.status_source) fs.status = p.status_source
   p.operating_status = curated?.visit?.status && curated.visit.status !== 'unknown' ? curated.visit.status : p.year_ended && p.year_ended <= (ctx.year ?? 9999) ? 'ended' : null
   if (p.operating_status) fs.operating_status = curated?.visit?.status ? 'curated' : 'wikidata'
 

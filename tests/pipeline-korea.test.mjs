@@ -264,7 +264,7 @@ test('dry run, Korea first: regions on every Korean project, Korean sources firs
   assert.equal(review.country.ok, true)
   assert.ok(review.decisions.every((d) => d.rule && 'region' in d))
   const tour = JSON.parse(await readFile(path.join(dir, 'review/tourapi.json'), 'utf8'))
-  assert.equal(tour.items.length, 5)
+  assert.equal(tour.items.length, 6, 'five keyword hits and one light festival from the festival list')
   for (const f of ['review/http-log.json', 'review/tourapi.json', 'admin-data/report.json']) assert.ok(!(await readFile(path.join(dir, f), 'utf8')).includes(FIXTURE_ENV.TOURAPI_SERVICE_KEY), f + ' never holds the key')
   // Without the key TourAPI is skipped, and the report says why.
   const dir2 = await mkdtemp(path.join(tmpdir(), 'aol-korea-'))

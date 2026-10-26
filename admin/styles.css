@@ -309,3 +309,10 @@ fieldset.field>.field-meta{margin-bottom:4px}
   .cols{grid-template-columns:minmax(0,1fr)}
 }
 @media (prefers-reduced-motion:reduce){.toast{transition:none}}
+
+/* 오류 신고 · 데이터 품질 */
+.kv{display:grid;grid-template-columns:max-content 1fr;gap:4px 12px;margin:8px 0}
+.kv dt{color:var(--text-muted);font-weight:600}
+.kv dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.prewrap{white-space:pre-wrap}
+#qualityBox .tiles,#membersBox .tiles{margin-bottom:16px}

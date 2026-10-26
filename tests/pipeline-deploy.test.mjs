@@ -60,7 +60,7 @@ test('assemble: dist + site-data → data/; admin-data is never published; main 
     }
     assert.ok(!existsSync(path.join(w.site, 'data/stale.json')), 'a data/ folder of the build never mixes with the dataset')
     assert.ok(!existsSync(path.join(w.site, 'data/admin')), 'internal admin data stays on the data branch')
-    assert.deepEqual((await readdir(path.join(w.site, 'data'))).sort(), ['home.json', 'index.json', 'manifest.json', 'projects', 'stats.json'])
+    assert.deepEqual((await readdir(path.join(w.site, 'data'))).sort(), ['home.json', 'index.json', 'manifest.json', 'projects', 'research', 'stats.json'])
     assert.match(await readFile(path.join(w.site, 'robots.txt'), 'utf8'), /^Disallow: \/admin\/\nDisallow: \/data\/admin\/\nSitemap:/m)
     const stamp = JSON.parse(await readFile(path.join(w.site, 'deploy.json'), 'utf8'))
     assert.deepEqual(stamp, { schema: 1, deploy_id: r.deploy_id, build_id: manifest.build_id, dataset: 'data_branch', admin: 'not_published', source: 'aaa', data: 'bbb', at: '2026-10-20T07:00:00.000Z' })
@@ -183,6 +183,64 @@ test('project pages: made from the deployed dataset (never a rejected one), with
   } finally { await rm(w.dir, { recursive: true, force: true }) }
 })
 
+test('research package: the deployed dataset\'s version (latest.json = build id), a change log against the build on main, never a rejected dataset; a published version stays as it is', async () => {
+  const w = await world()
+  try {
+    const manifest = JSON.parse(await readFile(path.join(FIX, 'site-data/manifest.json'), 'utf8'))
+    const A = manifest.build_id
+    const r1 = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site, now: '2026-10-26T01:00:00.000Z' })
+    assert.ok(r1.research_files >= 8)
+    const latest = JSON.parse(await readFile(path.join(w.site, 'data/research/latest.json'), 'utf8'))
+    assert.equal(latest.version, A)
+    for (const f of ['projects.csv', 'projects.json', 'projects.geojson', 'sources.csv', 'images.csv', 'datapackage.json', 'README.md', 'CITATION.txt']) assert.ok(existsSync(path.join(w.site, 'data/research', A, f)), f)
+    assert.ok(!existsSync(path.join(w.site, 'data/research', A, 'CHANGELOG.md')), 'nothing was on main before')
+    assert.equal((await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })).changed, false, 'same inputs, same deploy')
+    // A new build on the data branch: its package has a change log against A; deploying it again changes nothing.
+    const B = A.slice(0, -8) + 'b0b0b0b0'
+    // Every file of a dataset carries its build id.
+    const rebuild = async (id, patch = {}) => {
+      for (const f of ['manifest.json', 'index.json', 'home.json', 'stats.json', ...manifest.files.shards]) {
+        const file = path.join(w.data, 'site-data', f)
+        const j = JSON.parse(await readFile(file, 'utf8'))
+        await writeFile(file, JSON.stringify({ ...j, build_id: id, ...(f === 'manifest.json' ? patch : {}) }))
+      }
+    }
+    await rebuild(B)
+    const r2 = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })
+    assert.equal(r2.changed, true)
+    assert.equal(JSON.parse(await readFile(path.join(w.site, 'data/research/latest.json'), 'utf8')).version, B)
+    assert.match(await readFile(path.join(w.site, 'data/research', B, 'CHANGELOG.md'), 'utf8'), new RegExp(A))
+    assert.ok(!existsSync(path.join(w.site, 'data/research', A)), 'one version in the tree; older ones stay in the history of main')
+    const again = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })
+    assert.equal(again.changed, false, 'the published version (with its change log) is kept as it is')
+    assert.ok(existsSync(path.join(w.site, 'data/research', B, 'CHANGELOG.md')))
+    // A rejected dataset on the data branch: the deployed version stays, the rejected build never gets a package.
+    const C = A.slice(0, -8) + 'c0c0c0c0'
+    await rebuild(C, { counts: { ...manifest.counts, projects: -1 } })
+    const r3 = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })
+    assert.equal(r3.dataset, 'kept_previous')
+    assert.equal(r3.changed, false)
+    assert.ok(!existsSync(path.join(w.site, 'data/research', C)))
+    assert.equal(JSON.parse(await readFile(path.join(w.site, 'data/research/latest.json'), 'utf8')).version, B)
+  } finally { await rm(w.dir, { recursive: true, force: true }) }
+})
+
+test('a dataset published by the previous pipeline version (records without kind and status) still deploys, byte for byte', async () => {
+  const w = await world()
+  try {
+    const manifest = JSON.parse(await readFile(path.join(FIX, 'site-data/manifest.json'), 'utf8'))
+    for (const f of manifest.files.shards) {
+      const file = path.join(w.data, 'site-data', f)
+      const j = JSON.parse(await readFile(file, 'utf8'))
+      await writeFile(file, JSON.stringify({ ...j, projects: j.projects.map(({ kind, start_date, end_date, status, status_source, ...r }) => r) }))
+    }
+    const r = await assemble({ dist: w.dist, dataDir: w.data, siteDir: w.site })
+    assert.equal(r.dataset, 'data_branch', r.dataset_errors.join('; '))
+    const shard = manifest.files.shards[0]
+    assert.deepEqual(await readFile(path.join(w.site, 'data', shard)), await readFile(path.join(w.data, 'site-data', shard)))
+  } finally { await rm(w.dir, { recursive: true, force: true }) }
+})
+
 test('loadDataset checks the whole dataset; robots.txt and the tree id', async () => {
   const ok = await loadDataset(path.join(FIX, 'site-data'))
   assert.equal(ok.ok, true, ok.errors.join('\n'))
@@ -240,6 +298,14 @@ test('verify-live: screens, viewports, detail pick and the summary', async () =>
   assert.equal(g.artist_portrait_visible.length, 1, 'a portrait on the page is reported')
   assert.deepEqual(g.unverified_visible, [])
   assert.equal(imageKey('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Foo_bar.jpg/960px-Foo_bar.jpg'), imageKey('https://upload.wikimedia.org/wikipedia/commons/a/ab/Foo_bar.jpg'))
+  // The place page after the overhaul: portraits inside [data-creator-portrait] are reported apart and are not
+  // forbidden; the main gallery is counted on its own.
+  const portraitUrl = rec.credits.find((c) => c.portrait).portrait.thumb
+  const g2 = galleryCheck(shownUrls.filter((u) => u !== portraitUrl), rec, { portraits: [portraitUrl], gallery: [rec.images[0].display[0][1]] })
+  assert.deepEqual(g2.artist_portrait_visible, [])
+  assert.deepEqual(g2.creator_portraits, { shown: 1, matched: 1 })
+  assert.equal(g2.main_gallery.matched, 1)
+  assert.deepEqual(g2.main_gallery.kinds, { [rec.images[0].kind]: 1 })
   assert.equal(screens('x').find((s) => s.name === 'admin').public, false, 'the admin page may show review vocabulary')
   assert.equal(pickDetail({ hero: [{ project: 'H' }], featured: ['F'] }, null), 'H')
   assert.equal(pickDetail({ hero: [], featured: ['F'] }, null), 'F')

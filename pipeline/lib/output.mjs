@@ -78,7 +78,7 @@ export function pageTitle(page) {
 /** A previously published record in the v0.18 shape (images upgraded, kr_region present). */
 export function upgradeRecord(r) {
   if (!r) return r
-  return { ...r, kr_region: r.kr_region ?? null, images: (r.images || []).map((i) => upgradeImage(i, r.id)) }
+  return { ...r, kr_region: r.kr_region ?? null, kind: r.kind || 'facility', start_date: r.start_date ?? null, end_date: r.end_date ?? null, status: r.status || 'unknown', status_source: r.status_source ?? null, images: (r.images || []).map((i) => upgradeImage(i, r.id)) }
 }
 
 /** The width and height of an image's thumb rendition (from its display list, or the "/<w>px-" of a Commons URL). */
@@ -125,6 +125,12 @@ export function publicRecord(p, { shard, addedAt }) {
     year_operating_since: p.year_operating_since ?? null,
     year_ended: p.year_ended ?? null,
     operating_status: p.operating_status ?? null,
+    // facility | program | festival | exhibition, the dates and the status from them (sourced facts only).
+    kind: p.kind || 'facility',
+    start_date: p.start_date ?? null,
+    end_date: p.end_date ?? null,
+    status: p.status || 'unknown',
+    status_source: p.status_source ?? null,
     building_name: p.building_name ?? null,
     installation_method: null,
     envelope_type: null,
@@ -133,6 +139,8 @@ export function publicRecord(p, { shard, addedAt }) {
     spatial_context: [],
     summary_ko: p.description_ko ?? null,
     summary_en: p.description_en ?? null,
+    // Events and exhibitions at this place from public data (Seoul cultural events): their own dates, status and source.
+    ...(p.events?.length ? { events: p.events } : {}),
     // A creator's portrait (image kind artist_portrait) belongs to the credit it names, never to images[].
     credits: (p.credits || []).map((c) => {
       const portrait = (p.portraits || []).find((i) => i.creator && [c.name, c.name_en].filter(Boolean).includes(i.creator))

@@ -1,7 +1,7 @@
 {
  "broken_links": [
   {
-   "checked_at": "2026-10-20T06:27:13.120Z",
+   "checked_at": "2026-10-20T06:27:17.440Z",
    "consecutive_failures": 1,
    "field": "official_url",
    "http_status": 404,
@@ -10,7 +10,7 @@
    "url": "https://centercity.example/"
   }
  ],
- "build_id": "20261020T061700Z-2c1e202d",
+ "build_id": "20261020T061700Z-cb2cf9ed",
  "coordinate_checks": [
   {
    "distance_m": 6135,
@@ -188,6 +188,11 @@
    "id": "KTO-2900006",
    "project_type": "festival_program",
    "type_source": "tourapi_term"
+  },
+  {
+   "id": "KTO-2900007",
+   "project_type": "festival_program",
+   "type_source": "tourapi_term"
   }
  ],
  "missing_images": [
@@ -201,6 +206,12 @@
    "country_iso2": "KR",
    "id": "KTO-2900006",
    "name": "픽스처 루미나리에 축제",
+   "project_type": "festival_program"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "KTO-2900007",
+   "name": "픽스처 남강 유등축제",
    "project_type": "festival_program"
   },
   {

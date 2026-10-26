@@ -10,6 +10,8 @@
 //  - robots.txt also disallows /data/admin/ (nothing is there any more; old links stay out of search indexes);
 //  - project pages for search engines and link previews (scripts/prerender.mjs): p/<id>/, p/, sitemap.xml and the
 //    aol-static-pages marker in index.html, made from the dataset that is deployed;
+//  - the research data package of the deployed dataset (scripts/research-package.mjs): data/research/<build_id>/ and
+//    data/research/latest.json (a published version is kept as it is);
 //  - deploy.json at the site root names the deploy: {deploy_id, build_id, source, data, at, dataset}. deploy_id is a
 //    hash of the whole tree, so an unchanged deploy leaves main untouched (idempotent) and verify-live can wait for
 //    this exact deploy even when the dataset (build_id) did not change.
@@ -25,7 +27,9 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createHash } from 'node:crypto'
 import { listFiles } from './lib/io.mjs'
 import { checkDataset, checkReport, checkQuality, checkCandidates } from './lib/schema.mjs'
+import { upgradeRecord } from './lib/output.mjs'
 import { prerenderSite } from '../scripts/prerender.mjs'
+import { researchPackage } from '../scripts/research-package.mjs'
 
 /** Entries of main that the deploy never replaces or removes. */
 export const KEEP = ['.git', '.github', 'README.md', '.nojekyll', 'CNAME']
@@ -61,7 +65,10 @@ export async function loadDataset(dir) {
     const s = await get(f)
     if (s) shards[f.slice('projects/'.length, -'.json'.length)] = s
   }
-  if (!errors.length) errors.push(...checkDataset({ manifest, index, home, stats, shards }))
+  // Checked as this pipeline version reads it: a dataset published by the previous version (without the fields added
+  // since, such as kind and status) is upgraded for the check, and deployed byte for byte.
+  const upgraded = Object.fromEntries(Object.entries(shards).map(([k, v]) => [k, { ...v, projects: Array.isArray(v?.projects) ? v.projects.map(upgradeRecord) : v?.projects }]))
+  if (!errors.length) errors.push(...checkDataset({ manifest, index, home, stats, shards: upgraded }))
   return { ok: errors.length === 0, buildId: typeof manifest?.build_id === 'string' ? manifest.build_id : null, files: errors.length ? new Map() : files, errors }
 }
 
@@ -87,6 +94,17 @@ export function robotsWithAdmin(text) {
   lines.forEach((l, i) => { if (/^(Disallow|Allow|User-agent):/i.test(l.trim())) at = i })
   lines.splice(at + 1, 0, 'Disallow: /data/admin/')
   return lines.join('\n')
+}
+
+/** The research package of a build already on main (data/research/<build>/ and latest.json naming it), or null. */
+export async function deployedResearch(siteDir, buildId) {
+  if (!buildId || !/^[0-9A-Za-z-]{6,80}$/.test(buildId)) return null
+  const latest = (await readJSONFile(path.join(siteDir, 'data/research/latest.json'))).value
+  const dir = path.join(siteDir, 'data/research', buildId)
+  if (latest?.version !== buildId || !existsSync(path.join(dir, 'datapackage.json'))) return null
+  const out = await readTree(dir, `data/research/${buildId}/`)
+  out.set('data/research/latest.json', await readFile(path.join(siteDir, 'data/research/latest.json')))
+  return out
 }
 
 /** Hash of a tree (Map relative path → Buffer): the deploy id. */
@@ -137,6 +155,18 @@ export async function assemble({ dist, dataDir, siteDir, sourceSha = null, dataS
       for (const [p, s] of prerenderSite(used.files, tree)) { tree.set(p, Buffer.from(s)); if (/^p\/[^/]+\/index\.html$/.test(p)) pages++ }
     } catch (e) { log(`no project pages: ${e.message}`) }
   }
+  // The research data package (scripts/research-package.mjs) of the deployed dataset: data/research/<build_id>/ and
+  // data/research/latest.json. A version is fixed once published: when main already holds this build's package it is
+  // kept as it is (so its change log stays and an unchanged deploy keeps its id); otherwise it is built, with the
+  // change log against the dataset on main when that is another build.
+  let research = 0
+  if (used) {
+    try {
+      const onMain = old ?? await loadDataset(deployedData)
+      const files = await deployedResearch(siteDir, used.buildId) || researchPackage(used.files, { previous: onMain.ok && onMain.buildId !== used.buildId ? onMain.files : null })
+      for (const [p, s] of files) { tree.set(p, Buffer.isBuffer(s) ? s : Buffer.from(s)); research++ }
+    } catch (e) { log(`no research package: ${e.message}`) }
+  }
   // Admin data is internal: checked (so the summary can say whether it is valid) but never part of the site.
   const freshAdmin = await loadAdmin(dataDir ? path.join(dataDir, 'admin-data') : null)
   const admin = 'not_published', adminErrors = freshAdmin.ok ? [] : freshAdmin.errors
@@ -147,7 +177,7 @@ export async function assemble({ dist, dataDir, siteDir, sourceSha = null, dataS
 
   const deployId = treeId(tree)
   const previous = (await readJSONFile(path.join(siteDir, 'deploy.json'))).value ?? null
-  const result = { deploy_id: deployId, build_id: buildId, dataset, admin, pages, removed_admin: removedAdmin, dataset_errors: datasetErrors.slice(0, 20), admin_errors: adminErrors.slice(0, 20), changed: previous?.deploy_id !== deployId || removedAdmin, files: tree.size + 1 }
+  const result = { deploy_id: deployId, build_id: buildId, dataset, admin, pages, research_files: research, removed_admin: removedAdmin, dataset_errors: datasetErrors.slice(0, 20), admin_errors: adminErrors.slice(0, 20), changed: previous?.deploy_id !== deployId || removedAdmin, files: tree.size + 1 }
   if (!result.changed) { log(`deploy ${deployId} is already on main: nothing to change`); return result }
 
   // Replace main's tree: remove everything but KEEP, then write the new files and deploy.json.
@@ -161,7 +191,7 @@ export async function assemble({ dist, dataDir, siteDir, sourceSha = null, dataS
   }
   const stamp = { schema: 1, deploy_id: deployId, build_id: buildId, dataset, admin, source: sourceSha || null, data: dataSha || null, at: now }
   await writeFile(path.join(siteDir, 'deploy.json'), JSON.stringify(stamp, null, 1) + '\n')
-  log(`deploy ${deployId}: ${tree.size} files, dataset ${dataset}${buildId ? ' ' + buildId : ''}, ${pages} project pages, admin data not published`)
+  log(`deploy ${deployId}: ${tree.size} files, dataset ${dataset}${buildId ? ' ' + buildId : ''}, ${pages} project pages, ${research} research files, admin data not published`)
   return result
 }
 
