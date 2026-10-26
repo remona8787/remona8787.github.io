@@ -231,8 +231,11 @@ for(const viewport of [{width:390,height:844},{width:1440,height:900}])test(`map
  await page.evaluate(()=>currentMap.setView([48.3,14.28],9));
  // Only places near the view are drawn (clusters are rebuilt on every move), so the pins narrow with the view too.
  await expect.poll(async()=>{const m=await mapState(page);return m.count===m.inView&&m.list.join()===m.ids.join()&&m.inView<m.mappable&&m.mappable===mappable.length}).toBe(true);
- // Explore shows the same results; the map shows the part with coordinates.
+ // Explore shows the same results; the map shows the part with coordinates. (Coming from the world map the search
+ // opens on 세계, v0.18; 전체 is every result.)
  await page.goto('/#explore');
+ await expect(page.locator('.search-scope [data-scope-set="world"]')).toHaveAttribute('aria-checked','true');
+ await page.locator('.search-scope [data-scope-set="all"]').click();
  expect(await count(page)).toBe((await curatedCount(page))+listed.length);
 });
 

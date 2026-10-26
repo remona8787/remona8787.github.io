@@ -42,3 +42,33 @@ test('a keyword search keeps the best match on top; Korean results lead among eq
  const r=X.search(ps,{q:'media wall'},today,{krFirst:true}).map(p=>p.place_id);
  assert.deepEqual(r.slice(0,2).sort(),['K1','K2']);assert.deepEqual(r.slice(2),['F3','F1'],'then the foreign match, then a passing mention');
 });
+// v0.18 forgiving search: spaces, Hangul being typed, one-letter slips; guesses only when nothing matches.
+test('search ignores spaces and finds a Hangul syllable still being typed',()=>{
+ const a={...p,place_id:'A',name_kr:'동대문 디자인 플라자',name_en:'Dongdaemun Design Plaza'},b={...p,place_id:'B',name_kr:'롯데월드타워',name_en:'Lotte World Tower',artist:''};
+ const ids=q=>X.search([a,b],{q},today).map(x=>x.place_id);
+ assert.deepEqual(ids('동대문디자인'),['A']);
+ assert.deepEqual(ids('롯데월드 타워'),['B']);
+ assert.deepEqual(ids('롯데워'),['B'],'a syllable being typed');
+ assert.deepEqual(ids('롯데월ㄷ'),['B'],'a lone consonant being typed');
+ assert.equal(X.search([a,b],{q:'롯데워'},today).fuzzy,undefined,'not a guess');
+});
+test('one-letter slips are forgiven only when nothing matches, and are reported',()=>{
+ const a={...p,place_id:'A',name_kr:'아르스 일렉트로니카 센터',name_en:'Ars Electronica Center',artist:''},b={...p,place_id:'B',name_kr:'리옹 빛의 축제',name_en:'Fête des Lumières Lyon',artist:''},c={...p,place_id:'C',name_kr:'라이언 타워',name_en:'Lion Tower',artist:''};
+ const run=q=>X.search([a,b,c],{q},today);
+ for(const q of ['electornica','elektronica','electronca','electronicaa','Electrnica'])assert.deepEqual(run(q).map(x=>x.place_id),['A'],q);
+ assert.deepEqual(run('electornica').fuzzy,[{word:'electornica',as:['electronica']}]);
+ // An exact match exists: no guessing ("lyon" never brings "lion").
+ assert.deepEqual(run('lyon').map(x=>x.place_id),['B']);
+ assert.equal(run('lyon').fuzzy,undefined);
+ assert.deepEqual(run('lumieres').map(x=>x.place_id),['B'],'accents are folded by the slip rule too');
+ // Too short or with digits: never guessed.
+ assert.equal(run('lyx').length,0);
+ assert.deepEqual(run('lyox').map(x=>x.place_id),['B'],'four letters are enough');
+ assert.equal(run('t4t5').length,0);
+ // Hangul: one jamo slip in a longer word.
+ assert.deepEqual(run('일렉트로니까').map(x=>x.place_id),['A']);
+ assert.deepEqual(run('라이온타워').map(x=>x.place_id),['C']);
+});
+test('near1 is Damerau–Levenshtein distance at most one',()=>{
+ for(const [a,b,ok] of [['abcd','abcd',true],['abcd','abed',true],['abcd','abd',true],['abcd','abcde',true],['abcd','bacd',true],['abcd','badc',false],['abcd','ab',false],['abcd','xbcy',false]])assert.equal(X.near1(a,b),ok,a+' '+b);
+});

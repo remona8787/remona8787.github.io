@@ -110,6 +110,7 @@ export function record([id, ko, en, orig, iso, city, lat, lng, type, year, kinds
     country_iso2: iso, city, lat, lng, project_type: type, year_installed: year, year_completed: null, operating_status: x.visit?.status || null,
     installation_method: x.method || null, envelope_type: x.envelope || null, technologies: x.technologies || [], content_types: [],
     credits: (x.credits || []).map(([role, name]) => ({ role, name })), curated_place_id: x.curated || null, ...(iso === 'KR' ? { kr_region: x.kr || null } : {}),
+    ...(KR_PLACE[id] ? { city_ko: KR_PLACE[id][0], ...(KR_PLACE[id][1] ? { district: KR_PLACE[id][1] } : {}) } : {}),
     summary_ko: `${ko}: 시험용 요약 문장입니다. 실제 기록이 아닙니다.`, summary_en: `${en}: a test summary sentence, not a real record.`,
     wikidata: null, official_url: null,
     images, videos: x.video ? [{ src: `https://upload.wikimedia.org/wikipedia/commons/${'a'}/${'a1'}/Fixture_${id}_video.webm`, poster: images[0]?.thumb || null, page: `https://commons.wikimedia.org/wiki/File:Fixture_${id}_video.webm`, license: 'CC BY-SA 4.0', license_url: 'https://creativecommons.org/licenses/by-sa/4.0', author: 'Fixture Videographer', role: 'media_active' }] : [],
@@ -121,7 +122,10 @@ export function record([id, ko, en, orig, iso, city, lat, lng, type, year, kinds
 }
 // The card image: the best tier, and never a context photo while a media-active one exists (the pipeline's rule).
 const best = r => [...r.images].sort((a, b) => a.tier - b.tier)[0] || null
-export const INDEX_FIELDS = ['id', 'name_ko', 'name_en', 'name_original', 'country_iso2', 'city', 'lat', 'lng', 'project_type', 'year', 'thumb', 'visual_rank', 'shard', 'added_at', 'kr_region', 'thumb_w', 'thumb_h']
+export const INDEX_FIELDS = ['id', 'name_ko', 'name_en', 'name_original', 'country_iso2', 'city', 'lat', 'lng', 'project_type', 'year', 'thumb', 'visual_rank', 'shard', 'added_at', 'kr_region', 'thumb_w', 'thumb_h', 'city_ko', 'district']
+// Korean city names and districts (시·군·구) of some Korean projects, for the drill-down of a region page (v0.18). The
+// others have none, as in the live data, and count under 위치 미상.
+const KR_PLACE = { 'seoul-square-media-canvas': ['서울', '중구'], 'lotte-world-tower-facade': ['서울', '송파구'], 'coex-kpop-square-wave': ['서울', '강남구'], 'gwangan-bridge-lights': ['부산', '수영구'], 'haeundae-light-festival': ['부산', '해운대구'], 'jinju-namgang-yudeung': ['진주시', null] }
 const REGION = { AT: 'europe', DE: 'europe', FR: 'europe', NL: 'europe', GB: 'europe', ES: 'europe', IS: 'europe', CZ: 'europe', RU: 'europe', AE: 'middle_east', EG: 'africa', US: 'north_america', CA: 'north_america', MX: 'latin_america', BR: 'latin_america', AU: 'oceania', HK: 'east_asia', SG: 'southeast_asia', JP: 'east_asia', CN: 'east_asia', KR: 'east_asia' }
 export const KR_REGIONS = ['seoul', 'gyeonggi_incheon', 'gangwon', 'daejeon_sejong_chungcheong', 'gwangju_jeolla', 'daegu_gyeongbuk', 'busan_ulsan_gyeongnam', 'jeju']
 const FACADE = ['media_facade', 'projection_mapping', 'urban_screen', 'media_wall']
@@ -144,7 +148,7 @@ export function siteData(input, { buildId = BUILD_ID, generatedAt = at, compact 
   const count = (f, list = records) => list.reduce((o, r) => { const k = f(r); if (k) o[k] = (o[k] || 0) + 1; return o }, {})
   const shards = Array.from({ length: n }, (_, i) => String(i).padStart(3, '0')).filter(s => records.some(r => r.shard === s))
   const rank = b => !b ? null : shape === 'v17' ? b.tier : RANK[b.tier]
-  const index = { schema: 1, fields: shape === 'v17' ? INDEX_FIELDS.slice(0, 14) : INDEX_FIELDS, ...(compact ? { thumb_template: THUMB_TEMPLATE } : {}), rows: records.map(r => { const b = best(r); const row = [r.id, r.name_ko, r.name_en, r.name_original, r.country_iso2, r.city, r.lat, r.lng, r.project_type, r.year_installed, b ? (compact ? compactThumb(b.thumb) : b.thumb) : null, rank(b), r.shard, r.added_at.slice(0, 10)]; return shape === 'v17' ? row : [...row, r.kr_region ?? null, b ? 500 : null, b ? Math.round(500 * b.height / b.width) : null] }) }
+  const index = { schema: 1, fields: shape === 'v17' ? INDEX_FIELDS.slice(0, 14) : INDEX_FIELDS, ...(compact ? { thumb_template: THUMB_TEMPLATE } : {}), rows: records.map(r => { const b = best(r); const row = [r.id, r.name_ko, r.name_en, r.name_original, r.country_iso2, r.city, r.lat, r.lng, r.project_type, r.year_installed, b ? (compact ? compactThumb(b.thumb) : b.thumb) : null, rank(b), r.shard, r.added_at.slice(0, 10)]; return shape === 'v17' ? row : [...row, r.kr_region ?? null, b ? 500 : null, b ? Math.round(500 * b.height / b.width) : null, r.city_ko ?? null, r.district ?? null] }) }
   const active = i => shape === 'v17' ? i.tier <= 3 : i.tier <= 4 && i.role !== 'context'
   const large = i => (i.width || 0) >= 1600
   const lit = records.filter(r => best(r) && active(best(r)))
