@@ -265,3 +265,27 @@ test('never a project: items of settlement, administrative-area and Wikimedia-ev
   assert.deepEqual(neverProject({ qid: 'Q96756894', name_en: '2026', p31_labels: ['time-based media'] }, ctx({})), [], 'a work titled with a year (a video by Maha Maamoun)')
   assert.deepEqual(neverProject({ name_en: '2026', commons_category: 'Category:2026' }, ctx({})), ['name:date_category:bare_year'], 'a category named after a year')
 })
+
+test('relations: the record\'s own (P361, P179, P276), its events, and the editions and parts merged into it', async () => {
+  const { relationsOf } = await import('../pipeline/lib/relations.mjs')
+  const published = [
+    { id: 'Q1', qid: 'Q1', name_en: 'Lotus Lantern Festival', kind: 'festival', commons_category: 'Category:Lotus Lantern Festival' },
+    { id: 'Q2', qid: 'Q2', name_en: 'Lotus Lantern Festival 2024', kind: 'festival' },
+    { id: 'Q3', qid: 'Q3', name_en: 'Fixture Hall', kind: 'facility', events: [{ id: 'SEV-ABCDEFG', kind: 'event', title: 'Night show' }] },
+    { id: 'Q4', qid: 'Q4', qid_match: 'host', name_en: 'Host building', kind: 'festival' },
+  ]
+  const facts = new Map([['Q2', { series: ['Q1'], locations: ['Q3'], part_of: [] }], ['Q4', { part_of: ['Q1'] }]])
+  const categories = new Map([
+    ['a', { title: 'Category:2005 Lotus Lantern Festival (Seoul)', decision: 'edition', parent: null }],
+    ['b', { title: 'Category:Lotus Lantern Festival at night', decision: 'part', parent: 'Category:Lotus Lantern Festival' }],
+    ['c', { title: 'Category:2009 Light Festival, Jerusalem', decision: 'edition', parent: null }],
+  ])
+  const placeDecisions = [{ outcome: 'part_of_project', part_of: 'Q1', name: 'Jogyesa during the Lotus Lantern Festival', category: 'Category:Jogyesa during the Lotus Lantern Festival' }, { outcome: 'part_of_project', part_of: 'Q9', name: 'Gone' }]
+  const r = relationsOf({ published, facts, categories, placeDecisions })
+  assert.deepEqual(r.get('Q2'), [{ type: 'event_at', target: 'Q3', source: 'wikidata:P276' }, { type: 'edition_of', target: 'Q1', source: 'wikidata:P179' }])
+  assert.deepEqual(r.get('Q3'), [{ type: 'event_at', target: 'Q3', source: 'seoul_events', subject: { event: 'SEV-ABCDEFG', title: 'Night show' } }])
+  assert.deepEqual(r.get('Q1').map((x) => [x.type, x.subject.name]), [['part_of', 'Jogyesa during the Lotus Lantern Festival'], ['edition_of', '2005 Lotus Lantern Festival (Seoul)']])
+  assert.ok(!r.has('Q4'), "a host building's statements are not the work's")
+  assert.ok(![...r.values()].flat().some((x) => x.subject?.name === '2009 Light Festival, Jerusalem'), 'a generic name never matches')
+  assert.ok(![...r.values()].flat().some((x) => x.subject?.name === 'Lotus Lantern Festival at night'), 'a view is not an edition')
+})

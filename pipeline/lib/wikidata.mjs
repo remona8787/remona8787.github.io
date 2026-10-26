@@ -534,6 +534,10 @@ export function factsOf(entity, auxMap, { cityPattern, originalLanguageByCountry
     p131: [...(c.P131 || []), ...(c.P276 || [])].map((v) => v.item).filter(Boolean),
     p31_labels: (c.P31 || []).map((v) => auxName(v.item)).filter(Boolean),
     p301: (c.P301 || []).map((v) => v.item).filter(Boolean),
+    // Relations (lib/relations.mjs): part of (P361), part of the series (P179: an edition), location (P276).
+    part_of: (c.P361 || []).map((v) => v.item).filter(Boolean),
+    series: (c.P179 || []).map((v) => v.item).filter(Boolean),
+    locations: (c.P276 || []).map((v) => v.item).filter(Boolean),
     state_of_use: (c.P5817 || []).map((v) => auxName(v.item)).filter(Boolean),
     sitelinks,
   }

@@ -352,6 +352,18 @@ test('field confidence: sourced, inferred, editorial or unknown per field, from 
   }
 })
 
+test('relations: an edition at a building, a festival part of another, editions merged in, events of a place', needSharp, async () => {
+  const { data } = await firstRun()
+  const rel = (id) => data.records.get(id).relations
+  assert.deepEqual(rel('Q99000721'), [{ type: 'event_at', target: 'Q99000103', source: 'wikidata:P276' }, { type: 'edition_of', target: 'Q99000722', source: 'wikidata:P179' }])
+  assert.deepEqual(rel('Q99000506'), [{ type: 'part_of', target: 'Q99000502', source: 'wikidata:P361' }])
+  assert.deepEqual(rel('Q4167').map((x) => [x.type, x.subject.commons_category]), [['edition_of', 'Category:Fête des Lumières 2015']])
+  assert.equal(rel('SEOUL006')[0].type, 'exhibition_at')
+  assert.equal(rel('SEOUL006')[0].subject.event, data.records.get('SEOUL006').events[0].id)
+  assert.deepEqual(rel('Q7715933'), [], 'no relation: an empty list')
+  assert.equal(data.records.get('Q99000721').kind, 'festival', 'records keep their kind')
+})
+
 test('contact sheets show real pictures on every run, also when the measurements come from the cache', needSharp, async () => {
   const { dir } = await firstRun()
   const first = JSON.parse(await readFile(path.join(dir, 'review/contact-sheets/index.json'), 'utf8'))

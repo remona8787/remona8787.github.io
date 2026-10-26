@@ -376,6 +376,28 @@ facade designer) and `coordinates`, each one of:
 
 A record of an earlier build is read the same way from its own fields when it is carried over or checked at deploy.
 
+### Relations
+
+Every shard record has `relations[]` (`lib/relations.mjs`; empty when there are none). Records keep their `kind`; there
+are no new record types yet. Each relation is `{type, target, source, subject?}`: `type` is `event_at`,
+`exhibition_at`, `part_of` or `edition_of`, and `target` is the id of a published record (checked across the dataset).
+
+- Without `subject`, the record itself is related to `target` (never itself), from its own item's statements:
+  P361 part of → `part_of`, P179 part of the series → `edition_of`, P276 location of a festival or programme →
+  `event_at` (of an exhibition → `exhibition_at`). A host building's statements are not the work's.
+- With `subject`, it describes a thing kept inside this record, and `target` is this record: the relation it keeps when
+  it becomes a record of its own.
+  - An event of `events[]` (Seoul cultural events): `event_at` / `exhibition_at`, `subject: {event, title}`, source
+    `seoul_events`.
+  - An edition merged into a festival: a Commons edition category under the festival's category or named after it
+    (`commons:edition_category`), or a dated subcategory of the festival's own category (`commons:dated_subcategory`):
+    `edition_of`, `subject: {name, commons_category}`. A view ("at night") is not an edition.
+  - An edition or part that the country recovery kept out because its name holds the project's whole distinctive name
+    (`part_of_project`): `edition_of` when the name is dated, else `part_of` (`commons:name_contains_project`).
+
+A carried-over record keeps only the relations to records of the new dataset. P361 and P179 are read once the cached
+entities expire (72 hours after this version's first run).
+
 ## 6. Images
 
 Korean projects first; every image belongs to one project and is proven to show it.

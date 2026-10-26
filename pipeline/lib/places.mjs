@@ -265,7 +265,7 @@ export async function recoverPlaces(client, projects, { cache, cfg = {}, ttl = {
     // An edition or a work of a known project is that project's, not a new one (its photos stay in that project).
     const parent = d.outcome === 'recovered' ? partOf(p, known) : null
     if (parent) d = { ...d, country: null, outcome: 'part_of_project', reason: 'part of ' + parent }
-    const entry = { id: p.id, qid: p.qid || null, name: p.name_en || p.name_ko || p.name_original, category: cat, before, outcome: d.outcome, country: d.country || null, rule: d.rule || null, votes: d.votes, reason: d.reason || null, geotags: geo ? { n: geo.n, countries: geo.countries, center: geo.center } : null, evidence, corroborated: !!(weak && d.country && weak.country === d.country) }
+    const entry = { id: p.id, qid: p.qid || null, name: p.name_en || p.name_ko || p.name_original, category: cat, before, outcome: d.outcome, ...(parent ? { part_of: parent } : {}), country: d.country || null, rule: d.rule || null, votes: d.votes, reason: d.reason || null, geotags: geo ? { n: geo.n, countries: geo.countries, center: geo.center } : null, evidence, corroborated: !!(weak && d.country && weak.country === d.country) }
     if (d.outcome === 'recovered') {
       const src = { parent_category: 'derived:commons_parent_category', parent_item: 'derived:commons_parent_category', category_name: 'derived:commons_category_name', file_geotags: 'derived:commons_file_geotags', coordinates: 'derived:coordinates_in_borders' }[d.rule] || 'derived:commons_parent_category'
       p.field_sources = { ...(p.field_sources || {}) }

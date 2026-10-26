@@ -161,4 +161,12 @@ test('manifest, stats and the whole dataset check together', () => {
   const broken = { ...files, shards: { ...files.shards, [shards[0]]: { ...files.shards[shards[0]], projects: files.shards[shards[0]].projects.slice(1) } } }
   assert.ok(checkDataset(broken).some((e) => e.includes('not in shard')))
   assert.ok(checkManifest({ ...files.manifest, sources: { wikidata: { status: 'weird' } } }).length > 0)
+  // Relations name published records only; a record is never related to itself without a subject.
+  const s0 = files.shards[shards[0]], [a, b] = s0.projects
+  const withRel = (rels) => ({ ...files, shards: { ...files.shards, [shards[0]]: { ...s0, projects: [{ ...a, relations: rels }, ...s0.projects.slice(1)] } } })
+  assert.deepEqual(checkDataset(withRel([{ type: 'part_of', target: b.id, source: 'wikidata:P361' }, { type: 'edition_of', target: a.id, source: 'commons:edition_category', subject: { name: 'X 2015', commons_category: 'Category:X 2015' } }])), [])
+  assert.ok(checkDataset(withRel([{ type: 'part_of', target: 'Q404', source: 'wikidata:P361' }])).some((e) => e.includes('not published')))
+  assert.ok(checkDataset(withRel([{ type: 'part_of', target: a.id, source: 'wikidata:P361' }])).some((e) => e.includes('not related to itself')))
+  assert.ok(checkDataset(withRel([{ type: 'located_in', target: b.id, source: 'x' }])).some((e) => e.includes('relations[0].type')))
+  assert.deepEqual(upgradeRecord({ ...a, relations: undefined }).relations, [], 'an earlier record has no relations')
 })
