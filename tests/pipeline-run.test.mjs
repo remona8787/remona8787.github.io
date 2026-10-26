@@ -247,6 +247,54 @@ test('institution files: a curated place never inherits its museum, tower or dis
   assert.ok(first.result.report.images.institution_context >= 6)
 })
 
+test('people and kinds: the artist\'s portrait is in his credit only, people never in a gallery, every image has a kind and a title', needSharp, async () => {
+  const { dir, data } = await firstRun()
+  const bay = data.records.get('Q7715933')
+  const titles = bay.images.map((i) => i.title)
+  for (const t of ['Leo Villareal at The Bay Lights opening 2013', 'Visitors at the Embarcadero 2014', 'Embarcadero evening walk 2015', 'Bay Bridge sunset 2016']) assert.ok(!titles.includes(t), t)
+  const leo = bay.credits.find((c) => c.name === 'Leo Villareal')
+  assert.equal(leo.portrait?.kind, 'artist_portrait')
+  assert.equal(leo.portrait.title, 'Leo Villareal at The Bay Lights opening 2013')
+  const tech = bay.images.find((i) => i.title === 'The Bay Lights LED modules installation work 2012')
+  assert.equal(tech?.kind, 'technical_documentation')
+  assert.ok(!['card', 'hero', 'featured'].includes(tech.role))
+  const review = JSON.parse(await readFile(path.join(dir, 'review/images.json'), 'utf8')).projects.find((p) => p.project === 'Q7715933')
+  const why = (re) => review.candidates.find((c) => re.test(c.key)).reasons
+  assert.ok(why(/^Visitors at/).includes('subject:person:visitors'))
+  assert.ok(why(/^Embarcadero evening/).includes('subject:person:depicts_human'), 'structured data says it depicts a human')
+  assert.ok(why(/^Bay Bridge sunset/).some((r) => r.startsWith('subject:person:category')))
+  for (const r of data.records.values()) {
+    for (const i of r.images) {
+      assert.ok(['project_media', 'project_installation', 'architecture_context', 'technical_documentation', 'event_documentation'].includes(i.kind), `${r.id} ${i.id} ${i.kind}`)
+      assert.ok(i.title, `${r.id} ${i.id} title`)
+      assert.ok(typeof i.commercial_use === 'boolean' || i.commercial_use === null)
+      if (i.provider === 'tourapi') assert.ok([1, 3].includes(i.kogl_type), 'KOGL type 1 or 3 only')
+    }
+  }
+})
+
+test('image audit: counted from the records, the previous dataset and the decisions (first and second run)', needSharp, async () => {
+  const { dir, data, result } = await firstRun()
+  const audit = JSON.parse(await readFile(path.join(dir, 'review/image-audit.json'), 'utf8'))
+  const images = [...data.records.values()].reduce((s, r) => s + r.images.length, 0)
+  assert.equal(audit.summary.images, images)
+  assert.equal(audit.summary.portraits, [...data.records.values()].reduce((s, r) => s + r.credits.filter((c) => c.portrait).length, 0))
+  assert.equal(audit.summary.newly_added_valid, images, 'a first run adds every image')
+  assert.equal(audit.summary.previous_images, 0)
+  assert.ok(audit.summary.person_rejected >= 6 && audit.summary.mislinked_rejected >= 4)
+  const valid = [...data.records.values()].filter((r) => r.images.some((i) => ['card', 'featured', 'hero'].includes(i.role) && ['project_media', 'project_installation', 'architecture_context'].includes(i.kind))).length
+  assert.equal(audit.summary.cards.all.with_valid_card, valid)
+  assert.equal(audit.projects.length, data.records.size)
+  assert.deepEqual(result.report.image_audit, audit.summary)
+  // A second run over the published dataset: what it keeps and what it removes is counted against the first.
+  const copy = await tmp()
+  await cp(dir, copy, { recursive: true })
+  await run(copy, { start: START + 6 * HOUR })
+  const second = JSON.parse(await readFile(path.join(copy, 'review/image-audit.json'), 'utf8'))
+  assert.equal(second.summary.previous_images, images)
+  assert.equal(second.summary.removed_total + (second.summary.images - second.summary.newly_added_valid), images)
+})
+
 test('contact sheets show real pictures on every run, also when the measurements come from the cache', needSharp, async () => {
   const { dir } = await firstRun()
   const first = JSON.parse(await readFile(path.join(dir, 'review/contact-sheets/index.json'), 'utf8'))

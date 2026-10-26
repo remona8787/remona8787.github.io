@@ -273,3 +273,18 @@ test('dry run, Korea first: regions on every Korean project, Korean sources firs
   assert.equal(r2.report.sources.tourapi.status, 'skipped')
   assert.equal(r2.report.sources.tourapi.reason, 'TOURAPI_SERVICE_KEY not set')
 })
+
+test('시·군·구 for the drill-down: city and district from an address or the administrative chain, never guessed', async () => {
+  const { koreanPlaceOf, krPlaceFromChain } = await import('../pipeline/lib/korea.mjs')
+  assert.deepEqual(koreanPlaceOf('서울특별시 송파구 올림픽로 300'), { city_ko: '서울특별시', district: '송파구' })
+  assert.deepEqual(koreanPlaceOf('부산광역시 기장군 기장읍 기장해안로 147'), { city_ko: '부산광역시', district: '기장군' })
+  assert.deepEqual(koreanPlaceOf('경기도 수원시 팔달구 정조로 825'), { city_ko: '수원시', district: '팔달구' })
+  assert.deepEqual(koreanPlaceOf('강원특별자치도 평창군 대관령면'), { city_ko: '평창군', district: null })
+  assert.deepEqual(koreanPlaceOf('제주특별자치도 제주시 첨단로 1'), { city_ko: '제주시', district: null })
+  assert.deepEqual(koreanPlaceOf('Seoul, Jung-gu'), { city_ko: null, district: null })
+  assert.deepEqual(koreanPlaceOf(''), { city_ko: null, district: null })
+  const aux = new Map([['Q1', { ko: '해운대구', p131: ['Q2'] }], ['Q2', { ko: '부산광역시', p131: ['Q3'] }], ['Q3', { ko: '대한민국', p131: [] }], ['Q4', { ko: '평창군', p131: ['Q5'] }], ['Q5', { ko: '강원특별자치도', p131: [] }], ['Q6', { ko: null, p131: [] }]])
+  assert.deepEqual(krPlaceFromChain(['Q1'], aux), { city_ko: '부산광역시', district: '해운대구', via: 'p131' })
+  assert.deepEqual(krPlaceFromChain(['Q4'], aux), { city_ko: '평창군', district: null, via: 'p131' })
+  assert.deepEqual(krPlaceFromChain(['Q6'], aux), { city_ko: null, district: null, via: null })
+})

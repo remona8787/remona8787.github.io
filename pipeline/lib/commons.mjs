@@ -171,6 +171,27 @@ export async function depictsFiles(client, qid, { limit = 30, cache, ttlHours = 
 }
 
 /**
+ * What the files' structured data says they depict (P180 statements of their MediaInfo entities), 50 files per
+ * wbgetentities request by title, cached per file: Map(file → [qid…]). Used to keep photos of people out of galleries.
+ */
+export async function fileDepictsStatements(client, files, { cache, ttlHours = 720, stage = 'images' } = {}) {
+  const out = new Map(), want = []
+  for (const f of uniq(files.map(bareFile))) { const hit = cache?.fresh('commons-file-depicts', f); if (hit !== undefined) out.set(f, hit); else want.push(f) }
+  for (const group of chunk(want, 50)) {
+    const json = await client.json(api({ action: 'wbgetentities', sites: 'commonswiki', titles: group.map((f) => 'File:' + f).join('|'), props: 'claims' }), { stage })
+    const got = new Map(group.map((f) => [f, []]))
+    for (const e of Object.values(json?.entities || {})) {
+      const f = bareFile(String(e?.title || ''))
+      if (!got.has(f)) continue
+      const st = e.statements || e.claims || {}
+      got.set(f, uniq((st.P180 || []).map((x) => x?.mainsnak?.datavalue?.value?.id).filter((q) => /^Q[1-9]\d*$/.test(String(q)))))
+    }
+    for (const [f, qs] of got) { out.set(f, qs); cache?.set('commons-file-depicts', f, qs, { ttlMs: ttlHours * HOUR }) }
+  }
+  return out
+}
+
+/**
  * Category discovery: searches and walks. Returns {categories: Map(title → {info, decision, reason, root, parent,
  * project_type, place_hint, night_subcats[], editions[], korea}), errors, partial}.
  * Korea first: the Korean searches (config.korea_search: Korean terms, and English terms together with a Korean place

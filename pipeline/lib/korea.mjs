@@ -183,6 +183,40 @@ export function p131Chain(entityP131, auxMap, maxDepth = 6) {
  * @param {any} p built project (country_iso2, curated_id, address, district, city, city_ko, tourapi?, editorial edits applied)
  * @param {{facts?: any, auxMap?: Map<string, any>, confirmed?: Map<string, string>, gaz: any, cfg: any}} ctx
  */
+/**
+ * The Korean city (시, a 도's 군, or the 특별시/광역시 itself) and district (구, or a 광역시's 군) named by an address
+ * ("서울특별시 송파구 올림픽로 300" → 서울특별시 / 송파구; "경기도 수원시 팔달구 …" → 수원시 / 팔달구; "강원특별자치도
+ * 평창군 …" → 평창군 / null). Nothing is inferred from anything but the address's own administrative names.
+ */
+export function koreanPlaceOf(address) {
+  const t = String(address || '').trim().split(/\s+/).filter(Boolean)
+  const metro = /^\S+(특별시|광역시|특별자치시)$/
+  const province = /^\S+(도|특별자치도)$/
+  let i = 0
+  if (province.test(t[0] || '') && !metro.test(t[0] || '')) i = 1
+  const a = t[i] || '', b = t[i + 1] || ''
+  if (metro.test(a)) return { city_ko: a, district: /^\S+(구|군)$/.test(b) ? b : null }
+  if (/^\S+시$/.test(a)) return { city_ko: a, district: /^\S+구$/.test(b) ? b : null }
+  if (/^\S+군$/.test(a)) return { city_ko: a, district: null }
+  return { city_ko: null, district: null }
+}
+
+/**
+ * City and district of a Korean project from its administrative chain (P131, or the event's P276, upwards): the
+ * Korean labels of the chain's 구/군 and 시 (or 특별시/광역시). {city_ko, district, via} with nulls when unknown.
+ */
+export function krPlaceFromChain(entityP131, auxMap) {
+  const labels = p131Chain(entityP131 || [], auxMap).map((q) => ({ q, ko: auxMap.get(q)?.ko || '' })).filter((x) => x.ko)
+  const metro = labels.find((x) => /(특별시|광역시|특별자치시)$/.test(x.ko))
+  const si = labels.find((x) => /시$/.test(x.ko) && !/(특별시|광역시|특별자치시)$/.test(x.ko))
+  const gu = labels.find((x) => /구$/.test(x.ko))
+  const gun = labels.find((x) => /군$/.test(x.ko))
+  if (metro) return { city_ko: metro.ko, district: gu?.ko || gun?.ko || null, via: 'p131' }
+  if (si) return { city_ko: si.ko, district: gu?.ko || null, via: 'p131' }
+  if (gun) return { city_ko: gun.ko, district: null, via: 'p131' }
+  return { city_ko: null, district: null, via: null }
+}
+
 export function krRegionOf(p, { facts = null, auxMap = new Map(), confirmed = new Map(), gaz, cfg }) {
   if (p.country_iso2 !== 'KR') return { region: null, rule: 'not_korea' }
   if (p.kr_region_edit !== undefined) return { region: KR_REGIONS.includes(p.kr_region_edit) ? p.kr_region_edit : null, rule: 'editorial' }

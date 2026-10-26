@@ -29,7 +29,7 @@ import { createClient, USER_AGENT } from './lib/net.mjs'
 import { Cache, HOUR } from './lib/cache.mjs'
 import { readJSON, writeJSON, writeFileAtomic, swapDir, listFiles } from './lib/io.mjs'
 import { discoverClasses, addClassCounts, classInstances, countryClassInstances, fetchEntities, fetchAux, auxRefs, auxNext, factsOf } from './lib/wikidata.mjs'
-import { compileGazetteer, discoverKrDivisions, krRegionOf, KR_REGIONS } from './lib/korea.mjs'
+import { compileGazetteer, discoverKrDivisions, krRegionOf, koreanPlaceOf, krPlaceFromChain, KR_REGIONS } from './lib/korea.mjs'
 import { discoverTourApi, tourObservation } from './lib/tourapi.mjs'
 import { discoverCategories, categoryRules, nightParent } from './lib/commons.mjs'
 import { discoverWikipedia, acceptEntity } from './lib/wikipedia.mjs'
@@ -40,6 +40,7 @@ import { loadSeed, seedObservations } from './lib/seed.mjs'
 import { clusterObservations, mergeByNameAndUrl, buildProject, eligibility, newId } from './lib/entities.mjs'
 import { imageStage } from './lib/image-stage.mjs'
 import { writeContactSheets, SHEET_ABOUT } from './lib/contact-sheet.mjs'
+import { imageAudit, auditSummary } from './lib/image-audit.mjs'
 import { loadEditorial, compileEditorial, heroAllowSet, applyToProject, finishLog } from './lib/editorial.mjs'
 import { publicRecord, buildIndex, buildHome, buildStats, buildManifest, shardCount, shardOf, contentHash, upgradeRecord } from './lib/output.mjs'
 import { checkDataset, checkReport, checkQuality, checkCandidates } from './lib/schema.mjs'
@@ -390,7 +391,17 @@ export async function runPipeline(o) {
     const kr = krRegionOf(p, { facts: p.qid ? facts.get(p.qid) : null, auxMap, confirmed: krDiv?.confirmed || new Map(), gaz, cfg: KC })
     p.kr_region = kr.region
     if (kr.region) p.field_sources = { ...(p.field_sources || {}), kr_region: { editorial: 'editorial', curated_seoul: 'curated', p131: 'wikidata', p131_labels: 'wikidata', tourapi_ldong: 'tourapi', tourapi_areacode: 'tourapi' }[kr.rule] || 'derived:gazetteer' }
-    if (p.country_iso2 === 'KR') krDecisions.push({ id: p.id, qid: p.qid || null, name: p.name_ko || p.name_en || p.name_original, ...kr })
+    if (p.country_iso2 === 'KR') {
+      krDecisions.push({ id: p.id, qid: p.qid || null, name: p.name_ko || p.name_en || p.name_original, ...kr })
+      // 시·군·구 for the drill-down: the administrative chain's Korean labels, else the address; never guessed.
+      const chain = p.qid && facts.get(p.qid) ? krPlaceFromChain(facts.get(p.qid).p131, auxMap) : { city_ko: null, district: null }
+      const addr = koreanPlaceOf(p.address || p.tourapi?.addr1 || '')
+      p.field_sources = { ...(p.field_sources || {}) }
+      if (!p.city_ko && (chain.city_ko || addr.city_ko)) { p.city_ko = chain.city_ko || addr.city_ko; p.field_sources.city_ko = chain.city_ko ? 'derived:p131_chain' : 'derived:address' }
+      if (!p.district && (chain.district || addr.district) && (!chain.city_ko || !addr.city_ko || chain.city_ko === addr.city_ko || !chain.district)) {
+        p.district = chain.district || addr.district; p.field_sources.district = chain.district ? 'derived:p131_chain' : 'derived:address'
+      }
+    }
     const p31 = uniq((p.all_qids || [p.qid]).flatMap((q) => entityP31.get(q) || []))
     const blocked = p31.filter((q) => blockActive.has(q))
     if (exclude && !p.curated_id) for (const l of p.p31_labels || []) if (exclude.test(l) && !(p.origins.includes('wikidata_class') && p.class_publish)) blocked.push('class_label:' + l)
@@ -417,7 +428,7 @@ export async function runPipeline(o) {
   await st.run('images', async () => {
     imageOut_ = await imageStage({ client, cache, P, env, ed, heroAllow, prev, state, published, evidenceByKey, catRules: catRulesLite, krRegionNames, startedAt, err, stages: st })
   })
-  const { imageResults, imageReview, tiles: sheetTiles, heroOutcome, providerLog, imageCandidates } = imageOut_
+  const { imageResults, imageReview, tiles: sheetTiles, heroOutcome, providerLog, imageCandidates, keptDrops = [] } = imageOut_
   const imageStats = imageOut_.stats
   // set_image decisions: applied when their project is published.
   for (const [target, list] of ed.setImages || []) for (const d of list) { if (published.some((p) => p.id === target)) { d.entry.status = 'applied'; d.entry.project = target } }
@@ -498,6 +509,7 @@ export async function runPipeline(o) {
   for (const p of published) {
     const ir = imageResults.get(p.id) || { images: [] }
     p.images = ir.images
+    p.portraits = ir.portraits || []
     const shard = shardOf(p.id, count)
     const r = publicRecord(p, { shard, addedAt: track.tracker.projects[p.id]?.first_seen || startedAt })
     records.push(r)
@@ -511,6 +523,8 @@ export async function runPipeline(o) {
   records.sort((a, b) => compareStrings(a.id, b.id))
   const newIds = records.filter((r) => !prev.records.has(r.id)).map((r) => r.id)
   const changed = records.filter((r) => prev.records.has(r.id) && stableStringify({ ...prev.records.get(r.id), shard: null }) !== stableStringify({ ...r, shard: null })).map((r) => r.id)
+  // Image audit (lib/image-audit.mjs): counted from these records, the previous dataset and this run's decisions.
+  const audit = imageAudit({ records, prevRecords: prev.records, imageReview, imageResults, keptDrops, at: startedAt })
   // Home picks: the hero (approved, tier 1–2), the featured image (≥ 1600 px, reviewed unless from Commons) and the
   // home image of every record (tier ≤ 3 in a dark frame, as measured), with the record's score.
   const picks = new Map()
@@ -599,6 +613,7 @@ export async function runPipeline(o) {
     cache: { sizes: cache.sizes(), ...cache.stats },
     counts,
     images: { ...imageStats, hero: files.home.hero.length, contact_sheets: sheets.map((s) => s.sheet) },
+    image_audit: audit.summary,
     changes: { new: newIds.slice(0, 200), changed: changed.slice(0, 200), removed: track.removed, carried_over: track.carried, merges: [...merges, ...ed.merges.filter((m) => m.entry.status === 'applied').map((m) => ({ rule: 'editorial_merge', a: m.from, b: m.into }))] },
     decisions,
     hero_list: heroList,
@@ -631,6 +646,7 @@ export async function runPipeline(o) {
   await writeJSON(path.join(dirs.review, 'categories.json'), { schema: 1, at: startedAt, partial: categories?.partial ?? null, errors: categories?.errors ?? [], decisions: [...(categories?.categories?.values() || [])].sort((a, b) => compareStrings(a.title, b.title)) }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'wikipedia.json'), { schema: 1, at: startedAt, accept_score: accept, hits: wikiHits, entity_decisions: wikiDecisions }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'images.json'), { schema: 2, at: startedAt, about: 'Per project: every image candidate (Commons and the other providers) with rights, identity, keyword evidence, visual and quality measurements, tier, approval, the hero and featured decisions and the near-duplicates removed.', projects: imageReview }, { pretty: true })
+  await writeJSON(path.join(dirs.review, 'image-audit.json'), audit.file, { pretty: true })
   await writeJSON(path.join(dirs.review, 'providers.json'), { schema: 1, at: startedAt, about: 'Image provider requests of this run: TourAPI name matches, caps reached, errors (keys never appear).', stats: { requests: imageStats.provider_requests, new_requests: imageStats.provider_new_requests, errors: imageStats.provider_errors, rejected: imageStats.provider_rejected, openverse_rate_limit: imageStats.openverse_rate_limit }, log: providerLog.slice(0, 2000) }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'web.json'), { schema: 1, at: startedAt, rules: webOut?.results ?? null, errors: webOut?.errors ?? [] }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'http-log.json'), { schema: 1, at: startedAt, entries: httpLog }, { pretty: true })
@@ -678,6 +694,7 @@ export function runSummary(report) {
     '', '| source | status | items | consecutive failures |', '|---|---|---|---|',
     ...Object.entries(report.sources || {}).map(([k, v]) => `| ${k} | ${v.status} | ${v.items ?? ''} | ${v.consecutive_failures ?? 0} |`),
     '',
+    ...auditSummary(report.image_audit),
   ]
   return lines.join('\n') + '\n'
 }

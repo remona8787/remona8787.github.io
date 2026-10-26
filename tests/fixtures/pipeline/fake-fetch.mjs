@@ -110,6 +110,18 @@ const catPage = (title, props) => {
 
 function commons(p, state) {
   const props = (p.get('prop') || '').split('|')
+  if (p.get('action') === 'wbgetentities' && p.get('sites') === 'commonswiki') {
+    // MediaInfo entities of files by title: their P180 (depicts) statements.
+    const entities = {}
+    for (const t of (p.get('titles') || '').split('|').map(normTitle)) {
+      const f = FIX.files.get(t.replace(/^File:/, ''))
+      if (!f) { entities['-' + t.length] = { missing: '', title: t }; continue }
+      const id = 'M' + f.page.pageid
+      const dep = FIX.search.file_depicts?.[t.replace(/^File:/, '')] || []
+      entities[id] = { type: 'mediainfo', id, title: f.page.title, statements: dep.length ? { P180: dep.map((q) => ({ mainsnak: { snaktype: 'value', property: 'P180', datavalue: { type: 'wikibase-entityid', value: { 'entity-type': 'item', id: q } } }, type: 'statement', rank: 'normal' })) } : [] }
+    }
+    return jsonRes({ entities, success: 1 })
+  }
   if (p.get('list') === 'search' && /^haswbstatement:P180=Q\d+$/.test(p.get('srsearch') || '')) {
     // Structured-data search: files that depict an item (namespace 6).
     const qid = p.get('srsearch').split('=')[1]

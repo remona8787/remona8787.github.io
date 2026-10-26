@@ -68,6 +68,87 @@ const INTERIOR = /\b(interior|inside|indoors?|lobby|atrium|foyer|innenraum|innen
 // gallery, a neon sign on an LED-facade arena, a lion sculpture on a light column.
 export const PEOPLE_EVENT = /\b(portraits?|politicians?|presidents?|prime minister|ministers?|chancellors?|mayors?|kings?|queens?|princes?|princess|ambassadors?|delegations?|summits?|g-?20|g-?7|g-?8|apec|conferences?|press conference|state visit|official visit|weddings?|ceremon(?:y|ies)|reenactments?|re-enactments?|selfies?|celebrities|actors?|actresses|footballers?)\b|대통령|정상회의|총리|장관|기자회견|초상|혼례|결혼식|재현행사|기념식|시상식|개막식/i
 export const OBJECT_ANIMAL = /\b(teddy ?bears?|bears?|lions?|l[öo]we|loewe|tigers?|dogs?|cats?|birds?|pigeons?|horses?|animals?|cooking|food|meals?|menus?|restaurants?|toys?|dolls?|figurines?|mascots?|costumes?|statues?|neon signs?|signboards?|shop signs?|street signs?|road signs?|posters?|tickets?|souvenirs?|merchandise|t-shirts?)\b|곰인형|테디베어|사자상|호랑이|강아지|고양이|음식|요리|인형|동상|간판|포스터/i
+// People (fifth brief, P0): a photo of people is not a photo of the work. Strong signs (a portrait, a people or
+// portrait category, structured data saying it depicts a human) always count; weak words (visitors, a couple, a
+// family, a selfie) count when the file names neither night nor media. A photo naming one of the project's creators
+// (P170, P50, P84, P112) is that artist's portrait: shown in the creator section only, never in the gallery.
+export const PERSON_STRONG = /\b(portraits?|headshots?|selfies?|posing|poses? for)\b|인물 ?사진|초상|셀카|기념사진|인증샷/i
+export const PERSON_WEAK = /\b(people|persons?|woman|women|man|men|girls?|boys?|children|kids|brides?|grooms?|couples?|famil(?:y|ies)|friends|faces?|smil(?:e|es|ing)|visitors?|tourists?|guests?|audience)\b|사람들?|여자|남자|소녀|소년|어린이|아이들|커플|가족|친구들?|얼굴|관람객|방문객|관광객/i
+// Categories that are about people themselves ("People of …", "Portraits of …"), not categories of photos with
+// people in them ("People with motion blur", "Crowds in Japan", "People with fireworks": those are scenes).
+export const PERSON_CATEGORY = /^(?:Category:)?(?:(?:People|Men|Women|Children|Girls|Boys|Couples|Families) of\b|Portraits?\b|Portrait photographs\b|Selfies\b|(?:Politicians|Celebrities|Actors|Actresses|Musicians|Singers|Models) (?:of|from)\b)/i
+/**
+ * Person evidence of a candidate: {strong, weak} (the matched sign or null). texts: title, object name, description
+ * (and tags for providers) for the strong signs; titles: the title-level texts (file name, object name, tags) for the
+ * weak words — a description saying "visitors walk through the installation" describes the work.
+ */
+export function personEvidence(texts, categories = [], { depictsHuman = false, titles = null } = {}) {
+  const t = [texts].flat().filter(Boolean).join(' · ')
+  const m = PERSON_STRONG.exec(t)
+  const cat = (categories || []).find((c) => PERSON_CATEGORY.test(c))
+  const strong = depictsHuman ? 'depicts_human' : cat ? 'category:' + cat.replace(/^Category:/, '').slice(0, 60) : m ? m[0].toLowerCase() : null
+  const w = PERSON_WEAK.exec(titles ? [titles].flat().filter(Boolean).join(' · ') : t)
+  return { strong, weak: w ? w[0].toLowerCase() : null }
+}
+/** Whether the text names one of the creators (whole names: two words or more, or Hangul of 2+ characters). */
+export function namesCreator(text, creators = []) {
+  return creatorMention(text, creators)?.name ?? null
+}
+// "by Leo Villareal", "von …", "Leo Villareal's …", "… 작가의 작품": the creator as the author of what is shown.
+const ATTRIBUTION_BEFORE = /\b(by|von|par|di|de|des|del|work of|works of|artwork of)\s*$/
+/**
+ * A creator named in the text: {name, attribution}. attribution: the name credits what is shown ("The Bay Lights by Leo
+ * Villareal"), so the photo shows the work; otherwise the photo shows the person ("Leo Villareal at the opening").
+ */
+export function creatorMention(text, creators = []) {
+  const f = ' ' + fold(String(text || '')).replace(/[^\p{L}\p{N}']+/gu, ' ') + ' '
+  for (const raw of creators) {
+    const n = fold(String(raw || '')).replace(/[^\p{L}\p{N}]+/gu, ' ').trim()
+    if (!n) continue
+    if (/\p{Script=Hangul}/u.test(n)) {
+      const c = f.replace(/ /g, ''), k = n.replace(/ /g, '')
+      if (k.length < 2 || !c.includes(k)) continue
+      return { name: raw, attribution: new RegExp(k + "(작가)?(의)?(작품|작|展|전시)").test(c), subject: new RegExp(k + '(작가)?(의)?(초상|인물|인터뷰|강연|기자간담회)').test(c) }
+    }
+    if (n.split(' ').length < 2) continue
+    const at = f.indexOf(' ' + n + ' ')
+    if (at < 0) continue
+    const possessive = new RegExp(String(raw).replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + "['’]s\\b", 'i').test(String(text || ''))
+    const after = f.slice(at + n.length + 2)
+    // The person as the subject: "<name> at / with / in front of / speaking …", or a title that is only the name
+    // (and a year or a number). Anything else names the artist as the author of what is shown.
+    const first = ' ' + fold(String(text || '').split(' · ')[0]).replace(/[^\p{L}\p{N}]+/gu, ' ') + ' '
+    const onlyName = first.includes(' ' + n + ' ') && /^\s*(\d+\s*)*(cropped\s*)?(\d+\s*)*$/.test(first.replace(' ' + n + ' ', ' '))
+    const subject = SUBJECT_AFTER.test(after) || onlyName
+    const attribution = ATTRIBUTION_BEFORE.test(f.slice(0, at)) || possessive
+    return { name: raw, attribution, subject: subject && !attribution }
+  }
+  return null
+}
+const SUBJECT_AFTER = /^(at|with|in front of|speaking|speaks|during|giving|gives|talks?|interviewed|interview|receiv(?:es|ing)|pos(?:es|ing)|and (?:his|her)|portrait|photographed)\b/
+// Technical documentation (construction, modules, mock-ups, renderings) and event documentation (openings,
+// ceremonies, press previews, audiences) are kept apart from the photos of the work (image kind).
+export const TECH_DOC = /\b(under construction|construction|installation work|installing|assembly|mock-?ups?|prototypes?|testing|led modules?|pixel pitch|controllers?|wiring|cabling|scaffold(?:ing)?|maintenance|renderings?|renders?|simulations?|visuali[sz]ations?)\b|공사|시공|설치 ?작업|목업|시험 ?운영|테스트|LED ?모듈|유지 ?보수|렌더링|조감도|시뮬레이션/i
+export const EVENT_DOC = /\b(opening|ceremon(?:y|ies)|press (?:preview|conference|day)|launch event|unveiling|visitors?|audience|crowds?|queues?)\b|개막|개장|점등식|기념식|관람객|인파/i
+/** The kinds of a published image (docs/PIPELINE.md "Image kinds"); 'unverified' is never published. */
+export const IMAGE_KINDS = ['project_media', 'project_installation', 'architecture_context', 'technical_documentation', 'event_documentation', 'artist_portrait', 'unverified']
+/** Kind of a scored candidate s ({a, t, identity, cand}) of a project type. */
+export function kindOf(s, projectType) {
+  const a = s.a || {}
+  if (a.portrait) return 'artist_portrait'
+  if (s.cand?.provider && s.cand.provider !== 'commons' && s.identity?.ok !== true) return 'unverified'
+  const text = a.title_text || ''
+  const ev = a.evidence || []
+  if (ev.includes('host_building_only')) return 'architecture_context'
+  if (TECH_DOC.test(text)) return 'technical_documentation'
+  const tier = s.t?.tier ?? 5
+  if (EVENT_DOC.test(text) && (projectType === 'festival_program' ? tier >= 4 : tier >= 3)) return 'event_documentation'
+  return tier <= 3 ? 'project_media' : tier === 4 ? 'project_installation' : 'architecture_context'
+}
+/** Kind of a published image without one (v0.17 and early v0.18 records): from its tier. */
+export const kindOfTier = (tier) => (tier <= 3 ? 'project_media' : tier === 4 ? 'project_installation' : 'architecture_context')
+const CARD_KINDS = new Set(['project_media', 'project_installation', 'architecture_context'])
+
 // Event words that belong to a festival's own photos.
 const FESTIVAL_OK = /\b(ceremon(y|ies)|weddings?)\b|개막식|기념식/i
 /**
@@ -118,6 +199,7 @@ export function assessCandidate(cand, info, ctx) {
   // The title and description decide the subject (categories also name the place, events held there, etc.).
   const subject = otherSubject([title, info.object_name, info.description, ...(info.categories || []).filter((c) => PEOPLE_EVENT.test(c))].filter(Boolean).join(' · '), { ...ctx, ownWorkCategory })
   if (subject) reasons.push(subject)
+  const titleText = [title, info.object_name, info.description].filter(Boolean).join(' · ')
   const w = info.width || 0, h = info.height || 0
   if (w < (ctx.minWidth ?? 640) || h < (ctx.minHeight ?? 400)) reasons.push('too_small')
   if (w && h && (w / h > 3 || w / h < 0.4)) reasons.push('extreme_aspect')
@@ -141,10 +223,26 @@ export function assessCandidate(cand, info, ctx) {
     if (cand.source === 'event_category') { mediaScore = Math.min(100, mediaScore + 20); evidence.push('event_subcategory') }
     if (ownWorkCategory) { mediaScore = Math.min(100, mediaScore + 40); evidence.push('own_category_of_light_work') }
   }
+  const person = personPass(personEvidence([title, info.object_name, info.description], info.categories, { depictsHuman: !!ctx.depictsHuman?.(cand.file), titles: [title, info.object_name] }), titleText, ctx, night.score, media.score)
+  if (person.reason) reasons.push(person.reason)
+  if (person.people_in_frame) evidence.push('people_in_frame')
   return {
     ok: reasons.length === 0, reasons, rights, kr_fop: rights.krFop,
     night: nightScore, media: mediaScore, night_terms: night.terms, media_terms: media.terms, evidence,
+    title_text: titleText.slice(0, 400), ...(person.portrait ? { portrait: person.portrait } : {}),
   }
+}
+
+/** The person rule: {reason} to reject, {portrait: creator name} for a creator's portrait, or {people_in_frame}. */
+function personPass(pe, text, ctx, night, media) {
+  // A creator named as the subject ("Leo Villareal at the opening"), or named in a photo with person signs, makes the
+  // photo his portrait; a creator named as the author of what is shown ("Lust for Life by Giny Vos") does not.
+  const cm = creatorMention(text, ctx.creators || [])
+  if (cm && !cm.attribution && (cm.subject || pe.strong || pe.weak)) return { portrait: cm.name }
+  if (!pe.strong && !pe.weak) return {}
+  if (pe.strong) return { reason: 'subject:person:' + pe.strong }
+  if (night < 30 && media < 30) return { reason: 'subject:person:' + pe.weak }
+  return { people_in_frame: true }
 }
 
 
@@ -168,7 +266,11 @@ export function assessText(c, ctx = {}) {
   const subject = otherSubject([c.title, c.description].filter(Boolean).join(' · '), ctx)
   if (subject) reasons.push(subject)
   const evidence = [...(SCENE_TERMS.test(text) ? ['scene_terms'] : []), ...(c.editorial ? ['editorial_review'] : [])]
-  return { ok: reasons.length === 0, reasons, night: night.score, media: media.score, night_terms: night.terms, media_terms: media.terms, evidence, kr_fop: false, text }
+  // Tags count for people too (providers tag portraits "portrait", "people", "woman"…); an editor's image is reviewed.
+  const person = c.editorial ? {} : personPass(personEvidence([c.title, ...(c.tags || []), c.description], [], { titles: [c.title, ...(c.tags || [])] }), [c.title, c.description].filter(Boolean).join(' · '), ctx, night.score, media.score)
+  if (person.reason) reasons.push(person.reason)
+  if (person.people_in_frame) evidence.push('people_in_frame')
+  return { ok: reasons.length === 0, reasons, night: night.score, media: media.score, night_terms: night.terms, media_terms: media.terms, evidence, kr_fop: false, text, title_text: [c.title, c.description].filter(Boolean).join(' · ').slice(0, 400), ...(person.portrait ? { portrait: person.portrait } : {}) }
 }
 
 /**
@@ -303,7 +405,11 @@ const cmp = (x, y) => { const a = rankOf(x), b = rankOf(y); for (let i = 0; i < 
  * @param {{heroAllow: Set<string>, blocked: Set<string>, galleryMax?: number, th?: any}} o heroAllow holds "project|key" (and "project|file" for Commons)
  */
 export function chooseImages(project, scored, { heroAllow, blocked, galleryMax = 12, th = {} }) {
-  const usable = scored.filter((s) => s.a.ok && !blocked.has(s.key) && !(s.file && blocked.has(s.file)) && s.approved !== false)
+  for (const s of scored) s.kind ??= kindOf(s, project.project_type)
+  const candidates = scored.filter((s) => s.a.ok && !blocked.has(s.key) && !(s.file && blocked.has(s.file)) && s.approved !== false && s.kind !== 'unverified')
+  // A creator's portrait goes to the creator section, never to the gallery.
+  const portraits = candidates.filter((s) => s.kind === 'artist_portrait').sort(cmp)
+  const usable = candidates.filter((s) => s.kind !== 'artist_portrait')
   usable.sort(cmp)
   // Near-duplicates: the same photo from two providers or two sizes. A reviewed copy (allowlisted or approved) stays,
   // otherwise the larger, then sharper one.
@@ -321,8 +427,11 @@ export function chooseImages(project, scored, { heroAllow, blocked, galleryMax =
   const decisions = []
   let hero = null
   for (const s of list) {
-    const he = heroEligible(s.a, s.m, { width: s.width }, s.t, th, s.q, { fallbackWidth: !hasLarge })
     const ok = allowed(s) || (s.approved === true && s.t.tier <= 2)
+    if (s.kind !== 'project_media' && !ok) continue
+    // Only a photo of the work in action is a hero, whatever was allowlisted.
+    const he0 = heroEligible(s.a, s.m, { width: s.width }, s.t, th, s.q, { fallbackWidth: !hasLarge })
+    const he = s.kind === 'project_media' ? he0 : { ok: false, reasons: [...he0.reasons, 'kind:' + s.kind] }
     if (ok && he.ok && !hero) hero = s
     if (ok || he.ok || s.t.tier <= 2) decisions.push({ key: s.key, file: s.file || null, provider: s.cand.provider, hero_candidate: he.ok, allowlisted: ok, reasons: he.reasons, below_target: he.ok && (s.width || 0) < (th.hero_min_width ?? 2400) })
   }
@@ -330,6 +439,7 @@ export function chooseImages(project, scored, { heroAllow, blocked, galleryMax =
   let featured = null
   const featuredDecisions = []
   for (const s of list) {
+    if (s.kind !== 'project_media') continue
     const fe = featuredEligible(s, th)
     const needsReview = s.cand.provider !== 'commons' && s.approved !== true
     if (fe.ok && !needsReview && !featured) featured = s
@@ -338,11 +448,12 @@ export function chooseImages(project, scored, { heroAllow, blocked, galleryMax =
   // Card: the best image whose original is at least card_min_width; a smaller one only when nothing larger exists.
   const cardMin = th.card_min_width ?? 1200
   // An institution's file without the work (host_building_only) is never the card: context only.
-  const cardable = list.filter((s) => !(s.a.evidence || []).includes('host_building_only'))
+  // Documentation of construction or of an event is never the card either.
+  const cardable = list.filter((s) => CARD_KINDS.has(s.kind) && !(s.a.evidence || []).includes('host_building_only'))
   const card = cardable.find((s) => (s.width || 0) >= cardMin) || cardable[0] || null
   const ordered = [...new Set([hero, featured, card, ...list].filter(Boolean))].slice(0, galleryMax)
   const roleOf = (s) => (s === hero ? 'hero' : s === featured ? 'featured' : s === card ? 'card' : s.t.tier >= 5 ? 'context' : 'gallery')
-  return { ordered: ordered.map((s) => ({ s, role: roleOf(s) })), hero, featured, card, decisions, featuredDecisions, duplicates, usable: list }
+  return { ordered: ordered.map((s) => ({ s, role: roleOf(s) })), hero, featured, card, decisions, featuredDecisions, duplicates, usable: list, portraits }
 }
 
 /**
@@ -364,16 +475,36 @@ export function imageObject(s, role, { project, checkedAt = null, th = {} } = {}
     src: c.src, page: c.page, display, thumb: thumbOf(),
     author: c.author ?? null, rights_holder: c.rights_holder ?? c.author ?? null, license: c.license, license_url: c.license_url ?? null,
     attribution: c.attribution || [c.author, c.license, name].filter(Boolean).join(' · '),
-    usage: c.usage || 'hotlink', ...(c.no_derivatives ? { no_derivatives: true } : {}), ...(c.permission_note ? { permission_note: c.permission_note } : {}),
+    usage: c.usage || 'hotlink', ...(c.no_derivatives ? { no_derivatives: true } : {}), ...rightsUse(c.license), ...(c.permission_note ? { permission_note: c.permission_note } : {}),
     width, height, bytes: s.q?.decoded && s.q.decoded.width === width ? s.q.decoded.bytes : c.bytes ?? null, format: c.format ?? s.q?.decoded?.format ?? null,
     quality: s.q ? { sharpness: s.q.sharpness, blockiness: s.q.blockiness, score: qualityScore(s.q, width) } : null,
-    media_active: mediaActive(s.a, s.m), tier: s.t.tier, role,
+    media_active: mediaActive(s.a, s.m), tier: s.t.tier, role, kind: s.kind ?? kindOf(s, project.project_type),
+    title: imageTitle(c), description: c.provider === 'commons' ? snippet(s.info?.description) : snippet(c.description),
     ...(c.provider !== 'commons' ? { identity: s.identity } : {}),
     ...(role === 'hero' && width && width < (th.hero_min_width ?? 2400) ? { below_target: true } : {}),
     ...(role === 'card' && width && width < (th.card_min_width ?? 1200) ? { below_target: true } : {}),
     checked_at: checkedAt, approved: s.approved ?? null,
   }
 }
+/**
+ * What a licence allows, recorded per image so a later commercial mode can filter: {commercial_use, kogl_type?}.
+ * KOGL (공공누리) types 1 and 3 allow commercial use (3 forbids derivatives), 2 and 4 forbid it (never accepted).
+ */
+export function rightsUse(license) {
+  const l = String(license || '')
+  const k = /KOGL Type ([1-4])/i.exec(l)
+  if (k) return { kogl_type: Number(k[1]), commercial_use: k[1] === '1' || k[1] === '3' }
+  if (/\bNC\b|non-?commercial/i.test(l)) return { commercial_use: false }
+  if (/^(CC0|PD|public domain|CC BY(-SA)?\b)/i.test(l) || /^(cc-?zero|pdm)/i.test(l)) return { commercial_use: true }
+  return { commercial_use: null }
+}
+/** The source's title of an image (a Commons file name without the extension, a provider's title), for audits. */
+export function imageTitle(c) {
+  if (c.provider === 'commons') return String(c.file || c.source_id || '').replace(/\.[a-z0-9]+$/i, '').replace(/_/g, ' ').slice(0, 200) || null
+  return String(c.title || '').trim().slice(0, 200) || `${PROVIDER_LABELS[c.provider] || c.provider} ${c.source_id}`.slice(0, 200)
+}
+/** A plain-text snippet (≤ 240 characters) of a description. */
+export const snippet = (t) => { const x = String(t || '').replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim(); return x ? (x.length > 240 ? x.slice(0, 239).replace(/\s+\S*$/, '') + '…' : x) : null }
 export const PROVIDER_LABELS = { commons: 'Wikimedia Commons', openverse: 'Openverse', flickr: 'Flickr', tourapi: '한국관광공사', kto_photo: '한국관광공사 관광사진', unsplash: 'Unsplash', pexels: 'Pexels', official: 'official site', editor: 'editor' }
 
 /** visual_rank for the index: the card image's tier (1 media facade running … 5 architectural), null without an image. */

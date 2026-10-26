@@ -1,0 +1,41 @@
+{
+ "pageid": 99000210,
+ "ns": 0,
+ "title": "Q99000210",
+ "lastrevid": 2400000210,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000210",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Fixture Pedestrian"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "ad2a789b9994f57612be9a31d2e85216",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 5,
+       "id": "Q5"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000210$ad2a789b-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

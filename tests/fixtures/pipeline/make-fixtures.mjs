@@ -83,6 +83,8 @@ for (const [q, en, ko, cls, country, parent] of [
 // People (fixture ids).
 add('Q99000201', { labels: { en: 'Leo Villareal' }, claims: { P31: 'Q5' } })
 add('Q99000202', { labels: { en: 'Bruce Munro' }, claims: { P31: 'Q5' } })
+// A person whom a Commons file depicts (structured data P180): a photo of a person, never in a gallery.
+add('Q99000210', { labels: { en: 'Fixture Pedestrian' }, claims: { P31: 'Q5' } })
 add('Q99000203', { labels: { en: 'UNStudio' }, claims: { P31: 'Q4830453' } })
 // Projects.
 add('Q7715933', { labels: { en: 'The Bay Lights', fr: 'The Bay Lights' }, descriptions: { en: 'light installation on the San Francisco–Oakland Bay Bridge' },
@@ -236,7 +238,16 @@ const FILES = [
   ['Cable car up the Seoul Tower (33580430468).jpg', 'day', 3000, 2000, 'CC BY 2.0', 'Fixture Photographer 38', ['N Seoul Tower'], 'Namsan cable car'],
   ['서울역 앞 대우빌딩 전경.jpg', 'colourful_day', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 39', ['Seoul Square'], '서울역 앞 대우빌딩'],
   ['Seoul Aerial Shot 07.jpg', 'day', 4000, 2250, 'CC BY-SA 4.0', 'Fixture Photographer 40', ['Aerial photographs of Seoul'], 'Aerial view of Seoul'],
+  // People and documentation (fifth brief): the artist's portrait goes to his credit; visitors, a person the file
+  // depicts and a portrait category never reach the gallery; construction photos are technical documentation.
+  ['Leo Villareal at The Bay Lights opening 2013.jpg', 'night_led', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 41', ['The Bay Lights'], 'Leo Villareal at the opening of The Bay Lights'],
+  ['Visitors at the Embarcadero 2014.jpg', 'day', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 42', ['The Bay Lights'], 'Visitors on the Embarcadero'],
+  ['Embarcadero evening walk 2015.jpg', 'night_field', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 43', ['The Bay Lights'], 'An evening walk on the Embarcadero'],
+  ['Bay Bridge sunset 2016.jpg', 'colourful_day', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 44', ['The Bay Lights', 'Portrait photographs in San Francisco'], 'Sunset at the Bay Bridge'],
+  ['The Bay Lights LED modules installation work 2012.jpg', 'interior', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 45', ['The Bay Lights'], 'Installation work: LED modules on the cables'],
 ]
+// P180 statements of files (their MediaInfo entities): file → depicted items.
+const FILE_DEPICTS = { 'Embarcadero evening walk 2015.jpg': ['Q99000210'], 'The Bay Lights at night 2013.jpg': ['Q7715933'] }
 const COMMON_TEMPLATES = ['Template:Information', 'Template:Own', 'Template:Self', 'Template:Cc-by-sa-4.0', 'Template:Location', 'Template:Taken on', 'Template:Lang', 'Template:Description']
 const files = FILES.map(([file, kind, width, height, license, author, cats, description, extraTemplates = []]) => ({
   thumb: `thumbs/${kind}.jpg`,
@@ -275,7 +286,8 @@ const CATS = [
   ['Category:Field of Light', 'Q5447104', null, [], fileTitles('Field of Light Uluru 2016.jpg')],
   ['Category:Urban Light', 'Q7899954', null, [], fileTitles('Urban Light LACMA daytime.jpg')],
   ['Category:Tribute in Light', 'Q2001578', null, [], fileTitles('Tribute in Light 2011.jpg')],
-  ['Category:The Bay Lights', 'Q7715933', null, ['Category:The Bay Lights at night'], fileTitles('The Bay Lights at night 2013.jpg', 'Bay Bridge from Embarcadero daytime.jpg', 'The Bay Lights map.png', 'The Bay Lights at night 2013 small copy.jpg')],
+  ['Category:The Bay Lights', 'Q7715933', null, ['Category:The Bay Lights at night'], fileTitles('The Bay Lights at night 2013.jpg', 'Bay Bridge from Embarcadero daytime.jpg', 'The Bay Lights map.png', 'The Bay Lights at night 2013 small copy.jpg',
+    'Leo Villareal at The Bay Lights opening 2013.jpg', 'Visitors at the Embarcadero 2014.jpg', 'Embarcadero evening walk 2015.jpg', 'Bay Bridge sunset 2016.jpg', 'The Bay Lights LED modules installation work 2012.jpg')],
   ['Category:The Bay Lights at night', null, null, [], fileTitles('The Bay Lights reflection night.jpg')],
   ['Category:Lumino Kinetic art', 'Q6703289', null, [], []],
   ['Category:Bradford Garden of Light', null, null, [], fileTitles('Bradford Garden of Light lanterns.jpg')],
@@ -320,6 +332,7 @@ const search = {
     'media art + Busan': ['Category:Media art in Busan'], 'lantern festival + Seoul': ['Category:Seoul Lantern Festival'] },
   file: { 'media facade': [{ title: 'File:Uniqa Tower media facade colourful day.jpg', categories: ['Category:Uniqa Tower'] }] },
   // haswbstatement:P180=<QID> answers (files whose structured data depicts the item).
+  file_depicts: FILE_DEPICTS,
   depicts: { Q5295847: ['File:Dongdaemun Design Plaza exterior daytime.jpg', 'File:Seoul Light DDP 2019 media facade night.jpg'], Q69134: ['File:서울역 앞 대우빌딩 전경.jpg', 'File:Seoul Aerial Shot 07.jpg'] },
 }
 

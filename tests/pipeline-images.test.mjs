@@ -8,6 +8,7 @@ import path from 'node:path'
 import { metricsFromRaw, visualScore, measureImage, loadSharp } from '../pipeline/lib/visual.mjs'
 import { assessCandidate, tierOf, heroEligible, chooseImages, commonsCandidate, imageObject, nameEvidence, BAD_NAME, thumbAt, cleanMediaUrl, commonsDisplay, mediaActive, stableImageId } from '../pipeline/lib/images.mjs'
 import { workNames } from '../pipeline/lib/identity.mjs'
+import { personEvidence, creatorMention, kindOf, rightsUse, assessText } from '../pipeline/lib/images.mjs'
 import { contactSheet, drawText, tilePixels, tileShowsPicture } from '../pipeline/lib/contact-sheet.mjs'
 import { loadConfig } from '../pipeline/run.mjs'
 import { FIXTURES } from './fixtures/pipeline/fake-fetch.mjs'
@@ -285,4 +286,56 @@ test('roles: an institution file is never the card, only context; a project with
   const onlyInst = chooseImages(p, [s('aerial.jpg', 4000, ['host_building_only']), s('station.png', 1920, ['host_building_only'])], opts)
   assert.equal(onlyInst.card, null)
   assert.ok(onlyInst.ordered.every((o) => o.role === 'context'))
+})
+
+test('people: strong and weak signs, a creator named as the subject or as the author, structured depicts', () => {
+  assert.equal(personEvidence(['Portrait of a visitor']).strong, 'portrait')
+  assert.equal(personEvidence(['Night view'], ['Category:People of Seoul']).strong, 'category:People of Seoul')
+  assert.equal(personEvidence(['Night view'], ["Category:People's Square"]).strong, null, "People's Square is a place")
+  assert.equal(personEvidence(['Embarcadero walk'], [], { depictsHuman: true }).strong, 'depicts_human')
+  assert.equal(personEvidence(['Visitors at the museum']).weak, 'visitors')
+  assert.equal(personEvidence(['관람객이 몰입형 전시를 본다']).weak, '관람객')
+  assert.deepEqual(creatorMention('Leo Villareal at The Bay Lights opening', ['Leo Villareal']), { name: 'Leo Villareal', attribution: false, subject: true })
+  assert.deepEqual(creatorMention('The Bay Lights by Leo Villareal at night', ['Leo Villareal']), { name: 'Leo Villareal', attribution: true, subject: false })
+  assert.deepEqual(creatorMention("Leo Villareal's The Bay Lights", ['Leo Villareal']), { name: 'Leo Villareal', attribution: true, subject: false })
+  assert.equal(creatorMention('Leo Villareal 2013 (cropped)', ['Leo Villareal']).subject, true, 'a title that is only the name')
+  assert.equal(creatorMention('Villareal lights', ['Leo Villareal']), null)
+  // Live replay regressions (2026-10-26): artworks titled with their artist are photos of the work, not portraits;
+  // scene categories with people in them and descriptions mentioning visitors are not person evidence.
+  for (const [t, c] of [['Giny Vos - Lust for Life - 1999', 'Giny Vos'], ['Lichtsäule (Günther Uecker), Juni 2023', 'Günther Uecker'], ['Ugo Rondinone - Breathe Walk Die - 2016 - Museum Boijmans Van Beuningen Rotterdam 01', 'Ugo Rondinone']]) assert.equal(creatorMention(t, [c]).subject, false, t)
+  for (const c of ['Category:People with motion blur', 'Category:Crowds in Japan', 'Category:People with fireworks', 'Category:People with white background']) assert.equal(personEvidence(['Kobe Luminarie'], [c]).strong, null, c)
+  assert.equal(personEvidence(['TeamLab Borderless Azabudai Hills', 'Visitors are immersed in the Light Sculpture'], [], { titles: ['TeamLab Borderless Azabudai Hills'] }).weak, null)
+  const base = info('The Bay Lights at night 2013.jpg')
+  const at = (title, o = {}) => assessCandidate({ file: title + '.jpg', source: 'category' }, { ...base, object_name: title, description: o.description || '', categories: o.categories || [] }, { project_type: 'light_art', creators: ['Leo Villareal'], depictsHuman: () => !!o.human, rightsPolicy: TH.rights_policy })
+  assert.equal(at('Leo Villareal at The Bay Lights opening 2013').portrait, 'Leo Villareal')
+  assert.equal(at('The Bay Lights by Leo Villareal at night').portrait, undefined)
+  assert.equal(at('Leo Villareal - The Bay Lights - 2013').portrait, undefined, 'artist - title - year is the work')
+  assert.deepEqual(at('Epiphyte Chamber', { description: 'Visitors and an audience in the chamber' }).reasons, [], 'people words in a description describe the work')
+  assert.ok(at('Visitors on the pier').reasons.includes('subject:person:visitors'))
+  assert.ok(at('Visitors watching the light show at night').evidence.includes('people_in_frame'), 'people in a frame of the work at night stay')
+  assert.ok(at('Pier walk', { human: true }).reasons.includes('subject:person:depicts_human'))
+  assert.ok(at('Sunset', { categories: ['Category:Portrait photographs in San Francisco'] }).reasons.some((r) => r.startsWith('subject:person:category')))
+  // Providers: tags count.
+  const t = assessText({ title: 'Seoul night', tags: ['portrait', 'woman'], description: '' }, { project_type: 'media_facade' })
+  assert.ok(t.reasons.includes('subject:person:portrait'))
+})
+
+test('image kinds: media, installation, context, technical and event documentation, portraits; documentation never the card', () => {
+  const s = (key, tier, o = {}) => ({ key, file: key, cand: { provider: o.provider || 'commons', source_id: key }, source: 'category', identity: o.identity ?? { ok: true }, a: { ok: true, night: 40, media: 40, evidence: o.evidence || [], title_text: o.title || key, ...(o.portrait ? { portrait: o.portrait } : {}) }, m: null, q: null, t: { tier, home_ok: false }, width: o.width ?? 3000, approved: null })
+  assert.equal(kindOf(s('a', 2)), 'project_media')
+  assert.equal(kindOf(s('a', 4)), 'project_installation')
+  assert.equal(kindOf(s('a', 5)), 'architecture_context')
+  assert.equal(kindOf(s('a', 3, { title: 'LED modules installation work' })), 'technical_documentation')
+  assert.equal(kindOf(s('a', 3, { title: 'Opening ceremony of the facade' }), 'media_facade'), 'event_documentation')
+  assert.equal(kindOf(s('a', 2, { title: 'Festival opening night' }), 'festival_program'), 'project_media', "a festival's own night is its media")
+  assert.equal(kindOf(s('a', 2, { portrait: 'Leo Villareal' })), 'artist_portrait')
+  assert.equal(kindOf(s('a', 2, { provider: 'flickr', identity: { ok: false } })), 'unverified')
+  const p = { id: 'Q7715933', project_type: 'light_art' }
+  const opts = { heroAllow: new Set(), blocked: new Set(), th: TH }
+  const c = chooseImages(p, [s('tech.jpg', 3, { title: 'Installation work: LED modules', width: 4000 }), s('day.jpg', 5, { width: 1300 }), s('artist.jpg', 2, { portrait: 'Leo Villareal' }), s('flickr-1', 2, { provider: 'flickr', identity: { ok: false } })], opts)
+  assert.equal(c.card.key, 'day.jpg', 'technical documentation is never the card')
+  assert.deepEqual(c.portraits.map((x) => x.key), ['artist.jpg'])
+  assert.ok(!c.ordered.some((o) => ['artist.jpg', 'flickr-1'].includes(o.s.key)), 'portraits and unverified images never reach images[]')
+  assert.deepEqual(rightsUse('KOGL Type 3'), { kogl_type: 3, commercial_use: true })
+  assert.deepEqual(rightsUse('CC BY-NC-SA 2.0'), { commercial_use: false })
 })
