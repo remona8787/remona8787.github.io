@@ -1,6 +1,6 @@
 {
  "dataset": "light-architecture-archive",
- "version": "20261026T063755Z-351b7eb5",
+ "version": "20261026T112545Z-9b331dd5",
  "data_as_of": "2026-10-26",
  "projects": [
   {
@@ -2651,6 +2651,53 @@
     "lng": "wikidata",
     "name_original": "wikidata",
     "project_type": "wikidata"
+   }
+  },
+  {
+   "id": "Q12618343",
+   "name_ko": "진주남강유등축제",
+   "name_en": "Jinju Namgang Yudeung Festival",
+   "name_original": "진주남강유등축제",
+   "name_original_lang": "ko",
+   "project_type": "festival_program",
+   "country_iso2": "KR",
+   "region": "east_asia",
+   "kr_region": "busan_ulsan_gyeongnam",
+   "city": "Jinju",
+   "city_ko": "진주시",
+   "district": null,
+   "address": null,
+   "lat": null,
+   "lng": null,
+   "location_precision": "city",
+   "operating_status": null,
+   "year_installed": null,
+   "year_completed": null,
+   "year_operating_since": null,
+   "year_ended": null,
+   "installation_method": null,
+   "envelope_type": null,
+   "technologies": "",
+   "spatial_context": "",
+   "content_types": "",
+   "wikidata": "Q12618343",
+   "commons_category": "Category:Jinju Namgang Yudeung Festival",
+   "official_url": null,
+   "record_origin": "auto_collected",
+   "added_at": "2026-10-26T11:25:45.441Z",
+   "source_count": 4,
+   "image_count": 12,
+   "has_valid_image": true,
+   "field_sources": {
+    "city": "wikidata",
+    "country_iso2": "wikidata",
+    "kr_region": "wikidata",
+    "name_en": "wikidata",
+    "name_ko": "wikidata",
+    "name_original": "wikidata",
+    "project_type": "wikipedia:ko",
+    "summary_en": "wikidata",
+    "summary_ko": "wikidata"
    }
   },
   {
@@ -8741,6 +8788,7 @@
     "country_iso2": "derived:commons_parent_category",
     "name_en": "wikidata",
     "project_type": "derived:commons_category",
+    "status": "wikidata",
     "year_operating_since": "wikidata"
    }
   },
@@ -9301,6 +9349,7 @@
     "name_en": "wikidata",
     "name_original": "wikidata",
     "project_type": "wikidata",
+    "status": "wikidata",
     "summary_en": "wikidata",
     "year_operating_since": "wikidata"
    }

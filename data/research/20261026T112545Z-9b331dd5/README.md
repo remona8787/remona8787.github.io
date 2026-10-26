@@ -1,9 +1,9 @@
 # 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋
 
-- 데이터셋 ID: `light-architecture-archive` · 버전: `20261026T063755Z-351b7eb5` (수집 빌드 ID와 같음)
-- 생성: 2026-10-26T06:37:55.494Z · 데이터 기준일: 2026-10-26
-- 프로젝트 279건 (좌표 있음 159건) · 출처 601건 · 이미지 정보 1123건
-- 국가 30곳 · 국내 권역 seoul 51, gyeonggi_incheon 1
+- 데이터셋 ID: `light-architecture-archive` · 버전: `20261026T112545Z-9b331dd5` (수집 빌드 ID와 같음)
+- 생성: 2026-10-26T11:25:45.441Z · 데이터 기준일: 2026-10-26
+- 프로젝트 280건 (좌표 있음 159건) · 출처 605건 · 이미지 정보 1135건
+- 국가 30곳 · 국내 권역 seoul 51, busan_ulsan_gyeongnam 1, gyeonggi_incheon 1
 
 ## 파일
 
@@ -26,7 +26,7 @@ projects.csv · projects.json · projects.geojson · sources.csv · images.csv �
 
 ## 인용
 
-빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261026T063755Z-351b7eb5, 데이터 기준일 2026-10-26). https://remona8787.github.io/data/research/20261026T063755Z-351b7eb5/
+빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261026T112545Z-9b331dd5, 데이터 기준일 2026-10-26). https://remona8787.github.io/data/research/20261026T112545Z-9b331dd5/
 
 ## 필드 정의 (데이터 사전)
 
