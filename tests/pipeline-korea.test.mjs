@@ -309,6 +309,14 @@ test('Korea coverage: Wikidata search of named Korean things, probes of known ar
   assert.equal(probes['픽스처 경포 유등축제'].located_kr, true)
   assert.deepEqual(probes['픽스처 경포 유등축제'].configured_classes, [], 'not an instance of a light-work class: why the class query cannot find it')
   assert.equal(probes['픽스처 없는 문서'].missing, true, 'a missing article is reported, never invented')
+  assert.equal(probes['픽스처 없는 문서'].resolved_title, undefined, 'a hit that only starts with the name is not the article')
+  // A probe title written without a space: the article under the same name exists, and only that one is used.
+  assert.deepEqual([probes['픽스처미디어아트 뮤지엄 부산'].resolved_title, probes['픽스처미디어아트 뮤지엄 부산'].qid], ['픽스처 미디어아트 뮤지엄 부산', 'Q99000501'])
+  // Korean compounds: the full-text search finds no "…빛축제" inside "픽스처한강빛축제"; the label scan does.
+  assert.deepEqual(dec.Q99000508.terms, ['label:빛축제'])
+  assert.equal(dec.Q99000508.accepted, true)
+  assert.deepEqual([k.search.label_scan.new_items, k.search.label_scan.truncated, k.search.label_scan.by_term['빛축제']], [2, false, 2])
+  assert.ok(dec.Q99000506.terms.includes('유등축제') && dec.Q99000506.terms.includes('label:유등'), 'found both ways')
   const wiki = JSON.parse(await readFile(path.join(dir, 'review/wikipedia.json'), 'utf8'))
   const tokyo = wiki.entity_decisions.find((d) => d.qid === 'Q99000604')
   assert.equal(tokyo.accepted, false)
@@ -316,6 +324,7 @@ test('Korea coverage: Wikidata search of named Korean things, probes of known ar
   const index = JSON.parse(await readFile(path.join(dir, 'site-data/index.json'), 'utf8'))
   const ids = index.rows.map((r) => r[0])
   assert.ok(ids.includes('Q99000506') && !ids.includes('Q99000507') && !ids.includes('Q99000604'))
+  assert.ok(ids.includes('Q99000508'), 'a festival found only by the label scan')
   // C: a Korean root that holds photos ("Projection mapping in South Korea"): the photo's other category (the gate it
   // was projected on) is a candidate; the photo shows the work, the gate's own photos are context.
   const cats = JSON.parse(await readFile(path.join(dir, 'review/categories.json'), 'utf8')).decisions
@@ -371,4 +380,23 @@ test('a published record that is never a project is removed at once, not carried
   assert.deepEqual(never.find((x) => x.id === 'CAT-LEAK001').reasons, ['category_rejected:root_photo_topic_not_a_work'])
   assert.ok(never.find((x) => x.id === 'CAT-LEAK002').reasons.includes('name:date_category:month_year'))
   assert.deepEqual(never.find((x) => x.id === 'CAT-LEAK003').reasons, ['name:wikimedia_event'])
+})
+
+test('Wikidata search pages through every result (sroffset) up to the cap; the label scan query names every term', async () => {
+  const { searchItems, krLabelScanQuery } = await import('../pipeline/lib/wikidata.mjs')
+  const asked = []
+  const all = Array.from({ length: 120 }, (_, i) => 'Q' + (1000 + i))
+  const client = { json: async (url) => {
+    const p = new URL(url).searchParams
+    asked.push([Number(p.get('sroffset')), Number(p.get('srlimit'))])
+    const o = Number(p.get('sroffset')), l = Number(p.get('srlimit'))
+    return { ...(o + l < all.length ? { continue: { sroffset: o + l } } : {}), query: { search: all.slice(o, o + l).map((title) => ({ title })) } }
+  } }
+  assert.equal((await searchItems(client, '빛축제', { country: 'Q884', limit: 50 })).length, 120)
+  assert.deepEqual(asked, [[0, 50], [50, 50], [100, 50]])
+  asked.length = 0
+  assert.equal((await searchItems(client, '빛축제', { country: 'Q884', limit: 50, max: 80 })).length, 80, 'stops at the cap')
+  assert.deepEqual(asked, [[0, 50], [50, 30]])
+  const q = krLabelScanQuery(['유등', '빛의 벙커', 'a"b'], 'Q884', 300)
+  for (const part of ['#aol:kr-label-scan', 'wdt:P17 wd:Q884', 'CONTAINS(?label, "유등")', 'CONTAINS(?label, "빛의 벙커")', 'CONTAINS(?label, "a\\"b")', 'LANG(?label) = "ko"', 'LIMIT 300']) assert.ok(q.includes(part), part)
 })

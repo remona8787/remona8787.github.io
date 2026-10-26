@@ -229,8 +229,11 @@ failures are a missing country or location gets them from evidence, never from a
 Strong evidence for two countries, or photos in several countries (a travelling work such as Global Rainbow), leaves a
 project excluded (`conflict`). A recovered Commons project without coordinates or a city takes the city its parents or
 name give, else the centre of a tight geotag cluster (`location_precision: approximate`). An edition or work of a known
-project ("… lors de la Fête des Lumières") is never a new project (`part_of_project`), and a category of things in a
-country ("Illuminated trees in Finland") is an aggregate (`aggregate_name`). A Korean Commons project without a region
+project ("… lors de la Fête des Lumières") is never a new project (`part_of_project`), neither is a project with the
+same distinctive name as a known one in the same country (`duplicate_of_project`: 연등회 Q625724, English label "Lotus
+Lantern Festival", and the Commons project CAT-080XNRV "Lotus Lantern Festival (Seoul)"; `quality.json` lists the
+pair, and a published pair of that kind, as `suspected_duplicates` for an editorial merge), and a category of things
+in a country ("Illuminated trees in Finland") is an aggregate (`aggregate_name`). A Korean Commons project without a region
 gets the names of its parent categories for the gazetteer (`commons_parent_*` rules). Offline replay of the 2026-10-26
 data branch: 279 → 345 projects (the UK digital arts festivals through P276, Dutch works through Q55, Finnish works
 through their coordinates, Montreal and Ghent works through their parent categories).
@@ -244,10 +247,16 @@ P17. Now:
 - a Wikidata full-text search of named Korean things (`korea.json` `search_terms`: 빛축제, 빛초롱, 유등축제,
   루미나리에, 미디어아트, 미디어파사드, 프로젝션 매핑, 빛의 벙커, 아르떼뮤지엄…, with `haswbstatement:P17=Q884`) adds
   items that the entity rules accept, that are located in Korea and that have a place, venue, event or work class
-  (`search.decisions`);
+  (`search.decisions`). Every term runs, every page up to 200 hits (`sroffset`; `search.terms` counts the hits);
+- the full-text search splits no Korean compounds ("유등축제" never finds "진주남강유등축제"), so one SPARQL query also
+  reads the Korean labels of the items in Korea that contain a term (`korea.json` `label_scan_terms`: 빛축제, 빛초롱, 유등,
+  연등, 등축제, 루미나리에, 미디어아트, 미디어파사드, 프로젝션 매핑, 라이트쇼, 빛의 벙커, 아르떼뮤지엄…; ≤ 500 rows).
+  Its hits (`label:<term>`) pass the same gates (`search.label_scan`: rows, new items, hits per term, truncated);
 - probes: known Korean articles (`korea.json` `probes`: 서울빛초롱축제, 진주남강유등축제, 보성차밭빛축제, 빛의 벙커,
   아르떼뮤지엄, 국립아시아문화전당, 포항 스페이스워크) are looked up live each run: item, Korean location, the
-  configured classes they belong to, and which source found them (`probes[].found_by`); a missing title is reported;
+  configured classes they belong to, and which source found them (`probes[].found_by`). A title that is not an
+  article is searched on Korean Wikipedia; an article under the same name written differently (spacing, punctuation,
+  a disambiguation in parentheses) is used and named (`resolved_title`); otherwise the title is reported missing;
 - Korean Wikipedia searches named things (빛축제, 빛초롱축제, 유등축제, 루미나리에, 불빛축제, 야간경관,
   미디어아트 전시관, 몰입형 미디어아트, 디지털 테마파크, 미디어월, 미디어캔버스, 라이트쇼, 빛의 벙커, 아르떼뮤지엄,
   미디어아트플랫폼…) instead of generic concepts, and a Korean hit must be located in Korea and have a place, venue,

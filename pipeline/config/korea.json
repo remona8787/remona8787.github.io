@@ -903,6 +903,27 @@
  "tourapi_codes_about": "TourAPI areacode (the older area codes) and lDongRegnCd (the legal-dong province code of KorService2) are kept apart: code 31 is Gyeonggi as an areacode and Ulsan as an lDongRegnCd. A code is used only when the address (addr1) does not name a different region; an unknown code falls back to the address.",
   "about_search": "Korean items of Wikidata found by a full-text search (CirrusSearch, haswbstatement:P17=Q884) of named things: labels, descriptions and aliases in any language. A hit becomes a project only when the entity rules accept it, it is located in Korea and it has a place, venue, event or work class (review/korea.json search.decisions).",
   "search_terms": ["빛축제", "빛 축제", "빛초롱", "유등축제", "루미나리에", "불빛축제", "미디어아트", "미디어 아트", "미디어파사드", "미디어 파사드", "프로젝션 매핑", "라이트쇼", "몰입형", "야간경관", "빛의 벙커", "아르떼뮤지엄", "light festival", "lantern festival", "media art", "media facade"],
-  "about_probes": "Known Korean Wikipedia articles: each run records their items, whether they are located in Korea, which configured classes they belong to and which source found them (review/korea.json probes). Titles are checked live; a missing one is reported, never invented.",
+  "about_label_scan": "Full-text search splits no Korean compounds (\"유등축제\" never finds \"진주남강유등축제\"), so one SPARQL query also reads the Korean labels of the items in Korea (wdt:P17 wd:Q884) that contain one of these terms (#aol:kr-label-scan, at most label_scan_limit rows). A hit goes through the same gates as a search hit (entity rules, located in Korea, a place, event or work class).",
+ "label_scan_terms": [
+  "빛축제",
+  "빛 축제",
+  "빛초롱",
+  "유등",
+  "연등",
+  "등축제",
+  "루미나리에",
+  "불빛축제",
+  "미디어아트",
+  "미디어 아트",
+  "미디어파사드",
+  "미디어 파사드",
+  "프로젝션 매핑",
+  "프로젝션매핑",
+  "라이트쇼",
+  "빛의 벙커",
+  "아르떼뮤지엄"
+ ],
+ "label_scan_limit": 500,
+ "about_probes": "Known Korean Wikipedia articles: each run records their items, whether they are located in Korea, which configured classes they belong to and which source found them (review/korea.json probes). Titles are checked live; a missing one is reported, never invented.",
   "probes": ["서울빛초롱축제", "진주남강유등축제", "보성차밭빛축제", "빛의 벙커", "아르떼뮤지엄", "국립아시아문화전당", "포항 스페이스워크"]
 }

@@ -1,0 +1,115 @@
+{
+ "pageid": 99000508,
+ "ns": 0,
+ "title": "Q99000508",
+ "lastrevid": 2400000508,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000508",
+ "labels": {
+  "ko": {
+   "language": "ko",
+   "value": "픽스처한강빛축제"
+  },
+  "en": {
+   "language": "en",
+   "value": "Fixture Hangang Light Festival"
+  }
+ },
+ "descriptions": {
+  "ko": {
+   "language": "ko",
+   "value": "한강공원의 빛축제"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "d600bdbf2df4e105e789c558c71ba740",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 132241,
+       "id": "Q132241"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000508$d600bdbf-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "cf45b26faed0d5cb27f6d07d4bfd2ac1",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000508$cf45b26f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "a6add84598caedef0f3e466fd5e7e711",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000303,
+       "id": "Q99000303"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000508$a6add845-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "cf564197f7467b46b958495876d5703a",
+     "datavalue": {
+      "value": {
+       "latitude": 37.5284,
+       "longitude": 126.9326,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q99000508$cf564197-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

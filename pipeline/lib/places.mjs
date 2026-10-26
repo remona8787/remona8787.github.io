@@ -193,6 +193,23 @@ export function partOf(p, known) {
   return null
 }
 
+/**
+ * A known project in the same country with the same distinctive name (any of the names, or the Commons category name
+ * without its parenthesis: "Lotus Lantern Festival (Seoul)"): the same thing found twice (Q625724 연등회, whose English
+ * label is "Lotus Lantern Festival", and the Commons project CAT-080XNRV). Returns its id or null.
+ */
+export function sameNameAs(p, known, country = p.country_iso2) {
+  const names = (x) => [x.name_en, x.name_ko, x.name_original, String(x.commons_category || '').replace(/^Category:/, '').replace(/\s*\([^)]*\)\s*$/, '')]
+    .filter(Boolean).map(foldName).filter((c) => c.trim().length >= 8 && c.trim().split(' ').filter((w) => w && !GENERIC_WORDS.has(w)).join('').length >= 4)
+  const own = new Set(names(p))
+  if (!own.size) return null
+  for (const k of known) {
+    if (k === p || k.id === p.id || (country && k.country_iso2 && k.country_iso2 !== country)) continue
+    if (names(k).some((n) => own.has(n))) return k.id
+  }
+  return null
+}
+
 export async function recoverPlaces(client, projects, { cache, cfg = {}, ttl = {}, cc, auxMap, facts, gaz, regionOf, err = () => {}, regionProjects = [], known = [] }) {
   const stats = { candidates: projects.length, region_candidates: regionProjects.length, recovered: 0, conflict: 0, no_evidence: 0, capped: 0, geotag_requests: 0, by_rule: {} }
   const decisions = []
@@ -265,7 +282,10 @@ export async function recoverPlaces(client, projects, { cache, cfg = {}, ttl = {
     // An edition or a work of a known project is that project's, not a new one (its photos stay in that project).
     const parent = d.outcome === 'recovered' ? partOf(p, known) : null
     if (parent) d = { ...d, country: null, outcome: 'part_of_project', reason: 'part of ' + parent }
-    const entry = { id: p.id, qid: p.qid || null, name: p.name_en || p.name_ko || p.name_original, category: cat, before, outcome: d.outcome, ...(parent ? { part_of: parent } : {}), country: d.country || null, rule: d.rule || null, votes: d.votes, reason: d.reason || null, geotags: geo ? { n: geo.n, countries: geo.countries, center: geo.center } : null, evidence, corroborated: !!(weak && d.country && weak.country === d.country) }
+    // The same thing found twice: never a second record (an editor can merge them; quality.json lists the pair).
+    const twin = d.outcome === 'recovered' ? sameNameAs(p, known, d.country) : null
+    if (twin) d = { ...d, country: null, outcome: 'duplicate_of_project', reason: 'same name and country as ' + twin }
+    const entry = { id: p.id, qid: p.qid || null, name: p.name_en || p.name_ko || p.name_original, category: cat, before, outcome: d.outcome, ...(parent ? { part_of: parent } : {}), ...(twin ? { duplicate_of: twin } : {}), country: d.country || null, rule: d.rule || null, votes: d.votes, reason: d.reason || null, geotags: geo ? { n: geo.n, countries: geo.countries, center: geo.center } : null, evidence, corroborated: !!(weak && d.country && weak.country === d.country) }
     if (d.outcome === 'recovered') {
       const src = { parent_category: 'derived:commons_parent_category', parent_item: 'derived:commons_parent_category', category_name: 'derived:commons_category_name', file_geotags: 'derived:commons_file_geotags', coordinates: 'derived:coordinates_in_borders' }[d.rule] || 'derived:commons_parent_category'
       p.field_sources = { ...(p.field_sources || {}) }
