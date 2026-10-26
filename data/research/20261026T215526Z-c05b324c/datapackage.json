@@ -1,0 +1,829 @@
+{
+ "profile": "tabular-data-package",
+ "id": "light-architecture-archive@20261026T215526Z-c05b324c",
+ "name": "light-architecture-archive",
+ "title": "빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋",
+ "version": "20261026T215526Z-c05b324c",
+ "created": "2026-10-26T21:55:26.281Z",
+ "data_as_of": "2026-10-26",
+ "homepage": "https://remona8787.github.io/",
+ "description": "미디어파사드·건축 미디어아트·빛 설치 작품의 사실 정보(이름, 유형, 위치, 연도, 운영 상태, 식별자, 출처, 필드별 신뢰도), 레코드 사이의 관계, 공공 행사 정보, 공개 이미지의 저작권 정보. 편집부 해설문과 이미지 파일은 포함하지 않습니다.",
+ "counts": {
+  "projects": 390,
+  "with_coordinates": 202,
+  "sources": 762,
+  "images": 1742,
+  "relations": 38,
+  "events": 0,
+  "agents": 108,
+  "agents_by_type": {
+   "artist": 99,
+   "architect": 7,
+   "organization": 2
+  },
+  "by_country": {
+   "DE": 118,
+   "KR": 54,
+   "GB": 47,
+   "US": 27,
+   "NL": 23,
+   "CA": 20,
+   "AT": 12,
+   "FI": 11,
+   "FR": 9,
+   "CZ": 6,
+   "ES": 6,
+   "PL": 6,
+   "BE": 5,
+   "CH": 5,
+   "RU": 4,
+   "IT": 3,
+   "JP": 3,
+   "NZ": 3,
+   "TH": 3,
+   "AU": 2,
+   "CN": 2,
+   "EG": 2,
+   "HR": 2,
+   "RO": 2,
+   "SA": 2,
+   "SE": 2,
+   "TR": 2,
+   "AE": 1,
+   "BA": 1,
+   "DK": 1,
+   "HK": 1,
+   "IL": 1,
+   "IN": 1,
+   "IS": 1,
+   "MX": 1,
+   "PH": 1
+  },
+  "by_kr_region": {
+   "seoul": 51,
+   "busan_ulsan_gyeongnam": 1,
+   "gwangju_jeolla": 1,
+   "gyeonggi_incheon": 1
+  },
+  "by_type": {
+   "light_art": 185,
+   "festival_program": 106,
+   "media_facade": 35,
+   "other": 23,
+   "projection_mapping": 22,
+   "media_architecture": 14,
+   "interactive_installation": 2,
+   "media_wall": 2,
+   "urban_screen": 1
+  },
+  "by_kind": {
+   "facility": 277,
+   "festival": 106,
+   "exhibition": 6,
+   "program": 1
+  },
+  "by_status": {
+   "unknown": 380,
+   "ended": 6,
+   "seasonal": 3,
+   "running": 1
+  }
+ },
+ "licenses": [
+  {
+   "name": "CC0-1.0",
+   "path": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "title": "Wikidata에서 온 사실 정보"
+  },
+  {
+   "name": "other",
+   "title": "그 밖의 출처: sources.csv의 각 출처 조건, 이미지는 images.csv의 각 라이선스"
+  }
+ ],
+ "sources": [
+  {
+   "title": "Wikidata",
+   "path": "https://www.wikidata.org/"
+  },
+  {
+   "title": "Wikimedia Commons",
+   "path": "https://commons.wikimedia.org/"
+  },
+  {
+   "title": "Wikipedia",
+   "path": "https://www.wikipedia.org/"
+  },
+  {
+   "title": "빛의 건축 편집부 수록 레코드",
+   "path": "https://remona8787.github.io/"
+  }
+ ],
+ "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261026T215526Z-c05b324c, 데이터 기준일 2026-10-26). https://remona8787.github.io/data/research/20261026T215526Z-c05b324c/",
+ "changes": {
+  "from": "20261026T213455Z-f082e9a0",
+  "added": 0,
+  "removed": 1,
+  "changed": 0
+ },
+ "resources": [
+  {
+   "name": "projects",
+   "path": "projects.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "bytes": 215584,
+   "hash": "sha256:508c2e45609344614f64001bfa43c43b339417f6fbb71a50881a05d1de9d09c0",
+   "schema": {
+    "fields": [
+     {
+      "name": "id",
+      "type": "string",
+      "title": "ID",
+      "description": "아카이브 프로젝트 ID. Wikidata 항목이면 QID, 편집부 수록이면 SEOUL001 형식, Commons 분류 기반이면 CAT-…"
+     },
+     {
+      "name": "name_ko",
+      "type": "string",
+      "title": "한국어 이름",
+      "description": "없으면 빈 값"
+     },
+     {
+      "name": "name_en",
+      "type": "string",
+      "title": "영어 이름",
+      "description": "없으면 빈 값"
+     },
+     {
+      "name": "name_original",
+      "type": "string",
+      "title": "원어 이름"
+     },
+     {
+      "name": "name_original_lang",
+      "type": "string",
+      "title": "원어 언어",
+      "description": "ISO 639-1"
+     },
+     {
+      "name": "project_type",
+      "type": "string",
+      "title": "유형",
+      "description": "archive-taxonomy.js의 project_type 키 (media_facade, projection_mapping, light_art …)"
+     },
+     {
+      "name": "country_iso2",
+      "type": "string",
+      "title": "국가",
+      "description": "ISO 3166-1 alpha-2"
+     },
+     {
+      "name": "region",
+      "type": "string",
+      "title": "세계 권역"
+     },
+     {
+      "name": "kr_region",
+      "type": "string",
+      "title": "국내 권역",
+      "description": "국내 8개 권역 키 (seoul, gyeonggi_incheon …). 국외는 빈 값"
+     },
+     {
+      "name": "city",
+      "type": "string",
+      "title": "도시(영문)"
+     },
+     {
+      "name": "city_ko",
+      "type": "string",
+      "title": "시·군(한국어)",
+      "description": "출처의 행정구역 이름에서만 채움. 추정하지 않음"
+     },
+     {
+      "name": "district",
+      "type": "string",
+      "title": "구·군",
+      "description": "출처의 행정구역 이름에서만 채움"
+     },
+     {
+      "name": "address",
+      "type": "string",
+      "title": "주소",
+      "description": "출처에 있는 경우만"
+     },
+     {
+      "name": "lat",
+      "type": "number",
+      "title": "위도",
+      "description": "WGS84. 좌표가 없으면 빈 값"
+     },
+     {
+      "name": "lng",
+      "type": "number",
+      "title": "경도",
+      "description": "WGS84"
+     },
+     {
+      "name": "location_precision",
+      "type": "string",
+      "title": "위치 정밀도",
+      "description": "exact, approximate, city 등"
+     },
+     {
+      "name": "operating_status",
+      "type": "string",
+      "title": "운영 상태",
+      "description": "출처에 근거한 값만. 모르면 빈 값"
+     },
+     {
+      "name": "kind",
+      "type": "string",
+      "title": "레코드 종류",
+      "description": "facility(상설 시설·작품), program(정기 프로그램), festival(축제), exhibition(전시)"
+     },
+     {
+      "name": "start_date",
+      "type": "string",
+      "title": "시작일",
+      "description": "YYYY, YYYY-MM 또는 YYYY-MM-DD. 출처에 있는 경우만"
+     },
+     {
+      "name": "end_date",
+      "type": "string",
+      "title": "종료일",
+      "description": "YYYY, YYYY-MM 또는 YYYY-MM-DD"
+     },
+     {
+      "name": "status",
+      "type": "string",
+      "title": "진행 상태",
+      "description": "running, seasonal, ended, upcoming, unknown. 출처가 없으면 unknown"
+     },
+     {
+      "name": "status_source",
+      "type": "string",
+      "title": "진행 상태 출처",
+      "description": "tourapi, wikidata, editorial, curated. status가 unknown이면 빈 값"
+     },
+     {
+      "name": "year_installed",
+      "type": "integer",
+      "title": "설치 연도"
+     },
+     {
+      "name": "year_completed",
+      "type": "integer",
+      "title": "완공 연도"
+     },
+     {
+      "name": "year_operating_since",
+      "type": "integer",
+      "title": "운영 시작 연도"
+     },
+     {
+      "name": "year_ended",
+      "type": "integer",
+      "title": "종료 연도"
+     },
+     {
+      "name": "installation_method",
+      "type": "string",
+      "title": "설치 방식"
+     },
+     {
+      "name": "envelope_type",
+      "type": "string",
+      "title": "외피 유형"
+     },
+     {
+      "name": "technologies",
+      "type": "string",
+      "title": "기술",
+      "description": "세미콜론(;)으로 구분"
+     },
+     {
+      "name": "spatial_context",
+      "type": "string",
+      "title": "공간 맥락",
+      "description": "세미콜론(;)으로 구분"
+     },
+     {
+      "name": "content_types",
+      "type": "string",
+      "title": "콘텐츠 유형",
+      "description": "세미콜론(;)으로 구분"
+     },
+     {
+      "name": "wikidata",
+      "type": "string",
+      "title": "Wikidata",
+      "description": "QID"
+     },
+     {
+      "name": "commons_category",
+      "type": "string",
+      "title": "Commons 분류"
+     },
+     {
+      "name": "official_url",
+      "type": "string",
+      "title": "공식 URL"
+     },
+     {
+      "name": "record_origin",
+      "type": "string",
+      "title": "레코드 출처",
+      "description": "wikidata, commons, curated, wikipedia …"
+     },
+     {
+      "name": "added_at",
+      "type": "datetime",
+      "title": "처음 수록",
+      "description": "ISO 8601"
+     },
+     {
+      "name": "source_count",
+      "type": "integer",
+      "title": "출처 수",
+      "description": "sources.csv의 행 수"
+     },
+     {
+      "name": "image_count",
+      "type": "integer",
+      "title": "공개 이미지 수",
+      "description": "images.csv의 행 수"
+     },
+     {
+      "name": "has_valid_image",
+      "type": "boolean",
+      "title": "대표 이미지 있음",
+      "description": "프로젝트 사진(project_media, project_installation) 또는 건축 맥락 사진이 카드·대표로 지정됨"
+     },
+     {
+      "name": "field_sources",
+      "type": "string",
+      "title": "필드별 출처",
+      "description": "JSON 객체: 필드 이름 → 출처 ID (sources.csv의 source_id)"
+     },
+     {
+      "name": "confidence_project_type",
+      "type": "string",
+      "title": "신뢰도: 유형",
+      "description": "sourced(출처가 밝힘), inferred(규칙으로 추정, 확인 필요), editorial(편집부 입력), unknown(자료 없음)"
+     },
+     {
+      "name": "confidence_region",
+      "type": "string",
+      "title": "신뢰도: 지역",
+      "description": "sourced(출처가 밝힘), inferred(규칙으로 추정, 확인 필요), editorial(편집부 입력), unknown(자료 없음)"
+     },
+     {
+      "name": "confidence_dates",
+      "type": "string",
+      "title": "신뢰도: 날짜",
+      "description": "sourced(출처가 밝힘), inferred(규칙으로 추정, 확인 필요), editorial(편집부 입력), unknown(자료 없음)"
+     },
+     {
+      "name": "confidence_artist",
+      "type": "string",
+      "title": "신뢰도: 작가",
+      "description": "sourced(출처가 밝힘), inferred(규칙으로 추정, 확인 필요), editorial(편집부 입력), unknown(자료 없음)"
+     },
+     {
+      "name": "confidence_architect",
+      "type": "string",
+      "title": "신뢰도: 건축가",
+      "description": "sourced(출처가 밝힘), inferred(규칙으로 추정, 확인 필요), editorial(편집부 입력), unknown(자료 없음)"
+     },
+     {
+      "name": "confidence_coordinates",
+      "type": "string",
+      "title": "신뢰도: 좌표",
+      "description": "sourced(출처가 밝힘), inferred(규칙으로 추정, 확인 필요), editorial(편집부 입력), unknown(자료 없음)"
+     },
+     {
+      "name": "relation_count",
+      "type": "integer",
+      "title": "관계 수",
+      "description": "relations.csv의 행 수"
+     },
+     {
+      "name": "event_count",
+      "type": "integer",
+      "title": "행사·전시 수",
+      "description": "events.csv의 행 수"
+     }
+    ]
+   }
+  },
+  {
+   "name": "projects-json",
+   "path": "projects.json",
+   "format": "json",
+   "mediatype": "application/json",
+   "encoding": "utf-8",
+   "bytes": 641437,
+   "hash": "sha256:7316de9243cb716b911b9c2eb5f3e58a3d3637028e2d0208bc1c7b8bd06d24c0"
+  },
+  {
+   "name": "projects-geojson",
+   "path": "projects.geojson",
+   "format": "geojson",
+   "mediatype": "application/geo+json",
+   "encoding": "utf-8",
+   "bytes": 63413,
+   "hash": "sha256:dfd1d3cbf2f8fc53929e8f70d02056c8ea30e4dbdf4409ffbb83b90223fdba09"
+  },
+  {
+   "name": "sources",
+   "path": "sources.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "bytes": 90400,
+   "hash": "sha256:7c90be5448faf1b745ececd9c6fc949c5114d0cda69b2499608091efac4ef0ef",
+   "schema": {
+    "fields": [
+     {
+      "name": "project_id",
+      "type": "string",
+      "title": "프로젝트 ID"
+     },
+     {
+      "name": "source_id",
+      "type": "string",
+      "title": "출처 ID"
+     },
+     {
+      "name": "kind",
+      "type": "string",
+      "title": "종류",
+      "description": "wikidata, wikipedia, official, public_agency, news …"
+     },
+     {
+      "name": "title",
+      "type": "string",
+      "title": "제목"
+     },
+     {
+      "name": "publisher",
+      "type": "string",
+      "title": "발행처"
+     },
+     {
+      "name": "url",
+      "type": "string",
+      "title": "URL"
+     }
+    ]
+   }
+  },
+  {
+   "name": "images",
+   "path": "images.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "bytes": 506849,
+   "hash": "sha256:b0a07d63d78c5caae018924743672b10d94188e99f7700ba0fde89c865f8f77c",
+   "schema": {
+    "fields": [
+     {
+      "name": "project_id",
+      "type": "string",
+      "title": "프로젝트 ID"
+     },
+     {
+      "name": "image_id",
+      "type": "string",
+      "title": "이미지 ID"
+     },
+     {
+      "name": "kind",
+      "type": "string",
+      "title": "이미지 역할",
+      "description": "project_media, project_installation, architecture_context, technical_documentation, event_documentation"
+     },
+     {
+      "name": "role",
+      "type": "string",
+      "title": "화면 역할",
+      "description": "hero, featured, card, gallery, context"
+     },
+     {
+      "name": "title",
+      "type": "string",
+      "title": "제목",
+      "description": "Commons 파일 이름 또는 제공처 제목"
+     },
+     {
+      "name": "provider",
+      "type": "string",
+      "title": "제공처"
+     },
+     {
+      "name": "author",
+      "type": "string",
+      "title": "저작자"
+     },
+     {
+      "name": "license",
+      "type": "string",
+      "title": "라이선스"
+     },
+     {
+      "name": "license_url",
+      "type": "string",
+      "title": "라이선스 URL"
+     },
+     {
+      "name": "commercial_use",
+      "type": "boolean",
+      "title": "상업적 이용 가능",
+      "description": "라이선스 기준. 공공누리 2·4유형과 NC는 false"
+     },
+     {
+      "name": "width",
+      "type": "integer",
+      "title": "너비(px)",
+      "description": "원본"
+     },
+     {
+      "name": "height",
+      "type": "integer",
+      "title": "높이(px)",
+      "description": "원본"
+     },
+     {
+      "name": "page",
+      "type": "string",
+      "title": "원본 페이지",
+      "description": "저작자·라이선스를 확인할 수 있는 페이지"
+     }
+    ]
+   }
+  },
+  {
+   "name": "relations",
+   "path": "relations.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "bytes": 4944,
+   "hash": "sha256:e6f4a7d7d9638483cbedd0b40b55f29809184d4cfa38feaf9449a4a2d7c4603b",
+   "schema": {
+    "fields": [
+     {
+      "name": "project_id",
+      "type": "string",
+      "title": "프로젝트 ID",
+      "description": "관계를 가진 레코드"
+     },
+     {
+      "name": "type",
+      "type": "string",
+      "title": "관계",
+      "description": "event_at(그 장소에서 열림), exhibition_at(그 장소에서 전시), part_of(그 일부), edition_of(그 회차)"
+     },
+     {
+      "name": "target",
+      "type": "string",
+      "title": "대상 프로젝트 ID",
+      "description": "이 데이터셋에 실린 프로젝트"
+     },
+     {
+      "name": "source",
+      "type": "string",
+      "title": "근거",
+      "description": "wikidata:P361, commons:edition_category, seoul_events 등"
+     },
+     {
+      "name": "subject_event",
+      "type": "string",
+      "title": "대상 행사 ID",
+      "description": "레코드 안에 든 행사(events.csv의 event_id)의 관계일 때"
+     },
+     {
+      "name": "subject_name",
+      "type": "string",
+      "title": "대상 이름",
+      "description": "레코드 안에 든 회차·부분·행사의 이름"
+     },
+     {
+      "name": "subject_commons_category",
+      "type": "string",
+      "title": "대상 Commons 분류"
+     }
+    ]
+   }
+  },
+  {
+   "name": "events",
+   "path": "events.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "bytes": 169,
+   "hash": "sha256:7432e29f761dda1a1435efa3045bb0473fd6603be3b3156a4ea1ef4d81cece54",
+   "schema": {
+    "fields": [
+     {
+      "name": "project_id",
+      "type": "string",
+      "title": "프로젝트 ID",
+      "description": "행사가 열리는 장소의 레코드"
+     },
+     {
+      "name": "event_id",
+      "type": "string",
+      "title": "행사 ID"
+     },
+     {
+      "name": "kind",
+      "type": "string",
+      "title": "종류",
+      "description": "event(행사), exhibition(전시)"
+     },
+     {
+      "name": "title",
+      "type": "string",
+      "title": "행사명"
+     },
+     {
+      "name": "program",
+      "type": "string",
+      "title": "프로그램"
+     },
+     {
+      "name": "start",
+      "type": "date",
+      "title": "시작일"
+     },
+     {
+      "name": "end",
+      "type": "date",
+      "title": "종료일"
+     },
+     {
+      "name": "date_text",
+      "type": "string",
+      "title": "기간(원문)"
+     },
+     {
+      "name": "status",
+      "type": "string",
+      "title": "진행 상태",
+      "description": "checked_at 기준"
+     },
+     {
+      "name": "checked_at",
+      "type": "string",
+      "title": "확인일",
+      "description": "YYYY-MM-DD"
+     },
+     {
+      "name": "place",
+      "type": "string",
+      "title": "장소(원문)"
+     },
+     {
+      "name": "district",
+      "type": "string",
+      "title": "구·군"
+     },
+     {
+      "name": "org",
+      "type": "string",
+      "title": "주최·주관"
+     },
+     {
+      "name": "fee",
+      "type": "string",
+      "title": "요금(원문)"
+     },
+     {
+      "name": "is_free",
+      "type": "boolean",
+      "title": "무료"
+     },
+     {
+      "name": "url",
+      "type": "string",
+      "title": "행사 URL"
+     },
+     {
+      "name": "source_dataset",
+      "type": "string",
+      "title": "원천 데이터셋",
+      "description": "예: OA-15486"
+     },
+     {
+      "name": "publisher",
+      "type": "string",
+      "title": "제공 기관"
+     },
+     {
+      "name": "license",
+      "type": "string",
+      "title": "라이선스",
+      "description": "예: KOGL Type 1"
+     },
+     {
+      "name": "license_url",
+      "type": "string",
+      "title": "라이선스 URL"
+     },
+     {
+      "name": "source_url",
+      "type": "string",
+      "title": "원천 페이지"
+     }
+    ]
+   }
+  },
+  {
+   "name": "agents",
+   "path": "agents.csv",
+   "format": "csv",
+   "mediatype": "text/csv",
+   "encoding": "utf-8",
+   "bytes": 9544,
+   "hash": "sha256:5cf572e88ef604502fb0300df62cbab1d3c7a8a774622e0aadd74d64eb133ed6",
+   "schema": {
+    "fields": [
+     {
+      "name": "agent_id",
+      "type": "string",
+      "title": "행위자 ID",
+      "description": "Wikidata QID가 있으면 QID, 없으면 name:<정규화한 이름>. 이름이 정확히 같을 때만 합침"
+     },
+     {
+      "name": "name",
+      "type": "string",
+      "title": "이름"
+     },
+     {
+      "name": "name_en",
+      "type": "string",
+      "title": "영어 이름"
+     },
+     {
+      "name": "wikidata_qid",
+      "type": "string",
+      "title": "Wikidata"
+     },
+     {
+      "name": "entity_type",
+      "type": "string",
+      "title": "엔터티 유형",
+      "description": "artist(작가·디자이너·큐레이터), architect(건축가), organization(운영·소유·제작·주최 기관). 역할에서 정하며 사람인지 단체인지는 판단하지 않음"
+     },
+     {
+      "name": "roles",
+      "type": "string",
+      "title": "역할",
+      "description": "세미콜론(;)으로 구분. archive-taxonomy.js credit_role 키, 행사 주최는 event_organizer"
+     },
+     {
+      "name": "project_ids",
+      "type": "string",
+      "title": "프로젝트 ID",
+      "description": "세미콜론(;)으로 구분"
+     },
+     {
+      "name": "project_count",
+      "type": "integer",
+      "title": "프로젝트 수"
+     }
+    ]
+   }
+  },
+  {
+   "name": "workbook",
+   "path": "archive.xlsx",
+   "format": "xlsx",
+   "mediatype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+   "encoding": "utf-8",
+   "bytes": 280968,
+   "hash": "sha256:1df17122563e61fd25510446d6a1018eaca6056de199003e16ea75a910a7b34a"
+  },
+  {
+   "name": "citation",
+   "path": "CITATION.txt",
+   "format": "txt",
+   "mediatype": "text/plain",
+   "encoding": "utf-8",
+   "bytes": 268,
+   "hash": "sha256:3b363e088a2472c0c93b1bf52c571bea9f7d96b680b7ae26d8b1482c968aac42"
+  },
+  {
+   "name": "changelog",
+   "path": "CHANGELOG.md",
+   "format": "md",
+   "mediatype": "text/markdown",
+   "encoding": "utf-8",
+   "bytes": 301,
+   "hash": "sha256:69fb5b5b56f50eb4f1a3c985883dbf9bb9f3409298357ab7a2fabda340557dfd"
+  }
+ ]
+}
