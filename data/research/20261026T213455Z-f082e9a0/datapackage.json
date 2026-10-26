@@ -1,21 +1,21 @@
 {
  "profile": "tabular-data-package",
- "id": "light-architecture-archive@20261026T212209Z-c05b324c",
+ "id": "light-architecture-archive@20261026T213455Z-f082e9a0",
  "name": "light-architecture-archive",
  "title": "빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋",
- "version": "20261026T212209Z-c05b324c",
- "created": "2026-10-26T21:22:09.202Z",
+ "version": "20261026T213455Z-f082e9a0",
+ "created": "2026-10-26T21:34:55.753Z",
  "data_as_of": "2026-10-26",
  "homepage": "https://remona8787.github.io/",
  "description": "미디어파사드·건축 미디어아트·빛 설치 작품의 사실 정보(이름, 유형, 위치, 연도, 운영 상태, 식별자, 출처)와 공개 이미지의 저작권 정보. 편집부 해설문과 이미지 파일은 포함하지 않습니다.",
  "counts": {
-  "projects": 390,
-  "with_coordinates": 202,
-  "sources": 762,
-  "images": 1742,
+  "projects": 391,
+  "with_coordinates": 203,
+  "sources": 766,
+  "images": 1748,
   "by_country": {
    "DE": 118,
-   "KR": 54,
+   "KR": 55,
    "GB": 47,
    "US": 27,
    "NL": 23,
@@ -53,13 +53,13 @@
   },
   "by_kr_region": {
    "seoul": 51,
+   "gyeonggi_incheon": 2,
    "busan_ulsan_gyeongnam": 1,
-   "gwangju_jeolla": 1,
-   "gyeonggi_incheon": 1
+   "gwangju_jeolla": 1
   },
   "by_type": {
    "light_art": 185,
-   "festival_program": 106,
+   "festival_program": 107,
    "media_facade": 35,
    "other": 23,
    "projection_mapping": 22,
@@ -98,12 +98,12 @@
    "path": "https://remona8787.github.io/"
   }
  ],
- "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261026T212209Z-c05b324c, 데이터 기준일 2026-10-26). https://remona8787.github.io/data/research/20261026T212209Z-c05b324c/",
+ "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261026T213455Z-f082e9a0, 데이터 기준일 2026-10-26). https://remona8787.github.io/data/research/20261026T213455Z-f082e9a0/",
  "changes": {
-  "from": "20261026T165540Z-057a0055",
-  "added": 0,
+  "from": "20261026T212209Z-c05b324c",
+  "added": 1,
   "removed": 0,
-  "changed": 1
+  "changed": 0
  },
  "resources": [
   {
@@ -112,8 +112,8 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "bytes": 186709,
-   "hash": "sha256:fea47b0ab84f96cddf1d279ee56384b872e7b8f4a43f238decd24edbaccd662e",
+   "bytes": 187399,
+   "hash": "sha256:d22646980ba0e16da0b5aa1a77ac49e6792915504c5cd702ec9f32c1f464098b",
    "schema": {
     "fields": [
      {
@@ -324,8 +324,8 @@
    "format": "json",
    "mediatype": "application/json",
    "encoding": "utf-8",
-   "bytes": 490726,
-   "hash": "sha256:e8532ef677bf20349b16421821b9fa55e9adb47471a3bb8ea6d9aa5d7524a3d8"
+   "bytes": 492197,
+   "hash": "sha256:6866a13a641faf7cd3a628989845ff7ea8bf3677d9639e94c76ac8a03ada21fa"
   },
   {
    "name": "projects-geojson",
@@ -333,8 +333,8 @@
    "format": "geojson",
    "mediatype": "application/geo+json",
    "encoding": "utf-8",
-   "bytes": 63413,
-   "hash": "sha256:dfd1d3cbf2f8fc53929e8f70d02056c8ea30e4dbdf4409ffbb83b90223fdba09"
+   "bytes": 63789,
+   "hash": "sha256:b3cc8aa18629c403078ae255cc7bba7fc5856520e0d610cfa8f6273c49895265"
   },
   {
    "name": "sources",
@@ -342,8 +342,8 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "bytes": 90400,
-   "hash": "sha256:7c90be5448faf1b745ececd9c6fc949c5114d0cda69b2499608091efac4ef0ef",
+   "bytes": 91019,
+   "hash": "sha256:05a224da34f5b5f369df4d005045298f5f3255d2377b3488fdb09b6c6ac3e654",
    "schema": {
     "fields": [
      {
@@ -386,8 +386,8 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "bytes": 506849,
-   "hash": "sha256:b0a07d63d78c5caae018924743672b10d94188e99f7700ba0fde89c865f8f77c",
+   "bytes": 508894,
+   "hash": "sha256:be80d5fd895e019447040d86dace8fb931b7e77e332542040ecf76d8bdaf8086",
    "schema": {
     "fields": [
      {
@@ -472,7 +472,7 @@
    "mediatype": "text/plain",
    "encoding": "utf-8",
    "bytes": 268,
-   "hash": "sha256:9addbb351c3b3b3b5683268c33a7418f20dd52e735e4394078c20072a1d873c9"
+   "hash": "sha256:81f894323daed70402440ca1af7119a0b512f2018577efbc1fe8c50ef0a92c97"
   },
   {
    "name": "changelog",
@@ -481,7 +481,7 @@
    "mediatype": "text/markdown",
    "encoding": "utf-8",
    "bytes": 301,
-   "hash": "sha256:32db46b7580f3ba9cda04eeab43dbd3b116b84736d9bd61b02e1736301b900e3"
+   "hash": "sha256:021287d3cb09672f3446369ec22bd24080e1aa52d1dfaa5e8b67b236705dbe68"
   }
  ]
 }
