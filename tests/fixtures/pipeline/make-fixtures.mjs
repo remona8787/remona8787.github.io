@@ -145,6 +145,27 @@ add('Q99000501', { labels: { ko: '픽스처 미디어아트 뮤지엄 부산', e
 add('Q99000502', { labels: { ko: '픽스처 강릉 빛축제', en: 'Fixture Gangneung Light Festival' }, descriptions: { ko: '강릉에서 열리는 빛 축제' },
   claims: { P31: 'Q132241', P17: 'Q884', P131: 'Q99000414', P625: [[37.7519, 128.8761]], P571: 2019, P580: '2026-12-20', P582: '2027-01-10', P2257: [[1, 'Q577']] }, sitelinks: { kowiki: '픽스처 강릉 빛축제' } })
 add('Q99000504', { labels: { ko: '픽스처 미디어 작가' }, claims: { P31: 'Q5' }, sitelinks: { kowiki: '픽스처 미디어 작가' } })
+// Korea: found only by the Wikidata full-text search among Korean items — a lantern festival (a festival: accepted)
+// and an association (an organisation without a place class: refused).
+add('Q99000506', { labels: { ko: '픽스처 경포 유등축제', en: 'Fixture Gyeongpo Lantern Festival' }, descriptions: { ko: '강릉 경포호의 유등축제' },
+  claims: { P31: 'Q132241', P17: 'Q884', P131: 'Q99000414', P625: [[37.7955, 128.9086]] }, sitelinks: { kowiki: '픽스처 경포 유등축제' } })
+add('Q48204', { labels: { en: 'voluntary association', ko: '자원 단체' } })
+add('Q99000507', { labels: { ko: '픽스처 미디어아트 협회' }, descriptions: { ko: '미디어아트 작가 단체' }, claims: { P31: 'Q48204', P17: 'Q884', P131: 'Q99000417' } })
+// Country recovery: the Giza complex's item gives Egypt; a lights festival located (P276) in a city of the United
+// Kingdom; a light installation in a city of Q55 (no ISO code; its P17 Q29999 has NL); one with coordinates only.
+add('Q79', { labels: { en: 'Egypt', ko: '이집트' }, claims: { P31: 'Q6256', P297: 'EG' } })
+add('Q99000701', { labels: { en: 'Fixture Giza pyramid complex' }, claims: { P31: 'Q839954', P17: 'Q79', P625: [[29.9792, 31.1342]] } })
+add('Q145', { labels: { en: 'United Kingdom', ko: '영국' }, claims: { P31: 'Q6256', P297: 'GB' } })
+add('Q99000703', { labels: { en: 'Fixture Manchester' }, claims: { P31: 'Q515', P17: 'Q145' } })
+add('Q99000702', { labels: { en: 'Fixture Digital Lights Festival' }, claims: { P31: 'Q124414048', P276: 'Q99000703', P571: 2010 } })
+add('Q29999', { labels: { en: 'Kingdom of the Netherlands' }, claims: { P31: 'Q3624078', P297: 'NL' } })
+add('Q55', { labels: { en: 'Netherlands', ko: '네덜란드' }, claims: { P31: 'Q6256', P17: 'Q29999' } })
+add('Q99000705', { labels: { en: 'Fixture Amsterdam' }, claims: { P31: 'Q515', P17: 'Q55' } })
+add('Q99000704', { labels: { en: 'Fixture Lichtkunst Amsterdam' }, claims: { P31: 'Q1823448', P131: 'Q99000705', P625: [[52.3676, 4.9041]], P571: 2015 } })
+add('Q99000706', { labels: { en: 'Fixture Valo Oulu', fi: 'Valo Oulu' }, claims: { P31: 'Q1823448', P625: [[65.0121, 25.4651]], P571: 2021 } })
+// A foreign building found by the Korean Wikipedia: never a Korean hit (the ko search is for Korean projects).
+add('Q17', { labels: { en: 'Japan', ko: '일본' }, claims: { P31: 'Q6256', P297: 'JP' } })
+add('Q99000604', { labels: { ko: '픽스처 도쿄 미디어 타워', en: 'Fixture Tokyo Media Tower' }, claims: { P31: 'Q11303', P17: 'Q17', P625: [[35.66, 139.76]] }, sitelinks: { kowiki: '픽스처 도쿄 미디어 타워' } })
 add('Q99000505', { labels: { ko: '픽스처 시립도서관' }, claims: { P31: 'Q33506', P17: 'Q884', P131: 'Q99000417', P625: [[37.48, 127.01]] }, sitelinks: { kowiki: '픽스처 시립도서관' } })
 add('Q255506', { labels: { en: 'Banpo Bridge', ko: '반포대교' }, descriptions: { en: 'bridge in Seoul with a musical fountain' },
   claims: { P31: ['Q12280', 'Q926949'], P17: 'Q884', P131: 'Q99000417', P625: [[37.5152, 126.9958]], P571: 1982 }, sitelinks: { kowiki: '반포대교', enwiki: 'Banpo Bridge' } })
@@ -171,7 +192,7 @@ const INT = (n) => ({ datatype: 'http://www.w3.org/2001/XMLSchema#integer', type
 const COUNTS = { Q17158007: [0, 0], Q4287692: [0, 0], Q776483: [1, 1], Q1421557: [14, 8], Q1823448: [138, 94], Q29885984: [26, 9], Q1798004: [0, 0], Q124414048: [23, 3],
   Q126682969: [0, 0], Q126682939: [0, 0], Q1136999: [0, 0], Q63442021: [5, 1], Q110409771: [0, 0], Q115452528: [0, 0], Q378604: [265, 4], Q860372: [0, 0], Q550484: [0, 0],
   Q20437094: [0, 0], Q380051: [0, 0], Q926949: [0, 0], Q110775916: [26875, 30], Q116262603: [0, 0] }
-const INSTANCES = { Q4287692: ['Q15014400'], Q29885984: ['Q127587129'], Q1823448: ['Q7715933', 'Q5447104', 'Q7899954', 'Q2001578', 'Q99000108', 'Q99000503'], Q1421557: ['Q7715933', 'Q99000107'], Q124414048: ['Q4167', 'Q15140473', 'Q125715'], Q378604: ['Q99000106'] }
+const INSTANCES = { Q4287692: ['Q15014400'], Q29885984: ['Q127587129'], Q1823448: ['Q7715933', 'Q5447104', 'Q7899954', 'Q2001578', 'Q99000108', 'Q99000503', 'Q99000704', 'Q99000706'], Q1421557: ['Q7715933', 'Q99000107'], Q124414048: ['Q4167', 'Q15140473', 'Q125715', 'Q99000702'], Q378604: ['Q99000106'] }
 // Korea first: the items of each usable class located in South Korea (P17 = Q884), read before any worldwide query.
 const KR_INSTANCES = { Q1823448: ['Q99000503'], Q1421557: ['Q99000107'], Q926949: ['Q255506'] }
 // The first-level divisions of South Korea as wd:Q884 p:P150 lists them, with ISO 3166-2 codes (P300); Gwangju ended
@@ -248,7 +269,23 @@ const FILES = [
   ['Embarcadero evening walk 2015.jpg', 'night_field', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 43', ['The Bay Lights'], 'An evening walk on the Embarcadero'],
   ['Bay Bridge sunset 2016.jpg', 'colourful_day', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 44', ['The Bay Lights', 'Portrait photographs in San Francisco'], 'Sunset at the Bay Bridge'],
   ['The Bay Lights LED modules installation work 2012.jpg', 'interior', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 45', ['The Bay Lights'], 'Installation work: LED modules on the cables'],
+  // A Korean root that holds photos itself: the photo's other category (the gate) becomes a candidate with the photo.
+  ['Gwanghwamun projection mapping 2019.jpg', 'night_projection', 3600, 2400, 'CC BY-SA 4.0', 'Fixture Photographer 46', ['Gwanghwamun', 'Projection mapping in South Korea'], 'Projection mapping on Gwanghwamun gate at night'],
+  ['Gwanghwamun Gate daytime 2020.jpg', 'day', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 47', ['Gwanghwamun'], 'Gwanghwamun gate in daylight'],
+  ['Boseong tea plantation lights 2019 (1).jpg', 'night_field', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 48', ['Boseong Green Tea Plantation Light Festival'], 'Light festival on the tea fields at night'],
+  ['Boseong tea plantation lights 2019 (2).jpg', 'night_led', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 48', ['Boseong Green Tea Plantation Light Festival'], 'Light tunnel of the tea plantation festival'],
+  ['Giza sound and light show 2018.jpg', 'night_projection', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 49', ['Sound and light show at Giza'], 'Sound and light show on the pyramids'],
+  ['Giza sound and light show pyramids night.jpg', 'night_projection2', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 49', ['Sound and light show at Giza'], 'The pyramids lit at night'],
+  ['Global Rainbow New York 2012.jpg', 'night_led2', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 50', ['Global Rainbow'], 'Laser rainbow over the city'],
+  ['Global Rainbow Lisbon 2014.jpg', 'night_led2', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 50', ['Global Rainbow'], 'Laser rainbow over the river'],
+  ['Global Rainbow Folkestone 2015.jpg', 'night_led2', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 50', ['Global Rainbow'], 'Laser rainbow over the harbour'],
 ]
+// Camera locations of files (GeoData primary coordinates).
+const FILE_GEOTAGS = {
+  'Boseong tea plantation lights 2019 (1).jpg': [34.7106, 127.0806], 'Boseong tea plantation lights 2019 (2).jpg': [34.7112, 127.0811],
+  'Giza sound and light show 2018.jpg': [29.9757, 31.1376], 'Giza sound and light show pyramids night.jpg': [29.9761, 31.1369],
+  'Global Rainbow New York 2012.jpg': [40.7061, -74.0087], 'Global Rainbow Lisbon 2014.jpg': [38.7071, -9.1356], 'Global Rainbow Folkestone 2015.jpg': [51.0814, 1.1838],
+}
 // P180 statements of files (their MediaInfo entities): file → depicted items.
 const FILE_DEPICTS = { 'Embarcadero evening walk 2015.jpg': ['Q99000210'], 'The Bay Lights at night 2013.jpg': ['Q7715933'] }
 const COMMON_TEMPLATES = ['Template:Information', 'Template:Own', 'Template:Self', 'Template:Cc-by-sa-4.0', 'Template:Location', 'Template:Taken on', 'Template:Lang', 'Template:Description']
@@ -283,7 +320,7 @@ const CATS = [
   ['Category:Projection mapping in the Quartier des Spectacles', null, null, [], []],
   ['Category:Signal Festival', 'Q18391691', [50.0872, 14.421], [], fileTitles('Signal festival 2019 projection.jpg', 'Signal festival 2019 projection compressed.jpg')],
   ['Category:Schlosslichtspiele Karlsruhe', 'Q56089114', null, [], fileTitles('Schlosslichtspiele 2018 Karlsruhe Schloss projection.jpg')],
-  ['Category:Light art', 'Q8590079', null, ['Category:Light artists', 'Category:Light art in Karlsruhe', 'Category:Field of Light', 'Category:Urban Light', 'Category:Tribute in Light', 'Category:The Bay Lights', 'Category:Lumino Kinetic art', 'Category:Bradford Garden of Light'], []],
+  ['Category:Light art', 'Q8590079', null, ['Category:Light artists', 'Category:Light art in Karlsruhe', 'Category:Field of Light', 'Category:Urban Light', 'Category:Tribute in Light', 'Category:The Bay Lights', 'Category:Lumino Kinetic art', 'Category:Bradford Garden of Light', 'Category:Global Rainbow'], []],
   ['Category:Light artists', 'Q8590080', null, [], []],
   ['Category:Light art in Karlsruhe', null, null, ['Category:Schlosslichtspiele Karlsruhe'], []],
   ['Category:Field of Light', 'Q5447104', null, [], fileTitles('Field of Light Uluru 2016.jpg')],
@@ -315,9 +352,25 @@ const CATS = [
     fileTitles('G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (02).jpg', '국립중앙박물관야간모습01.jpg', '국립중앙박물관 디지털 실감 영상관 파노라마 2021.jpg')],
   ['Category:2010 G-20 Seoul summit at the National Museum of Korea', null, null, [], fileTitles('2010.11.11 G20 서울 정상회의 (7445962682).jpg', 'G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (01).jpg')],
   ['Category:KOCIS Reenactment of a royal wedding (2012)', null, null, [], fileTitles('KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195536).jpg', 'KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195870).jpg')],
+  ['Category:Projection mapping in South Korea', null, null, [], fileTitles('Gwanghwamun projection mapping 2019.jpg')],
+  // Country recovery (live review 2026-10-25): found by a search, no place in the walk; parents and geotags decide.
+  ['Category:Boseong Green Tea Plantation Light Festival', null, null, [], fileTitles('Boseong tea plantation lights 2019 (1).jpg', 'Boseong tea plantation lights 2019 (2).jpg')],
+  ['Category:Sound and light show at Giza', null, null, [], fileTitles('Giza sound and light show 2018.jpg', 'Giza sound and light show pyramids night.jpg')],
+  ['Category:Giza pyramid complex', 'Q99000701', null, [], []],
+  // A work shown in many countries: its photos say so; never one country.
+  ['Category:Global Rainbow', null, null, [], fileTitles('Global Rainbow New York 2012.jpg', 'Global Rainbow Lisbon 2014.jpg', 'Global Rainbow Folkestone 2015.jpg')],
+  ['Category:Gwanghwamun', null, [37.5759, 126.9768], [], fileTitles('Gwanghwamun Gate daytime 2020.jpg')],
   ['Category:Tauron Arena Kraków', 'Q15014400', [50.0675, 19.9914], [], fileTitles('20231021 184556 weźże wyluzuj neon sign.jpg', 'Tauron Arena Kraków LED facade at night.jpg')],
 ]
+// Parent categories (prop=categories), for the country recovery and the Korean region of Commons projects.
+const PARENTS = {
+  'Category:Gwanghwamun': ['Category:Gates in Seoul', 'Category:Jongno District'],
+  'Category:Boseong Green Tea Plantation Light Festival': ['Category:Boseong County', 'Category:Light festivals in South Korea'],
+  'Category:Sound and light show at Giza': ['Category:Giza pyramid complex', 'Category:Sound and light shows'],
+  'Category:Global Rainbow': ['Category:Laser art', 'Category:Light art'],
+}
 const categories = CATS.map(([title, qid, coord, subcats, members]) => ({
+  parents: PARENTS[title] || [],
   page: {
     pageid: ++pageid, ns: 14, title,
     ...(qid ? { pageprops: { wikibase_item: qid } } : {}),
@@ -331,11 +384,14 @@ const categories = CATS.map(([title, qid, coord, subcats, members]) => ({
 }))
 const search = {
   // Keys are the searched phrases; several phrases (all in the name) are joined with " + ".
-  category: { 'media facade': ['Category:Media Facade', 'Category:Facades'], 'projection mapping': ['Category:Projection mapping', 'Category:Projection mapping in Prague'], 'light festival': ['Category:Festivals of lights'],
+  category: { 'media facade': ['Category:Media Facade', 'Category:Facades'], 'projection mapping': ['Category:Projection mapping', 'Category:Projection mapping in Prague'], 'light festival': ['Category:Festivals of lights', 'Category:Boseong Green Tea Plantation Light Festival'], 'sound and light show': ['Category:Sound and light show at Giza'],
     'media art + Busan': ['Category:Media art in Busan'], 'lantern festival + Seoul': ['Category:Seoul Lantern Festival'] },
   file: { 'media facade': [{ title: 'File:Uniqa Tower media facade colourful day.jpg', categories: ['Category:Uniqa Tower'] }] },
   // haswbstatement:P180=<QID> answers (files whose structured data depicts the item).
   file_depicts: FILE_DEPICTS,
+  file_geotags: FILE_GEOTAGS,
+  // Wikidata full-text search (CirrusSearch) answers by term; the fake fetch applies haswbstatement:P17.
+  wikidata: { '유등축제': ['Q99000506'], '미디어아트': ['Q99000507', 'Q99000501'] },
   depicts: { Q5295847: ['File:Dongdaemun Design Plaza exterior daytime.jpg', 'File:Seoul Light DDP 2019 media facade night.jpg'], Q69134: ['File:서울역 앞 대우빌딩 전경.jpg', 'File:Seoul Aerial Shot 07.jpg'] },
 }
 
@@ -364,10 +420,10 @@ const wikis = {
   },
   ko: {
     search: {
-      '미디어파사드': [['롯데월드타워', '외벽에 미디어파사드가 설치되어']],
-      // The wide Korean term list (v0.18): a media art museum (broad term: needs the higher score), a light festival,
-      // an artist (never a project) and a library that mentions media art only in passing (below the broad-term score).
-      '미디어아트': [['픽스처 미디어아트 뮤지엄 부산', '해운대구의 미디어아트 전시관'], ['픽스처 미디어 작가', '미디어아트 작가'], ['픽스처 시립도서관', '미디어아트 강좌']],
+      '미디어파사드': [['롯데월드타워', '외벽에 미디어파사드가 설치되어'], ['픽스처 도쿄 미디어 타워', '외벽 미디어파사드']],
+      // Named things (v0.18 live review): a media art museum, an artist (never a project) and a library that mentions
+      // media art only in passing (below the term's score).
+      '미디어아트 전시관': [['픽스처 미디어아트 뮤지엄 부산', '해운대구의 미디어아트 전시관'], ['픽스처 미디어 작가', '미디어아트 전시관 작가'], ['픽스처 시립도서관', '미디어아트 전시관 강좌']],
       '빛축제': [['픽스처 강릉 빛축제', '강릉 빛축제']],
     },
     pages: [
@@ -376,6 +432,7 @@ const wikis = {
       ['픽스처 미디어 작가', 'Q99000504', '픽스처 미디어 작가는 대한민국의 미디어아트 작가이다.', null],
       ['픽스처 시립도서관', 'Q99000505', '픽스처 시립도서관은 서울특별시 서초구에 있는 공공 도서관이다. 여러 문화 강좌를 연다.', [37.48, 127.01]],
       ['픽스처 강릉 빛축제', 'Q99000502', '픽스처 강릉 빛축제는 강원특별자치도 강릉시에서 매년 겨울 열리는 빛축제이다. 경포호 일대에 빛 조형물과 미디어 파사드를 설치한다.', [37.7519, 128.8761]],
+      ['픽스처 도쿄 미디어 타워', 'Q99000604', '픽스처 도쿄 미디어 타워는 일본 도쿄에 있는 초고층 건물이다. 외벽에 미디어파사드가 있으며 밤마다 미디어파사드 영상을 상영한다.', [35.66, 139.76]],
     ],
   },
   de: {

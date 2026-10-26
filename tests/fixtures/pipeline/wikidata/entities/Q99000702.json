@@ -1,0 +1,86 @@
+{
+ "pageid": 99000702,
+ "ns": 0,
+ "title": "Q99000702",
+ "lastrevid": 2400000702,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000702",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Fixture Digital Lights Festival"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "89314e4e7350e171d4552e1f8b11ea63",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 124414048,
+       "id": "Q124414048"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000702$89314e4e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P276": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P276",
+     "hash": "a66adf1f155513c42e8170154fe12e24",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000703,
+       "id": "Q99000703"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000702$a66adf1f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "1b6e04066926ae94d512f2a0cd239279",
+     "datavalue": {
+      "value": {
+       "time": "+2010-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q99000702$1b6e0406-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

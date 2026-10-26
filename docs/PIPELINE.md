@@ -203,6 +203,53 @@ Every Wikidata class and property id is confirmed by a live query in each run:
 
 ## 5. Discovery and eligibility
 
+**Korean Commons roots.** Besides the configured Korean roots (light, media art, projection mapping, light and
+lantern festivals, media facades, media art exhibitions; illuminated buildings and the night views of 16 cities as
+evidence), a Korean root that holds photos itself ("Projection mapping in South Korea": 8 files, no subcategories) is
+read file by file: each photo's other categories (the gate or square the work was shown on, the festival) are
+candidates (`category_of_a_korean_root_photo`), each with that photo (`via_file`, an image of the work). Such a
+category is the canvas, not the work: its own photos are institution files (context unless they name the project or
+media, see Images). A root that does not exist is a warning; after three roots in a row fail, the rest are skipped.
+
+**Country recovery** (`lib/places.mjs`, `review/places.json`, `report.places`). A project whose only eligibility
+failures are a missing country or location gets them from evidence, never from a guess:
+
+- Wikidata (every item, in `factsOf`): P17 (a country item without an ISO code takes its own P17's: Q55 Netherlands →
+  Q29999 NL), else the country of the P131 or P276 item walking P131 up, else the borders the P625 coordinates lie in
+  (bundled borders, `@rapideditor/country-coder`; `country_rule` records which);
+- Commons: the names of the category's parent categories ("Light festivals in South Korea", "Boseong County" through
+  the Korean gazetteer) and their Wikidata items' countries, the category name itself, and the camera locations of
+  the category's files (a vote when at least 2 are geotagged and 70 % lie in one country; ≤ 150 new categories per
+  run, cached 30 days);
+- the language of an item's only Wikipedia articles is recorded as weak corroboration and never decides.
+
+Strong evidence for two countries, or photos in several countries (a travelling work such as Global Rainbow), leaves a
+project excluded (`conflict`). A recovered Commons project without coordinates or a city takes the city its parents or
+name give, else the centre of a tight geotag cluster (`location_precision: approximate`). An edition or work of a known
+project ("… lors de la Fête des Lumières") is never a new project (`part_of_project`), and a category of things in a
+country ("Illuminated trees in Finland") is an aggregate (`aggregate_name`). A Korean Commons project without a region
+gets the names of its parent categories for the gazetteer (`commons_parent_*` rules). Offline replay of the 2026-10-26
+data branch: 279 → 345 projects (the UK digital arts festivals through P276, Dutch works through Q55, Finnish works
+through their coordinates, Montreal and Ghent works through their parent categories).
+
+**Korea coverage (2026-10-26 live review).** The Korean class query found 0 items for all 18 classes: Korean
+festivals, venues and works are rarely instances of the light-work classes, and many Korean items have P131 but no
+P17. Now:
+
+- the class query also accepts items located in Korea through P131 (one or two levels) or P276
+  (`review/korea.json` `class_query_example` shows the exact query);
+- a Wikidata full-text search of named Korean things (`korea.json` `search_terms`: 빛축제, 빛초롱, 유등축제,
+  루미나리에, 미디어아트, 미디어파사드, 프로젝션 매핑, 빛의 벙커, 아르떼뮤지엄…, with `haswbstatement:P17=Q884`) adds
+  items that the entity rules accept, that are located in Korea and that have a place, venue, event or work class
+  (`search.decisions`);
+- probes: known Korean articles (`korea.json` `probes`: 서울빛초롱축제, 진주남강유등축제, 보성차밭빛축제, 빛의 벙커,
+  아르떼뮤지엄, 국립아시아문화전당, 포항 스페이스워크) are looked up live each run: item, Korean location, the
+  configured classes they belong to, and which source found them (`probes[].found_by`); a missing title is reported;
+- Korean Wikipedia searches named things (빛축제, 빛초롱축제, 유등축제, 루미나리에, 불빛축제, 야간경관,
+  미디어아트 전시관, 몰입형 미디어아트, 디지털 테마파크, 미디어월, 미디어캔버스, 라이트쇼, 빛의 벙커, 아르떼뮤지엄,
+  미디어아트플랫폼…) instead of generic concepts, and a Korean hit must be located in Korea and have a place, venue,
+  event or work class (`not_in_korea`, `no_place_event_or_work_class`).
+
 **Korea first.**
 
 - Before anything else the Wikidata task reads the live labels of the classes, properties and the country item
@@ -291,6 +338,21 @@ YYYY-MM-DD) and `status` (running, seasonal, ended, upcoming, unknown) with `sta
   running, closed/demolished → ended); P2257 (event interval) makes a recurring festival that is not on now or soon
   `seasonal`; P31 labels name an exhibition or a show (program).
 - Nothing else: without such a fact the status is `unknown` (a start date alone is not "running").
+
+### Field confidence
+
+Every shard record has `field_confidence` with the keys `project_type`, `region` (`kr_region` in Korea, else the
+country), `dates` (start/end dates and years), `artist` (media artist, lighting designer), `architect` (architect,
+facade designer) and `coordinates`, each one of:
+
+- `sourced`: a source states it (Wikidata, Wikipedia, Commons, TourAPI, the official site: the id in `field_sources`);
+- `inferred`: a rule derived it (`field_sources` value `derived:…`: the gazetteer, a Commons parent category or
+  category name, file geotags, coordinates inside a country's borders, a TourAPI keyword type; a low-confidence class
+  or a curated place's broad category; approximate coordinates). The UI shows 확인 필요;
+- `editorial`: the editors' catalogue (curated places) or an editorial edit;
+- `unknown`: no value. The UI shows 자료 없음.
+
+A record of an earlier build is read the same way from its own fields when it is carried over or checked at deploy.
 
 ## 6. Images
 

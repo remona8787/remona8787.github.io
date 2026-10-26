@@ -71,6 +71,8 @@ export async function imageStage(ctx) {
     // building has none here, entities.mjs), so it is never an institution file.
     const inst = !!p.item_institution
     for (const f of p.p18 || []) add(f, 'p18')
+    // The photo that showed the work where the category was found (a Korean root's file): of the work itself.
+    for (const f of p.via_files || []) add(f, 'part_category')
     const cats = [...(p.image_categories || [])]
     for (const key of [p.qid && 'q:' + p.qid, p.commons_category && 'c:' + p.commons_category].filter(Boolean)) for (const t of evidenceByKey.get(key) || []) cats.push({ title: t, source: 'night_category', ...(inst ? { institution: true } : {}) })
     const seenCats = new Set()

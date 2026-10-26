@@ -1,0 +1,92 @@
+{
+ "pageid": 99000706,
+ "ns": 0,
+ "title": "Q99000706",
+ "lastrevid": 2400000706,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000706",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Fixture Valo Oulu"
+  },
+  "fi": {
+   "language": "fi",
+   "value": "Valo Oulu"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "f084c0876d1043b0a73abc94b5dafa97",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1823448,
+       "id": "Q1823448"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000706$f084c087-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "408026ae39e3834bc821d579778834c8",
+     "datavalue": {
+      "value": {
+       "latitude": 65.0121,
+       "longitude": 25.4651,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q99000706$408026ae-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "0967a7496ce31282ec4bbac0ff809abd",
+     "datavalue": {
+      "value": {
+       "time": "+2021-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q99000706$0967a749-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

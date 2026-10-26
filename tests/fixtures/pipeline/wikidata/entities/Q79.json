@@ -1,0 +1,62 @@
+{
+ "pageid": 79,
+ "ns": 0,
+ "title": "Q79",
+ "lastrevid": 2400000079,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q79",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Egypt"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "이집트"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "e0fb578719bed0e4b01f12e6de413b25",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 6256,
+       "id": "Q6256"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q79$e0fb5787-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P297": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P297",
+     "hash": "450ce063987a0bbc74cff72796e9cde9",
+     "datavalue": {
+      "value": "EG",
+      "type": "string"
+     },
+     "datatype": "external-id"
+    },
+    "type": "statement",
+    "id": "Q79$450ce063-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

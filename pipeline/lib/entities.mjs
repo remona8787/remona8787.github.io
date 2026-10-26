@@ -207,7 +207,7 @@ export function buildProject(obs, facts, ctx = {}) {
   const editorialObs = obs.find((o) => o.origin === 'editorial') || null
   const tour = obs.find((o) => o.origin === 'tourapi') || null
   const cats = obs.filter((o) => o.category)
-  const wiki = obs.flatMap((o) => o.evidence || []).filter((e) => e.kind === 'wikipedia' && e.accepted)
+  const wiki = obs.flatMap((o) => o.evidence || []).filter((e) => (e.kind === 'wikipedia' || e.kind === 'wikidata_search') && e.accepted)
   const classTypes = obs.flatMap((o) => o.class_types || [])
   const f = facts || null
   const fs = {}
@@ -237,7 +237,7 @@ export function buildProject(obs, facts, ctx = {}) {
     p.name_en = set('name_en', any, f?.any_label ? 'wikidata' : catName ? 'commons' : 'wikipedia')
   }
   p.building_name = host ? first(f?.name_ko, f?.name_en) : null
-  p.country_iso2 = set('country_iso2', first(editorialObs?.country_iso2, curated?.country_iso2, f?.country_iso2, tour?.country_iso2, hint?.country_iso2), editorialObs?.country_iso2 ? 'editorial' : curated?.country_iso2 ? 'curated' : f?.country_iso2 ? 'wikidata' : tour ? 'tourapi' : 'derived:commons_parent_category')
+  p.country_iso2 = set('country_iso2', first(editorialObs?.country_iso2, curated?.country_iso2, f?.country_iso2, tour?.country_iso2, hint?.country_iso2), editorialObs?.country_iso2 ? 'editorial' : curated?.country_iso2 ? 'curated' : f?.country_iso2 ? (f.country_rule === 'p625_borders' ? 'derived:coordinates_in_borders' : 'wikidata') : tour ? 'tourapi' : 'derived:commons_parent_category')
   p.region = p.country_iso2 ? T.regionOf(p.country_iso2) : null
   p.city = set('city', first(editorialObs?.city, curated?.city, f?.city, hint?.city), editorialObs?.city ? 'editorial' : curated?.city ? 'curated' : f?.city ? 'wikidata' : 'derived:commons_parent_category')
   p.city_ko = first(editorialObs?.city_ko, curated?.city_ko, f?.city_ko)
@@ -263,6 +263,9 @@ export function buildProject(obs, facts, ctx = {}) {
   // Kind, dates and status (facility | program | festival | exhibition), only from sourced facts.
   Object.assign(p, scheduleOf({ tour, facts: host ? null : f, projectType: p.project_type, today: ctx.today }))
   if (p.status_source) fs.status = p.status_source
+  // The dates' own source (TourAPI edition dates, else Wikidata P580/P582/P585), also when they give no status.
+  const dateSource = tour?.tourapi?.eventstartdate || tour?.tourapi?.eventenddate ? 'tourapi' : 'wikidata'
+  for (const k of ['start_date', 'end_date']) if (p[k]) fs[k] = dateSource
   p.operating_status = curated?.visit?.status && curated.visit.status !== 'unknown' ? curated.visit.status : p.year_ended && p.year_ended <= (ctx.year ?? 9999) ? 'ended' : null
   if (p.operating_status) fs.operating_status = curated?.visit?.status ? 'curated' : 'wikidata'
 
@@ -322,11 +325,15 @@ export function buildProject(obs, facts, ctx = {}) {
   p.item_is_work = itemIsWork || (!!f && !host && (f.p31 || []).some((q) => ctx.workClasses?.has(q)))
   p.item_institution = !!f && (host || (!!curated && !p.item_is_work && !FACADE_CARRIERS.has(p.project_type)))
   p.item_names = f ? uniq([f.name_ko, f.name_en, f.name_original, f.any_label].filter(Boolean)) : []
-  const ownCats = new Set(cats.map((c) => c.category))
+  // A canvas category (the building or square a Korean root's photo shows the work on) is the place's, not the work's.
+  const canvasCats = new Set(cats.filter((c) => c.canvas).map((c) => c.category))
+  const ownCats = new Set(cats.filter((c) => !c.canvas).map((c) => c.category))
   p.image_categories = uniq([
     ...(p.commons_category ? [p.commons_category] : []),
     ...cats.map((c) => c.category),
-  ]).map((title) => ({ title, source: 'category', ...(p.item_institution && !ownCats.has(title) ? { institution: true } : {}) }))
+  ]).map((title) => ({ title, source: 'category', ...((p.item_institution && !ownCats.has(title)) || canvasCats.has(title) ? { institution: true } : {}) }))
+  // The photo through which a category was found (a Korean root's photo of the work, a file named "media facade").
+  p.via_files = uniq(cats.map((c) => c.via_file).filter(Boolean))
   for (const c of cats) {
     for (const t of c.parts || []) p.image_categories.push({ title: t, source: 'part_category' })
     for (const t of c.editions || []) p.image_categories.push({ title: t, source: 'event_category' })

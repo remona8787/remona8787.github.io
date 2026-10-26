@@ -1,0 +1,85 @@
+{
+ "pageid": 99000701,
+ "ns": 0,
+ "title": "Q99000701",
+ "lastrevid": 2400000701,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000701",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Fixture Giza pyramid complex"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "d263583539d909f83200f74167fc61bd",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 839954,
+       "id": "Q839954"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000701$d2635835-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "153774659558670253db4fbd5483a187",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 79,
+       "id": "Q79"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000701$15377465-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "48be5394e5558fb6409cf64a39d76ef6",
+     "datavalue": {
+      "value": {
+       "latitude": 29.9792,
+       "longitude": 31.1342,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q99000701$48be5394-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

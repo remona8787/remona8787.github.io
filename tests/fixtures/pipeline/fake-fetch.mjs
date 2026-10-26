@@ -30,6 +30,8 @@ export const FIXTURES = FIX
 
 // The web rules of a fixture run: the English GDELT group and the Dezeen feed (the others need no new code paths).
 export const FIXTURE_OVERRIDES = {
+  // Korea: the fixture search terms and probes (the real titles are checked by the live runs only).
+  korea: { search_terms: ['유등축제', '미디어아트'], probes: ['픽스처 강릉 빛축제', '픽스처 경포 유등축제', '픽스처 없는 문서'] },
   pipeline: {
     sources: { web: { rules: [SEED_RULES.find((r) => r.kind === 'gdelt' && r.language === 'en'), SEED_RULES.find((r) => r.kind === 'rss' && r.name === 'Dezeen')] } },
   },
@@ -48,6 +50,14 @@ function sparql(body) {
   if (!kind) return jsonRes({ head: { vars: [] }, results: { bindings: [] } }, { type: 'application/sparql-results+json' })
   const [, k, q] = kind
   if (k === 'kr-divisions') return jsonRes(read('wikidata/sparql/kr-divisions.json'), { type: 'application/sparql-results+json' })
+  if (k === 'class-membership') {
+    // Direct P31 only (the fixture classes have no subclass trees here).
+    const vals = (name) => [...(new RegExp('VALUES \\?' + name + ' \\{([^}]*)\\}').exec(query)?.[1] || '').matchAll(/wd:(Q\d+)/g)].map((m) => m[1])
+    const classes = new Set(vals('class'))
+    const bindings = []
+    for (const id of vals('item')) for (const c of (FIX.entities.get(id)?.claims?.P31 || []).map((x) => x.mainsnak?.datavalue?.value?.id)) if (classes.has(c)) bindings.push({ item: { type: 'uri', value: ENTITY + id }, class: { type: 'uri', value: ENTITY + c } })
+    return jsonRes({ head: { vars: ['item', 'class'] }, results: { bindings } }, { type: 'application/sparql-results+json' })
+  }
   if (k === 'class-count' || k === 'class-instances' || k === 'kr-class-instances') {
     const f = `wikidata/sparql/${k}-${q}.json`
     if (existsSync(path.join(DIR, f))) return jsonRes(read(f), { type: 'application/sparql-results+json' })
@@ -75,6 +85,20 @@ function sparql(body) {
 }
 
 function wbgetentities(p) {
+  // By article title (sites=kowiki&titles=…): the items whose sitelink has that title.
+  if (p.get('sites') && p.get('titles')) {
+    const site = p.get('sites'), titles = p.get('titles').split('|')
+    const byTitle = new Map([...FIX.entities.values()].filter((e) => e.sitelinks?.[site]).map((e) => [e.sitelinks[site].title, e.id]))
+    const ids = titles.map((t) => byTitle.get(t.replace(/_/g, ' '))).filter(Boolean)
+    const q = new URLSearchParams(p)
+    q.delete('sites'); q.delete('titles'); q.set('ids', ids.join('|'))
+    const res = ids.length ? JSON.parse(wbgetentitiesBody(q)) : { entities: {} }
+    titles.filter((t) => !byTitle.has(t.replace(/_/g, ' '))).forEach((t, i) => { res.entities['-' + (i + 1)] = { site, title: t, missing: '' } })
+    return jsonRes(res)
+  }
+  return jsonRes(JSON.parse(wbgetentitiesBody(p)))
+}
+function wbgetentitiesBody(p) {
   const ids = (p.get('ids') || '').split('|').filter(Boolean)
   const props = (p.get('props') || 'info|sitelinks|aliases|labels|descriptions|claims|datatype').split('|')
   const langs = p.get('languages') ? new Set(p.get('languages').split('|')) : null
@@ -95,7 +119,16 @@ function wbgetentities(p) {
     if (props.some((x) => x.startsWith('sitelinks'))) r.sitelinks = props.includes('sitelinks/urls') ? e.sitelinks : Object.fromEntries(Object.entries(e.sitelinks).map(([k, v]) => [k, { site: v.site, title: v.title, badges: [] }]))
     out[id] = r
   }
-  return jsonRes({ entities: out, success: 1 })
+  return JSON.stringify({ entities: out, success: 1 })
+}
+
+/** www.wikidata.org list=search (CirrusSearch): "<term> haswbstatement:P17=Q884" → the fixture items of the term. */
+function wikidataSearch(p) {
+  const q = p.get('srsearch') || ''
+  const term = q.replace(/\s*haswbstatement:\S+/g, '').trim()
+  const country = /haswbstatement:P17=(Q\d+)/.exec(q)?.[1] || null
+  const ids = (FIX.search.wikidata?.[term] || []).filter((id) => !country || (FIX.entities.get(id)?.claims?.P17 || []).some((c) => c.mainsnak?.datavalue?.value?.id === country))
+  return jsonRes({ batchcomplete: true, query: { searchinfo: { totalhits: ids.length }, search: ids.map((title) => ({ ns: 0, title })) } })
 }
 
 const catPage = (title, props) => {
@@ -103,6 +136,7 @@ const catPage = (title, props) => {
   if (!c) return { ns: 14, title, missing: true }
   const pg = { pageid: c.page.pageid, ns: 14, title }
   if (props.includes('pageprops') && c.page.pageprops) pg.pageprops = c.page.pageprops
+  if (props.includes('categories') && c.parents?.length) pg.categories = c.parents.map((t) => ({ ns: 14, title: t }))
   if (props.includes('categoryinfo')) pg.categoryinfo = c.page.categoryinfo
   if (props.includes('coordinates') && c.page.coordinates) pg.coordinates = c.page.coordinates
   return pg
@@ -141,7 +175,8 @@ function commons(p, state) {
   if (p.get('generator') === 'categorymembers') {
     const c = FIX.categories.get(normTitle(p.get('gcmtitle')))
     const types = (p.get('gcmtype') || 'page|subcat|file').split('|')
-    const pages = (c?.members || []).filter((m) => types.includes(m.type)).map((m) => (m.ns === 14 ? catPage(m.title, props) : { ns: m.ns, title: m.title }))
+    const geo = (t) => { const g = FIX.search.file_geotags?.[t.replace(/^File:/, '')]; return props.includes('coordinates') && g ? { coordinates: [{ lat: g[0], lon: g[1], primary: true, globe: 'earth' }] } : {} }
+    const pages = (c?.members || []).filter((m) => types.includes(m.type)).map((m) => (m.ns === 14 ? catPage(m.title, props) : { ns: m.ns, title: m.title, ...geo(m.title) }))
     return jsonRes({ batchcomplete: true, query: { pages } })
   }
   if (p.get('list') === 'categorymembers') {
@@ -181,6 +216,16 @@ function commons(p, state) {
     })
     state.templateRounds++
     return jsonRes({ ...(next ? { continue: { tlcontinue: `${next[0]}|10|${next[1]}`, continue: '||imageinfo' } } : { batchcomplete: true }), query: { pages } })
+  }
+  if (p.get('titles') && props.includes('categories') && p.get('titles').split('|').every((t) => /^File:/.test(t))) {
+    // The visible categories of files (from the fixture file's category list).
+    const pages = p.get('titles').split('|').map(normTitle).map((t) => {
+      const f = FIX.files.get(t.replace(/^File:/, ''))
+      if (!f) return { ns: 6, title: t, missing: true }
+      const cats = String(f.page.imageinfo[0].extmetadata.Categories?.value || '').split('|').filter(Boolean)
+      return { pageid: f.page.pageid, ns: 6, title: f.page.title, categories: cats.map((c) => ({ ns: 14, title: 'Category:' + c })) }
+    })
+    return jsonRes({ batchcomplete: true, query: { pages } })
   }
   if (p.get('titles')) {
     const titles = p.get('titles').split('|')
@@ -281,6 +326,7 @@ export function fixtureEnvironment({ start = Date.parse('2026-10-20T06:17:00Z'),
     const p = u.searchParams
     if (u.host === 'query.wikidata.org') return sparql(String(init.body || ''))
     if (u.host === 'www.wikidata.org' && p.get('action') === 'wbgetentities') return wbgetentities(p)
+    if (u.host === 'www.wikidata.org' && p.get('action') === 'query' && p.get('list') === 'search') return wikidataSearch(p)
     if (u.host === 'commons.wikimedia.org' && u.pathname === '/w/api.php') return commons(p, state)
     if (/^[a-z-]+\.wikipedia\.org$/.test(u.host) && u.pathname === '/w/api.php') return wikipedia(u.host.split('.')[0], p)
     if (u.host === 'upload.wikimedia.org' || u.host === 'thumb.wikimedia.org') {

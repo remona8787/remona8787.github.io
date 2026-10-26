@@ -16,7 +16,7 @@ export const PROJECT_BATCH = 25
 export const AUX_BATCH = 150
 export const INSTANCE_LIMIT = 5000
 
-const qidFromUri = (v) => { const s = String(v || ''); const q = s.startsWith(ENTITY) ? s.slice(ENTITY.length) : s; return QID_RE.test(q) ? q : null }
+export const qidFromUri = (v) => { const s = String(v || ''); const q = s.startsWith(ENTITY) ? s.slice(ENTITY.length) : s; return QID_RE.test(q) ? q : null }
 
 /** POST a SPARQL query; returns the bindings array. */
 export async function sparql(client, query, { cache = null, stage = 'wikidata' } = {}) {
@@ -42,12 +42,54 @@ SELECT DISTINCT ?item WHERE {
   ?item wdt:P31/wdt:P279* wd:${qid} .
 } LIMIT ${limit}`
 
-/** Instances of a class located in one country (P17): the Korea-first discovery (#aol:kr-class-instances). */
+/**
+ * Instances of a class located in one country: the Korea-first discovery (#aol:kr-class-instances). Located means the
+ * item's own country (P17), or the country of its administrative area (P131, one or two levels up) or of its
+ * location (P276): many Korean items have P131 but no P17.
+ */
 export const countryClassInstancesQuery = (qid, countryQid, limit = 2000) => `#aol:kr-class-instances ${qid}
 SELECT DISTINCT ?item WHERE {
   ?item wdt:P31/wdt:P279* wd:${qid} .
-  ?item wdt:P17 wd:${countryQid} .
+  { ?item wdt:P17 wd:${countryQid} . } UNION { ?item wdt:P131/wdt:P17 wd:${countryQid} . } UNION { ?item wdt:P131/wdt:P131/wdt:P17 wd:${countryQid} . } UNION { ?item wdt:P276/wdt:P17 wd:${countryQid} . }
 } LIMIT ${limit}`
+
+/** Which of the given items are instances of which of the given classes (#aol:class-membership; probes). */
+export const classMembershipQuery = (items, classes) => `#aol:class-membership
+SELECT DISTINCT ?item ?class WHERE {
+  VALUES ?item { ${items.map((q) => 'wd:' + q).join(' ')} }
+  VALUES ?class { ${classes.map((q) => 'wd:' + q).join(' ')} }
+  ?item wdt:P31/wdt:P279* ?class .
+}`
+
+/**
+ * Wikidata full-text search (CirrusSearch) for a term among items of a country (haswbstatement:P17=…): labels,
+ * descriptions and aliases in any language. Cached per term. Returns QIDs.
+ */
+export async function searchItems(client, term, { country = null, limit = 50, cache = null, ttlHours = 72, stage = 'korea' } = {}) {
+  const q = [term, country ? `haswbstatement:P17=${country}` : ''].filter(Boolean).join(' ')
+  const url = `${WD_API}?${new URLSearchParams({ action: 'query', list: 'search', srsearch: q, srnamespace: '0', srlimit: String(Math.min(500, limit)), srprop: '', format: 'json', formatversion: '2' })}`
+  const json = await client.json(url, { stage, cache: cache ? { ns: 'wikidata-search', key: q, ttlMs: ttlHours * HOUR } : null })
+  return uniq((json?.query?.search || []).map((x) => x.title).filter(isQid))
+}
+
+/** Items of Korean Wikipedia articles by title (probes): Map(title → {qid, ko, en, p31[], p17[], p131[]} | null). */
+export async function itemsOfArticles(client, wiki, titles, { stage = 'korea', cache = null, ttlHours = 24 } = {}) {
+  const out = new Map()
+  for (const group of chunk(uniq(titles), 50)) {
+    const url = `${WD_API}?${new URLSearchParams({ action: 'wbgetentities', sites: wiki, titles: group.join('|'), props: 'labels|claims|sitelinks', languages: 'ko|en', sitefilter: wiki, format: 'json', formatversion: '2' })}`
+    const json = await client.json(url, { stage, cache: cache ? { ns: 'wikidata-articles', key: wiki + ':' + group.join('|'), ttlMs: ttlHours * HOUR } : null })
+    for (const t of group) out.set(t, null)
+    for (const e of Object.values(json?.entities || {})) {
+      if (!e || e.missing !== undefined || !isQid(e.id)) continue
+      const title = e.sitelinks?.[wiki]?.title
+      if (!title) continue
+      const ids = (pid) => (e.claims?.[pid] || []).map((s) => s?.mainsnak?.datavalue?.value?.id).filter(isQid)
+      const key = group.find((t) => t.replace(/_/g, ' ') === title) || title
+      out.set(key, { qid: e.id, ko: e.labels?.ko?.value || null, en: e.labels?.en?.value || null, p31: ids('P31'), p17: ids('P17'), p131: ids('P131') })
+    }
+  }
+  return out
+}
 
 export const auxQuery = (qids) => `#aol:aux
 SELECT ?e (SAMPLE(?en_) AS ?en) (SAMPLE(?ko_) AS ?ko) (SAMPLE(?mul_) AS ?mul) (SAMPLE(?iso_) AS ?iso)
@@ -393,21 +435,56 @@ export function auxNext(auxMap, qids) {
   return [...out]
 }
 
+/** ISO code of a country item, or of the country its own P17 names (Q55 Netherlands has none; Q29999 has NL). */
+export function isoOfCountry(q, auxMap) {
+  const a = auxMap.get(q)
+  if (!a) return null
+  if (a.iso) return a.iso
+  for (const k of a.p17 || []) if (k !== q) { const i = auxMap.get(k)?.iso; if (i) return i }
+  return null
+}
+/** Country of a place item: its own ISO code or its P17's, walking P131 up to `depth` levels. {iso, via} or null. */
+export function countryOfPlace(q, auxMap, depth = 3) {
+  const seen = new Set()
+  let frontier = [q]
+  for (let d = 0; d <= depth && frontier.length; d++) {
+    const next = []
+    for (const x of frontier) {
+      if (seen.has(x)) continue
+      seen.add(x)
+      const a = auxMap.get(x)
+      if (!a) continue
+      if (a.iso) return { iso: a.iso, via: x }
+      for (const k of a.p17 || []) { const iso = isoOfCountry(k, auxMap); if (iso) return { iso, via: k } }
+      next.push(...(a.p131 || []))
+    }
+    frontier = next
+  }
+  return null
+}
+
 /**
  * Facts the archive keeps from a project item; every fact carries its property (field_sources) so the record can
  * cite Wikidata for it. Unknown facts are null.
  */
-export function factsOf(entity, auxMap, { cityPattern, originalLanguageByCountry = {}, labelLanguages = ['ko', 'en'] }) {
+export function factsOf(entity, auxMap, { cityPattern, originalLanguageByCountry = {}, labelLanguages = ['ko', 'en'], countryAt = null }) {
   const c = entity.claims
   const L = entity.labels || {}
   const aux = (q) => auxMap.get(q) || null
   const auxName = (q) => { const a = aux(q); return a ? (a.en || a.mul || a.ko || null) : null }
-  // Country: P17 of the item, else of the nearest administrative area.
-  let country = null, countryQid = null
-  for (const v of c.P17 || []) { const iso = aux(v.item)?.iso; if (iso) { country = iso; countryQid = v.item; break } }
+  // Country (lib/places.mjs "Country recovery"): P17 of the item (a country item without an ISO code takes its own
+  // P17's: Q55 Netherlands → NL), else the country of its administrative area (P131) or location (P276), walking
+  // P131 up, else the borders its coordinates (P625) lie in.
+  let country = null, countryQid = null, countryRule = null
+  for (const v of c.P17 || []) { const iso = isoOfCountry(v.item, auxMap); if (iso) { country = iso; countryQid = v.item; countryRule = 'p17'; break } }
   if (!country) {
-    for (const v of c.P131 || []) { for (const k of aux(v.item)?.p17 || []) { const iso = aux(k)?.iso; if (iso) { country = iso; countryQid = k; break } } if (country) break }
+    for (const [pid, rule] of [['P131', 'p131_country'], ['P276', 'p276_country']]) {
+      for (const v of c[pid] || []) { const r = countryOfPlace(v.item, auxMap); if (r) { country = r.iso; countryQid = r.via; countryRule = rule; break } }
+      if (country) break
+    }
   }
+  const coord0 = (c.P625 || [])[0] || null
+  if (!country && coord0 && countryAt) { const iso = countryAt(coord0.lat, coord0.lng); if (iso) { country = iso; countryRule = 'p625_borders' } }
   const city = findCity(entity, auxMap, cityPattern)
   const coord = (c.P625 || [])[0] || null
   const year = (pid) => { const v = (c[pid] || []).find((t) => t.year && t.precision >= 9); return v ? v.year : null }
@@ -431,6 +508,7 @@ export function factsOf(entity, auxMap, { cityPattern, originalLanguageByCountry
     description_en: entity.descriptions?.en || null,
     country_iso2: country,
     country_qid: countryQid,
+    country_rule: countryRule,
     city: city ? (aux(city.qid)?.en || aux(city.qid)?.mul || aux(city.qid)?.ko || null) : null,
     city_ko: city ? aux(city.qid)?.ko || null : null,
     city_qid: city?.qid || null,

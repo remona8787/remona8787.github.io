@@ -1,7 +1,7 @@
 {
  "broken_links": [
   {
-   "checked_at": "2026-10-20T06:27:17.440Z",
+   "checked_at": "2026-10-20T06:28:13.820Z",
    "consecutive_failures": 1,
    "field": "official_url",
    "http_status": 404,
@@ -10,7 +10,7 @@
    "url": "https://centercity.example/"
   }
  ],
- "build_id": "20261020T061700Z-cb2cf9ed",
+ "build_id": "20261020T061700Z-d29c42e4",
  "coordinate_checks": [
   {
    "distance_m": 6135,
@@ -24,6 +24,18 @@
   {
    "id": "CAT-06VLQHR",
    "name": "Bradford Garden of Light",
+   "origins": [
+    "commons"
+   ],
+   "qid": null,
+   "reasons": [
+    "no_country",
+    "no_coordinates_or_city"
+   ]
+  },
+  {
+   "id": "CAT-0C28ZMO",
+   "name": "Global Rainbow",
    "origins": [
     "commons"
    ],
@@ -90,12 +102,27 @@
  },
  "low_confidence_types": [
   {
+   "id": "CAT-0AEBIPR",
+   "project_type": "festival_program",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "CAT-1HJOGAD",
+   "project_type": "projection_mapping",
+   "type_source": "commons_category"
+  },
+  {
    "id": "Q56089114",
    "project_type": "projection_mapping",
    "type_source": "commons_category"
   },
   {
    "id": "CAT-1VRD089",
+   "project_type": "festival_program",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "CAT-0BLB3MO",
    "project_type": "festival_program",
    "type_source": "commons_category"
   },
@@ -236,6 +263,30 @@
    "country_iso2": "KR",
    "id": "Q99000503",
    "name": "Fixture Jeju Light Field",
+   "project_type": "light_art"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "Q99000506",
+   "name": "Fixture Gyeongpo Lantern Festival",
+   "project_type": "festival_program"
+  },
+  {
+   "country_iso2": "GB",
+   "id": "Q99000702",
+   "name": "Fixture Digital Lights Festival",
+   "project_type": "festival_program"
+  },
+  {
+   "country_iso2": "NL",
+   "id": "Q99000704",
+   "name": "Fixture Lichtkunst Amsterdam",
+   "project_type": "light_art"
+  },
+  {
+   "country_iso2": "FI",
+   "id": "Q99000706",
+   "name": "Fixture Valo Oulu",
    "project_type": "light_art"
   },
   {

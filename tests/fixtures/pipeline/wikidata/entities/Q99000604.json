@@ -1,0 +1,96 @@
+{
+ "pageid": 99000604,
+ "ns": 0,
+ "title": "Q99000604",
+ "lastrevid": 2400000604,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000604",
+ "labels": {
+  "ko": {
+   "language": "ko",
+   "value": "픽스처 도쿄 미디어 타워"
+  },
+  "en": {
+   "language": "en",
+   "value": "Fixture Tokyo Media Tower"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "4c88516deabedf6e94db5608ec61220d",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 11303,
+       "id": "Q11303"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000604$4c88516d-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "7d183bb8d8ca10b5cf414353ecb00d96",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 17,
+       "id": "Q17"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000604$7d183bb8-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "c6cdf39f16e487e70429a03880573011",
+     "datavalue": {
+      "value": {
+       "latitude": 35.66,
+       "longitude": 139.76,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q99000604$c6cdf39f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "kowiki": {
+   "site": "kowiki",
+   "title": "픽스처 도쿄 미디어 타워",
+   "badges": [],
+   "url": "https://ko.wikipedia.org/wiki/%ED%94%BD%EC%8A%A4%EC%B2%98_%EB%8F%84%EC%BF%84_%EB%AF%B8%EB%94%94%EC%96%B4_%ED%83%80%EC%9B%8C"
+  }
+ }
+}
