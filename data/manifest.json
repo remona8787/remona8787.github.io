@@ -1,67 +1,78 @@
 {
- "build_id": "20261026T112545Z-9b331dd5",
+ "build_id": "20261026T114135Z-80de8c5b",
  "counts": {
   "by_country": {
    "AE": 1,
-   "AT": 6,
+   "AT": 11,
+   "AU": 2,
    "BA": 1,
-   "BE": 1,
+   "BE": 5,
    "CA": 20,
-   "CN": 1,
-   "CZ": 5,
-   "DE": 102,
+   "CH": 5,
+   "CN": 2,
+   "CZ": 6,
+   "DE": 116,
    "DK": 1,
-   "ES": 7,
-   "FI": 6,
-   "FR": 4,
-   "GB": 14,
+   "EG": 2,
+   "ES": 8,
+   "FI": 11,
+   "FR": 8,
+   "GB": 47,
    "HK": 1,
    "HR": 2,
    "IL": 1,
    "IN": 1,
    "IS": 1,
-   "IT": 1,
+   "IT": 3,
    "JP": 5,
-   "KR": 53,
-   "NL": 12,
+   "KR": 59,
+   "MX": 1,
+   "NL": 22,
    "NZ": 3,
-   "PL": 3,
-   "RO": 1,
-   "RU": 3,
+   "PH": 1,
+   "PL": 5,
+   "RO": 2,
+   "RU": 4,
    "SA": 2,
-   "SE": 1,
+   "SE": 2,
+   "TH": 3,
    "TR": 2,
-   "US": 19
+   "US": 27
   },
   "by_kr_region": {
    "busan_ulsan_gyeongnam": 1,
+   "daegu_gyeongbuk": 1,
+   "gwangju_jeolla": 2,
    "gyeonggi_incheon": 1,
-   "seoul": 51
+   "seoul": 54
   },
   "by_region": {
-   "east_asia": 60,
-   "europe": 171,
+   "africa": 2,
+   "east_asia": 67,
+   "europe": 260,
+   "latin_america": 1,
    "middle_east": 6,
-   "north_america": 39,
-   "oceania": 3,
-   "south_asia": 1
+   "north_america": 47,
+   "oceania": 5,
+   "south_asia": 1,
+   "southeast_asia": 4
   },
   "by_type": {
-   "festival_program": 45,
-   "interactive_installation": 1,
-   "light_art": 151,
-   "media_architecture": 13,
-   "media_facade": 31,
+   "festival_program": 112,
+   "interactive_installation": 2,
+   "light_art": 181,
+   "media_architecture": 14,
+   "media_facade": 37,
    "media_wall": 2,
-   "other": 19,
-   "projection_mapping": 17,
+   "other": 22,
+   "projection_mapping": 22,
    "urban_screen": 1
   },
-  "korea": 53,
-  "projects": 280,
+  "korea": 59,
+  "projects": 393,
   "with_hero": 7,
-  "with_images": 146,
-  "world": 227
+  "with_images": 213,
+  "world": 334
  },
  "credits": {
   "data": "Wikidata (CC0 1.0), Wikipedia (CC BY-SA 4.0, article links), Wikimedia Commons (each image carries its own licence and author), curated records of the archive.",
@@ -76,17 +87,17 @@
   ],
   "stats": "stats.json"
  },
- "generated_at": "2026-10-26T11:25:45.441Z",
+ "generated_at": "2026-10-26T11:41:35.773Z",
  "schema": 1,
  "sources": {
   "commons": {
-   "items": 295,
-   "last_success": "2026-10-26T11:25:45.441Z",
+   "items": 307,
+   "last_success": "2026-10-26T11:41:35.773Z",
    "status": "ok"
   },
   "curated": {
    "items": 49,
-   "last_success": "2026-10-26T11:25:45.441Z",
+   "last_success": "2026-10-26T11:41:35.773Z",
    "status": "ok"
   },
   "seoul_events": {
@@ -100,18 +111,18 @@
    "status": "skipped"
   },
   "web": {
-   "items": 7,
-   "last_success": "2026-10-26T06:37:55.494Z",
-   "status": "partial"
+   "items": 0,
+   "last_success": "2026-10-26T11:41:35.773Z",
+   "status": "ok"
   },
   "wikidata": {
    "items": 625,
-   "last_success": "2026-10-26T11:25:45.441Z",
+   "last_success": "2026-10-26T11:41:35.773Z",
    "status": "ok"
   },
   "wikipedia": {
    "items": 280,
-   "last_success": "2026-10-26T11:25:45.441Z",
+   "last_success": "2026-10-26T11:41:35.773Z",
    "status": "ok"
   }
  }
