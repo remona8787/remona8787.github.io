@@ -94,6 +94,17 @@ export function seed(){
    sources_by_status:{ok:120,unknown:30,redirect:6,broken:4},projects_by_visibility:{published:52,draft:11,hidden:3},projects_by_review:{editor_verified:40,unreviewed:24,researcher_assessed:2},open_updates:3,broken_links:4,
    settings:{auto_list_structured:true,auto_ignore_below:35,review_threshold:60}},
   search:[{...p1,sources:p1.sources.map(({id,source_kind,...s})=>({...s,kind:source_kind})),media:[p1.media[0]],assessments:[{attribute:'project_type',value:'media_facade',confidence:'high',method:'문헌 검토',note:'UNStudio 작품 설명',created_at:ago(100)}]}],
+  reports:[
+   {id:7,created_at:ago(2),project_id:'SEOUL006',image_id:'img-87fc9bb640b2',reason:'person_image',message:'대통령 방문 사진이에요. '+XSS,contact_email:'reader@example.org',status:'open',handled_at:null,note:null},
+   {id:6,created_at:ago(30),project_id:'SEOUL043',image_id:null,reason:'project_info',message:'운영 시간이 바뀌었어요.',contact_email:null,status:'open',handled_at:null,note:null},
+   {id:5,created_at:ago(90),project_id:'SEOUL018',image_id:'img-aaaa',reason:'low_quality',message:null,contact_email:null,status:'rejected',handled_at:ago(80),note:'원본 해상도가 충분해요.'}],
+  research:{stats:{days:30,members:12,new_members:3,active_downloaders:4,downloads:9,download_errors:1,by_dataset:{'kr-media-facades':9},user_types:{researcher:5,student:4,not_given:3},open_reports:2},
+   datasets:[{id:'kr-media-facades',title_ko:'국내 미디어파사드 검수 데이터셋',tier:'member',licence:'CC BY 4.0 (편집 부분)',active:true}],
+   versions:[{dataset_id:'kr-media-facades',version:'1.0.0',data_as_of:'2026-10-25',record_count:52,formats:['csv','json']}]},
+  quality:{report:{run:{status:'ok',build_id:'20261026T001508Z-efb33e6a',finished_at:ago(20)},counts:{collected:966,eligible:279,published:279,kr:52,foreign:227,with_images:145,with_hero:7,candidates_awaiting_review:11,hero_candidates_awaiting_review:82},
+   images:{provider_unverified:150,identity_rejected:1478,institution_context:73,below_threshold:4,duplicates:4},
+   sources:{commons:{status:'ok',items:295,last_success:ago(20),consecutive_failures:0},tourapi:{status:'skipped',items:0,last_success:null,consecutive_failures:0},[XSS]:{status:XSS,items:1}},errors:[]},
+   audit:{images_published:1123,relevance_verified:980,removed:{person:5,mislinked:0},added:3,valid_card_rate:{overall:'51.6%',korea:'26.9%',world:'57.3%'}}},
   legacy:{stats:{total:10,ready:3,draft:4,published:2,rejected:1,high_relevance:5,duplicates:1},
    candidates:[{id:ID.l1,name:'Seoullo Media Canvas',name_local:'서울로 미디어캔버스',city_code:'SEOUL',candidate_type:'media_facade',primary_provider:'wikidata',external_primary_id:'Q100000',relevance_score:82,confidence_score:70,publishing_status:'ready',lat:37.556,lng:126.972,address_text:'서울 중구',website_url:'https://seoullo7017.co.kr/',duplicate_cluster_id:null,source_metadata:{label:'Seoullo'}},
                {id:ID.l2,name:XSS,name_local:XSS_SCRIPT,city_code:'SEOUL',candidate_type:'light_art',primary_provider:'osm',external_primary_id:'node/1',relevance_score:55,confidence_score:40,publishing_status:'draft',lat:null,lng:null,address_text:null,website_url:'javascript:alert(9)',duplicate_cluster_id:null,source_metadata:{note:XSS}}],
@@ -101,13 +112,14 @@ export function seed(){
  };
 }
 
-const ADMIN_ONLY=new Set(['archive_admin_upsert_rule','archive_admin_upsert_keyword','archive_admin_delete_keyword','archive_admin_set_settings']);
+const ADMIN_ONLY=new Set(['archive_admin_upsert_rule','archive_admin_upsert_keyword','archive_admin_delete_keyword','archive_admin_set_settings','research_admin_stats']);
 const ANY_ROLE=new Set(['archive_role','archive_search','archive_research_add_assessment']);
 const LEGACY=new Set(['admin_candidate_stats','admin_list_candidates','admin_update_candidate','admin_promote_candidate','admin_list_ingestion_jobs']);
 const now=()=>new Date().toISOString();
 const findP=(d,id)=>d.projects.find(p=>p.id===id);
 const RPC={
  archive_role:(d,b,u)=>u?.role??null,
+ research_admin_stats:(d,b)=>({...d.research.stats,days:b.p_days}),
  archive_admin_dashboard:d=>d.dashboard,
  archive_admin_list_candidates:(d,b)=>{
   let list=d.candidates.filter(c=>b.p_status?c.status===b.p_status:['needs_review','uncertain'].includes(c.status)).filter(c=>(c.confidence||0)>=(b.p_min_conf||0));
@@ -197,8 +209,25 @@ export async function mockSupabase(page,{fail={},data=seed()}={}){
    if(!h)return reply(404,rpc?{code:'PGRST202',message:`Could not find the function public.${name} in the schema cache`}:{error:'not found'});
    try{return reply(200,h(data,body||{},user))}catch(e){return reply(e.status||500,e.body||{message:String(e)})}
   }
+  // content_reports and the research catalogue as PostgREST tables (status=eq.x, id=eq.n); RLS: editors and admins.
+  if(path==='/rest/v1/content_reports'){
+   calls.push({kind:'rest',name:'content_reports',method:req.method(),query:url.search,body,authorization:headers.authorization||null});
+   if(!['admin','editor'].includes(user?.role))return reply(req.method()==='GET'?200:403,req.method()==='GET'?[]:{code:'42501',message:'permission denied'});
+   const eq=k=>url.searchParams.get(k)?.replace(/^eq\./,'');
+   if(req.method()==='PATCH'){const rep=data.reports.find(x=>String(x.id)===eq('id'));if(rep)Object.assign(rep,body,{contact_email:body.status!=='open'?null:rep.contact_email});return r.fulfill({status:204,headers:CORS})}
+   const st=eq('status');return reply(200,data.reports.filter(x=>!st||x.status===st));
+  }
+  if(path==='/rest/v1/research_datasets'){calls.push({kind:'rest',name:'research_datasets'});return reply(200,data.research.datasets)}
+  if(path==='/rest/v1/research_dataset_versions'){calls.push({kind:'rest',name:'research_dataset_versions'});return reply(200,data.research.versions)}
   if(path==='/rest/v1/archive_articles'){calls.push({kind:'rest',name:'archive_articles',method:req.method(),body});return r.fulfill({status:201,headers:CORS,body:''})}
   return reply(404,{message:'not mocked: '+path});
+ });
+ // The collection's report on the data branch (raw.githubusercontent.com), read by the 데이터 품질 tab.
+ await page.route('https://raw.githubusercontent.com/**',r=>{
+  const u=r.request().url();calls.push({kind:'raw',url:u});
+  if(fail.raw)return r.fulfill({status:fail.raw.status||500,body:'boom'});
+  const body=u.endsWith('/admin-data/report.json')?data.quality.report:u.endsWith('/review/image-audit.json')?data.quality.audit:null;
+  return body?r.fulfill({status:200,contentType:'application/json',headers:{'access-control-allow-origin':'*'},body:JSON.stringify(body)}):r.fulfill({status:404,body:'not found'});
  });
  const rpcs=name=>calls.filter(c=>c.kind==='rpc'&&c.name===name);
  return {calls,data,rpcs,last:name=>rpcs(name).at(-1)};
@@ -211,11 +240,11 @@ export async function signIn(page,role='admin',hash=''){
  await page.getByRole('button',{name:'로그인'}).click();
  await expect(page.locator('#nav')).toBeVisible();
 }
-export const TAB_LABELS={dashboard:'대시보드',queue:'검수 대기열',projects:'프로젝트',updates:'변경 감지',runs:'수집 작업',rules:'수집 규칙·키워드',settings:'설정',research:'연구자 평가',magazine:'매거진',places:'장소 후보'};
+export const TAB_LABELS={dashboard:'대시보드',queue:'검수 대기열',reports:'오류 신고',quality:'데이터 품질',members:'회원·연구 데이터',projects:'프로젝트',updates:'변경 감지',runs:'수집 작업',rules:'수집 규칙·키워드',settings:'설정',research:'연구자 평가',magazine:'매거진',places:'장소 후보'};
 // An element that exists once a tab has rendered its data (networkidle does not wait for in-page tab switches).
-export const READY={dashboard:'#dashRuns table',queue:'#queueList .qitem',projects:'#projectList .pitem',updates:'#updateList .update',runs:'#errorList li',rules:'#kwTable table',settings:'#settingsBox form',research:'#researchList .pitem',magazine:'#articleForm',places:'#legacyJobs table'};
+export const READY={reports:'#reportList .report',quality:'#qualityBox table',members:'#membersBox .tiles',dashboard:'#dashRuns table',queue:'#queueList .qitem',projects:'#projectList .pitem',updates:'#updateList .update',runs:'#errorList li',rules:'#kwTable table',settings:'#settingsBox form',research:'#researchList .pitem',magazine:'#articleForm',places:'#legacyJobs table'};
 export const TABS_BY_ROLE={
- admin:['dashboard','queue','projects','updates','runs','rules','settings','research','magazine','places'],
- editor:['dashboard','queue','projects','updates','runs','rules','research','magazine','places'],
+ admin:['dashboard','queue','reports','quality','projects','updates','runs','rules','settings','members','research','magazine','places'],
+ editor:['dashboard','queue','reports','quality','projects','updates','runs','rules','research','magazine','places'],
  researcher:['research']
 };
