@@ -241,5 +241,8 @@ export function krRegionOf(p, { facts = null, auxMap = new Map(), confirmed = ne
   if (fromAddress.conflict) return { region: null, rule: 'address_conflict', conflict: fromAddress.conflict }
   const rest = regionFromText([p.district, p.city_ko, p.city], gaz)
   if (rest.region) return { region: rest.region, rule: 'city_' + rest.rule, matches: rest.matches }
-  return { region: null, rule: rest.conflict ? 'city_conflict' : 'unknown', conflict: rest.conflict || undefined }
+  // A Commons project: its category's and its parent categories' names ("Gates in Seoul", "Boseong County").
+  const parents = regionFromText(p.place_texts || [], gaz)
+  if (parents.region) return { region: parents.region, rule: 'commons_parent_' + parents.rule, matches: parents.matches }
+  return { region: null, rule: rest.conflict ? 'city_conflict' : parents.conflict ? 'commons_parent_conflict' : 'unknown', conflict: rest.conflict || parents.conflict || undefined }
 }

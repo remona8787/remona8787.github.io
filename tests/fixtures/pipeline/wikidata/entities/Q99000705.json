@@ -1,0 +1,62 @@
+{
+ "pageid": 99000705,
+ "ns": 0,
+ "title": "Q99000705",
+ "lastrevid": 2400000705,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000705",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Fixture Amsterdam"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "70dc53f97de4937b4410c8f380c3f2e1",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 515,
+       "id": "Q515"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000705$70dc53f9-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "22b2cfe559612f9e231440f82e53f257",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 55,
+       "id": "Q55"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000705$22b2cfe5-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

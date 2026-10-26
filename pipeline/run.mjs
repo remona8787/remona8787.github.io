@@ -42,6 +42,8 @@ import { imageStage } from './lib/image-stage.mjs'
 import { writeContactSheets, SHEET_ABOUT } from './lib/contact-sheet.mjs'
 import { imageAudit, auditSummary } from './lib/image-audit.mjs'
 import { discoverSeoulEvents, linkEvents, eventOut, DATASET as SEOUL_DATASET } from './lib/seoul-events.mjs'
+import { recoverPlaces, loadCountryCoder, countryAt } from './lib/places.mjs'
+import T from '../site-public-cleared/archive-taxonomy.js'
 import { loadEditorial, compileEditorial, heroAllowSet, applyToProject, finishLog } from './lib/editorial.mjs'
 import { publicRecord, buildIndex, buildHome, buildStats, buildManifest, shardCount, shardOf, contentHash, upgradeRecord } from './lib/output.mjs'
 import { checkDataset, checkReport, checkQuality, checkCandidates } from './lib/schema.mjs'
@@ -155,6 +157,8 @@ export async function runPipeline(o) {
   const KC = cfg.korea, gaz = compileGazetteer(KC), KO = P.korea || {}
   const sourcesMs = budgetMs * (shares.sources ?? 0.42)
   const foreign = client.view(() => client.deadline - sourcesMs * (KO.foreign_reserve_share ?? 0.2))
+  // Country borders (bundled; null when the package is missing): coordinates → country (lib/places.mjs).
+  const cc = await loadCountryCoder()
   let classReview = null, categories = null, wikiHits = [], webOut = null, krDiv = null, krInst = null, tourOut = null, seoulOut = null
   // Korea: items found by a Wikidata full-text search among Korean items, and the probes (known Korean articles).
   let krSearch = { byQid: new Map(), terms: {}, errors: [] }, krProbes = null
@@ -293,7 +297,9 @@ export async function runPipeline(o) {
     if (c.decision === 'evidence') evidenceCats.push(c)
     if (c.decision !== 'candidate') continue
     observations.push({
-      origin: 'commons', category: c.title, qid: c.qid, lat: c.lat, lng: c.lng, place_hint: c.place_hint, project_type: c.project_type, korea: !!c.korea,
+      origin: 'commons', category: c.title, qid: c.qid, lat: c.lat, lng: c.lng, place_hint: c.place_hint, project_type: c.project_type, korea: !!c.korea, via_file: c.via_file || null,
+      // Found through a Korean root's photo: the category is the canvas (the gate, the square), not the light work.
+      canvas: c.reason === 'category_of_a_korean_root_photo',
       parts: c.parts || [], editions: c.editions || [], night_subcats: [],
       sources: [], evidence: [{ kind: 'commons_category', title: c.title, root: c.root, reason: c.reason, via_file: c.via_file || null }],
     })
@@ -349,7 +355,7 @@ export async function runPipeline(o) {
       }
       const cityPattern = new RegExp(P.entity_rules?.city_class_pattern || '\\bcity\\b', 'i')
       for (const [q, ent] of entities) {
-        facts.set(q, factsOf(ent, auxMap, { cityPattern, originalLanguageByCountry: P.original_language_by_country || {}, labelLanguages: P.label_languages }))
+        facts.set(q, factsOf(ent, auxMap, { cityPattern, originalLanguageByCountry: P.original_language_by_country || {}, labelLanguages: P.label_languages, countryAt: (lat, lng) => countryAt(cc, lat, lng) }))
         entityP31.set(q, (ent.claims.P31 || []).map((v) => v.item).filter(Boolean))
       }
       status('enrich', { status: e.length ? 'partial' : 'ok', items: facts.size, errors: e.slice(0, 50), duration_ms: clock() - t })
@@ -443,12 +449,36 @@ export async function runPipeline(o) {
   // ---------------------------------------------------------------- editorial, blocklist, eligibility
   const excluded = [], published = []
   const krDecisions = []
+  const krArgs = (p) => ({ facts: p.qid ? facts.get(p.qid) : null, auxMap, confirmed: krDiv?.confirmed || new Map(), gaz, cfg: KC })
+  // Pass 1: editorial decisions, blocklists and the class rules.
   for (const p of projects) {
     applyToProject(ed, p)
+    const p31 = uniq((p.all_qids || [p.qid]).flatMap((q) => entityP31.get(q) || []))
+    const blocked = p31.filter((q) => blockActive.has(q))
+    if (exclude && !p.curated_id) for (const l of p.p31_labels || []) if (exclude.test(l) && !(p.origins.includes('wikidata_class') && p.class_publish)) blocked.push('class_label:' + l)
+    if (p.qid && entityP31.get(p.qid)?.includes(CATEGORY_ITEM)) blocked.push('category_item_without_topic')
+    p.blocked_by = uniq(blocked)
+    const ct = (p.evidence || []).filter((e) => e.kind === 'wikidata_class')
+    p.require_coordinates = ct.length > 0 && !p.origins.some((x) => x !== 'wikidata_class') && kept.filter((x) => x.qid === p.qid).flatMap((x) => x.class_types || []).filter((c) => c.publish).every((c) => c.require_coordinates)
+  }
+  // Places (lib/places.mjs): a project whose only failures are a missing country or location gets them from evidence
+  // (parent categories, their items, file geotags; never a guess), and a Korean Commons project without a region gets
+  // the names of its parent categories for the gazetteer.
+  const RECOVERABLE = new Set(['no_country', 'no_coordinates_or_city'])
+  const recoverable = projects.filter((p) => { const r = eligibility(p).reasons; return r.length > 0 && r.every((x) => RECOVERABLE.has(x)) })
+  const regionless = projects.filter((p) => p.country_iso2 === 'KR' && p.commons_category && !krRegionOf(p, krArgs(p)).region)
+  let placeOut = { decisions: [], stats: {} }
+  client.setDeadline(stageDeadline('places'))
+  await st.run('places', async () => {
+    placeOut = await recoverPlaces(client, recoverable, { cache, cfg: P.places || {}, ttl, cc, auxMap, facts, gaz, regionOf: (iso) => T.regionOf(iso), err, regionProjects: regionless, known: projects.filter((p) => p.country_iso2 && !recoverable.includes(p)) })
+    if (placeOut.stats.partial) st.mark('places', 'partial')
+  })
+  // Pass 2: Korean regions and 시·군·구, eligibility.
+  for (const p of projects) {
     // kr_region (lib/korea.mjs): every rule's outcome is logged in review/korea.json.
-    const kr = krRegionOf(p, { facts: p.qid ? facts.get(p.qid) : null, auxMap, confirmed: krDiv?.confirmed || new Map(), gaz, cfg: KC })
+    const kr = krRegionOf(p, krArgs(p))
     p.kr_region = kr.region
-    if (kr.region) p.field_sources = { ...(p.field_sources || {}), kr_region: { editorial: 'editorial', curated_seoul: 'curated', p131: 'wikidata', p131_labels: 'wikidata', tourapi_ldong: 'tourapi', tourapi_areacode: 'tourapi' }[kr.rule] || 'derived:gazetteer' }
+    if (kr.region) p.field_sources = { ...(p.field_sources || {}), kr_region: { editorial: 'editorial', curated_seoul: 'curated', p131: 'wikidata', p131_labels: 'wikidata', tourapi_ldong: 'tourapi', tourapi_areacode: 'tourapi' }[kr.rule] || (String(kr.rule).startsWith('commons_parent') ? 'derived:commons_parent_category' : 'derived:gazetteer') }
     if (p.country_iso2 === 'KR') {
       krDecisions.push({ id: p.id, qid: p.qid || null, name: p.name_ko || p.name_en || p.name_original, ...kr })
       // 시·군·구 for the drill-down: the administrative chain's Korean labels, else the address; never guessed.
@@ -460,17 +490,10 @@ export async function runPipeline(o) {
         p.district = chain.district || addr.district; p.field_sources.district = chain.district ? 'derived:p131_chain' : 'derived:address'
       }
     }
-    const p31 = uniq((p.all_qids || [p.qid]).flatMap((q) => entityP31.get(q) || []))
-    const blocked = p31.filter((q) => blockActive.has(q))
-    if (exclude && !p.curated_id) for (const l of p.p31_labels || []) if (exclude.test(l) && !(p.origins.includes('wikidata_class') && p.class_publish)) blocked.push('class_label:' + l)
-    if (p.qid && entityP31.get(p.qid)?.includes(CATEGORY_ITEM)) blocked.push('category_item_without_topic')
-    p.blocked_by = uniq(blocked)
-    const ct = (p.evidence || []).filter((e) => e.kind === 'wikidata_class')
-    p.require_coordinates = ct.length > 0 && !p.origins.some((x) => x !== 'wikidata_class') && kept.filter((x) => x.qid === p.qid).flatMap((x) => x.class_types || []).filter((c) => c.publish).every((c) => c.require_coordinates)
     const el = eligibility(p)
     p.eligibility = el
     if (el.eligible) published.push(p)
-    else excluded.push({ id: p.id, qid: p.qid, name: p.name_en || p.name_ko || p.name_original, origins: p.origins, reasons: el.reasons })
+    else excluded.push({ id: p.id, qid: p.qid, name: p.name_en || p.name_ko || p.name_original, origins: p.origins, reasons: el.reasons, ...(p.place_recovery_failed ? { place: p.place_recovery_failed } : {}) })
   }
   say(`[pipeline] resolved ${projects.length} projects from ${kept.length} observations: ${published.length} eligible, ${excluded.length} excluded`)
 
@@ -688,6 +711,7 @@ export async function runPipeline(o) {
     counts,
     images: { ...imageStats, hero: files.home.hero.length, contact_sheets: sheets.map((s) => s.sheet) },
     image_audit: audit.summary,
+    places: placeOut.stats,
     // Korean public data: requests, rows received, relevant items, merged into known projects, new place candidates and
     // what reached the public dataset (docs/PUBLIC_DATA.md).
     public_data: sourceCounts,
@@ -728,6 +752,7 @@ export async function runPipeline(o) {
   await writeJSON(path.join(dirs.review, 'providers.json'), { schema: 1, at: startedAt, about: 'Image provider requests of this run: TourAPI name matches, caps reached, errors (keys never appear).', stats: { requests: imageStats.provider_requests, new_requests: imageStats.provider_new_requests, errors: imageStats.provider_errors, rejected: imageStats.provider_rejected, openverse_rate_limit: imageStats.openverse_rate_limit }, log: providerLog.slice(0, 2000) }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'web.json'), { schema: 1, at: startedAt, rules: webOut?.results ?? null, errors: webOut?.errors ?? [] }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'http-log.json'), { schema: 1, at: startedAt, entries: httpLog }, { pretty: true })
+  await writeJSON(path.join(dirs.review, 'places.json'), { schema: 1, at: startedAt, about: 'Country and location recovery (lib/places.mjs): projects whose only eligibility failures were a missing country or location, the evidence found (parent categories and their items, the category name, file geotags inside country borders, the item coordinates; the Wikipedia language as weak corroboration only) and the decision. Conflicting evidence leaves a project excluded.', stats: placeOut.stats, decisions: placeOut.decisions }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'seoul-events.json'), {
     schema: 1, at: startedAt,
     about: 'Seoul cultural events (OA-15486 culturalEventInfo): without SEOUL_OPEN_DATA_KEY one probe with the sample key (reachability and the live field names; never published). Every event with its relevance decision; the relevant ones linked to a project (name within 300 m) or listed as place candidates. Keys never appear.',

@@ -203,6 +203,35 @@ Every Wikidata class and property id is confirmed by a live query in each run:
 
 ## 5. Discovery and eligibility
 
+**Korean Commons roots.** Besides the configured Korean roots (light, media art, projection mapping, light and
+lantern festivals, media facades, media art exhibitions; illuminated buildings and the night views of 16 cities as
+evidence), a Korean root that holds photos itself ("Projection mapping in South Korea": 8 files, no subcategories) is
+read file by file: each photo's other categories (the gate or square the work was shown on, the festival) are
+candidates (`category_of_a_korean_root_photo`), each with that photo (`via_file`, an image of the work). Such a
+category is the canvas, not the work: its own photos are institution files (context unless they name the project or
+media, see Images). A root that does not exist is a warning; after three roots in a row fail, the rest are skipped.
+
+**Country recovery** (`lib/places.mjs`, `review/places.json`, `report.places`). A project whose only eligibility
+failures are a missing country or location gets them from evidence, never from a guess:
+
+- Wikidata (every item, in `factsOf`): P17 (a country item without an ISO code takes its own P17's: Q55 Netherlands →
+  Q29999 NL), else the country of the P131 or P276 item walking P131 up, else the borders the P625 coordinates lie in
+  (bundled borders, `@rapideditor/country-coder`; `country_rule` records which);
+- Commons: the names of the category's parent categories ("Light festivals in South Korea", "Boseong County" through
+  the Korean gazetteer) and their Wikidata items' countries, the category name itself, and the camera locations of
+  the category's files (a vote when at least 2 are geotagged and 70 % lie in one country; ≤ 150 new categories per
+  run, cached 30 days);
+- the language of an item's only Wikipedia articles is recorded as weak corroboration and never decides.
+
+Strong evidence for two countries, or photos in several countries (a travelling work such as Global Rainbow), leaves a
+project excluded (`conflict`). A recovered Commons project without coordinates or a city takes the city its parents or
+name give, else the centre of a tight geotag cluster (`location_precision: approximate`). An edition or work of a known
+project ("… lors de la Fête des Lumières") is never a new project (`part_of_project`), and a category of things in a
+country ("Illuminated trees in Finland") is an aggregate (`aggregate_name`). A Korean Commons project without a region
+gets the names of its parent categories for the gazetteer (`commons_parent_*` rules). Offline replay of the 2026-10-26
+data branch: 279 → 345 projects (the UK digital arts festivals through P276, Dutch works through Q55, Finnish works
+through their coordinates, Montreal and Ghent works through their parent categories).
+
 **Korea coverage (2026-10-26 live review).** The Korean class query found 0 items for all 18 classes: Korean
 festivals, venues and works are rarely instances of the light-work classes, and many Korean items have P131 but no
 P17. Now:

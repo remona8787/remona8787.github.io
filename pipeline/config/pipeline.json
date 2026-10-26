@@ -2,8 +2,9 @@
   "schema": 1,
   "budget_minutes": 25,
   "stage_shares": {
-    "sources": 0.38,
+    "sources": 0.36,
     "enrich": 0.14,
+    "places": 0.02,
     "images": 0.4,
     "links": 0.06
   },
@@ -55,7 +56,9 @@
     "kr_divisions": 168,
     "quality": 8760,
     "seoul_events": 20,
-    "commons_file_depicts": 720
+    "commons_file_depicts": 720,
+    "commons_parents": 720,
+    "commons_geotags": 720
   },
   "wikipedia": {
     "about": "Media-facade discovery: phrase searches of the local terms in each Wikipedia; each hit is mapped to its Wikidata item and accepted only by the rules in lib/wikipedia.mjs (score and reasons in review/wikipedia.json).",
@@ -502,6 +505,17 @@
     "about": "Korea first (v0.18): Korean sources start first on every shared host and run until the stage deadline; the foreign sources stop foreign_reserve_share of the sources stage earlier. The images and links stages handle Korean projects first.",
     "foreign_reserve_share": 0.2,
     "class_instance_limit": 2000
+  },
+  "places": {
+    "about": "Country and location recovery (lib/places.mjs) for projects whose only eligibility failures are a missing country or location: parent categories (names and linked items), the category name, file geotags inside country borders (@rapideditor/country-coder), never a guess; strong evidence for two countries, or geotags with other_country_share in another country, leaves a project excluded. Korean Commons projects without a region get their parent categories' names for the gazetteer.",
+    "enabled": true,
+    "max_geotag_categories_per_run": 150,
+    "geotag_files": 100,
+    "min_geotags": 2,
+    "country_share": 0.7,
+    "other_country_share": 0.3,
+    "cluster_km": 5,
+    "cluster_share": 0.5
   },
   "seoul_events": {
     "about": "Seoul cultural events (서울 열린데이터광장 OA-15486, service culturalEventInfo, 공공누리 제1유형; key SEOUL_OPEN_DATA_KEY). Without a key, one probe with the portal's sample key records reachability and the live field names (never published). An event is kept only when its title, programme or place names media art, a media facade, projection, mapping, light, LED, digital or immersive and the classifier agrees; it is linked to a published project by name within link_radius_m, else it becomes a place candidate (admin-data/candidates.json) for an editor. lib/seoul-events.mjs, review/seoul-events.json.",

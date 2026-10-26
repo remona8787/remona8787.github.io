@@ -1,0 +1,109 @@
+{
+ "pageid": 99000704,
+ "ns": 0,
+ "title": "Q99000704",
+ "lastrevid": 2400000704,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000704",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Fixture Lichtkunst Amsterdam"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "994439304604273441fc8415d453dafb",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1823448,
+       "id": "Q1823448"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000704$99443930-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "bbea728f5b8bad12367c6d93ebea1c8a",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000705,
+       "id": "Q99000705"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000704$bbea728f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "6986c3024dbd6ec9c053d27dddd8bbff",
+     "datavalue": {
+      "value": {
+       "latitude": 52.3676,
+       "longitude": 4.9041,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q99000704$6986c302-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "971347a717b1ef46d7b23ec8cf340526",
+     "datavalue": {
+      "value": {
+       "time": "+2015-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q99000704$971347a7-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

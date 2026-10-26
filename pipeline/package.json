@@ -12,6 +12,7 @@
     "dry-run": "node run.mjs --fixtures --data=.dry-run --editorial=../tests/fixtures/pipeline/editorial"
   },
   "dependencies": {
+    "@rapideditor/country-coder": "5.6.1",
     "sharp": "0.35.5"
   },
   "devDependencies": {
