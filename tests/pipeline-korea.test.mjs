@@ -315,7 +315,11 @@ test('Korea coverage: Wikidata search of named Korean things, probes of known ar
   // Korean compounds: the full-text search finds no "…빛축제" inside "픽스처한강빛축제"; the label scan does.
   assert.deepEqual(dec.Q99000508.terms, ['label:빛축제'])
   assert.equal(dec.Q99000508.accepted, true)
-  assert.deepEqual([k.search.label_scan.new_items, k.search.label_scan.truncated, k.search.label_scan.by_term['빛축제']], [2, false, 2])
+  assert.deepEqual([k.search.label_scan.new_items, k.search.label_scan.truncated, k.search.label_scan.by_term['빛축제']], [3, false, 3])
+  // A station whose name contains the term is a place named after a festival park, not the festival.
+  assert.deepEqual(dec.Q99000509.terms, ['label:빛축제'])
+  assert.equal(dec.Q99000509.accepted, false)
+  assert.deepEqual(dec.Q99000509.reasons, ['label_match_not_work_or_event'])
   assert.ok(dec.Q99000506.terms.includes('유등축제') && dec.Q99000506.terms.includes('label:유등'), 'found both ways')
   const wiki = JSON.parse(await readFile(path.join(dir, 'review/wikipedia.json'), 'utf8'))
   const tokyo = wiki.entity_decisions.find((d) => d.qid === 'Q99000604')
@@ -325,6 +329,7 @@ test('Korea coverage: Wikidata search of named Korean things, probes of known ar
   const ids = index.rows.map((r) => r[0])
   assert.ok(ids.includes('Q99000506') && !ids.includes('Q99000507') && !ids.includes('Q99000604'))
   assert.ok(ids.includes('Q99000508'), 'a festival found only by the label scan')
+  assert.ok(!ids.includes('Q99000509'), 'a station named after a festival park is not published')
   // C: a Korean root that holds photos ("Projection mapping in South Korea"): the photo's other category (the gate it
   // was projected on) is a candidate; the photo shows the work, the gate's own photos are context.
   const cats = JSON.parse(await readFile(path.join(dir, 'review/categories.json'), 'utf8')).decisions

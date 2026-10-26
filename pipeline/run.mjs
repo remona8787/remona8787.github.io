@@ -422,7 +422,11 @@ export async function runPipeline(o) {
   }
   // Korean hits (Korean Wikipedia, Wikidata search) describe Korean projects: the item must be located in Korea (P17,
   // or the P131/P276 chain) and be a place, venue, event or work (a place class), never a concept or an organisation.
+  // A hit of the label scan alone matched part of a name: "빛축제" is also inside 송도달빛축제공원역, a metro station
+  // named after a park. Such an item must itself be a festival, event, work or venue (entity_rules
+  // work_or_event_class_pattern), not any place.
   const krSearchDecisions = []
+  const workOrEventKr = rules.work_or_event_class_pattern ? new RegExp(rules.work_or_event_class_pattern, 'i') : null
   for (const x of observations.filter((y) => y.origin === 'wikidata_search')) {
     const ev = x.evidence[0]
     const f = facts.get(x.qid)
@@ -430,6 +434,8 @@ export async function runPipeline(o) {
     const reasons = [...a.reasons]
     if (f && f.country_iso2 !== 'KR') reasons.push('not_in_korea')
     if (f && !a.place_class) reasons.push('no_place_event_or_work_class')
+    const labelOnly = ev.terms.length > 0 && ev.terms.every((t) => String(t).startsWith('label:'))
+    if (f && labelOnly && workOrEventKr && !(f.p31_labels || []).some((l) => workOrEventKr.test(l))) reasons.push('label_match_not_work_or_event')
     ev.accepted = reasons.length === 0
     ev.entity_reasons = reasons
     krSearchDecisions.push({ qid: x.qid, name: f?.name_ko || f?.name_en || null, terms: ev.terms, accepted: ev.accepted, reasons, p31_labels: f?.p31_labels || [] })
