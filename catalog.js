@@ -69,7 +69,7 @@ function hay(p){let h=hayCache&&hayCache.get(p);if(h===undefined){const r=region
 // One place against the filters. skip leaves one facet out (facet counts show what each option would add).
 function match(p,f,today,ctx,words,skip){
  if(p.is_published===false)return false;
- if(words.length){const h=hay(p);if(!words.every(x=>h.includes(x)))return false}
+ if(words.length){const h=forms(p);if(!words.every(m=>hit(h,m)))return false}
  const r=region(p);
  if(f.category&&f.category!=='전체'&&!(f.category==='Global'?!!r.country&&r.iso!=='KR'&&r.country!=='대한민국':p.primary_category===f.category))return false;
  if(f.district&&f.district!=='전체'&&p.district!==f.district)return false;
@@ -87,7 +87,23 @@ function match(p,f,today,ctx,words,skip){
  for(const k of FACET_KEYS){if(k===skip)continue;const want=listOf(f[k]);if(want.length&&!FACETS[k](p).some(v=>v&&want.includes(v)))return false}
  return true;
 }
-const queryWords=f=>{const q=text(f.q).trim();return q?q.split(/\s+/):[]};
+// Forgiving search (v0.18), no external service. Each word of the query is looked for
+//  - in the place's search text without spaces ("동대문디자인" finds "동대문 디자인");
+//  - for Hangul words, in that text as jamo (NFD; text() has already turned compatibility jamo such as ㄷ into leading
+//    consonants), so a syllable still being typed ("롯데워") finds "롯데월드";
+//  - only when that finds nothing among the given places: at edit distance 1 (one letter added, dropped, changed, or
+//    two neighbours swapped) from a word of the archive, a name written without spaces, or the start of one. Latin words need 4 letters, Hangul words
+//    5 jamo (about two syllables); words with digits are never guessed. search() reports such guesses as list.fuzzy.
+const HANGUL=/[\u1100-\u11ff\uac00-\ud7a3]/,nospace=s=>s.replace(/\s+/g,''),jamo=s=>s.normalize('NFD');
+const formsCache=typeof WeakMap==='function'?new WeakMap():null;
+function forms(p){let f=formsCache&&formsCache.get(p);if(!f){const h=hay(p);f={h,ns:nospace(h),j:null};if(formsCache)formsCache.set(p,f)}return f}
+function hit(f,m){if(m.j!==null){if(f.j===null)f.j=jamo(f.ns);if(f.j.includes(m.j))return true}else if(f.ns.includes(m.ns))return true;return !!m.alts&&m.alts.some(a=>f.ns.includes(a))}
+// Damerau–Levenshtein distance at most 1.
+function near1(a,b){if(a===b)return true;const la=a.length,lb=b.length;if(Math.abs(la-lb)>1)return false;let i=0;while(i<la&&i<lb&&a[i]===b[i])i++;if(la===lb)return a.slice(i+1)===b.slice(i+1)||i+1<la&&a[i]===b[i+1]&&a[i+1]===b[i]&&a.slice(i+2)===b.slice(i+2);return la>lb?a.slice(i+1)===b.slice(i):a.slice(i)===b.slice(i+1)}
+const vocabCache=typeof WeakMap==='function'?new WeakMap():null;
+function vocabulary(places){let v=vocabCache&&vocabCache.get(places);if(!v){const set=new Set();for(const p of places){for(const t of hay(p).split(/[\s,.;:()[\]{}\/\\|"'!?&+*#=<>«»“”‘’·–—-]+/))if(t.length>=3&&!/\d/.test(t))set.add(t);for(const n of names(p)){const t=nospace(text(n));if(t.length>=3&&t.length<=40&&!/\d/.test(t))set.add(t)}}v=[...set].map(t=>({t,j:HANGUL.test(t)?jamo(t):null}));if(vocabCache)vocabCache.set(places,v)}return v}
+function guesses(m,places){const w=m.j!==null?m.j:m.ns;if(/\d/.test(m.w)||w.length<(m.j!==null?5:4))return null;const out=[];for(const x of vocabulary(places)){const t=m.j!==null?x.j:(x.j===null?x.t:null);if(t===null)continue;const ok=near1(w,t)||t.length>w.length+1&&w.length>=5&&[w.length-1,w.length,w.length+1].some(n=>near1(w,t.slice(0,n)));if(ok)out.push(x.t);if(out.length>=8)break}return out.length?out:null}
+function queryWords(f,places){const q=text(f.q).trim();if(!q)return [];return q.split(/\s+/).map(w=>{const ns=nospace(w),m={w,ns,j:HANGUL.test(w)?jamo(ns):null,alts:null};if(places&&!places.some(p=>hit(forms(p),m)))m.alts=guesses(m,places);return m})}
 const SORTS=['relevance','newest','updated','year_desc','year_asc','name'];
 const desc=(a,b)=>a===b?0:!a?1:!b?-1:a<b?1:-1;
 function sorter(f,ctx,scores){const s=f.sort,y=p=>yearOf(p),name=p=>ctx&&ctx.name?ctx.name(p):p.name_kr||'',lang=ctx&&ctx.lang==='en'?'en':'ko';
@@ -103,10 +119,12 @@ function sorter(f,ctx,scores){const s=f.sort,y=p=>yearOf(p),name=p=>ctx&&ctx.nam
 // (KR_BOOST, less than the gap between a name match and a passing mention), so an exact foreign name still leads.
 const KR_BOOST=25;
 function krFirst(list,f,ctx){if(f.country||!(ctx&&ctx.krFirst))return list;const kr=[],other=[];for(const p of list)(isKR(p)?kr:other).push(p);return kr.length&&other.length?kr.concat(other):list}
-function search(places,f={},today,ctx){const words=queryWords(f);const out=places.filter(p=>match(p,f,today,ctx,words));const s=SORTS.includes(f.sort)?f.sort:'relevance';if(s==='relevance'&&!words.length){if(ctx&&ctx.featured){const k=new Map(out.map((p,i)=>[p,[ctx.featured(p),i]]));out.sort((a,b)=>{const x=k.get(a),y=k.get(b);return x[0]-y[0]||x[1]-y[1]})}return krFirst(out,f,ctx)}const boost=ctx&&ctx.krFirst&&!f.country,scores=new Map(words.length&&s==='relevance'?out.map(p=>[p,rank(p,f.q)+(boost&&isKR(p)?KR_BOOST:0)]):[]);out.sort(sorter({...f,sort:s},ctx,scores));return words.length&&s==='relevance'?out:krFirst(out,f,ctx)}
+function search(places,f={},today,ctx){const words=queryWords(f,places);const out=places.filter(p=>match(p,f,today,ctx,words));const fuzzy=words.filter(m=>m.alts).map(m=>({word:m.w,as:m.alts})),alts=fuzzy.flatMap(x=>x.as);const s=SORTS.includes(f.sort)?f.sort:'relevance';if(s==='relevance'&&!words.length){if(ctx&&ctx.featured){const k=new Map(out.map((p,i)=>[p,[ctx.featured(p),i]]));out.sort((a,b)=>{const x=k.get(a),y=k.get(b);return x[0]-y[0]||x[1]-y[1]})}return krFirst(out,f,ctx)}
+ // A guessed word found in a name ranks like a name match (20), above a passing mention.
+ const boost=ctx&&ctx.krFirst&&!f.country,scores=new Map(words.length&&s==='relevance'?out.map(p=>[p,rank(p,f.q)+(boost&&isKR(p)?KR_BOOST:0)+(alts.length&&names(p).some(n=>alts.some(a=>nospace(text(n)).includes(a)))?20:0)]):[]);out.sort(sorter({...f,sort:s},ctx,scores));const res=words.length&&s==='relevance'?out:krFirst(out,f,ctx);if(fuzzy.length)res.fuzzy=fuzzy;return res}
 // Option counts for the filter panel: for each facet, the places matching every other filter, by value; plus the
 // countries (and the cities of the chosen country) with every filter but those two. only: just these facets.
-function facetCounts(places,f={},today,ctx,only){const words=queryWords(f),out={};for(const k of only||FACET_KEYS){if(!FACETS[k])continue;const c={};for(const p of places)if(match(p,f,today,ctx,words,k))for(const v of FACETS[k](p))if(v)c[v]=(c[v]||0)+1;out[k]=c}
+function facetCounts(places,f={},today,ctx,only){const words=queryWords(f,places),out={};for(const k of only||FACET_KEYS){if(!FACETS[k])continue;const c={};for(const p of places)if(match(p,f,today,ctx,words,k))for(const v of FACETS[k](p))if(v)c[v]=(c[v]||0)+1;out[k]=c}
  if(only)return out;
  const loose={...f,country:'',city:''},countries={},cities={};for(const p of places){if(!match(p,loose,today,ctx,words))continue;const r=region(p);if(r.countryKey)countries[r.countryKey]=(countries[r.countryKey]||0)+1;if(r.cityKey&&(!f.country||r.countryKey===f.country||r.country===f.country))cities[r.cityKey]=(cities[r.cityKey]||0)+1}
  out.country=countries;out.city=cities;return out}
@@ -164,5 +182,5 @@ const WARNING={ko:'주의: 공개 출처에서 자동으로 모으거나 분류�
 function exportCSV(places,ctx={}){const rows=exportRows(places,ctx),cols=EXPORT_FIELDS.map(f=>f[0]),cell=v=>'"'+String(v??'').replace(/^[=+@\-\t\r]/,"'$&").replaceAll('"','""')+'"';return '﻿# '+WARNING[ctx.lang==='en'?'en':'ko'].replace(/[",\r\n]/g,' ')+'\r\n'+[cols.map(cell).join(','),...rows.map(r=>cols.map(c=>cell(r[c])).join(','))].join('\r\n')+'\r\n'}
 function dictionary(lang){return EXPORT_FIELDS.map(([field,type,ko,en])=>({field,type,description:lang==='en'?en:ko}))}
 function exportJSON(places,ctx={}){const lang=ctx.lang==='en'?'en':'ko';return {meta:{title:'빛의 건축 아카이브 · Architecture of Light archive',generated_at:ctx.now||new Date().toISOString(),app_version:ctx.version||'',count:places.length,filters:ctx.filters||{},warning:WARNING[lang],licenses:{wikidata:'CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/)',commons:lang==='en'?'Wikimedia Commons images: per file (follow the licence and attribution on each file page); no images are included in this file':'Wikimedia Commons 이미지: 파일마다 다름 (각 파일 페이지의 라이선스와 저작자 표시를 따름) · 이 파일에는 이미지가 들어 있지 않음',editorial:lang==='en'?'Editorial text and classifications: licence to be confirmed by the operator (운영자 확정 필요)':'편집부 텍스트·분류: 운영자 확정 필요',sources:lang==='en'?'Source links point to the original publications; their rights stay with each publisher':'출처 링크는 원문을 가리키며, 원문의 권리는 각 발행처에 있음'},citation:ctx.citation||'',data_dictionary:dictionary(lang),field_states:T?T.vocab.field_state.map(([k,ko,en])=>({state:k,label:lang==='en'?en:ko})):[]},projects:exportRows(places,ctx)}}
-return {isKR,krRegionOf,sectionOf,FACADE_TYPES,searchText:hay,categories,region,regionKey,isoOf,isoOfName,countryLabel,cityKey,cityLabel,typeOf,typeDerived,yearOf,originOf,ORIGINS,FACET_KEYS,facetCounts,activeFacets,status,available,mappable,wikidataCoords,sourceCoords,coordKind,search,valid,similar,stats,exportRows,exportCSV,exportJSON,EXPORT_FIELDS,WARNING,SORTS,names};
+return {near1,isKR,krRegionOf,sectionOf,FACADE_TYPES,searchText:hay,categories,region,regionKey,isoOf,isoOfName,countryLabel,cityKey,cityLabel,typeOf,typeDerived,yearOf,originOf,ORIGINS,FACET_KEYS,facetCounts,activeFacets,status,available,mappable,wikidataCoords,sourceCoords,coordKind,search,valid,similar,stats,exportRows,exportCSV,exportJSON,EXPORT_FIELDS,WARNING,SORTS,names};
 });
