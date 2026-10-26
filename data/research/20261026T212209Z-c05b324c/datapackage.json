@@ -1,10 +1,10 @@
 {
  "profile": "tabular-data-package",
- "id": "light-architecture-archive@20261026T165540Z-057a0055",
+ "id": "light-architecture-archive@20261026T212209Z-c05b324c",
  "name": "light-architecture-archive",
  "title": "빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋",
- "version": "20261026T165540Z-057a0055",
- "created": "2026-10-26T16:55:40.704Z",
+ "version": "20261026T212209Z-c05b324c",
+ "created": "2026-10-26T21:22:09.202Z",
  "data_as_of": "2026-10-26",
  "homepage": "https://remona8787.github.io/",
  "description": "미디어파사드·건축 미디어아트·빛 설치 작품의 사실 정보(이름, 유형, 위치, 연도, 운영 상태, 식별자, 출처)와 공개 이미지의 저작권 정보. 편집부 해설문과 이미지 파일은 포함하지 않습니다.",
@@ -98,12 +98,12 @@
    "path": "https://remona8787.github.io/"
   }
  ],
- "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261026T165540Z-057a0055, 데이터 기준일 2026-10-26). https://remona8787.github.io/data/research/20261026T165540Z-057a0055/",
+ "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261026T212209Z-c05b324c, 데이터 기준일 2026-10-26). https://remona8787.github.io/data/research/20261026T212209Z-c05b324c/",
  "changes": {
-  "from": "20261026T163656Z-308e76e3",
+  "from": "20261026T165540Z-057a0055",
   "added": 0,
-  "removed": 3,
-  "changed": 0
+  "removed": 0,
+  "changed": 1
  },
  "resources": [
   {
@@ -112,8 +112,8 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "bytes": 186685,
-   "hash": "sha256:6221e5e49c6104eabf86525be492414623d2fd02f5112c834817327c94623d64",
+   "bytes": 186709,
+   "hash": "sha256:fea47b0ab84f96cddf1d279ee56384b872e7b8f4a43f238decd24edbaccd662e",
    "schema": {
     "fields": [
      {
@@ -324,8 +324,8 @@
    "format": "json",
    "mediatype": "application/json",
    "encoding": "utf-8",
-   "bytes": 490700,
-   "hash": "sha256:7b95ec4eeb80cfd3275df8f93c2e119ba49a72a9428b9c596e469ae936989c68"
+   "bytes": 490726,
+   "hash": "sha256:e8532ef677bf20349b16421821b9fa55e9adb47471a3bb8ea6d9aa5d7524a3d8"
   },
   {
    "name": "projects-geojson",
@@ -472,7 +472,7 @@
    "mediatype": "text/plain",
    "encoding": "utf-8",
    "bytes": 268,
-   "hash": "sha256:2cedf8e117d0cc2b1ab410cd57e4e1b0fba6cf42e2029667a45e5b3169c1b5a1"
+   "hash": "sha256:9addbb351c3b3b3b5683268c33a7418f20dd52e735e4394078c20072a1d873c9"
   },
   {
    "name": "changelog",
@@ -480,8 +480,8 @@
    "format": "md",
    "mediatype": "text/markdown",
    "encoding": "utf-8",
-   "bytes": 329,
-   "hash": "sha256:849ccd1612dc639ef0441e07ed9e9219535ad850250f282c80e864f9fb057067"
+   "bytes": 301,
+   "hash": "sha256:32db46b7580f3ba9cda04eeab43dbd3b116b84736d9bd61b02e1736301b900e3"
   }
  ]
 }
