@@ -76,7 +76,7 @@ test('server mode: one request with the publishable key replaces the Wikidata qu
  await expect.poll(()=>page.evaluate(()=>AOLGlobal.imageStatus('WD-Q4167')?.state)).toBe('blocked');
  await expect(page.locator('img[data-place-photo]')).toHaveCount(0);
  await page.goto('/#place/WD-Q7937834');
- const fig=page.locator('.image-gallery figure');
+ const fig=page.locator('#detailPhotos .dp-cap, #detailPhotos .dp-extra figure');
  await expect(fig).toContainText('Lee Photographer');
  await expect(fig.locator('a',{hasText:'이미지 원본'})).toHaveAttribute('href','https://commons.wikimedia.org/wiki/File:Vivid_Sydney_2019.jpg');
  expect(await counts(page)).toEqual({korea:9,world:35,failed:[]});
@@ -127,7 +127,7 @@ test('a server without rows, or failing, makes the browser run the Wikidata quer
  expect(calls.list.length).toBe(2);
  // Photos of the browser-synced places are checked on Commons as before.
  await page.goto('/#place/WD-Q7937834');
- await expect(page.locator('.image-gallery figure')).toContainText('Lee Photographer');
+ await expect(page.locator('#detailPhotos .dp-cap, #detailPhotos .dp-extra figure')).toContainText('Lee Photographer');
  expect(calls.commons).toBeGreaterThan(0);
 });
 
@@ -152,7 +152,7 @@ test('a photo verdict this browser no longer has is asked from the server, not f
  // The stored verdicts are gone (e.g. they did not all fit); the place list is still fresh.
  await page.evaluate(()=>localStorage.removeItem('aol_global_media_v1'));
  await page.goto('/#place/WD-Q7937834');await page.reload();
- await expect(page.locator('.image-gallery figure')).toContainText('Lee Photographer · CC BY-SA 4.0');
+ await expect(page.locator('#detailPhotos .dp-cap, #detailPhotos .dp-extra figure')).toContainText('Lee Photographer · CC BY-SA 4.0');
  expect(calls.list.length,'the list itself was not fetched again').toBe(1);
  expect(calls.media.length).toBeGreaterThan(0);
  expect(calls.media[0]).toMatchObject({select:SERVER_MEDIA_COLUMNS,apikey:KEY,authorization:null});

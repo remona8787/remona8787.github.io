@@ -89,12 +89,12 @@ test('a photo that fails to load keeps the layout and its credit',async({page})=
  await page.route(/^https:\/\/(upload|thumb)\.wikimedia\.org\//,r=>r.fulfill({status:404,body:''}));
  await page.goto('/#place/SEOUL031');
  await expect(page.locator('.detail-hero .photo-failed')).toBeVisible();
- await expect(page.locator('.detail-hero .image-credit')).toBeVisible();
+ await expect(page.locator('#detailPhotos .dp-cap[data-i="0"] .dp-credit')).toBeVisible();
  await expect(page.locator('#view h1')).toBeInViewport();
  // The gallery's failed photo stays inside its own frame instead of covering the page. (Retried as a block: a
  // background sync result may re-render the page while it is measured.)
  await expect(async()=>{
-  const gallery=page.locator('#detailPhotos .gallery-photo').first();await gallery.scrollIntoViewIfNeeded({timeout:2000});
+  const gallery=page.locator('#detailPhotos .dp-slide .dp-frame').first();await gallery.scrollIntoViewIfNeeded({timeout:2000});
   await expect(gallery.locator('.photo-failed')).toBeVisible({timeout:2000});
   const [frame,ph]=await Promise.all([gallery.boundingBox(),gallery.locator('.photo-failed').boundingBox()]);
   expect(Math.abs(ph.height-frame.height)).toBeLessThan(2);expect(Math.abs(ph.y-frame.y)).toBeLessThan(2);

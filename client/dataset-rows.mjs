@@ -121,9 +121,14 @@ export function renditions(src, thumb, display, width, thumbW = null) {
   return out.sort((a, b) => a[0] - b[0])
 }
 const providerOf = (/** @type {any} */ m, /** @type {string|null} */ url) => typeof m.provider === 'string' && PROVIDERS.includes(m.provider) ? m.provider : /^https:\/\/(upload|thumb)\.wikimedia\.org\//.test(url || '') ? 'commons' : null
+// Image roles of the fifth brief (role_v2, also accepted as kind): what the photo shows. The app's gallery takes the
+// project's own media and installation photos; architecture, technical and event photos go behind 추가 자료; portraits
+// only with the credits; unverified photos are never shown, so they are dropped here.
+export const IMAGE_KINDS = ['project_media', 'project_installation', 'architecture_context', 'technical_documentation', 'event_documentation', 'artist_portrait', 'unverified']
+const kindOf = (/** @type {any} */ m) => { const k = typeof m.role_v2 === 'string' ? m.role_v2 : m.kind; return IMAGE_KINDS.includes(k) ? k : null }
 /** An image record of the dataset: https only, never without a licence and an author or attribution. @param {any} m */
 export function image(m) {
-  if (!m || typeof m !== 'object' || m.approved === false) return null
+  if (!m || typeof m !== 'object' || m.approved === false || kindOf(m) === 'unverified') return null
   const v18 = Array.isArray(m.display) || typeof m.provider === 'string' || m.media_active !== undefined || m.approved !== undefined
   const rawTier = Number(m.tier)
   if (v18 && rawTier === 6) return null
@@ -146,8 +151,17 @@ export function image(m) {
     approved: m.approved === true ? true : m.approved === null ? null : undefined, v18,
     context: tier === 4 || String(m.role || '') === 'context',
     sizes, maxw: sizes.length ? sizes[sizes.length - 1][0] : null,
+    kind: kindOf(m), raw_tier: v18 && Number.isInteger(rawTier) ? rawTier : null,
+    media_active: num(typeof m.media_active === 'object' && m.media_active ? m.media_active.score : m.media_active, 100),
+    subject: text(m.subject, 200),
+    // v0.18 pipeline: the file's title and description (a caption when the record gives none), and the rights facts
+    // the sponsor rule reads (commercial use allowed, KOGL type).
+    title: cleanTitle(m.title), description: text(m.description, 600),
+    commercial_use: m.commercial_use === true ? true : m.commercial_use === false ? false : null, kogl_type: text(m.kogl_type, 20),
   }
 }
+// A Commons page title as a caption: no "File:" prefix, no extension.
+function cleanTitle(/** @type {any} */ v) { const t = text(v, 300); return t ? t.replace(/^File:/i, '').replace(/\.(jpe?g|png|webp|tiff?|gif)$/i, '').replace(/_/g, ' ').trim() || null : null }
 /** @param {any} v */
 function video(v) {
   if (!v || typeof v !== 'object') return null
@@ -193,7 +207,22 @@ export function toPlace(r, { publicURL = '' } = {}) {
     thumb, card_tier: thumb ? tierOfRow || 4 : null, thumb_w: thumb ? num(r.thumb_w, 1e4) : null, thumb_h: thumb ? num(r.thumb_h, 1e4) : null,
     first_collected_at: time(r.added_at ?? r.added ?? r.first_seen), created_at: time(r.added_at ?? r.added ?? r.first_seen),
     scope: iso === 'KR' ? 'korea' : 'world',
+    ...recordStatus(r),
   }
+}
+// What the record is (facility | program | festival | exhibition), its dates, and its status only with the source
+// that states it (tourapi | wikidata | editorial | curated); a status without a source is not shown.
+const RECORD_KINDS = new Set(['facility', 'program', 'festival', 'exhibition']), STATUS = new Set(['running', 'seasonal', 'ended', 'upcoming']), STATUS_SOURCES = new Set(['tourapi', 'wikidata', 'editorial', 'curated'])
+const partialDate = (/** @type {any} */ v) => typeof v === 'string' && /^\d{4}(-\d{2}(-\d{2})?)?$/.test(v) ? v : null
+/** @param {any} r */
+function recordStatus(r) {
+  const src = typeof r.status_source === 'string' && STATUS_SOURCES.has(r.status_source) ? r.status_source : null
+  return { record_kind: RECORD_KINDS.has(r.kind) ? r.kind : null, start_date: partialDate(r.start_date), end_date: partialDate(r.end_date), event_status: src && STATUS.has(r.status) ? r.status : null, event_status_source: src && STATUS.has(r.status) ? src : null }
+}
+/** Events and exhibitions held at a project (records' events[]), each with its own source. @param {any} v */
+function events(v) {
+  if (!Array.isArray(v)) return []
+  return v.slice(0, 50).map(e => ({ id: text(e?.id, 40), kind: e?.kind === 'exhibition' ? 'exhibition' : 'event', title: text(e?.title, 200), status: ['upcoming', 'running', 'ended'].includes(e?.status) ? e.status : null, start: partialDate(e?.start), end: partialDate(e?.end), url: https(e?.url), source: e?.source && https(e.source.url) ? { url: https(e.source.url), license: text(e.source.license, 120), title: text(e.source.title || e.source.publisher, 200) } : null })).filter(e => e.title)
 }
 
 // A large index stores Commons thumbnails as "<h>/<hh>/<File.jpg>" and names the URL pattern once (thumb_template,
@@ -242,6 +271,8 @@ export function mediaRow(/** @type {string} */ placeId, /** @type {ReturnType<ty
     clearance_status: 'cleared', review_required: false, creator: m.author || m.attribution || '', attribution: m.attribution, license_code: m.license, license_url: m.license_url || '',
     source_url: m.page || m.src, caption: '', caption_i18n: m.caption, captured_at: m.taken || '', tier: m.tier, home_ok: m.home_ok, role: m.role, width: m.width, height: m.height, focal: m.focal, order: i,
     image_provider: m.provider, rights_holder: m.rights_holder, usage: m.usage, approved: m.approved, context: m.context, sizes: m.sizes, maxw: m.maxw,
+    kind: m.kind, raw_tier: m.raw_tier, media_active: m.media_active, subject: m.subject,
+    title: m.title, description: m.description, commercial_use: m.commercial_use, kogl_type: m.kogl_type,
   }
 }
 
@@ -258,10 +289,11 @@ function sources(v) {
   }
   return out
 }
-/** @param {any} v */
-function credits(v) {
+// A creator's portrait (credits[].portrait, kind artist_portrait) stays with the credit: shown only with the credits.
+/** @param {any} v @param {string} placeId */
+function credits(v, placeId = '') {
   if (!Array.isArray(v)) return []
-  return v.slice(0, 40).map(c => ({ role: vocab('credit_role', c?.role) || 'other', name: text(c?.name, 200), name_en: text(c?.name_en, 200), qid: qid(c?.wikidata_qid || c?.qid) })).filter(c => c.name)
+  return v.slice(0, 40).map(c => { const ph = c?.portrait ? image(c.portrait) : null; return { role: vocab('credit_role', c?.role) || 'other', name: text(c?.name, 200), name_en: text(c?.name_en, 200), qid: qid(c?.wikidata_qid || c?.qid), ...(ph ? { portrait: mediaRow(placeId, ph, 0) } : {}) } }).filter(c => c.name)
 }
 const VISIT = new Set(['operating', 'seasonal', 'event_based', 'ended', 'inactive', 'demolished'])
 /** Visit facts only when the source states them. @param {any} v */
@@ -299,8 +331,8 @@ export function fromRecord(r, o = {}) {
     building_name: text(r.building_name, 200), installation_method: vocab('installation_method', r.installation_method), envelope_type: vocab('envelope_type', r.envelope_type),
     technologies: vocabList('technology', r.technologies ?? r.technology), content_types: vocabList('content_type', r.content_types ?? r.content_type),
     spatial_context: vocabList('spatial_context', r.spatial_context),
-    credits: credits(r.credits), sources: src, official_url: official, website: official || '',
-    visit: visit(r.visit), detail_loaded: true,
+    credits: credits(r.credits, base.place_id), sources: src, official_url: official, website: official || '',
+    visit: visit(r.visit), detail_loaded: true, events: events(r.events),
   }
   const media = ordered.map((m, i) => mediaRow(place.place_id, m, i))
   const videos = (Array.isArray(r.videos) ? r.videos : []).slice(0, 4).map(video).filter(Boolean)

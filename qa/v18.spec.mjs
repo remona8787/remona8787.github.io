@@ -286,17 +286,19 @@ test.describe('place pages',()=>{
   expect((await img.boundingBox()).width).toBeLessThanOrEqual(500);
   // A project with a large photo fills the frame.
   await page.goto('/#place/AR-coex-kpop-square-wave');
-  await expect(page.locator('.detail-hero .detail-art:not(.matted) img')).toBeVisible();
-  for(const x of await widest(page.locator('.detail-hero img')))expect(x).toBeGreaterThanOrEqual(960);
+  const lead=page.locator('.detail-hero .dp-slide').first();
+  await expect(lead.locator('.detail-art:not(.matted) img')).toBeVisible();
+  for(const x of await widest(lead.locator('img')))expect(x).toBeGreaterThanOrEqual(960);
  });
  test('a photo that cannot load becomes the designed placeholder of the project\'s type, never a broken box',async({page})=>{
   await serveDataset(page);
   const seen=await serveImages(page,{fail:u=>/coex-kpop/.test(u)});
   await page.goto('/#place/AR-coex-kpop-square-wave');
-  await expect(page.locator('.detail-hero .ph.ph-failed.ph-urban_screen')).toBeVisible();
-  await expect(page.locator('.detail-hero .ph-failed .ph-type')).toHaveText('도시 대형 스크린');
-  // Each photo is tried once more at a smaller size at most, then becomes the placeholder: no retry loop.
-  await expect(page.locator('#detailPhotos .ph-failed')).toHaveCount(3);
+  await expect(page.locator('.detail-hero .ph.ph-failed.ph-urban_screen').first()).toBeVisible();
+  await expect(page.locator('.detail-hero .ph-failed .ph-type').first()).toHaveText('도시 대형 스크린');
+  // Each photo is tried once more at a smaller size at most, then becomes the placeholder: no retry loop. (The next
+  // slide and the closed 추가 자료 load lazily.)
+  await expect(page.locator('#detailPhotos .dp-slide').first().locator('.ph-failed')).toHaveCount(1);
   const n=seen.length;await page.waitForTimeout(1000);expect(seen.length).toBe(n);
   expect(await page.evaluate(()=>[...document.querySelectorAll('.detail-hero img')].filter(i=>i.complete&&i.naturalWidth===0).length)).toBe(0);
   // Its gallery figures too.
@@ -310,10 +312,14 @@ test.describe('place pages',()=>{
  test('gallery credits name the author, licence and provider, with source links; context photos are labelled',async({page})=>{
   await serveDataset(page);await serveImages(page);
   await page.goto('/#place/AR-coex-kpop-square-wave');
-  const figs=page.locator('#detailPhotos .image-gallery > figure');
-  await expect(figs).toHaveCount(3);
-  await expect(figs.last().locator('.role-tag')).toHaveText('건축 맥락 사진');
-  for(let i=0;i<3;i++){await expect(figs.nth(i).locator('.credit-line')).toHaveText(/^© Fixture Photographer \d · C/);await expect(figs.nth(i).locator('.credit-source')).toHaveText('출처 Wikimedia Commons');await expect(figs.nth(i).locator('.figure-links a').first()).toHaveAttribute('href',/commons\.wikimedia\.org\/wiki\/File:/)}
+  // The gallery: the project's two photos, each with author, licence, provider and the original; the context photo
+  // under 추가 자료, labelled.
+  await expect(page.locator('#detailPhotos .dp-slide')).toHaveCount(2);
+  for(let i=0;i<2;i++){const cap=page.locator(`#detailPhotos .dp-cap[data-i="${i}"] .dp-credit`);await expect(cap).toHaveText(/^© Fixture Photographer \d · C.+ · Wikimedia Commons · 이미지 원본/);await expect(cap.locator('a.dp-orig')).toHaveAttribute('href',/commons\.wikimedia\.org\/wiki\/File:/);await expect(cap.locator('a.dp-lic')).toHaveAttribute('href',/creativecommons\.org/)}
+  const extra=page.locator('#detailPhotos .dp-extra figure');
+  await expect(extra).toHaveCount(1);
+  await expect(extra.locator('.role-tag')).toHaveText('건축 맥락 사진');
+  await expect(extra.locator('.credit-line')).toHaveText(/^© Fixture Photographer \d · C/);
   await expect(page.locator('.detail-hero .context-tag')).toHaveCount(0);
  });
 });
@@ -469,7 +475,7 @@ test.describe('image formats',()=>{
   await serveDataset(page,FILES);await serveImages(page);
   const asked=[];await page.route(/^https:\/\/images\.unsplash\.com\//,r=>{asked.push(r.request().url());return r.fulfill({contentType:'image/jpeg',body:PNG1})});
   await page.goto('/#place/acc-media-wall');
-  const pic=page.locator('.detail-hero picture');
+  const pic=page.locator('.detail-hero .dp-slide').first().locator('picture');
   await expect(pic).toHaveCount(1);
   await expect(pic.locator('source')).toHaveCount(2);
   expect(await pic.locator('source').evaluateAll(xs=>xs.map(x=>x.type))).toEqual(['image/avif','image/webp']);
@@ -486,7 +492,174 @@ test.describe('image formats',()=>{
   await serveDataset(page,FILES);await serveImages(page);
   await page.route(/^https:\/\/images\.unsplash\.com\//,r=>r.fulfill({status:404,body:''}));
   await page.goto('/#place/acc-media-wall');
-  await expect(page.locator('.detail-hero .ph-failed')).toBeVisible();
-  await expect(page.locator('.detail-hero picture')).toHaveCount(0);
+  const first=page.locator('.detail-hero .dp-slide').first();
+  await expect(first.locator('.ph-failed')).toBeVisible();
+  await expect(first.locator('picture')).toHaveCount(0);
+ });
+});
+
+// The place page of the fifth brief, on its regression case SEOUL006 (DDP / 서울라이트): the gallery shows only the
+// project's own photos; architecture waits behind 추가 자료; the creator's portrait only with the credits; an unverified
+// photo never. The slider, the enlarged view, the tabs (scroll and project kept, deep links) and reports.
+test.describe('place page (SEOUL006 regression)',()=>{
+ test.beforeEach(async({page})=>{await serveDataset(page);await serveImages(page);await tiles(page)});
+ const slides=page=>page.locator('#detailPhotos .dp-slide');
+ test('only the project\'s own photos in the gallery; context behind 추가 자료; the portrait with the credits; never the unverified one',async({page})=>{
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto('/#place/SEOUL006');
+  await expect(page.locator('#view h1')).toContainText('동대문디자인플라자');
+  await expect(slides(page)).toHaveCount(3);
+  expect(await slides(page).locator('img').evaluateAll(xs=>xs.map(x=>(/_(hero|night|art|day|scene)_\d/.exec(x.getAttribute('src'))||[])[1]))).toEqual(['hero','night','art']);
+  await expect(page.locator('#detailPhotos .dp-extra > summary')).toHaveText('추가 자료 보기 (1)');
+  await expect(page.locator('#detailPhotos .dp-extra img')).toHaveAttribute('src',/_day_4/);
+  // The portrait: in 작품·전시, marked as a creator's portrait; nowhere else.
+  await expect(page.locator('#dp-panel-art [data-creator-portrait] img')).toHaveAttribute('src',/_scene_5/);
+  expect(await page.locator('#view img[src*="_scene_5"]').count()).toBe(1);
+  await expect(page.locator('#dp-panel-art .dp-people')).toContainText('Fixture Artist');
+  // The unverified photo is never on the page.
+  await expect(page.locator('#view img[src*="_night_6"]')).toHaveCount(0);
+  await expect(page.locator('#view')).not.toContainText('An unrelated person');
+ });
+ test('the slider: buttons, thumbnails, swipe and keys move one photo; the counter, caption and credit follow',async({page})=>{
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto('/#place/SEOUL006');
+  const count=page.locator('#detailPhotos .dp-count'),cap=i=>page.locator(`#detailPhotos .dp-cap[data-i="${i}"]`);
+  await expect(count).toHaveText('1 / 3');
+  await expect(page.locator('#detailPhotos [data-dp-step="-1"]')).toBeDisabled();
+  await expect(cap(0)).toBeVisible();await expect(cap(1)).toBeHidden();
+  await expect(cap(0).locator('.dp-credit')).toContainText(/© Fixture Photographer 1 · CC BY-SA 4\.0 · Wikimedia Commons · 이미지 원본/);
+  await page.locator('#detailPhotos [data-dp-step="1"]').click();
+  await expect(count).toHaveText('2 / 3');await expect(cap(1)).toBeVisible();await expect(cap(0)).toBeHidden();
+  await expect(page.locator('#detailPhotos .dp-thumb[aria-current="true"]')).toHaveAttribute('data-dp-go','1');
+  await page.locator('#detailPhotos .dp-thumb[data-dp-go="2"]').click();
+  await expect(count).toHaveText('3 / 3');await expect(page.locator('#detailPhotos [data-dp-step="1"]')).toBeDisabled();
+  // Keys when the gallery has the focus.
+  await page.locator('#dpTrack').focus();await page.keyboard.press('ArrowLeft');
+  await expect(count).toHaveText('2 / 3');
+  await expect(page.locator('#detailPhotos .dp-live')).toHaveText('2 / 3');
+  // A swipe is a scroll of the track: the counter follows.
+  await page.locator('#dpTrack').evaluate(t=>t.scrollTo({left:0}));
+  await expect(count).toHaveText('1 / 3');
+  // Off-screen photos are out of the reading and tab order.
+  expect(await slides(page).evaluateAll(xs=>xs.map(x=>x.getAttribute('aria-hidden')))).toEqual(['false','true','true']);
+  // The page reserves the frame: the stage keeps its height while photos load.
+  const h=(await page.locator('#detailPhotos .dp-stage').boundingBox()).height;expect(h).toBeGreaterThan(300);
+ });
+ test('the enlarged view: arrows, Esc, and the focus back on the button',async({page})=>{
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto('/#place/SEOUL006');
+  const zoom=page.locator('#detailPhotos [data-dp-zoom]');
+  await zoom.click();
+  const box=page.locator('#dpLightbox');
+  await expect(box).toBeVisible();await expect(box.locator('.dp-lb-bar')).toContainText('1 / 3');
+  await expect(box.locator('.dp-credit')).toContainText('Fixture Photographer 1');
+  await page.keyboard.press('ArrowRight');
+  await expect(box.locator('.dp-lb-bar')).toContainText('2 / 3');
+  await expect(page.locator('#detailPhotos .dp-count')).toHaveText('2 / 3');
+  await page.keyboard.press('Escape');
+  await expect(box).toBeHidden();
+  await expect(zoom).toBeFocused();
+ });
+ test('wide screens: gallery left, title right; phones: one column with the counter and a folding caption',async({page})=>{
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto('/#place/SEOUL006');
+  // (Measured as a block: the page renders again when the project's record arrives.)
+  await expect(slides(page)).toHaveCount(3);
+  await expect(async()=>{const g=await page.locator('#detailPhotos .dp-stage').boundingBox(),title=await page.locator('.dp-title').boundingBox();
+   expect(title.x).toBeGreaterThan(g.x+g.width-1);expect(Math.abs(title.y-g.y)).toBeLessThan(40)}).toPass({timeout:5000});
+  await expect(page.locator('#detailPhotos .dp-thumbs')).toBeVisible();
+  await page.setViewportSize({width:390,height:844});
+  await page.goto('/#place/SEOUL001');await page.goto('/#place/SEOUL006');
+  await expect(slides(page)).toHaveCount(3);
+  await expect(async()=>{const g2=await page.locator('#detailPhotos .dp-stage').boundingBox(),t2=await page.locator('.dp-title').boundingBox();
+   expect(t2.y).toBeGreaterThan(g2.y+g2.height-1);expect(Math.round(g2.width)).toBe(390)}).toPass({timeout:5000});
+  await expect(page.locator('#detailPhotos .dp-thumbs')).toBeHidden();
+  await expect(page.locator('#detailPhotos .dp-count')).toBeVisible();
+  await expect(page.locator('#detailPhotos .dp-back')).toBeVisible();
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBe(0);
+ });
+ test('tabs change the panel, keep the project and the reading position, and are deep links; old links still open',async({page})=>{
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto('/#place/SEOUL006');
+  await expect(slides(page)).toHaveCount(3);await page.waitForLoadState('networkidle');
+  const tabs=page.locator('.dp-tabs [role=tab]');
+  await expect(tabs).toHaveText(['개요','건축·미디어 기술','작품·전시','위치·관람','자료·출처']);
+  await page.locator('.dp-tabs').scrollIntoViewIfNeeded();await page.evaluate(()=>window.scrollBy(0,-120));
+  const y=await page.evaluate(()=>scrollY);
+  await page.getByRole('tab',{name:'건축·미디어 기술'}).click();
+  await expect(page.locator('#dp-panel-architecture')).toBeVisible();await expect(page.locator('#dp-panel-overview')).toBeHidden();
+  expect(Math.abs(await page.evaluate(()=>scrollY)-y)).toBeLessThan(3);
+  await expect(page).toHaveURL(/#place\/SEOUL006\/architecture$/);
+  await expect(page.locator('#view h1')).toContainText('동대문디자인플라자');
+  // Every panel stays in the page (hidden), so readers and crawlers have it.
+  await expect(page.locator('.dp-panel')).toHaveCount(5);
+  await expect(page.locator('#dp-panel-sources #citationText')).toHaveCount(1);
+  // Keys: arrows move between tabs.
+  await page.getByRole('tab',{name:'건축·미디어 기술'}).focus();await page.keyboard.press('ArrowRight');
+  await expect(page.getByRole('tab',{name:'작품·전시'})).toHaveAttribute('aria-selected','true');
+  await expect(page).toHaveURL(/#place\/SEOUL006\/art$/);
+  // A deep link opens its tab; the old link opens 개요; the bare dataset id and the app id open the same project.
+  await page.goto('/#place/SEOUL006/visit');await page.reload();
+  await expect(page.getByRole('tab',{name:'위치·관람'})).toHaveAttribute('aria-selected','true');
+  await expect(page.locator('#detailMap')).toBeVisible();
+  for(const h of ['#place/SEOUL006','#place/AR-SEOUL006']){await page.goto('/'+h);await expect(page.locator('#view h1')).toContainText('동대문디자인플라자');await expect(page.getByRole('tab',{name:'개요'})).toHaveAttribute('aria-selected','true')}
+  // The location button opens 위치·관람 at the map.
+  await page.locator('.dp-actions [data-dp-tab="visit"]').click();
+  await expect(page.locator('#detailMap')).toBeInViewport();
+ });
+ test('fields: only sourced facts; missing ones grouped as 자료 없음; the editors\' note is marked with its source',async({page})=>{
+  await page.goto('/#place/SEOUL006');
+  await expect(page.locator('#dp-panel-overview .kv',{hasText:'공식명'})).toContainText('동대문디자인플라자');
+  await expect(page.locator('#dp-panel-overview .dp-editorial')).toContainText('편집 해설');
+  await expect(page.locator('#dp-panel-overview .dp-editorial-src a').first()).toHaveAttribute('href',/^https:\/\//);
+  const missing=page.locator('#dp-panel-architecture .dp-missing');
+  await expect(missing.first()).toContainText('자료 없음');
+  await expect(missing.first()).toContainText('미디어 설치 위치');
+  // One line per group, not a row per empty field.
+  expect(await page.locator('#dp-panel-architecture .kv dd').evaluateAll(xs=>xs.filter(x=>/자료 없음/.test(x.textContent)).length)).toBe(0);
+  await expect(page.locator('#dp-panel-architecture .kv',{hasText:'운영기관'})).toContainText('서울디자인재단');
+ });
+ test('reports: per photo and per page; without a server, a prefilled GitHub issue and e-mail; review first',async({page})=>{
+  await page.goto('/#place/SEOUL006');
+  await page.locator('#detailPhotos .dp-cap[data-i="0"] [data-report]').click();
+  const dlg=page.locator('#modal');
+  await expect(dlg).toContainText('사진 신고');
+  await expect(dlg.locator('input[name=reason]')).toHaveCount(6);
+  await expect(dlg).toContainText('편집팀이 검토한 뒤 반영해요');
+  await dlg.getByText('인물 사진이 잘못 연결됨').click();
+  await dlg.locator('textarea').fill('사람 사진이에요');
+  const issue=new URL(await dlg.locator('#reportIssue').getAttribute('href'));
+  expect(issue.origin+issue.pathname).toBe('https://github.com/remona8787/remona8787.github.io/issues/new');
+  expect(issue.searchParams.get('labels')).toBe('report,image');
+  expect(issue.searchParams.get('title')).toContain('인물 사진이 잘못 연결됨');
+  expect(issue.searchParams.get('body')).toContain('사람 사진이에요');
+  expect(await dlg.locator('#reportMail').getAttribute('href')).toMatch(/^mailto:remona56@hanmail\.net\?subject=/);
+  await dlg.locator('[data-close]').click();
+  await page.locator('.dp-report-page').click();
+  await expect(dlg).toContainText('정보 오류 신고');
+ });
+});
+
+// Status (fifth brief): a record's status only with its source; a facility never reads 종료 because one edition of a
+// programme ended (SEOUL006: DDP is the facility, Seoul Light the event).
+test.describe('status',()=>{
+ test('a facility whose programme ended is not 종료; a sourced festival is 진행 중 with its source; an unsourced status is not shown',async({page})=>{
+  const recs=RECORDS.map(r=>r.id==='gwangju-media-art-festival'?{...r,kind:'festival',status:'running',status_source:'tourapi',start_date:'2026-10-01',end_date:'2026-11-30',events:[{id:'SEV-0000001A',kind:'event',title:'광주미디어아트페스티벌 2026',status:'running',start:'2026-10-01',end:'2026-11-30',url:'https://example.org/gmaf',source:{license:'공공누리 1유형',url:'https://www.data.go.kr/data/15101578/openapi.do',title:'한국관광공사 TourAPI'}}]}:r.id==='jinju-namgang-yudeung'?{...r,kind:'festival',status:'ended'}:r);
+  await serveDataset(page,filesOf(siteData(recs)));await serveImages(page);
+  await page.goto('/#place/SEOUL006');
+  await expect(page.locator('#view h1')).toContainText('동대문디자인플라자');
+  await expect(page.locator('.dp-title .detail-pills')).not.toContainText('종료');
+  await page.goto('/#place/gwangju-media-art-festival');
+  await expect(page.locator('.dp-title .detail-pills')).toContainText('진행 중');
+  await expect(page.locator('#dp-panel-overview .kv',{hasText:'운영 상태'})).toContainText('출처 한국관광공사 TourAPI');
+  await expect(page.locator('#dp-panel-art .dp-events li').first()).toContainText('광주미디어아트페스티벌 2026');
+  await expect(page.locator('#dp-panel-art .dp-events li').first()).toContainText('2026-10-01 – 2026-11-30');
+  await expect(page.locator('#dp-panel-art .dp-events li').first()).toContainText('공공누리 1유형');
+  await page.goto('/#place/jinju-namgang-yudeung');
+  await expect(page.locator('#view h1')).toBeVisible();
+  await expect(page.locator('.dp-title .detail-pills')).not.toContainText('종료');
+  // The cards follow the same rule.
+  await page.goto('/#korea/seoul');
+  await expect(page.locator('#krList .place-card',{hasText:'동대문디자인플라자'}).locator('.card-badge')).toHaveCount(0);
  });
 });

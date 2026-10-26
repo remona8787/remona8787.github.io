@@ -257,11 +257,13 @@ test('archive detail: facts by group, sources, assessments, citation, similar pr
  await archiveMode(page);
  await page.goto('/#place/AR-ars-electronica-center');
  await expect(page.locator('#view h1')).toHaveText('아르스 일렉트로니카 센터');
+ // The place page's tabs (v0.18, fifth brief): facts by group in their panels.
  const info=page.locator('#detailArchive');
- await expect(info.locator('.field-group h3')).toHaveText(['기본 정보','기술·건축 정보','맥락']);
- await expect(info.locator('.kv',{hasText:'설치 연도'})).toContainText('2009');
- await expect(info.locator('.kv',{hasText:'표시 면적'})).toContainText('5,100 ㎡');
- await expect(info.locator('.kv',{hasText:'참여자'})).toContainText('건축가: Treusch architecture');
+ await expect(info.locator('.dp-group h3')).toHaveText(['건축적 특성','미디어·기술']);
+ await expect(page.locator('#dp-panel-overview .kv',{hasText:'연도'})).toContainText('2009 설치');
+ await expect(info.locator('.kv',{hasText:'확인된 사양'})).toContainText('면적 5,100 ㎡');
+ await expect(page.locator('#dp-panel-art .dp-people')).toContainText('Treusch architecture');
+ await expect(page.locator('#dp-panel-art .dp-people')).toContainText('건축가');
  // Facts in plain words (v0.17): no field states, no list of unknown fields, no data-status card. Only known values.
  await expect(page.locator('#view .state-badge, #view .unknown-fields, #detailStatus')).toHaveCount(0);
  for(const label of ['운영 시작 연도','해상도','픽셀 피치(mm)'])await expect(info.locator('.kv dt',{hasText:label})).toHaveCount(0);
@@ -278,6 +280,7 @@ test('archive detail: facts by group, sources, assessments, citation, similar pr
  const cite=page.locator('#citationText');
  const today=await page.evaluate(()=>AOLCore.today());
  await expect(cite).toHaveText(`빛의 건축 아카이브, 「아르스 일렉트로니카 센터」, https://light-architecture-jihyun.peppydegu2.chatgpt.site/#place/AR-ars-electronica-center (${today} 접속).`);
+ await page.getByRole('tab',{name:'자료·출처'}).click();
  await page.getByRole('button',{name:'인용문 복사'}).click();
  await expect(page.locator('#toast')).toContainText('인용문을 복사했어요');
  expect(await page.evaluate(()=>navigator.clipboard.readText())).toBe(await cite.textContent());
@@ -296,14 +299,14 @@ test('archive detail: facts by group, sources, assessments, citation, similar pr
  // A failed image falls back to the placeholder and keeps its credit; an unlicensed one is never shown.
  await page.goto('/#place/AR-burj-khalifa-led');
  await expect(page.locator('.detail-hero .photo-failed')).toBeVisible();
- await expect(page.locator('.detail-hero .image-credit')).toContainText('Gulf Photo · CC BY 4.0');
+ await expect(page.locator('#detailPhotos .dp-cap[data-i="0"] .dp-credit')).toContainText('Gulf Photo · CC BY 4.0');
  await page.goto('/#place/AR-shibuya-crossing-screens');
  await expect(page.locator('img[data-place-photo]')).toHaveCount(0);
- await expect(page.locator('#detailPhotos')).toContainText('아직 자유 라이선스로 공개된 사진이 없어요.');
- await expect(page.locator('#detailPhotos .gallery-empty .ph')).toBeVisible();
+ await expect(page.locator('#detailPhotos .dp-nophoto')).toHaveText('이 프로젝트의 확인된 사진이 아직 없어요.');
+ await expect(page.locator('.detail-hero.no-photo .ph')).toBeVisible();
  // A curated place enriched by its archive record shows the archive's facts.
  await page.goto('/#place/SEOUL007');
- await expect(page.locator('#detailArchive .kv',{hasText:'프로젝트 유형'})).toContainText('도시 대형 스크린');
+ await expect(page.locator('#dp-panel-overview .kv',{hasText:'프로젝트 유형'})).toContainText('도시 대형 스크린');
  await expect(page.locator('#view .state-badge, #detailStatus')).toHaveCount(0);
  // A very long title wraps inside the page.
  await page.setViewportSize({width:320,height:700});
@@ -403,11 +406,12 @@ test('KO/EN: the top-bar switch and the settings choice change the interface, <h
  // A place page: English names first, archive groups, sources, citation; no unknown-field list or data status.
  await page.goto('/#place/AR-ars-electronica-center');
  await expect(page.locator('#view h1')).toHaveText('Ars Electronica Center');
- await expect(page.locator('#detailArchive .field-group h3')).toHaveText(['Basic information','Technical and architectural','Context']);
+ await expect(page.locator('#detailArchive .dp-group h3')).toHaveText(['Architecture','Media and technology']);
  await expect(page.locator('#detailArchive .unknown-fields, #detailStatus')).toHaveCount(0);
  await expect(page.locator('#detailSources h2')).toHaveText('Official site and sources');
  await expect(page.locator('#detailPhotos h2')).toHaveText('Photos and video');
  await expect(page.locator('#citationText')).toHaveText(/^Architecture of Light archive, “Ars Electronica Center,” .+ \(accessed \d{4}-\d{2}-\d{2}\)\.$/);
+ await page.getByRole('tab',{name:'Material and sources'}).click();
  await expect(page.getByRole('button',{name:'Copy citation'})).toBeVisible();
  await expect(page.locator('#detailRelated h2')).toHaveText('Similar projects');
  // The data page and its export in English: the warning and the dictionary follow the language.
