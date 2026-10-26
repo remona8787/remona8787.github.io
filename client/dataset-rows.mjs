@@ -121,9 +121,14 @@ export function renditions(src, thumb, display, width, thumbW = null) {
   return out.sort((a, b) => a[0] - b[0])
 }
 const providerOf = (/** @type {any} */ m, /** @type {string|null} */ url) => typeof m.provider === 'string' && PROVIDERS.includes(m.provider) ? m.provider : /^https:\/\/(upload|thumb)\.wikimedia\.org\//.test(url || '') ? 'commons' : null
+// Image roles of the fifth brief (role_v2, also accepted as kind): what the photo shows. The app's gallery takes the
+// project's own media and installation photos; architecture, technical and event photos go behind 추가 자료; portraits
+// only with the credits; unverified photos are never shown, so they are dropped here.
+export const IMAGE_KINDS = ['project_media', 'project_installation', 'architecture_context', 'technical_documentation', 'event_documentation', 'artist_portrait', 'unverified']
+const kindOf = (/** @type {any} */ m) => { const k = typeof m.role_v2 === 'string' ? m.role_v2 : m.kind; return IMAGE_KINDS.includes(k) ? k : null }
 /** An image record of the dataset: https only, never without a licence and an author or attribution. @param {any} m */
 export function image(m) {
-  if (!m || typeof m !== 'object' || m.approved === false) return null
+  if (!m || typeof m !== 'object' || m.approved === false || kindOf(m) === 'unverified') return null
   const v18 = Array.isArray(m.display) || typeof m.provider === 'string' || m.media_active !== undefined || m.approved !== undefined
   const rawTier = Number(m.tier)
   if (v18 && rawTier === 6) return null
@@ -146,6 +151,9 @@ export function image(m) {
     approved: m.approved === true ? true : m.approved === null ? null : undefined, v18,
     context: tier === 4 || String(m.role || '') === 'context',
     sizes, maxw: sizes.length ? sizes[sizes.length - 1][0] : null,
+    kind: kindOf(m), raw_tier: v18 && Number.isInteger(rawTier) ? rawTier : null,
+    media_active: num(typeof m.media_active === 'object' && m.media_active ? m.media_active.score : m.media_active, 100),
+    subject: text(m.subject, 200),
   }
 }
 /** @param {any} v */
@@ -242,6 +250,7 @@ export function mediaRow(/** @type {string} */ placeId, /** @type {ReturnType<ty
     clearance_status: 'cleared', review_required: false, creator: m.author || m.attribution || '', attribution: m.attribution, license_code: m.license, license_url: m.license_url || '',
     source_url: m.page || m.src, caption: '', caption_i18n: m.caption, captured_at: m.taken || '', tier: m.tier, home_ok: m.home_ok, role: m.role, width: m.width, height: m.height, focal: m.focal, order: i,
     image_provider: m.provider, rights_holder: m.rights_holder, usage: m.usage, approved: m.approved, context: m.context, sizes: m.sizes, maxw: m.maxw,
+    kind: m.kind, raw_tier: m.raw_tier, media_active: m.media_active, subject: m.subject,
   }
 }
 

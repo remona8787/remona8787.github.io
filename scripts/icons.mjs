@@ -13,6 +13,8 @@ export const REGULAR=[
  'share-network','link','arrows-clockwise','download-simple','upload-simple','trash','printer','copy','calendar-plus','note-pencil','camera','images','sliders-horizontal','crosshair','navigation-arrow','list','rows','squares-four','pencil-simple','device-mobile','shield-check','list-checks','sign-in','sign-out','lock-key','cloud-check','dots-three',
  // content
  'map-pin','map-pin-area','bookmarks-simple','path','calendar-blank','notebook','book-open-text','globe-hemisphere-east','info','warning','star','sun','moon','circle-half','clock','seal-check','lifebuoy','file-text','scroll',
+ // place page gallery and reports, partners
+ 'magnifying-glass-plus','corners-out','flag','envelope-simple','github-logo','handshake',
  // archive: research data page, citation, language, data status, map legend
  'chart-bar','quotes','translate','database','link-break','seal-question','users-three','circle',
  // categories (catalog.js)

@@ -91,7 +91,7 @@ test('archive project pages: facts, sources, citation and similar projects rende
  // Synced Wikidata places get the facts Wikidata states, without field states.
  t.context.AOL_GLOBAL={status:'ok',branches:[],places:[synced({year_completed:2009,country_iso2:'AU',credits:[{role:'operator',name:'Destination NSW',qid:'Q1'}],field_status:{year_completed:{state:'source_reported'},country_iso2:{state:'source_reported'},credits:{state:'source_reported'}}})]};
  t.context.location.hash='#place/WD-Q7937834';t.eval('render()');const vivid=t.nodes.get('#view').innerHTML;
- assert.ok(vivid.includes('운영기관: Destination NSW'));assert.ok(vivid.includes('id="detailArchive"'));assert.ok(!vivid.includes('state-source_reported')&&!vivid.includes('분류 추정'),'no field states');
+ assert.ok(vivid.includes('Destination NSW (운영기관)'),'the operator under 미디어·기술 (v0.18 place page)');assert.ok(vivid.includes('id="detailArchive"'));assert.ok(!vivid.includes('state-source_reported')&&!vivid.includes('분류 추정'),'no field states');
  assert.ok(vivid.includes('https://www.wikidata.org/wiki/Q7937834'),'the Wikidata source stays');
 });
 // The first render runs while app.js is still loading: every page must render then (no late declarations in use).

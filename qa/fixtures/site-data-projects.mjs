@@ -195,7 +195,25 @@ export function siteData(input, { buildId = BUILD_ID, generatedAt = at, compact 
   return { manifest, index, home, shards: shardFiles, stats }
 }
 
-export const RECORDS = PROJECTS.map(record)
+// The place page's regression case (fifth brief): SEOUL006 has photos of the work running, a daytime architecture
+// photo, a portrait of its credited artist and an unrelated photo the pipeline marked unverified (role_v2). The
+// gallery shows the first kind only, 추가 자료 the architecture photo, the credits the portrait, and nothing the last.
+function regressionCase(r) {
+  if (r.id !== 'SEOUL006') return r
+  const v2 = (m, role_v2, more = {}) => ({ ...m, role_v2, ...more })
+  return {
+    ...r,
+    credits: [{ role: 'media_artist', name: 'Fixture Artist' }, { role: 'operator', name: '서울디자인재단' }],
+    images: [
+      ...r.images.map(m => v2(m, 'project_media')),
+      v2(image(r.id, 'art', 2), 'project_media'),
+      v2(image(r.id, 'day', 3), 'architecture_context'),
+      v2(image(r.id, 'scene', 4), 'artist_portrait', { subject: 'Fixture Artist', caption: 'Portrait of Fixture Artist' }),
+      v2(image(r.id, 'night', 5), 'unverified', { caption: 'An unrelated person at night' }),
+    ],
+  }
+}
+export const RECORDS = PROJECTS.map(record).map(regressionCase)
 
 // Many synthetic records (test-only, never written to site-data/): for list/count/map equality and timing at scale.
 export function manyRecords(n) {
