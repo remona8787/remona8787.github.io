@@ -639,3 +639,27 @@ test.describe('place page (SEOUL006 regression)',()=>{
   await expect(dlg).toContainText('정보 오류 신고');
  });
 });
+
+// Status (fifth brief): a record's status only with its source; a facility never reads 종료 because one edition of a
+// programme ended (SEOUL006: DDP is the facility, Seoul Light the event).
+test.describe('status',()=>{
+ test('a facility whose programme ended is not 종료; a sourced festival is 진행 중 with its source; an unsourced status is not shown',async({page})=>{
+  const recs=RECORDS.map(r=>r.id==='gwangju-media-art-festival'?{...r,kind:'festival',status:'running',status_source:'tourapi',start_date:'2026-10-01',end_date:'2026-11-30',events:[{id:'SEV-0000001A',kind:'event',title:'광주미디어아트페스티벌 2026',status:'running',start:'2026-10-01',end:'2026-11-30',url:'https://example.org/gmaf',source:{license:'공공누리 1유형',url:'https://www.data.go.kr/data/15101578/openapi.do',title:'한국관광공사 TourAPI'}}]}:r.id==='jinju-namgang-yudeung'?{...r,kind:'festival',status:'ended'}:r);
+  await serveDataset(page,filesOf(siteData(recs)));await serveImages(page);
+  await page.goto('/#place/SEOUL006');
+  await expect(page.locator('#view h1')).toContainText('동대문디자인플라자');
+  await expect(page.locator('.dp-title .detail-pills')).not.toContainText('종료');
+  await page.goto('/#place/gwangju-media-art-festival');
+  await expect(page.locator('.dp-title .detail-pills')).toContainText('진행 중');
+  await expect(page.locator('#dp-panel-overview .kv',{hasText:'운영 상태'})).toContainText('출처 한국관광공사 TourAPI');
+  await expect(page.locator('#dp-panel-art .dp-events li').first()).toContainText('광주미디어아트페스티벌 2026');
+  await expect(page.locator('#dp-panel-art .dp-events li').first()).toContainText('2026-10-01 – 2026-11-30');
+  await expect(page.locator('#dp-panel-art .dp-events li').first()).toContainText('공공누리 1유형');
+  await page.goto('/#place/jinju-namgang-yudeung');
+  await expect(page.locator('#view h1')).toBeVisible();
+  await expect(page.locator('.dp-title .detail-pills')).not.toContainText('종료');
+  // The cards follow the same rule.
+  await page.goto('/#korea/seoul');
+  await expect(page.locator('#krList .place-card',{hasText:'동대문디자인플라자'}).locator('.card-badge')).toHaveCount(0);
+ });
+});

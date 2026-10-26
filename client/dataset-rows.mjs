@@ -207,7 +207,22 @@ export function toPlace(r, { publicURL = '' } = {}) {
     thumb, card_tier: thumb ? tierOfRow || 4 : null, thumb_w: thumb ? num(r.thumb_w, 1e4) : null, thumb_h: thumb ? num(r.thumb_h, 1e4) : null,
     first_collected_at: time(r.added_at ?? r.added ?? r.first_seen), created_at: time(r.added_at ?? r.added ?? r.first_seen),
     scope: iso === 'KR' ? 'korea' : 'world',
+    ...recordStatus(r),
   }
+}
+// What the record is (facility | program | festival | exhibition), its dates, and its status only with the source
+// that states it (tourapi | wikidata | editorial | curated); a status without a source is not shown.
+const RECORD_KINDS = new Set(['facility', 'program', 'festival', 'exhibition']), STATUS = new Set(['running', 'seasonal', 'ended', 'upcoming']), STATUS_SOURCES = new Set(['tourapi', 'wikidata', 'editorial', 'curated'])
+const partialDate = (/** @type {any} */ v) => typeof v === 'string' && /^\d{4}(-\d{2}(-\d{2})?)?$/.test(v) ? v : null
+/** @param {any} r */
+function recordStatus(r) {
+  const src = typeof r.status_source === 'string' && STATUS_SOURCES.has(r.status_source) ? r.status_source : null
+  return { record_kind: RECORD_KINDS.has(r.kind) ? r.kind : null, start_date: partialDate(r.start_date), end_date: partialDate(r.end_date), event_status: src && STATUS.has(r.status) ? r.status : null, event_status_source: src && STATUS.has(r.status) ? src : null }
+}
+/** Events and exhibitions held at a project (records' events[]), each with its own source. @param {any} v */
+function events(v) {
+  if (!Array.isArray(v)) return []
+  return v.slice(0, 50).map(e => ({ id: text(e?.id, 40), kind: e?.kind === 'exhibition' ? 'exhibition' : 'event', title: text(e?.title, 200), status: ['upcoming', 'running', 'ended'].includes(e?.status) ? e.status : null, start: partialDate(e?.start), end: partialDate(e?.end), url: https(e?.url), source: e?.source && https(e.source.url) ? { url: https(e.source.url), license: text(e.source.license, 120), title: text(e.source.title || e.source.publisher, 200) } : null })).filter(e => e.title)
 }
 
 // A large index stores Commons thumbnails as "<h>/<hh>/<File.jpg>" and names the URL pattern once (thumb_template,
@@ -317,7 +332,7 @@ export function fromRecord(r, o = {}) {
     technologies: vocabList('technology', r.technologies ?? r.technology), content_types: vocabList('content_type', r.content_types ?? r.content_type),
     spatial_context: vocabList('spatial_context', r.spatial_context),
     credits: credits(r.credits, base.place_id), sources: src, official_url: official, website: official || '',
-    visit: visit(r.visit), detail_loaded: true,
+    visit: visit(r.visit), detail_loaded: true, events: events(r.events),
   }
   const media = ordered.map((m, i) => mediaRow(place.place_id, m, i))
   const videos = (Array.isArray(r.videos) ? r.videos : []).slice(0, 4).map(video).filter(Boolean)
