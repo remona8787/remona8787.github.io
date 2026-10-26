@@ -2,7 +2,7 @@
 // invalid dataset is never published: the previous site-data stays and report.json says why), and the tests run the
 // same checks on the fixture output. Each validator returns a list of "path: problem" strings (empty = valid).
 import T from '../../site-public-cleared/archive-taxonomy.js'
-import { INDEX_FIELDS, THUMB_TEMPLATE, expandThumb } from './output.mjs'
+import { INDEX_FIELDS, THUMB_TEMPLATE, expandThumb, FIELD_CONFIDENCE_KEYS, CONFIDENCE_STATES } from './output.mjs'
 
 const ID = /^[A-Za-z0-9][A-Za-z0-9._-]{0,156}$/
 const SHARD = /^[A-Za-z0-9_-]{1,40}$/
@@ -141,6 +141,12 @@ export function checkRecord(r, path, need) {
   for (const k of ['start_date', 'end_date']) need(r[k] === null || r[k] === undefined || /^\d{4}(-\d{2}(-\d{2})?)?$/.test(r[k]), `${path}.${k}`, 'YYYY, YYYY-MM or YYYY-MM-DD')
   need(['running', 'seasonal', 'ended', 'upcoming', 'unknown'].includes(r.status), path + '.status', 'running, seasonal, ended, upcoming or unknown')
   need(r.status === 'unknown' ? !r.status_source : ['tourapi', 'wikidata', 'editorial', 'curated'].includes(r.status_source), path + '.status_source', 'the source of a known status')
+  const fc = r.field_confidence
+  need(!!fc && typeof fc === 'object' && Object.keys(fc).length === FIELD_CONFIDENCE_KEYS.length && FIELD_CONFIDENCE_KEYS.every((k) => CONFIDENCE_STATES.includes(fc[k])), path + '.field_confidence', FIELD_CONFIDENCE_KEYS.join(', ') + ': ' + CONFIDENCE_STATES.join(' | '))
+  if (fc && typeof fc === 'object') {
+    need(fc.coordinates === 'unknown' ? r.lat === null : r.lat !== null, path + '.field_confidence.coordinates', 'unknown exactly when there are no coordinates')
+    need(fc.project_type !== 'unknown', path + '.field_confidence.project_type', 'a published record has a type')
+  }
   if (r.events !== undefined) {
     need(Array.isArray(r.events) && r.events.length <= 50, path + '.events', 'array of at most 50')
     ;(Array.isArray(r.events) ? r.events : []).forEach((e, i) => {

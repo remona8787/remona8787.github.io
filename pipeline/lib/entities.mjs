@@ -237,7 +237,7 @@ export function buildProject(obs, facts, ctx = {}) {
     p.name_en = set('name_en', any, f?.any_label ? 'wikidata' : catName ? 'commons' : 'wikipedia')
   }
   p.building_name = host ? first(f?.name_ko, f?.name_en) : null
-  p.country_iso2 = set('country_iso2', first(editorialObs?.country_iso2, curated?.country_iso2, f?.country_iso2, tour?.country_iso2, hint?.country_iso2), editorialObs?.country_iso2 ? 'editorial' : curated?.country_iso2 ? 'curated' : f?.country_iso2 ? 'wikidata' : tour ? 'tourapi' : 'derived:commons_parent_category')
+  p.country_iso2 = set('country_iso2', first(editorialObs?.country_iso2, curated?.country_iso2, f?.country_iso2, tour?.country_iso2, hint?.country_iso2), editorialObs?.country_iso2 ? 'editorial' : curated?.country_iso2 ? 'curated' : f?.country_iso2 ? (f.country_rule === 'p625_borders' ? 'derived:coordinates_in_borders' : 'wikidata') : tour ? 'tourapi' : 'derived:commons_parent_category')
   p.region = p.country_iso2 ? T.regionOf(p.country_iso2) : null
   p.city = set('city', first(editorialObs?.city, curated?.city, f?.city, hint?.city), editorialObs?.city ? 'editorial' : curated?.city ? 'curated' : f?.city ? 'wikidata' : 'derived:commons_parent_category')
   p.city_ko = first(editorialObs?.city_ko, curated?.city_ko, f?.city_ko)
@@ -263,6 +263,9 @@ export function buildProject(obs, facts, ctx = {}) {
   // Kind, dates and status (facility | program | festival | exhibition), only from sourced facts.
   Object.assign(p, scheduleOf({ tour, facts: host ? null : f, projectType: p.project_type, today: ctx.today }))
   if (p.status_source) fs.status = p.status_source
+  // The dates' own source (TourAPI edition dates, else Wikidata P580/P582/P585), also when they give no status.
+  const dateSource = tour?.tourapi?.eventstartdate || tour?.tourapi?.eventenddate ? 'tourapi' : 'wikidata'
+  for (const k of ['start_date', 'end_date']) if (p[k]) fs[k] = dateSource
   p.operating_status = curated?.visit?.status && curated.visit.status !== 'unknown' ? curated.visit.status : p.year_ended && p.year_ended <= (ctx.year ?? 9999) ? 'ended' : null
   if (p.operating_status) fs.operating_status = curated?.visit?.status ? 'curated' : 'wikidata'
 

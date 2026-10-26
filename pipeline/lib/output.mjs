@@ -75,10 +75,49 @@ export function pageTitle(page) {
   try { return decodeURIComponent(p.split('File:')[1]).replace(/_/g, ' ').replace(/\.[a-z0-9]+$/i, '').slice(0, 200) || null } catch { return null }
 }
 
-/** A previously published record in the v0.18 shape (images upgraded, kr_region present). */
+/** A previously published record in the v0.18 shape (images upgraded, kr_region, kind, status, field_confidence present). */
 export function upgradeRecord(r) {
   if (!r) return r
-  return { ...r, kr_region: r.kr_region ?? null, kind: r.kind || 'facility', start_date: r.start_date ?? null, end_date: r.end_date ?? null, status: r.status || 'unknown', status_source: r.status_source ?? null, images: (r.images || []).map((i) => upgradeImage(i, r.id)) }
+  const u = { ...r, kr_region: r.kr_region ?? null, kind: r.kind || 'facility', start_date: r.start_date ?? null, end_date: r.end_date ?? null, status: r.status || 'unknown', status_source: r.status_source ?? null, images: (r.images || []).map((i) => upgradeImage(i, r.id)) }
+  return r.field_confidence ? u : { ...u, field_confidence: fieldConfidence(u) }
+}
+
+// Field confidence (the record's field_confidence, docs/PIPELINE.md): sourced (a source states it), inferred (derived
+// by a rule: a gazetteer, a category name, file geotags, a low-confidence type), editorial (the editors' catalogue or an
+// edit), unknown (no value). The UI shows 확인 필요 for inferred and 자료 없음 for unknown.
+export const FIELD_CONFIDENCE_KEYS = ['project_type', 'region', 'dates', 'artist', 'architect', 'coordinates']
+export const CONFIDENCE_STATES = ['sourced', 'inferred', 'editorial', 'unknown']
+const ARTIST_ROLES = new Set(['media_artist', 'lighting_designer']), ARCHITECT_ROLES = new Set(['architect', 'facade_designer'])
+const DATE_FIELDS = ['start_date', 'end_date', 'year_installed', 'year_completed', 'year_operating_since', 'year_ended']
+const RANK = { editorial: 3, sourced: 2, inferred: 1, unknown: 0 }
+/** The state of a value from its field_sources entry; a value without one is inferred, no value is unknown. */
+export function confidenceOf(source, hasValue = true) {
+  if (!hasValue) return 'unknown'
+  const s = String(source || '')
+  if (!s) return 'inferred'
+  if (s === 'editorial' || s.startsWith('curated')) return 'editorial'
+  if (s.startsWith('derived:')) return 'inferred'
+  return 'sourced'
+}
+const best = (states) => states.reduce((a, b) => (RANK[b] > RANK[a] ? b : a), 'unknown')
+/**
+ * field_confidence of a public record (its own fields, field_sources and credits), so a record of an earlier build is
+ * read the same way. typeInferred: the type came from a low-confidence class or rule, or from a curated place's broad
+ * category (inferred unless an editor set it).
+ */
+export function fieldConfidence(r, { typeInferred = false } = {}) {
+  const fs = r.field_sources || {}
+  let type = confidenceOf(fs.project_type, !!r.project_type)
+  if (typeInferred && type !== 'unknown' && fs.project_type !== 'editorial') type = 'inferred'
+  const kr = r.country_iso2 === 'KR'
+  const region = kr ? confidenceOf(fs.kr_region, !!r.kr_region) : confidenceOf(fs.country_iso2, !!r.country_iso2)
+  const dated = DATE_FIELDS.filter((k) => r[k] !== null && r[k] !== undefined)
+  const dates = dated.length ? best(dated.map((k) => confidenceOf(fs[k] ?? (k.endsWith('_date') ? r.status_source : null)))) : 'unknown'
+  const credit = (roles) => (r.credits || []).some((c) => roles.has(c.role) && c.name) ? confidenceOf(fs.credits) : 'unknown'
+  const hasCoords = r.lat !== null && r.lat !== undefined
+  let coordinates = confidenceOf(fs.lat, hasCoords)
+  if (coordinates === 'sourced' && r.location_precision === 'approximate') coordinates = 'inferred'
+  return { project_type: type, region, dates, artist: credit(ARTIST_ROLES), architect: credit(ARCHITECT_ROLES), coordinates }
 }
 
 /** The width and height of an image's thumb rendition (from its display list, or the "/<w>px-" of a Commons URL). */
@@ -100,7 +139,7 @@ const SOURCE_KINDS = new Set(['official', 'public_agency', 'academic', 'speciali
  */
 export function publicRecord(p, { shard, addedAt }) {
   const images = (p.images || []).map(imageOut)
-  return {
+  const r = {
     id: p.id,
     curated_place_id: p.curated_id || null,
     wikidata: p.qid || null,
@@ -157,6 +196,13 @@ export function publicRecord(p, { shard, addedAt }) {
     added_at: addedAt,
     shard,
   }
+  // After field_sources (fixed key order).
+  const out = {}
+  for (const [k, v] of Object.entries(r)) {
+    out[k] = v
+    if (k === 'field_sources') out.field_confidence = fieldConfidence(r, { typeInferred: p.type_source !== 'editorial' && (!!p.type_low_confidence || p.type_source === 'curated_category') })
+  }
+  return out
 }
 
 /** A period as stated by the source: {start, end} dates → "2026-09-01 – 2026-10-31"; a text stays as it is. */
