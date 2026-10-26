@@ -3,6 +3,7 @@
 // fills a large slot), the Korean and world sections, Korean-first search, the map's Korea and world views, and the
 // fallback to a home.json of the v0.17 shape (the live dataset until the pipeline writes the new sections).
 import {test,expect} from './fixtures.mjs';
+import {readFileSync} from 'node:fs';
 import {serveDataset,serveImages,filesOf,FIXTURE} from './fixtures/site-data-routes.mjs';
 import {siteData,RECORDS} from './fixtures/site-data-projects.mjs';
 
@@ -337,4 +338,155 @@ test('내 컬렉션: saved places, courses and field notes in one place',async({
  await expect(page.locator('[data-saved-tab="records"]')).toHaveAttribute('aria-checked','true');
  await expect(page.locator('#view .empty h3')).toHaveText('아직 남긴 기록이 없어요');
  await expect(page.locator('#view a[href="#journal"]')).toBeVisible();
+});
+
+// The archive search's scope (한국 · 세계 · 전체): automatic until chosen, from where the visitor came or the query; the
+// counts of each scope; a widened scope and a guessed word are said in words; the map keeps its own switch.
+test.describe('search scope and forgiving search',()=>{
+ const meta=page=>page.locator('#placeResults .result-meta');
+ const radio=(page,k)=>page.locator(`.search-scope [data-scope-set="${k}"]`);
+ const countOf=async(page,k)=>Number((await radio(page,k).locator('.chip-count').innerText()).replace(/\D/g,''));
+ test('from a Korea page the scope is 한국; from the world page 세계; a chosen scope stays while typing',async({page})=>{
+  await serveDataset(page);await serveImages(page);await page.setViewportSize({width:1440,height:900});
+  await page.goto('/#korea');await expect(page.locator('#view h1')).toHaveText('국내 미디어파사드');
+  await page.locator('#navigation a[href="#explore"]').click();
+  await expect(radio(page,'korea')).toHaveAttribute('aria-checked','true');
+  await expect.poll(()=>page.evaluate(()=>window.AOL_DATASET.index)).toBe('ok');
+  const kr=await countOf(page,'korea'),world=await countOf(page,'world');
+  expect(kr).toBeGreaterThan(0);expect(world).toBeGreaterThan(0);
+  expect(await countOf(page,'all')).toBe(kr+world);
+  await expect(meta(page)).toHaveAttribute('data-count',String(kr));
+  await expect(page.locator('#placeResults .place-card[data-country]:not([data-country="KR"])')).toHaveCount(0);
+  // The world page.
+  await page.locator('#navigation a[href="#world"]').click();await page.locator('#navigation a[href="#explore"]').click();
+  await expect(radio(page,'world')).toHaveAttribute('aria-checked','true');
+  await expect(meta(page)).toHaveAttribute('data-count',String(world));
+  // Chosen: 전체, and it stays while typing a Korean query.
+  await radio(page,'all').click();
+  await expect(meta(page)).toHaveAttribute('data-count',String(kr+world));
+  await page.locator('#placeSearch').fill('빛');
+  await expect(radio(page,'all')).toHaveAttribute('aria-checked','true');
+  // The keyboard moves between scopes.
+  await radio(page,'all').focus();await page.keyboard.press('ArrowLeft');
+  await expect(radio(page,'world')).toHaveAttribute('aria-checked','true');
+  await expect(radio(page,'world')).toBeFocused();
+ });
+ test('without a page to go by, a Hangul query searches 한국 and a Latin one 전체; nothing in 한국 widens to 전체 and says so',async({page})=>{
+  await serveDataset(page);await serveImages(page);
+  await page.goto('/#explore');await expect.poll(()=>page.evaluate(()=>window.AOL_DATASET.index)).toBe('ok');
+  await expect(radio(page,'all')).toHaveAttribute('aria-checked','true');
+  await page.locator('#placeSearch').fill('서울');
+  await expect(radio(page,'korea')).toHaveAttribute('aria-checked','true');
+  await expect(page.locator('#placeResults .place-card').first()).toHaveAttribute('data-country','KR');
+  await page.locator('#placeSearch').fill('Seoul');
+  await expect(radio(page,'all')).toHaveAttribute('aria-checked','true');
+  // A Korean name of a foreign project: nothing in 한국, so 전체, with a note.
+  await page.locator('#placeSearch').fill('아르스 일렉트로니카');
+  await expect(radio(page,'all')).toHaveAttribute('aria-checked','true');
+  await expect(page.locator('#placeResults .search-note')).toContainText('한국에는 결과가 없어 전체에서 찾았어요');
+  await expect(page.locator('#placeResults h3').first()).toHaveText('아르스 일렉트로니카 센터');
+ });
+ test('a slip of one letter still finds the project and the page says which word it used',async({page})=>{
+  await serveDataset(page);await serveImages(page);
+  await page.goto('/#explore');await expect.poll(()=>page.evaluate(()=>window.AOL_DATASET.index)).toBe('ok');
+  await page.locator('#placeSearch').fill('Electornica');
+  await expect(page.locator('#placeResults h3').first()).toHaveText('아르스 일렉트로니카 센터');
+  await expect(page.locator('#placeResults .search-note')).toContainText('비슷한 ‘electronica’');
+  // Spaces and a syllable being typed.
+  await page.locator('#placeSearch').fill('서울스퀘어미디어');
+  await expect(page.locator('#placeResults h3').first()).toHaveText('서울스퀘어 미디어 캔버스');
+  await page.locator('#placeSearch').fill('갤러리아 센터시');
+  await expect(page.locator('#placeResults h3').first()).toHaveText('갤러리아 센터시티');
+  await expect(page.locator('#placeResults .search-note')).toHaveCount(0);
+ });
+ test('the map keeps its own Korea/world switch whatever the search scope',async({page})=>{
+  await serveDataset(page);await serveImages(page);await tiles(page);
+  const allMapped=RECORDS.filter(r=>Number.isFinite(r.lat)&&Number.isFinite(r.lng)).length;
+  await page.goto('/#korea');await page.goto('/#explore');
+  await expect(radio(page,'korea')).toHaveAttribute('aria-checked','true');
+  await page.goto('/#map/world');
+  await expect(page.locator('#mapResults .result-meta')).toHaveAttribute('data-count',String(allMapped));
+ });
+});
+
+// 시·군·구 inside a Korean region: chips from the places' own city and district with counts that add up to the region
+// (places without one count under 위치 미상); an empty region says so and links to the search.
+test.describe('Korean region drill-down',()=>{
+ const meta=page=>page.locator('#krList .result-meta');
+ const chipCounts=loc=>loc.evaluateAll(xs=>xs.map(x=>[x.firstChild.textContent.trim(),Number(x.querySelector('.chip-count').textContent.replace(/\D/g,''))]));
+ test('cities, then the districts of a city; the counts add up and the list follows',async({page})=>{
+  await serveDataset(page);await serveImages(page);
+  await page.goto('/#korea/busan_ulsan_gyeongnam');
+  await expect(meta(page)).toHaveAttribute('data-count','3');
+  const rows=page.locator('#krList .area-chips');
+  await expect(rows).toHaveCount(1);
+  await expect(rows.first()).toHaveAttribute('aria-label','시·군');
+  expect(await chipCounts(rows.first().locator('button'))).toEqual([['전체',3],['부산',2],['진주시',1]]);
+  await rows.first().getByRole('button',{name:/^부산/}).click();
+  await expect(meta(page)).toHaveAttribute('data-count','2');
+  await expect(page.locator('#krList h2')).toHaveText('부산·울산·경남 부산');
+  await expect(rows).toHaveCount(2);
+  expect(await chipCounts(rows.nth(1).locator('button'))).toEqual([['전체',2],['수영구',1],['해운대구',1]]);
+  await rows.nth(1).getByRole('button',{name:/^해운대구/}).click();
+  await expect(meta(page)).toHaveAttribute('data-count','1');
+  await expect(page.locator('#krList .place-card h3')).toHaveText(['해운대 빛축제']);
+  await expect(rows.nth(1).getByRole('button',{name:/^해운대구/})).toHaveAttribute('aria-pressed','true');
+  // Another region starts over.
+  await page.goto('/#korea/seoul');
+  await expect(page.locator('#krList .area-chips button[aria-pressed="true"]')).toHaveText(/^전체/);
+ });
+ test('a region in one city goes straight to its districts; places without one are 위치 미상, never guessed',async({page})=>{
+  await serveDataset(page);await serveImages(page);
+  await page.goto('/#korea/seoul');
+  const row=page.locator('#krList .area-chips');
+  await expect(row).toHaveCount(1);
+  await expect(row).toHaveAttribute('aria-label','구·군');
+  const total=Number(await meta(page).getAttribute('data-count')),chips=await chipCounts(row.locator('button'));
+  expect(chips[0]).toEqual(['전체',total]);
+  expect(chips.slice(1).reduce((a,c)=>a+c[1],0)).toBe(total);
+  expect(chips.map(c=>c[0])).toEqual(expect.arrayContaining(['중구','송파구','강남구','위치 미상']));
+  expect(chips[chips.length-1][0]).toBe('위치 미상');
+  await row.getByRole('button',{name:/^위치 미상/}).click();
+  await expect(meta(page)).toHaveAttribute('data-count',String(chips.find(c=>c[0]==='위치 미상')[1]));
+ });
+ test('a region without projects says so, shows no counts to choose from, and links to the search',async({page})=>{
+  await serveDataset(page,filesOf(siteData(RECORDS.filter(r=>r.kr_region!=='gangwon'))));await serveImages(page);
+  await page.goto('/#korea/gangwon');
+  await expect(meta(page)).toHaveAttribute('data-count','0');
+  await expect(page.locator('#krList .area-chips')).toHaveCount(0);
+  await expect(page.locator('#krList .empty')).toContainText('강원에는 아직 수록된 프로젝트가 없어요');
+  await expect(page.locator('#krList .empty a[href="#explore"]')).toHaveText('아카이브 검색에서 찾기');
+  await expect(page.locator('a.region-link[href="#korea/gangwon"] .region-count')).toHaveText('0개 프로젝트');
+ });
+});
+
+// AVIF/WebP only where the provider serves them (Unsplash's fm parameter); Commons keeps its JPEG srcset.
+test.describe('image formats',()=>{
+ const U='https://images.unsplash.com/photo-1500000000000-fixture?ixid=fixture',PNG1=readFileSync(new URL('./fixtures/images/art-1.jpg',import.meta.url));
+ const unsplash=RECORDS.map(r=>r.id!=='acc-media-wall'?r:{...r,images:r.images.map((m,i)=>({...m,provider:'unsplash',src:U+i,page:'https://unsplash.com/photos/fixture'+i,thumb:U+i+'&w=640',display:[[640,U+i+'&w=640'],[1280,U+i+'&w=1280'],[1920,U+i+'&w=1920']],width:4000,height:2667,license:'Unsplash License',license_url:'https://unsplash.com/license'}))});
+ const FILES=filesOf(siteData(unsplash));
+ test('an Unsplash photo comes as AVIF or WebP through <picture>; a Commons photo stays a plain srcset',async({page})=>{
+  await serveDataset(page,FILES);await serveImages(page);
+  const asked=[];await page.route(/^https:\/\/images\.unsplash\.com\//,r=>{asked.push(r.request().url());return r.fulfill({contentType:'image/jpeg',body:PNG1})});
+  await page.goto('/#place/acc-media-wall');
+  const pic=page.locator('.detail-hero picture');
+  await expect(pic).toHaveCount(1);
+  await expect(pic.locator('source')).toHaveCount(2);
+  expect(await pic.locator('source').evaluateAll(xs=>xs.map(x=>x.type))).toEqual(['image/avif','image/webp']);
+  expect(await pic.locator('source[type="image/avif"]').getAttribute('srcset')).toMatch(/fm=avif.* 640w, .*fm=avif.* 1280w/);
+  await expect.poll(()=>pic.locator('img').evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true);
+  expect(asked.length).toBeGreaterThan(0);
+  expect(asked.every(u=>/[?&]fm=(avif|webp)/.test(u)),'only the format the browser takes').toBe(true);
+  // The card on the region page uses the same rule; the Commons project next to it does not.
+  await page.goto('/#place/coex-kpop-square-wave');
+  await expect(page.locator('#view h1')).toBeVisible();
+  await expect(page.locator('#view picture')).toHaveCount(0);
+ });
+ test('an Unsplash photo that fails becomes the placeholder, <picture> and all',async({page})=>{
+  await serveDataset(page,FILES);await serveImages(page);
+  await page.route(/^https:\/\/images\.unsplash\.com\//,r=>r.fulfill({status:404,body:''}));
+  await page.goto('/#place/acc-media-wall');
+  await expect(page.locator('.detail-hero .ph-failed')).toBeVisible();
+  await expect(page.locator('.detail-hero picture')).toHaveCount(0);
+ });
 });

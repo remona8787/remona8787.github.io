@@ -127,7 +127,7 @@ test('GitHub Pages: .nojekyll; 404.html works at any depth and sw.js at the site
 test('one version number: package.json, package-lock.json, VERSION.json, the shell label and the legal pages', async () => {
   const pkg = JSON.parse(await read('package.json')), lock = JSON.parse(await read('package-lock.json')), version = JSON.parse(await read('VERSION.json'))
   const v = pkg.version
-  assert.equal(v, '0.17.0')
+  assert.equal(v, '0.18.0')
   assert.deepEqual([lock.version, lock.packages[''].version, version.version], [v, v, v])
   assert.ok((await read('site-public-cleared/index.html')).includes(`<span class="version" data-i18n="shell.version">빛의 건축 v${v}</span>`))
   for (const page of ['privacy.html', 'terms.html', 'support.html', 'delete-account.html']) assert.match(await read('site-public-cleared/' + page), new RegExp(`버전 ${v.replace(/\./g, '\\.')}\\b`), page)

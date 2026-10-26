@@ -67,8 +67,9 @@ test(`explore, its count, the map list and the map points agree on ${N} projects
  // Zooming in: the list and its count are the places in view, the same as the points drawn there.
  await page.evaluate(()=>currentMap.setView([48.2,16.37],7));
  await expect.poll(async()=>{const m=await page.evaluate(()=>{const b=currentMap.getBounds();return {inView:mapShown.filter(p=>b.contains([p.latitude,p.longitude])).length,count:Number(document.querySelector('#mapResults .result-meta').dataset.count)}});return m.count===m.inView&&m.count<MAPPABLE}).toBe(true);
- // Explore again: the same total.
+ // Explore again: the same total. (From the world map the search opens on 세계, v0.18; 전체 is every project.)
  await page.locator('#navigation a[href="#explore"]').click();
+ await page.locator('.search-scope [data-scope-set="all"]').click();
  await expect(meta(page)).toHaveAttribute('data-count',String(ALL));
 });
 
@@ -88,6 +89,7 @@ test(`the index of ${N} projects is read once and paged 24 at a time on a phone`
  await expect(page.locator('#mapResults .result-meta')).toHaveAttribute('data-count',String(MAPPABLE));
  // On a phone the archive search is the top bar's search button (v0.18: five tabs).
  await page.locator('#quickSearch').click();
+ await page.locator('.search-scope [data-scope-set="all"]').click();
  await expect(meta(page)).toHaveAttribute('data-count',String(ALL));
  expect(seen.filter(f=>f==='index.json').length,'index.json fetched once').toBe(1);
  expect(seen.filter(f=>f.startsWith('projects/')),'no shard for lists').toEqual([]);
