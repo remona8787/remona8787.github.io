@@ -2,7 +2,8 @@
 // Live verification: job "verify-live" of archive.yml (docs/STATIC_ARCHIVE.md, operations in docs/PIPELINE.md).
 //  1. Waits until the live site serves this deploy: /deploy.json has the deploy id and /data/manifest.json the
 //     build id (cache-busting queries; GitHub Pages usually needs a minute or two after the push).
-//  2. Opens home, explore, map, a detail page, the data page and the admin page at 390×844 (mobile) and 1440×900, each
+//  2. Opens home, explore, map, a detail page (and the regression pages, #place/SEOUL006), the data page and the admin
+//     page at 390×844 (mobile) and 1440×900, each
 //     in a fresh browser context (cold cache, service workers blocked, so the numbers are what a first visit costs).
 //  3. Records per page: HTTP status, console errors, page errors, failed requests, HTTP errors, Largest Contentful
 //     Paint, navigation timings, transfer sizes (total, by resource type, the data/ files fetched), broken images and
@@ -13,7 +14,8 @@
 //
 // CLI: node pipeline/verify-live.mjs --site=https://remona8787.github.io/ --out=<dir> [--build-id=<id>] [--deploy-id=<id>]
 //        [--wait-minutes=15] [--strict]
-// Exit 1 when the deploy never appeared or a page did not load; with --strict also on console errors, failed
+// Exit 1 when the deploy never appeared or a page did not load; with --strict also on a portrait or unverified image
+// in a gallery (summary.gallery_forbidden), console errors, failed
 // requests or internal vocabulary.
 import path from 'node:path'
 import { mkdir, readdir, rm, writeFile } from 'node:fs/promises'
@@ -26,15 +28,55 @@ export const VIEWPORTS = [
 /** Public screens may never show these (docs/STATIC_ARCHIVE.md "Consumer UI rules"). */
 export const INTERNAL_TERMS = ['재확인 시점 경과', '확인 기록 있음', '검토 목록', '편집 검수', '자동 수집·미검수', '미검수', '동기화 상태', 'needs_review', 'field_state']
 
-export function screens(detailId) {
+/** Detail pages checked on every run besides the rotating one: regressions of the live reviews (SEOUL006, DDP). */
+export const REGRESSION_PAGES = ['SEOUL006']
+
+export function screens(detailId, { regression = REGRESSION_PAGES } = {}) {
   return [
     { name: 'home', path: '', public: true },
     { name: 'explore', path: '#explore', public: true },
     { name: 'map', path: '#map', public: true, map: true },
-    ...(detailId ? [{ name: 'detail', path: '#place/' + encodeURIComponent(detailId), public: true }] : []),
+    ...(detailId ? [{ name: 'detail', path: '#place/' + encodeURIComponent(detailId), public: true, project: detailId }] : []),
+    ...regression.filter((id) => id !== detailId).map((id) => ({ name: 'place-' + id, path: '#place/' + encodeURIComponent(id), public: true, project: id })),
     { name: 'data', path: '#data', public: true },
     { name: 'admin', path: 'admin/', public: false },
   ]
+}
+
+/** A comparable key of an image URL: the Commons file name of an original or a rendition, else the URL without query. */
+export function imageKey(url) {
+  const s = String(url || '').split('#')[0]
+  const m = /^https:\/\/(?:upload|thumb)\.wikimedia\.org\/wikipedia\/[a-z-]+\/(?:thumb\/)?[0-9a-f]\/[0-9a-f]{2}\/([^/?#]+)/.exec(s)
+  if (m) { try { return 'commons:' + decodeURIComponent(m[1]) } catch { return 'commons:' + m[1] } }
+  return s.split('?')[0]
+}
+
+/**
+ * Which of a record's images a page shows (from the page's image URLs): their count, providers and kinds, and any image
+ * of a kind that must never be in a gallery (artist_portrait, unverified) or that the record does not have.
+ */
+export function galleryCheck(urls, record) {
+  const byKey = new Map()
+  const add = (img, where) => { for (const u of [img.src, img.thumb, ...(img.display || []).map((d) => d[1])]) if (u) byKey.set(imageKey(u), { img, where }) }
+  for (const i of record?.images || []) add(i, 'images')
+  for (const c of record?.credits || []) if (c.portrait) add(c.portrait, 'credit')
+  const shown = new Map()
+  const unknown = []
+  for (const u of urls) {
+    const k = imageKey(u)
+    const hit = byKey.get(k)
+    if (hit) shown.set(hit.img.id, hit)
+    else if (/wikimedia\.org|staticflickr|openverse|visitkorea|unsplash|pexels/.test(String(u))) unknown.push(String(u).slice(0, 200))
+  }
+  const list = [...shown.values()]
+  const tally = (f) => list.reduce((o, x) => { const k = f(x); o[k] = (o[k] || 0) + 1; return o }, {})
+  return {
+    project: record?.id ?? null, record_images: (record?.images || []).length, shown: list.length,
+    providers: tally((x) => x.img.provider), kinds: tally((x) => x.img.kind || 'none'),
+    artist_portrait_visible: list.filter((x) => x.img.kind === 'artist_portrait').map((x) => x.img.id),
+    unverified_visible: list.filter((x) => x.img.kind === 'unverified' || (x.img.provider !== 'commons' && x.img.identity?.ok !== true)).map((x) => x.img.id),
+    not_in_record: unknown.slice(0, 20),
+  }
 }
 
 /** The project shown on the detail screen: a hero project, else a featured one, else the first index row. */
@@ -136,6 +178,7 @@ async function measure(browser, base, screen, vp, outDir, { settleMs = 1500 } = 
       const text = await page.evaluate(() => document.body?.innerText || '').catch(() => '')
       r.internal_terms = INTERNAL_TERMS.filter((t) => text.includes(t))
     }
+    if (screen.project) r.page_images = await page.evaluate(() => [...document.images].map((i) => i.currentSrc || i.src).filter(Boolean)).catch(() => [])
     const file = `${vp.name}-${screen.name}.jpg`
     await page.screenshot({ path: path.join(outDir, file), type: 'jpeg', quality: 60, fullPage: false })
     r.screenshot = file
@@ -177,6 +220,9 @@ export function summarize(pages) {
     home_loads_index: pages.some((p) => p.page === 'home' && p.data_files.some((d) => /(^|\/)data\/(index\.json|projects\/)/.test(d.path))),
     // The rendition width of the largest image on the home page per viewport (null when the URL does not name one).
     home_lcp_image_px: Object.fromEntries(pages.filter((p) => p.page === 'home' && p.lcp?.url).map((p) => [p.viewport, renditionWidth(p.lcp.url)])),
+    // Detail and regression pages: images shown, providers, and images that must never be in a gallery (should be 0).
+    galleries: Object.fromEntries(pages.filter((p) => p.gallery).map((p) => [`${p.viewport}-${p.page}`, { project: p.gallery.project, shown: p.gallery.shown, providers: p.gallery.providers, kinds: p.gallery.kinds }])),
+    gallery_forbidden: pages.reduce((n, p) => n + (p.gallery ? p.gallery.artist_portrait_visible.length + p.gallery.unverified_visible.length : 0), 0),
   }
 }
 
@@ -200,10 +246,21 @@ export async function verifyLive({ site, outDir, buildId = null, deployId = null
     if (adminPublic) log('data/admin/report.json is served: internal data is public')
     detailId = pickDetail(await json('data/home.json'), null) || pickDetail(null, await json('data/index.json'))
     if (!chromium) ({ chromium } = await import('playwright').catch(() => import('@playwright/test')))
+    // The records of the detail and regression pages (their shard, from index.json): what their galleries may show.
+    const index = await json('data/index.json')
+    const records = new Map()
+    for (const id of [detailId, ...REGRESSION_PAGES].filter(Boolean)) {
+      const row = index?.rows?.find((x) => x[index.fields.indexOf('id')] === id)
+      const shard = row ? row[index.fields.indexOf('shard')] : null
+      const data = shard ? await json(`data/projects/${shard}.json`) : null
+      const rec = data?.projects?.find((x) => x.id === id)
+      if (rec) records.set(id, rec)
+    }
     const browser = await chromium.launch()
     try {
       for (const vp of VIEWPORTS) for (const s of screens(detailId)) {
         const r = await measure(browser, base, s, vp, outDir)
+        if (s.project) { r.gallery = galleryCheck(r.page_images || [], records.get(s.project) || null); delete r.page_images }
         log(`${vp.name} ${s.name}: ${r.ok ? 'ok' : 'FAILED ' + (r.error || r.status)} lcp ${r.lcp?.ms ?? '-'} ms, ${Math.round(r.transfer.total_bytes / 1024)} KB, ${r.console_errors.length + r.page_errors.length} console errors, ${r.failed_requests.length} failed requests`)
         pages.push(r)
       }
@@ -234,7 +291,7 @@ if (process.argv[1] && pathToFileURL(path.resolve(process.argv[1])).href === imp
     const r = await verifyLive({ site: a.site, outDir: path.resolve(a.out), buildId: a['build-id'] || null, deployId: a['deploy-id'] || null, waitMinutes: Number(a['wait-minutes'] || 15), log: (s) => console.log('[verify-live] ' + s) })
     const s = r.summary
     console.log(`[verify-live] ${s.ok ? 'ok' : 'FAILED'}: ${s.loaded}/${s.pages} pages, ${s.console_errors} console errors, ${s.failed_requests} failed requests, max LCP ${s.max_lcp_ms ?? '-'} ms`)
-    const strictFail = a.strict && (s.console_errors || s.failed_requests || s.internal_terms.length)
+    const strictFail = a.strict && (s.console_errors || s.failed_requests || s.internal_terms.length || s.gallery_forbidden)
     if (!s.ok || strictFail) process.exitCode = 1
   } catch (e) {
     console.error('[verify-live] failed:', e?.stack || e)

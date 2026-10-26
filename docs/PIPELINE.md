@@ -507,7 +507,10 @@ admin page builds the JSON and opens GitHub's new-file page
 1. It waits (up to 20 minutes) until `/deploy.json` has the deploy id and `/data/manifest.json` the build id.
 2. It opens home, explore, map, a detail page (a hero or featured project), the data page and the admin page, at 390×844 and 1440×900. Each page gets a fresh context with a cold cache and service workers blocked.
 3. It checks that `/data/admin/report.json` is not served (`summary.admin_data_public`; served means failure) and
-   records the rendition width of the home page's largest image (`summary.home_lcp_image_px`).
+   records the rendition width of the home page's largest image (`summary.home_lcp_image_px`). The regression page
+   `#place/SEOUL006` is opened on every run besides the rotating detail page; for both, the images on the page are
+   matched to the record (Commons file name or URL): `pages[].gallery` gives the count shown, providers, kinds and any
+   artist portrait or unverified image visible (`summary.gallery_forbidden`, should be 0; `--strict` fails on it).
 4. It writes `review/live/report.json` and a JPEG per page.
 
 The report records, per page: HTTP status, console errors, page errors, failed requests, HTTP errors, LCP, navigation
