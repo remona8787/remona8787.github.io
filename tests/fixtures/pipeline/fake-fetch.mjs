@@ -224,6 +224,11 @@ function dataGoKr(u) {
   if (p.get('_type') !== 'json' || !p.get('MobileOS') || !p.get('MobileApp')) return jsonRes({ response: { header: { resultCode: '10', resultMsg: 'INVALID_REQUEST_PARAMETER_ERROR' } } })
   const op = u.pathname.split('/').pop(), page = Number(p.get('pageNo') || 1), rows = Number(p.get('numOfRows') || 10)
   if (op === 'searchKeyword2') { const all = page > 1 ? [] : T.search[`${p.get('keyword')}|${p.get('contentTypeId') || ''}`] || []; return goEnvelope(all, all.length, page, rows) }
+  if (op === 'searchFestival2') {
+    const from = String(p.get('eventStartDate') || '')
+    const all = (T.festivals || []).filter((f) => !from || String(f.eventenddate) >= from)
+    return goEnvelope(all.slice((page - 1) * rows, page * rows), all.length, page, rows)
+  }
   if (op === 'detailCommon2') { const it = T.common[p.get('contentId')]; return goEnvelope(it ? [it] : []) }
   if (op === 'detailImage2') return goEnvelope(T.images[p.get('contentId')] || [])
   if (op === 'gallerySearchList1') return goEnvelope(T.gallery[p.get('keyword')] || [])

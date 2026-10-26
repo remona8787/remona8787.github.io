@@ -216,7 +216,7 @@ export async function runPipeline(o) {
       if (!key) { status('tourapi', { status: 'skipped', items: 0, errors: [], reason: 'TOURAPI_SERVICE_KEY not set' }); return }
       const t = clock()
       try {
-        tourOut = await discoverTourApi(client, P.tourapi || {}, { key, cache, ttlHours: ttl.tourapi ?? 72, termRules: P.wikipedia?.term_rules || {} })
+        tourOut = await discoverTourApi(client, P.tourapi || {}, { key, cache, ttlHours: ttl.tourapi ?? 72, termRules: P.wikipedia?.term_rules || {}, today })
         status('tourapi', { status: tourOut.partial ? 'partial' : tourOut.errors.length ? (tourOut.items.length ? 'partial' : 'error') : 'ok', items: tourOut.accepted.length, seen: tourOut.items.length, errors: tourOut.errors.slice(0, 50), duration_ms: clock() - t })
       } catch (x) { err('tourapi', x); status('tourapi', { status: isBudget(x) ? 'partial' : 'error', items: 0, errors: [{ message: msg(x) }], duration_ms: clock() - t }) }
     })()
@@ -363,7 +363,7 @@ export async function runPipeline(o) {
         const intoQid = obs.find((x) => x.merge_into_qid)?.merge_into_qid
         const curatedQid = obs.find((x) => x.origin === 'curated' && x.qid)?.qid
         const primary = curatedQid || (intoQid && qids.includes(intoQid) ? intoQid : null) || qids.find((q) => facts.has(q)) || qids[0] || null
-        const p = buildProject(obs, primary ? facts.get(primary) || null : null, { year: Number(today.slice(0, 4)), workClasses })
+        const p = buildProject(obs, primary ? facts.get(primary) || null : null, { year: Number(today.slice(0, 4)), today, workClasses })
         if (primary && !p.qid) p.qid = primary
         for (const q of qids) if (q !== primary && !p.sources.some((s) => s.url === wikidataPage(q))) p.sources.push({ id: 'wikidata:' + q, kind: 'wikidata', title: `Wikidata ${q}`, url: wikidataPage(q), publisher: 'Wikidata' })
         p.all_qids = qids
@@ -688,7 +688,10 @@ export async function runPipeline(o) {
     dataset: SEOUL_DATASET, status: sourceStatus.seoul_events ?? null, probe: seoulOut?.probe ?? null, probe_result: seoulOut?.probe_result ?? null,
     fields: seoulOut?.fields ?? [], total: seoulOut?.total ?? null, counts: sourceCounts.seoul_events,
     linked: eventLinks.linked.map((l) => ({ event: l.event.id, title: l.event.title, project: l.project.id, by: l.by, name: l.name, distance_m: l.distance_m })),
-    events: (seoulOut?.events || []).slice(0, 3000), errors: seoulOut?.errors ?? [],
+    // Every relevant event and the first 300 others (the whole list is ~20,000 rows).
+    events: [...(seoulOut?.events || []).filter((e) => e.decision?.relevant), ...(seoulOut?.events || []).filter((e) => !e.decision?.relevant).slice(0, 300)],
+    decisions: (seoulOut?.events || []).reduce((o, e) => { const k = e.decision?.relevant ? (e.status === 'ended' ? 'relevant_ended' : 'relevant') : (e.decision?.reasons || []).slice(-1)[0] || 'other'; o[k] = (o[k] || 0) + 1; return o }, {}),
+    errors: seoulOut?.errors ?? [],
   }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'tourapi.json'), { schema: 1, at: startedAt, about: 'TourAPI KorService2 keyword discovery: every item seen, the terms found in its title or overview, the classifier verdict and the decision. Accepted items become projects (origin tourapi) when they also have a public source (their homepage) or merge with a known project.', status: sourceStatus.tourapi ?? null, overviews_read: tourOut?.overviews_read ?? 0, items: tourOut?.items ?? [], errors: tourOut?.errors ?? [] }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'korea.json'), {

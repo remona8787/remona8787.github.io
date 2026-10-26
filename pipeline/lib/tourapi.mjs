@@ -82,8 +82,11 @@ export function tourItem(it) {
     modified: it.modifiedtime ? String(it.modifiedtime) : null,
     overview: it.overview !== undefined ? stripTags(it.overview).slice(0, 4000) : undefined,
     homepage: homepageOf(it.homepage),
+    // searchFestival2: the edition's dates (YYYYMMDD).
+    eventstartdate: ymd(it.eventstartdate), eventenddate: ymd(it.eventenddate),
   }
 }
+const ymd = (v) => { const m = /^(\d{4})(\d{2})(\d{2})$/.exec(String(v || '').trim()); return m ? `${m[1]}-${m[2]}-${m[3]}` : null }
 
 /** TourAPI "homepage" is HTML ("<a href=\"https://…\">…</a>") or a bare URL. */
 export function homepageOf(v) {
@@ -129,7 +132,7 @@ export function classifyTourItem(item, terms, termRules = {}) {
  * decision), accepted, errors, partial, requests}.
  * @param {any} client @param {any} cfg pipeline.json "tourapi" @param {{key: string, cache: any, ttlHours?: number, termRules?: any}} o
  */
-export async function discoverTourApi(client, cfg, { key, cache, ttlHours = 72, termRules = {} }) {
+export async function discoverTourApi(client, cfg, { key, cache, ttlHours = 72, termRules = {}, today = new Date().toISOString().slice(0, 10) }) {
   const errors = [], seen = new Map()
   let partial = false, overviews = 0, requests = 0
   const ask = async (op, params, cacheKey, ttl = ttlHours) => {
@@ -158,6 +161,28 @@ export async function discoverTourApi(client, cfg, { key, cache, ttlHours = 72, 
       }
     }
   }
+  // Festivals (searchFestival2) from festival_lookback_days ago: the dates of every festival already found, and the
+  // festivals whose title names a term (the light festivals of every region) as new items.
+  const festivals = new Map()
+  if (cfg.festivals !== false && !partial) {
+    const from = new Date(Date.parse(today + 'T00:00:00Z') - (cfg.festival_lookback_days ?? 30) * 86400e3).toISOString().slice(0, 10).replace(/-/g, '')
+    for (let page = 1; page <= (cfg.festival_max_pages ?? 10); page++) {
+      let res
+      try { res = await ask('searchFestival2', { eventStartDate: from, numOfRows: cfg.festival_rows ?? 100, pageNo: page, arrange: 'A' }, `festival:${from}:${page}`, 24) } catch (e) {
+        if (e?.code === 'budget') { partial = true; break }
+        errors.push({ stage: 'tourapi_festival', page, message: redactKeys(String(e?.message || e)).slice(0, 300) })
+        break
+      }
+      for (const raw of res.items) { const it = tourItem(raw); if (it.contentid && it.title) festivals.set(it.contentid, { ...it, contenttypeid: it.contenttypeid || '15' }) }
+      if (page * (res.rows || 1) >= res.total || !res.items.length) break
+    }
+    for (const f of festivals.values()) {
+      const prev = seen.get(f.contentid)
+      if (prev) { prev.eventstartdate = f.eventstartdate; prev.eventenddate = f.eventenddate; continue }
+      const named = terms.filter((t) => termPattern(t).test(f.title || ''))
+      if (named.length) seen.set(f.contentid, { ...f, search_terms: ['festival_list'] })
+    }
+  }
   // Decisions; the overview only for items whose title does not carry a term (capped per run, cached two weeks).
   const out = []
   for (const it of seen.values()) {
@@ -184,7 +209,7 @@ export async function discoverTourApi(client, cfg, { key, cache, ttlHours = 72, 
     out.push({ ...it, overview: it.overview ? it.overview.slice(0, 300) : it.overview ?? null, decision: { accepted: !!d.accepted, reasons: d.reasons, terms: d.terms || [], project_type: d.project_type ?? null, classifier: d.classification ? { label: d.classification.label, score: d.classification.score } : null } })
   }
   out.sort((a, b) => (a.contentid < b.contentid ? -1 : 1))
-  return { items: out, accepted: out.filter((x) => x.decision.accepted), errors, partial, overviews_read: overviews, requests }
+  return { items: out, accepted: out.filter((x) => x.decision.accepted), errors, partial, overviews_read: overviews, requests, festivals_listed: festivals.size }
 }
 
 /** Items named like a project (searchKeyword2 with the project's Korean name), for image identity and merges. */
@@ -224,7 +249,7 @@ export function tourObservation(t) {
     name: { ko: t.title, en: null, original: t.title, original_lang: 'ko' },
     country_iso2: 'KR', address: [t.addr1, t.addr2].filter(Boolean).join(' ') || null, lat: t.lat, lng: t.lng,
     official_url: t.homepage || null, project_type: t.decision?.project_type || null,
-    tourapi: { contentid: t.contentid, contenttypeid: t.contenttypeid, addr1: t.addr1, addr2: t.addr2, areacode: t.areacode, ldong: t.ldong, firstimage: t.firstimage, cpyrhtDivCd: t.cpyrhtDivCd },
+    tourapi: { contentid: t.contentid, contenttypeid: t.contenttypeid, addr1: t.addr1, addr2: t.addr2, areacode: t.areacode, ldong: t.ldong, firstimage: t.firstimage, cpyrhtDivCd: t.cpyrhtDivCd, eventstartdate: t.eventstartdate ?? null, eventenddate: t.eventenddate ?? null },
     sources, evidence: [{ kind: 'tourapi', contentid: t.contentid, terms: t.decision?.terms || [], reasons: t.decision?.reasons || [] }],
   }
 }

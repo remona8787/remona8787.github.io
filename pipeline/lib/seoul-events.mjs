@@ -12,10 +12,10 @@
 //  - Output: events (kind exhibition or event, start and end dates, status from the dates) linked to an existing
 //    project by name within 300 m (lib/run.mjs), else a place candidate in admin-data/candidates.json that an editor
 //    must approve. Field names are read as the documented ones (GUNAME, TITLE, CODENAME, DATE, PLACE, ORG_NAME,
-//    USE_TRGT, USE_FEE, PLAYER, PROGRAM, ORG_LINK, HMPG_ADDR, MAIN_IMG, STRTDATE, END_DATE, LAT, LOT, IS_FREE); the
-//    probe lists the live ones so the mapping can be checked against a real answer.
+//    USE_TRGT, USE_FEE, PLAYER, PROGRAM, PRO_TIME, THEMECODE, ORG_LINK, HMPG_ADDR, STRTDATE, END_DATE, LAT, LOT, IS_FREE),
+//    confirmed by the live probe of 2026-10-26 (19,659 rows). MAIN_IMG (the poster) is never used: its rights may be the
+//    organiser's even though the dataset is KOGL Type 1.
 import { classify } from '../../edge-functions/_shared/archive/classify.mjs'
-import { HOUR } from './cache.mjs'
 import { fnv1a, redactKeys, uniq, validLat, validLng, haversine, fold } from './util.mjs'
 import { projectNames } from './identity.mjs'
 
@@ -76,7 +76,7 @@ export function eventOf(row, today) {
     kind, title, category: codename, district: text(row.GUNAME, 20), place: text(row.PLACE, 120), org: text(row.ORG_NAME, 120),
     program: text(row.PROGRAM, 400), player: text(row.PLAYER, 200), target: text(row.USE_TRGT, 120), fee: text(row.USE_FEE, 120),
     is_free: /무료/.test(String(row.IS_FREE || '')) ? true : /유료/.test(String(row.IS_FREE || '')) ? false : null,
-    url: httpUrl(row.ORG_LINK) || httpUrl(row.HMPG_ADDR), start, end, date_text: text(row.DATE, 60), status: eventStatus(start, end, today),
+    url: httpUrl(row.ORG_LINK) || httpUrl(row.HMPG_ADDR), start, end, date_text: text(row.DATE, 60), time_text: text(row.PRO_TIME, 120), theme: text(row.THEMECODE, 40), status: eventStatus(start, end, today),
     lat: validLat(c.lat) ? c.lat : null, lng: validLng(c.lng) ? c.lng : null, coords_swapped: c.swapped,
   }
 }
@@ -110,7 +110,8 @@ export async function discoverSeoulEvents(client, cfg = {}, { key = null, cache 
   const out = { status: 'ok', probe: !key, requested: 0, received: 0, total: null, fields: [], events: [], relevant: [], errors: [], partial: false }
   const ask = async (k, start, end) => {
     out.requested++
-    const json = await client.json(seoulUrl(k, start, end, { base: cfg.base || SEOUL_BASE, service: cfg.service || DATASET.service }), { stage: 'seoul_events', maxRedirects: 0, redactUrl: redactKeys, timeoutMs: 30000, retries: 1, cache: cache && k !== SAMPLE_KEY ? { ns: 'seoul-events', key: `${start}-${end}`, ttlMs: ttlHours * HOUR } : null })
+    // Not cached: some 20 pages of 1,000 rows would weigh on the data branch's state; the list changes daily anyway.
+    const json = await client.json(seoulUrl(k, start, end, { base: cfg.base || SEOUL_BASE, service: cfg.service || DATASET.service }), { stage: 'seoul_events', maxRedirects: 0, redactUrl: redactKeys, timeoutMs: 45000, retries: 1 })
     return parseAnswer(json, cfg.service || DATASET.service)
   }
   try {
@@ -185,7 +186,7 @@ export function linkEvents(events, projects, { radiusM = 300 } = {}) {
 /** The public form of an event in its place's record (shard records only). */
 export function eventOut(ev, { checkedAt }) {
   return {
-    id: ev.id, kind: ev.kind, title: ev.title, start: ev.start, end: ev.end, status: ev.status, date_text: ev.date_text,
+    id: ev.id, kind: ev.kind, title: ev.title, start: ev.start, end: ev.end, status: ev.status, date_text: ev.date_text, time_text: ev.time_text ?? null,
     place: ev.place, district: ev.district, org: ev.org, program: ev.program, is_free: ev.is_free, fee: ev.fee, url: /^https:\/\//i.test(ev.url || '') ? ev.url : null,
     project_type: ev.project_type ?? null,
     source: { provider: 'seoul_open_data', dataset: DATASET.id, license: DATASET.license, license_url: DATASET.license_url, url: DATASET.page, publisher: DATASET.publisher },

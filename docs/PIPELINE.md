@@ -280,6 +280,18 @@ name, country, coordinates or city, an archive type, not blocklisted, and a publ
 Curated and editor-approved records skip the source gates (unverified class only, class requires coordinates, low
 Wikipedia relevance, web candidate), never the basics. Every excluded project and its reasons are in quality.json.
 
+### Kind, dates and status
+
+Every record has `kind` (facility, program, festival, exhibition), `start_date` and `end_date` (YYYY, YYYY-MM or
+YYYY-MM-DD) and `status` (running, seasonal, ended, upcoming, unknown) with `status_source`, from sourced facts only:
+
+- TourAPI: a festival (content type 15) and the dates of its edition from `searchFestival2` (festivals from 30 days ago,
+  ≤ 10 pages of 100); festivals whose title names a term (유등축제, 빛초롱축제, 불빛축제…) are read like keyword hits.
+- Wikidata: P580/P582 (start/end time) or P585 (point in time) at their precision; P5817 (state of use: in use →
+  running, closed/demolished → ended); P2257 (event interval) makes a recurring festival that is not on now or soon
+  `seasonal`; P31 labels name an exhibition or a show (program).
+- Nothing else: without such a fact the status is `unknown` (a start date alone is not "running").
+
 ## 6. Images
 
 Korean projects first; every image belongs to one project and is proven to show it.

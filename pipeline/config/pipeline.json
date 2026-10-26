@@ -487,7 +487,8 @@
     "base": "http://openapi.seoul.go.kr:8088",
     "service": "culturalEventInfo",
     "page_rows": 1000,
-    "max_rows": 6000,
+    "max_rows": 25000,
+    "about_rows": "The live list held 19,659 rows on 2026-10-26 (past events included): every page is read (about 20 requests), the answers are not cached (only the decisions are kept in review/seoul-events.json).",
     "probe": true,
     "link_radius_m": 300,
     "max_events_per_project": 20
@@ -511,8 +512,16 @@
       "몰입형 전시",
       "실감 미디어",
       "빛초롱",
-      "야간경관"
+      "야간경관",
+      "유등축제",
+      "불빛축제",
+      "빛초롱축제"
     ],
+    "about_festivals": "searchFestival2 lists the festivals from festival_lookback_days ago: festivals already found get their edition's dates (kind festival, status from eventstartdate/eventenddate), and festivals whose title names a term are read like the keyword hits.",
+    "festivals": true,
+    "festival_lookback_days": 30,
+    "festival_rows": 100,
+    "festival_max_pages": 10,
     "content_types": {
       "12": "attraction",
       "14": "cultural_facility",

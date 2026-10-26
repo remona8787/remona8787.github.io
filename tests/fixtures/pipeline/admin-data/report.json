@@ -1,7 +1,7 @@
 {
  "cache": {
   "hits": 5,
-  "misses": 1290,
+  "misses": 1310,
   "sizes": {
    "commons-category": 25,
    "commons-depicts": 19,
@@ -11,21 +11,20 @@
    "commons-search": 72,
    "entities": 32,
    "entities-aux": 65,
-   "flickr": 66,
-   "kto-photo": 55,
-   "links": 97,
-   "openverse": 116,
+   "flickr": 67,
+   "kto-photo": 56,
+   "links": 98,
+   "openverse": 117,
    "overpass": 20,
    "quality": 31,
-   "seoul-events": 1,
    "sparql": 41,
-   "tourapi": 107,
+   "tourapi": 119,
    "visual": 31,
    "wiki-pages": 13,
    "wiki-search": 59
   },
   "stale": 0,
-  "writes": 975
+  "writes": 990
  },
  "changes": {
   "carried_over": [],
@@ -60,6 +59,7 @@
    "ED-fixture-light-pavilion",
    "KTO-2900002",
    "KTO-2900006",
+   "KTO-2900007",
    "Q125715",
    "Q127587129",
    "Q15014400",
@@ -131,19 +131,19 @@
   "candidates_awaiting_review": 2,
   "carried_over": 0,
   "changed": 0,
-  "collected": 73,
-  "eligible": 68,
+  "collected": 74,
+  "eligible": 69,
   "excluded": 5,
   "foreign": 12,
   "hero_candidates_awaiting_review": 6,
-  "kr": 56,
-  "kr_with_region": 56,
+  "kr": 57,
+  "kr_with_region": 57,
   "merged": 4,
-  "new": 68,
-  "observations": 88,
-  "observations_kept": 87,
-  "projects_built": 73,
-  "published": 68,
+  "new": 69,
+  "observations": 89,
+  "observations_kept": 88,
+  "projects_built": 74,
+  "published": 69,
   "removed": 0,
   "stale": 0,
   "with_hero": 5,
@@ -358,42 +358,42 @@
  ],
  "http": {
   "api.flickr.com": {
-   "bytes": 7437,
+   "bytes": 7514,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 3600,
+   "ms": 3640,
    "not_modified": 0,
-   "ok": 66,
-   "requests": 66,
+   "ok": 67,
+   "requests": 67,
    "statuses": {
-    "200": 66
+    "200": 67
    }
   },
   "api.openverse.org": {
-   "bytes": 10897,
+   "bytes": 10967,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 393440,
+   "ms": 397100,
    "not_modified": 0,
-   "ok": 116,
-   "requests": 116,
+   "ok": 117,
+   "requests": 117,
    "statuses": {
-    "200": 116
+    "200": 117
    }
   },
   "apis.data.go.kr": {
-   "bytes": 27062,
+   "bytes": 31597,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 55620,
+   "ms": 61660,
    "not_modified": 0,
-   "ok": 162,
-   "requests": 162,
+   "ok": 175,
+   "requests": 175,
    "statuses": {
-    "200": 162
+    "200": 175
    }
   },
   "ar.wikipedia.org": {
@@ -410,7 +410,7 @@
    }
   },
   "commons.wikimedia.org": {
-   "bytes": 152384,
+   "bytes": 151267,
    "cached": 2,
    "errors": 0,
    "last_error": null,
@@ -670,7 +670,7 @@
    }
   },
   "www.wikidata.org": {
-   "bytes": 70984,
+   "bytes": 72945,
    "cached": 0,
    "errors": 0,
    "last_error": null,
@@ -699,13 +699,13 @@
  "image_audit": {
   "cards": {
    "all": {
-    "projects": 68,
-    "rate_pct": 26.5,
+    "projects": 69,
+    "rate_pct": 26.1,
     "with_valid_card": 18
    },
    "korea": {
-    "projects": 56,
-    "rate_pct": 14.3,
+    "projects": 57,
+    "rate_pct": 14,
     "with_valid_card": 8
    },
    "world": {
@@ -761,18 +761,18 @@
   "kept_previous": 0,
   "measure_errors": 0,
   "measured": 31,
-  "none": 50,
+  "none": 51,
   "openverse_rate_limit": {
    "x-ratelimit-available-anon_burst": 19
   },
   "portraits": 1,
-  "processed": 68,
+  "processed": 69,
   "provider_errors": {},
   "provider_new_requests": {
-   "flickr": 66,
-   "kto_photo": 55,
-   "openverse": 116,
-   "tourapi": 55
+   "flickr": 67,
+   "kto_photo": 56,
+   "openverse": 117,
+   "tourapi": 56
   },
   "provider_rejected": {
    "flickr:identity_unproven": 1,
@@ -782,10 +782,10 @@
    "tourapi:rights": 1
   },
   "provider_requests": {
-   "flickr": 66,
-   "kto_photo": 55,
-   "openverse": 116,
-   "tourapi": 55
+   "flickr": 67,
+   "kto_photo": 56,
+   "openverse": 117,
+   "tourapi": 56
   },
   "provider_unverified": 2,
   "quality_fetched": 31,
@@ -814,10 +814,10 @@
    "merged": 1,
    "new_candidates": 1,
    "probe": false,
-   "published": 3,
-   "received": 5,
-   "relevant": 4,
-   "requested": 52
+   "published": 4,
+   "received": 6,
+   "relevant": 5,
+   "requested": 63
   }
  },
  "reachability": {
@@ -854,10 +854,10 @@
  },
  "run": {
   "budget_minutes": 25,
-  "build_id": "20261020T061700Z-7b2d914c",
+  "build_id": "20261020T061700Z-cb2cf9ed",
   "drop_guard": null,
-  "duration_ms": 710360,
-  "finished_at": "2026-10-20T06:28:50.360Z",
+  "duration_ms": 715720,
+  "finished_at": "2026-10-20T06:28:55.720Z",
   "number": 1,
   "publish": "published",
   "started_at": "2026-10-20T06:17:00.000Z",
@@ -974,7 +974,7 @@
    "consecutive_failures": 0,
    "errors": [],
    "from_cache": 0,
-   "items": 97,
+   "items": 98,
    "last_success": "2026-10-20T06:17:00.000Z",
    "status": "ok",
    "unchecked": 0
@@ -998,11 +998,11 @@
   },
   "tourapi": {
    "consecutive_failures": 0,
-   "duration_ms": 25540,
+   "duration_ms": 31040,
    "errors": [],
-   "items": 4,
+   "items": 5,
    "last_success": "2026-10-20T06:17:00.000Z",
-   "seen": 5,
+   "seen": 6,
    "status": "ok"
   },
   "web": {
@@ -1074,11 +1074,11 @@
    "status": "ok"
   },
   "images": {
-   "duration_ms": 509960,
+   "duration_ms": 514280,
    "status": "ok"
   },
   "links": {
-   "duration_ms": 98240,
+   "duration_ms": 99280,
    "status": "ok"
   },
   "overpass": {

@@ -326,6 +326,19 @@ test('Seoul cultural events: linked to their place, counted per source; without 
   assert.ok((await readJSON(path.join(d2, 'review/seoul-events.json'))).fields.includes('TITLE'))
 })
 
+test('kind and status: TourAPI festival editions (searchFestival2) and Wikidata dates; nothing guessed', needSharp, async () => {
+  const { data, result } = await firstRun()
+  const r = (id) => data.records.get(id)
+  assert.deepEqual(['KTO-2900002', 'KTO-2900006', 'KTO-2900007'].map((id) => [r(id).kind, r(id).status, r(id).status_source]), [['festival', 'running', 'tourapi'], ['festival', 'upcoming', 'tourapi'], ['festival', 'ended', 'tourapi']])
+  assert.equal(r('KTO-2900007').name_ko, '픽스처 남강 유등축제', 'a light festival found only in the festival list')
+  assert.ok(!data.records.has('KTO-2900008'), 'a food festival is never a project')
+  assert.equal(r('Q4167').status, 'seasonal')
+  assert.deepEqual([r('Q99000502').start_date, r('Q99000502').end_date, r('Q99000502').status], ['2026-12-20', '2027-01-10', 'upcoming'])
+  assert.equal(r('SEOUL001').status, 'unknown')
+  assert.equal(r('SEOUL001').status_source, null)
+  assert.ok(result.report.public_data.tourapi.requested > 0)
+})
+
 test('contact sheets show real pictures on every run, also when the measurements come from the cache', needSharp, async () => {
   const { dir } = await firstRun()
   const first = JSON.parse(await readFile(path.join(dir, 'review/contact-sheets/index.json'), 'utf8'))
