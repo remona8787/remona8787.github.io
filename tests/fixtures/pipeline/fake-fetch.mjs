@@ -51,11 +51,13 @@ function sparql(body) {
   const [, k, q] = kind
   if (k === 'kr-divisions') return jsonRes(read('wikidata/sparql/kr-divisions.json'), { type: 'application/sparql-results+json' })
   if (k === 'class-membership') {
-    // Direct P31 only (the fixture classes have no subclass trees here).
+    // wdt:P31/wdt:P279* over the fixture entities (P279 trees of the fixture classes).
     const vals = (name) => [...(new RegExp('VALUES \\?' + name + ' \\{([^}]*)\\}').exec(query)?.[1] || '').matchAll(/wd:(Q\d+)/g)].map((m) => m[1])
     const classes = new Set(vals('class'))
+    const ids = (e, pid) => (e?.claims?.[pid] || []).map((x) => x.mainsnak?.datavalue?.value?.id).filter(Boolean)
+    const up = (start) => { const seen = new Set(), todo = [...start]; while (todo.length) { const c = todo.pop(); if (seen.has(c)) continue; seen.add(c); todo.push(...ids(FIX.entities.get(c), 'P279')) } return seen }
     const bindings = []
-    for (const id of vals('item')) for (const c of (FIX.entities.get(id)?.claims?.P31 || []).map((x) => x.mainsnak?.datavalue?.value?.id)) if (classes.has(c)) bindings.push({ item: { type: 'uri', value: ENTITY + id }, class: { type: 'uri', value: ENTITY + c } })
+    for (const id of vals('item')) for (const c of up(ids(FIX.entities.get(id), 'P31'))) if (classes.has(c)) bindings.push({ item: { type: 'uri', value: ENTITY + id }, class: { type: 'uri', value: ENTITY + c } })
     return jsonRes({ head: { vars: ['item', 'class'] }, results: { bindings } }, { type: 'application/sparql-results+json' })
   }
   if (k === 'class-count' || k === 'class-instances' || k === 'kr-class-instances') {

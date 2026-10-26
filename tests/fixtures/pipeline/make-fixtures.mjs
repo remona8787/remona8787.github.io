@@ -64,12 +64,18 @@ for (const [q, en, ko] of [
   ['Q1823448', 'light installation', '빛 설치 미술'], ['Q124414048', 'lights festival', '빛 축제'], ['Q776483', 'projection mapping', '프로젝션 매핑'],
   ['Q17158007', 'media facade', '미디어 파사드'], ['Q1421557', 'light art', '빛 예술'], ['Q378604', 'new media art', '뉴미디어 아트'],
   ['Q60744298', 'drone display', null], ['Q4830453', 'business', '기업'], ['Q5', 'human', '사람'], ['Q4167836', 'Wikimedia category', '위키미디어 분류'],
-  ['Q515', 'city', '도시'], ['Q5119', 'capital city', '수도'], ['Q1549591', 'big city', '대도시'], ['Q484170', 'commune of France', '프랑스의 코뮌'],
+  ['Q5119', 'capital city', '수도'], ['Q1549591', 'big city', '대도시'], ['Q484170', 'commune of France', '프랑스의 코뮌'],
   ['Q1093829', 'city of the United States', '미국의 시'], ['Q6256', 'country', '국가'], ['Q3624078', 'sovereign state', '주권 국가'],
   ['Q41176', 'building', '건축물'], ['Q11303', 'skyscraper', '마천루'], ['Q11315', 'shopping center', '쇼핑 센터'], ['Q132241', 'festival', '축제'],
   ['Q12518', 'tower', '탑'], ['Q99000401', 'autonomous district of Seoul', '서울특별시의 자치구'], ['Q99000402', 'states and territories of Australia', null],
   ['Q968159', 'art movement', '예술 사조'], ['Q183061', 'façade', '파사드'],
 ]) add(q, { labels: { en, ...(ko ? { ko } : {}) } })
+// Never a project, with their subclasses (config/classes.json "subclasses"): the live labels; a small P279 tree.
+add('Q56061', { labels: { en: 'administrative territorial entity', ko: '행정 구역' } })
+add('Q486972', { labels: { en: 'human settlement', ko: '주거지' } })
+add('Q515', { labels: { en: 'city', ko: '도시' }, claims: { P279: 'Q486972' } })
+add('Q29045252', { labels: { en: 'city of South Korea', ko: '대한민국의 시' }, claims: { P279: 'Q515' } })
+add('Q16022392', { labels: { en: 'edit-a-thon', ko: '에디터톤' } })
 // Countries.
 for (const [q, en, ko, iso] of [['Q30', 'United States', '미국', 'US'], ['Q142', 'France', '프랑스', 'FR'], ['Q183', 'Germany', '독일', 'DE'], ['Q213', 'Czech Republic', '체코', 'CZ'],
   ['Q884', 'South Korea', '대한민국', 'KR'], ['Q408', 'Australia', '오스트레일리아', 'AU'], ['Q40', 'Austria', '오스트리아', 'AT'], ['Q55', 'Netherlands', '네덜란드', 'NL']]) {
@@ -129,6 +135,11 @@ add('Q99000107', { labels: { en: 'Fixture Drone Show' }, claims: { P31: 'Q607442
 add('Q99000108', { labels: { en: 'Fixture Neon Sign' }, claims: { P31: 'Q1823448', P17: 'Q30', P131: 'Q60', P625: [[40.758, -73.9855]] } })
 add('Q6703289', { labels: { en: 'Lumino Kinetic art' }, claims: { P31: 'Q968159' } })
 add('Q8590079', { labels: { en: 'Category:Light art' }, claims: { P31: 'Q4167836', P301: 'Q1421557' } })
+// Live leak (2026-10-26): a city whose Commons category sits under a lantern-festival root (and on its photos). Its
+// own P31 is no blocklisted class; only P31/P279* reaches city and human settlement.
+add('Q42087', { labels: { en: 'Namwon', ko: '남원시' }, descriptions: { en: 'city in North Jeolla Province, South Korea' },
+  claims: { P31: 'Q29045252', P17: 'Q884', P625: [[35.41, 127.3858]], P373: 'Namwon', P856: 'http://en.namwon.go.kr/en/' }, sitelinks: { enwiki: 'Namwon', kowiki: '남원시', commonswiki: 'Category:Namwon' } })
+add('Q6802446', { labels: { en: 'Category:Namwon' }, claims: { P31: 'Q4167836', P301: 'Q42087' } })
 
 // ---- Korea first (v0.18): first-level divisions, places under them, Korean projects of every Korean source.
 for (const [q, en, ko, cls] of [['Q99000411', 'province of South Korea', '대한민국의 도'], ['Q99000412', 'metropolitan city of South Korea', '대한민국의 광역시'], ['Q99000419', 'special city of South Korea', '대한민국의 특별시'],
@@ -279,6 +290,14 @@ const FILES = [
   ['Global Rainbow New York 2012.jpg', 'night_led2', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 50', ['Global Rainbow'], 'Laser rainbow over the city'],
   ['Global Rainbow Lisbon 2014.jpg', 'night_led2', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 50', ['Global Rainbow'], 'Laser rainbow over the river'],
   ['Global Rainbow Folkestone 2015.jpg', 'night_led2', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 50', ['Global Rainbow'], 'Laser rainbow over the harbour'],
+  // Live leaks (2026-10-26): photos of a Korean root whose other categories are a date, an editathon the photo was
+  // uploaded for, the city's night, a decade of events and the city; and one that names a festival (kept).
+  ['Pundeung Fest.jpg', 'night_field', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 51', ['Lantern festivals in South Korea', 'April 2017 in Daegu'], 'Lanterns at night'],
+  ['Seoul Lantern Festival in 2013.jpg', 'night_led', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 52', ['Lantern festivals in South Korea', 'Akeneo Wikimedia Editathon - Mallorca, October 2022', 'Night in Seoul'], 'Lanterns on the stream'],
+  ['Seoul Lantern Festival 03.jpg', 'night_led2', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 53', ['Lantern festivals in South Korea', 'Events in Seoul in the 2010s'], 'Lanterns on the stream at night'],
+  ['Chunhyang Festival2.jpg', 'night_field', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 54', ['Lantern festivals in South Korea', 'Namwon'], 'Lanterns at the Chunhyang Festival'],
+  ['Biking through Namwon.jpg', 'day', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 55', ['Namwon'], 'Cycling along the river'],
+  ['Daegu Colorful Dalgubeol Lantern Festival 2019.jpg', 'night_led', 3000, 2000, 'CC BY-SA 4.0', 'Fixture Photographer 56', ['Lantern festivals in South Korea', 'Daegu Colorful Dalgubeol Lantern Festival'], 'Sky lanterns over the stadium at night'],
 ]
 // Camera locations of files (GeoData primary coordinates).
 const FILE_GEOTAGS = {
@@ -361,6 +380,14 @@ const CATS = [
   ['Category:Global Rainbow', null, null, [], fileTitles('Global Rainbow New York 2012.jpg', 'Global Rainbow Lisbon 2014.jpg', 'Global Rainbow Folkestone 2015.jpg')],
   ['Category:Gwanghwamun', null, [37.5759, 126.9768], [], fileTitles('Gwanghwamun Gate daytime 2020.jpg')],
   ['Category:Tauron Arena Kraków', 'Q15014400', [50.0675, 19.9914], [], fileTitles('20231021 184556 weźże wyluzuj neon sign.jpg', 'Tauron Arena Kraków LED facade at night.jpg')],
+  // Live leaks (2026-10-26): a Korean root with photos; a city category among its subcategories.
+  ['Category:Lantern festivals in South Korea', null, null, ['Category:Namwon'], fileTitles('Pundeung Fest.jpg', 'Seoul Lantern Festival in 2013.jpg', 'Seoul Lantern Festival 03.jpg', 'Chunhyang Festival2.jpg', 'Daegu Colorful Dalgubeol Lantern Festival 2019.jpg')],
+  ['Category:Namwon', 'Q6802446', null, [], fileTitles('Chunhyang Festival2.jpg', 'Biking through Namwon.jpg')],
+  ['Category:April 2017 in Daegu', null, null, [], fileTitles('Pundeung Fest.jpg')],
+  ['Category:Akeneo Wikimedia Editathon - Mallorca, October 2022', null, null, [], fileTitles('Seoul Lantern Festival in 2013.jpg')],
+  ['Category:Night in Seoul', null, null, [], fileTitles('Seoul Lantern Festival in 2013.jpg')],
+  ['Category:Events in Seoul in the 2010s', null, null, [], fileTitles('Seoul Lantern Festival 03.jpg')],
+  ['Category:Daegu Colorful Dalgubeol Lantern Festival', null, null, [], fileTitles('Daegu Colorful Dalgubeol Lantern Festival 2019.jpg')],
 ]
 // Parent categories (prop=categories), for the country recovery and the Korean region of Commons projects.
 const PARENTS = {

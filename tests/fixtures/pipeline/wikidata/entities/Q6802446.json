@@ -1,0 +1,62 @@
+{
+ "pageid": 6802446,
+ "ns": 0,
+ "title": "Q6802446",
+ "lastrevid": 2400802446,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q6802446",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Category:Namwon"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "dba4ef2df8cfbee0a760369248a2921e",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 4167836,
+       "id": "Q4167836"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q6802446$dba4ef2d-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P301": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P301",
+     "hash": "ef4235be856c3551a271d1d72ba2b788",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 42087,
+       "id": "Q42087"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q6802446$ef4235be-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

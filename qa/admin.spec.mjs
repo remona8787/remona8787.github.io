@@ -210,7 +210,7 @@ test.describe('review queue',()=>{
 test('the project editor sends only changed fields, shows field states, and manages sources, media, visibility and merges',async({page})=>{
  const m=await mockSupabase(page);
  await signIn(page,'editor','#projects');
- expect(m.last('archive_admin_list_projects').body).toEqual({p_q:null,p_visibility:null,p_limit:50,p_offset:0});
+ await expect.poll(()=>m.last('archive_admin_list_projects')?.body).toEqual({p_q:null,p_visibility:null,p_limit:50,p_offset:0});
  await page.locator('#projectList .pitem',{hasText:'갤러리아 센터시티'}).click();
  const ed=page.locator('#projectEditor'),pf=page.locator('#projectForm');
  const state=k=>pf.locator(`[data-state-for="${k}"]`);
@@ -696,7 +696,7 @@ test('members and research data: admins only, aggregates only',async({page})=>{
  await expect(box).toContainText('오류율 10%');
  await expect(box).toContainText('kr-media-facades');
  await expect(box).toContainText('1.0.0');
- expect(m.last('research_admin_stats').body).toEqual({p_days:30});
+ await expect.poll(()=>m.last('research_admin_stats')?.body).toEqual({p_days:30});
  await page.locator('#membersDays').selectOption('90');
  await page.locator('#membersFilter').getByRole('button',{name:'보기'}).click();
  await expect.poll(()=>m.last('research_admin_stats').body).toEqual({p_days:90});

@@ -18,6 +18,28 @@
  },
  "descriptions": {},
  "aliases": {},
- "claims": {},
+ "claims": {
+  "P279": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P279",
+     "hash": "1d4a9dc1b6c8eb599bdcaef6552d0dbc",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 486972,
+       "id": "Q486972"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q515$1d4a9dc1-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
  "sitelinks": {}
 }

@@ -8,6 +8,7 @@ import { detectLocation } from '../../edge-functions/_shared/archive/normalize.m
 import { categoryTitle, chunk, stripTags, uniq, isQid, bareFile, validLat, validLng } from './util.mjs'
 import { termPattern } from './wikipedia.mjs'
 import { HOUR } from './cache.mjs'
+import { dateNameReason, isWikimediaEvent } from './not-projects.mjs'
 
 export const COMMONS_API = 'https://commons.wikimedia.org/w/api.php'
 export const api = (params) => `${COMMONS_API}?${new URLSearchParams({ format: 'json', formatversion: '2', ...params })}`
@@ -22,6 +23,10 @@ export function categoryRules(config) {
     edition: compile(config.edition_patterns),
     blocklist: compile(config.blocklist_patterns),
     koreaAllow: compile(config.korea_allow_patterns),
+    // A Korean root's photo: its other categories are candidates only when they name a light work, or when they are a
+    // located structure (the canvas) and the photo's own name names the light work on it.
+    rootPhotoWork: new RegExp(config.korea_root_photo?.category_pattern || '$^', 'iu'),
+    rootPhotoFile: new RegExp(config.korea_root_photo?.file_pattern || '$^', 'iu'),
     night: (config.night_subcategory_patterns || []).map((p) => new RegExp(p, 'i')),
     event: (config.event_subcategory_patterns || []).map((p) => new RegExp(p, 'i')),
     heuristics: config.aggregate_heuristics || { min_subcats_for_aggregate: 25, max_files_for_aggregate: 5 },
@@ -35,6 +40,12 @@ export function categoryRules(config) {
  */
 export function classifyCategory(title, info, root, rules) {
   const n = name(title)
+  // Never a project, never walked: date categories (April 2017 in Daegu, 2017 in Seoul, Events in Seoul in the
+  // 2010s) and Wikimedia community events (editathons, hackathons, Wiki Loves).
+  if (isWikimediaEvent(n)) return { decision: 'rejected', reason: 'wikimedia_event' }
+  // A dated name of a light work ("Seoul Lantern Festival in 2013") is an edition of that work.
+  const dated = dateNameReason(n)
+  if (dated) return rules.rootPhotoWork?.test(n) ? { decision: 'edition', reason: 'edition_date_' + dated } : { decision: 'rejected', reason: 'date_category_' + dated }
   // Korean light festivals named with words the worldwide blocklist rejects (lanterns): allowed under a Korean root.
   const allowed = root?.korea && (rules.koreaAllow || []).some((r) => r.re.test(n))
   if (!allowed) for (const r of rules.blocklist) if (r.re.test(n)) return { decision: 'rejected', reason: 'blocklist_' + r.reason }
@@ -364,8 +375,16 @@ export async function discoverCategories(client, config, { cache, ttlHours = 72,
           const prev = seen.get(i.title)
           if (prev) { if (prev.decision === 'candidate' && !prev.via_file) prev.via_file = via_file; continue }
           if (i.qid && classSet.has(i.qid)) continue
-          const d = classifyCategory(i.title, i, root, rules)
-          record(i, d.decision === 'candidate' ? { ...d, reason: 'category_of_a_korean_root_photo' } : d, { root: root.title + ' (photos)', parent: rootInfo.title, project_type: root.project_type ?? null, place_hint: koreanHint(i.title), via_file, korea: true })
+          let d = classifyCategory(i.title, i, root, rules)
+          // A photo's other categories are mostly its topics (the city, the night, the date, the photographer's
+          // project): a candidate only when the category names a light work, or is a located structure (the canvas)
+          // and the photo names the light work on it. Everything else is recorded and dropped.
+          if (d.decision === 'candidate') {
+            const names = rules.rootPhotoWork.test(name(i.title))
+            const canvas = !names && i.lat !== null && rules.rootPhotoFile.test(bareFile(via_file))
+            d = names || canvas ? { ...d, reason: 'category_of_a_korean_root_photo' } : { decision: 'rejected', reason: 'root_photo_topic_not_a_work' }
+          }
+          record(i, d, { root: root.title + ' (photos)', parent: rootInfo.title, project_type: root.project_type ?? null, place_hint: koreanHint(i.title), via_file, korea: true })
         }
       } catch (e) { if (e?.code === 'budget') { partial = true; break } errors.push({ stage: 'commons_root_files', root: root.title, message: String(e?.message || e).slice(0, 300) }) }
     }
