@@ -41,7 +41,7 @@
 | Unsplash, Pexels | `pipeline/lib/providers.mjs` | 미설정 | 키 필요 | 0 |
 | NAVER 검색(후보 발견 전용) | `edge-functions/_shared/archive/adapters/naver.mjs` | 미설정 | 키 필요 | 0 (공개에 쓰지 않음) |
 | GDELT·RSS(웹 후보) | `pipeline/lib/web.mjs` | 불필요 | 일부 성공("partial") | 후보만, 공개 0 |
-| 서울 문화행사(정적 파이프라인) | 없음 | – | 미구현 | 0 |
+| 서울 문화행사(정적 파이프라인, OA-15486) | `pipeline/lib/seoul-events.mjs` | `SEOUL_OPEN_DATA_KEY` 미설정 | 연결 성공(2026-10-26 06:23, 시험용 키 'sample'로 5건 수신, 결과 코드 INFO-000, 전체 19,659건). 키 필요 | 0 (시험 호출 결과는 공개하지 않음) |
 | 서울 문화행사(Supabase 경로) | `edge-functions/sync-seoul-cultural-events` | `SEOUL_OPEN_DATA_KEY`(Supabase 함수용) | 코드만(응답 개수만 세고 매핑 없음, Supabase 미연결) | 0 |
 | TourAPI·서울 통합 커넥터(Supabase 경로) | `edge-functions/sync-korea-open-data` | – | 코드만(501을 반환하는 뼈대) | 0 |
 | 전국문화축제표준데이터 | 없음 | – | 미구현 | 0 |
@@ -86,14 +86,16 @@
   - 주요 필드: 자치구, 공연/행사명, 장소, 날짜, 기관명, 이용대상, 이용요금, 출연자, 프로그램, 홈페이지, 위경도, 시작일, 종료일, 무료 여부. [2차]
   - 호출 형식: `http://openapi.seoul.go.kr:8088/{인증키}/json/culturalEventInfo/{시작}/{끝}/` [2차, 서드파티 예제]
   - 이 저장소의 Supabase 함수도 같은 형식을 씁니다.
-- **OA-23041:** API 서비스명은 [미확인]입니다. 첫 실행에서 서비스명과 필드명을 확인합니다.
+- **실제 응답으로 확인한 필드(2026-10-26, GitHub Actions에서 시험용 키로 호출):** CODENAME, DATE, END_DATE, ETC_DESC, GUNAME, HMPG_ADDR, INQUIRY, IS_FREE, LAT, LOT, MAIN_IMG, ORG_LINK, ORG_NAME, PLACE, PLAYER, PROGRAM, PRO_TIME, RGSTDATE, STRTDATE, THEMECODE, TICKET, TITLE, USE_FEE, USE_TRGT. 결과 코드 INFO-000(정상 처리), 전체 19,659건. [공식 응답]
+- **MAIN_IMG(행사 대표 이미지):** 데이터셋 자체는 공공누리 제1유형이지만, 행사 포스터·사진의 저작권은 주최 측에 있을 수 있습니다. 그래서 자동으로 게시하지 않습니다.
+- **OA-23041:** API 서비스명은 [미확인]입니다. 서비스명을 추측해서 호출하지 않습니다.
 - **주의:** 주소가 http(평문)이고 포트가 8088입니다.
   - 키가 주소 경로에 들어가므로 다른 호스트로 리다이렉트되면 따라가지 않습니다.
   - GitHub Actions에서 접속 가능한지 첫 실행에서 확인합니다.
 - **관련성 판단:** 행사명·프로그램·장소에 미디어아트·미디어파사드·프로젝션·빛·라이트 등의 단어가 없으면 프로젝트로 등록하지 않습니다.
 - **연결 방식:** 행사는 장소(Place)에 연결된 행사(Event) 레코드로 만들고, 같은 장소를 중복으로 만들지 않습니다.
 - **키:** `SEOUL_OPEN_DATA_KEY`(Supabase 함수와 같은 이름)를 GitHub Secret으로 등록합니다.
-- **상태:** 정적 파이프라인 연결은 미구현(수집 트랙에서 구현 예정), 키 필요.
+- **상태:** 구현 완료, 연결 확인(시험용 키), 키가 없어 실제 수집은 하지 않음. 키를 등록하면 6시간마다 최대 6,000건을 읽습니다. 관련 행사는 기존 프로젝트의 '행사' 정보로 연결하고, 새 장소는 검수 대기 후보로 보냅니다.
 
 ### 2-3. 전국문화축제표준데이터 (data.go.kr)
 
