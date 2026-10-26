@@ -10,6 +10,10 @@ for(const [,asset] of index.matchAll(/(?:src|href)="\.\/([^"#]+)"/g))await readF
 for(const name of ['refresh-media-rights','cache-commons-media','promote-candidate','sync-place-media','discover-city-candidates','sync-seoul-cultural-events','sync-global-places','archive-collect','archive-check-links']){
  const source=await readFile(path.join(root,'edge-functions',name,'index.ts'),'utf8');if(!source.includes('authorizedSecret'))throw Error('Missing explicit auth check: '+name);
 }
+// Functions for signed-in members resolve the user from their own token before touching data.
+for(const name of ['delete-account','research-download']){
+ const source=await readFile(path.join(root,'edge-functions',name,'index.ts'),'utf8');if(!source.includes('auth.getUser(token)'))throw Error('Missing user token check: '+name);
+}
 // archive-websub is public by design (hubs call it): its guard is the HMAC check of every push, so require that
 // explicitly instead of skipping it.
 {const src=await readFile(path.join(root,'edge-functions/archive-websub/index.ts'),'utf8'),lib=await readFile(path.join(root,'edge-functions/_shared/archive/websub.mjs'),'utf8'),svc=await readFile(path.join(root,'edge-functions/_shared/archive/service.mjs'),'utf8');

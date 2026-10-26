@@ -183,7 +183,7 @@ export function toPlace(r, { publicURL = '' } = {}) {
     name_kr: name, name_en: en || '', name_ko: ko, name_original: orig, name_original_lang: text(r.name_original_lang, 20),
     aliases: [], short_description: '', summary_ko: null, summary_en: null,
     primary_category: type ? CATEGORY_OF_TYPE[/** @type {keyof typeof CATEGORY_OF_TYPE} */ (type)] || null : null, project_type: type,
-    region: T.regionOf(iso), kr_region: kr, country_iso2: iso, country: iso ? T.countryName(iso, 'ko') : '', city: text(r.city, 120) || '', district: '', address: '',
+    region: T.regionOf(iso), kr_region: kr, country_iso2: iso, country: iso ? T.countryName(iso, 'ko') : '', city: text(r.city, 120) || '', city_ko: text(r.city_ko, 60), district: text(r.district, 120) || '', address: '',
     latitude: located ? lat : null, longitude: located ? lng : null,
     coordinate_review_status: located ? 'source' : null, coordinate_source: located ? 'dataset' : null, coordinate_source_url: located ? coordURL : null, location_precision: located ? 'exact' : 'unknown',
     year_installed: year(r.year ?? r.year_installed), year_completed: year(r.year_completed),

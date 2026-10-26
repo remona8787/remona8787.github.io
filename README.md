@@ -1,4 +1,8 @@
-# 최신 버전: v0.17.0
+# 최신 버전: v0.18.0
+
+- v0.18 (2026-10-25): 한국 우선 구성(국내 미디어파사드 · 국내 미디어아트·전시 · 지도 · 세계 미디어파사드 · 아카이브 검색 ·
+  내 컬렉션), 슬롯보다 작은 사진을 늘리지 않는 사진 규칙, 검색 범위(한국 · 세계 · 전체)와 오타에 너그러운 검색, 지역 안의
+  시·군·구, 검색엔진용 정적 프로젝트 페이지(`scripts/prerender.mjs`). 화면 설명: [docs/UI_v018.md](docs/UI_v018.md)
 
 - 공개 주소: https://remona8787.github.io (GitHub Pages). 빌드: `SITE_URL=https://remona8787.github.io npm run build` → `dist/`
   (`SITE_URL`이 없으면 `site-public-cleared/config.js`의 `PUBLIC_URL`을 그대로 씁니다). 배포 방법: [site-public-cleared/DEPLOY.md](site-public-cleared/DEPLOY.md)

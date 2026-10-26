@@ -571,8 +571,8 @@ label{display:block;margin:var(--s-3) 0;font-size:var(--fs-caption);font-weight:
 .card-media{position:relative}
 .card-art{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:var(--r-card);background:var(--panel)}
 .grid.results:not(.rows) .card-art{aspect-ratio:16/10}
-.card-art>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform var(--dur-page) var(--ease-standard)}
-@media (hover:hover) and (prefers-reduced-motion:no-preference){.place-card:hover .card-art>img,.hero-slide:hover .card-art>img,.region-tile:hover .card-art>img{transform:scale(1.03)}}
+.card-art>img,.card-art>picture>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform var(--dur-page) var(--ease-standard)}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){.place-card:hover .card-art>img,.hero-slide:hover .card-art>img,.region-tile:hover .card-art>img,.place-card:hover .card-art>picture>img,.hero-slide:hover .card-art>picture>img,.region-tile:hover .card-art>picture>img{transform:scale(1.03)}}
 /* Photo attribution stays visible on every photo and at every size: never hidden on hover, never under a scrim. */
 .image-credit{position:absolute;left:8px;bottom:8px;z-index:3;display:block;max-width:calc(100% - 16px);min-height:24px;padding:4px 8px;border-radius:8px;background:var(--credit-bg);color:#FFFFFF;font-size:var(--fs-tab);line-height:16px;font-weight:500;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 button.image-credit:hover{text-decoration:underline;text-underline-offset:2px}
@@ -659,7 +659,7 @@ button.image-credit:focus-visible{outline-color:#FFFFFF;outline-offset:1px}
 .curation-link:focus-visible{outline-offset:-4px;outline-color:#FFFFFF}
 .curation-card:hover{box-shadow:var(--shadow-2)}
 .curation-card:active{transform:scale(.98)}
-@media (hover:hover) and (prefers-reduced-motion:no-preference){.curation-card:hover .card-art>img{transform:scale(1.03)}}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){.curation-card:hover .card-art>img,.curation-card:hover .card-art>picture>img{transform:scale(1.03)}}
 .collection-number{display:block;font-size:28px;line-height:32px;font-weight:800;letter-spacing:-.02em;color:#FFFFFF;font-variant-numeric:tabular-nums}
 .curation-body{display:flex;flex-direction:column;gap:6px}
 .curation-body h3{margin:0;color:#FFFFFF;font-size:var(--fs-title2);line-height:var(--lh-title2);font-weight:700;letter-spacing:-.02em;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
@@ -1595,7 +1595,7 @@ a.plate-credit:focus-visible{outline-color:#FFFFFF}
 @media (min-width:1280px){.grid.results:not(.rows){grid-template-columns:repeat(4,minmax(0,1fr))}}
 .explore-body.with-filters .grid.results:not(.rows){grid-template-columns:repeat(3,minmax(0,1fr))}
 .row-art{position:relative;width:72px;height:72px;overflow:hidden;border-radius:10px;background:var(--panel)}
-.row-art>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.row-art>img,.row-art>picture>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
 /* ===== Designed placeholders: the type's light pattern, its label and a monogram (no photo) ===== */
 .ph{position:absolute;inset:0;display:block;overflow:hidden;background-color:var(--night-2);background-image:radial-gradient(70% 60% at 75% 20%,#6B52DE59 0%,#6B52DE00 70%),linear-gradient(160deg,#12143A 0%,#1C1F4A 60%,#2B2873 100%);color:var(--night-ink)}
@@ -1635,8 +1635,8 @@ li.region-tile{position:relative;aspect-ratio:3/4;border-radius:var(--r-md);over
 .region-link{position:absolute;inset:0;display:block;width:100%;color:#FFFFFF;text-align:left}
 .region-link:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:var(--r-md)}
 .region-art{position:absolute;inset:0;display:block}
-.region-art>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform var(--dur-page) var(--ease-standard)}
-@media (hover:hover) and (prefers-reduced-motion:no-preference){.region-link:hover .region-art>img{transform:scale(1.04)}}
+.region-art>img,.region-art>picture>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform var(--dur-page) var(--ease-standard)}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){.region-link:hover .region-art>img,.region-link:hover .region-art>picture>img{transform:scale(1.04)}}
 .region-text{position:absolute;inset:auto 0 0;z-index:2;display:grid;gap:2px;padding:var(--s-8) var(--s-4) var(--s-4);background:linear-gradient(180deg,#06071A00 0%,#06071AE6 70%)}
 li.region-tile .region-name{font-size:var(--fs-title3);line-height:var(--lh-title3);font-weight:800;letter-spacing:-.02em}
 .region-count{color:var(--night-muted);font-size:var(--fs-caption);line-height:var(--lh-caption);font-weight:600}
@@ -1666,8 +1666,8 @@ li.region-tile .region-name{font-size:var(--fs-title3);line-height:var(--lh-titl
 .theme-card.wide{min-height:300px}
 @media (min-width:1024px){.theme-card{min-height:260px}.theme-card.wide{min-height:536px}}
 .theme-art{position:absolute;inset:0}
-.theme-art>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform var(--dur-page) var(--ease-standard)}
-@media (hover:hover) and (prefers-reduced-motion:no-preference){.theme-card:hover .theme-art>img{transform:scale(1.03)}}
+.theme-art>img,.theme-art>picture>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform var(--dur-page) var(--ease-standard)}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){.theme-card:hover .theme-art>img,.theme-card:hover .theme-art>picture>img{transform:scale(1.03)}}
 .theme-link{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:4px;width:100%;padding:var(--s-5);text-align:left;color:#FFFFFF;background:linear-gradient(180deg,#06071A00 30%,#06071AEB 100%)}
 .theme-link:focus-visible{outline:2px solid var(--focus);outline-offset:2px;border-radius:var(--r-md)}
 .theme-kicker{color:var(--night-muted);font-size:var(--fs-micro);line-height:var(--lh-micro);font-weight:700;letter-spacing:.12em;text-transform:uppercase}
@@ -1705,7 +1705,7 @@ details[open]>summary .more-caret{transform:rotate(180deg)}
 .map-cluster{display:grid!important;place-items:center;border-radius:50%;background:#6B52DEE6;color:#FFFFFF;font-size:13px;font-weight:800;font-variant-numeric:tabular-nums;box-shadow:0 0 0 4px #6B52DE40,0 2px 8px #06071A59;border:2px solid #FFFFFF}
 .map-cluster:focus-visible{outline:2px solid #FFFFFF;outline-offset:2px}
 .map-item-art{position:relative;flex:none;width:56px;height:56px;overflow:hidden;border-radius:10px;background:var(--panel)}
-.map-item-art>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.map-item-art>img,.map-item-art>picture>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 
 /* ===== Place page: gallery first ===== */
 .detail-hero .card-art.detail-art{background:var(--night-2)}
@@ -1719,7 +1719,7 @@ details[open]>summary .more-caret{transform:rotate(180deg)}
 .gallery-figure.context .gallery-photo{opacity:.92}
 .role-tag{justify-self:start;display:inline-flex;align-items:center;min-height:22px;padding:0 8px;border-radius:6px;background:var(--panel);color:var(--text-muted);font-size:var(--fs-micro);font-weight:700}
 .gallery-figure .gallery-photo{position:relative;aspect-ratio:4/3}
-.gallery-figure .gallery-photo>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.gallery-figure .gallery-photo>img,.gallery-figure .gallery-photo>picture>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .gallery-video{position:relative;aspect-ratio:16/9;overflow:hidden;border-radius:var(--r-card);background:var(--night)}
 .gallery-video video,.video-fallback img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:var(--night)}
 .video-fallback{position:absolute;inset:0;display:flex;align-items:flex-end;padding:var(--s-3);color:#FFFFFF;font-weight:600}
@@ -1877,7 +1877,7 @@ h2.result-group .tnum{color:var(--text-muted);font-size:var(--fs-label);font-wei
 
 /* ===== Photos: never larger than their renditions ===== */
 .card-art.detail-art.matted{display:grid;place-items:center;background:radial-gradient(60% 70% at 50% 40%,#2B287366 0%,#2B287300 70%),var(--night)}
-.card-art.detail-art.matted>img{position:relative;inset:auto;width:auto;height:auto;max-width:min(100%,var(--natural,100%));max-height:100%;object-fit:contain;transform:none!important}
+.card-art.detail-art.matted>img,.card-art.detail-art.matted>picture>img{position:relative;inset:auto;width:auto;height:auto;max-width:min(100%,var(--natural,100%));max-height:100%;object-fit:contain;transform:none!important}
 .gallery-figure .gallery-photo{max-width:min(100%,var(--natural,100%))}
 .credit-source{color:var(--text-muted);font-size:var(--fs-micro);line-height:var(--lh-micro)}
 .ph.ph-failed{position:absolute;inset:0}
@@ -1919,3 +1919,21 @@ html[lang=ko] .section-eyebrow,html[lang=ko] .page-eyebrow,html[lang=ko] .hero-k
 .project-group .count{color:var(--text-muted);font-size:var(--fs-label);font-weight:600}
 .project-group ul{columns:2 260px;column-gap:var(--s-6)}
 .project-group li{break-inside:avoid}
+/* The archive search's scope (한국 · 세계 · 전체) and its notes (a widened scope, a guessed word). */
+.search-scope{margin:0 0 var(--s-3)}
+.search-scope button{gap:6px}
+/* The count keeps the label's colour (no fading): the unselected label is already the muted text on the panel. */
+.search-scope .chip-count{color:inherit;opacity:1;font-weight:600}
+.search-note{margin:var(--s-2) 0 var(--s-3);padding:var(--s-2) var(--s-3);border-radius:var(--r-md);background:var(--panel);color:var(--text);font-size:var(--fs-label);line-height:1.6}
+@media (max-width:1023px){.search-scope{display:grid;width:100%}.search-scope button{min-height:44px}}
+/* 시·군·구 inside a Korean region page. */
+.area-filters{margin:0 0 var(--s-4)}
+.area-filters .chips{margin-top:0;margin-bottom:var(--s-2)}
+/* A card's status badge sits where a placeholder prints its type: the type moves to the bottom corner there. */
+.place-card:has(.card-badge) .ph-type{top:auto;bottom:12px}
+/* The place page's gallery is laid out (and its lazy photos fetched) only near the viewport, so on a phone its photos
+   do not compete with the lead photo for the first paint. */
+#detailPhotos{content-visibility:auto;contain-intrinsic-size:auto 1200px}
+
+/* A <picture> (formats a provider serves, imgTag) lays out as its image. */
+picture{display:contents}
