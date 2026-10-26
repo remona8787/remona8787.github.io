@@ -31,8 +31,8 @@
 
 | 출처 | 코드 위치 | 키(GitHub Secret) | 상태 | 공개 반영 |
 |---|---|---|---|---|
-| Wikidata SPARQL | `pipeline/lib/wikidata.mjs` | 불필요 | 연결 성공 | 공개 반영(전체 279곳 중 해당분) |
-| Wikimedia Commons | `pipeline/lib/commons.mjs` | 불필요 | 연결 성공 | 공개 반영(공개 이미지 1,125장 전부) |
+| Wikidata SPARQL | `pipeline/lib/wikidata.mjs` | 불필요 | 연결 성공 | 공개 반영(빌드 20261026T215526Z 기준 전체 390곳 중 해당분. 국내 검색: 검색어 페이지 넘김과 한국어 이름 스캔, 이름 일부만 맞은 항목은 축제·행사·작품·시설 분류가 있어야 함) |
+| Wikimedia Commons | `pipeline/lib/commons.mjs` | 불필요 | 연결 성공 | 공개 반영(공개 이미지 1,742장 전부, 빌드 20261026T215526Z) |
 | Wikipedia(13개 언어, 한국어 포함) | `pipeline/lib/wikipedia.mjs` | 불필요 | 연결 성공 | 공개 반영. 단, 한국어 검색 결과 381건은 대부분 일반 개념어나 해외 항목이었습니다(개선 중). |
 | 한국관광공사 TourAPI KorService2 | `pipeline/lib/tourapi.mjs` | `TOURAPI_SERVICE_KEY` 미설정 | 키 필요(매 실행 "skipped") | 0 |
 | 한국관광공사 관광사진(PhotoGalleryService1) | `pipeline/lib/providers.mjs` | 같은 키 | 키 필요 | 0 |
@@ -41,14 +41,14 @@
 | Unsplash, Pexels | `pipeline/lib/providers.mjs` | 미설정 | 키 필요 | 0 |
 | NAVER 검색(후보 발견 전용) | `edge-functions/_shared/archive/adapters/naver.mjs` | 미설정 | 키 필요 | 0 (공개에 쓰지 않음) |
 | GDELT·RSS(웹 후보) | `pipeline/lib/web.mjs` | 불필요 | 일부 성공("partial") | 후보만, 공개 0 |
-| 서울 문화행사(정적 파이프라인, OA-15486) | `pipeline/lib/seoul-events.mjs` | `SEOUL_OPEN_DATA_KEY` 미설정 | 연결 성공(2026-10-26 06:23, 시험용 키 'sample'로 5건 수신, 결과 코드 INFO-000, 전체 19,659건). 키 필요 | 0 (시험 호출 결과는 공개하지 않음) |
+| 서울 문화행사(정적 파이프라인, OA-15486) | `pipeline/lib/seoul-events.mjs` | `SEOUL_OPEN_DATA_KEY` 미설정 | 연결 성공(2026-10-26 06:23 처음, 이후 매 실행. 시험용 키 'sample'로 5건 수신, 결과 코드 INFO-000, 전체 19,659건. 21:22 실행의 5건은 모두 미디어아트 검색어가 없어 관련 없음). 키 필요 | 0 (시험 호출 결과는 공개하지 않음. 장소 연결·events.csv 출력은 픽스처로만 검증) |
 | 서울 문화행사(Supabase 경로) | `edge-functions/sync-seoul-cultural-events` | `SEOUL_OPEN_DATA_KEY`(Supabase 함수용) | 코드만(응답 개수만 세고 매핑 없음, Supabase 미연결) | 0 |
 | TourAPI·서울 통합 커넥터(Supabase 경로) | `edge-functions/sync-korea-open-data` | – | 코드만(501을 반환하는 뼈대) | 0 |
 | 전국문화축제표준데이터 | 없음 | – | 미구현 | 0 |
 | 문화공공데이터광장 | 없음 | – | 미구현 | 0 |
 | 서울시 실시간 도시데이터 | 없음 | – | 미구현 | 0 |
 
-**결론:** 국내 공공데이터 중 실제로 연결돼 공개 사이트에 반영된 것은 아직 없습니다. 국내 52곳(서울 51, 인천 1)은 모두 편집부가 직접 수록한 장소(SEOUL001~)와 Wikidata/Commons/Wikipedia에서 왔습니다. 국내 확장의 가장 큰 병목은 TourAPI 키 미설정입니다.
+**결론:** 국내 공공데이터 중 실제로 연결돼 공개 사이트에 반영된 것은 아직 없습니다. 국내 54곳(서울 51, 경기·인천 1, 부산·울산·경남 1, 광주·전라 1, 빌드 20261026T215526Z)은 모두 편집부가 직접 수록한 장소(SEOUL001~)와 Wikidata/Commons/Wikipedia에서 왔습니다. 국내 확장의 가장 큰 병목은 TourAPI와 서울 열린데이터 키 미설정입니다.
 
 ## 2. 우선 연계 대상 (확인 결과)
 
