@@ -136,6 +136,7 @@ const catPage = (title, props) => {
   if (!c) return { ns: 14, title, missing: true }
   const pg = { pageid: c.page.pageid, ns: 14, title }
   if (props.includes('pageprops') && c.page.pageprops) pg.pageprops = c.page.pageprops
+  if (props.includes('categories') && c.parents?.length) pg.categories = c.parents.map((t) => ({ ns: 14, title: t }))
   if (props.includes('categoryinfo')) pg.categoryinfo = c.page.categoryinfo
   if (props.includes('coordinates') && c.page.coordinates) pg.coordinates = c.page.coordinates
   return pg
@@ -174,7 +175,8 @@ function commons(p, state) {
   if (p.get('generator') === 'categorymembers') {
     const c = FIX.categories.get(normTitle(p.get('gcmtitle')))
     const types = (p.get('gcmtype') || 'page|subcat|file').split('|')
-    const pages = (c?.members || []).filter((m) => types.includes(m.type)).map((m) => (m.ns === 14 ? catPage(m.title, props) : { ns: m.ns, title: m.title }))
+    const geo = (t) => { const g = FIX.search.file_geotags?.[t.replace(/^File:/, '')]; return props.includes('coordinates') && g ? { coordinates: [{ lat: g[0], lon: g[1], primary: true, globe: 'earth' }] } : {} }
+    const pages = (c?.members || []).filter((m) => types.includes(m.type)).map((m) => (m.ns === 14 ? catPage(m.title, props) : { ns: m.ns, title: m.title, ...geo(m.title) }))
     return jsonRes({ batchcomplete: true, query: { pages } })
   }
   if (p.get('list') === 'categorymembers') {
@@ -214,6 +216,16 @@ function commons(p, state) {
     })
     state.templateRounds++
     return jsonRes({ ...(next ? { continue: { tlcontinue: `${next[0]}|10|${next[1]}`, continue: '||imageinfo' } } : { batchcomplete: true }), query: { pages } })
+  }
+  if (p.get('titles') && props.includes('categories') && p.get('titles').split('|').every((t) => /^File:/.test(t))) {
+    // The visible categories of files (from the fixture file's category list).
+    const pages = p.get('titles').split('|').map(normTitle).map((t) => {
+      const f = FIX.files.get(t.replace(/^File:/, ''))
+      if (!f) return { ns: 6, title: t, missing: true }
+      const cats = String(f.page.imageinfo[0].extmetadata.Categories?.value || '').split('|').filter(Boolean)
+      return { pageid: f.page.pageid, ns: 6, title: f.page.title, categories: cats.map((c) => ({ ns: 14, title: 'Category:' + c })) }
+    })
+    return jsonRes({ batchcomplete: true, query: { pages } })
   }
   if (p.get('titles')) {
     const titles = p.get('titles').split('|')

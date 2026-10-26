@@ -1,32 +1,36 @@
 {
  "cache": {
-  "hits": 5,
-  "misses": 1323,
+  "hits": 6,
+  "misses": 1435,
   "sizes": {
-   "commons-category": 25,
-   "commons-depicts": 20,
-   "commons-file-depicts": 47,
-   "commons-files": 47,
-   "commons-members": 31,
+   "commons-category": 47,
+   "commons-category-item": 8,
+   "commons-depicts": 23,
+   "commons-file-cats": 1,
+   "commons-file-depicts": 53,
+   "commons-files": 53,
+   "commons-geotags": 4,
+   "commons-members": 35,
+   "commons-parents": 5,
    "commons-search": 72,
-   "entities": 35,
-   "entities-aux": 67,
-   "flickr": 68,
+   "entities": 38,
+   "entities-aux": 77,
+   "flickr": 74,
    "kto-photo": 57,
    "links": 98,
-   "openverse": 119,
-   "overpass": 21,
-   "quality": 31,
+   "openverse": 120,
+   "overpass": 23,
+   "quality": 37,
    "sparql": 42,
    "tourapi": 120,
-   "visual": 31,
+   "visual": 37,
    "wiki-pages": 14,
    "wiki-search": 49,
    "wikidata-articles": 1,
    "wikidata-search": 2
   },
   "stale": 0,
-  "writes": 997
+  "writes": 1090
  },
  "changes": {
   "carried_over": [],
@@ -34,19 +38,19 @@
   "merges": [
    {
     "a": "cur:SEOUL018",
-    "b": "obs:000068",
+    "b": "obs:000071",
     "distance_m": 14,
     "rule": "name_within_300m"
    },
    {
     "a": "cur:SEOUL018",
-    "b": "obs:000068",
+    "b": "obs:000071",
     "rule": "same_official_url",
     "url": "https://lwt.co.kr/"
    },
    {
     "a": "cur:SEOUL018",
-    "b": "obs:000068",
+    "b": "obs:000071",
     "distance_m": 14,
     "rule": "tourapi_name_within_300m"
    },
@@ -57,6 +61,9 @@
    }
   ],
   "new": [
+   "CAT-0AEBIPR",
+   "CAT-0BLB3MO",
+   "CAT-1HJOGAD",
    "CAT-1VRD089",
    "ED-fixture-light-pavilion",
    "KTO-2900002",
@@ -78,6 +85,9 @@
    "Q99000502",
    "Q99000503",
    "Q99000506",
+   "Q99000702",
+   "Q99000704",
+   "Q99000706",
    "SEOUL001",
    "SEOUL002",
    "SEOUL003",
@@ -134,23 +144,23 @@
   "candidates_awaiting_review": 2,
   "carried_over": 0,
   "changed": 0,
-  "collected": 75,
-  "eligible": 70,
-  "excluded": 5,
-  "foreign": 12,
-  "hero_candidates_awaiting_review": 6,
-  "kr": 58,
-  "kr_with_region": 58,
+  "collected": 82,
+  "eligible": 76,
+  "excluded": 6,
+  "foreign": 16,
+  "hero_candidates_awaiting_review": 11,
+  "kr": 60,
+  "kr_with_region": 60,
   "merged": 4,
-  "new": 70,
-  "observations": 93,
-  "observations_kept": 90,
-  "projects_built": 75,
-  "published": 70,
+  "new": 76,
+  "observations": 100,
+  "observations_kept": 97,
+  "projects_built": 82,
+  "published": 76,
   "removed": 0,
   "stale": 0,
   "with_hero": 5,
-  "with_images": 18
+  "with_images": 21
  },
  "decisions": [
   {
@@ -361,29 +371,29 @@
  ],
  "http": {
   "api.flickr.com": {
-   "bytes": 7591,
+   "bytes": 8053,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 3680,
+   "ms": 6800,
    "not_modified": 0,
-   "ok": 68,
-   "requests": 68,
+   "ok": 74,
+   "requests": 74,
    "statuses": {
-    "200": 68
+    "200": 74
    }
   },
   "api.openverse.org": {
-   "bytes": 11107,
+   "bytes": 11177,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 404120,
+   "ms": 409160,
    "not_modified": 0,
-   "ok": 119,
-   "requests": 119,
+   "ok": 120,
+   "requests": 120,
    "statuses": {
-    "200": 119
+    "200": 120
    }
   },
   "apis.data.go.kr": {
@@ -391,7 +401,7 @@
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 62200,
+   "ms": 61820,
    "not_modified": 0,
    "ok": 177,
    "requests": 177,
@@ -413,16 +423,16 @@
    }
   },
   "commons.wikimedia.org": {
-   "bytes": 152616,
+   "bytes": 173892,
    "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 173480,
+   "ms": 210560,
    "not_modified": 0,
-   "ok": 185,
-   "requests": 185,
+   "ok": 224,
+   "requests": 224,
    "statuses": {
-    "200": 185
+    "200": 224
    }
   },
   "de.wikipedia.org": {
@@ -608,16 +618,16 @@
    }
   },
   "query.wikidata.org": {
-   "bytes": 31515,
+   "bytes": 34568,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 42160,
+   "ms": 43200,
    "not_modified": 0,
-   "ok": 46,
-   "requests": 46,
+   "ok": 48,
+   "requests": 48,
    "statuses": {
-    "200": 46
+    "200": 48
    }
   },
   "ru.wikipedia.org": {
@@ -660,20 +670,20 @@
    }
   },
   "upload.wikimedia.org": {
-   "bytes": 1042961,
+   "bytes": 1266061,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 2280,
+   "ms": 2760,
    "not_modified": 0,
-   "ok": 57,
-   "requests": 57,
+   "ok": 69,
+   "requests": 69,
    "statuses": {
-    "200": 57
+    "200": 69
    }
   },
   "www.wikidata.org": {
-   "bytes": 83072,
+   "bytes": 87473,
    "cached": 0,
    "errors": 0,
    "last_error": null,
@@ -702,46 +712,46 @@
  "image_audit": {
   "cards": {
    "all": {
-    "projects": 70,
-    "rate_pct": 25.7,
-    "with_valid_card": 18
+    "projects": 76,
+    "rate_pct": 27.6,
+    "with_valid_card": 21
    },
    "korea": {
-    "projects": 58,
-    "rate_pct": 13.8,
-    "with_valid_card": 8
+    "projects": 60,
+    "rate_pct": 16.7,
+    "with_valid_card": 10
    },
    "world": {
-    "projects": 12,
-    "rate_pct": 83.3,
-    "with_valid_card": 10
+    "projects": 16,
+    "rate_pct": 68.8,
+    "with_valid_card": 11
    }
   },
   "duplicates_removed": 0,
   "duplicates_this_run": 4,
-  "images": 31,
+  "images": 37,
   "low_res_rejected": 0,
   "mislinked_rejected": 5,
   "mislinked_removed": 0,
-  "newly_added_valid": 31,
+  "newly_added_valid": 37,
   "person_rejected": 8,
   "person_removed": 0,
   "portraits": 1,
   "previous_images": 0,
   "rechecked_kept": 0,
-  "relevance_verified": 31,
+  "relevance_verified": 37,
   "removed_total": 0
  },
  "images": {
   "awaiting_review": 0,
   "below_threshold": 0,
   "by_provider": {
-   "commons": 27,
+   "commons": 33,
    "official": 1,
    "openverse": 1,
    "tourapi": 2
   },
-  "candidates": 47,
+  "candidates": 53,
   "contact_sheets": [
    "hero-commons-01.jpg",
    "hero-official-01.jpg",
@@ -752,7 +762,7 @@
    "cards-01.jpg"
   ],
   "depicts_errors": 0,
-  "depicts_searches": 20,
+  "depicts_searches": 23,
   "duplicates": 4,
   "hero": 4,
   "identity_rejected": 3,
@@ -763,18 +773,18 @@
   "kept_dropped_unverified": 0,
   "kept_previous": 0,
   "measure_errors": 0,
-  "measured": 31,
-  "none": 52,
+  "measured": 37,
+  "none": 55,
   "openverse_rate_limit": {
    "x-ratelimit-available-anon_burst": 19
   },
   "portraits": 1,
-  "processed": 70,
+  "processed": 76,
   "provider_errors": {},
   "provider_new_requests": {
-   "flickr": 68,
+   "flickr": 74,
    "kto_photo": 57,
-   "openverse": 119,
+   "openverse": 120,
    "tourapi": 57
   },
   "provider_rejected": {
@@ -785,14 +795,14 @@
    "tourapi:rights": 1
   },
   "provider_requests": {
-   "flickr": 68,
+   "flickr": 74,
    "kto_photo": 57,
-   "openverse": 119,
+   "openverse": 120,
    "tourapi": 57
   },
   "provider_unverified": 2,
-  "quality_fetched": 31,
-  "quality_measured": 31,
+  "quality_fetched": 37,
+  "quality_measured": 37,
   "rejected": {
    "interior_unrelated_to_work": 1,
    "rights:foreign_no_freedom_of_panorama": 1,
@@ -801,7 +811,20 @@
    "subject:people_or_event": 6,
    "subject:person": 3
   },
-  "thumbnails_fetched": 31
+  "thumbnails_fetched": 37
+ },
+ "places": {
+  "by_rule": {
+   "parent_category": 1,
+   "parent_item": 1
+  },
+  "candidates": 4,
+  "capped": 0,
+  "conflict": 1,
+  "geotag_requests": 4,
+  "no_evidence": 1,
+  "recovered": 2,
+  "region_candidates": 1
  },
  "public_data": {
   "seoul_events": {
@@ -853,14 +876,14 @@
  },
  "review_queue": {
   "candidates": 2,
-  "hero_candidates": 6
+  "hero_candidates": 11
  },
  "run": {
   "budget_minutes": 25,
-  "build_id": "20261020T061700Z-1edd6667",
+  "build_id": "20261020T061700Z-a91e1ba0",
   "drop_guard": null,
-  "duration_ms": 724240,
-  "finished_at": "2026-10-20T06:29:04.240Z",
+  "duration_ms": 772100,
+  "finished_at": "2026-10-20T06:29:52.100Z",
   "number": 1,
   "publish": "published",
   "started_at": "2026-10-20T06:17:00.000Z",
@@ -872,10 +895,10 @@
  "sources": {
   "commons": {
    "consecutive_failures": 0,
-   "duration_ms": 99040,
+   "duration_ms": 121040,
    "errors": [],
-   "items": 11,
-   "korea_items": 1,
+   "items": 15,
+   "korea_items": 2,
    "last_success": "2026-10-20T06:17:00.000Z",
    "status": "ok",
    "warnings": [
@@ -891,11 +914,6 @@
     },
     {
      "message": "category does not exist",
-     "root": "Category:Projection mapping in South Korea",
-     "stage": "commons_root"
-    },
-    {
-     "message": "category does not exist",
      "root": "Category:Light festivals in South Korea",
      "stage": "commons_root"
     },
@@ -907,6 +925,101 @@
     {
      "message": "category does not exist",
      "root": "Category:Media facades in South Korea",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Lantern festivals in South Korea",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Lantern festivals in Seoul",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Projection mapping in Seoul",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Media art exhibitions in South Korea",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Night views of Busan",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Night views of Incheon",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Night views of Daegu",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Night views of Daejeon",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Night views of Gwangju",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Night views of Ulsan",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Night views of Suwon",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Night views of Jeju",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Night views of Gangneung",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Night views of Jeonju",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Night views of Yeosu",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Night views of Pohang",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Night views of Gyeongju",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Night views of Changwon",
+     "stage": "commons_root"
+    },
+    {
+     "message": "category does not exist",
+     "root": "Category:Night views of Cheongju",
      "stage": "commons_root"
     },
     {
@@ -969,7 +1082,7 @@
    "consecutive_failures": 0,
    "duration_ms": 3080,
    "errors": [],
-   "items": 28,
+   "items": 31,
    "last_success": "2026-10-20T06:17:00.000Z",
    "status": "ok"
   },
@@ -985,7 +1098,7 @@
   "overpass": {
    "consecutive_failures": 0,
    "errors": [],
-   "items": 21,
+   "items": 23,
    "last_success": "2026-10-20T06:17:00.000Z",
    "status": "ok"
   },
@@ -1052,7 +1165,7 @@
    "consecutive_failures": 0,
    "duration_ms": 43160,
    "errors": [],
-   "items": 14,
+   "items": 17,
    "korea_items": 3,
    "korea_search_items": 3,
    "last_success": "2026-10-20T06:17:00.000Z",
@@ -1078,7 +1191,7 @@
    "status": "ok"
   },
   "images": {
-   "duration_ms": 522800,
+   "duration_ms": 543540,
    "status": "ok"
   },
   "links": {
@@ -1089,12 +1202,16 @@
    "duration_ms": 40,
    "status": "ok"
   },
+  "places": {
+   "duration_ms": 5120,
+   "status": "ok"
+  },
   "resolve": {
    "duration_ms": 0,
    "status": "ok"
   },
   "sources": {
-   "duration_ms": 99040,
+   "duration_ms": 121040,
    "status": "ok"
   }
  },
@@ -1111,11 +1228,6 @@
   },
   {
    "message": "category does not exist",
-   "root": "Category:Projection mapping in South Korea",
-   "stage": "commons_root"
-  },
-  {
-   "message": "category does not exist",
    "root": "Category:Light festivals in South Korea",
    "stage": "commons_root"
   },
@@ -1127,6 +1239,101 @@
   {
    "message": "category does not exist",
    "root": "Category:Media facades in South Korea",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Lantern festivals in South Korea",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Lantern festivals in Seoul",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Projection mapping in Seoul",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Media art exhibitions in South Korea",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Night views of Busan",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Night views of Incheon",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Night views of Daegu",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Night views of Daejeon",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Night views of Gwangju",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Night views of Ulsan",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Night views of Suwon",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Night views of Jeju",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Night views of Gangneung",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Night views of Jeonju",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Night views of Yeosu",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Night views of Pohang",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Night views of Gyeongju",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Night views of Changwon",
+   "stage": "commons_root"
+  },
+  {
+   "message": "category does not exist",
+   "root": "Category:Night views of Cheongju",
    "stage": "commons_root"
   },
   {

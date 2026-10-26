@@ -1,0 +1,62 @@
+{
+ "pageid": 145,
+ "ns": 0,
+ "title": "Q145",
+ "lastrevid": 2400000145,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q145",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "United Kingdom"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "영국"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "88481d4f351f6c7f64f03266e46fcb06",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 6256,
+       "id": "Q6256"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q145$88481d4f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P297": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P297",
+     "hash": "e227f298a937384a31d4f46c7ed8f846",
+     "datavalue": {
+      "value": "GB",
+      "type": "string"
+     },
+     "datatype": "external-id"
+    },
+    "type": "statement",
+    "id": "Q145$e227f298-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

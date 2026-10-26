@@ -154,6 +154,24 @@ export async function searchCategories(client, term, { limit = 50, cache, ttlHou
   return (json?.query?.search || []).filter((s) => s.ns === 14).map((s) => s.title)
 }
 
+/** The visible categories of files (prop=categories, 50 per request), cached per file: Map(file → [titles]). */
+export async function fileCategories(client, files, { cache, ttlHours = 72, stage = 'commons' } = {}) {
+  const out = new Map(), want = []
+  for (const f of uniq(files.map(bareFile))) { const hit = cache?.fresh('commons-file-cats', f); if (hit !== undefined) out.set(f, hit); else want.push(f) }
+  for (const group of chunk(want, 50)) {
+    const got = new Map(group.map((f) => [f, []]))
+    let cont = {}
+    for (let round = 0; round < 10; round++) {
+      const json = await client.json(api({ action: 'query', prop: 'categories', clshow: '!hidden', cllimit: 'max', titles: group.map((f) => 'File:' + f).join('|'), ...cont }), { stage })
+      for (const pg of json?.query?.pages || []) { const f = bareFile(pg.title || ''); if (got.has(f)) for (const c of pg.categories || []) if (!got.get(f).includes(c.title)) got.get(f).push(c.title) }
+      if (!json?.continue) break
+      cont = { ...json.continue }
+    }
+    for (const [f, cats] of got) { out.set(f, cats); cache?.set('commons-file-cats', f, cats, { ttlMs: ttlHours * HOUR }) }
+  }
+  return out
+}
+
 /** Files whose name contains the phrase (namespace 6) and their visible categories. */
 export async function searchFiles(client, term, { limit = 100, cache, ttlHours = 72 } = {}) {
   const json = await client.json(api({ action: 'query', generator: 'search', gsrsearch: `intitle:"${term}"`, gsrnamespace: '6', gsrlimit: String(Math.min(500, limit)), prop: 'categories', clshow: '!hidden', cllimit: 'max' }), { stage: 'commons', cache: cache ? { ns: 'commons-search', key: 'file:' + term, ttlMs: ttlHours * HOUR } : null })
@@ -314,18 +332,43 @@ export async function discoverCategories(client, config, { cache, ttlHours = 72,
       try { await walkFrom({ title: s.root.title, mode: 'candidates', project_type: s.root.project_type, korea: !!s.korea, country_iso2: s.root.country_iso2 }, e, 1, onlyKorea ? client : fc) } catch (x) { if (x?.code === 'budget') return; throw x }
     }
   }
+  let rootFailures = 0
   for (const root of rootList) {
     if (partial) break
+    // Commons does not answer at all: after three roots in a row fail, the others are not tried this run.
+    if (rootFailures >= 3) { errors.push({ stage: 'commons_root', root: root.title, message: 'skipped: the previous roots failed' }); continue }
     const cl = root.korea ? client : fc
     let rootInfo
-    try { rootInfo = (await categoryInfo(cl, [root.title], { cache, ttlHours })).get(categoryTitle(root.title)) } catch (e) {
+    try { rootInfo = (await categoryInfo(cl, [root.title], { cache, ttlHours })).get(categoryTitle(root.title)); rootFailures = 0 } catch (e) {
       if (e?.code === 'budget') { if (root.korea) { partial = true; break } continue }
+      rootFailures++
       errors.push({ stage: 'commons_root', root: root.title, message: String(e?.message || e).slice(0, 300) }); continue
     }
     // A configured root that does not exist is a configuration warning, not a source failure.
     if (!rootInfo?.exists) { log({ kind: 'root_missing', root: root.title }); warnings.push({ stage: 'commons_root', root: root.title, message: 'category does not exist' }); continue }
     record(rootInfo, { decision: 'aggregate', reason: 'configured_root' }, { root: root.title, parent: null, project_type: root.project_type ?? null, place_hint: root.country_iso2 ? { country_iso2: root.country_iso2, city: null, from: root.title } : null, korea: !!root.korea })
     await walkFrom(root, rootInfo, root.depth ?? 2, cl)
+    // A Korean root that holds photos itself ("Projection mapping in South Korea": 8 files, no subcategories): the
+    // other categories of those photos (the building or square that was the canvas, the festival) are candidates,
+    // each with the photo that shows the work (via_file).
+    if (root.korea && root.mode === 'candidates' && rootInfo.files > 0 && config.korea_root_files !== false) {
+      try {
+        const files = (await categoryMembers(cl, rootInfo.title, { cache, ttlHours, limit: config.korea_root_files_limit ?? 60, stage: 'commons' })).files
+        const cats = await fileCategories(cl, files, { cache, ttlHours })
+        const pairs = []
+        for (const [f, list] of cats) for (const c of list) if (c !== rootInfo.title && !rootTitles.has(c) && !(config.korea_roots || []).some((r) => categoryTitle(r.title) === c)) pairs.push({ title: c, via_file: f })
+        const info = pairs.length ? await categoryInfo(cl, uniq(pairs.map((x) => x.title)), { cache, ttlHours }) : new Map()
+        for (const { title, via_file } of pairs) {
+          const i = info.get(categoryTitle(title))
+          if (!i || !i.exists) continue
+          const prev = seen.get(i.title)
+          if (prev) { if (prev.decision === 'candidate' && !prev.via_file) prev.via_file = via_file; continue }
+          if (i.qid && classSet.has(i.qid)) continue
+          const d = classifyCategory(i.title, i, root, rules)
+          record(i, d.decision === 'candidate' ? { ...d, reason: 'category_of_a_korean_root_photo' } : d, { root: root.title + ' (photos)', parent: rootInfo.title, project_type: root.project_type ?? null, place_hint: koreanHint(i.title), via_file, korea: true })
+        }
+      } catch (e) { if (e?.code === 'budget') { partial = true; break } errors.push({ stage: 'commons_root_files', root: root.title, message: String(e?.message || e).slice(0, 300) }) }
+    }
     // Right after the last Korean root: the Korean search aggregates, before any worldwide walk.
     if (root.korea && !rootList[rootList.indexOf(root) + 1]?.korea) await walkSearched(true)
   }

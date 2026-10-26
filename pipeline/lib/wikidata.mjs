@@ -435,21 +435,56 @@ export function auxNext(auxMap, qids) {
   return [...out]
 }
 
+/** ISO code of a country item, or of the country its own P17 names (Q55 Netherlands has none; Q29999 has NL). */
+export function isoOfCountry(q, auxMap) {
+  const a = auxMap.get(q)
+  if (!a) return null
+  if (a.iso) return a.iso
+  for (const k of a.p17 || []) if (k !== q) { const i = auxMap.get(k)?.iso; if (i) return i }
+  return null
+}
+/** Country of a place item: its own ISO code or its P17's, walking P131 up to `depth` levels. {iso, via} or null. */
+export function countryOfPlace(q, auxMap, depth = 3) {
+  const seen = new Set()
+  let frontier = [q]
+  for (let d = 0; d <= depth && frontier.length; d++) {
+    const next = []
+    for (const x of frontier) {
+      if (seen.has(x)) continue
+      seen.add(x)
+      const a = auxMap.get(x)
+      if (!a) continue
+      if (a.iso) return { iso: a.iso, via: x }
+      for (const k of a.p17 || []) { const iso = isoOfCountry(k, auxMap); if (iso) return { iso, via: k } }
+      next.push(...(a.p131 || []))
+    }
+    frontier = next
+  }
+  return null
+}
+
 /**
  * Facts the archive keeps from a project item; every fact carries its property (field_sources) so the record can
  * cite Wikidata for it. Unknown facts are null.
  */
-export function factsOf(entity, auxMap, { cityPattern, originalLanguageByCountry = {}, labelLanguages = ['ko', 'en'] }) {
+export function factsOf(entity, auxMap, { cityPattern, originalLanguageByCountry = {}, labelLanguages = ['ko', 'en'], countryAt = null }) {
   const c = entity.claims
   const L = entity.labels || {}
   const aux = (q) => auxMap.get(q) || null
   const auxName = (q) => { const a = aux(q); return a ? (a.en || a.mul || a.ko || null) : null }
-  // Country: P17 of the item, else of the nearest administrative area.
-  let country = null, countryQid = null
-  for (const v of c.P17 || []) { const iso = aux(v.item)?.iso; if (iso) { country = iso; countryQid = v.item; break } }
+  // Country (lib/places.mjs "Country recovery"): P17 of the item (a country item without an ISO code takes its own
+  // P17's: Q55 Netherlands → NL), else the country of its administrative area (P131) or location (P276), walking
+  // P131 up, else the borders its coordinates (P625) lie in.
+  let country = null, countryQid = null, countryRule = null
+  for (const v of c.P17 || []) { const iso = isoOfCountry(v.item, auxMap); if (iso) { country = iso; countryQid = v.item; countryRule = 'p17'; break } }
   if (!country) {
-    for (const v of c.P131 || []) { for (const k of aux(v.item)?.p17 || []) { const iso = aux(k)?.iso; if (iso) { country = iso; countryQid = k; break } } if (country) break }
+    for (const [pid, rule] of [['P131', 'p131_country'], ['P276', 'p276_country']]) {
+      for (const v of c[pid] || []) { const r = countryOfPlace(v.item, auxMap); if (r) { country = r.iso; countryQid = r.via; countryRule = rule; break } }
+      if (country) break
+    }
   }
+  const coord0 = (c.P625 || [])[0] || null
+  if (!country && coord0 && countryAt) { const iso = countryAt(coord0.lat, coord0.lng); if (iso) { country = iso; countryRule = 'p625_borders' } }
   const city = findCity(entity, auxMap, cityPattern)
   const coord = (c.P625 || [])[0] || null
   const year = (pid) => { const v = (c[pid] || []).find((t) => t.year && t.precision >= 9); return v ? v.year : null }
@@ -473,6 +508,7 @@ export function factsOf(entity, auxMap, { cityPattern, originalLanguageByCountry
     description_en: entity.descriptions?.en || null,
     country_iso2: country,
     country_qid: countryQid,
+    country_rule: countryRule,
     city: city ? (aux(city.qid)?.en || aux(city.qid)?.mul || aux(city.qid)?.ko || null) : null,
     city_ko: city ? aux(city.qid)?.ko || null : null,
     city_qid: city?.qid || null,

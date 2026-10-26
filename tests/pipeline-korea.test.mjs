@@ -316,4 +316,18 @@ test('Korea coverage: Wikidata search of named Korean things, probes of known ar
   const index = JSON.parse(await readFile(path.join(dir, 'site-data/index.json'), 'utf8'))
   const ids = index.rows.map((r) => r[0])
   assert.ok(ids.includes('Q99000506') && !ids.includes('Q99000507') && !ids.includes('Q99000604'))
+  // C: a Korean root that holds photos ("Projection mapping in South Korea"): the photo's other category (the gate it
+  // was projected on) is a candidate; the photo shows the work, the gate's own photos are context.
+  const cats = JSON.parse(await readFile(path.join(dir, 'review/categories.json'), 'utf8')).decisions
+  const gate = cats.find((c) => c.title === 'Category:Gwanghwamun')
+  assert.equal(gate.decision, 'candidate')
+  assert.equal(gate.reason, 'category_of_a_korean_root_photo')
+  assert.equal(gate.via_file, 'Gwanghwamun projection mapping 2019.jpg')
+  const shard = JSON.parse(await readFile(path.join(dir, 'site-data/projects/000.json'), 'utf8')).projects
+  const rec = shard.find((r) => r.name_en === 'Gwanghwamun')
+  assert.equal(rec.country_iso2, 'KR')
+  assert.equal(rec.project_type, 'projection_mapping')
+  const roleOf = (t) => rec.images.find((i) => i.title === t)
+  assert.ok(['hero', 'featured', 'card'].includes(roleOf('Gwanghwamun projection mapping 2019').role))
+  assert.equal(roleOf('Gwanghwamun Gate daytime 2020').kind, 'architecture_context')
 })

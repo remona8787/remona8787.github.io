@@ -322,11 +322,15 @@ export function buildProject(obs, facts, ctx = {}) {
   p.item_is_work = itemIsWork || (!!f && !host && (f.p31 || []).some((q) => ctx.workClasses?.has(q)))
   p.item_institution = !!f && (host || (!!curated && !p.item_is_work && !FACADE_CARRIERS.has(p.project_type)))
   p.item_names = f ? uniq([f.name_ko, f.name_en, f.name_original, f.any_label].filter(Boolean)) : []
-  const ownCats = new Set(cats.map((c) => c.category))
+  // A canvas category (the building or square a Korean root's photo shows the work on) is the place's, not the work's.
+  const canvasCats = new Set(cats.filter((c) => c.canvas).map((c) => c.category))
+  const ownCats = new Set(cats.filter((c) => !c.canvas).map((c) => c.category))
   p.image_categories = uniq([
     ...(p.commons_category ? [p.commons_category] : []),
     ...cats.map((c) => c.category),
-  ]).map((title) => ({ title, source: 'category', ...(p.item_institution && !ownCats.has(title) ? { institution: true } : {}) }))
+  ]).map((title) => ({ title, source: 'category', ...((p.item_institution && !ownCats.has(title)) || canvasCats.has(title) ? { institution: true } : {}) }))
+  // The photo through which a category was found (a Korean root's photo of the work, a file named "media facade").
+  p.via_files = uniq(cats.map((c) => c.via_file).filter(Boolean))
   for (const c of cats) {
     for (const t of c.parts || []) p.image_categories.push({ title: t, source: 'part_category' })
     for (const t of c.editions || []) p.image_categories.push({ title: t, source: 'event_category' })

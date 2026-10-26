@@ -1,0 +1,62 @@
+{
+ "pageid": 99000703,
+ "ns": 0,
+ "title": "Q99000703",
+ "lastrevid": 2400000703,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000703",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Fixture Manchester"
+  }
+ },
+ "descriptions": {},
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "6efe32d74d646299fc9c3b71fffc34d2",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 515,
+       "id": "Q515"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000703$6efe32d7-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "02b003c6e797fef92f656b2f3969d03f",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 145,
+       "id": "Q145"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000703$02b003c6-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}
