@@ -89,6 +89,7 @@ jobs:
         env:
           BUDGET_MINUTES: ${{ inputs.budget_minutes || 25 }}
           TOURAPI_SERVICE_KEY: ${{ secrets.TOURAPI_SERVICE_KEY }}
+          SEOUL_OPEN_DATA_KEY: ${{ secrets.SEOUL_OPEN_DATA_KEY }}
           FLICKR_API_KEY: ${{ secrets.FLICKR_API_KEY }}
           OPENVERSE_CLIENT_ID: ${{ secrets.OPENVERSE_CLIENT_ID }}
           OPENVERSE_CLIENT_SECRET: ${{ secrets.OPENVERSE_CLIENT_SECRET }}

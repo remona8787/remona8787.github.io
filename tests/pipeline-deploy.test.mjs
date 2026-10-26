@@ -240,6 +240,14 @@ test('verify-live: screens, viewports, detail pick and the summary', async () =>
   assert.equal(g.artist_portrait_visible.length, 1, 'a portrait on the page is reported')
   assert.deepEqual(g.unverified_visible, [])
   assert.equal(imageKey('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Foo_bar.jpg/960px-Foo_bar.jpg'), imageKey('https://upload.wikimedia.org/wikipedia/commons/a/ab/Foo_bar.jpg'))
+  // The place page after the overhaul: portraits inside [data-creator-portrait] are reported apart and are not
+  // forbidden; the main gallery is counted on its own.
+  const portraitUrl = rec.credits.find((c) => c.portrait).portrait.thumb
+  const g2 = galleryCheck(shownUrls.filter((u) => u !== portraitUrl), rec, { portraits: [portraitUrl], gallery: [rec.images[0].display[0][1]] })
+  assert.deepEqual(g2.artist_portrait_visible, [])
+  assert.deepEqual(g2.creator_portraits, { shown: 1, matched: 1 })
+  assert.equal(g2.main_gallery.matched, 1)
+  assert.deepEqual(g2.main_gallery.kinds, { [rec.images[0].kind]: 1 })
   assert.equal(screens('x').find((s) => s.name === 'admin').public, false, 'the admin page may show review vocabulary')
   assert.equal(pickDetail({ hero: [{ project: 'H' }], featured: ['F'] }, null), 'H')
   assert.equal(pickDetail({ hero: [], featured: ['F'] }, null), 'F')

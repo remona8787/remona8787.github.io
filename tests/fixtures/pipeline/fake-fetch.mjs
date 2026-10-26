@@ -36,7 +36,7 @@ export const FIXTURE_OVERRIDES = {
 }
 
 // The keys of a fixture run (never real keys): the keyed sources and image providers answer from the fixtures.
-export const FIXTURE_ENV = { TOURAPI_SERVICE_KEY: 'fixture-tourapi-key', FLICKR_API_KEY: 'fixture-flickr-key' }
+export const FIXTURE_ENV = { TOURAPI_SERVICE_KEY: 'fixture-tourapi-key', FLICKR_API_KEY: 'fixture-flickr-key', SEOUL_OPEN_DATA_KEY: 'fixture-seoul-key' }
 
 const jsonRes = (v, { status = 200, type = 'application/json; charset=utf-8', headers = {} } = {}) => new Response(JSON.stringify(v), { status, headers: { 'content-type': type, ...headers } })
 const normTitle = (t) => String(t || '').replace(/_/g, ' ').trim()
@@ -202,6 +202,21 @@ function wikipedia(lang, p) {
 }
 
 const goEnvelope = (items, total = items.length, page = 1, rows = 10) => jsonRes({ response: { header: { resultCode: '0000', resultMsg: 'OK' }, body: { items: items.length ? { item: items } : '', numOfRows: rows, pageNo: page, totalCount: total } } })
+/**
+ * openapi.seoul.go.kr:8088: /{KEY}/json/culturalEventInfo/{start}/{end}/ (the fixture key, or the sample key with rows
+ * 1–5 only; a wrong key gets INFO-100 at the top level, rows past the end INFO-200).
+ */
+function seoulOpenApi(u) {
+  const [, key, type, service, start, end] = u.pathname.split('/')
+  const rows = read('seoul/culturalEventInfo.json').rows
+  if (type !== 'json' || service !== 'culturalEventInfo') return jsonRes({ RESULT: { CODE: 'ERROR-310', MESSAGE: '해당하는 서비스를 찾을 수 없습니다.' } })
+  if (key !== FIXTURE_ENV.SEOUL_OPEN_DATA_KEY && key !== 'sample') return jsonRes({ RESULT: { CODE: 'INFO-100', MESSAGE: '인증키가 유효하지 않습니다.' } })
+  const a = Number(start), b = Math.min(Number(end), key === 'sample' ? 5 : Infinity)
+  const slice = rows.slice(a - 1, b)
+  if (!slice.length) return jsonRes({ RESULT: { CODE: 'INFO-200', MESSAGE: '해당하는 데이터가 없습니다.' } })
+  return jsonRes({ culturalEventInfo: { list_total_count: rows.length, RESULT: { CODE: 'INFO-000', MESSAGE: '정상 처리되었습니다' }, row: slice } })
+}
+
 /** apis.data.go.kr: TourAPI KorService2 and PhotoGalleryService1 (a wrong key gets the gateway's error header). */
 function dataGoKr(u) {
   const p = u.searchParams, T = FIX.tourapi
@@ -292,6 +307,7 @@ export function fixtureEnvironment({ start = Date.parse('2026-10-20T06:17:00Z'),
       return jsonRes({ stat: 'fail', code: 112, message: 'Method not found' })
     }
     if (u.host === 'apis.data.go.kr') return dataGoKr(u)
+    if (u.host === 'openapi.seoul.go.kr:8088') return seoulOpenApi(u)
     if (u.host === 'api.gdeltproject.org') return jsonRes(FIX.gdelt)
     if (u.host === 'www.dezeen.com' && u.pathname === '/feed/') {
       if (headers.get('if-none-match') === '"fixture-feed-1"') return new Response(null, { status: 304, headers: { etag: '"fixture-feed-1"' } })
