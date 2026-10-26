@@ -179,33 +179,33 @@ test('detail: Wikidata facts with sources, and the photo with full attribution o
  await expect(page.locator('h1')).toHaveText('비비드 시드니');
  // No sync or review wording on a public page (v0.17); the Wikidata record stays one link away.
  await expect(page.locator('#view')).not.toContainText(/6시간마다|자동 갱신|공동 편집 데이터/);
- const glance=page.locator('.glance');
+ const glance=page.locator('.dp-title');
  await expect(glance).toContainText('축제·전시 프로그램');
  await expect(glance).toContainText('시드니 · 오스트레일리아');
  await expect(glance.locator('a',{hasText:'공식 웹사이트'})).toHaveAttribute('href','https://www.vividsydney.com/');
  await expect(page.locator('#detailMap .map-coords')).toContainText('-33.86880, 151.20930');
  await expect(page.locator('#detailMap a',{hasText:'OpenStreetMap에서 보기'})).toHaveAttribute('href','https://www.openstreetmap.org/?mlat=-33.8688&mlon=151.2093#map=16/-33.8688/151.2093');
  await expect(page.locator('#detailSources a[href="https://www.wikidata.org/wiki/Q7937834"]')).toHaveCount(1);
- const fig=page.locator('.image-gallery figure');
+ const fig=page.locator('#detailPhotos .dp-cap, #detailPhotos .dp-extra figure');
  await expect(fig).toContainText('Lee Photographer');
  await expect(fig).toContainText('CC BY-SA 4.0');
  await expect(fig).toContainText('2019-05-30');
  await expect(fig.locator('a',{hasText:'이미지 원본'})).toHaveAttribute('href','https://commons.wikimedia.org/wiki/File:Vivid_Sydney_2019.jpg');
- await expect(fig.locator('a',{hasText:'사용조건'})).toHaveAttribute('href','https://creativecommons.org/licenses/by-sa/4.0');
+ await expect(fig.locator('a',{hasText:'CC BY-SA 4.0'})).toHaveAttribute('href','https://creativecommons.org/licenses/by-sa/4.0');
  // A blocked photo is never shown: the gallery shows the designed placeholder; the reason stays in the sync's record.
  await page.goto('/#place/WD-Q4167');
  await expect(page.locator('h1')).toHaveText('빛의 축제');
  await expect.poll(()=>page.evaluate(()=>AOLGlobal.imageStatus('WD-Q4167')?.state)).toBe('blocked');
  expect((await page.evaluate(()=>AOLGlobal.imageStatus('WD-Q4167').reasons)).join(' ')).toMatch(/nofop|NoFoP|panorama/i);
- await expect(page.locator('.image-gallery figure')).toHaveCount(0);
+ await expect(page.locator('#detailPhotos .dp-cap, #detailPhotos .dp-extra figure')).toHaveCount(0);
  await expect(page.locator('img[data-place-photo]')).toHaveCount(0);
- await expect(page.locator('#detailPhotos .gallery-empty .ph')).toBeVisible();
+ await expect(page.locator('.detail-hero.no-photo .ph')).toBeVisible();
  await page.goto('/#place/WD-Q597137');
  await expect.poll(()=>page.evaluate(()=>AOLGlobal.imageStatus('WD-Q597137')?.state)).toBe('blocked');
  await expect(page.locator('img[data-place-photo]')).toHaveCount(0);
  // Korean freedom of panorama: shown under the operator's policy, with its basis recorded.
  await page.goto('/#place/WD-Q12618343');
- await expect(page.locator('.image-gallery figure')).toContainText('Park · CC BY 2.0');
+ await expect(page.locator('#detailPhotos .dp-cap, #detailPhotos .dp-extra figure')).toContainText('Park · CC BY 2.0');
 });
 
 test('no photo is shown while its rights check has not answered',async({page})=>{
@@ -215,7 +215,7 @@ test('no photo is shown while its rights check has not answered',async({page})=>
  await expect.poll(()=>calls.commons).toBeGreaterThan(0);
  expect(await page.evaluate(()=>AOLGlobal.imageStatus('WD-Q7937834')?.state)).toBe('pending');
  await expect(page.locator('img[data-place-photo]')).toHaveCount(0);
- await expect(page.locator('#detailPhotos .gallery-empty .ph')).toBeVisible();
+ await expect(page.locator('.detail-hero.no-photo .ph')).toBeVisible();
  await allResults(page);
  await expect(card(page,'비비드 시드니')).toHaveCount(1);
  await expect(page.locator('#placeResults .place-card',{has:page.locator('[data-save^="WD-"]')}).locator('img[data-place-photo]')).toHaveCount(0);
@@ -252,9 +252,9 @@ test('a saved, planned and recorded Wikidata place survives a reload without the
  await page.goto('/#place/WD-Q12618343');
  await expect(page.locator('h1')).toHaveText('진주남강유등축제');
  await expect(page.locator('#detailSources a[href="https://www.wikidata.org/wiki/Q12618343"]')).toHaveCount(1);
- await expect(page.locator('.glance')).toContainText('진주시 · 대한민국');
+ await expect(page.locator('.dp-title')).toContainText('진주시 · 대한민국');
  // Its photo is still rights-checked lazily from the stored record.
- await expect(page.locator('.image-gallery figure')).toContainText('Park · CC BY 2.0');
+ await expect(page.locator('#detailPhotos .dp-cap, #detailPhotos .dp-extra figure')).toContainText('Park · CC BY 2.0');
 });
 
 // v0.17: the sync's counts and failures are internal (no rows on settings); the engine is checked through its state.
@@ -373,7 +373,7 @@ for(const r of ['home','explore','map','settings','place/WD-Q7937834'])test(`a11
  await page.goto('/#'+r);
  await expect.poll(()=>status(page)).toBe('partial');
  if(r==='explore'){await page.evaluate(()=>{showCount=1000;AOLApp.render()});await expect(card(page,'비비드 시드니').locator('.image-credit')).toContainText('Lee Photographer')}
- if(r.startsWith('place/'))await expect(page.locator('.image-gallery figure')).toContainText('Lee Photographer');
+ if(r.startsWith('place/'))await expect(page.locator('#detailPhotos .dp-cap, #detailPhotos .dp-extra figure')).toContainText('Lee Photographer');
  const {violations}=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
  expect(violations.map(v=>`${v.id} (${v.impact}): ${v.nodes.slice(0,3).map(n=>n.target.join(' ')).join(' | ')}`)).toEqual([]);
 });

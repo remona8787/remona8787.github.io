@@ -154,8 +154,14 @@ export function image(m) {
     kind: kindOf(m), raw_tier: v18 && Number.isInteger(rawTier) ? rawTier : null,
     media_active: num(typeof m.media_active === 'object' && m.media_active ? m.media_active.score : m.media_active, 100),
     subject: text(m.subject, 200),
+    // v0.18 pipeline: the file's title and description (a caption when the record gives none), and the rights facts
+    // the sponsor rule reads (commercial use allowed, KOGL type).
+    title: cleanTitle(m.title), description: text(m.description, 600),
+    commercial_use: m.commercial_use === true ? true : m.commercial_use === false ? false : null, kogl_type: text(m.kogl_type, 20),
   }
 }
+// A Commons page title as a caption: no "File:" prefix, no extension.
+function cleanTitle(/** @type {any} */ v) { const t = text(v, 300); return t ? t.replace(/^File:/i, '').replace(/\.(jpe?g|png|webp|tiff?|gif)$/i, '').replace(/_/g, ' ').trim() || null : null }
 /** @param {any} v */
 function video(v) {
   if (!v || typeof v !== 'object') return null
@@ -251,6 +257,7 @@ export function mediaRow(/** @type {string} */ placeId, /** @type {ReturnType<ty
     source_url: m.page || m.src, caption: '', caption_i18n: m.caption, captured_at: m.taken || '', tier: m.tier, home_ok: m.home_ok, role: m.role, width: m.width, height: m.height, focal: m.focal, order: i,
     image_provider: m.provider, rights_holder: m.rights_holder, usage: m.usage, approved: m.approved, context: m.context, sizes: m.sizes, maxw: m.maxw,
     kind: m.kind, raw_tier: m.raw_tier, media_active: m.media_active, subject: m.subject,
+    title: m.title, description: m.description, commercial_use: m.commercial_use, kogl_type: m.kogl_type,
   }
 }
 
@@ -267,10 +274,11 @@ function sources(v) {
   }
   return out
 }
-/** @param {any} v */
-function credits(v) {
+// A creator's portrait (credits[].portrait, kind artist_portrait) stays with the credit: shown only with the credits.
+/** @param {any} v @param {string} placeId */
+function credits(v, placeId = '') {
   if (!Array.isArray(v)) return []
-  return v.slice(0, 40).map(c => ({ role: vocab('credit_role', c?.role) || 'other', name: text(c?.name, 200), name_en: text(c?.name_en, 200), qid: qid(c?.wikidata_qid || c?.qid) })).filter(c => c.name)
+  return v.slice(0, 40).map(c => { const ph = c?.portrait ? image(c.portrait) : null; return { role: vocab('credit_role', c?.role) || 'other', name: text(c?.name, 200), name_en: text(c?.name_en, 200), qid: qid(c?.wikidata_qid || c?.qid), ...(ph ? { portrait: mediaRow(placeId, ph, 0) } : {}) } }).filter(c => c.name)
 }
 const VISIT = new Set(['operating', 'seasonal', 'event_based', 'ended', 'inactive', 'demolished'])
 /** Visit facts only when the source states them. @param {any} v */
@@ -308,7 +316,7 @@ export function fromRecord(r, o = {}) {
     building_name: text(r.building_name, 200), installation_method: vocab('installation_method', r.installation_method), envelope_type: vocab('envelope_type', r.envelope_type),
     technologies: vocabList('technology', r.technologies ?? r.technology), content_types: vocabList('content_type', r.content_types ?? r.content_type),
     spatial_context: vocabList('spatial_context', r.spatial_context),
-    credits: credits(r.credits), sources: src, official_url: official, website: official || '',
+    credits: credits(r.credits, base.place_id), sources: src, official_url: official, website: official || '',
     visit: visit(r.visit), detail_loaded: true,
   }
   const media = ordered.map((m, i) => mediaRow(place.place_id, m, i))

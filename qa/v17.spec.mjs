@@ -98,7 +98,7 @@ test('the home page reads only home.json; explore and map read the index; a proj
  const first=HERO[0].project,shard=siteData(RECORDS).index.rows.find(r=>r[0]===first)[12];
  await page.locator('.hero-slide .plate-title').first().click();
  await expect(page.locator('#view h1')).toContainText(HOME.projects[first].name_ko);
- await expect(page.locator('#detailPhotos figure').first()).toBeVisible();
+ await expect(page.locator('#detailPhotos .dp-slide img').first()).toBeVisible();
  expect(seen).toContain(`projects/${shard}.json`);
  // Explore: the index, once.
  await page.locator('#navigation a[href="#explore"]').click();
@@ -113,36 +113,42 @@ test('a link straight to a project page reads the manifest and that project\'s s
  const id='harpa-reykjavik',shard=siteData(RECORDS).index.rows.find(r=>r[0]===id)[12];
  await page.goto('/#place/AR-'+id);
  await expect(page.locator('#view h1')).toHaveText('하르파 콘서트홀 파사드');
- await expect(page.locator('#detailPhotos figure').first()).toBeVisible();
+ await expect(page.locator('#detailPhotos .dp-slide img').first()).toBeVisible();
  expect(seen.slice(0,2)).toEqual(['manifest.json',`projects/${shard}.json`]);
 });
 
 test.describe('place pages',()=>{
  test.beforeEach(async({page})=>{await serveDataset(page);await serveImages(page);await tiles(page)});
- test('the gallery puts media-active images first, then videos, then architectural context, each credited',async({page})=>{
+ test('the gallery shows the project\'s media first, then videos; architectural context waits behind 추가 자료, each credited',async({page})=>{
   await page.setViewportSize({width:1440,height:900});
   await page.goto('/#place/AR-ars-electronica-center');
-  const figs=page.locator('#detailPhotos .image-gallery > figure');
-  await expect(figs).toHaveCount(4);
-  expect(await figs.evaluateAll(fs=>fs.map(f=>f.classList.contains('video-figure')?'video':f.dataset.tier))).toEqual(['1','2','video','4']);
-  await expect(figs.nth(3).locator('.role-tag')).toHaveText('건축 맥락 사진');
-  for(let i=0;i<4;i++)await expect(figs.nth(i).locator('.credit-line')).toHaveText(/^© .+ · CC/);
-  await expect(page.locator('#detailPhotos .section-note').first()).toContainText('건축 맥락 사진은');
-  // The hero image is the media-active one, not labelled as context; the video is muted, with controls, not preloaded.
-  await expect(page.locator('.detail-hero img')).toHaveAttribute('src',/_hero_1/);
-  await expect(page.locator('.detail-hero .context-tag')).toHaveCount(0);
+  // The fifth brief's gallery: one photo at a time, the project's own media first, then its videos.
+  const slides=page.locator('#detailPhotos .dp-slide');
+  await expect(slides).toHaveCount(3);
+  expect(await slides.evaluateAll(xs=>xs.map(x=>x.classList.contains('video')?'video':(/_(hero|night|art|led|scene|small)_\d/.exec(x.querySelector('img')?.getAttribute('src')||'')||[])[1]))).toEqual(['hero','art','video']);
+  await expect(page.locator('#detailPhotos .dp-count')).toHaveText('1 / 3');
+  for(let i=0;i<3;i++)await expect(page.locator(`#detailPhotos .dp-cap[data-i="${i}"] .dp-credit`)).toContainText(/© .+/);
+  // The daytime architecture photo: behind 추가 자료 보기 (1), labelled, with its credit.
+  await expect(page.locator('#detailPhotos .dp-extra > summary')).toHaveText('추가 자료 보기 (1)');
+  await expect(page.locator('#detailPhotos .dp-extra .role-tag')).toHaveText('건축 맥락 사진');
+  await expect(page.locator('#detailPhotos .dp-extra .credit-line')).toHaveText(/^© .+ · CC/);
+  // The lead is the media-active photo; the video is muted, with controls, not preloaded.
+  await expect(page.locator('.detail-hero .dp-slide').first().locator('img')).toHaveAttribute('src',/_hero_1/);
   const video=page.locator('#detailPhotos video');
   if(await video.count()){await expect(video).toHaveAttribute('preload','none');expect(await video.evaluate(v=>v.muted&&v.controls)).toBe(true)}
   else await expect(page.locator('#detailPhotos .video-fallback')).toHaveAttribute('href',/commons\.wikimedia\.org\/wiki\/File:/);
-  // Visit facts only when a source states them; the location map only on request.
+  // Visit facts only when a source states them (위치·관람); the location map only on request.
   await expect(page.locator('#detailVisit')).toContainText('운영 중');
   await expect(page.locator('#detailVisit')).toContainText('해가 진 뒤 매일 밤 점등');
+  await page.getByRole('tab',{name:'위치·관람'}).click();
   await expect(page.locator('#miniMap .leaflet-container')).toHaveCount(0);
   await page.locator('[data-mini-map]').click();
   await expect(page.locator('#miniMap.map-loaded')).toBeVisible();
-  // A project with only a daytime photo: it leads, labelled as architectural context.
+  // A project with only a daytime photo: the type's placeholder leads; the photo is under 추가 자료, labelled.
   await page.goto('/#place/AR-piccadilly-lights');
-  await expect(page.locator('.detail-hero .context-tag')).toHaveText('건축 맥락 사진');
+  await expect(page.locator('.detail-hero.no-photo .ph')).toBeVisible();
+  await expect(page.locator('#detailPhotos .dp-extra > summary')).toHaveText('추가 자료 보기 (1)');
+  await expect(page.locator('#detailPhotos .dp-extra .role-tag')).toHaveText('건축 맥락 사진');
   await expect(page.locator('#detailVisit')).toHaveCount(0);
  });
  test('without any image a project shows the designed placeholder for its type, never another photo',async({page})=>{
@@ -150,7 +156,7 @@ test.describe('place pages',()=>{
   await expect(page.locator('#view h1')).toHaveText('메디아랩 프라도 디지털 파사드');
   await expect(page.locator('.detail-hero .ph.ph-media_facade')).toBeVisible();
   await expect(page.locator('.detail-hero .ph-type')).toHaveText('미디어파사드');
-  await expect(page.locator('#detailPhotos .gallery-empty .ph')).toBeVisible();
+  await expect(page.locator('#detailPhotos .dp-nophoto')).toHaveText('이 프로젝트의 확인된 사진이 아직 없어요.');
   await expect(page.locator('.detail-hero img, #detailPhotos img')).toHaveCount(0);
   // Its explore card too.
   await page.goto('/#explore');
