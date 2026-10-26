@@ -10,8 +10,9 @@
 //      blockiness, perceptual hash; lib/quality.mjs) of the strongest candidates, cached a year;
 //   4. tiers, roles (hero, featured, card, gallery, context) and the public image objects (lib/images.mjs).
 // What the budget did not reach keeps the previous run's images (upgraded to the v0.18 image object when needed).
-import { fileInfo, categoryMembers, categoryFiles, depictsFiles, isNightCategory, isEventCategory } from './commons.mjs'
-import { assessCandidate, assessText, tierOf, chooseImages, imageObject, nameEvidence, commonsCandidate, otherSubject, BAD_NAME, stableImageId, cleanMediaUrl } from './images.mjs'
+import { fileInfo, categoryMembers, categoryFiles, depictsFiles, fileDepictsStatements, isNightCategory, isEventCategory } from './commons.mjs'
+import { fetchAux } from './wikidata.mjs'
+import { assessCandidate, assessText, tierOf, chooseImages, imageObject, nameEvidence, commonsCandidate, otherSubject, PERSON_STRONG, namesCreator, BAD_NAME, stableImageId, cleanMediaUrl } from './images.mjs'
 import { measureImage } from './visual.mjs'
 import { measureQuality, qualityScore } from './quality.mjs'
 import { identityOf, projectNames, queryNames, nameIn, workNames } from './identity.mjs'
@@ -38,7 +39,9 @@ export async function imageStage(ctx) {
   const { client, cache, P, env, ed, heroAllow, prev, state, published, evidenceByKey, catRules, startedAt, err } = ctx
   const IC = P.images || {}, PV = IC.providers || {}, ttl = P.cache_ttl_hours || {}
   const imageResults = new Map(), imageReview = [], tiles = [], heroOutcome = new Map(), providerLog = [], imageCandidates = []
-  const stats = { processed: 0, kept_previous: 0, none: 0, candidates: 0, rejected: {}, measured: 0, measure_errors: 0, quality_measured: 0, duplicates: 0, by_provider: {}, provider_requests: {}, provider_errors: {}, provider_rejected: {}, identity_rejected: 0, provider_unverified: 0, kept_dropped_unverified: 0, institution_context: 0, kept_dropped_irrelevant: 0, kept_demoted_context: 0, below_threshold: 0, awaiting_review: 0 }
+  // Images of the previous dataset dropped by the recheck of kept images: {project, id, title, reason} (lib/image-audit.mjs).
+  const keptDrops = []
+  const stats = { processed: 0, kept_previous: 0, none: 0, candidates: 0, rejected: {}, measured: 0, measure_errors: 0, quality_measured: 0, duplicates: 0, by_provider: {}, provider_requests: {}, provider_errors: {}, provider_rejected: {}, identity_rejected: 0, portraits: 0, depicts_errors: 0, provider_unverified: 0, kept_dropped_unverified: 0, institution_context: 0, kept_dropped_irrelevant: 0, kept_dropped_person: 0, kept_demoted_context: 0, below_threshold: 0, awaiting_review: 0 }
   const count = (o, k, n = 1) => { o[k] = (o[k] || 0) + n }
   let thumbsFetched = 0, depictsAsked = 0, qualityFetched = 0
   const used = {}
@@ -209,13 +212,14 @@ export async function imageStage(ctx) {
   }
 
   // ---------------------------------------------------------------- one project
-  async function scoreProject(p, commons, info, providers) {
+  async function scoreProject(p, commons, info, providers, depictsHuman = () => false) {
     const assessed = []
     const ownNames = [p.name_ko, p.name_en, p.name_original, p.building_name, ...(p.aliases || [])].filter(Boolean)
     const ownWorkNames = workNames(p)
+    const creators = p.creator_names || []
     for (const c of commons) {
       const i = info.get(c.file)
-      const a = assessCandidate(c, i, { project_type: p.project_type, rightsPolicy: IC.rights_policy, minWidth: IC.min_width, minHeight: IC.min_height, names: ownNames, workNames: ownWorkNames, host: p.qid_match === 'host' })
+      const a = assessCandidate(c, i, { project_type: p.project_type, rightsPolicy: IC.rights_policy, minWidth: IC.min_width, minHeight: IC.min_height, names: ownNames, workNames: ownWorkNames, host: p.qid_match === 'host', creators, depictsHuman })
       for (const r of a.reasons) count(stats.rejected, r.split(':')[0] === 'rights' ? r : r.split(':')[0] === 'subject' ? r.split(':').slice(0, 2).join(':') : r.replace(/:.*/, ''))
       const approved = approvalOf(p, c.file, 'commons', c.file)
       // An editor who approved an institution's file has looked at it: it may be used beyond context.
@@ -229,7 +233,7 @@ export async function imageStage(ctx) {
       const key = stableImageId(c.provider, c.source_id)
       const placeIds = c.placeIds || []
       const identity = identityOf(c, p, { placeIds, regionNames: ctx.krRegionNames })
-      const a = assessText(c, { project_type: p.project_type, names: ownNames })
+      const a = assessText(c, { project_type: p.project_type, names: ownNames, creators })
       const reasons = [...(c.rights?.ok ? [] : (c.rights?.reasons || ['rights']).map((r) => 'rights:' + r)), ...(identity.ok ? [] : ['identity_unproven']), ...a.reasons]
       if (!c.src || !c.page) reasons.push('no_https_url')
       const ok = reasons.length === 0
@@ -273,6 +277,9 @@ export async function imageStage(ctx) {
     const choice = chooseImages(p, usable, { heroAllow, blocked: new Set(), galleryMax: IC.gallery_max ?? 12, th: IC })
     stats.duplicates += choice.duplicates.length
     const images = choice.ordered.map(({ s, role }) => imageObject(s, role, { project: p, checkedAt: s.q?.at || today, th: IC }))
+    // Creators' portraits: for the creator section of the record (lib/output.mjs), never in images[].
+    const portraits = choice.portraits.slice(0, 4).map((s) => ({ ...imageObject(s, 'context', { project: p, checkedAt: s.q?.at || today, th: IC }), creator: s.a.portrait }))
+    stats.portraits += portraits.length
     for (const i of images) {
       count(stats.by_provider, i.provider)
       if (i.below_target) stats.below_threshold++
@@ -281,12 +288,12 @@ export async function imageStage(ctx) {
     const heroImg = pick(choice.hero), featuredImg = pick(choice.featured)
     const homeS = choice.hero || choice.featured || choice.usable.find((s) => s.t.home_ok && s.cand.provider === 'commons' && s.q) || null
     const homeImg = pick(homeS)
-    imageResults.set(p.id, { images, status: 'scored', hero: heroImg, featured: featuredImg, home: homeImg && homeImg.tier <= 3 ? homeImg : null, score: homeS ? (homeS.m?.visual ?? 0) + (6 - homeS.t.tier) * 15 + (homeS.q ? qualityScoreOf(homeS) / 5 : 0) : 0 })
+    imageResults.set(p.id, { images, portraits, status: 'scored', hero: heroImg, featured: featuredImg, home: homeImg && homeImg.tier <= 3 ? homeImg : null, score: homeS ? (homeS.m?.visual ?? 0) + (6 - homeS.t.tier) * 15 + (homeS.q ? qualityScoreOf(homeS) / 5 : 0) : 0 })
     stats.processed++
     if (!images.length) stats.none++
     imageReview.push({
       project: p.id, name: p.name_en || p.name_ko, country_iso2: p.country_iso2, type: p.project_type, card: choice.card?.key ?? null, hero: choice.hero?.key ?? null, featured: choice.featured?.key ?? null,
-      candidates: assessed.map((s) => ({ key: s.key, provider: s.cand.provider, source: s.source, ok: s.a.ok, reasons: s.a.reasons, night: s.a.night ?? null, media: s.a.media ?? null, night_terms: s.a.night_terms, media_terms: s.a.media_terms, evidence: s.a.evidence, visual: s.m ?? null, quality: s.q ? { sharpness: s.q.sharpness, blockiness: s.q.blockiness, laplacian_var: s.q.laplacian_var, phash: s.q.phash, decoded: s.q.decoded, measured_width: s.q.measured_width } : null, width: s.width ?? null, tier: s.t?.tier ?? null, home_ok: s.t?.home_ok ?? false, approved: s.approved ?? null, identity: s.identity, size_mismatch: s.size_mismatch ?? null })),
+      candidates: assessed.map((s) => ({ key: s.key, provider: s.cand.provider, source: s.source, ok: s.a.ok, reasons: s.a.reasons, kind: s.kind ?? null, title: s.a.title_text ? s.a.title_text.slice(0, 160) : null, night: s.a.night ?? null, media: s.a.media ?? null, night_terms: s.a.night_terms, media_terms: s.a.media_terms, evidence: s.a.evidence, visual: s.m ?? null, quality: s.q ? { sharpness: s.q.sharpness, blockiness: s.q.blockiness, laplacian_var: s.q.laplacian_var, phash: s.q.phash, decoded: s.q.decoded, measured_width: s.q.measured_width } : null, width: s.width ?? null, tier: s.t?.tier ?? null, home_ok: s.t?.home_ok ?? false, approved: s.approved ?? null, identity: s.identity, size_mismatch: s.size_mismatch ?? null })),
       providers: providerReview,
       hero_decisions: choice.decisions, featured_decisions: choice.featuredDecisions, duplicates: choice.duplicates,
     })
@@ -329,23 +336,27 @@ export async function imageStage(ctx) {
       if (i.provider !== 'commons') {
         if (!WEAK_IDENTITY.has(i.identity?.method)) return i
         stats.kept_dropped_unverified++
+        keptDrops.push({ project: p.id, id: i.id, title: i.title ?? null, reason: 'identity' })
         return null
       }
       const title = fileOf(i).replace(/\.[a-z0-9]+$/i, '').replace(/[_-]+/g, ' ')
       if (!title) return i
       const isP18 = (p.p18 || []).some((f) => bareFile(f) === fileOf(i))
-      if (otherSubject(title, { names: ownNames, project_type: p.project_type })) { stats.kept_dropped_irrelevant++; return null }
+      const subj = otherSubject(title, { names: ownNames, project_type: p.project_type })
+      if (subj) { stats.kept_dropped_irrelevant++; keptDrops.push({ project: p.id, id: i.id, title, reason: subj.startsWith('subject:people_or_event') ? 'person' : 'mislinked' }); return null }
+      if (PERSON_STRONG.test(title) && !namesCreator(title, p.creator_names || [])) { stats.kept_dropped_person++; keptDrops.push({ project: p.id, id: i.id, title, reason: 'person' }); return null }
       const n = nameEvidence(title)
       const nightShows = ['media_facade', 'media_wall', 'urban_screen', 'projection_mapping'].includes(p.project_type) || (p.project_type === 'light_art' && p.qid_match !== 'host')
       const institutional = (p.item_institution || p.qid_match === 'host') && !isP18 && !(wn.length && nameIn(title, wn)) && n.media < 30 && !(nightShows && n.night >= 30)
       if (!institutional || (i.role === 'context' && i.tier >= 5)) return i
       stats.kept_demoted_context++
-      return { ...i, role: 'context', tier: 5 }
+      return { ...i, role: 'context', tier: 5, kind: 'architecture_context' }
     }
     const images = (old?.images || []).map((i) => upgradeImage(i, p.id)).filter((i) => !imageBlocked(ed, p.id, fileOf(i)) && !imageBlocked(ed, p.id, i.id)).map(recheck).filter(Boolean)
     const pick = state.imagePicks?.[p.id] || (old && state.imagePicks?.[old.id]) || null
     const home = pick?.home ? images.find((i) => (i.page === pick.home || i.id === pick.home) && i.tier <= 3) || null : null
-    imageResults.set(p.id, { images, status: 'kept_previous', home, hero: images.find((i) => i.role === 'hero') || null, featured: images.find((i) => i.role === 'featured') || null, score: pick?.score ?? 0 })
+    const portraits = (old?.credits || []).map((c) => c.portrait && { ...c.portrait, creator: c.portrait.creator || c.name }).filter(Boolean)
+    imageResults.set(p.id, { images, portraits, status: 'kept_previous', home, hero: images.find((i) => i.role === 'hero') || null, featured: images.find((i) => i.role === 'featured') || null, score: pick?.score ?? 0 })
     stats.kept_previous++
   }
 
@@ -359,10 +370,20 @@ export async function imageStage(ctx) {
       for (const p of group) cands.set(p.id, await commonsFiles(p))
       const files = uniq([...cands.values()].flat().map((c) => c.file))
       const info = files.length ? await fileInfo(client, files, { cache, ttlHours: ttl.commons_files ?? 336, thumbWidth: IC.thumb_width ?? 330 }) : new Map()
+      // What the files depict (structured data): a file that depicts a human is a photo of a person.
+      const depicts = new Map(), humans = new Set()
+      if (IC.depicts_people !== false && files.length) {
+        try {
+          for (const [f, qs] of await fileDepictsStatements(client, files.filter((f) => info.get(f) && !info.get(f).missing), { cache, ttlHours: ttl.commons_file_depicts ?? 720 })) depicts.set(f, qs)
+          const qids = uniq([...depicts.values()].flat())
+          if (qids.length) { const r = await fetchAux(client, qids, { cache, ttlHours: ttl.entities_aux ?? 720, stage: 'images' }); for (const [q, a] of r.aux) if ((a.p31 || []).includes('Q5')) humans.add(q) }
+        } catch (x) { if (isBudget(x)) throw x; stats.depicts_errors++; err('images_depicts_statements', x, { projects: group.map((p) => p.id) }) }
+      }
+      const depictsHuman = (f) => (depicts.get(f) || []).some((q) => humans.has(q))
       for (const p of group) {
         const commonsUsableCount = (cands.get(p.id) || []).filter((c) => { const i = info.get(c.file); return i && !i.missing && (i.width || 0) >= (IC.featured_min_width ?? 1600) }).length
         const providers = await providerCandidates(p, commonsUsableCount)
-        await scoreProject(p, cands.get(p.id), info, providers)
+        await scoreProject(p, cands.get(p.id), info, providers, depictsHuman)
       }
     } catch (x) {
       if (!isBudget(x)) err('images', x, { projects: group.map((p) => p.id) })
@@ -371,5 +392,5 @@ export async function imageStage(ctx) {
     }
   }
   for (const p of published) if (!imageResults.has(p.id)) keepPrevImages(p)
-  return { imageResults, imageReview, tiles, heroOutcome, providerLog, imageCandidates, stats: { ...stats, thumbnails_fetched: thumbsFetched, quality_fetched: qualityFetched, depicts_searches: depictsAsked, provider_new_requests: used, openverse_rate_limit: openverseLimits } }
+  return { imageResults, imageReview, tiles, heroOutcome, providerLog, imageCandidates, keptDrops, stats: { ...stats, thumbnails_fetched: thumbsFetched, quality_fetched: qualityFetched, depicts_searches: depictsAsked, provider_new_requests: used, openverse_rate_limit: openverseLimits } }
 }

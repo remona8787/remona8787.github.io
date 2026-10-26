@@ -317,6 +317,32 @@ opening ceremony), unless the word is part of the project's own name (or, for an
 light work's own category: a tiger lantern at a lantern festival). The four mislinked images of the first October
 live review are regression fixtures.
 
+**People.** A photo of people is not a photo of the work. Strong signs always count: a portrait word (portrait,
+headshot, selfie, posing, 인물사진, 기념사진…), a people or portrait category ("People of …", "Portraits of …", "Visitors
+at …"), or structured data that says the file depicts a human (the file's MediaInfo P180 names an item with P31 Q5;
+fetched 50 files per request and cached). Weak words (visitors, a couple, a family, 관람객…) count when the file
+names neither night nor media; otherwise the people are only in the frame of the work (`people_in_frame`). Providers'
+tags count too. A photo naming one of the project's creators (P170, P50, P84 or P112) as its subject ("Leo Villareal
+at The Bay Lights opening", not "The Bay Lights by Leo Villareal") is that artist's portrait: it goes to the credit
+(`credits[].portrait`, kind `artist_portrait`), never to `images[]`. Politicians, officials and events stay rejected
+(people_or_event).
+
+**Image kinds.** Every published image has a `kind` next to its role and tier: `project_media` (tiers 1–3: the work
+running), `project_installation` (tier 4), `architecture_context` (tier 5 and institution files),
+`technical_documentation` (construction, LED modules, mock-ups, renderings), `event_documentation` (openings,
+ceremonies, audiences; a festival's own photos stay media), `artist_portrait` (credits only) and `unverified` (never
+published). Only `project_media` can be hero or featured; documentation and portraits are never the card. Each image
+stores its source `title` (Commons file name, provider title) and a `description` snippet (≤ 240 characters) for
+audits, and `commercial_use` (KOGL types 1 and 3 and CC0/PD/BY/BY-SA: true; NC: false) with `kogl_type` on KOGL
+images. Records and images of earlier runs get a kind from their tier and a title from their page.
+
+**Image audit** (`review/image-audit.json`, `report.image_audit` and a section of the step summary): images published
+and portraits; relevance verified this run vs. kept after the file-name recheck; images of the previous dataset that
+are gone, each with this run's reason (person, mislinked, duplicate, low resolution, rights, identity, not selected,
+project removed, not rechecked) and examples; candidates rejected this run by reason group; newly added images; the
+share of projects with a valid card (card, featured or hero of a card kind) overall, Korean, world, per Korean
+region, and per project. Every number is counted from the records, the previous dataset and the run's decisions.
+
 **Institution files.** A curated place's Wikidata item is often the institution, building, tower or district rather
 than the work (the National Museum of Korea for its Immersive Digital Gallery, N Seoul Tower for its lighting), and a
 host building always is. Files from such an item's Commons category (and its night and event subcategories) and its
@@ -481,7 +507,10 @@ admin page builds the JSON and opens GitHub's new-file page
 1. It waits (up to 20 minutes) until `/deploy.json` has the deploy id and `/data/manifest.json` the build id.
 2. It opens home, explore, map, a detail page (a hero or featured project), the data page and the admin page, at 390×844 and 1440×900. Each page gets a fresh context with a cold cache and service workers blocked.
 3. It checks that `/data/admin/report.json` is not served (`summary.admin_data_public`; served means failure) and
-   records the rendition width of the home page's largest image (`summary.home_lcp_image_px`).
+   records the rendition width of the home page's largest image (`summary.home_lcp_image_px`). The regression page
+   `#place/SEOUL006` is opened on every run besides the rotating detail page; for both, the images on the page are
+   matched to the record (Commons file name or URL): `pages[].gallery` gives the count shown, providers, kinds and any
+   artist portrait or unverified image visible (`summary.gallery_forbidden`, should be 0; `--strict` fails on it).
 4. It writes `review/live/report.json` and a JPEG per page.
 
 The report records, per page: HTTP status, console errors, page errors, failed requests, HTTP errors, LCP, navigation

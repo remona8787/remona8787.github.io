@@ -90,6 +90,7 @@ test('download log: written by the service role only; members read their own row
 
 test('content reports: anyone files one, nobody but editors reads or handles it, and a report cannot pre-set its outcome',async()=>{
  await q(db,'anon',null,`insert into public.content_reports(project_id,image_id,reason,message) values('SEOUL006','img-87fc9bb640b2','person_image','A presidential visit photo, not the facade')`);
+ await q(db,'anon',null,`insert into public.content_reports(project_id,reason,contact_email) values('SEOUL018','low_quality','reader@example.org')`);
  await q(db,'authenticated',ALICE,`insert into public.content_reports(project_id,reason,reporter) values('SEOUL043','image_unrelated',$1)`,[ALICE]);
  assert.equal(await code(q(db,'authenticated',ALICE,`insert into public.content_reports(project_id,reason,reporter) values('SEOUL043','image_unrelated',$1)`,[BOB])),'42501','not in someone else\'s name');
  assert.equal(await code(q(db,'anon',null,`insert into public.content_reports(project_id,reason,status) values('SEOUL006','other','accepted')`)),'42501');
@@ -98,7 +99,9 @@ test('content reports: anyone files one, nobody but editors reads or handles it,
  assert.equal(await code(q(db,'anon',null,`select * from public.content_reports`)),'42501');
  assert.equal((await q(db,'authenticated',ALICE,`select * from public.content_reports`)).length,0,'a member does not see reports, not even their own');
  const open=await q(db,'authenticated',EDITOR,`select id,reason from public.content_reports where status='open' order by id`);
- assert.deepEqual(open.map(r=>r.reason),['person_image','image_unrelated']);
+ assert.deepEqual(open.map(r=>r.reason),['person_image','low_quality','image_unrelated']);
+ await q(db,'authenticated',EDITOR,`update public.content_reports set status='rejected' where reason='low_quality'`);
+ assert.equal((await rows(db,`select contact_email from public.content_reports where reason='low_quality'`))[0].contact_email,null,'the e-mail goes once the report is handled');
  await q(db,'authenticated',EDITOR,`update public.content_reports set status='accepted',handled_by=$1,handled_at=now(),note='blocked via editorial decision' where id=$2`,[EDITOR,open[0].id]);
  assert.equal(await code(q(db,'authenticated',EDITOR,`update public.content_reports set message='changed' where id=$1`,[open[0].id])),'42501','the report text is kept as filed');
  assert.equal((await q(db,'authenticated',ALICE,`update public.content_reports set status='rejected' returning id`)).length,0);

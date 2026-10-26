@@ -15,6 +15,7 @@ const opt = (f) => (v) => v === null || v === undefined || f(v)
 const counts = (v) => v && typeof v === 'object' && !Array.isArray(v) && Object.values(v).every((n) => isInt(n) && n >= 0)
 const SOURCE_STATUS = new Set(['ok', 'partial', 'error', 'skipped', 'kept_previous', 'disabled'])
 const ROLES = new Set(['hero', 'featured', 'card', 'gallery', 'context'])
+const PUBLISHED_KINDS = new Set(['project_media', 'project_installation', 'architecture_context', 'technical_documentation', 'event_documentation', 'artist_portrait'])
 const PROVIDERS = new Set(['commons', 'openverse', 'flickr', 'tourapi', 'kto_photo', 'unsplash', 'pexels', 'official', 'editor'])
 const pct = (v) => isInt(v) && v >= 0 && v <= 100
 const SOURCE_KINDS = new Set(['official', 'public_agency', 'academic', 'specialist_media', 'news', 'blog', 'wikidata', 'wikipedia', 'commons', 'reference', 'search_result'])
@@ -50,6 +51,10 @@ export function checkImage(img, path, need, { maxTier = 5 } = {}) {
   need(img.quality === null || img.quality === undefined || (pct(img.quality.sharpness) && pct(img.quality.blockiness) && pct(img.quality.score)), path + '.quality', '{sharpness, blockiness, score} 0..100')
   need(img.media_active && pct(img.media_active.score) && Array.isArray(img.media_active.reasons), path + '.media_active', '{score 0..100, reasons[]}')
   need(img.approved === true || img.approved === false || img.approved === null, path + '.approved', 'true, false or null')
+  // Image kinds (fifth brief): every published image says what it shows; 'unverified' is never published.
+  need(PUBLISHED_KINDS.has(img.kind), path + '.kind', 'unknown or unpublishable kind ' + img.kind)
+  need(str(img.title) && img.title.length <= 200, path + '.title', 'the source title (≤ 200 characters)')
+  need(img.description === null || img.description === undefined || (typeof img.description === 'string' && img.description.length <= 240), path + '.description', 'a snippet of ≤ 240 characters or null')
   if (img.provider && img.provider !== 'commons') need(img.identity?.ok === true && str(img.identity.method), path + '.identity', 'an identity proof is required outside Commons')
 }
 
@@ -127,7 +132,11 @@ export function checkRecord(r, path, need) {
   need(Array.isArray(r.sources) && r.sources.length > 0, path + '.sources', 'at least one source')
   ;(r.sources || []).forEach((s, i) => { need(httpAny(s.url), `${path}.sources[${i}].url`, 'not a URL'); need(SOURCE_KINDS.has(s.kind), `${path}.sources[${i}].kind`, 'unknown kind ' + s.kind) })
   need(r.sources?.some((s) => ['wikidata', 'wikipedia', 'commons', 'official'].includes(s.kind)) || (r.curated_place_id && r.sources.length), path + '.sources', 'needs a public source (Wikidata, Wikipedia, Commons or official)')
-  ;(r.credits || []).forEach((c, i) => need(T.valid('credit_role', c.role) && str(c.name), `${path}.credits[${i}]`, 'role and name'))
+  ;(r.credits || []).forEach((c, i) => {
+    need(T.valid('credit_role', c.role) && str(c.name), `${path}.credits[${i}]`, 'role and name')
+    if (c.portrait !== undefined) { checkImage(c.portrait, `${path}.credits[${i}].portrait`, need); need(c.portrait?.kind === 'artist_portrait', `${path}.credits[${i}].portrait.kind`, 'artist_portrait') }
+  })
+  ;(r.images || []).forEach((img, i) => need(img?.kind !== 'artist_portrait', `${path}.images[${i}].kind`, 'a creator portrait belongs to its credit, never to images[]'))
   if (r.visit !== null) need(r.visit && typeof r.visit === 'object' && (r.visit.status === null || T.valid('operating_status', r.visit.status)), path + '.visit', 'bad visit')
   need(opt(ISO_TIME)(r.added_at), path + '.added_at', 'not a time')
   need(SHARD.test(r.shard), path + '.shard', 'bad shard')

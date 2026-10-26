@@ -129,6 +129,11 @@ create table if not exists public.content_reports(
  note text check(note is null or char_length(note)<=1000)
 );
 create index if not exists content_reports_open on public.content_reports(status,created_at desc);
+-- A reporter's e-mail address serves only the reply: it is erased when the report is handled (privacy policy §2).
+create or replace function public.content_reports_handled() returns trigger language plpgsql set search_path='' as $$
+begin if new.status<>'open' then new.contact_email:=null; end if; return new; end $$;
+drop trigger if exists content_reports_handled on public.content_reports;
+create trigger content_reports_handled before update of status on public.content_reports for each row execute function public.content_reports_handled();
 alter table public.content_reports enable row level security;
 revoke all on public.content_reports from public,anon,authenticated;
 grant insert(project_id,image_id,reason,message,contact_email,reporter) on public.content_reports to anon,authenticated;

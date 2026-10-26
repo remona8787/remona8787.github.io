@@ -229,6 +229,8 @@ export function buildProject(obs, facts, ctx = {}) {
   }
   p.credits = credits
   if (credits.length) fs.credits = 'wikidata'
+  // Names that make a photo of a person a creator's portrait (images.mjs): artists, architects, founders.
+  p.creator_names = uniq([...credits.filter((c) => c.role !== 'operator').flatMap((c) => [c.name, c.name_en]), ...((f && !host ? f.founders : null) || []).flatMap((x) => [x.name, x.name_en])].filter(Boolean))
   p.official_url = set('official_url', first(editorialObs?.official_url, curated?.official_url, host ? null : f?.official_url, tour?.official_url), editorialObs?.official_url ? 'editorial' : curated?.official_url ? 'curated' : f?.official_url && !host ? 'wikidata' : 'tourapi')
   p.description_ko = set('description_ko', first(editorialObs?.description_ko, curated?.description_ko, host ? null : f?.description_ko), editorialObs?.description_ko ? 'editorial' : curated?.description_ko ? 'curated' : 'wikidata')
   p.description_en = set('description_en', first(editorialObs?.description_en, host ? null : f?.description_en), editorialObs?.description_en ? 'editorial' : 'wikidata')

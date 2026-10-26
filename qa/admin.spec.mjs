@@ -642,3 +642,67 @@ for(const scheme of ['light','dark'])test.describe(`a11y ${scheme}`,()=>{
   }
  });
 });
+
+test('content reports: editors see open reports as text, handle them, and get a GitHub decision link for image reports',async({page})=>{
+ const m=await mockSupabase(page);noDialogs(page);
+ await signIn(page,'editor','#reports');
+ await expect(page.locator('#reportList .report')).toHaveCount(2);
+ const first=page.locator('#reportList .report').first();
+ await expect(first).toContainText('인물 사진이 잘못 연결됨');
+ await expect(first).toContainText(XSS);
+ expect(await page.locator('#reportList script, #reportList img[onerror]').count()).toBe(0);
+ // An image report links to a block_image decision on the source branch; it never changes data itself.
+ const href=await first.getByRole('link',{name:/편집 결정 만들기/}).getAttribute('href');
+ const u=new URL(href);
+ expect(u.origin+u.pathname).toBe('https://github.com/remona8787/remona8787.github.io/new/source');
+ expect(u.searchParams.get('filename')).toMatch(/^editorial\/decisions\/\d{4}-\d{2}-\d{2}T[\d-]+-block_image\.json$/);
+ const decision=JSON.parse(u.searchParams.get('value'));
+ expect(decision).toMatchObject({action:'block_image',target:'SEOUL006',image:'img-87fc9bb640b2'});
+ expect(decision.by).not.toContain('@');
+ await expect(page.locator('#reportList .report').nth(1).getByRole('link',{name:/편집 결정 만들기/})).toHaveCount(0);
+ await first.getByLabel('처리 메모').fill('편집 결정으로 차단');
+ await first.getByRole('button',{name:'반영으로 처리'}).click();
+ await expect(page.locator('#toast')).toHaveText('신고 #7: 반영');
+ const patch=m.calls.find(c=>c.name==='content_reports'&&c.method==='PATCH');
+ expect(patch.query).toBe('?id=eq.7');
+ expect(patch.body).toMatchObject({status:'accepted',note:'편집 결정으로 차단'});
+ expect(patch.body.handled_by).toBe(USERS.editor.id);
+ await expect(page.locator('#reportList .report')).toHaveCount(1);
+ await page.locator('#reportStatus').selectOption('all');
+ await page.locator('#reportsFilter').getByRole('button',{name:'보기'}).click();
+ await expect(page.locator('#reportList .report')).toHaveCount(3);
+ await expect(page.locator('#reportList')).not.toContainText('reader@example.org');
+});
+
+test('data quality reads the collection report from the data branch and shows its numbers',async({page})=>{
+ const m=await mockSupabase(page);
+ await signIn(page,'editor','#quality');
+ const box=page.locator('#qualityBox');
+ await expect(box.locator('table')).toBeVisible();
+ await expect(box).toContainText('20261026T001508Z-efb33e6a');
+ for(const t of ['공개','국내','승인 대기 외부 사진','이미지 점검','유효 대표 이미지 확보율'])await expect(box).toContainText(t);
+ await expect(box.locator('.tile',{hasText:'승인 대기 외부 사진'})).toContainText('150');
+ await expect(box.locator('.tile',{hasText:'인물 사진 제외'})).toContainText('5');
+ await expect(box).toContainText(XSS);
+ expect(await box.locator('script').count()).toBe(0);
+ expect(m.calls.filter(c=>c.kind==='raw').map(c=>new URL(c.url).pathname).sort()).toEqual(['/remona8787/remona8787.github.io/data/admin-data/report.json','/remona8787/remona8787.github.io/data/review/image-audit.json']);
+});
+
+test('members and research data: admins only, aggregates only',async({page})=>{
+ const m=await mockSupabase(page);
+ await signIn(page,'admin','#members');
+ const box=page.locator('#membersBox');
+ await expect(box.locator('.tile',{hasText:'회원'}).first()).toContainText('12');
+ await expect(box).toContainText('오류율 10%');
+ await expect(box).toContainText('kr-media-facades');
+ await expect(box).toContainText('1.0.0');
+ expect(m.last('research_admin_stats').body).toEqual({p_days:30});
+ await page.locator('#membersDays').selectOption('90');
+ await page.locator('#membersFilter').getByRole('button',{name:'보기'}).click();
+ await expect.poll(()=>m.last('research_admin_stats').body).toEqual({p_days:90});
+ await expect(box).not.toContainText('@');
+ // Editors never get the tab, and a direct link falls back.
+ await page.getByRole('button',{name:'로그아웃'}).click();
+ await signIn(page,'editor','#members');
+ await expect(page.locator('#view-members')).toBeHidden();
+});

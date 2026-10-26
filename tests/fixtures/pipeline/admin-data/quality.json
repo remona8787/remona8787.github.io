@@ -1,7 +1,7 @@
 {
  "broken_links": [
   {
-   "checked_at": "2026-10-20T06:27:01.080Z",
+   "checked_at": "2026-10-20T06:27:13.120Z",
    "consecutive_failures": 1,
    "field": "official_url",
    "http_status": 404,
@@ -10,7 +10,7 @@
    "url": "https://centercity.example/"
   }
  ],
- "build_id": "20261020T061700Z-184976a2",
+ "build_id": "20261020T061700Z-2c1e202d",
  "coordinate_checks": [
   {
    "distance_m": 6135,
@@ -85,7 +85,8 @@
   "rights:foreign_no_freedom_of_panorama": 1,
   "rights:license_not_allowed": 1,
   "subject:object_or_animal": 4,
-  "subject:people_or_event": 5
+  "subject:people_or_event": 6,
+  "subject:person": 3
  },
  "low_confidence_types": [
   {

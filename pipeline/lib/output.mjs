@@ -4,11 +4,11 @@
 // source is null. docs/PIPELINE.md documents every field.
 import T from '../../site-public-cleared/archive-taxonomy.js'
 import { fnv1a, round, compareStrings, sha256, stableStringify } from './util.mjs'
-import { stableImageId, cleanMediaUrl, THUMB_STEPS } from './images.mjs'
+import { stableImageId, cleanMediaUrl, THUMB_STEPS, kindOfTier, rightsUse } from './images.mjs'
 
 export const DATA_SCHEMA = 1
 // The v0.17 fields first (readers find columns by name), then v0.18: kr_region, and the thumbnail's size.
-export const INDEX_FIELDS = ['id', 'name_ko', 'name_en', 'name_original', 'country_iso2', 'city', 'lat', 'lng', 'project_type', 'year', 'thumb', 'visual_rank', 'shard', 'added_at', 'kr_region', 'thumb_w', 'thumb_h']
+export const INDEX_FIELDS = ['id', 'name_ko', 'name_en', 'name_original', 'country_iso2', 'city', 'lat', 'lng', 'project_type', 'year', 'thumb', 'visual_rank', 'shard', 'added_at', 'kr_region', 'thumb_w', 'thumb_h', 'city_ko', 'district']
 export const SHARD_TARGET = 200
 
 /** Number of shards: a power of two, so ids move between shards only when the archive doubles. */
@@ -32,8 +32,10 @@ export function imageOut(img) {
     id: img.id, project: img.project ?? null, provider: img.provider, src: img.src, page: img.page, display: img.display || [], thumb: img.thumb,
     author: img.author ?? null, rights_holder: img.rights_holder ?? null, license: img.license, license_url: img.license_url ?? null, attribution: img.attribution ?? null,
     usage: img.usage, ...(img.no_derivatives ? { no_derivatives: true } : {}), ...(img.permission_note ? { permission_note: img.permission_note } : {}),
+    ...(img.kogl_type ? { kogl_type: img.kogl_type } : {}), commercial_use: img.commercial_use ?? rightsUse(img.license).commercial_use,
     width: img.width ?? null, height: img.height ?? null, bytes: img.bytes ?? null, format: img.format ?? null,
     quality: img.quality ?? null, media_active: img.media_active ?? null, tier: img.tier, role: img.role,
+    kind: img.kind ?? kindOfTier(img.tier), title: img.title ?? pageTitle(img.page) ?? `${img.provider} ${img.id}`, description: img.description ?? null,
     ...(img.identity ? { identity: img.identity } : {}), ...(img.below_target ? { below_target: true } : {}),
     checked_at: img.checked_at ?? null, approved: img.approved ?? null,
   }
@@ -45,7 +47,9 @@ export function imageOut(img) {
  * URL is derived from the thumbnail path; tier 4 (context) becomes 5; detail becomes gallery or context.
  */
 export function upgradeImage(img, projectId) {
-  if (!img || (img.id && img.provider)) return img
+  if (!img) return img
+  // An early v0.18 image (before kinds): its kind from its tier, its title from its Commons page.
+  if (img.id && img.provider) return img.kind ? img : { ...img, kind: kindOfTier(img.tier), title: img.title ?? pageTitle(img.page) ?? null, description: img.description ?? null }
   const page = String(img.page || '')
   const file = page.includes('File:') ? decodeURIComponent(page.split('File:')[1]).replace(/_/g, ' ') : img.src
   const thumb = cleanMediaUrl(img.thumb)
@@ -60,8 +64,15 @@ export function upgradeImage(img, projectId) {
     id: stableImageId('commons', file), project: projectId, provider: 'commons', src: original, page: img.page, display, thumb: thumb || original,
     author: img.author ?? null, rights_holder: img.author ?? null, license: img.license, license_url: img.license_url ?? null, attribution: img.attribution ?? null,
     usage: 'cache', width: img.width ?? null, height: img.height ?? null, bytes: null, format: null,
-    quality: null, media_active: { score: 0, reasons: ['legacy_v017'] }, tier, role, checked_at: null, approved: role === 'hero' ? true : null,
+    quality: null, media_active: { score: 0, reasons: ['legacy_v017'] }, tier, role, kind: kindOfTier(tier), title: pageTitle(img.page) ?? null, description: null,
+    checked_at: null, approved: role === 'hero' ? true : null,
   }
+}
+/** "Foo bar" from a Commons file page URL (…/wiki/File:Foo_bar.jpg), or null. */
+export function pageTitle(page) {
+  const p = String(page || '')
+  if (!p.includes('File:')) return null
+  try { return decodeURIComponent(p.split('File:')[1]).replace(/_/g, ' ').replace(/\.[a-z0-9]+$/i, '').slice(0, 200) || null } catch { return null }
 }
 
 /** A previously published record in the v0.18 shape (images upgraded, kr_region present). */
@@ -122,7 +133,11 @@ export function publicRecord(p, { shard, addedAt }) {
     spatial_context: [],
     summary_ko: p.description_ko ?? null,
     summary_en: p.description_en ?? null,
-    credits: (p.credits || []).map((c) => ({ role: c.role, name: c.name ?? c.name_en ?? null, name_en: c.name_en ?? null, wikidata_qid: c.wikidata_qid ?? null })).filter((c) => c.name),
+    // A creator's portrait (image kind artist_portrait) belongs to the credit it names, never to images[].
+    credits: (p.credits || []).map((c) => {
+      const portrait = (p.portraits || []).find((i) => i.creator && [c.name, c.name_en].filter(Boolean).includes(i.creator))
+      return { role: c.role, name: c.name ?? c.name_en ?? null, name_en: c.name_en ?? null, wikidata_qid: c.wikidata_qid ?? null, ...(portrait ? { portrait: imageOut(portrait) } : {}) }
+    }).filter((c) => c.name),
     official_url: p.official_url ?? null,
     commons_category: p.commons_category ?? null,
     images,
@@ -168,7 +183,7 @@ export function buildIndex(records, { compactAboveBytes = 512 * 1024 } = {}) {
     const [tw, th] = thumbSize(card)
     return [r.id, r.name_ko, r.name_en, r.name_original && r.name_original !== r.name_en && r.name_original !== r.name_ko ? r.name_original : null,
       r.country_iso2, r.city, r.lat === null ? null : round(r.lat, 4), r.lng === null ? null : round(r.lng, 4), r.project_type, yearOf(r),
-      card?.thumb ?? null, card?.tier ?? null, r.shard, r.added_at ? r.added_at.slice(0, 10) : null, r.kr_region ?? null, card ? tw : null, card ? th : null]
+      card?.thumb ?? null, card?.tier ?? null, r.shard, r.added_at ? r.added_at.slice(0, 10) : null, r.kr_region ?? null, card ? tw : null, card ? th : null, r.city_ko ?? null, r.district ?? null]
   })
   const full = { schema: DATA_SCHEMA, fields: INDEX_FIELDS, rows }
   if (Buffer.byteLength(JSON.stringify(full)) <= compactAboveBytes) return full

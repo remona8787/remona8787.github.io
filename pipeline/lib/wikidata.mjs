@@ -373,7 +373,7 @@ export function findCity(entity, auxMap, cityPattern) {
 export function auxRefs(entities) {
   const out = new Set()
   for (const e of entities) {
-    for (const p of ['P17', 'P131', 'P276', 'P31', 'P84', 'P170', 'P137', 'P301', 'P5817']) for (const v of e.claims[p] || []) if (v.item) out.add(v.item)
+    for (const p of ['P17', 'P131', 'P276', 'P31', 'P84', 'P170', 'P50', 'P112', 'P137', 'P301', 'P5817']) for (const v of e.claims[p] || []) if (v.item) out.add(v.item)
   }
   return [...out]
 }
@@ -431,7 +431,9 @@ export function factsOf(entity, auxMap, { cityPattern, originalLanguageByCountry
     start: year('P580'),
     end: year('P582'),
     architects: people('P84'),
-    creators: people('P170'),
+    creators: [...people('P170'), ...people('P50').filter((x) => !(c.P170 || []).some((v) => v.item === x.qid))],
+    // Founders (P112) are not credited; their names only mark a photo of them as a creator's portrait (images.mjs).
+    founders: people('P112'),
     operators: people('P137'),
     official_url: official,
     commons_category: commons ? 'Category:' + commons.replace(/^Category:/i, '') : null,

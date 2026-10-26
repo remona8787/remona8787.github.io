@@ -9,7 +9,7 @@ import { existsSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import { assemble, loadDataset, robotsWithAdmin, treeId, KEEP } from '../pipeline/deploy.mjs'
-import { waitForDeploy, pickDetail, screens, summarize, renditionWidth, VIEWPORTS, INTERNAL_TERMS } from '../pipeline/verify-live.mjs'
+import { waitForDeploy, pickDetail, screens, summarize, renditionWidth, galleryCheck, imageKey, VIEWPORTS, INTERNAL_TERMS } from '../pipeline/verify-live.mjs'
 
 const root = path.resolve(import.meta.dirname, '..')
 const FIX = path.join(root, 'tests/fixtures/pipeline')
@@ -226,10 +226,20 @@ test('verify-live: waits until the live site serves this deploy and build, or re
   assert.match(down.error, /deploy\.json: HTTP 404/)
 })
 
-test('verify-live: screens, viewports, detail pick and the summary', () => {
+test('verify-live: screens, viewports, detail pick and the summary', async () => {
   assert.deepEqual(VIEWPORTS.map((v) => [v.width, v.height]), [[390, 844], [1440, 900]])
-  assert.deepEqual(screens('Q1 x').map((s) => [s.name, s.path]), [['home', ''], ['explore', '#explore'], ['map', '#map'], ['detail', '#place/Q1%20x'], ['data', '#data'], ['admin', 'admin/']])
+  assert.deepEqual(screens('Q1 x').map((s) => [s.name, s.path]), [['home', ''], ['explore', '#explore'], ['map', '#map'], ['detail', '#place/Q1%20x'], ['place-SEOUL006', '#place/SEOUL006'], ['data', '#data'], ['admin', 'admin/']])
   assert.equal(screens(null).some((s) => s.name === 'detail'), false)
+  assert.equal(screens('SEOUL006').filter((s) => s.path === '#place/SEOUL006').length, 1, 'the regression page is not opened twice')
+  // What a detail page shows, matched to its record by Commons file name or URL.
+  const rec = JSON.parse(await readFile(path.join(FIX, 'site-data/projects/000.json'), 'utf8')).projects.find((r) => r.id === 'Q7715933')
+  const shownUrls = [rec.images[0].display[0][1], rec.images[1].thumb + '?utm_source=x', 'https://example.org/logo.png', rec.credits.find((c) => c.portrait).portrait.thumb]
+  const g = galleryCheck(shownUrls, rec)
+  assert.equal(g.shown, 3)
+  assert.deepEqual(g.providers, { commons: 3 })
+  assert.equal(g.artist_portrait_visible.length, 1, 'a portrait on the page is reported')
+  assert.deepEqual(g.unverified_visible, [])
+  assert.equal(imageKey('https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Foo_bar.jpg/960px-Foo_bar.jpg'), imageKey('https://upload.wikimedia.org/wikipedia/commons/a/ab/Foo_bar.jpg'))
   assert.equal(screens('x').find((s) => s.name === 'admin').public, false, 'the admin page may show review vocabulary')
   assert.equal(pickDetail({ hero: [{ project: 'H' }], featured: ['F'] }, null), 'H')
   assert.equal(pickDetail({ hero: [], featured: ['F'] }, null), 'F')
