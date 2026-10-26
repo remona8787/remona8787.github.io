@@ -157,7 +157,7 @@ export function image(m) {
     // v0.18 pipeline: the file's title and description (a caption when the record gives none), and the rights facts
     // the sponsor rule reads (commercial use allowed, KOGL type).
     title: cleanTitle(m.title), description: text(m.description, 600),
-    commercial_use: m.commercial_use === true ? true : m.commercial_use === false ? false : null, kogl_type: text(m.kogl_type, 20),
+    commercial_use: m.commercial_use === true ? true : m.commercial_use === false ? false : null, kogl_type: Number.isInteger(m.kogl_type) && m.kogl_type >= 1 && m.kogl_type <= 4 ? m.kogl_type : null,
   }
 }
 // A Commons page title as a caption: no "File:" prefix, no extension.

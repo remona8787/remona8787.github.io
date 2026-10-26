@@ -663,3 +663,35 @@ test.describe('status',()=>{
   await expect(page.locator('#krList .place-card',{hasText:'동대문디자인플라자'}).locator('.card-badge')).toHaveCount(0);
  });
 });
+
+// Live review of SEOUL006 (fifth brief): controls inside the frame on phones, a panorama without empty bands, and a
+// credit that does not repeat the author as the rights holder.
+test.describe('place page polish',()=>{
+ for(const w of [390,430])test(`phone ${w}: the gallery bleeds to the edges and every control sits 12 px inside it`,async({page})=>{
+  await page.setViewportSize({width:w,height:844});await serveDataset(page);await serveImages(page);
+  await page.goto('/#place/SEOUL006');await expect(page.locator('#detailPhotos .dp-slide')).toHaveCount(3);
+  const r=await page.evaluate(()=>{const st=document.querySelector('.dp-stage').getBoundingClientRect(),y=st.top+st.height/2;return {edges:[4,innerWidth-4].map(x=>document.elementsFromPoint(x,y).some(e=>e.classList?.contains('dp-stage'))),controls:[...document.querySelectorAll('.dp-stage button')].filter(b=>b.offsetParent&&!b.hidden&&getComputedStyle(b).opacity!=='0').map(b=>{const q=b.getBoundingClientRect();return [Math.round(q.left),Math.round(innerWidth-q.right)]})}});
+  expect(r.edges).toEqual([true,true]);
+  expect(r.controls.length).toBeGreaterThanOrEqual(3);
+  for(const [l,rt] of r.controls){expect(l).toBeGreaterThanOrEqual(12);expect(rt).toBeGreaterThanOrEqual(12)}
+ });
+ test('a panorama keeps its whole picture and fills the bands with its own blurred image; a 4:3 photo has none',async({page})=>{
+  const pano=readFileSync(new URL('./fixtures/images/pano-1.jpg',import.meta.url));
+  const recs=RECORDS.map(r=>r.id==='SEOUL006'?{...r,images:r.images.map((m,i)=>i?m:{...m,width:3600,height:1200})}:r);
+  await serveDataset(page,filesOf(siteData(recs)));await serveImages(page);
+  await page.route(/Fixture_SEOUL006_hero_1\.jpg/,r=>r.fulfill({contentType:'image/jpeg',body:pano}));
+  await page.setViewportSize({width:1440,height:900});
+  await page.goto('/#place/SEOUL006');
+  const first=page.locator('#detailPhotos .dp-slide').first().locator('.dp-frame');
+  await expect(first).toHaveClass(/has-backdrop/);
+  expect(await first.locator('img').evaluate(i=>[getComputedStyle(i).objectFit,i.naturalWidth/i.naturalHeight])).toEqual(['contain',3]);
+  await expect(page.locator('#detailPhotos .dp-slide').nth(1).locator('.dp-frame')).not.toHaveClass(/has-backdrop/);
+ });
+ test('the credit names the rights holder only when it is not the author',async({page})=>{
+  const recs=RECORDS.map(r=>r.id==='SEOUL006'?{...r,images:r.images.map((m,i)=>i===0?{...m,rights_holder:m.author}:i===1?{...m,rights_holder:'Seoul Design Foundation'}:m)}:r);
+  await serveDataset(page,filesOf(siteData(recs)));await serveImages(page);
+  await page.goto('/#place/SEOUL006');await expect(page.locator('#detailPhotos .dp-slide')).toHaveCount(3);
+  await expect(page.locator('#detailPhotos .dp-cap[data-i="0"] .dp-credit')).not.toContainText('권리자');
+  await expect(page.locator('#detailPhotos .dp-cap[data-i="1"] .dp-credit')).toContainText('권리자 Seoul Design Foundation');
+ });
+});

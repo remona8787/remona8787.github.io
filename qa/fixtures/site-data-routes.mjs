@@ -7,7 +7,9 @@ const dir=import.meta.dirname;
 const json=body=>({status:200,contentType:'application/json',body:typeof body==='string'?body:JSON.stringify(body)});
 // files: {'manifest.json': {...}, 'home.json': ..., 'index.json': ..., 'projects/000.json': ...}
 export function filesOf(d){const out={'manifest.json':d.manifest,'home.json':d.home,'index.json':d.index,'stats.json':d.stats};for(const [s,v] of Object.entries(d.shards))out[`projects/${s}.json`]=v;return out}
-export const FIXTURE=filesOf(siteData(RECORDS));
+// The deployment's public research package (data/research/latest.json, published by scripts/research-package.mjs).
+export const RESEARCH_LATEST={dataset:'architecture-of-light',title:'빛의 건축 공개 데이터',version:'fixture-2026-10-20T06-17Z',created:'2026-10-20T06:20:00Z',data_as_of:'2026-10-20',path:'data/research/fixture-2026-10-20T06-17Z/',citation:'빛의 건축 아카이브 공개 데이터 (시험용), 버전 fixture-2026-10-20T06-17Z.',counts:{projects:RECORDS.length},files:{'projects.csv':{bytes:20480,sha256:'ab'.repeat(32)},'projects.json':{bytes:40960,sha256:'cd'.repeat(32)},'images.csv':{bytes:9000,sha256:'ef'.repeat(32)},'CITATION.txt':{bytes:200,sha256:'01'.repeat(32)}}};
+export const FIXTURE={...filesOf(siteData(RECORDS)),'research/latest.json':RESEARCH_LATEST};
 /** Serves files under /data/; every request is recorded in the returned list (path relative to /data/). */
 export async function serveDataset(page,files=FIXTURE,{delay=0}={}){
  const seen=[];

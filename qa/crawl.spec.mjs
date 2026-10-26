@@ -5,7 +5,7 @@
 import {test,expect} from './fixtures.mjs';
 import {serveDataset,serveImages} from './fixtures/site-data-routes.mjs';
 const routes=['home','explore','map','saved','my','magazine','routes','journal','calendar','account','settings','data','place/SEOUL001','place/AR-ars-electronica-center','place/AR-medialab-prado','curation/CUR001','nope'];
-const pages=['about.html','privacy.html','terms.html','support.html','delete-account.html','404.html','admin/','nope/deep/path'];
+const pages=['about.html','privacy.html','terms.html','support.html','delete-account.html','partner.html','404.html','admin/','nope/deep/path'];
 for(const width of [360,1440]){
  for(const target of [...routes.map(r=>'/#'+r),...pages.map(p=>'/'+p)]){
   test(`${target} @${width}`,async({page,baseURL})=>{
