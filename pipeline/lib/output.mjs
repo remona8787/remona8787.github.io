@@ -78,13 +78,15 @@ export function pageTitle(page) {
 /** A previously published record in the v0.18 shape (images upgraded, kr_region, kind, status, field_confidence present). */
 export function upgradeRecord(r) {
   if (!r) return r
-  const u = { ...r, kr_region: r.kr_region ?? null, kind: r.kind || 'facility', start_date: r.start_date ?? null, end_date: r.end_date ?? null, status: r.status || 'unknown', status_source: r.status_source ?? null, images: (r.images || []).map((i) => upgradeImage(i, r.id)) }
+  const u = { ...r, kr_region: r.kr_region ?? null, relations: r.relations ?? [], kind: r.kind || 'facility', start_date: r.start_date ?? null, end_date: r.end_date ?? null, status: r.status || 'unknown', status_source: r.status_source ?? null, images: (r.images || []).map((i) => upgradeImage(i, r.id)) }
   return r.field_confidence ? u : { ...u, field_confidence: fieldConfidence(u) }
 }
 
 // Field confidence (the record's field_confidence, docs/PIPELINE.md): sourced (a source states it), inferred (derived
 // by a rule: a gazetteer, a category name, file geotags, a low-confidence type), editorial (the editors' catalogue or an
 // edit), unknown (no value). The UI shows 확인 필요 for inferred and 자료 없음 for unknown.
+// Relations between records (lib/relations.mjs).
+export const RELATION_TYPES = ['event_at', 'exhibition_at', 'part_of', 'edition_of']
 export const FIELD_CONFIDENCE_KEYS = ['project_type', 'region', 'dates', 'artist', 'architect', 'coordinates']
 export const CONFIDENCE_STATES = ['sourced', 'inferred', 'editorial', 'unknown']
 const ARTIST_ROLES = new Set(['media_artist', 'lighting_designer']), ARCHITECT_ROLES = new Set(['architect', 'facade_designer'])
@@ -180,6 +182,8 @@ export function publicRecord(p, { shard, addedAt }) {
     summary_en: p.description_en ?? null,
     // Events and exhibitions at this place from public data (Seoul cultural events): their own dates, status and source.
     ...(p.events?.length ? { events: p.events } : {}),
+    // Relations to other records (event_at, exhibition_at, part_of, edition_of; lib/relations.mjs).
+    relations: p.relations || [],
     // A creator's portrait (image kind artist_portrait) belongs to the credit it names, never to images[].
     credits: (p.credits || []).map((c) => {
       const portrait = (p.portraits || []).find((i) => i.creator && [c.name, c.name_en].filter(Boolean).includes(i.creator))

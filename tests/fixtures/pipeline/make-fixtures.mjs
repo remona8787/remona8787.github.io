@@ -43,7 +43,7 @@ const claimMakers = {
   date: (s, pid, d) => stmt(s, pid, { value: { time: `+${d}T00:00:00Z`, timezone: 0, before: 0, after: 0, precision: 11, calendarmodel: 'http://www.wikidata.org/entity/Q1985727' }, type: 'time' }, 'time'),
   quantity: (s, pid, [amount, unit]) => stmt(s, pid, { value: { amount: '+' + amount, unit: 'http://www.wikidata.org/entity/' + unit }, type: 'quantity' }, 'quantity'),
 }
-const KIND = { P31: 'item', P279: 'item', P17: 'item', P131: 'item', P276: 'item', P84: 'item', P170: 'item', P137: 'item', P301: 'item', P5817: 'item', P150: 'item', P625: 'coord', P571: 'year', P580: 'date', P582: 'date', P585: 'date', P2257: 'quantity', P50: 'item', P112: 'item', P856: 'url', P373: 'string', P18: 'media', P297: 'id', P300: 'id', P1705: 'mono', P1448: 'mono' }
+const KIND = { P31: 'item', P279: 'item', P17: 'item', P131: 'item', P276: 'item', P84: 'item', P170: 'item', P137: 'item', P301: 'item', P5817: 'item', P150: 'item', P625: 'coord', P571: 'year', P580: 'date', P582: 'date', P585: 'date', P2257: 'quantity', P50: 'item', P112: 'item', P361: 'item', P179: 'item', P856: 'url', P373: 'string', P18: 'media', P297: 'id', P300: 'id', P1705: 'mono', P1448: 'mono' }
 const WIKI_HOST = { enwiki: 'en.wikipedia.org', kowiki: 'ko.wikipedia.org', dewiki: 'de.wikipedia.org', frwiki: 'fr.wikipedia.org', cswiki: 'cs.wikipedia.org', commonswiki: 'commons.wikimedia.org' }
 
 function entity(id, { labels = {}, descriptions = {}, claims = {}, sitelinks = {} }) {
@@ -159,7 +159,7 @@ add('Q99000504', { labels: { ko: '픽스처 미디어 작가' }, claims: { P31: 
 // Korea: found only by the Wikidata full-text search among Korean items — a lantern festival (a festival: accepted)
 // and an association (an organisation without a place class: refused).
 add('Q99000506', { labels: { ko: '픽스처 경포 유등축제', en: 'Fixture Gyeongpo Lantern Festival' }, descriptions: { ko: '강릉 경포호의 유등축제' },
-  claims: { P31: 'Q132241', P17: 'Q884', P131: 'Q99000414', P625: [[37.7955, 128.9086]] }, sitelinks: { kowiki: '픽스처 경포 유등축제' } })
+  claims: { P31: 'Q132241', P17: 'Q884', P131: 'Q99000414', P625: [[37.7955, 128.9086]], P361: 'Q99000502' }, sitelinks: { kowiki: '픽스처 경포 유등축제' } })
 add('Q48204', { labels: { en: 'voluntary association', ko: '자원 단체' } })
 add('Q99000507', { labels: { ko: '픽스처 미디어아트 협회' }, descriptions: { ko: '미디어아트 작가 단체' }, claims: { P31: 'Q48204', P17: 'Q884', P131: 'Q99000417' } })
 // Country recovery: the Giza complex's item gives Egypt; a lights festival located (P276) in a city of the United
@@ -174,6 +174,12 @@ add('Q55', { labels: { en: 'Netherlands', ko: '네덜란드' }, claims: { P31: '
 add('Q99000705', { labels: { en: 'Fixture Amsterdam' }, claims: { P31: 'Q515', P17: 'Q55' } })
 add('Q99000704', { labels: { en: 'Fixture Lichtkunst Amsterdam' }, claims: { P31: 'Q1823448', P131: 'Q99000705', P625: [[52.3676, 4.9041]], P571: 2015 } })
 add('Q99000706', { labels: { en: 'Fixture Valo Oulu', fi: 'Valo Oulu' }, claims: { P31: 'Q1823448', P625: [[65.0121, 25.4651]], P571: 2021 } })
+// Relations (lib/relations.mjs): an edition (P179 part of the series) of a light festival, held at (P276) a building
+// of the archive.
+add('Q99000722', { labels: { en: 'Fixture Uniqa Light Nights' }, descriptions: { en: 'yearly light festival in Vienna' },
+  claims: { P31: 'Q124414048', P17: 'Q40', P131: 'Q1741', P625: [[48.2109, 16.3772]], P571: 2019, P2257: [[1, 'Q577']] } })
+add('Q99000721', { labels: { en: 'Fixture Uniqa Light Nights 2025' }, descriptions: { en: 'the 2025 edition, on the Uniqa Tower' },
+  claims: { P31: 'Q124414048', P17: 'Q40', P131: 'Q1741', P276: 'Q99000103', P179: 'Q99000722', P625: [[48.2118, 16.3801]], P580: '2025-11-01', P582: '2025-11-30' } })
 // A foreign building found by the Korean Wikipedia: never a Korean hit (the ko search is for Korean projects).
 add('Q17', { labels: { en: 'Japan', ko: '일본' }, claims: { P31: 'Q6256', P297: 'JP' } })
 add('Q99000604', { labels: { ko: '픽스처 도쿄 미디어 타워', en: 'Fixture Tokyo Media Tower' }, claims: { P31: 'Q11303', P17: 'Q17', P625: [[35.66, 139.76]] }, sitelinks: { kowiki: '픽스처 도쿄 미디어 타워' } })
@@ -203,7 +209,7 @@ const INT = (n) => ({ datatype: 'http://www.w3.org/2001/XMLSchema#integer', type
 const COUNTS = { Q17158007: [0, 0], Q4287692: [0, 0], Q776483: [1, 1], Q1421557: [14, 8], Q1823448: [138, 94], Q29885984: [26, 9], Q1798004: [0, 0], Q124414048: [23, 3],
   Q126682969: [0, 0], Q126682939: [0, 0], Q1136999: [0, 0], Q63442021: [5, 1], Q110409771: [0, 0], Q115452528: [0, 0], Q378604: [265, 4], Q860372: [0, 0], Q550484: [0, 0],
   Q20437094: [0, 0], Q380051: [0, 0], Q926949: [0, 0], Q110775916: [26875, 30], Q116262603: [0, 0] }
-const INSTANCES = { Q4287692: ['Q15014400'], Q29885984: ['Q127587129'], Q1823448: ['Q7715933', 'Q5447104', 'Q7899954', 'Q2001578', 'Q99000108', 'Q99000503', 'Q99000704', 'Q99000706'], Q1421557: ['Q7715933', 'Q99000107'], Q124414048: ['Q4167', 'Q15140473', 'Q125715', 'Q99000702'], Q378604: ['Q99000106'] }
+const INSTANCES = { Q4287692: ['Q15014400'], Q29885984: ['Q127587129'], Q1823448: ['Q7715933', 'Q5447104', 'Q7899954', 'Q2001578', 'Q99000108', 'Q99000503', 'Q99000704', 'Q99000706'], Q1421557: ['Q7715933', 'Q99000107'], Q124414048: ['Q4167', 'Q15140473', 'Q125715', 'Q99000702', 'Q99000721', 'Q99000722'], Q378604: ['Q99000106'] }
 // Korea first: the items of each usable class located in South Korea (P17 = Q884), read before any worldwide query.
 const KR_INSTANCES = { Q1823448: ['Q99000503'], Q1421557: ['Q99000107'], Q926949: ['Q255506'] }
 // The first-level divisions of South Korea as wd:Q884 p:P150 lists them, with ISO 3166-2 codes (P300); Gwangju ended

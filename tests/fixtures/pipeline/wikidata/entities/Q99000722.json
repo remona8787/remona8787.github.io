@@ -1,0 +1,155 @@
+{
+ "pageid": 99000722,
+ "ns": 0,
+ "title": "Q99000722",
+ "lastrevid": 2400000722,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000722",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Fixture Uniqa Light Nights"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "yearly light festival in Vienna"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "da4aec5d2f2c5d3e8539232f0296d502",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 124414048,
+       "id": "Q124414048"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000722$da4aec5d-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "f2683d69e23093217d86f305e597e3d5",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 40,
+       "id": "Q40"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000722$f2683d69-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "832ef8d932a6008adca07376599f82b4",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1741,
+       "id": "Q1741"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000722$832ef8d9-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "864c1194df833afa3ee5300052ee40ae",
+     "datavalue": {
+      "value": {
+       "latitude": 48.2109,
+       "longitude": 16.3772,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q99000722$864c1194-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P571": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P571",
+     "hash": "3ebf31aa30ab2d42b52b7c875add61bd",
+     "datavalue": {
+      "value": {
+       "time": "+2019-00-00T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 9,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q99000722$3ebf31aa-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P2257": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P2257",
+     "hash": "63d95c4c5017c99e30a45bb619788a20",
+     "datavalue": {
+      "value": {
+       "amount": "+1",
+       "unit": "http://www.wikidata.org/entity/Q577"
+      },
+      "type": "quantity"
+     },
+     "datatype": "quantity"
+    },
+    "type": "statement",
+    "id": "Q99000722$63d95c4c-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

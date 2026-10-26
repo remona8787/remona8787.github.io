@@ -2,7 +2,7 @@
 // invalid dataset is never published: the previous site-data stays and report.json says why), and the tests run the
 // same checks on the fixture output. Each validator returns a list of "path: problem" strings (empty = valid).
 import T from '../../site-public-cleared/archive-taxonomy.js'
-import { INDEX_FIELDS, THUMB_TEMPLATE, expandThumb, FIELD_CONFIDENCE_KEYS, CONFIDENCE_STATES } from './output.mjs'
+import { INDEX_FIELDS, THUMB_TEMPLATE, expandThumb, FIELD_CONFIDENCE_KEYS, CONFIDENCE_STATES, RELATION_TYPES } from './output.mjs'
 
 const ID = /^[A-Za-z0-9][A-Za-z0-9._-]{0,156}$/
 const SHARD = /^[A-Za-z0-9_-]{1,40}$/
@@ -141,6 +141,14 @@ export function checkRecord(r, path, need) {
   for (const k of ['start_date', 'end_date']) need(r[k] === null || r[k] === undefined || /^\d{4}(-\d{2}(-\d{2})?)?$/.test(r[k]), `${path}.${k}`, 'YYYY, YYYY-MM or YYYY-MM-DD')
   need(['running', 'seasonal', 'ended', 'upcoming', 'unknown'].includes(r.status), path + '.status', 'running, seasonal, ended, upcoming or unknown')
   need(r.status === 'unknown' ? !r.status_source : ['tourapi', 'wikidata', 'editorial', 'curated'].includes(r.status_source), path + '.status_source', 'the source of a known status')
+  need(Array.isArray(r.relations) && r.relations.length <= 200, path + '.relations', 'array of at most 200')
+  ;(Array.isArray(r.relations) ? r.relations : []).forEach((x, i) => {
+    const at = `${path}.relations[${i}]`
+    need(RELATION_TYPES.includes(x?.type), at + '.type', RELATION_TYPES.join(', '))
+    need(str(x?.target) && str(x?.source), at, 'target and source')
+    if (x?.subject !== undefined) need(!!x.subject && typeof x.subject === 'object' && (str(x.subject.event) || str(x.subject.name) || str(x.subject.commons_category)), at + '.subject', 'an event id, a name or a category')
+    else need(x?.target !== r.id, at + '.target', 'a record is not related to itself')
+  })
   const fc = r.field_confidence
   need(!!fc && typeof fc === 'object' && Object.keys(fc).length === FIELD_CONFIDENCE_KEYS.length && FIELD_CONFIDENCE_KEYS.every((k) => CONFIDENCE_STATES.includes(fc[k])), path + '.field_confidence', FIELD_CONFIDENCE_KEYS.join(', ') + ': ' + CONFIDENCE_STATES.join(' | '))
   if (fc && typeof fc === 'object') {
@@ -263,6 +271,7 @@ export function checkDataset({ manifest, index, home, stats, shards }) {
   for (const name of Object.keys(shards)) if (!listed.has(name)) errors.push(`shard ${name} not listed in the manifest`)
   for (const name of listed) if (!(name in shards)) errors.push(`manifest lists missing shard ${name}`)
   for (const id of Object.keys(home?.projects || {})) if (!inShards.has(id)) errors.push(`home names ${id}, which is not published`)
+  for (const s of Object.values(shards)) for (const r of s?.projects || []) for (const x of r.relations || []) if (!inShards.has(x?.target)) errors.push(`${r.id}: relation ${x?.type} to ${x?.target}, which is not published`)
   for (const x of [manifest, home, stats, ...Object.values(shards)]) if (x?.build_id !== manifest?.build_id) { errors.push('files carry different build_ids'); break }
   return errors
 }

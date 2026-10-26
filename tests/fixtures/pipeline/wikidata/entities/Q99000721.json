@@ -1,0 +1,201 @@
+{
+ "pageid": 99000721,
+ "ns": 0,
+ "title": "Q99000721",
+ "lastrevid": 2400000721,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000721",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Fixture Uniqa Light Nights 2025"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "the 2025 edition, on the Uniqa Tower"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "302c805328efa28ff262d00ddd12424d",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 124414048,
+       "id": "Q124414048"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000721$302c8053-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "69b9694eb56864f4987b04e57bbecd4b",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 40,
+       "id": "Q40"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000721$69b9694e-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "ce5b19b8f8284b3f7c5da3ffabfe8377",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 1741,
+       "id": "Q1741"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000721$ce5b19b8-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P276": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P276",
+     "hash": "a529324297d87742e8ef37601def01dc",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000103,
+       "id": "Q99000103"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000721$a5293242-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P179": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P179",
+     "hash": "2a81e9df6691b81cbcb1b15939e4a163",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000722,
+       "id": "Q99000722"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000721$2a81e9df-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "3be5acd5e04c2bb65423f4b938719cd8",
+     "datavalue": {
+      "value": {
+       "latitude": 48.2118,
+       "longitude": 16.3801,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q99000721$3be5acd5-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P580": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P580",
+     "hash": "795b6f6d26052d6c516e3050486883f6",
+     "datavalue": {
+      "value": {
+       "time": "+2025-11-01T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 11,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q99000721$795b6f6d-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P582": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P582",
+     "hash": "f88addc6f53aa4d46728ddc7e7c4b862",
+     "datavalue": {
+      "value": {
+       "time": "+2025-11-30T00:00:00Z",
+       "timezone": 0,
+       "before": 0,
+       "after": 0,
+       "precision": 11,
+       "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+      },
+      "type": "time"
+     },
+     "datatype": "time"
+    },
+    "type": "statement",
+    "id": "Q99000721$f88addc6-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

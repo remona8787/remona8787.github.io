@@ -43,6 +43,7 @@ import { writeContactSheets, SHEET_ABOUT } from './lib/contact-sheet.mjs'
 import { imageAudit, auditSummary } from './lib/image-audit.mjs'
 import { discoverSeoulEvents, linkEvents, eventOut, DATASET as SEOUL_DATASET } from './lib/seoul-events.mjs'
 import { recoverPlaces, loadCountryCoder, countryAt } from './lib/places.mjs'
+import { relationsOf } from './lib/relations.mjs'
 import T from '../site-public-cleared/archive-taxonomy.js'
 import { loadEditorial, compileEditorial, heroAllowSet, applyToProject, finishLog } from './lib/editorial.mjs'
 import { publicRecord, buildIndex, buildHome, buildStats, buildManifest, shardCount, shardOf, contentHash, upgradeRecord } from './lib/output.mjs'
@@ -637,6 +638,9 @@ export async function runPipeline(o) {
   const track = trackProjects(state.tracker, prev.records, { published: publishedInfo, decided, sourceStatus, runNo, nowIso: startedAt, staleAfter: P.output?.stale_after_missing_runs ?? 3, aliases: idAliases })
   const carriedIds = new Set(track.carried.map((c) => c.id))
   const count = shardCount(published.length + carriedIds.size, P.output?.shard_target ?? 200)
+  // Relations (lib/relations.mjs): the record's own (P361, P179, P276), its events, the editions and parts merged in.
+  const relations = relationsOf({ published, facts, categories: categories?.categories || null, placeDecisions: placeOut.decisions, aliases: idAliases })
+  for (const p of published) p.relations = relations.get(p.id) || []
   for (const p of published) {
     const ir = imageResults.get(p.id) || { images: [] }
     p.images = ir.images
@@ -652,6 +656,9 @@ export async function runPipeline(o) {
     if (old) records.push({ ...upgradeRecord(old), shard: shardOf(id, count) })
   }
   records.sort((a, b) => compareStrings(a.id, b.id))
+  // A carried-over record keeps only relations to records of this dataset.
+  const recordIds = new Set(records.map((r) => r.id))
+  for (const r of records) if (r.relations?.some((x) => !recordIds.has(x.target))) r.relations = r.relations.filter((x) => recordIds.has(x.target))
   const newIds = records.filter((r) => !prev.records.has(r.id)).map((r) => r.id)
   const changed = records.filter((r) => prev.records.has(r.id) && stableStringify({ ...prev.records.get(r.id), shard: null }) !== stableStringify({ ...r, shard: null })).map((r) => r.id)
   // Image audit (lib/image-audit.mjs): counted from these records, the previous dataset and this run's decisions.

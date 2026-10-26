@@ -1,7 +1,7 @@
 {
  "broken_links": [
   {
-   "checked_at": "2026-10-20T06:28:22.120Z",
+   "checked_at": "2026-10-20T06:28:25.120Z",
    "consecutive_failures": 1,
    "field": "official_url",
    "http_status": 404,
@@ -10,7 +10,7 @@
    "url": "https://centercity.example/"
   }
  ],
- "build_id": "20261020T061700Z-b2ab7dea",
+ "build_id": "20261020T061700Z-7f240db3",
  "coordinate_checks": [
   {
    "distance_m": 6135,
@@ -305,6 +305,18 @@
    "id": "Q99000706",
    "name": "Fixture Valo Oulu",
    "project_type": "light_art"
+  },
+  {
+   "country_iso2": "AT",
+   "id": "Q99000721",
+   "name": "Fixture Uniqa Light Nights 2025",
+   "project_type": "festival_program"
+  },
+  {
+   "country_iso2": "AT",
+   "id": "Q99000722",
+   "name": "Fixture Uniqa Light Nights",
+   "project_type": "festival_program"
   },
   {
    "country_iso2": "KR",
