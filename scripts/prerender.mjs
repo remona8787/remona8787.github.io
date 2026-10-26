@@ -27,6 +27,7 @@ import { readFile, writeFile, mkdir, rm } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import T from '../site-public-cleared/archive-taxonomy.js'
+import I18N from '../site-public-cleared/i18n.js'
 import { fromIndex, fromShard } from '../client/dataset-rows.mjs'
 
 const SITE_NAME = '빛의 건축'
@@ -84,11 +85,11 @@ function img(m, alt, sizes, first) {
   const w = s ? s[s.length - 1][0] : m.width, h = w && m.width && m.height ? Math.round(w * m.height / m.width) : null
   return `<img src="${E(src)}"${s && s.length > 1 ? ` srcset="${E(s.map(x => `${x[1]} ${x[0]}w`).join(', '))}" sizes="${E(sizes)}"` : ''}${w && h ? ` width="${w}" height="${h}"` : ''} alt="${E(alt)}" decoding="async"${first ? ' fetchpriority="high"' : ' loading="lazy"'}>`
 }
-/** @param {any} m */
-function figcaption(m) {
+/** @param {any} m @param {string} [label] the photo's kind, before its credit */
+function figcaption(m, label = '') {
   const lic = m.license_url ? `<a href="${E(m.license_url)}" rel="license noopener" target="_blank">${E(m.license_code)}</a>` : E(m.license_code)
-  const bits = [`© ${E(m.creator || m.attribution)}`, lic, providerName(m) ? E(providerName(m)) : '', m.rights_holder ? `권리자 ${E(m.rights_holder)}` : '', m.source_url ? `<a href="${E(m.source_url)}" rel="noopener" target="_blank">원본 보기</a>` : '']
-  return `<figcaption>${bits.filter(Boolean).join(' · ')}</figcaption>`
+  const bits = [`© ${E(m.creator || m.attribution)}`, lic, providerName(m) ? E(providerName(m)) : '', m.rights_holder && m.rights_holder !== m.creator ? `권리자 ${E(m.rights_holder)}` : '', m.source_url ? `<a href="${E(m.source_url)}" rel="noopener" target="_blank">원본 보기</a>` : '']
+  return `<figcaption>${label ? `<b>${E(label)}</b> ` : ''}${bits.filter(Boolean).join(' · ')}</figcaption>`
 }
 
 const HEAD = (/** @type {string} */ up) => `<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light dark"><meta name="theme-color" content="#1C1F4A" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#0D0F26" media="(prefers-color-scheme: dark)"><link rel="icon" href="${up}assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="${up}assets/favicon.png" sizes="48x48" type="image/png"><link rel="apple-touch-icon" href="${up}assets/apple-touch-icon.png"><link rel="stylesheet" href="${up}assets/fonts/pretendard/pretendardvariable-dynamic-subset.css"><link rel="stylesheet" href="${up}styles.css">`
@@ -96,24 +97,50 @@ const BAR = (/** @type {string} */ up, /** @type {string} */ back, /** @type {st
 const FOOT = (/** @type {string} */ up) => `<footer class="static-footer"><nav aria-label="안내"><a href="${up}p/">프로젝트 목록</a><a href="${up}about.html">서비스 소개</a><a href="${up}privacy.html">개인정보 처리방침</a><a href="${up}terms.html">이용 안내</a><a href="${up}support.html">지원 및 문의</a><a href="${up}partner.html">파트너·후원</a></nav><p>사진마다 저작자와 라이선스를 밝혀요. 운영 정보는 방문 전 공식 안내를 확인하세요.</p><p>© 빛의 건축 · Architecture of Light</p></footer>`
 
 /** @param {any} p @param {any[]} media @param {any[]} related @param {string} site */
+// The app's place page, as static sections (the same labels and fields; every tab's content visible).
+const L = (/** @type {string} */ k, /** @type {any} */ v) => I18N.t('ko', k, v)
+const MAIN_KINDS = new Set(['project_media', 'project_installation']), EXTRA_KINDS = new Set(['architecture_context', 'technical_documentation', 'event_documentation'])
+/** The app's kindOf (app.js): the pipeline's kind, else from the tier and role. @param {any} m */
+function kindOf(m) {
+  if (m.kind) return m.kind
+  const r = String(m.role || '')
+  if (r === 'portrait' || r === 'artist_portrait') return 'artist_portrait'
+  if (m.context || r === 'context' || m.raw_tier === 5 || m.match_kind === 'host') return 'architecture_context'
+  if (!Number.isInteger(m.tier) || m.tier <= 2) return 'project_media'
+  if (m.tier === 3) return typeof m.media_active === 'number' && m.media_active < 30 ? 'architecture_context' : 'project_installation'
+  return 'architecture_context'
+}
+/** How sure a fact is (field_confidence), as a short note. @param {any} p @param {string} key */
+function confNote(p, key) {
+  const c = p.field_confidence?.[key]
+  return c === 'inferred' ? ` <small class="conf">(${E(L('dp.check'))})</small>` : c === 'editorial' ? ` <small class="conf">(${E(L('dp.conf.editorial'))})</small>` : ''
+}
+/** One group of fields: the known values, then one line for those without data. @param {string} title @param {[string, string, string?][]} rows */
+function group(title, rows) {
+  const has = rows.filter(r => r[1]), none = rows.filter(r => !r[1])
+  return `<h3>${E(title)}</h3>${has.length ? `<dl class="project-facts">${has.map(r => `<dt>${E(r[0])}</dt><dd>${r[1]}${r[2] || ''}</dd>`).join('')}</dl>` : ''}${none.length ? `<p class="project-missing"><b>${E(L('dp.none'))}</b> ${E(none.map(r => r[0]).join(' · '))}</p>` : ''}`
+}
+const vl = (/** @type {string} */ name, /** @type {any} */ v) => Array.isArray(v) ? v.map(x => T.label(name, x, 'ko')).filter(Boolean).join(', ') : v ? T.label(name, v, 'ko') : ''
+/** @param {any} p @param {any[]} media @param {any[]} related @param {string} site */
 function projectPage(p, media, related, site) {
   const id = p.dataset_id, url = `${site}/p/${encodeURIComponent(id)}/`, up = '../../', app = `${up}#place/${encodeURIComponent(id)}`
   const name = p.name_kr, others = [p.name_en, p.name_original].filter(n => n && n !== name).filter((n, i, a) => a.indexOf(n) === i)
   const line = placeLine(p), type = typeLabel(p), year = yearOf(p), sec = sectionOf(p), grp = groupOf(p)
-  const shown = media.filter(m => !m.context).concat(media.filter(m => m.context)).slice(0, 7)
-  const lead = shown[0] || null, desc = description(p, shown.length)
+  // The gallery's rules: the project's own photos; architecture, technical and event photos apart; never a portrait.
+  const main = media.filter(m => MAIN_KINDS.has(kindOf(m))), extra = media.filter(m => EXTRA_KINDS.has(kindOf(m)))
+  const big = main.findIndex(m => (m.maxw || m.width || 0) >= 960); if (big > 0) main.unshift(...main.splice(big, 1))
+  const shown = [...main, ...extra].slice(0, 12), lead = main[0] || null, desc = description(p, shown.length)
   const title = `${name}${line ? ' · ' + line : ''} · ${SITE_NAME}`
   const og = lead ? near(lead, 1200) : null
   const ogImage = og ? og[1] : `${site}/assets/og-image.png`
-  const alt = (/** @type {any} */ m) => `${name}${m.context ? ' 건축 맥락 사진' : ''}${m.creator ? ', 사진 ' + m.creator : ''}`
-  const facts = [
-    ['유형', type], ['위치', line], ['주소', p.address],
-    ['건물', p.building_name], ['연도', year ? `${year}년${p.year_ended ? ` – ${p.year_ended}년` : ''}` : ''],
-    ['운영', p.operating_status ? T.label('operating_status', p.operating_status, 'ko') : ''],
-    ...(p.credits || []).slice(0, 8).map((/** @type {any} */ c) => [T.label('credit_role', c.role, 'ko') || '참여', c.name]),
-  ].filter(f => f[1])
-  const official = p.official_url ? `<a href="${E(p.official_url)}" rel="noopener" target="_blank">공식 사이트</a>` : ''
-  const sources = (p.sources || []).slice(0, 12)
+  const alt = (/** @type {any} */ m) => `${name}${EXTRA_KINDS.has(kindOf(m)) ? ' · ' + L('dp.kind.' + kindOf(m)) : ''}${m.creator ? ', 사진 ' + m.creator : ''}`
+  const official = p.official_url ? `<a href="${E(p.official_url)}" rel="noopener" target="_blank">${E(L('project.website'))}</a>` : ''
+  const sources = (p.sources || []).slice(0, 20)
+  const credits = p.credits || [], makers = credits.filter((/** @type {any} */ c) => !['operator', 'owner'].includes(c.role)), operators = credits.filter((/** @type {any} */ c) => ['operator', 'owner'].includes(c.role))
+  const events = Array.isArray(p.events) ? p.events : []
+  const status = p.event_status_source ? L(p.event_status === 'running' ? 'state.ongoing' : p.event_status === 'upcoming' ? 'state.upcoming' : p.event_status === 'seasonal' ? 'visit.seasonal' : 'visit.ended') : p.operating_status && p.operating_status !== 'unknown' ? T.label('operating_status', p.operating_status, 'ko') : ''
+  const years = [['year_installed', 'dp.y.installed'], ['year_completed', 'dp.y.completed'], ['year_operating_since', 'dp.y.since'], ['year_ended', 'dp.y.ended']].filter(([k]) => p[k]).map(([k, l]) => L(l, { y: p[k] })).join(' · ')
+  const x = (/** @type {any} */ v) => v ? E(v) : ''
   const ld = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -121,9 +148,9 @@ function projectPage(p, media, related, site) {
         '@type': 'CreativeWork', '@id': url + '#project', url, name, inLanguage: 'ko',
         ...(others.length ? { alternateName: others } : {}), description: desc,
         ...(type ? { genre: type } : {}), ...(year ? { dateCreated: String(year) } : {}),
-        ...(p.credits?.length ? { creator: p.credits.slice(0, 8).map((/** @type {any} */ c) => ({ '@type': 'Thing', name: c.name })) } : {}),
+        ...(credits.length ? { creator: credits.slice(0, 8).map((/** @type {any} */ c) => ({ '@type': 'Thing', name: c.name })) } : {}),
         contentLocation: {
-          '@type': 'Place', name: p.building_name || line || name,
+          '@type': 'Place', '@id': url + '#place', name: p.building_name || line || name,
           address: { '@type': 'PostalAddress', addressCountry: p.country_iso2 || undefined, addressLocality: cityOf(p) || undefined, streetAddress: p.address || undefined },
           ...(p.latitude !== null && p.longitude !== null ? { geo: { '@type': 'GeoCoordinates', latitude: p.latitude, longitude: p.longitude } } : {}),
         },
@@ -134,6 +161,8 @@ function projectPage(p, media, related, site) {
           ...(m.license_url ? { license: m.license_url } : {}), ...(m.source_url ? { acquireLicensePage: m.source_url } : {}),
         })),
       },
+      // Dated events and exhibitions at the project, each with its own page when it has one.
+      ...events.filter(e => e.start).map(e => ({ '@type': e.kind === 'exhibition' ? 'ExhibitionEvent' : 'Event', name: e.title, startDate: e.start, ...(e.end ? { endDate: e.end } : {}), location: { '@id': url + '#place' }, ...(e.url ? { url: e.url } : {}) })),
       {
         '@type': 'BreadcrumbList', itemListElement: [
           { '@type': 'ListItem', position: 1, name: SITE_NAME, item: site + '/' },
@@ -144,16 +173,49 @@ function projectPage(p, media, related, site) {
       },
     ],
   }
-  const gallery = shown.slice(1)
+  const gallery = main.slice(1)
+  const tabLink = (/** @type {string} */ tab) => `<p class="project-tab-link"><a href="${E(app + (tab === 'overview' ? '' : '/' + tab))}">${E(L('dp.tab.' + tab))} — 빛의 건축에서 보기</a></p>`
+  const sectionOpen = (/** @type {string} */ tab) => `<section class="project-section" id="${tab}"><h2>${E(L('dp.tab.' + tab))}</h2>`
+  const overview = sectionOpen('overview') + group(L('dp.g.basic'), [
+    [L('dp.f.officialName'), x(name)], [L('dp.f.otherNames'), others.map(n => E(n)).join(' · ')],
+    [L('facet.project_type'), x(type), confNote(p, 'project_type')], [L('dp.f.place'), x(line), confNote(p, 'region')], [L('dp.f.facility'), x(p.building_name)],
+    [L('dp.f.year'), x(years), confNote(p, 'dates')], [L('dp.f.status'), x(status) + (p.event_status_source ? ` <small class="conf">(${E(L('dp.statusSource', { s: L('dp.src.' + p.event_status_source) }))})</small>` : '')],
+    [L('dp.f.intro'), x(p.summary_ko || p.summary_en)], [L('dp.f.officialSource'), official],
+  ]) + tabLink('overview') + '</section>'
+  const specs = [p.display_area_m2 ? L('dp.spec.area', { v: p.display_area_m2.toLocaleString('ko-KR') + ' ㎡' }) : '', p.resolution_text ? L('dp.spec.resolution', { v: p.resolution_text }) : '', p.pixel_pitch_mm ? L('dp.spec.pitch', { v: p.pixel_pitch_mm + ' mm' }) : ''].filter(Boolean).join(' · ')
+  const architecture = sectionOpen('architecture') + group(L('dp.g.architecture'), [
+    [L('dp.f.spatial'), x(vl('spatial_context', p.spatial_context))], [L('dp.f.envelope'), x(vl('envelope_type', p.envelope_type))], [L('dp.f.mediaPosition'), ''],
+    [L('dp.f.coupling'), x(vl('installation_method', p.installation_method))], [L('dp.f.facade'), ''], [L('dp.f.viewpoints'), x(Array.isArray(p.viewing_points) ? p.viewing_points.join(', ') : p.viewing_points)],
+    [L('dp.f.urban'), x(Array.isArray(p.urban_context) ? p.urban_context.join(', ') : p.urban_context)], [L('dp.f.public'), ''],
+  ]) + group(L('dp.g.media'), [
+    [L('dp.f.tech'), x(vl('technology', p.technologies))], [L('dp.f.content'), x(vl('content_type', p.content_types))],
+    [L('dp.f.interaction'), p.interactive === true ? '예' : p.interactive === false ? '아니요' : ''], [L('dp.f.operator'), operators.map((/** @type {any} */ c) => E(c.name)).join(', ')], [L('dp.f.specs'), x(specs)],
+  ]) + tabLink('architecture') + '</section>'
+  const history = [...events.map(e => `${E(e.title)}${e.start || e.end ? ` <span>${E([e.start, e.end].filter(Boolean).join(' – '))}</span>` : ''}${e.url ? ` <a href="${E(e.url)}" rel="noopener" target="_blank">${E(L('dp.eventPage'))}</a>` : ''}${e.source ? ` <small>${E(L('dp.eventSource', { s: e.source.title || '' }))}${e.source.license ? ' · ' + E(e.source.license) : ''}</small>` : ''}`)]
+  const art = sectionOpen('art') + group(L('dp.g.art'), [
+    [L('dp.f.concept'), x(p.concept)], [L('dp.f.theme'), x(p.theme)],
+    [L('dp.f.makers'), makers.length ? `<ul class="project-people">${makers.map((/** @type {any} */ c) => `<li>${c.portrait ? `<figure class="project-portrait" data-creator-portrait>${img(c.portrait, c.name, '40px', false)}${figcaption(c.portrait)}</figure>` : ''}${E(c.name)} <small>${E(T.label('credit_role', c.role, 'ko') || '')}</small></li>`).join('')}</ul>` : '', confNote(p, 'artist')],
+    [L('dp.f.history'), history.length ? `<ul class="project-events">${history.map(h => `<li>${h}</li>`).join('')}</ul>` : ''], [L('dp.f.relation'), x(p.architecture_relation)],
+  ]) + tabLink('art') + '</section>'
+  const v = p.visit, perm = p.content_type === 'permanent' ? L('dp.permanent') : p.content_type === 'temporary' ? L('dp.temporary') : ''
+  const visit = sectionOpen('visit') + group(L('dp.g.visit'), [
+    [L('dp.f.permanence'), x([perm, status].filter(Boolean).join(' · '))], [L('dp.f.hours'), x(v?.note?.ko)], [L('dp.f.viewing'), x(Array.isArray(p.viewing_points) ? p.viewing_points.join(', ') : p.viewing_points)],
+    [L('dp.f.address'), x(p.address)], [L('dp.f.fee'), ''], [L('dp.f.schedule'), x([v?.period?.ko, p.start_date || p.end_date ? [p.start_date, p.end_date].filter(Boolean).join(' – ') : ''].filter(Boolean).join(' · '))], [L('dp.f.checked'), ''],
+  ]) + (p.latitude !== null && p.longitude !== null ? `<p class="project-map"><a href="https://www.openstreetmap.org/?mlat=${p.latitude}&amp;mlon=${p.longitude}#map=16/${p.latitude}/${p.longitude}" rel="noopener" target="_blank">OpenStreetMap에서 보기</a>${confNote(p, 'coordinates')}</p>` : '') + tabLink('visit') + '</section>'
+  const of = (/** @type {string} */ k) => sources.filter((/** @type {any} */ s) => s.kind === k).map((/** @type {any} */ s) => `<a href="${E(s.url)}" rel="noopener" target="_blank">${E(s.title || s.publisher || new URL(s.url).hostname)}</a>`).join(', ')
+  const material = sectionOpen('sources') + group(L('dp.g.material'), [
+    [L('dp.f.officialDesc'), official], [L('dp.f.papers'), of('academic')], [L('dp.f.reports'), of('public_agency')], [L('dp.f.technical'), of('specialist_media')],
+    [L('dp.f.imageSources'), shown.length ? `<ul class="project-image-sources">${shown.map(m => `<li>© ${E(m.creator || m.attribution)} · ${m.license_url ? `<a href="${E(m.license_url)}" rel="license noopener" target="_blank">${E(m.license_code)}</a>` : E(m.license_code)}${providerName(m) ? ' · ' + E(providerName(m)) : ''}${m.source_url ? ` · <a href="${E(m.source_url)}" rel="noopener" target="_blank">원본</a>` : ''}</li>`).join('')}</ul>` : ''],
+  ]) + (sources.length ? `<h3>${E(L('sources.title'))}</h3><ul class="project-sources">${sources.map((/** @type {any} */ s) => `<li><a href="${E(s.url)}" rel="noopener" target="_blank">${E(s.title || s.publisher || new URL(s.url).hostname)}</a>${s.publisher && s.title && s.publisher !== s.title ? ` · ${E(s.publisher)}` : ''}</li>`).join('')}</ul>` : '') + tabLink('sources') + '</section>'
   return `<!doctype html><html lang="ko"><head>${HEAD(up)}<title>${E(title)}</title><meta name="description" content="${E(desc)}"><link rel="canonical" href="${E(url)}"><meta name="robots" content="index,follow,max-image-preview:large"><meta property="og:type" content="article"><meta property="og:site_name" content="${SITE_NAME}"><meta property="og:locale" content="ko_KR"><meta property="og:title" content="${E(name + (line ? ' · ' + line : ''))}"><meta property="og:description" content="${E(desc)}"><meta property="og:url" content="${E(url)}"><meta property="og:image" content="${E(ogImage)}">${og && lead.width && lead.height ? `<meta property="og:image:width" content="${og[0]}"><meta property="og:image:height" content="${Math.round(og[0] * lead.height / lead.width)}">` : og ? '' : '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">'}<meta property="og:image:alt" content="${E(lead ? alt(lead) : '빛의 건축 로고')}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${E(name)}"><meta name="twitter:description" content="${E(desc)}"><meta name="twitter:image" content="${E(ogImage)}"><script type="application/ld+json">${J(ld)}</script></head><body>${BAR(up, app, '앱에서 보기')}<main class="legal project-page" id="content"><article class="legal-article">`
     + `<nav class="crumbs" aria-label="위치"><a href="${up}">홈</a><span aria-hidden="true">›</span><a href="${up}p/">프로젝트 목록</a><span aria-hidden="true">›</span><a href="${up}p/#${E(grp.id)}">${E(grp.label)}</a></nav>`
     + `<p class="eyebrow">${E([sec.label, p.country_iso2 === 'KR' ? (p.kr_region ? T.krRegionLabel(p.kr_region, 'ko') : '') : p.country].filter(Boolean).join(' · '))}</p><h1>${E(name)}</h1>${others.length ? `<p class="alt-names">${others.map(n => `<span lang="${n === p.name_en ? 'en' : E(p.name_original_lang || '')}">${E(n)}</span>`).join(' · ')}</p>` : ''}`
-    + (lead ? `<figure class="project-photo${lead.context ? ' is-context' : ''}">${img(lead, alt(lead), '(min-width: 832px) 790px, calc(100vw - 32px)', true)}${figcaption(lead)}</figure>` : '')
+    + (lead ? `<figure class="project-photo">${img(lead, alt(lead), '(min-width: 832px) 790px, calc(100vw - 32px)', true)}${figcaption(lead)}</figure>` : `<p class="project-nophoto">${E(L('dp.noPhoto'))}</p>`)
     + (p.summary_ko ? `<p class="lead">${E(p.summary_ko)}</p>` : p.summary_en ? `<p class="lead" lang="en">${E(p.summary_en)}</p>` : '')
-    + (facts.length ? `<dl class="project-facts">${facts.map(f => `<dt>${E(f[0])}</dt><dd>${E(f[1])}</dd>`).join('')}</dl>` : '')
     + `<p class="project-actions"><a class="button" href="${E(app)}">빛의 건축에서 자세히 보기</a>${official}</p>`
     + (gallery.length ? `<h2>사진</h2><ul class="project-gallery">${gallery.map(m => `<li><figure>${img(m, alt(m), '(min-width: 832px) 380px, calc(100vw - 32px)', false)}${figcaption(m)}</figure></li>`).join('')}</ul>` : '')
-    + (sources.length ? `<h2>출처</h2><ul class="project-sources">${sources.map((/** @type {any} */ s) => `<li><a href="${E(s.url)}" rel="noopener" target="_blank">${E(s.title || s.publisher || new URL(s.url).hostname)}</a>${s.publisher && s.title && s.publisher !== s.title ? ` · ${E(s.publisher)}` : ''}</li>`).join('')}</ul>` : '')
+    + (extra.length ? `<h2>${E(L('dp.extra', { n: extra.length }).replace(' 보기', ''))}</h2><p class="project-note">${E(L('dp.extraNote'))}</p><ul class="project-gallery">${extra.slice(0, 9).map(m => `<li><figure>${img(m, alt(m), '(min-width: 832px) 380px, calc(100vw - 32px)', false)}${figcaption(m, L('dp.kind.' + kindOf(m)))}</figure></li>`).join('')}</ul>` : '')
+    + overview + architecture + art + visit + material
     + (related.length ? `<h2>${E(grp.label)}의 다른 프로젝트</h2><ul class="project-related">${related.map(r => `<li><a href="${up}p/${encodeURIComponent(r.dataset_id)}/">${E(r.name_kr)}</a> <span>${E([typeLabel(r), yearOf(r)].filter(Boolean).join(' · '))}</span></li>`).join('')}</ul>` : '')
     + `</article></main>${FOOT(up)}</body></html>`
 }

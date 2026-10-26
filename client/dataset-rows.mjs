@@ -219,6 +219,12 @@ function recordStatus(r) {
   const src = typeof r.status_source === 'string' && STATUS_SOURCES.has(r.status_source) ? r.status_source : null
   return { record_kind: RECORD_KINDS.has(r.kind) ? r.kind : null, start_date: partialDate(r.start_date), end_date: partialDate(r.end_date), event_status: src && STATUS.has(r.status) ? r.status : null, event_status_source: src && STATUS.has(r.status) ? src : null }
 }
+// How sure each key fact is (pipeline field_confidence): sourced, inferred, editorial or unknown.
+const CONFIDENCE_KEYS = ['project_type', 'region', 'dates', 'artist', 'architect', 'coordinates'], CONFIDENCE = new Set(['sourced', 'inferred', 'editorial', 'unknown'])
+/** @param {any} v */
+function fieldConfidence(v) { if (!v || typeof v !== 'object') return null; const out = /** @type {Record<string,string>} */ ({}); for (const k of CONFIDENCE_KEYS) if (CONFIDENCE.has(v[k])) out[k] = v[k]; return Object.keys(out).length ? out : null }
+/** Which source states a field (field_sources: field → source id or kind). @param {any} v */
+function fieldSources(v) { if (!v || typeof v !== 'object') return {}; const out = /** @type {Record<string,string>} */ ({}); for (const [k, x] of Object.entries(v).slice(0, 60)) { const t = text(x, 80); if (/^[a-z_]{1,40}$/.test(k) && t) out[k] = t } return out }
 /** Events and exhibitions held at a project (records' events[]), each with its own source. @param {any} v */
 function events(v) {
   if (!Array.isArray(v)) return []
@@ -333,6 +339,7 @@ export function fromRecord(r, o = {}) {
     spatial_context: vocabList('spatial_context', r.spatial_context),
     credits: credits(r.credits, base.place_id), sources: src, official_url: official, website: official || '',
     visit: visit(r.visit), detail_loaded: true, events: events(r.events),
+    field_confidence: fieldConfidence(r.field_confidence), field_sources: fieldSources(r.field_sources),
   }
   const media = ordered.map((m, i) => mediaRow(place.place_id, m, i))
   const videos = (Array.isArray(r.videos) ? r.videos : []).slice(0, 4).map(video).filter(Boolean)

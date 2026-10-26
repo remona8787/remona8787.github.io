@@ -2062,3 +2062,17 @@ picture{display:contents}
 .dp-slide .dp-frame{isolation:isolate}
 .dp-slide .dp-frame.has-backdrop::before{content:'';position:absolute;inset:-24px;z-index:-1;background:var(--dp-bg) center/cover no-repeat;filter:blur(24px) brightness(.45) saturate(1.1)}
 @media (prefers-reduced-transparency:reduce){.dp-slide .dp-frame.has-backdrop::before{display:none}}
+.dp-conf{display:inline-block;margin-left:4px;padding:0 6px;border-radius:var(--r-xs);background:var(--panel);color:var(--text-muted);font-size:var(--fs-caption);line-height:1.6;vertical-align:1px}
+.dp-conf.warn{background:var(--warning-bg);color:var(--warning-ink)}
+/* Static project pages: the sections of the place page. */
+.project-section{margin-top:var(--s-8);padding-top:var(--s-4);border-top:1px solid var(--line)}
+.project-section h3{margin:var(--s-4) 0 var(--s-2);font-size:var(--fs-body1)}
+.project-missing{color:var(--text-muted);font-size:var(--fs-caption)}
+.project-missing b{margin-right:6px;color:var(--text)}
+.project-tab-link{font-size:var(--fs-caption)}
+.project-people,.project-events,.project-image-sources{margin:0;padding-left:1.1em}
+.project-portrait{display:flex;align-items:center;gap:8px;margin:0 0 4px}
+.project-portrait img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.project-portrait figcaption{padding:0;background:none;font-size:var(--fs-caption)}
+.project-page .conf{color:var(--text-muted)}
+.project-nophoto{color:var(--text-muted)}

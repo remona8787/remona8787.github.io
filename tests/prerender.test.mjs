@@ -126,8 +126,26 @@ test('prerenderSite: the deploy hands over its dataset files and built tree (Buf
   // Every page with a photo credits it; every public page may be indexed.
   for (const [k, v] of out) if (k.startsWith('p/')) {
     assert.ok(!/noindex/.test(v), k)
-    const imgs = (v.match(/<img [^>]*src="https:/g) || []).length, credits = (v.match(/<figcaption>© /g) || []).length
+    const imgs = (v.match(/<img [^>]*src="https:/g) || []).length, credits = (v.match(/<figcaption>(<b>[^<]*<\/b> )?© /g) || []).length
     assert.equal(credits, imgs, k + ': a credit for every photo')
   }
   assert.throws(() => prerenderSite(new Map([['manifest.json', '{']]), tree), /JSON|missing/)
+})
+
+test('the static page mirrors the place page: its sections, the gallery rules, field confidence, events in JSON-LD', () => {
+  const recs = RECORDS.map(r => r.id === 'SEOUL006' ? { ...r, field_confidence: { project_type: 'inferred', region: 'sourced', dates: 'editorial', artist: 'sourced', architect: 'unknown', coordinates: 'inferred' }, events: [{ id: 'SEV-0000001A', kind: 'event', title: '서울라이트 DDP 2026', status: 'ended', start: '2026-09-03', end: '2026-09-13', url: 'https://example.org/sl', source: { license: '공공누리 1유형', url: 'https://www.data.go.kr/x', title: '한국관광공사 TourAPI' } }] } : r)
+  const html = prerender(siteData(recs), { siteURL: SITE }).files.get('p/SEOUL006/index.html')
+  for (const id of ['overview', 'architecture', 'art', 'visit', 'sources']) assert.ok(html.includes(`<section class="project-section" id="${id}">`), id)
+  for (const h of ['개요', '건축·미디어 기술', '작품·전시', '위치·관람', '자료·출처']) assert.ok(html.includes(`<h2>${h}</h2>`), h)
+  assert.ok(html.includes('href="../../#place/SEOUL006/architecture"'), 'each section links to its tab')
+  assert.match(html, /<b>자료 없음<\/b> [^<]*미디어 설치 위치/)
+  assert.match(html, /프로젝트 유형<\/dt><dd>[^<]+ <small class="conf">\(확인 필요\)<\/small>/)
+  // The gallery rules: the architecture photo apart; the portrait only with the credits, credited; never the unverified photo.
+  assert.ok(html.includes('추가 자료 (1)'))
+  assert.equal((html.match(/_scene_5/g) || []).length > 0, true)
+  assert.ok(/data-creator-portrait>[^]*?<figcaption>© /.test(html), 'the portrait has its credit')
+  assert.ok(!html.includes('_night_6'), 'no unverified photo')
+  assert.equal((html.match(/<figure[^>]*>/g) || []).length, (html.match(/<figcaption>/g) || []).length, 'one caption per figure')
+  const ev = ld(html)['@graph'].find(x => x['@type'] === 'Event')
+  assert.deepEqual([ev.name, ev.startDate, ev.endDate], ['서울라이트 DDP 2026', '2026-09-03', '2026-09-13'])
 })

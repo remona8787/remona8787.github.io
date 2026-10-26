@@ -695,3 +695,17 @@ test.describe('place page polish',()=>{
   await expect(page.locator('#detailPhotos .dp-cap[data-i="1"] .dp-credit')).toContainText('권리자 Seoul Design Foundation');
  });
 });
+
+// Field confidence (pipeline field_confidence): inferred shows the value with 확인 필요, editorial with 편집부,
+// sourced with its source, unknown as 자료 없음; inferred coordinates get a note under the map.
+test('key facts say how sure they are: 확인 필요, 편집부, or their source',async({page})=>{
+ const recs=RECORDS.map(r=>r.id==='SEOUL006'?{...r,year_installed:2019,field_confidence:{project_type:'inferred',region:'sourced',dates:'editorial',artist:'sourced',architect:'unknown',coordinates:'inferred'},field_sources:{project_type:'derived:commons_category',kr_region:'wikidata',year_installed:'curated:source',credits:'wikidata',lat:'derived:geotag'}}:r);
+ await serveDataset(page,filesOf(siteData(recs)));await serveImages(page);await tiles(page);
+ await page.goto('/#place/SEOUL006');await expect(page.locator('#detailPhotos .dp-slide')).toHaveCount(3);
+ const row=l=>page.locator('#dp-panel-overview .kv',{hasText:l});
+ await expect(row('프로젝트 유형').locator('.dp-conf')).toHaveText('확인 필요');
+ await expect(row('도시·국가').locator('.dp-conf')).toHaveText('출처 Wikidata');
+ await expect(row('연도').locator('.dp-conf')).toHaveText('편집부');
+ await expect(page.locator('#dp-panel-art .kv',{hasText:'작가·제작사'}).locator('.dp-conf')).toHaveText('출처 Wikidata');
+ await expect(page.locator('#dp-panel-visit .dp-coord-note')).toContainText('추정했어요');
+});
