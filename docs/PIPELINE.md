@@ -339,6 +339,21 @@ YYYY-MM-DD) and `status` (running, seasonal, ended, upcoming, unknown) with `sta
   `seasonal`; P31 labels name an exhibition or a show (program).
 - Nothing else: without such a fact the status is `unknown` (a start date alone is not "running").
 
+### Field confidence
+
+Every shard record has `field_confidence` with the keys `project_type`, `region` (`kr_region` in Korea, else the
+country), `dates` (start/end dates and years), `artist` (media artist, lighting designer), `architect` (architect,
+facade designer) and `coordinates`, each one of:
+
+- `sourced`: a source states it (Wikidata, Wikipedia, Commons, TourAPI, the official site: the id in `field_sources`);
+- `inferred`: a rule derived it (`field_sources` value `derived:…`: the gazetteer, a Commons parent category or
+  category name, file geotags, coordinates inside a country's borders, a TourAPI keyword type; a low-confidence class
+  or a curated place's broad category; approximate coordinates). The UI shows 확인 필요;
+- `editorial`: the editors' catalogue (curated places) or an editorial edit;
+- `unknown`: no value. The UI shows 자료 없음.
+
+A record of an earlier build is read the same way from its own fields when it is carried over or checked at deploy.
+
 ## 6. Images
 
 Korean projects first; every image belongs to one project and is proven to show it.

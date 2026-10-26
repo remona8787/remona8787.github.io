@@ -339,6 +339,19 @@ test('kind and status: TourAPI festival editions (searchFestival2) and Wikidata 
   assert.ok(result.report.public_data.tourapi.requested > 0)
 })
 
+test('field confidence: sourced, inferred, editorial or unknown per field, from field_sources', needSharp, async () => {
+  const { data } = await firstRun()
+  const fc = (id) => data.records.get(id).field_confidence
+  // A TourAPI festival: its place, dates and coordinates are sourced; a type from a keyword rule is inferred.
+  assert.deepEqual(fc('KTO-2900002'), { project_type: 'inferred', region: 'sourced', dates: 'sourced', artist: 'unknown', architect: 'unknown', coordinates: 'sourced' })
+  // A curated place: the editors' catalogue; no coordinates or dates.
+  assert.deepEqual(fc('SEOUL001'), { project_type: 'editorial', region: 'editorial', dates: 'unknown', artist: 'unknown', architect: 'unknown', coordinates: 'unknown' })
+  for (const r of data.records.values()) {
+    assert.equal(r.field_confidence.coordinates === 'unknown', r.lat === null, r.id)
+    if (r.field_sources.lat?.startsWith('derived:')) assert.equal(r.field_confidence.coordinates, 'inferred', r.id)
+  }
+})
+
 test('contact sheets show real pictures on every run, also when the measurements come from the cache', needSharp, async () => {
   const { dir } = await firstRun()
   const first = JSON.parse(await readFile(path.join(dir, 'review/contact-sheets/index.json'), 'utf8'))

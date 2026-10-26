@@ -206,3 +206,22 @@ test('kind, dates and status only from sourced facts (TourAPI festival dates, Wi
   assert.deepEqual(scheduleOf({ facts: { p31_labels: ['lights festival'], recurring: true }, projectType: 'festival_program', today }), { kind: 'festival', start_date: null, end_date: null, status: 'seasonal', status_source: 'wikidata' })
   assert.equal(scheduleOf({ facts: { p31_labels: ['festival'], recurring: true, start_date: '2026-12-20', end_date: '2027-01-10' }, projectType: 'festival_program', today }).status, 'upcoming', 'a dated edition wins over seasonal')
 })
+
+test('field confidence: each state from the field source; an older record is read the same way', async () => {
+  const { fieldConfidence, confidenceOf, upgradeRecord } = await import('../pipeline/lib/output.mjs')
+  assert.deepEqual(['wikidata', 'wikipedia:ko', 'tourapi', 'commons', 'curated:source', 'curated', 'editorial', 'derived:gazetteer', null].map((s) => confidenceOf(s)), ['sourced', 'sourced', 'sourced', 'sourced', 'editorial', 'editorial', 'editorial', 'inferred', 'inferred'])
+  assert.equal(confidenceOf('wikidata', false), 'unknown', 'no value')
+  const base = { project_type: 'media_facade', country_iso2: 'KR', kr_region: 'seoul', lat: 37.5, lng: 127, location_precision: 'exact', credits: [], start_date: null, end_date: null }
+  assert.deepEqual(fieldConfidence({ ...base, field_sources: { project_type: 'wikidata', kr_region: 'derived:gazetteer', lat: 'wikidata', credits: 'wikidata', year_completed: 'wikidata' }, year_completed: 2016, credits: [{ role: 'architect', name: 'A' }, { role: 'operator', name: 'B' }] }),
+    { project_type: 'sourced', region: 'inferred', dates: 'sourced', artist: 'unknown', architect: 'sourced', coordinates: 'sourced' })
+  assert.equal(fieldConfidence({ ...base, field_sources: { project_type: 'wikidata' } }, { typeInferred: true }).project_type, 'inferred', 'a low-confidence class')
+  assert.equal(fieldConfidence({ ...base, field_sources: { project_type: 'editorial' } }, { typeInferred: true }).project_type, 'editorial', 'an edit wins')
+  assert.equal(fieldConfidence({ ...base, location_precision: 'approximate', field_sources: { lat: 'commons' } }).coordinates, 'inferred', 'approximate coordinates')
+  assert.equal(fieldConfidence({ ...base, country_iso2: 'FR', kr_region: null, field_sources: { country_iso2: 'derived:coordinates_in_borders' } }).region, 'inferred', 'outside Korea: the country')
+  assert.equal(fieldConfidence({ ...base, kr_region: null, field_sources: {} }).region, 'unknown')
+  assert.equal(fieldConfidence({ ...base, start_date: '2026-10-01', status_source: 'tourapi', field_sources: {} }).dates, 'sourced', 'an earlier record: dates from status_source')
+  const old = { ...base, field_sources: { project_type: 'wikidata', lat: 'wikidata' }, images: [] }
+  assert.deepEqual(upgradeRecord(old).field_confidence, fieldConfidence(old))
+  const kept = { ...old, field_confidence: { project_type: 'editorial', region: 'unknown', dates: 'unknown', artist: 'unknown', architect: 'unknown', coordinates: 'sourced' } }
+  assert.deepEqual(upgradeRecord(kept).field_confidence, kept.field_confidence, 'a record that has states keeps them')
+})
