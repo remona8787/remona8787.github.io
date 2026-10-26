@@ -10,6 +10,8 @@
 //    events.csv: the dated events and exhibitions of a place from public event data, each with its own licence;
 //    agents.csv: the artists, architects and organisations named in the records' credits and the events' organisers,
 //    one row per agent (merged by Wikidata QID, else by the exact name) with its roles and projects;
+//  - archive.xlsx: the same tables as worksheets with a data dictionary sheet (text as text, never formulas), for
+//    spreadsheets that read a UTF-8 CSV as another encoding;
 //  - datapackage.json: a Frictionless-style descriptor (id, version, created, data as of, counts, countries and
 //    regions, licences, sources, every resource with its bytes, SHA-256 and field schema = the data dictionary);
 //  - README.md (Korean: contents, missing values, terms of use, citation), CITATION.txt and, when the previous
@@ -20,19 +22,20 @@
 // their terms of use; images are listed with their own licence and author, never copied.
 // Pure and deterministic: the same dataset gives byte-identical files (no clock, no network, no file access).
 //
-// Module: researchPackage(datasetFiles, {previous, siteURL}) → Map(path → string)
+// Module: researchPackage(datasetFiles, {previous, siteURL}) → Map(path → string, or Buffer for archive.xlsx)
 // CLI: node scripts/research-package.mjs --data=<published dataset dir> --out=<dir for data/research> [--previous=<dir>]
 import path from 'node:path'
 import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
+import { xlsx } from './xlsx.mjs'
 
 const SHARD = /^projects\/[a-z0-9_-]+\.json$/
 const DATASET_ID = 'light-architecture-archive'
 const TITLE = '빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋'
 const str = (/** @type {any} */ v) => typeof v === 'string' ? v : Buffer.isBuffer(v) ? v.toString('utf8') : String(v ?? '')
-const sha256 = (/** @type {string} */ s) => createHash('sha256').update(s, 'utf8').digest('hex')
+const sha256 = (/** @type {string|Buffer} */ s) => createHash('sha256').update(s).digest('hex')
 
 // The keys of a record's field_confidence (pipeline/lib/output.mjs FIELD_CONFIDENCE_KEYS), one column each.
 const FIELD_CONFIDENCE_KEYS = /** @type {const} */ (['project_type', 'region', 'dates', 'artist', 'architect', 'coordinates'])
@@ -113,6 +116,7 @@ export const IMAGE_FIELDS = /** @type {const} */ ([
   ['page', 'string', '원본 페이지', '저작자·라이선스를 확인할 수 있는 페이지'],
 ])
 
+const DICTIONARY_FIELDS = /** @type {const} */ ([['sheet', 'string'], ['field', 'string'], ['type', 'string'], ['title', 'string'], ['description', 'string']])
 const AGENT_TYPE = { media_artist: 'artist', lighting_designer: 'artist', facade_designer: 'artist', curator: 'artist', architect: 'architect', operator: 'organization', owner: 'organization', manufacturer: 'organization', producer: 'organization', event_organizer: 'organization' }
 const AGENT_TYPE_ORDER = ['artist', 'architect', 'organization']
 const nameKey = (/** @type {string} */ n) => 'name:' + n.normalize('NFKC').trim().replace(/\s+/g, ' ').toLowerCase()
@@ -195,7 +199,7 @@ export function readDataset(/** @type {Map<string, any>} */ files) {
 /**
  * @param {Map<string, any>} datasetFiles the published dataset
  * @param {{previous?: Map<string, any> | null, siteURL?: string}} [o] previous: the dataset deployed before (CHANGELOG)
- * @returns {Map<string, string>} files to add to the site tree (data/research/…)
+ * @returns {Map<string, string|Buffer>} files to add to the site tree (data/research/…)
  */
 export function researchPackage(datasetFiles, { previous = null, siteURL = 'https://remona8787.github.io' } = {}) {
   const { manifest, records } = readDataset(datasetFiles)
@@ -220,6 +224,7 @@ export function researchPackage(datasetFiles, { previous = null, siteURL = 'http
     source_dataset: e.source?.dataset, publisher: e.source?.publisher, license: e.source?.license, license_url: e.source?.license_url, source_url: e.source?.url,
   })))
   const agents = agentsOf(records)
+  const TABLES = { projects: PROJECT_FIELDS, sources: SOURCE_FIELDS, images: IMAGE_FIELDS, relations: RELATION_FIELDS, events: EVENT_FIELDS, agents: AGENT_FIELDS }
   const count = (/** @type {string} */ k) => Object.fromEntries([...rows.reduce((m, r) => (r[k] && m.set(r[k], (m.get(r[k]) || 0) + 1), m), new Map())].sort((a, b) => b[1] - a[1] || String(a[0]).localeCompare(String(b[0]))))
   const geo = { type: 'FeatureCollection', features: rows.filter((r) => r.lat != null && r.lng != null).map((r) => ({
     type: 'Feature', id: r.id, geometry: { type: 'Point', coordinates: [r.lng, r.lat] },
@@ -235,6 +240,11 @@ export function researchPackage(datasetFiles, { previous = null, siteURL = 'http
     ['relations.csv', csv(RELATION_FIELDS, relations)],
     ['events.csv', csv(EVENT_FIELDS, events)],
     ['agents.csv', csv(AGENT_FIELDS, agents)],
+    ['archive.xlsx', xlsx([
+      { name: 'projects', fields: PROJECT_FIELDS, rows }, { name: 'sources', fields: SOURCE_FIELDS, rows: sources }, { name: 'images', fields: IMAGE_FIELDS, rows: images },
+      { name: 'relations', fields: RELATION_FIELDS, rows: relations }, { name: 'events', fields: EVENT_FIELDS, rows: events }, { name: 'agents', fields: AGENT_FIELDS, rows: agents },
+      { name: 'dictionary', fields: DICTIONARY_FIELDS, rows: Object.entries(TABLES).flatMap(([sheet, fields]) => fields.map(([field, type, title, description]) => ({ sheet, field, type, title, description }))) },
+    ])],
     ['CITATION.txt', citation + '\n'],
   ])
   let changes = null
@@ -247,7 +257,7 @@ export function researchPackage(datasetFiles, { previous = null, siteURL = 'http
   }
   const schema = (/** @type {readonly (readonly string[])[]} */ fields) => ({ fields: fields.map(([name, type, title, description]) => ({ name, type, title, ...(description ? { description } : {}) })) })
   const resource = (/** @type {string} */ name, /** @type {string} */ file, /** @type {string} */ format, /** @type {string} */ mediatype, /** @type {any} */ fields) => {
-    const body = /** @type {string} */ (data.get(file))
+    const body = /** @type {string|Buffer} */ (data.get(file))
     return { name, path: file, format, mediatype, encoding: 'utf-8', bytes: Buffer.byteLength(body), hash: 'sha256:' + sha256(body), ...(fields ? { schema: schema(fields) } : {}) }
   }
   const descriptor = {
@@ -261,7 +271,8 @@ export function researchPackage(datasetFiles, { previous = null, siteURL = 'http
       resource('projects', 'projects.csv', 'csv', 'text/csv', PROJECT_FIELDS), resource('projects-json', 'projects.json', 'json', 'application/json', null),
       resource('projects-geojson', 'projects.geojson', 'geojson', 'application/geo+json', null), resource('sources', 'sources.csv', 'csv', 'text/csv', SOURCE_FIELDS),
       resource('images', 'images.csv', 'csv', 'text/csv', IMAGE_FIELDS), resource('relations', 'relations.csv', 'csv', 'text/csv', RELATION_FIELDS),
-      resource('events', 'events.csv', 'csv', 'text/csv', EVENT_FIELDS), resource('agents', 'agents.csv', 'csv', 'text/csv', AGENT_FIELDS), resource('citation', 'CITATION.txt', 'txt', 'text/plain', null),
+      resource('events', 'events.csv', 'csv', 'text/csv', EVENT_FIELDS), resource('agents', 'agents.csv', 'csv', 'text/csv', AGENT_FIELDS),
+      resource('workbook', 'archive.xlsx', 'xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', null), resource('citation', 'CITATION.txt', 'txt', 'text/plain', null),
       ...(data.has('CHANGELOG.md') ? [resource('changelog', 'CHANGELOG.md', 'md', 'text/markdown', null)] : []),
     ],
   }
@@ -276,7 +287,7 @@ export function researchPackage(datasetFiles, { previous = null, siteURL = 'http
 
 ## 파일
 
-projects.csv · projects.json · projects.geojson · sources.csv · images.csv · relations.csv · events.csv · agents.csv · datapackage.json(필드 정의와 체크섬) · CITATION.txt${data.has('CHANGELOG.md') ? ' · CHANGELOG.md' : ''}
+projects.csv · projects.json · projects.geojson · sources.csv · images.csv · relations.csv · events.csv · agents.csv · archive.xlsx(같은 표를 시트로, 데이터 사전 시트 포함) · datapackage.json(필드 정의와 체크섬) · CITATION.txt${data.has('CHANGELOG.md') ? ' · CHANGELOG.md' : ''}
 
 ## 엔터티 모델
 

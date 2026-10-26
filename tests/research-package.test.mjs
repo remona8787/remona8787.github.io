@@ -32,7 +32,7 @@ test('research package: every file under data/research/<build id>/ with a latest
   const files = await dataset(), manifest = JSON.parse(files.get('manifest.json')), index = JSON.parse(files.get('index.json'))
   const out = researchPackage(files)
   const base = `data/research/${manifest.build_id}/`
-  for (const f of ['projects.csv', 'projects.json', 'projects.geojson', 'sources.csv', 'images.csv', 'relations.csv', 'events.csv', 'agents.csv', 'datapackage.json', 'README.md', 'CITATION.txt']) assert.ok(out.has(base + f), f)
+  for (const f of ['projects.csv', 'projects.json', 'projects.geojson', 'sources.csv', 'images.csv', 'relations.csv', 'events.csv', 'agents.csv', 'archive.xlsx', 'datapackage.json', 'README.md', 'CITATION.txt']) assert.ok(out.has(base + f), f)
   assert.ok(!out.has(base + 'CHANGELOG.md'), 'no change log without a previous dataset')
   const latest = JSON.parse(out.get('data/research/latest.json'))
   assert.equal(latest.version, manifest.build_id)
@@ -61,6 +61,7 @@ test('research package: facts only — no editorial summaries, no image files, i
   assert.ok(images.length > 1)
   for (const r of images.slice(1)) { assert.ok(r[at('license')], 'licence on every image row'); assert.ok(r[at('author')] || r[at('provider')]); assert.match(r[at('page')], /^https:\/\//) }
   assert.ok(![...out.keys()].some((k) => /\.(jpe?g|png|webp|avif)$/i.test(k)))
+  assert.ok([...out].every(([k, v]) => k.endsWith('.xlsx') ? Buffer.isBuffer(v) : typeof v === 'string'), 'text files are text, the workbook is bytes')
   const geo = JSON.parse(out.get(base + 'projects.geojson'))
   assert.equal(geo.type, 'FeatureCollection')
   for (const f of geo.features) { const [lng, lat] = f.geometry.coordinates; assert.ok(Math.abs(lat) <= 90 && Math.abs(lng) <= 180) }
@@ -70,7 +71,7 @@ test('research package: facts only — no editorial summaries, no image files, i
 test('research package: the same dataset gives byte-identical files; text a spreadsheet would run is neutralised', async () => {
   const a = researchPackage(await dataset()), b = researchPackage(await dataset())
   assert.deepEqual([...a.keys()], [...b.keys()])
-  for (const [k, v] of a) assert.equal(b.get(k), v, k)
+  for (const [k, v] of a) assert.ok(Buffer.isBuffer(v) ? v.equals(b.get(k)) : b.get(k) === v, k)
   const files = await dataset(), shardKey = [...files.keys()].find((k) => k.startsWith('projects/'))
   const shard = JSON.parse(files.get(shardKey)), id = shard.projects[0].id
   shard.projects[0].name_en = '=HYPERLINK("https://evil.example","x")'
@@ -160,4 +161,35 @@ test('research package: agents from credits and event organisers, merged only by
   const dp = JSON.parse(out.get(base + 'datapackage.json'))
   assert.equal(dp.counts.agents, rows.length - 1)
   assert.match(out.get(base + 'README.md'), /## 엔터티 모델/)
+})
+
+test('research package: archive.xlsx holds every table and the data dictionary, text never as a formula', async () => {
+  const { inflateRawSync } = await import('node:zlib')
+  const files = await dataset(), shardKey = [...files.keys()].find((k) => k.startsWith('projects/'))
+  const shard = JSON.parse(files.get(shardKey)), id = shard.projects[0].id
+  shard.projects[0].name_en = '=HYPERLINK("https://evil.example","x") & <b>'
+  files.set(shardKey, JSON.stringify(shard))
+  const out = researchPackage(files), base = [...out.keys()][0].replace(/[^/]+$/, ''), book = out.get(base + 'archive.xlsx')
+  // Read the zip's central directory and inflate each entry.
+  const entries = new Map()
+  const end = book.lastIndexOf(Buffer.from([0x50, 0x4b, 0x05, 0x06]))
+  let at = book.readUInt32LE(end + 16)
+  for (let i = 0; i < book.readUInt16LE(end + 10); i++) {
+    const nameLen = book.readUInt16LE(at + 28), off = book.readUInt32LE(at + 42), size = book.readUInt32LE(at + 20), name = book.subarray(at + 46, at + 46 + nameLen).toString('utf8')
+    const lh = off + 30 + book.readUInt16LE(off + 26) + book.readUInt16LE(off + 28)
+    entries.set(name, inflateRawSync(book.subarray(lh, lh + size)).toString('utf8'))
+    at += 46 + nameLen
+  }
+  assert.ok(entries.has('[Content_Types].xml') && entries.has('xl/workbook.xml') && entries.has('xl/styles.xml'))
+  const sheets = [...entries.get('xl/workbook.xml').matchAll(/<sheet name="([^"]+)"/g)].map((m) => m[1])
+  assert.deepEqual(sheets, ['projects', 'sources', 'images', 'relations', 'events', 'agents', 'dictionary'])
+  const projects = entries.get('xl/worksheets/sheet1.xml'), index = JSON.parse(files.get('index.json'))
+  assert.equal([...projects.matchAll(/<row /g)].length, index.rows.length + 1, 'a header row and one row per project')
+  assert.ok(!/<f>/.test(projects), 'no formula cells')
+  assert.ok(projects.includes('=HYPERLINK(&quot;https://evil.example&quot;,&quot;x&quot;) &amp; &lt;b&gt;'), 'the text is kept as escaped text')
+  assert.match(projects, /<c r="N\d+"><v>-?\d+(\.\d+)?<\/v><\/c>/, 'lat (column N) is a number cell')
+  assert.ok(!/<c r="N([2-9]|\d{2,})"[^>]*t="inlineStr"/.test(projects), 'never a number as text below the header')
+  const dictionary = entries.get('xl/worksheets/sheet7.xml')
+  for (const f of [...PROJECT_FIELDS, ...AGENT_FIELDS]) assert.ok(dictionary.includes(`>${f[0]}<`), f[0])
+  assert.ok(id)
 })
