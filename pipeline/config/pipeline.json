@@ -287,7 +287,9 @@
     "place_class_pattern": "\\b(building|tower|skyscraper|high-rise|structure|bridge|stadium|arena|museum|gallery|theat(re|er)|opera house|concert hall|hall|hotel|station|terminal|airport|plaza|square|park|church|cathedral|basilica|castle|palace|fort|monument|memorial|landmark|shopping (centre|center|mall)|mall|department store|office|headquarters|library|campus|pavilion|complex|centre|center|venue|facade|façade|installation|sculpture|artwork|work of art|public art|light art|festival|event|show|exhibition|fountain|garden|street|district|waterfront|pier|dam|wall)\\b",
     "exclude_class_pattern": "\\b(human|person|company|business|enterprise|corporation|brand|product|product model|technology|software|video game|film|television (series|program(me)?)|album|single|song|book|scholarly article|article|website|web page|wikimedia|disambiguation|family name|given name|taxon|profession|occupation|award|genre|art genre|art movement|technique|concept|academic discipline)\\b",
     "city_class_pattern": "\\b(city|town|municipality|commune|metropolis|megacity|capital|borough|village|urban (district|municipality)|special ward|prefecture-level city|city-state|county seat|urban area)\\b",
-    "weak_exclude_class_pattern": "\\b(organi[sz]ation|institution|institute|association|foundation|society|research)\\b"
+    "weak_exclude_class_pattern": "\\b(organi[sz]ation|institution|institute|association|foundation|society|research)\\b",
+    "work_or_event_class_pattern": "\\b(festival|event|show|exhibition|exhibit|installation|sculpture|artwork|work of art|art|light|lights|illuminations?|fa[cç]ade|media|building|tower|skyscraper|structure|venue|museum|gallery|bridge|monument|park)\\b",
+    "about_work_or_event": "An item of a settlement or administrative class (config/classes.json blocklist, unless_work_or_event) is kept only when one of its P31 labels also matches work_or_event_class_pattern or one of its P31 is a configured light-work class (a festival organised as a community, not a city)."
   },
   "original_language_by_country": {
     "KR": "ko",
