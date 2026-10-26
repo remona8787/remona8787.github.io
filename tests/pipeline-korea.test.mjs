@@ -330,4 +330,45 @@ test('Korea coverage: Wikidata search of named Korean things, probes of known ar
   const roleOf = (t) => rec.images.find((i) => i.title === t)
   assert.ok(['hero', 'featured', 'card'].includes(roleOf('Gwanghwamun projection mapping 2019').role))
   assert.equal(roleOf('Gwanghwamun Gate daytime 2020').kind, 'architecture_context')
+  // Live leaks of 2026-10-26 (Lantern festivals in South Korea, photos and subcategories): a root photo's date,
+  // editathon, night-of-the-city and decade categories are dropped; one that names a festival is kept.
+  const cat = (t) => cats.find((c) => c.title === 'Category:' + t)
+  assert.deepEqual([cat('April 2017 in Daegu').decision, cat('April 2017 in Daegu').reason], ['rejected', 'date_category_month_year'])
+  assert.deepEqual([cat('Akeneo Wikimedia Editathon - Mallorca, October 2022').decision, cat('Akeneo Wikimedia Editathon - Mallorca, October 2022').reason], ['rejected', 'wikimedia_event'])
+  assert.deepEqual([cat('Night in Seoul').decision, cat('Night in Seoul').reason], ['rejected', 'root_photo_topic_not_a_work'])
+  assert.deepEqual([cat('Events in Seoul in the 2010s').decision, cat('Events in Seoul in the 2010s').reason], ['rejected', 'date_category_place_in_date'])
+  assert.equal(cat('Daegu Colorful Dalgubeol Lantern Festival').reason, 'category_of_a_korean_root_photo')
+  const festival = shard.find((r) => r.name_en === 'Daegu Colorful Dalgubeol Lantern Festival')
+  assert.deepEqual([festival.country_iso2, festival.kr_region, festival.project_type], ['KR', 'daegu_gyeongbuk', 'festival_program'])
+  // Category:Namwon (a subcategory of the root) leads to the city item: P31 city of South Korea → P279 city → human
+  // settlement. Never a project.
+  const classes = JSON.parse(await readFile(path.join(dir, 'review/classes.json'), 'utf8'))
+  assert.deepEqual(classes.never_project.decisions.find((x) => x.qid === 'Q42087').blocked_by, ['Q515', 'Q486972'])
+  const quality = JSON.parse(await readFile(path.join(dir, 'admin-data/quality.json'), 'utf8'))
+  assert.ok(quality.excluded.find((x) => x.id === 'Q42087').reasons.includes('blocklist:Q486972'))
+  for (const name of ['Namwon', 'April 2017 in Daegu', 'Night in Seoul', 'Events in Seoul in the 2010s', 'Akeneo Wikimedia Editathon - Mallorca, October 2022']) assert.ok(!shard.some((r) => r.name_en === name), name)
+})
+
+test('a published record that is never a project is removed at once, not carried over as unseen (live leaks of 2026-10-26)', async () => {
+  const { writeFile, readdir } = await import('node:fs/promises')
+  const dir = await mkdtemp(path.join(tmpdir(), 'aol-never-'))
+  const start = Date.parse('2026-10-20T06:17:00Z')
+  const run = (t) => { const env = fixtureEnvironment({ start: t }); return runPipeline({ dataDir: dir, editorialDir: null, fetch: env.fetch, clock: env.clock, sleep: env.sleep, overrides: FIXTURE_OVERRIDES, env: FIXTURE_ENV, log: () => {} }) }
+  await run(start)
+  // What the live build 20261026T130907Z published: records of a rejected root-photo category, a date and an editathon.
+  const shards = (await readdir(path.join(dir, 'site-data/projects'))).filter((f) => f.endsWith('.json'))
+  const file = path.join(dir, 'site-data/projects', shards[0])
+  const s = JSON.parse(await readFile(file, 'utf8'))
+  const base = s.projects.find((r) => r.country_iso2 === 'KR' && !r.curated_place_id)
+  const leak = (id, name, extra = {}) => ({ ...base, id, wikidata: null, name_en: name, name_ko: null, name_original: null, commons_category: 'Category:' + name, ...extra })
+  s.projects.push(leak('CAT-LEAK001', 'Night in Seoul'), leak('CAT-LEAK002', 'April 2017 in Daegu'), leak('CAT-LEAK003', 'Fixture editathon', { name_en: 'Wiki Loves Lanterns 2017', commons_category: null }))
+  await writeFile(file, JSON.stringify(s))
+  const r2 = await run(start + 3 * 3600e3)
+  const removed = r2.report.changes.removed.map((x) => x.id)
+  for (const id of ['CAT-LEAK001', 'CAT-LEAK002', 'CAT-LEAK003']) assert.ok(removed.includes(id), id)
+  assert.ok(!r2.report.changes.carried_over.some((x) => x.id.startsWith('CAT-LEAK')))
+  const never = JSON.parse(await readFile(path.join(dir, 'review/classes.json'), 'utf8')).never_project.removed_previous
+  assert.deepEqual(never.find((x) => x.id === 'CAT-LEAK001').reasons, ['category_rejected:root_photo_topic_not_a_work'])
+  assert.ok(never.find((x) => x.id === 'CAT-LEAK002').reasons.includes('name:date_category:month_year'))
+  assert.deepEqual(never.find((x) => x.id === 'CAT-LEAK003').reasons, ['name:wikimedia_event'])
 })

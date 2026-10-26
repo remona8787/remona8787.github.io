@@ -18,6 +18,7 @@
 // (location_precision "approximate"). Every decision and its evidence goes to review/places.json.
 import { detectLocation } from '../../edge-functions/_shared/archive/normalize.mjs'
 import { api } from './commons.mjs'
+import { dateNameReason } from './not-projects.mjs'
 import { fetchAux, auxNext, countryOfPlace } from './wikidata.mjs'
 import { regionFromText } from './korea.mjs'
 import { HOUR } from './cache.mjs'
@@ -258,6 +259,9 @@ export async function recoverPlaces(client, projects, { cache, cfg = {}, ttl = {
     // "Illuminated trees in Finland", "Sports venues in Russia", "culture of the Netherlands": a category of things
     // in a country is an aggregate, not a project; no country is recovered for it.
     if (d.outcome === 'recovered' && own?.country_iso2 && !own.city && / (in|of|from) [\p{L}\p{M} .'’-]+$/u.test(String(cat || '').replace(/^Category:/, ''))) d = { ...d, country: null, outcome: 'aggregate_name', reason: 'a category of things in a country' }
+    // "April 2017 in Daegu", "2017 in Seoul", "Seoul in April 2017", "Events in Seoul in the 2010s": a date category.
+    const dated = [cat, p.name_en, p.name_original].map(dateNameReason).find(Boolean)
+    if (d.outcome === 'recovered' && dated) d = { ...d, country: null, outcome: 'aggregate_name', reason: 'a date category (' + dated + ')' }
     // An edition or a work of a known project is that project's, not a new one (its photos stay in that project).
     const parent = d.outcome === 'recovered' ? partOf(p, known) : null
     if (parent) d = { ...d, country: null, outcome: 'part_of_project', reason: 'part of ' + parent }

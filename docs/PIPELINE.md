@@ -206,8 +206,11 @@ Every Wikidata class and property id is confirmed by a live query in each run:
 **Korean Commons roots.** Besides the configured Korean roots (light, media art, projection mapping, light and
 lantern festivals, media facades, media art exhibitions; illuminated buildings and the night views of 16 cities as
 evidence), a Korean root that holds photos itself ("Projection mapping in South Korea": 8 files, no subcategories) is
-read file by file: each photo's other categories (the gate or square the work was shown on, the festival) are
-candidates (`category_of_a_korean_root_photo`), each with that photo (`via_file`, an image of the work). Such a
+read file by file. A photo's other categories are mostly its topics (the city, the night, the date, an editathon it
+was uploaded for, the photographer), so one becomes a candidate (`category_of_a_korean_root_photo`, with that photo as
+`via_file`) only when its name names a light work (`korea_root_photo.category_pattern`: the festival), or when it is a
+located structure (the category has coordinates: the gate or square the work was shown on) and the photo's file name
+names the light work (`korea_root_photo.file_pattern`). Every other one is `root_photo_topic_not_a_work`. A canvas
 category is the canvas, not the work: its own photos are institution files (context unless they name the project or
 media, see Images). A root that does not exist is a warning; after three roots in a row fail, the rest are skipped.
 
@@ -326,6 +329,25 @@ All sources stay attached. Curated places (`site-public-cleared/assets/seed.js`)
 name, country, coordinates or city, an archive type, not blocklisted, and a public source.
 Curated and editor-approved records skip the source gates (unverified class only, class requires coordinates, low
 Wikipedia relevance, web candidate), never the basics. Every excluded project and its reasons are in quality.json.
+
+**Never a project** (whatever source or category led to it; curated places excepted):
+
+- date categories (`lib/not-projects.mjs`): "April 2017 in Daegu", "2017 in Seoul", "Seoul in April 2017", "Events in
+  Seoul in the 2010s", "5 April 2017 in Seoul", "2017 events in South Korea", a bare year. The Commons walk rejects them
+  (`date_category_<rule>`, never walked) unless the name also names a light work ("Seoul Lantern Festival in 2013" is
+  an edition); country recovery never recovers them (`aggregate_name`); an item titled with a bare year is a work and
+  stays ("2026", a video);
+- Wikimedia community events by name: editathons, edit-a-thons, hackathons, Wiki Loves…, WikiProjects, Wikimania
+  (`wikimedia_event`);
+- items whose P31/P279* reaches a class of `config/classes.json` blocklist with `"subclasses": true`: administrative
+  territorial entity (Q56061), city (Q515), human settlement (Q486972), edit-a-thon (Q16022392), hackathon (Q2627975,
+  used once its live label matches). One class-membership query per 100 items; every class is used only while its
+  live label matches. The settlement classes spare an item that is also of a light-work class or of a work, event or
+  venue class by label (`entity_rules.work_or_event_class_pattern`: a festival organised as a community).
+
+Decisions are in `review/classes.json` `never_project` (with the errors of the membership queries). A record published
+earlier that is now never a project, or whose Commons category this run rejected, is removed at once
+(`removed_previous`), not carried over as unseen.
 
 ### Kind, dates and status
 

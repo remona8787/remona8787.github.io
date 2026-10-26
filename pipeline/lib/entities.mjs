@@ -9,6 +9,7 @@
 import T from '../../site-public-cleared/archive-taxonomy.js'
 import { canonicalUrl } from '../../edge-functions/_shared/archive/normalize.mjs'
 import { normalizedName, haversine, validLat, validLng, isQid, uniq, wikidataPage, commonsPage, fnv1a } from './util.mjs'
+import { notProjectName } from './not-projects.mjs'
 
 export const MERGE_DISTANCE_M = 300
 export const PROJECT_TYPES = T.keys('project_type')
@@ -374,6 +375,27 @@ export function eligibility(p, ctx = {}) {
     if (p.origins.includes('web')) reasons.push('web_candidate_not_approved')
   }
   return { eligible: reasons.length === 0, reasons }
+}
+
+/**
+ * Never a project, whatever source or category led to it (docs/PIPELINE.md "Never a project"): an item of a class
+ * blocked with its subclasses (P31/P279*: administrative territorial entities, cities, settlements, edit-a-thons,
+ * hackathons) and a date or Wikimedia-event name. A settlement class (unless_work_or_event) spares an item that is
+ * also of a light-work class or of a work, event or venue class by label (a festival organised as a community).
+ * Returns the blocklist entries: class QIDs and 'name:<reason>'.
+ * @param {any} p @param {{p31?: string[], member?: string[], blocks?: {qid: string, unless_work_or_event?: boolean}[], workClasses?: Set<string>, workPattern?: RegExp|null}} ctx
+ */
+export function neverProject(p, { p31 = [], member = [], blocks = [], workClasses = new Set(), workPattern = null } = {}) {
+  const out = []
+  const reached = new Set([...p31, ...member])
+  const work = p31.some((q) => workClasses.has(q)) || (!!workPattern && (p.p31_labels || []).some((l) => workPattern.test(l)))
+  for (const b of blocks) if (reached.has(b.qid) && !(b.unless_work_or_event && work)) out.push(b.qid)
+  // A bare year is a category of that year, but an item can be a work titled "2026" (a video by Maha Maamoun).
+  for (const [n, item] of [[p.name_en, true], [p.name_ko, true], [p.name_original, true], [p.commons_category, false]]) {
+    const r = notProjectName(n)
+    if (r && !(item && (p.qid || p.wikidata) && r === 'date_category:bare_year')) out.push('name:' + r)
+  }
+  return uniq(out)
 }
 
 /** A stable id for a new project: the curated id, else the QID, else a hash of its Commons category or editor id. */

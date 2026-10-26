@@ -37,7 +37,7 @@ import { webRules, collectWeb, mergeCandidates } from './lib/web.mjs'
 import { checkCoordinates } from './lib/overpass.mjs'
 import { checkLinks } from './lib/links.mjs'
 import { loadSeed, seedObservations } from './lib/seed.mjs'
-import { clusterObservations, mergeByNameAndUrl, buildProject, eligibility, newId } from './lib/entities.mjs'
+import { clusterObservations, mergeByNameAndUrl, buildProject, eligibility, newId, neverProject } from './lib/entities.mjs'
 import { imageStage } from './lib/image-stage.mjs'
 import { writeContactSheets, SHEET_ABOUT } from './lib/contact-sheet.mjs'
 import { imageAudit, auditSummary } from './lib/image-audit.mjs'
@@ -320,7 +320,12 @@ export async function runPipeline(o) {
   const facts = new Map(), entityP31 = new Map(), wikiDecisions = []
   let auxMap = new Map()
   const badProps = new Set((classReview?.properties || []).filter((p) => p.ok === false).map((p) => p.pid))
-  const blockActive = new Set((cfg.classes.blocklist || []).filter((b) => b.verified || (classReview?.blocklist || []).find((x) => x.qid === b.qid)?.label_matches).map((b) => b.qid))
+  const liveOk = (b) => b.verified || (classReview?.blocklist || []).find((x) => x.qid === b.qid)?.label_matches
+  const blockActive = new Set((cfg.classes.blocklist || []).filter((b) => !b.subclasses && liveOk(b)).map((b) => b.qid))
+  // Never a project with their subclasses (P31/P279*): administrative territorial entities, settlements, edit-a-thons…
+  // Used only while the live label matches (an unverified QID never blocks on its own).
+  const neverBlocks = (cfg.classes.blocklist || []).filter((b) => b.subclasses && liveOk(b))
+  const neverMember = new Map(), neverErrors = []
   await st.run('enrich', async () => {
     const t = clock(), e = []
     const props = Object.keys(cfg.classes.properties || {}).filter((k) => /^P\d+$/.test(k) && !badProps.has(k))
@@ -357,6 +362,17 @@ export async function runPipeline(o) {
       for (const [q, ent] of entities) {
         facts.set(q, factsOf(ent, auxMap, { cityPattern, originalLanguageByCountry: P.original_language_by_country || {}, labelLanguages: P.label_languages, countryAt: (lat, lng) => countryAt(cc, lat, lng) }))
         entityP31.set(q, (ent.claims.P31 || []).map((v) => v.item).filter(Boolean))
+      }
+      // Which items reach a never-a-project class through P31/P279* (one query per 100 items, cached).
+      if (neverBlocks.length) {
+        const classes = neverBlocks.map((b) => b.qid).sort()
+        for (const group of chunk([...entities.keys()].sort(), 100)) {
+          try {
+            const rows = await sparql(client, classMembershipQuery(group, classes), { stage: 'enrich', cache: { ns: 'sparql', key: 'never-project:' + sha256(group.join(',') + '|' + classes.join(',')).slice(0, 24), ttlMs: (ttl.sparql ?? 24) * 3600e3 } })
+            for (const r of rows) { const i = qidFromUri(r.item?.value), c = qidFromUri(r.class?.value); if (i && c) neverMember.set(i, uniq([...(neverMember.get(i) || []), c])) }
+          } catch (x) { if (isBudget(x)) throw x; neverErrors.push({ stage: 'never_project_classes', message: msg(x) }) }
+        }
+        e.push(...neverErrors)
       }
       status('enrich', { status: e.length ? 'partial' : 'ok', items: facts.size, errors: e.slice(0, 50), duration_ms: clock() - t })
     } catch (x) {
@@ -451,12 +467,19 @@ export async function runPipeline(o) {
   const krDecisions = []
   const krArgs = (p) => ({ facts: p.qid ? facts.get(p.qid) : null, auxMap, confirmed: krDiv?.confirmed || new Map(), gaz, cfg: KC })
   // Pass 1: editorial decisions, blocklists and the class rules.
+  const neverDecisions = []
+  const workOrEvent = rules.work_or_event_class_pattern ? new RegExp(rules.work_or_event_class_pattern, 'i') : null
   for (const p of projects) {
     applyToProject(ed, p)
     const p31 = uniq((p.all_qids || [p.qid]).flatMap((q) => entityP31.get(q) || []))
     const blocked = p31.filter((q) => blockActive.has(q))
     if (exclude && !p.curated_id) for (const l of p.p31_labels || []) if (exclude.test(l) && !(p.origins.includes('wikidata_class') && p.class_publish)) blocked.push('class_label:' + l)
     if (p.qid && entityP31.get(p.qid)?.includes(CATEGORY_ITEM)) blocked.push('category_item_without_topic')
+    // Never a project (whatever led to it): a settlement or administrative area, a Wikimedia event, a date category.
+    if (!p.curated_id) {
+      const never = neverProject(p, { p31, member: uniq((p.all_qids || [p.qid]).flatMap((q) => neverMember.get(q) || [])), blocks: neverBlocks, workClasses, workPattern: workOrEvent })
+      if (never.length) { blocked.push(...never); neverDecisions.push({ id: p.id, qid: p.qid || null, name: p.name_en || p.name_ko || p.name_original, commons_category: p.commons_category || null, origins: p.origins, blocked_by: never }) }
+    }
     p.blocked_by = uniq(blocked)
     const ct = (p.evidence || []).filter((e) => e.kind === 'wikidata_class')
     p.require_coordinates = ct.length > 0 && !p.origins.some((x) => x !== 'wikidata_class') && kept.filter((x) => x.qid === p.qid).flatMap((x) => x.class_types || []).filter((c) => c.publish).every((c) => c.require_coordinates)
@@ -599,6 +622,17 @@ export async function runPipeline(o) {
     if (complete || x.reasons.includes('hidden_by_editor')) decided.add(x.id)
   }
   for (const x of excluded) for (const [from, to] of idAliases) if (to === x.id && decided.has(x.id)) decided.add(from)
+  // A previous record that is never a project (a date or Wikimedia-event name, an item of a never-a-project class, or
+  // a Commons category this run rejected) is removed at once rather than carried over as unseen.
+  const rejectedCats = new Map([...(categories?.categories?.values() || [])].filter((c) => c.decision === 'rejected').map((c) => [c.title, c.reason]))
+  const neverRemoved = []
+  for (const [id, r] of prev.records) {
+    if (publishedIds.has(id) || decided.has(id) || r.curated_place_id) continue
+    const f = r.wikidata ? facts.get(r.wikidata) : null
+    const never = neverProject({ qid: r.wikidata, name_en: r.name_en, name_ko: r.name_ko, name_original: r.name_original, commons_category: r.commons_category, p31_labels: f?.p31_labels || [] }, { p31: r.wikidata ? entityP31.get(r.wikidata) || [] : [], member: r.wikidata ? neverMember.get(r.wikidata) || [] : [], blocks: neverBlocks, workClasses, workPattern: workOrEvent })
+    const cat = r.commons_category && rejectedCats.get(r.commons_category)
+    if (never.length || cat) { decided.add(id); neverRemoved.push({ id, name: r.name_en || r.name_ko || r.name_original, reasons: [...never, ...(cat ? ['category_rejected:' + cat] : [])] }) }
+  }
   const publishedInfo = new Map(published.map((p) => [p.id, { origins: p.origins }]))
   const track = trackProjects(state.tracker, prev.records, { published: publishedInfo, decided, sourceStatus, runNo, nowIso: startedAt, staleAfter: P.output?.stale_after_missing_runs ?? 3, aliases: idAliases })
   const carriedIds = new Set(track.carried.map((c) => c.id))
@@ -743,7 +777,7 @@ export async function runPipeline(o) {
   await swapDir(adminStaging, dirs.admin)
 
   // review/: logs of every live query result and decision (not published).
-  await writeJSON(path.join(dirs.review, 'classes.json'), { schema: 1, at: startedAt, classes: classReview?.classes ?? null, blocklist: classReview?.blocklist ?? null, blocklist_active: [...blockActive].sort(), instances_per_class: classReview?.instances?.perClass ?? null, errors: classReview?.errors ?? [] }, { pretty: true })
+  await writeJSON(path.join(dirs.review, 'classes.json'), { schema: 1, at: startedAt, classes: classReview?.classes ?? null, blocklist: classReview?.blocklist ?? null, blocklist_active: [...blockActive].sort(), never_project: { classes: neverBlocks.map((b) => b.qid), decisions: neverDecisions, removed_previous: neverRemoved, errors: neverErrors }, instances_per_class: classReview?.instances?.perClass ?? null, errors: classReview?.errors ?? [] }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'properties.json'), { schema: 1, at: startedAt, properties: classReview?.properties ?? null, not_used_this_run: [...badProps] }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'categories.json'), { schema: 1, at: startedAt, partial: categories?.partial ?? null, errors: categories?.errors ?? [], decisions: [...(categories?.categories?.values() || [])].sort((a, b) => compareStrings(a.title, b.title)) }, { pretty: true })
   await writeJSON(path.join(dirs.review, 'wikipedia.json'), { schema: 1, at: startedAt, accept_score: accept, hits: wikiHits, entity_decisions: wikiDecisions }, { pretty: true })

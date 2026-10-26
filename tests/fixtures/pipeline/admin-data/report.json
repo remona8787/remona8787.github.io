@@ -1,36 +1,36 @@
 {
  "cache": {
   "hits": 6,
-  "misses": 1435,
+  "misses": 1463,
   "sizes": {
-   "commons-category": 47,
+   "commons-category": 53,
    "commons-category-item": 8,
    "commons-depicts": 23,
-   "commons-file-cats": 1,
-   "commons-file-depicts": 53,
-   "commons-files": 53,
+   "commons-file-cats": 6,
+   "commons-file-depicts": 54,
+   "commons-files": 54,
    "commons-geotags": 4,
-   "commons-members": 35,
-   "commons-parents": 5,
+   "commons-members": 38,
+   "commons-parents": 6,
    "commons-search": 72,
-   "entities": 38,
-   "entities-aux": 77,
-   "flickr": 74,
+   "entities": 40,
+   "entities-aux": 80,
+   "flickr": 75,
    "kto-photo": 57,
    "links": 98,
    "openverse": 120,
    "overpass": 23,
-   "quality": 37,
-   "sparql": 42,
+   "quality": 38,
+   "sparql": 43,
    "tourapi": 120,
-   "visual": 37,
+   "visual": 38,
    "wiki-pages": 14,
    "wiki-search": 49,
    "wikidata-articles": 1,
    "wikidata-search": 2
   },
   "stale": 0,
-  "writes": 1090
+  "writes": 1116
  },
  "changes": {
   "carried_over": [],
@@ -64,6 +64,7 @@
    "CAT-0AEBIPR",
    "CAT-0BLB3MO",
    "CAT-1HJOGAD",
+   "CAT-1PS4G2I",
    "CAT-1VRD089",
    "ED-fixture-light-pavilion",
    "KTO-2900002",
@@ -144,23 +145,23 @@
   "candidates_awaiting_review": 2,
   "carried_over": 0,
   "changed": 0,
-  "collected": 82,
-  "eligible": 76,
-  "excluded": 6,
+  "collected": 84,
+  "eligible": 77,
+  "excluded": 7,
   "foreign": 16,
-  "hero_candidates_awaiting_review": 11,
-  "kr": 60,
-  "kr_with_region": 60,
+  "hero_candidates_awaiting_review": 12,
+  "kr": 61,
+  "kr_with_region": 61,
   "merged": 4,
-  "new": 76,
-  "observations": 100,
-  "observations_kept": 97,
-  "projects_built": 82,
-  "published": 76,
+  "new": 77,
+  "observations": 102,
+  "observations_kept": 99,
+  "projects_built": 84,
+  "published": 77,
   "removed": 0,
   "stale": 0,
   "with_hero": 5,
-  "with_images": 21
+  "with_images": 22
  },
  "decisions": [
   {
@@ -371,16 +372,16 @@
  ],
  "http": {
   "api.flickr.com": {
-   "bytes": 8053,
+   "bytes": 8130,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 6800,
+   "ms": 6600,
    "not_modified": 0,
-   "ok": 74,
-   "requests": 74,
+   "ok": 75,
+   "requests": 75,
    "statuses": {
-    "200": 74
+    "200": 75
    }
   },
   "api.openverse.org": {
@@ -388,7 +389,7 @@
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 409160,
+   "ms": 408180,
    "not_modified": 0,
    "ok": 120,
    "requests": 120,
@@ -423,16 +424,16 @@
    }
   },
   "commons.wikimedia.org": {
-   "bytes": 173892,
+   "bytes": 180673,
    "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 210560,
+   "ms": 217560,
    "not_modified": 0,
-   "ok": 224,
-   "requests": 224,
+   "ok": 231,
+   "requests": 231,
    "statuses": {
-    "200": 224
+    "200": 231
    }
   },
   "de.wikipedia.org": {
@@ -618,16 +619,16 @@
    }
   },
   "query.wikidata.org": {
-   "bytes": 34568,
+   "bytes": 36086,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 43200,
+   "ms": 44200,
    "not_modified": 0,
-   "ok": 48,
-   "requests": 48,
+   "ok": 49,
+   "requests": 49,
    "statuses": {
-    "200": 48
+    "200": 49
    }
   },
   "ru.wikipedia.org": {
@@ -670,29 +671,29 @@
    }
   },
   "upload.wikimedia.org": {
-   "bytes": 1266061,
+   "bytes": 1313650,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 2760,
+   "ms": 2840,
    "not_modified": 0,
-   "ok": 69,
-   "requests": 69,
+   "ok": 71,
+   "requests": 71,
    "statuses": {
-    "200": 69
+    "200": 71
    }
   },
   "www.wikidata.org": {
-   "bytes": 87473,
+   "bytes": 91737,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 4120,
+   "ms": 5120,
    "not_modified": 0,
-   "ok": 7,
-   "requests": 7,
+   "ok": 8,
+   "requests": 8,
    "statuses": {
-    "200": 7
+    "200": 8
    }
   },
   "zh.wikipedia.org": {
@@ -712,14 +713,14 @@
  "image_audit": {
   "cards": {
    "all": {
-    "projects": 76,
-    "rate_pct": 27.6,
-    "with_valid_card": 21
+    "projects": 77,
+    "rate_pct": 28.6,
+    "with_valid_card": 22
    },
    "korea": {
-    "projects": 60,
-    "rate_pct": 16.7,
-    "with_valid_card": 10
+    "projects": 61,
+    "rate_pct": 18,
+    "with_valid_card": 11
    },
    "world": {
     "projects": 16,
@@ -729,29 +730,29 @@
   },
   "duplicates_removed": 0,
   "duplicates_this_run": 4,
-  "images": 37,
+  "images": 38,
   "low_res_rejected": 0,
   "mislinked_rejected": 5,
   "mislinked_removed": 0,
-  "newly_added_valid": 37,
+  "newly_added_valid": 38,
   "person_rejected": 8,
   "person_removed": 0,
   "portraits": 1,
   "previous_images": 0,
   "rechecked_kept": 0,
-  "relevance_verified": 37,
+  "relevance_verified": 38,
   "removed_total": 0
  },
  "images": {
   "awaiting_review": 0,
   "below_threshold": 0,
   "by_provider": {
-   "commons": 33,
+   "commons": 34,
    "official": 1,
    "openverse": 1,
    "tourapi": 2
   },
-  "candidates": 53,
+  "candidates": 54,
   "contact_sheets": [
    "hero-commons-01.jpg",
    "hero-official-01.jpg",
@@ -773,16 +774,16 @@
   "kept_dropped_unverified": 0,
   "kept_previous": 0,
   "measure_errors": 0,
-  "measured": 37,
+  "measured": 38,
   "none": 55,
   "openverse_rate_limit": {
    "x-ratelimit-available-anon_burst": 19
   },
   "portraits": 1,
-  "processed": 76,
+  "processed": 77,
   "provider_errors": {},
   "provider_new_requests": {
-   "flickr": 74,
+   "flickr": 75,
    "kto_photo": 57,
    "openverse": 120,
    "tourapi": 57
@@ -795,14 +796,14 @@
    "tourapi:rights": 1
   },
   "provider_requests": {
-   "flickr": 74,
+   "flickr": 75,
    "kto_photo": 57,
    "openverse": 120,
    "tourapi": 57
   },
   "provider_unverified": 2,
-  "quality_fetched": 37,
-  "quality_measured": 37,
+  "quality_fetched": 38,
+  "quality_measured": 38,
   "rejected": {
    "interior_unrelated_to_work": 1,
    "rights:foreign_no_freedom_of_panorama": 1,
@@ -811,7 +812,7 @@
    "subject:people_or_event": 6,
    "subject:person": 3
   },
-  "thumbnails_fetched": 37
+  "thumbnails_fetched": 38
  },
  "places": {
   "by_rule": {
@@ -824,7 +825,7 @@
   "geotag_requests": 4,
   "no_evidence": 1,
   "recovered": 2,
-  "region_candidates": 1
+  "region_candidates": 2
  },
  "public_data": {
   "seoul_events": {
@@ -876,14 +877,14 @@
  },
  "review_queue": {
   "candidates": 2,
-  "hero_candidates": 11
+  "hero_candidates": 12
  },
  "run": {
   "budget_minutes": 25,
-  "build_id": "20261020T061700Z-d29c42e4",
+  "build_id": "20261020T061700Z-b2ab7dea",
   "drop_guard": null,
-  "duration_ms": 772100,
-  "finished_at": "2026-10-20T06:29:52.100Z",
+  "duration_ms": 780400,
+  "finished_at": "2026-10-20T06:30:00.400Z",
   "number": 1,
   "publish": "published",
   "started_at": "2026-10-20T06:17:00.000Z",
@@ -895,10 +896,10 @@
  "sources": {
   "commons": {
    "consecutive_failures": 0,
-   "duration_ms": 121040,
+   "duration_ms": 125040,
    "errors": [],
-   "items": 15,
-   "korea_items": 2,
+   "items": 17,
+   "korea_items": 4,
    "last_success": "2026-10-20T06:17:00.000Z",
    "status": "ok",
    "warnings": [
@@ -925,11 +926,6 @@
     {
      "message": "category does not exist",
      "root": "Category:Media facades in South Korea",
-     "stage": "commons_root"
-    },
-    {
-     "message": "category does not exist",
-     "root": "Category:Lantern festivals in South Korea",
      "stage": "commons_root"
     },
     {
@@ -1080,9 +1076,9 @@
   },
   "enrich": {
    "consecutive_failures": 0,
-   "duration_ms": 3080,
+   "duration_ms": 5080,
    "errors": [],
-   "items": 31,
+   "items": 33,
    "last_success": "2026-10-20T06:17:00.000Z",
    "status": "ok"
   },
@@ -1187,11 +1183,11 @@
    "status": "ok"
   },
   "enrich": {
-   "duration_ms": 3080,
+   "duration_ms": 5080,
    "status": "ok"
   },
   "images": {
-   "duration_ms": 543540,
+   "duration_ms": 545840,
    "status": "ok"
   },
   "links": {
@@ -1211,7 +1207,7 @@
    "status": "ok"
   },
   "sources": {
-   "duration_ms": 121040,
+   "duration_ms": 125040,
    "status": "ok"
   }
  },
@@ -1239,11 +1235,6 @@
   {
    "message": "category does not exist",
    "root": "Category:Media facades in South Korea",
-   "stage": "commons_root"
-  },
-  {
-   "message": "category does not exist",
-   "root": "Category:Lantern festivals in South Korea",
    "stage": "commons_root"
   },
   {

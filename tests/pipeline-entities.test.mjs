@@ -225,3 +225,43 @@ test('field confidence: each state from the field source; an older record is rea
   const kept = { ...old, field_confidence: { project_type: 'editorial', region: 'unknown', dates: 'unknown', artist: 'unknown', architect: 'unknown', coordinates: 'sourced' } }
   assert.deepEqual(upgradeRecord(kept).field_confidence, kept.field_confidence, 'a record that has states keeps them')
 })
+
+test('never a project: date categories and Wikimedia events by name (live leaks of 2026-10-26)', async () => {
+  const { notProjectName, dateNameReason } = await import('../pipeline/lib/not-projects.mjs')
+  const dated = ['April 2017 in Daegu', 'April 2017', '2017 in Seoul', '2010s in Seoul', 'Seoul in April 2017', 'Daegu in 2017', 'Events in Seoul in the 2010s',
+    'Seoul in the 2010s', '5 April 2017 in Seoul', 'April 5, 2017', 'Gwanghwamun on 5 April 2017', '2017 events in South Korea', 'Category:April 2017 in South Korea']
+  for (const n of dated) assert.ok(dateNameReason(n), n)
+  for (const n of ['Festival of Lights (Berlin, 2013)', '2013 Light Festival, Jerusalem', 'Lumiere Durham', 'Seoul Lantern Festival', 'Vivid Sydney', 'Night at Gwanghwamun', '진주남강유등축제', 'Signal Festival'])
+    assert.equal(dateNameReason(n), null, n)
+  for (const n of ['Akeneo Wikimedia Editathon - Mallorca, October 2022', 'Wiki Loves Monuments 2019 in South Korea', 'Wikimedia Hackathon 2024', 'Art+Feminism edit-a-thon', '위키백과 에디터톤'])
+    assert.equal(notProjectName(n), 'wikimedia_event', n)
+  assert.equal(notProjectName('April 2017 in Daegu'), 'date_category:month_year')
+  assert.equal(notProjectName('Seoul Lantern Festival'), null)
+  // In the Commons walk: rejected before any other rule (never walked); a dated light-work name is an edition.
+  const r = categoryRules(cfg.categories)
+  const d = (title) => classifyCategory(title, { subcats: 0, files: 6 }, { mode: 'candidates', korea: true }, r)
+  assert.deepEqual(d('Category:April 2017 in Daegu'), { decision: 'rejected', reason: 'date_category_month_year' })
+  assert.deepEqual(d('Category:Events in Seoul in the 2010s'), { decision: 'rejected', reason: 'date_category_place_in_date' })
+  assert.deepEqual(d('Category:2017 in Daegu'), { decision: 'rejected', reason: 'date_category_year_in_place' })
+  assert.deepEqual(d('Category:Akeneo Wikimedia Editathon - Mallorca, October 2022'), { decision: 'rejected', reason: 'wikimedia_event' })
+  assert.deepEqual(d('Category:Seoul Lantern Festival in 2013'), { decision: 'edition', reason: 'edition_date_place_in_date' })
+})
+
+test('never a project: items of settlement, administrative-area and Wikimedia-event classes, through P31/P279*', async () => {
+  const { neverProject } = await import('../pipeline/lib/entities.mjs')
+  const blocks = [{ qid: 'Q56061', unless_work_or_event: true }, { qid: 'Q515', unless_work_or_event: true }, { qid: 'Q486972', unless_work_or_event: true }, { qid: 'Q16022392' }]
+  const workPattern = new RegExp(cfg.pipeline.entity_rules.work_or_event_class_pattern, 'i')
+  const ctx = (o) => ({ blocks, workClasses: new Set(['Q1823448']), workPattern, ...o })
+  // Namwon: P31 city of South Korea, which reaches city and human settlement only through P279.
+  assert.deepEqual(neverProject({ name_en: 'Namwon', p31_labels: ['city of South Korea'] }, ctx({ p31: ['Q29045252'], member: ['Q515', 'Q486972'] })), ['Q515', 'Q486972'])
+  // A festival organised as a community, a light installation in an amusement park: kept.
+  assert.deepEqual(neverProject({ name_en: 'Pixelache Helsinki', p31_labels: ['community', 'new media arts festival'] }, ctx({ p31: ['Q177634', 'Q126682969'], member: ['Q486972'] })), [])
+  assert.deepEqual(neverProject({ name_en: 'Lumina Park', p31_labels: ['light installation'] }, ctx({ p31: ['Q1823448'], member: ['Q486972'] })), [])
+  // An edit-a-thon has no exception; neither has a date or Wikimedia name.
+  assert.deepEqual(neverProject({ name_en: 'Akeneo, Majorque 2022', p31_labels: ['edit-a-thon', 'event'] }, ctx({ p31: ['Q16022392'], member: ['Q16022392'] })), ['Q16022392'])
+  assert.deepEqual(neverProject({ name_en: 'April 2017 in Daegu', commons_category: 'Category:April 2017 in Daegu' }, ctx({})), ['name:date_category:month_year'])
+  assert.deepEqual(neverProject({ name_en: 'Akeneo Wikimedia Editathon - Mallorca, October 2022' }, ctx({})), ['name:wikimedia_event'])
+  assert.deepEqual(neverProject({ name_en: 'Seoul Lantern Festival', p31_labels: ['lantern festival'] }, ctx({ p31: ['Q124414048'] })), [])
+  assert.deepEqual(neverProject({ qid: 'Q96756894', name_en: '2026', p31_labels: ['time-based media'] }, ctx({})), [], 'a work titled with a year (a video by Maha Maamoun)')
+  assert.deepEqual(neverProject({ name_en: '2026', commons_category: 'Category:2026' }, ctx({})), ['name:date_category:bare_year'], 'a category named after a year')
+})

@@ -1,7 +1,7 @@
 {
  "broken_links": [
   {
-   "checked_at": "2026-10-20T06:28:13.820Z",
+   "checked_at": "2026-10-20T06:28:22.120Z",
    "consecutive_failures": 1,
    "field": "official_url",
    "http_status": 404,
@@ -10,7 +10,7 @@
    "url": "https://centercity.example/"
   }
  ],
- "build_id": "20261020T061700Z-d29c42e4",
+ "build_id": "20261020T061700Z-b2ab7dea",
  "coordinate_checks": [
   {
    "distance_m": 6135,
@@ -54,6 +54,18 @@
    "qid": null,
    "reasons": [
     "no_public_source"
+   ]
+  },
+  {
+   "id": "Q42087",
+   "name": "Namwon",
+   "origins": [
+    "commons"
+   ],
+   "qid": "Q42087",
+   "reasons": [
+    "blocklist:Q515",
+    "blocklist:Q486972"
    ]
   },
   {
@@ -103,6 +115,11 @@
  "low_confidence_types": [
   {
    "id": "CAT-0AEBIPR",
+   "project_type": "festival_program",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "CAT-1PS4G2I",
    "project_type": "festival_program",
    "type_source": "commons_category"
   },

@@ -64,3 +64,18 @@ test('recovery in a run: parents, parent items and geotags give country and loca
   assert.equal(by('Fixture Lichtkunst Amsterdam').country_iso2, 'NL', 'Q55 without an ISO code → Q29999')
   assert.equal(by('Fixture Valo Oulu').country_iso2, 'FI', 'coordinates inside the borders')
 })
+
+test('a date category is never recovered: "April 2017 in Daegu" names a city, but it is a date, not a project', needCc, async () => {
+  const { recoverPlaces } = await import('../pipeline/lib/places.mjs')
+  const offline = { json: async () => { throw new Error('offline') }, text: async () => { throw new Error('offline') } }
+  const mk = (name) => ({ id: 'CAT-' + name, commons_category: 'Category:' + name, name_en: name, country_iso2: null, latitude: null, longitude: null, city: null, field_sources: {} })
+  const ps = ['April 2017 in Daegu', 'Seoul in April 2017', 'Events in Seoul in the 2010s', 'Fixture Lumière Daegu'].map(mk)
+  const gaz = compileGazetteer(loadKoreaConfig())
+  const { decisions } = await recoverPlaces(offline, ps, { cc, auxMap: new Map(), facts: new Map(), gaz, regionOf: () => 'east_asia', known: [] })
+  const d = Object.fromEntries(decisions.map((x) => [x.name, x]))
+  for (const n of ['April 2017 in Daegu', 'Seoul in April 2017', 'Events in Seoul in the 2010s']) {
+    assert.equal(d[n].outcome, 'aggregate_name', n)
+    assert.match(d[n].reason, /date category/)
+  }
+  assert.equal(ps[0].country_iso2, null, 'nothing is filled in')
+})

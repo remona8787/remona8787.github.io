@@ -716,5 +716,10 @@
    "pattern": "등불\\s*축제",
    "reason": "korean_light_festival"
   }
- ]
+ ],
+ "korea_root_photo": {
+  "about": "A Korean root that holds photos (lib/commons.mjs): each photo's other categories are mostly its topics (the city, the night, the date, an editathon the photo was uploaded for, the photographer). One becomes a candidate only when its name names a light work (category_pattern), or when it is a located structure (the canvas: the category has coordinates) and the photo's file name names the light work on it (file_pattern); every other one is recorded as root_photo_topic_not_a_work. Date categories and Wikimedia events are rejected for every category (lib/not-projects.mjs).",
+  "category_pattern": "\\b(lanterns?|lights?|lighting|illuminat\\w*|lumin\\w*|projections?|mapping|media ?(art|fa[cç]ades?|walls?|canvas|poles?|towers?)|lasers?|neon|led|light ?shows?)\\b|빛|등불|유등|연등|등축제|루미나리에|미디어|라이트|일루미|조명|프로젝션|[맵매]핑",
+  "file_pattern": "\\b(projections?|mapping|media ?(art|fa[cç]ades?|walls?|canvas)|lights?|lighting|lanterns?|illuminat\\w*|lumin\\w*|led|lasers?)\\b|빛|미디어|파사드|프로젝션|[맵매]핑|등불|유등|조명"
+ }
 }

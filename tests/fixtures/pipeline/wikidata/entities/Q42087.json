@@ -1,0 +1,147 @@
+{
+ "pageid": 42087,
+ "ns": 0,
+ "title": "Q42087",
+ "lastrevid": 2400042087,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q42087",
+ "labels": {
+  "en": {
+   "language": "en",
+   "value": "Namwon"
+  },
+  "ko": {
+   "language": "ko",
+   "value": "남원시"
+  }
+ },
+ "descriptions": {
+  "en": {
+   "language": "en",
+   "value": "city in North Jeolla Province, South Korea"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "a1f74f2f54965511233a2307daff1bc1",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 29045252,
+       "id": "Q29045252"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q42087$a1f74f2f-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "952c0e9afa8d6d4ed6a3e03f620d24e7",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q42087$952c0e9a-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "775110cf81f93eae3416831c1cd6ba37",
+     "datavalue": {
+      "value": {
+       "latitude": 35.41,
+       "longitude": 127.3858,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q42087$775110cf-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P373": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P373",
+     "hash": "40ab10b13b57b380642f31eb7e0de31a",
+     "datavalue": {
+      "value": "Namwon",
+      "type": "string"
+     },
+     "datatype": "string"
+    },
+    "type": "statement",
+    "id": "Q42087$40ab10b1-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P856": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P856",
+     "hash": "c588405a1190c4d6440f2f3ecca14091",
+     "datavalue": {
+      "value": "http://en.namwon.go.kr/en/",
+      "type": "string"
+     },
+     "datatype": "url"
+    },
+    "type": "statement",
+    "id": "Q42087$c588405a-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {
+  "enwiki": {
+   "site": "enwiki",
+   "title": "Namwon",
+   "badges": [],
+   "url": "https://en.wikipedia.org/wiki/Namwon"
+  },
+  "kowiki": {
+   "site": "kowiki",
+   "title": "남원시",
+   "badges": [],
+   "url": "https://ko.wikipedia.org/wiki/%EB%82%A8%EC%9B%90%EC%8B%9C"
+  },
+  "commonswiki": {
+   "site": "commonswiki",
+   "title": "Category:Namwon",
+   "badges": [],
+   "url": "https://commons.wikimedia.org/wiki/Category:Namwon"
+  }
+ }
+}
