@@ -1,0 +1,52 @@
+{
+ "dataset": "light-architecture-archive",
+ "title": "빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋",
+ "version": "20261026T063755Z-351b7eb5",
+ "created": "2026-10-26T06:37:55.494Z",
+ "data_as_of": "2026-10-26",
+ "path": "data/research/20261026T063755Z-351b7eb5/",
+ "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261026T063755Z-351b7eb5, 데이터 기준일 2026-10-26). https://remona8787.github.io/data/research/20261026T063755Z-351b7eb5/",
+ "counts": {
+  "projects": 279,
+  "sources": 601,
+  "images": 1123
+ },
+ "files": {
+  "projects.csv": {
+   "bytes": 140542,
+   "sha256": "811034e066584b40d3b966c2b53d94a9c537b3da6d4f004d1a0b392df0e0f965"
+  },
+  "projects.json": {
+   "bytes": 357796,
+   "sha256": "6dd2fa519a725a86acc67f29379f4bb989291337168e529a52bfa9fbf4cd44a7"
+  },
+  "projects.geojson": {
+   "bytes": 49779,
+   "sha256": "b8a77114a6836677670bd84968b7d8e72b644fad1f9a195329607ec701401e67"
+  },
+  "sources.csv": {
+   "bytes": 70339,
+   "sha256": "feae3d9f3f575b66c1255c4add72210e35cda4bc345f7c647d7d7fee4aab7b27"
+  },
+  "images.csv": {
+   "bytes": 334245,
+   "sha256": "a7442cf74aa722717af91c3a5da6dccf0a35e0231ac4f48bb7b23923b506a8f8"
+  },
+  "CITATION.txt": {
+   "bytes": 268,
+   "sha256": "99dca6a64926b9fd820750f8ef2fba3085679cd837bbca84c9c26940a247b91c"
+  },
+  "CHANGELOG.md": {
+   "bytes": 344,
+   "sha256": "ff977c2ce14113aeb4e99e3ba87d79eb99f8f46176ed51f8619e1c8c6014e932"
+  },
+  "datapackage.json": {
+   "bytes": 11701,
+   "sha256": "c3278ce626256e12ed1f8d6baa706310384ce3824187d569442337b3189d5f09"
+  },
+  "README.md": {
+   "bytes": 5993,
+   "sha256": "ad6ef6487bdca20df479d60103555382b792309270c3bbf67f57a19d40cff99e"
+  }
+ }
+}
