@@ -315,7 +315,11 @@ test('Korea coverage: Wikidata search of named Korean things, probes of known ar
   // Korean compounds: the full-text search finds no "…빛축제" inside "픽스처한강빛축제"; the label scan does.
   assert.deepEqual(dec.Q99000508.terms, ['label:빛축제'])
   assert.equal(dec.Q99000508.accepted, true)
-  assert.deepEqual([k.search.label_scan.new_items, k.search.label_scan.truncated, k.search.label_scan.by_term['빛축제']], [2, false, 2])
+  assert.deepEqual([k.search.label_scan.new_items, k.search.label_scan.truncated, k.search.label_scan.by_term['빛축제']], [3, false, 3])
+  // A station whose name contains the term is a place named after a festival park, not the festival.
+  assert.deepEqual(dec.Q99000509.terms, ['label:빛축제'])
+  assert.equal(dec.Q99000509.accepted, false)
+  assert.deepEqual(dec.Q99000509.reasons, ['label_match_not_work_or_event'])
   assert.ok(dec.Q99000506.terms.includes('유등축제') && dec.Q99000506.terms.includes('label:유등'), 'found both ways')
   const wiki = JSON.parse(await readFile(path.join(dir, 'review/wikipedia.json'), 'utf8'))
   const tokyo = wiki.entity_decisions.find((d) => d.qid === 'Q99000604')
@@ -325,6 +329,7 @@ test('Korea coverage: Wikidata search of named Korean things, probes of known ar
   const ids = index.rows.map((r) => r[0])
   assert.ok(ids.includes('Q99000506') && !ids.includes('Q99000507') && !ids.includes('Q99000604'))
   assert.ok(ids.includes('Q99000508'), 'a festival found only by the label scan')
+  assert.ok(!ids.includes('Q99000509'), 'a station named after a festival park is not published')
   // C: a Korean root that holds photos ("Projection mapping in South Korea"): the photo's other category (the gate it
   // was projected on) is a candidate; the photo shows the work, the gate's own photos are context.
   const cats = JSON.parse(await readFile(path.join(dir, 'review/categories.json'), 'utf8')).decisions
@@ -380,6 +385,38 @@ test('a published record that is never a project is removed at once, not carried
   assert.deepEqual(never.find((x) => x.id === 'CAT-LEAK001').reasons, ['category_rejected:root_photo_topic_not_a_work'])
   assert.ok(never.find((x) => x.id === 'CAT-LEAK002').reasons.includes('name:date_category:month_year'))
   assert.deepEqual(never.find((x) => x.id === 'CAT-LEAK003').reasons, ['name:wikimedia_event'])
+})
+
+test('a published record an editor hides, or that the Korean search now refuses, is removed at once (live 송도달빛축제공원역)', async () => {
+  const { writeFile, readdir, mkdir } = await import('node:fs/promises')
+  const dir = await mkdtemp(path.join(tmpdir(), 'aol-refused-')), editorial = await mkdtemp(path.join(tmpdir(), 'aol-refused-ed-'))
+  const start = Date.parse('2026-10-20T06:17:00Z')
+  const run = (t, editorialDir = null) => { const env = fixtureEnvironment({ start: t }); return runPipeline({ dataDir: dir, editorialDir, fetch: env.fetch, clock: env.clock, sleep: env.sleep, overrides: FIXTURE_OVERRIDES, env: FIXTURE_ENV, log: () => {} }) }
+  await run(start)
+  // What the live build 20261026T213455Z published before the label-only rule: the station, found only by the label
+  // scan (tracker origin wikidata_search); and a record an editor then hides.
+  const shards = (await readdir(path.join(dir, 'site-data/projects'))).filter((f) => f.endsWith('.json'))
+  const file = path.join(dir, 'site-data/projects', shards[0])
+  const s = JSON.parse(await readFile(file, 'utf8'))
+  const base = s.projects.find((r) => r.country_iso2 === 'KR' && !r.curated_place_id)
+  s.projects.push({ ...base, id: 'Q99000509', wikidata: 'Q99000509', name_ko: '픽스처빛축제공원역', name_en: 'Fixture Light Festival Park station', commons_category: null })
+  s.projects.push({ ...base, id: 'CAT-HIDE001', wikidata: null, name_en: 'Fixture hidden later', name_ko: null, commons_category: 'Category:Fixture hidden later' })
+  await writeFile(file, JSON.stringify(s))
+  const trackerFile = path.join(dir, 'state/tracker.json'), tracker = JSON.parse(await readFile(trackerFile, 'utf8'))
+  for (const [id, origins] of [['Q99000509', ['wikidata_search']], ['CAT-HIDE001', ['commons']]]) tracker.projects[id] = { first_seen: '2026-10-20T06:17:00.000Z', last_seen: '2026-10-20T06:17:00.000Z', last_seen_run: 1, missing_runs: 0, origins, hash: null }
+  await writeFile(trackerFile, JSON.stringify(tracker))
+  await mkdir(path.join(editorial, 'decisions'))
+  await writeFile(path.join(editorial, 'decisions/2026-10-21T00-00-000-hide.json'), JSON.stringify({ action: 'hide', target: 'CAT-HIDE001', note: 'fixture', by: 'test', at: '2026-10-21T00:00:00Z' }))
+  const r2 = await run(start + 3 * 3600e3, editorial)
+  const removed = r2.report.changes.removed.map((x) => x.id)
+  assert.ok(removed.includes('Q99000509') && removed.includes('CAT-HIDE001'), removed.join(','))
+  assert.ok(!r2.report.changes.carried_over.some((x) => ['Q99000509', 'CAT-HIDE001'].includes(x.id)), 'neither is carried over as unseen')
+  const never = JSON.parse(await readFile(path.join(dir, 'review/classes.json'), 'utf8')).never_project.removed_previous
+  assert.deepEqual(never.find((x) => x.id === 'Q99000509').reasons, ['korea_search:label_match_not_work_or_event'])
+  assert.deepEqual(never.find((x) => x.id === 'CAT-HIDE001').reasons, ['editorial_hide'])
+  assert.equal(r2.report.decisions.find((d) => d.target === 'CAT-HIDE001').status, 'applied', 'the hide is applied, not target_not_found')
+  const ids = JSON.parse(await readFile(path.join(dir, 'site-data/index.json'), 'utf8')).rows.map((r) => r[0])
+  assert.ok(!ids.includes('Q99000509') && !ids.includes('CAT-HIDE001'))
 })
 
 test('Wikidata search pages through every result (sroffset) up to the cap; the label scan query names every term', async () => {

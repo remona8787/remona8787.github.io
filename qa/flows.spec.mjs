@@ -74,6 +74,33 @@ test.describe('offline',()=>{
   await page.goto('/#place/SEOUL001');await expect(page.locator('#view h1')).toBeVisible();
  });
 });
+// A new deploy reaches a returning visitor on their next load. The worker of v0.14–v0.18 served its cached scripts
+// until every tab of the site was closed, so the live site kept showing an old version (2026-10-26).
+test.describe('updates',()=>{
+ test.use({serviceWorkers:'allow'});
+ test('a visitor of the cache-first versions gets the new deploy without closing the tab; later deploys on the next load',async({page,context})=>{
+  const {readFile}=await import('node:fs/promises');
+  const legacy=await readFile(new URL('./fixtures/sw-v018.js',import.meta.url),'utf8');
+  let deploy='A';
+  await context.route('**/sw.js',r=>deploy==='A'?r.fulfill({contentType:'text/javascript; charset=utf-8',body:legacy}):r.continue());
+  await context.route(/\/app\.js$/,async r=>{const res=await r.fetch();r.fulfill({response:res,body:(await res.text())+`\nwindow.__aolDeploy='${deploy}';`})});
+  await page.goto('/');
+  await page.evaluate(async()=>{await navigator.serviceWorker.ready});
+  await page.reload();
+  await expect.poll(()=>page.evaluate(()=>!!navigator.serviceWorker.controller)).toBe(true);
+  expect(await page.evaluate(()=>window.__aolDeploy)).toBe('A');
+  // Deploy B: the old worker answers this load from its cache; the new one takes over and reloads the page once.
+  deploy='B';
+  await page.reload();
+  await expect.poll(()=>page.evaluate(()=>window.__aolDeploy).catch(()=>null),{timeout:20000}).toBe('B');
+  expect(await page.evaluate(async()=>(await caches.keys()).filter(k=>k.startsWith('aol-')&&k!=='aol-data').every(k=>k.startsWith('aol-s2-')))).toBe(true);
+  // Deploy C: the shell is network-first now, so the next load has it.
+  deploy='C';
+  await page.reload();
+  expect(await page.evaluate(()=>window.__aolDeploy)).toBe('C');
+  await expect(page.getByRole('heading',{name:'빛으로 읽는 한국의 건축'})).toBeVisible();
+ });
+});
 test('self-hosted map library loads under the production CSP',async({page})=>{
  const violations=[];page.on('console',m=>{if(/Content Security Policy/i.test(m.text()))violations.push(m.text())});
  const csp=(await page.goto('/#map')).headers()['content-security-policy'];expect(csp,'server must apply _headers').toContain("script-src 'self'");

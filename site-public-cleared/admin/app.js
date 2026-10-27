@@ -177,6 +177,9 @@ async function boot(){
  if(!(cfg.SUPABASE_URL&&cfg.SUPABASE_PUBLISHABLE_KEY)){loginMsg('서버가 연결되지 않았어요. admin/config.js에 SUPABASE_URL과 SUPABASE_PUBLISHABLE_KEY를 넣어 주세요.');$('#loginBtn').disabled=true;return}
  const {createClient}=await import('../assets/supabase.js');
  sb=createClient(cfg.SUPABASE_URL,cfg.SUPABASE_PUBLISHABLE_KEY);
+ // The button stays disabled (index.html) until the client exists: a click before that would do nothing, and a native
+ // submit before app.js ran would send the password to the page itself.
+ $('#loginBtn').disabled=false;
  sb.auth.onAuthStateChange(event=>{if(event==='SIGNED_OUT')setTimeout(showLogin,0)});
  const {data:{session}}=await sb.auth.getSession();
  if(session)await enter(session);else showLogin();

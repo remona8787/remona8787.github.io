@@ -163,6 +163,11 @@ add('Q99000506', { labels: { ko: '픽스처 경포 유등축제', en: 'Fixture G
 // Found only by the Korean label scan: a compound label ("…빛축제") that the full-text search does not split.
 add('Q99000508', { labels: { ko: '픽스처한강빛축제', en: 'Fixture Hangang Light Festival' }, descriptions: { ko: '한강공원의 빛축제' },
   claims: { P31: 'Q132241', P17: 'Q884', P131: 'Q99000303', P625: [[37.5284, 126.9326]] } })
+// Also found only by the label scan, but a metro station named after a festival park (the live 송도달빛축제공원역,
+// Q31178299): a place class (station), not a festival, event, work or venue: refused.
+add('Q928830', { labels: { en: 'metro station', ko: '지하철역' } })
+add('Q99000509', { labels: { ko: '픽스처빛축제공원역', en: 'Fixture Light Festival Park station' }, descriptions: { ko: '픽스처 도시철도의 역' },
+  claims: { P31: 'Q928830', P17: 'Q884', P131: 'Q99000303', P625: [[37.5291, 126.9340]] } })
 add('Q48204', { labels: { en: 'voluntary association', ko: '자원 단체' } })
 add('Q99000507', { labels: { ko: '픽스처 미디어아트 협회' }, descriptions: { ko: '미디어아트 작가 단체' }, claims: { P31: 'Q48204', P17: 'Q884', P131: 'Q99000417' } })
 // Country recovery: the Giza complex's item gives Egypt; a lights festival located (P276) in a city of the United

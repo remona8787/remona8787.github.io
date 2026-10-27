@@ -10,8 +10,8 @@
 //  - robots.txt also disallows /data/admin/ (nothing is there any more; old links stay out of search indexes);
 //  - project pages for search engines and link previews (scripts/prerender.mjs): p/<id>/, p/, sitemap.xml and the
 //    aol-static-pages marker in index.html, made from the dataset that is deployed;
-//  - the research data package of the deployed dataset (scripts/research-package.mjs): data/research/<build_id>/ and
-//    data/research/latest.json (a published version is kept as it is);
+//  - the research data package of the deployed dataset (scripts/research-package.mjs): data/research/<build_id>-p<format>/
+//    and data/research/latest.json (a published version is kept as it is; a new package format is a new version);
 //  - deploy.json at the site root names the deploy: {deploy_id, build_id, source, data, at, dataset}. deploy_id is a
 //    hash of the whole tree, so an unchanged deploy leaves main untouched (idempotent) and verify-live can wait for
 //    this exact deploy even when the dataset (build_id) did not change.
@@ -29,7 +29,7 @@ import { listFiles } from './lib/io.mjs'
 import { checkDataset, checkReport, checkQuality, checkCandidates } from './lib/schema.mjs'
 import { upgradeRecord } from './lib/output.mjs'
 import { prerenderSite } from '../scripts/prerender.mjs'
-import { researchPackage } from '../scripts/research-package.mjs'
+import { researchPackage, packageVersion } from '../scripts/research-package.mjs'
 
 /** Entries of main that the deploy never replaces or removes. */
 export const KEEP = ['.git', '.github', 'README.md', '.nojekyll', 'CNAME']
@@ -96,13 +96,15 @@ export function robotsWithAdmin(text) {
   return lines.join('\n')
 }
 
-/** The research package of a build already on main (data/research/<build>/ and latest.json naming it), or null. */
+/** The research package of a build already on main in the current format (data/research/<version>/ and latest.json naming it), or null. */
 export async function deployedResearch(siteDir, buildId) {
   if (!buildId || !/^[0-9A-Za-z-]{6,80}$/.test(buildId)) return null
+  // The package of this build in the current format (a new format is a new version, written next to the data).
+  const version = packageVersion(buildId)
   const latest = (await readJSONFile(path.join(siteDir, 'data/research/latest.json'))).value
-  const dir = path.join(siteDir, 'data/research', buildId)
-  if (latest?.version !== buildId || !existsSync(path.join(dir, 'datapackage.json'))) return null
-  const out = await readTree(dir, `data/research/${buildId}/`)
+  const dir = path.join(siteDir, 'data/research', version)
+  if (latest?.version !== version || !existsSync(path.join(dir, 'datapackage.json'))) return null
+  const out = await readTree(dir, `data/research/${version}/`)
   out.set('data/research/latest.json', await readFile(path.join(siteDir, 'data/research/latest.json')))
   return out
 }
@@ -155,7 +157,7 @@ export async function assemble({ dist, dataDir, siteDir, sourceSha = null, dataS
       for (const [p, s] of prerenderSite(used.files, tree)) { tree.set(p, Buffer.from(s)); if (/^p\/[^/]+\/index\.html$/.test(p)) pages++ }
     } catch (e) { log(`no project pages: ${e.message}`) }
   }
-  // The research data package (scripts/research-package.mjs) of the deployed dataset: data/research/<build_id>/ and
+  // The research data package (scripts/research-package.mjs) of the deployed dataset: data/research/<version>/ and
   // data/research/latest.json. A version is fixed once published: when main already holds this build's package it is
   // kept as it is (so its change log stays and an unchanged deploy keeps its id); otherwise it is built, with the
   // change log against the dataset on main when that is another build.

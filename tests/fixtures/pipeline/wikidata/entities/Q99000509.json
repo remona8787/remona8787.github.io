@@ -1,0 +1,115 @@
+{
+ "pageid": 99000509,
+ "ns": 0,
+ "title": "Q99000509",
+ "lastrevid": 2400000509,
+ "modified": "2026-10-01T12:00:00Z",
+ "type": "item",
+ "id": "Q99000509",
+ "labels": {
+  "ko": {
+   "language": "ko",
+   "value": "픽스처빛축제공원역"
+  },
+  "en": {
+   "language": "en",
+   "value": "Fixture Light Festival Park station"
+  }
+ },
+ "descriptions": {
+  "ko": {
+   "language": "ko",
+   "value": "픽스처 도시철도의 역"
+  }
+ },
+ "aliases": {},
+ "claims": {
+  "P31": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P31",
+     "hash": "fefce5c4f3f1597981f7de8d5c3b1fb1",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 928830,
+       "id": "Q928830"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000509$fefce5c4-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P17": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P17",
+     "hash": "809fa8f04ca0681b018c88f6a2706576",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 884,
+       "id": "Q884"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000509$809fa8f0-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P131": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P131",
+     "hash": "b28c546a1f5c707a8b468928f661915a",
+     "datavalue": {
+      "value": {
+       "entity-type": "item",
+       "numeric-id": 99000303,
+       "id": "Q99000303"
+      },
+      "type": "wikibase-entityid"
+     },
+     "datatype": "wikibase-item"
+    },
+    "type": "statement",
+    "id": "Q99000509$b28c546a-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ],
+  "P625": [
+   {
+    "mainsnak": {
+     "snaktype": "value",
+     "property": "P625",
+     "hash": "24d80c995087329d4968bb8b225aa78a",
+     "datavalue": {
+      "value": {
+       "latitude": 37.5291,
+       "longitude": 126.934,
+       "altitude": null,
+       "precision": 0.0001,
+       "globe": "http://www.wikidata.org/entity/Q2"
+      },
+      "type": "globecoordinate"
+     },
+     "datatype": "globe-coordinate"
+    },
+    "type": "statement",
+    "id": "Q99000509$24d80c99-0000-0000-0000-000000000000",
+    "rank": "normal"
+   }
+  ]
+ },
+ "sitelinks": {}
+}

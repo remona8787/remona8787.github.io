@@ -107,8 +107,8 @@ const htmlPages=async(dir=out)=>(await readdir(dir,{recursive:true})).filter(f=>
 // GitHub Pages runs Jekyll unless told not to, which would drop files that start with "_" and waste build time.
 await writeFile(path.join(out,'.nojekyll'),'');
 
-// The service worker serves the shell cache-first, so its cache name must change whenever any cached file does.
-// Derive it from the built files' contents instead of relying on a manual bump.
+// The service worker keeps the shell for offline use (network-first, sw.js); its cache name changes whenever any
+// cached file does, so a deploy installs a new worker that drops the old cache. Derived from the built files' contents.
 {
  const {createHash}=await import('node:crypto');
  const swPath=path.join(out,'sw.js');
@@ -116,7 +116,7 @@ await writeFile(path.join(out,'.nojekyll'),'');
  const assets=JSON.parse(sw.match(/const ASSETS=(\[[^\]]*\]);/)[1].replace(/'/g,'"'));
  const hash=createHash('sha256');
  for(const a of assets)hash.update(a).update(await readFile(path.join(out,a)));
- const name='aol-'+hash.digest('hex').slice(0,12);
+ const name='aol-s2-'+hash.digest('hex').slice(0,12);
  if(!/const CACHE='[^']*';/.test(sw))throw Error('sw.js CACHE declaration not found');
  await writeFile(swPath,sw.replace(/const CACHE='[^']*';/,`const CACHE='${name}';`));
  console.log('Service worker cache',name);

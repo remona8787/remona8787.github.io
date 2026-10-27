@@ -1,6 +1,6 @@
 {
-  "version": "0.18.0",
-  "date": "2026-10-25",
+  "version": "0.19.0",
+  "date": "2026-10-27",
   "primary_app": "site-public-cleared (deploy dist/)",
   "backend_status": "sql_verified_locally; not applied to production",
   "data_provenance": "uploaded v0.10; not reverified",
@@ -8,7 +8,7 @@
   "launch_runbook": "release/launch/LAUNCH.md",
   "live_media_sync": "client 6h (Wikidata/Commons) + server cron 6h",
   "global_places_sync": "server cron 6h (sync-global-places → public_discovered_places) when the backend is connected, photo rights checks every 3h; browser 6h fallback",
-  "public_site": "https://remona8787.github.io (GitHub Pages; build with SITE_URL=https://remona8787.github.io)",
-  "static_archive": "docs/STATIC_ARCHIVE.md: GitHub Actions pipeline + sharded /data/*.json on GitHub Pages; specified, not run live yet",
+  "public_site": "https://remona8787.github.io (GitHub Pages; deployed from the source branch by .github/workflows/archive.yml; service worker network-first since 0.19)",
+  "static_archive": "docs/STATIC_ARCHIVE.md: GitHub Actions pipeline + sharded /data/*.json on GitHub Pages; live since 2026-10-20 (verify-live on every deploy)",
   "media_facade_archive": "v0.16 tracks integrated (schema, collector, admin console, client); fixture- and PGlite-tested only, not applied to a Supabase project"
 }
