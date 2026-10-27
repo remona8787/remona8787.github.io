@@ -244,7 +244,9 @@ hr{border:0;border-top:1px solid var(--line);margin:var(--s-6) 0}
    Desktop (>=1024): 248px sidebar with the logo lockup and a 64px top bar with the global search. */
 .app-shell{min-height:100dvh}
 .workspace{min-width:0;padding-bottom:calc(var(--tabbar-h) + 16px + env(safe-area-inset-bottom))}
-main{max-width:var(--content-max);margin:0 auto;padding:var(--s-4) var(--gutter) var(--s-12);min-height:70vh}
+/* main fills the viewport, so the footer starts below the fold: with 70vh the footer sat in the first view while main was
+   still empty and the first render pushed it down (CLS 0.10 to 0.20 on every screen). */
+main{max-width:var(--content-max);margin:0 auto;padding:var(--s-4) var(--gutter) var(--s-12);min-height:100vh}
 main:focus{outline:none}
 
 .sidebar{position:fixed;z-index:60;left:0;right:0;bottom:0;height:calc(var(--tabbar-h) + env(safe-area-inset-bottom));padding:0 var(--s-2) env(safe-area-inset-bottom);background:var(--tabbar);-webkit-backdrop-filter:blur(20px) saturate(1.4);backdrop-filter:blur(20px) saturate(1.4);border-top:1px solid var(--line)}
@@ -1478,7 +1480,10 @@ fieldset.field{min-width:0;margin:0;padding:0;border:0}
   body{background:#FFFFFF;color:#000000}
   .sidebar,.topbar,.site-footer,.actions,.button,.save-button,.filterbar,.chips,#toast,dialog,.image-credit,.route-toolbar,.stop-actions,.route-aside,.detail-actionbar,.fab,.float-map{display:none!important}
   .workspace{margin:0;padding:0}
-  main{padding:0}
+  main{padding:0;min-height:0}
+  /* A printed place page holds every tab, without the tab bar and the gallery's controls. */
+  .dp-panel[hidden]{display:block!important}
+  .dp-tabs,.dp-nav,.dp-tools,.dp-thumbs,.dp-count,.dp-report,.dp-actions{display:none!important}
   .panel,.list-row{background:#FFFFFF;color:#000000;box-shadow:none;break-inside:avoid}
   .print-only{display:block}
   .muted,small{color:#444444}
