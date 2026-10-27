@@ -724,3 +724,34 @@ test('relations: the venue an event is held at and the editions kept in a record
  await page.goto('/#place/acc-media-wall');
  await expect(page.locator('#dp-panel-art')).not.toContainText(/개최 장소|회차|상위 프로젝트/);
 });
+
+test('the first render moves nothing: the footer starts below the fold while the page is still empty',async({page})=>{
+ await serveDataset(page);await serveImages(page);await tiles(page);
+ // The dataset arrives late, as on a phone, so the empty shell is painted first.
+ await page.route(/\/data\/[^?]*\.json/,async r=>{await new Promise(x=>setTimeout(x,400));return r.fallback()});
+ await page.addInitScript(()=>{window.__cls=0;new PerformanceObserver(l=>{for(const e of l.getEntries())if(!e.hadRecentInput)window.__cls+=e.value}).observe({type:'layout-shift',buffered:true})});
+ for(const [width,height] of [[390,844],[1366,768]]){
+  await page.setViewportSize({width,height});
+  for(const hash of ['#home','#explore','#place/ars-electronica-center','#data']){
+   await page.goto('/'+hash);
+   await expect(page.locator('#view h1').first()).toBeVisible();
+   await page.waitForTimeout(600);
+   expect(await page.evaluate(()=>window.__cls),`${hash} at ${width}`).toBeLessThan(0.02);
+   // With main empty (as before the first render), the footer is below the fold.
+   expect(await page.evaluate(()=>{const v=document.getElementById('view'),keep=[...v.childNodes];v.replaceChildren();const top=document.querySelector('.site-footer').getBoundingClientRect().top+scrollY;v.replaceChildren(...keep);return top>=innerHeight}),`${hash} at ${width}`).toBe(true);
+  }
+ }
+});
+
+test('a printed place page holds every tab, without the tab bar or the gallery controls',async({page})=>{
+ await serveDataset(page);await serveImages(page);await tiles(page);
+ await page.goto('/#place/ars-electronica-center/visit');
+ await expect(page.locator('#dp-panel-visit')).toBeVisible();
+ await expect(page.locator('#dp-panel-overview')).toBeHidden();
+ await page.emulateMedia({media:'print'});
+ for(const tab of ['overview','architecture','art','visit','sources'])await expect(page.locator('#dp-panel-'+tab)).toBeVisible();
+ await expect(page.locator('.dp-tabs')).toBeHidden();
+ await expect(page.locator('#detailPhotos .dp-thumbs')).toBeHidden();
+ await page.emulateMedia({media:'screen'});
+ await expect(page.locator('#dp-panel-overview')).toBeHidden();
+});
