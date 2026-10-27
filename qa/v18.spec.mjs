@@ -109,6 +109,9 @@ test.describe('home',()=>{
     expect(ws.length,sel).toBeGreaterThan(0);
     for(const x of ws)expect(x,sel).toBeGreaterThanOrEqual(min);
    }
+   // On a phone never more than 1920 px: a 3840 px rendition of a large Korean hero made the live phone home page
+   // load 5 MB (LCP 7.1 s, 2026-10-27). Wide screens keep up to 3840 px (the first home test).
+   if(h>w)for(const x of await widest(page.locator('.hero-slide img')))expect(x,'phone hero at most 1920 px').toBeLessThanOrEqual(1920);
    const srcs=await page.locator('#view img[data-place-photo]').evaluateAll(xs=>xs.map(x=>x.getAttribute('src')));
    for(const src of srcs)expect(src,'home image').not.toMatch(/_day_\d/);
   }
