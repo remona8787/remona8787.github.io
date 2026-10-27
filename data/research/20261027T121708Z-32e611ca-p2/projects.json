@@ -1,6 +1,6 @@
 {
  "dataset": "light-architecture-archive",
- "version": "20261027T033827Z-d10eae33-p2",
+ "version": "20261027T121708Z-32e611ca-p2",
  "data_as_of": "2026-10-27",
  "projects": [
   {
@@ -17811,8 +17811,8 @@
    "kind": "festival",
    "start_date": null,
    "end_date": null,
-   "status": "unknown",
-   "status_source": null,
+   "status": "seasonal",
+   "status_source": "wikidata",
    "year_installed": null,
    "year_completed": null,
    "year_operating_since": null,
@@ -17835,6 +17835,7 @@
     "country_iso2": "derived:commons_parent_category",
     "name_en": "wikidata",
     "project_type": "wikidata",
+    "status": "wikidata",
     "summary_en": "wikidata"
    },
    "confidence_project_type": "sourced",
