@@ -1,5 +1,5 @@
 {
- "build_id": "20261030T055321Z-b9cf504e",
+ "build_id": "20261030T130018Z-895190a6",
  "counts": {
   "by_country": {
    "AE": 1,
@@ -58,14 +58,14 @@
    "southeast_asia": 4
   },
   "by_type": {
-   "festival_program": 106,
+   "festival_program": 104,
    "interactive_installation": 2,
-   "light_art": 184,
+   "light_art": 185,
    "media_architecture": 14,
    "media_facade": 35,
    "media_wall": 2,
    "other": 23,
-   "projection_mapping": 22,
+   "projection_mapping": 23,
    "urban_screen": 1
   },
   "korea": 54,
@@ -87,17 +87,17 @@
   ],
   "stats": "stats.json"
  },
- "generated_at": "2026-10-30T05:53:21.134Z",
+ "generated_at": "2026-10-30T13:00:18.002Z",
  "schema": 1,
  "sources": {
   "commons": {
    "items": 292,
-   "last_success": "2026-10-30T05:53:21.134Z",
+   "last_success": "2026-10-30T13:00:18.002Z",
    "status": "ok"
   },
   "curated": {
    "items": 49,
-   "last_success": "2026-10-30T05:53:21.134Z",
+   "last_success": "2026-10-30T13:00:18.002Z",
    "status": "ok"
   },
   "seoul_events": {
@@ -116,14 +116,14 @@
    "status": "partial"
   },
   "wikidata": {
-   "items": 625,
+   "items": 317,
    "last_success": "2026-10-30T05:53:21.134Z",
-   "status": "ok"
+   "status": "partial"
   },
   "wikipedia": {
-   "items": 281,
+   "items": 280,
    "last_success": "2026-10-30T05:53:21.134Z",
-   "status": "ok"
+   "status": "partial"
   }
  }
 }
