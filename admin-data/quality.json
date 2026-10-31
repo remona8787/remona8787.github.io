@@ -46,8 +46,8 @@
    "url": "https://disneyworld.disney.go.com/entertainment/hollywood-studios/star-wars-galactic-spectacular/"
   },
   {
-   "checked_at": "2026-10-30T13:09:07.581Z",
-   "consecutive_failures": 9,
+   "checked_at": "2026-10-31T21:47:10.183Z",
+   "consecutive_failures": 10,
    "field": "official_url",
    "http_status": null,
    "project": "Q3148738",
@@ -73,8 +73,8 @@
    "url": "https://www.lightinjerusalem.com/"
   },
   {
-   "checked_at": "2026-10-30T13:09:07.581Z",
-   "consecutive_failures": 9,
+   "checked_at": "2026-10-31T21:47:10.183Z",
+   "consecutive_failures": 10,
    "field": "official_url",
    "http_status": null,
    "project": "Q5057595",
@@ -118,8 +118,8 @@
    "url": "https://english.visitseoul.net/exhibition/CheonggyeSoulOcean/ENP20kefn"
   },
   {
-   "checked_at": "2026-10-30T13:09:24.832Z",
-   "consecutive_failures": 9,
+   "checked_at": "2026-10-31T21:47:32.410Z",
+   "consecutive_failures": 10,
    "field": "official_url",
    "http_status": null,
    "project": "SEOUL023",
@@ -163,8 +163,8 @@
    "url": "https://www.thehyundaiseoul.com/"
   },
   {
-   "checked_at": "2026-10-30T13:09:08.748Z",
-   "consecutive_failures": 9,
+   "checked_at": "2026-10-31T21:47:11.377Z",
+   "consecutive_failures": 10,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "SEOUL044",
@@ -172,8 +172,8 @@
    "url": "https://english.visitseoul.net/attractions/Sebitseom_/24646"
   },
   {
-   "checked_at": "2026-10-30T13:09:27.663Z",
-   "consecutive_failures": 9,
+   "checked_at": "2026-10-31T21:47:34.789Z",
+   "consecutive_failures": 10,
    "field": "source:curated:check2",
    "http_status": 404,
    "project": "SEOUL046",
@@ -190,8 +190,8 @@
    "url": "https://www.starfield.co.kr/coexmall/starfieldLibrary"
   },
   {
-   "checked_at": "2026-10-30T13:09:44.814Z",
-   "consecutive_failures": 9,
+   "checked_at": "2026-10-31T21:47:55.719Z",
+   "consecutive_failures": 10,
    "field": "official_url",
    "http_status": null,
    "project": "SEOUL049",
@@ -4888,6 +4888,19 @@
    ]
   },
   {
+   "id": "Q141950366",
+   "name": null,
+   "origins": [
+    "wikidata_class"
+   ],
+   "qid": "Q141950366",
+   "reasons": [
+    "no_name",
+    "no_country",
+    "no_coordinates_or_city"
+   ]
+  },
+  {
    "id": "Q1569074",
    "name": "Lichtparcours 2010",
    "origins": [
@@ -7129,7 +7142,7 @@
    ]
   }
  ],
- "generated_at": "2026-10-31T12:37:54.956Z",
+ "generated_at": "2026-10-31T21:38:52.737Z",
  "image_rejections": {
   "extreme_aspect": 19,
   "interior_unrelated_to_work": 4,
@@ -9266,33 +9279,7 @@
   }
  ],
  "schema": 1,
- "stale": [
-  {
-   "id": "Q270746",
-   "last_seen": "2026-10-30T22:24:08.082Z",
-   "missing_runs": 2
-  },
-  {
-   "id": "CAT-0ZY9NJG",
-   "last_seen": "2026-10-30T22:24:08.082Z",
-   "missing_runs": 2
-  },
-  {
-   "id": "CAT-13KGH9X",
-   "last_seen": "2026-10-30T22:24:08.082Z",
-   "missing_runs": 2
-  },
-  {
-   "id": "Q48757176",
-   "last_seen": "2026-10-30T22:24:08.082Z",
-   "missing_runs": 2
-  },
-  {
-   "id": "Q882517",
-   "last_seen": "2026-10-30T22:24:08.082Z",
-   "missing_runs": 2
-  }
- ],
+ "stale": [],
  "suspected_duplicates": [
   {
    "detail": "https://sonicrunway.com/",
