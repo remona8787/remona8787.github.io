@@ -1,0 +1,233 @@
+{
+ "about": "Seoul cultural events (OA-15486 culturalEventInfo): without SEOUL_OPEN_DATA_KEY one probe with the sample key (reachability and the live field names; never published). Every event with its relevance decision; the relevant ones linked to a project (name within 300 m) or listed as place candidates. Keys never appear.",
+ "at": "2026-10-31T05:48:07.860Z",
+ "counts": {
+  "merged": 0,
+  "new_candidates": 0,
+  "probe": true,
+  "published": 0,
+  "received": 5,
+  "relevant": 0,
+  "requested": 1
+ },
+ "dataset": {
+  "id": "OA-15486",
+  "license": "KOGL Type 1",
+  "license_url": "https://www.kogl.or.kr/info/licenseType1.do",
+  "page": "https://data.seoul.go.kr/dataList/OA-15486/S/1/datasetView.do",
+  "publisher": "서울특별시 (서울 열린데이터광장)",
+  "service": "culturalEventInfo"
+ },
+ "decisions": {
+  "no_media_term": 5
+ },
+ "errors": [],
+ "events": [
+  {
+   "category": "콘서트",
+   "coords_swapped": false,
+   "date_text": "2026-12-24~2026-12-24",
+   "decision": {
+    "reasons": [
+     "no_media_term"
+    ],
+    "relevant": false,
+    "terms": []
+   },
+   "district": "강동구",
+   "end": "2026-12-24",
+   "fee": "VIP석 88,000원 / R석 77,000원 / S석 66,000원 / A석 55,000원",
+   "id": "SEV-1467EZ6",
+   "is_free": false,
+   "kind": "event",
+   "lat": 37.5512204558342,
+   "lng": 127.157342546961,
+   "org": "기타",
+   "place": "강동아트센터 대극장 한강",
+   "player": "Piano : Kazumi Tateishi, Contrabass : Shinobu Sato, Drums : Mao Suzuki",
+   "probe": true,
+   "program": "Let It Snow, White Christmas 등 크리스마스 캐롤 명곡을 피아노, 콘트라베이스, 드럼의 일본 재즈 트리오 연주로 듣는 공연",
+   "start": "2026-12-24",
+   "status": "upcoming",
+   "target": "성인, 청소년",
+   "theme": "기타",
+   "time_text": "19:30",
+   "title": "2026 카즈미 타테이시 트리오 내한공연-크리스마스, 재즈를 만나다-(서울)",
+   "url": "https://tickets.interpark.com/goods/26010350"
+  },
+  {
+   "category": "클래식",
+   "coords_swapped": false,
+   "date_text": "2026-12-22~2026-12-22",
+   "decision": {
+    "reasons": [
+     "no_media_term"
+    ],
+    "relevant": false,
+    "terms": []
+   },
+   "district": "서초구",
+   "end": "2026-12-22",
+   "fee": null,
+   "id": "SEV-0AIYO36",
+   "is_free": true,
+   "kind": "event",
+   "lat": 37.49904352601313,
+   "lng": 126.99165409240258,
+   "org": "서초문화재단",
+   "place": "반포심산아트홀",
+   "player": null,
+   "probe": true,
+   "program": null,
+   "start": "2026-12-22",
+   "status": "upcoming",
+   "target": "초등학생 이상 관람가능",
+   "theme": "기타",
+   "time_text": "화 19:30",
+   "title": "[서초문화재단] 2026서리풀 어울림 콘서트 [바이올리니스트 김지선의 Dia:logue-graph]",
+   "url": "https://www.seochocf.or.kr/site/main/seocho/show/view?show_idx=1020"
+  },
+  {
+   "category": "콘서트",
+   "coords_swapped": false,
+   "date_text": "2026-12-22~2026-12-22",
+   "decision": {
+    "reasons": [
+     "no_media_term"
+    ],
+    "relevant": false,
+    "terms": []
+   },
+   "district": "영등포구",
+   "end": "2026-12-22",
+   "fee": "VIP석 88,000원 / R석 77,000원 / S석 66,000원",
+   "id": "SEV-0T96T2Q",
+   "is_free": false,
+   "kind": "event",
+   "lat": 37.5260087284496,
+   "lng": 126.900109255921,
+   "org": "기타",
+   "place": "영등포아트홀",
+   "player": "Piano : Kazumi Tateishi, Contrabass : Shinobu Sato, Drums : Mao Suzuki",
+   "probe": true,
+   "program": "이웃집 토토로, 하울의 움직이는 성 등 지브리 애니메이션의 명곡을 피아노, 콘트라베이스, 드럼의 일본 재즈 트리오 연주로 듣는 공연",
+   "start": "2026-12-22",
+   "status": "upcoming",
+   "target": "성인, 청소년",
+   "theme": "기타",
+   "time_text": "19:30",
+   "title": "2026 카즈미 타테이시 트리오 내한공연-지브리, 재즈를 만나다-(서울)",
+   "url": "https://tickets.interpark.com/goods/26010060"
+  },
+  {
+   "category": "축제-관광/체육",
+   "coords_swapped": false,
+   "date_text": "2026-12-18~2027-02-09",
+   "decision": {
+    "reasons": [
+     "no_media_term"
+    ],
+    "relevant": false,
+    "terms": []
+   },
+   "district": "중구",
+   "end": "2027-02-09",
+   "fee": "이용료 1,000원 (스케이트화·안전장비 대여 포함)",
+   "id": "SEV-0KG6CZC",
+   "is_free": false,
+   "kind": "event",
+   "lat": 37.5653338689441,
+   "lng": 126.97769782752,
+   "org": "서울시청",
+   "place": "서울광장",
+   "player": null,
+   "probe": true,
+   "program": null,
+   "start": "2026-12-18",
+   "status": "upcoming",
+   "target": "누구나",
+   "theme": "기타",
+   "time_text": "10:00~21:30 (금,토 ~24:30)",
+   "title": "[서울시청] 서울광장 스케이트장",
+   "url": "https://culture.seoul.go.kr/culture/culture/cultureEvent/view.do?cultcode=159961&menuNo=200010"
+  },
+  {
+   "category": "연극",
+   "coords_swapped": false,
+   "date_text": "2026-12-16~2026-12-27",
+   "decision": {
+    "reasons": [
+     "no_media_term"
+    ],
+    "relevant": false,
+    "terms": []
+   },
+   "district": "종로구",
+   "end": "2026-12-27",
+   "fee": "전석 50,000원",
+   "id": "SEV-034VW7U",
+   "is_free": false,
+   "kind": "event",
+   "lat": 37.5836990003446,
+   "lng": 127.00371665858,
+   "org": "서울문화재단",
+   "place": "서울문화재단 대학로극장 쿼드",
+   "player": "김현진 권겸민 문성복 민대식 박수진 윤진성",
+   "probe": true,
+   "program": null,
+   "start": "2026-12-16",
+   "status": "upcoming",
+   "target": "누구나 (만 13세(중학생)이상)",
+   "theme": "기타",
+   "time_text": "평일 19:30, 주말 15:00 (월 공연 없음)",
+   "title": "[쿼드, 연극의 질문들] 서안화차",
+   "url": "https://www.quad.or.kr/product/performance/1279"
+  }
+ ],
+ "fields": [
+  "CODENAME",
+  "DATE",
+  "END_DATE",
+  "ETC_DESC",
+  "GUNAME",
+  "HMPG_ADDR",
+  "INQUIRY",
+  "IS_FREE",
+  "LAT",
+  "LOT",
+  "MAIN_IMG",
+  "ORG_LINK",
+  "ORG_NAME",
+  "PLACE",
+  "PLAYER",
+  "PROGRAM",
+  "PRO_TIME",
+  "RGSTDATE",
+  "STRTDATE",
+  "THEMECODE",
+  "TICKET",
+  "TITLE",
+  "USE_FEE",
+  "USE_TRGT"
+ ],
+ "linked": [],
+ "probe": true,
+ "probe_result": {
+  "code": "INFO-000",
+  "message": "정상 처리되었습니다",
+  "rows": 5,
+  "total": 19684
+ },
+ "schema": 1,
+ "status": {
+  "duration_ms": 1342,
+  "errors": [],
+  "items": 0,
+  "last_success": null,
+  "reason": "SEOUL_OPEN_DATA_KEY not set; sample probe INFO-000",
+  "received": 5,
+  "requested": 1,
+  "status": "skipped"
+ },
+ "total": null
+}

@@ -1,0 +1,6885 @@
+{
+ "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
+ "added": {
+  "count": 32,
+  "examples": [
+   {
+    "id": "img-5316fc6c0662",
+    "project": "CAT-0XKXRFR",
+    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743)"
+   },
+   {
+    "id": "img-accef38fed0b",
+    "project": "CAT-0XKXRFR",
+    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616298835)"
+   },
+   {
+    "id": "img-2bcdea479dc4",
+    "project": "CAT-0XKXRFR",
+    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616297171)"
+   },
+   {
+    "id": "img-2b43da2c9620",
+    "project": "CAT-0XKXRFR",
+    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616295419)"
+   },
+   {
+    "id": "img-fb05890d3205",
+    "project": "CAT-0XKXRFR",
+    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616293831)"
+   },
+   {
+    "id": "img-73b1df9d1c17",
+    "project": "CAT-0XKXRFR",
+    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616283251)"
+   },
+   {
+    "id": "img-d276c78924d4",
+    "project": "CAT-0XKXRFR",
+    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616300403)"
+   },
+   {
+    "id": "img-fe9d3f6dbbd3",
+    "project": "CAT-0XKXRFR",
+    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616302003)"
+   },
+   {
+    "id": "img-c4c7f141e671",
+    "project": "CAT-0XKXRFR",
+    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616303563)"
+   },
+   {
+    "id": "img-900953b066ab",
+    "project": "CAT-0XKXRFR",
+    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616306299)"
+   },
+   {
+    "id": "img-0c7f8e9be310",
+    "project": "CAT-0XKXRFR",
+    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616307767)"
+   },
+   {
+    "id": "img-470dae73cb82",
+    "project": "CAT-0XKXRFR",
+    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616869484)"
+   },
+   {
+    "id": "img-5c87eee4b67c",
+    "project": "Q101435284",
+    "title": "Van Gogh Fietspad"
+   },
+   {
+    "id": "img-93d6d7365408",
+    "project": "Q114669123",
+    "title": "OdeAanRembrandtWolkers2017"
+   },
+   {
+    "id": "img-5900669e1644",
+    "project": "Q114669123",
+    "title": "Leiden169"
+   },
+   {
+    "id": "img-fb283087b318",
+    "project": "Q114669123",
+    "title": "Leiden - Light sculpture by Jan Wolkers"
+   },
+   {
+    "id": "img-563e971045c3",
+    "project": "Q114669123",
+    "title": "Ode aan Rembrandt"
+   },
+   {
+    "id": "img-5474c22540bf",
+    "project": "Q114669123",
+    "title": "Leiden153"
+   },
+   {
+    "id": "img-5e06f483562a",
+    "project": "Q114669123",
+    "title": "Ode aan Rembrandt, Leiden"
+   },
+   {
+    "id": "img-b4cc12401b8a",
+    "project": "Q130070499",
+    "title": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 01"
+   },
+   {
+    "id": "img-6dfffac7b82c",
+    "project": "Q130070499",
+    "title": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 03"
+   },
+   {
+    "id": "img-aa96a2337b28",
+    "project": "Q130070499",
+    "title": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 02"
+   },
+   {
+    "id": "img-009cebfae702",
+    "project": "Q54856189",
+    "title": "Giny Vos - Lust for Life - 1999"
+   },
+   {
+    "id": "img-ffd8b623e652",
+    "project": "Q54856189",
+    "title": "Naturalis Biodiversity Center - Museum - Exterior 01 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999"
+   },
+   {
+    "id": "img-3ed64e0efcc5",
+    "project": "Q54856189",
+    "title": "Naturalis Biodiversity Center - Museum - Exterior 02 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999"
+   },
+   {
+    "id": "img-850d32ae3136",
+    "project": "Q54856189",
+    "title": "Naturalis Biodiversity Center - Museum - Exterior 04 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999"
+   },
+   {
+    "id": "img-72936eb32102",
+    "project": "Q54856189",
+    "title": "Naturalis Biodiversity Center - Museum - Garden 02 - Artworks along the Plesmanweg, Leiden museum collection building with tower"
+   },
+   {
+    "id": "img-4dda36ea4f36",
+    "project": "Q54856189",
+    "title": "Naturalis Biodiversity Center - Museum - Exterior 05 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999"
+   },
+   {
+    "id": "img-7237cd122ad3",
+    "project": "Q54856189",
+    "title": "Naturalis Biodiversity Center - Museum - Exterior 09 - Collection Tower with artwork Lust for Life by Giny Vos, 1999"
+   },
+   {
+    "id": "img-edfe1953dae8",
+    "project": "Q61473821",
+    "title": "Zwolle JvM 02"
+   },
+   {
+    "id": "img-cdaec9fe3daf",
+    "project": "Q61473821",
+    "title": "Zwolle JvM 01"
+   },
+   {
+    "id": "img-cda95f841930",
+    "project": "Q61473821",
+    "title": "Zwolle station 1"
+   }
+  ]
+ },
+ "at": "2026-10-31T05:48:07.860Z",
+ "cards": {
+  "all": {
+   "projects": 395,
+   "rate_pct": 54.9,
+   "with_valid_card": 217
+  },
+  "by_kr_region": {
+   "busan_ulsan_gyeongnam": {
+    "projects": 1,
+    "rate_pct": 100,
+    "with_valid_card": 1
+   },
+   "gwangju_jeolla": {
+    "projects": 1,
+    "rate_pct": 100,
+    "with_valid_card": 1
+   },
+   "gyeonggi_incheon": {
+    "projects": 1,
+    "rate_pct": 100,
+    "with_valid_card": 1
+   },
+   "seoul": {
+    "projects": 51,
+    "rate_pct": 25.5,
+    "with_valid_card": 13
+   }
+  },
+  "korea": {
+   "projects": 54,
+   "rate_pct": 29.6,
+   "with_valid_card": 16
+  },
+  "world": {
+   "projects": 341,
+   "rate_pct": 58.9,
+   "with_valid_card": 201
+  }
+ },
+ "projects": [
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Buddhist Monks, Lotus Lantern Festival, Seoul",
+   "id": "CAT-080XNRV",
+   "images": 12,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "연등회",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "보성차밭 빛 축제 (14)",
+   "id": "CAT-0AEBIPR",
+   "images": 12,
+   "kr": true,
+   "kr_region": "gwangju_jeolla",
+   "name": "보성차밭 빛축제",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "2015 Jinju Namgang Yudeung Festival 13",
+   "id": "Q12618343",
+   "images": 12,
+   "kr": true,
+   "kr_region": "busan_ulsan_gyeongnam",
+   "name": "진주남강유등축제",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "The lantern light festival 4",
+   "id": "Q12859650",
+   "images": 12,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "서울빛초롱축제",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Tower infinity illustration",
+   "id": "Q15076316",
+   "images": 2,
+   "kr": true,
+   "kr_region": "gyeonggi_incheon",
+   "name": "Tower Infinity",
+   "previous_images": 2,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL001",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "아뜰리에 노들",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL002",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "아뜰리에 광화",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL003",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "해치마당 미디어월",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL004",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "오간수교 미디어파사드",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL005",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "서울로미디어캔버스",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Dongdaemun Design Plaza at night, Seoul, Korea",
+   "id": "SEOUL006",
+   "images": 12,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "동대문디자인플라자(DDP) / 서울라이트",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL007",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "코엑스 K-POP 스퀘어 WAVE",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL008",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "신세계스퀘어",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL009",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "갤러리아 명품관 WEST 미디어파사드",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL010",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "서울스퀘어 미디어 캔버스",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL011",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "KT스퀘어 옥외전광판",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL012",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "K-비전(코리아나호텔)",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL013",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "루미 미디어(세광빌딩)",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL014",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "LUUX(동아일보)",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL015",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "일민미술관 옥외전광판",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL016",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "서울로봇인공지능과학관 미디어파사드",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL017",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "마곡 르웨스트 미디어파사드",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Seoul Skyline Night 2018",
+   "id": "SEOUL018",
+   "images": 9,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "롯데월드타워 미디어파사드",
+   "previous_images": 9,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL019",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "롯데타운 라이트(영플라자)",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL020",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "하이커 그라운드",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL021",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "청계 소울 오션",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL022",
+   "images": 3,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "국립중앙박물관 디지털 실감 영상관",
+   "previous_images": 3,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL023",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "라이트룸 서울",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL024",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "서울시립 서서울미술관",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_installation",
+   "card_tier": 4,
+   "card_title": "MMCA Seoul",
+   "id": "SEOUL025",
+   "images": 8,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "국립현대미술관 서울",
+   "previous_images": 8,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL026",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "아트센터 나비",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_installation",
+   "card_tier": 4,
+   "card_title": "Leeum, Samsung Museum of Art",
+   "id": "SEOUL027",
+   "images": 4,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "리움미술관",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL028",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "디뮤지엄",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL029",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "플랫폼엘 컨템포러리 아트센터",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL030",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "스페이스K 서울",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL031",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "문화역서울284",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL032",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "서울도시건축전시관",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "문화비축기지 T4",
+   "id": "SEOUL033",
+   "images": 6,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "문화비축기지 T4·T5",
+   "previous_images": 6,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL034",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "서울시립 사진미술관",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_installation",
+   "card_tier": 4,
+   "card_title": "Seoul Museum of Art (2014)",
+   "id": "SEOUL035",
+   "images": 3,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "서울시립미술관 서소문본관",
+   "previous_images": 3,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL036",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "서울시립 북서울미술관",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL037",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "서울시립 백남준을 기억하는 집",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL038",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "서울시청 서울림(林) 미디어월",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL039",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "피크닉",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL040",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "더현대 서울 ALT.1",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL041",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "그라운드시소 이스트",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Panoramic view of Seoul, South Korea",
+   "id": "SEOUL043",
+   "images": 8,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "N서울타워",
+   "previous_images": 8,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Korea Sevit Island 15 (15540663165)",
+   "id": "SEOUL044",
+   "images": 12,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "세빛섬",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Banpo Bridge Moonlight Rainbow Fountain at night - 2023-08-14",
+   "id": "SEOUL045",
+   "images": 12,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "반포대교 달빛무지개분수",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Seoullo 7017 night time city lights",
+   "id": "SEOUL046",
+   "images": 12,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "서울로7017 야간조명",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL047",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "홍제유연",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "20250821 코엑스 별마당도서관",
+   "id": "SEOUL048",
+   "images": 10,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "별마당도서관",
+   "previous_images": 10,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL049",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "서울웨이브 아트센터",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "SEOUL050",
+   "images": 0,
+   "kr": true,
+   "kr_region": "seoul",
+   "name": "노원 불빛정원(화랑대 철도공원)",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Northern Lights show at York Minster, October 2019 06",
+   "id": "CAT-006W654",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Northern Lights 2019",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Blue Goal at Airbus Finkenwerder 020",
+   "id": "CAT-01WE6KC",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Blue Goal",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "20120128 Gent Verlicht (0047)",
+   "id": "CAT-02UFF78",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Cagna Illuminations at Light Festival Ghent",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Gabriel Poirier-Galarneau et Vincent Bilodeau, 9X-MTL-, 2015 (18366139626)",
+   "id": "CAT-0336B9D",
+   "images": 11,
+   "kr": false,
+   "kr_region": null,
+   "name": "Projection mapping on Centre de design de l'UQAM",
+   "previous_images": 11,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Mexico-6210 - Pyramid of the Magician (4679126132)",
+   "id": "CAT-03ULN0L",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Uxmal - Luz y sonido",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "CAT-05MF2O1",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Classical spectacular",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Luminothérapie, Trouve Bob, centre de design UQAM, Quartier des spectacles, 2014 (12462359344)",
+   "id": "CAT-060SMQ9",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Trouve Bob",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Festivaloflights (260619347)",
+   "id": "CAT-06MTGIV",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Festival of lights in Zwickau 2018",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "049 Llum BCN, projecció a la façana de l'Ajuntament, pl. Sant Jaume",
+   "id": "CAT-06RUPY4",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Projection mapping on Ajuntament de Barcelona",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Bradford Garden of Light (8071919412)",
+   "id": "CAT-06VLQHR",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Bradford Garden of Light",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_installation",
+   "card_tier": 4,
+   "card_title": "Daniel Tempkin @ GLI.TC-H gallery",
+   "id": "CAT-07MN9XB",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "GLI.TC/H",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "ICC Berlin So much neon",
+   "id": "CAT-087XY0Y",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "ICC-Leitsystem",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "MAXIM (10466965565)",
+   "id": "CAT-08BN77L",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Leuchtreklame vom Nachtclub Maxim",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Festivalul Luminii (7236738670)",
+   "id": "CAT-09ZYAFP",
+   "images": 9,
+   "kr": false,
+   "kr_region": null,
+   "name": "Festival of Lights",
+   "previous_images": 9,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "192Rizal's execution site 34",
+   "id": "CAT-0B9ZNFX",
+   "images": 10,
+   "kr": false,
+   "kr_region": null,
+   "name": "Rizal's execution site",
+   "previous_images": 10,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Egypt-13B-040 (2216732663)",
+   "id": "CAT-0BLB3MO",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Sound and light show at Giza",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Trancefusion 2010 (3)",
+   "id": "CAT-0BYLR7G",
+   "images": 3,
+   "kr": false,
+   "kr_region": null,
+   "name": "Trancefusion",
+   "previous_images": 3,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Mouna Andraos et Melissa Mongiat, Chorégraphies pour des humains et des étoiles, 2014 (12120160926)",
+   "id": "CAT-0CWOTJI",
+   "images": 6,
+   "kr": false,
+   "kr_region": null,
+   "name": "Chorégraphies pour des humains et des étoiles",
+   "previous_images": 6,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Heizkraftwerk Chemnitz-Nord at Night 04-detail",
+   "id": "CAT-0E8G1MU",
+   "images": 8,
+   "kr": false,
+   "kr_region": null,
+   "name": "Schornstein des Heizkraftwerks Chemnitz-Nord, Lichtkunst",
+   "previous_images": 8,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Graz Clocktower at night",
+   "id": "CAT-0EAYBY6",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Night in Graz",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "2009-10-23 - Festival of Lights - Brandenburger Tor 4",
+   "id": "CAT-0GL7X3U",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Festival of Lights at the Brandenburg Gate",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Disney Animal Kingdom (27791431911)",
+   "id": "CAT-0H4BEQU",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Tree of Life Awakenings",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Prato, proiezioni sul castello dell'Imperatore",
+   "id": "CAT-0JYY9CE",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Screen projections in Prato",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Krems-Stein, Lichtinstallation im Turm der Minoritenkirche (2)",
+   "id": "CAT-0KCWO53",
+   "images": 3,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lichtinstallation im Turm der Minoritenkirche",
+   "previous_images": 3,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Light projection Hua Lamphong Station Bangkok (March 2023) -- img 02",
+   "id": "CAT-0LLELAR",
+   "images": 7,
+   "kr": false,
+   "kr_region": null,
+   "name": "Projection mapping on Hua Lamphong station",
+   "previous_images": 7,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Bleecker St. transfer Leo Villareal Hive 1",
+   "id": "CAT-0PSGJ9K",
+   "images": 6,
+   "kr": false,
+   "kr_region": null,
+   "name": "Hive",
+   "previous_images": 6,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Prague (6365118027)",
+   "id": "CAT-0QJFC3C",
+   "images": 5,
+   "kr": false,
+   "kr_region": null,
+   "name": "Projection mapping on the Prague Astronomical Clock",
+   "previous_images": 5,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "1050-Jahre Torgau-Lichtkunst (1)",
+   "id": "CAT-0RRRVOK",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "1050 Jahre Torgau, Lichtkunst im Schloßhof",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "BP2neonsparallax",
+   "id": "CAT-0T9MVFP",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Neons Parallax",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "4Y1A0424 Sukhothai (34410630792)",
+   "id": "CAT-0TBVQ3P",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Sound and light show at Sukhothai Historical Park",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Lüz Studio, Fascinoscope, 2015 (15775976814)",
+   "id": "CAT-0UUDID6",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Fascinoscope",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "NYHS windows light show December 2020 02",
+   "id": "CAT-0V5ZFBN",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Colored light show in the windows of the New York Historical Society, December 2020",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Sébastien Joly, Sandrick Mathurin, Polarisations, BAnQ,Projections philosophiques, Nuit Blanche 2013 (8599507633)",
+   "id": "CAT-0X5OH68",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Projection mapping on the Grande Bibliothèque",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Clocher UQAM 08",
+   "id": "CAT-0X8IWCG",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Projection mapping on the Saint-Jacques Cathedral bell tower",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743)",
+   "id": "CAT-0XKXRFR",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Elixir by Moment Factory",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "22 Aarau 2018 (44068621744)",
+   "id": "CAT-0YNL8BM",
+   "images": 5,
+   "kr": false,
+   "kr_region": null,
+   "name": "Black light shows",
+   "previous_images": 5,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Allianz Arena at night",
+   "id": "CAT-0ZY9NJG",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Allianz Arena illumination",
+   "previous_images": 12,
+   "status": "carried_over",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Convoy^ - geograph.org.uk - 5265216",
+   "id": "CAT-10OT2VI",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "When Red Light Shows Wait Here sign",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "202407 Dome of Light at Formosa Boulevard Station 1",
+   "id": "CAT-13KGH9X",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Dome of Light at Formosa Boulevard Station",
+   "previous_images": 12,
+   "status": "carried_over",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Gabriel Poirier-Galarneau et Vincent Bilodeau, 9X-MTL-, 2015 (18431367255)",
+   "id": "CAT-14IPYSX",
+   "images": 7,
+   "kr": false,
+   "kr_region": null,
+   "name": "Projection mapping on Cégep du Vieux Montréal",
+   "previous_images": 7,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Innsbruck (53562264505)",
+   "id": "CAT-14L575Y",
+   "images": 5,
+   "kr": false,
+   "kr_region": null,
+   "name": "47,16° Nord",
+   "previous_images": 5,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Pluie de lumiere 01",
+   "id": "CAT-15Q3ETO",
+   "images": 9,
+   "kr": false,
+   "kr_region": null,
+   "name": "Pluie de lumière",
+   "previous_images": 9,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Medienfassade des Chemnitzer Hauptbahnhofs von der Bahnhofstraße",
+   "id": "CAT-15VOYUE",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Night in Chemnitz",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Hommage à Bartholdi, Fête des Lumières (5265828091)",
+   "id": "CAT-179IC4O",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Fontaine Bartholdi",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Axel Morgenthaler, .98, 2007 (7040438035)",
+   "id": "CAT-17Q294E",
+   "images": 7,
+   "kr": false,
+   "kr_region": null,
+   "name": ".98, Axel Morgenthaler",
+   "previous_images": 7,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "PAWN Lasers and dj Alesso, Drexel University Armory, Philadelphia, PA",
+   "id": "CAT-17XN1RX",
+   "images": 2,
+   "kr": false,
+   "kr_region": null,
+   "name": "P.A.W.N.",
+   "previous_images": 2,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Cathédrale Notre-Dame de Strasbourg éclairée la nuit",
+   "id": "CAT-18MPLNM",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Strasbourg Cathedral Light Show",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Genesis II München 2",
+   "id": "CAT-18PSLHE",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Genesis II",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Amiens - Cathédrale - Lumière 2024 C",
+   "id": "CAT-194EIQ6",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Son et lumière at Cathédrale Notre-Dame d'Amiens",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Unfolding Bangkok -- Light show & exhibitions at Hua Lamphong Station (2023 March) 03",
+   "id": "CAT-19UI5Z0",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Illumination exhibitions of Unfolding Bangkok",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "State Museum Light Show Hanover Germany 03",
+   "id": "CAT-19WSIOC",
+   "images": 3,
+   "kr": false,
+   "kr_region": null,
+   "name": "Farbdepesche",
+   "previous_images": 3,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Sphéérie (8462248098)",
+   "id": "CAT-1AXKR8E",
+   "images": 5,
+   "kr": false,
+   "kr_region": null,
+   "name": "Sphéérie",
+   "previous_images": 5,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Convergence-Kottelat-Geneva Lux 2025-1",
+   "id": "CAT-1B947PC",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "Convergence-Sébastien Kottelat-Geneva Lux",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Warsaw Multimedia Fountain Park 2",
+   "id": "CAT-1CFHLL4",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Water and light shows in Warsaw Multimedia Fountain Park",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Our Rainbow by Waltraut Cooper, Vienna 02",
+   "id": "CAT-1CJZFEM",
+   "images": 3,
+   "kr": false,
+   "kr_region": null,
+   "name": "Our Rainbow by Waltraut Cooper",
+   "previous_images": 3,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Marie-Josèphe Angélique (31016562444)",
+   "id": "CAT-1CT46DX",
+   "images": 6,
+   "kr": false,
+   "kr_region": null,
+   "name": "Cité Mémoire - Montréal en Histoires",
+   "previous_images": 6,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Gabriel Poirier-Galarneau et Vincent Bilodeau, 9X-MTL-, 2015 (18206363309)",
+   "id": "CAT-1CXE5YL",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Projection mapping on Théâtre Maisonneuve",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Sound and Light Show at Karnak",
+   "id": "CAT-1EQT3UH",
+   "images": 9,
+   "kr": false,
+   "kr_region": null,
+   "name": "Sound and light show at Karnak",
+   "previous_images": 9,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Mediafacade on the Hydroproject building in Moscow, Russia",
+   "id": "CAT-1FUKQNM",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Hydroproject building",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Lichtfestival Gent 2011",
+   "id": "CAT-1FV2MEP",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Oud Postkantoor (Gent) in Light Festival Ghent",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Essen Light Festival 2019, Jellyworld",
+   "id": "CAT-1GBA2KD",
+   "images": 9,
+   "kr": false,
+   "kr_region": null,
+   "name": "Essen Light Festival 2019",
+   "previous_images": 9,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Urba Morphic-Volume 1 - 05",
+   "id": "CAT-1GGUXSH",
+   "images": 9,
+   "kr": false,
+   "kr_region": null,
+   "name": "Urba Morphic-Volume 1",
+   "previous_images": 9,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Cathédrale de Chartres en Lumière",
+   "id": "CAT-1KCQL6I",
+   "images": 8,
+   "kr": false,
+   "kr_region": null,
+   "name": "Chartres cathedral en lumières",
+   "previous_images": 8,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Kanva, en collaboration avec Udo Design, Côté Jardin, Patrick Watson, Boris Dempsey et Pierre Fournier, Entre les rangs, 2013 (11871729816)",
+   "id": "CAT-1MB7I90",
+   "images": 11,
+   "kr": false,
+   "kr_region": null,
+   "name": "Projection mapping on Pavillon Président-Kennedy",
+   "previous_images": 11,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Le jour des 8 Soleils, Pascal Grandmaison en collaboration avec Antoine Bédard, Marie-Claire Blais, Serge Murphy, Simon Guilbault et Pierre Lapointe 2012-13 (8441902988)",
+   "id": "CAT-1MIYU2V",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Le jour des 8 soleils",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Doctor Who Adventures in Water & Light in Cardiff Bay (2)",
+   "id": "CAT-1NNE06W",
+   "images": 8,
+   "kr": false,
+   "kr_region": null,
+   "name": "Doctor Who: Adventures in Water and Light in Cardiff Bay",
+   "previous_images": 8,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Bucuresti, Romania, Cercul Militar National (2), B-II-m-A-19201",
+   "id": "CAT-1OKTAW1",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Festival of Lights",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "2023 Kunst Hoekenrode-Bijlmerplein, Asd-ZO (A)",
+   "id": "CAT-1OXNCQS",
+   "images": 6,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lichtkunst Hoekerode-Bijlmerplein",
+   "previous_images": 6,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Medienfassade des Chemnitzer Hauptbahnhofs von der Bahnhofstraße",
+   "id": "CAT-1QV2IWZ",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Citylink at Chemnitz Hauptbahnhof",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Delphine Burrus, Dix anagrammes autour de Norman McLaren,m 2014 (14506591334)",
+   "id": "CAT-1SSQIKM",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "McLaren Mur à mur",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Lublin ~23xvzkog",
+   "id": "CAT-1TQLHFI",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Exposition „Lumina Park” in UMCS Botanical Garden in Lublin",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Grazer Kunsthaus bei Nacht",
+   "id": "CAT-1VRT7O9",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Kunsthaus Graz",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Van Gogh Fietspad",
+   "id": "Q101435284",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "Van Gogh bicycle path",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Praha Stare Mesto Na prikope 19 Myslbek lustr",
+   "id": "Q101965745",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "Vortex (Maxim Velčovský)",
+   "previous_images": 1,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Ugo Rondinone - Breathe Walk Die - 2016 - Museum Boijmans Van Beuningen Rotterdam 01",
+   "id": "Q102079622",
+   "images": 2,
+   "kr": false,
+   "kr_region": null,
+   "name": "Breathe, Walk, Die",
+   "previous_images": 2,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "The World is Yours (2015) - Arno Coenen and Iris Roskam (50897771723)",
+   "id": "Q102079673",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "The World is Yours",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "GwongJing (Night on 2016)",
+   "id": "Q10224945",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Guangzhou International Light  Festival",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Telefontornet 2011a",
+   "id": "Q10457263",
+   "images": 5,
+   "kr": false,
+   "kr_region": null,
+   "name": "Colour by Numbers",
+   "previous_images": 5,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "ISS053-E-93966 - View of Earth",
+   "id": "Q105621899",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "Night Sky",
+   "previous_images": 1,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Bestevaer Hof met zicht op de Ruyterstraat, oude Biotex en Dobbelmann fabriek, Bottendaal Nijmegen",
+   "id": "Q105623405",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "TO B I EX",
+   "previous_images": 1,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Lichtkunstwerk zendtoren 03",
+   "id": "Q105658382",
+   "images": 8,
+   "kr": false,
+   "kr_region": null,
+   "name": "White noise",
+   "previous_images": 8,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Spanish Fork Festival of Lights castle, Dec 16",
+   "id": "Q105749709",
+   "images": 3,
+   "kr": false,
+   "kr_region": null,
+   "name": "Festival of Lights",
+   "previous_images": 3,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "2021 White cube, Asd (1)",
+   "id": "Q105765811",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "The White Cube",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Omega Mart 2026-05-14 1",
+   "id": "Q105817457",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "Omega Mart",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Hk-Symphony of Lights 3420",
+   "id": "Q1068874",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "심포니 오브 라이트",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Feuerwerk von Otto Piene, hinter der Stadtkirche 8753",
+   "id": "Q107265489",
+   "images": 5,
+   "kr": false,
+   "kr_region": null,
+   "name": "Feuerwerk für Celle",
+   "previous_images": 5,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Convergence Station Meow Wolf Denver 03",
+   "id": "Q108139453",
+   "images": 6,
+   "kr": false,
+   "kr_region": null,
+   "name": "Convergence Station",
+   "previous_images": 6,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Ove Lucas, 2018 (2)",
+   "id": "Q110169084",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "Centrum Beeldende Kunst Rotterdam",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Murals Reichweite Griffhöhe Berlin 1v2",
+   "id": "Q110264446",
+   "images": 2,
+   "kr": false,
+   "kr_region": null,
+   "name": "reichweite griffhöhe",
+   "previous_images": 2,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Büro- und Geschäftshaus Schildergasse 74-76, Köln - Ansicht von Norden, Nord-Süd-Fahrt-3833",
+   "id": "Q111305324",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "Liebe deine Stadt",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Kiplampen bij het Kookpunt, april 1997 - 02",
+   "id": "Q113509569",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Chicks, 1994",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Galerie 2x2 Delfshaven, 1994",
+   "id": "Q113527000",
+   "images": 6,
+   "kr": false,
+   "kr_region": null,
+   "name": "De vijf klaprozen, 1994",
+   "previous_images": 6,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q114053490",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lichtinstallation am KölnTurm",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q114245074",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Porisontti",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "OdeAanRembrandtWolkers2017",
+   "id": "Q114669123",
+   "images": 6,
+   "kr": false,
+   "kr_region": null,
+   "name": "Ode to Rembrandt",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "20060101 CIMG0056 1600 - panoramio",
+   "id": "Q11524427",
+   "images": 2,
+   "kr": false,
+   "kr_region": null,
+   "name": "Tokyo Millenario",
+   "previous_images": 2,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q115347055",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Light Wall",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Iceland - Peace Tower 38 (6571397559)",
+   "id": "Q116484",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "이매진 피스 타워",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Sharjah Light Festival 2023 University City Hall (10)",
+   "id": "Q116823022",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Sharjah Light Festival",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Light installation \"Dialog\" on Strömparterren during Nobel Week Lights 2021 in fog 06",
+   "id": "Q117225588",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Nobel Week Lights",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Bill Culbert - SkyeBlues0001",
+   "id": "Q117248257",
+   "images": 11,
+   "kr": false,
+   "kr_region": null,
+   "name": "SkyBlues",
+   "previous_images": 11,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Light Move Festival 2013 15",
+   "id": "Q11756714",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Light Move Festival in Łódź",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Bella Skyway Festival 2016 - projekcja \"Anooki\"",
+   "id": "Q11783870",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "International Light Festival Skyway",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Light show Brno 2012 (04)",
+   "id": "Q11825476",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "P.I.W.O. Light Shows",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Berlin, Germany (8000969128)",
+   "id": "Q1188708",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Denkzeichen Georg Elser",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Leda and the Swan neon",
+   "id": "Q122440749",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Leda and the Swan",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Eyelight Lane 20240114 161357 01",
+   "id": "Q122689319",
+   "images": 2,
+   "kr": false,
+   "kr_region": null,
+   "name": "Eyelight Lane",
+   "previous_images": 2,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Linz Lichtbrunnen 2",
+   "id": "Q122944544",
+   "images": 8,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lichtbrunnen",
+   "previous_images": 8,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q123597350",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Luftzug",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q123705149",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Das Leben entwerfen",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q123766012",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Movement",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q124300145",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lichtfestival Luzern",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "20210220 Copenhagen Light Festival Islands Brygge (51039221892)",
+   "id": "Q124539982",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Copenhagen Light Festival",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Marjan Laaper Ramses",
+   "id": "Q125124583",
+   "images": 2,
+   "kr": false,
+   "kr_region": null,
+   "name": "Ramses Shaffy, levenslijnen",
+   "previous_images": 2,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Gerdes Ichs Krefeld",
+   "id": "Q125675831",
+   "images": 2,
+   "kr": false,
+   "kr_region": null,
+   "name": "Ichs",
+   "previous_images": 2,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Berlin 20261015 Festival of Lights 06",
+   "id": "Q125715",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Festival of Lights",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q125740412",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "L'appel de la mer",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "29.03.2016. Zadar Kroatien - panoramio (4)",
+   "id": "Q12640281",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "태양에게 인사",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q126682295",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "ROOT Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q126689470",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Video Positive Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "BS West auf Nordwest",
+   "id": "Q126924742",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lichtparcours 2024",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127586803",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Ich kann, weil ich will, was ich muss.",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Wuppertal Eiland 2014 009",
+   "id": "Q127586812",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lichtinstallation am Landgericht",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127586914",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Arch Bridge",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127586928",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "OBEYNOBODY",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127586999",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "The Herford Eichen",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587049",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Pacemaker",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587050",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Catch as catch can",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587052",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "public preposition / Metal-Light",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Kuball Les Fleurs du Mal, Marl",
+   "id": "Q127587058",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "Flowers for Marl",
+   "previous_images": 1,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587060",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Gate of Light",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587065",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Cascade",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Lichtsäule (Günther Uecker), Juni 2023",
+   "id": "Q127587129",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "Light Column",
+   "previous_images": 1,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587201",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Blue Wave",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587203",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Grün-Blauer Mäander",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587204",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Ohne Titel",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587206",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Sun Beam",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587210",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Light Stele 2",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587225",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Holographic Object",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587238",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Bright Chamber",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587241",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Consol Yellow",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587276",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Twelve Marker",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587277",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Ohne Titel (Silbernagel)",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587279",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Diminishing View",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587301",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lipstadium or Frederick the Great, the Medium, and the Small",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587303",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "obscure",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587388",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Basement",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Haerle Hubacher Architekten BSA, Max Bill Platz Zürich, 2006",
+   "id": "Q127587463",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "Plaza Design",
+   "previous_images": 1,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587526",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "The World Maps",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587527",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Skyline",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587590",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Slinky Springs to Fame",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587678",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Animal Office Hours",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587709",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Miner’s Lamp",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Jan van Munster Brainwaves Marl",
+   "id": "Q127587792",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "Brainwaves",
+   "previous_images": 1,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Gerdes Neon-Stück Marl",
+   "id": "Q127587794",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "Angst",
+   "previous_images": 1,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587796",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Plus ou moins",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587832",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Safety Cones (for Herford)",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587833",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Glitter Tree",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587838",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Milky Way",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587842",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "The Way of the Mariner",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587846",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Grasping",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587847",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Ark",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587849",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Cumulus",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587851",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Silence",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587965",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Closed",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127587966",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Light Fossil",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127588009",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Permanent Lightning",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127588017",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Colored Light Column II",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Unna Lindenbrauerei Kamin Fibonacci IMGP3083",
+   "id": "Q127588061",
+   "images": 2,
+   "kr": false,
+   "kr_region": null,
+   "name": "Fibonacci-Reihe",
+   "previous_images": 2,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127588063",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "River Guard",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127588105",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Blaues Lichtoval",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127588107",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Light Gate",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127588109",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lunetta",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127588161",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "He Makes His Angels as Winds",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127588164",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Yellow Marker",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127588166",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Impulse Bergkamen",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127588168",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Bergkamen Sets Standards",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127588170",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Pulse-Light Marina Rünthe",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q127588173",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Water Screen",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Troisdorf Stadttor",
+   "id": "Q127588175",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "City Gates",
+   "previous_images": 1,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Es werde Licht von Matthias Lehmann in Hamburg-Neuallermöhe (2)",
+   "id": "Q128211807",
+   "images": 5,
+   "kr": false,
+   "kr_region": null,
+   "name": "There shall be light",
+   "previous_images": 5,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 01",
+   "id": "Q130070499",
+   "images": 3,
+   "kr": false,
+   "kr_region": null,
+   "name": "Swirl",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q130271090",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "AND Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "November 2024 Azabudai Hills -36154",
+   "id": "Q131314431",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "Mori Building Digital Art Museum: EPSON teamLab Borderless",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338378",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Optronica",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338379",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Alpha-Ville Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338380",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Instal",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338381",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Kill Your Timid Notion",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338382",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Berwick Film and Media Arts Festival (BFMAF)",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338384",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Ultrasound",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338385",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "_Open Source City Micro-Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338386",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "FutureEverything Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338387",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Futuresonic Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338388",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "The Festival of Lying",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338389",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Improvisation and Digital Arts Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338390",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Brighton Digital Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338391",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Pandaemonium Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338392",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lovebytes Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338393",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Evolution",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338394",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Metapod Digital Arts Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338395",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "DMZ Media Arts Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338396",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "NEoN Digital Arts Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338397",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "node.London",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338398",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Digital Cultures Lab festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338399",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "onedotzero_adventures in motion",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338400",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Photo98",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338402",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Chromatologies",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338403",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Expo Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338407",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Radiator Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338408",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "AV Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338409",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Sightsonic",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338410",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Digital Weekender",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338411",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Watermans International Festival of Digital Art",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338412",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "The Connectors",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338413",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "b.TWEEN Festival of Future Entertainment",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338414",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Kinetica Art Fair",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338416",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lancaster Film & New Media Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338417",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "May You Live in Interesting Times",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338418",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "moves: International Festival of Movement on Screen",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338419",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "New Visions",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338420",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "NOW Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131338424",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Takeaway Festival of DIY Media",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q131452414",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "f.city",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q132167502",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Un mystérieux héritage",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "2024 Kruislaanspoorbrug, Asd-tegels en Raw paradise (D)",
+   "id": "Q132797212",
+   "images": 8,
+   "kr": false,
+   "kr_region": null,
+   "name": "Raw Paradise",
+   "previous_images": 8,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Praha Chodov Lumina Park a",
+   "id": "Q133137484",
+   "images": 5,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lumina Park - Winter Village",
+   "previous_images": 5,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q133834642",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Sonic Runway",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q133838071",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Sonic Runway",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q133838093",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Sonic Runway",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Festival of Lights 20190321 DSC 9212",
+   "id": "Q134006872",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Festival of Lights, Zagreb",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Rathaus Frankfurt (Oder) 2025 008",
+   "id": "Q134126751",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "Wer sucht, der findet",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "13-05-24-ottakring-u-turn-07",
+   "id": "Q135276616",
+   "images": 9,
+   "kr": false,
+   "kr_region": null,
+   "name": "U-Turn",
+   "previous_images": 9,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Paderborn Rathausplatz 19 (2)",
+   "id": "Q135289104",
+   "images": 2,
+   "kr": false,
+   "kr_region": null,
+   "name": "Interactive Neon Mural #17",
+   "previous_images": 2,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (03)",
+   "id": "Q136085207",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Ziegelstein und Baum - ein Lichtgehäuse",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "2025 Brug 689, Asd-Origin (B)",
+   "id": "Q136219703",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Origin",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q136563132",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "light tetrahedron",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q136565365",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "laser installation for airspace",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Leader Tower in Saint Petersburg 01",
+   "id": "Q13668707",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Leader Tower",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "ICC Berlin 2025 - 12",
+   "id": "Q136702043",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "light sculpture in the main hall of the ICC",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q136926489",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "FloridaRAMA",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q137170403",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "light kinetic relief",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "01 Winterlichter 01",
+   "id": "Q137796942",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Winter Lights",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q138505573",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Světelný objekt před nákupním střediskem Máj",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q138718345",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Xirómero/Dryland",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q138786110",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Chemin des Lanternes",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q139502938",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Djembe Public Art Project",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q139969264",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Heijasteita",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q139969474",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Inner Glow 1 2 3",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q139973326",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Merikosken m³s",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q140054569",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "valo- ja äänitaiteen teos Flumen",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q140062281",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Pendulum",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Grimanesa-amoros-uros-house-day-1",
+   "id": "Q140922593",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "Uros House",
+   "previous_images": 1,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q140923042",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Golden Waters",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q140923279",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Hedera",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q140923540",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Amplexus",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q140933380",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Pink Lotus",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q140933888",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Golden Array",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q140934358",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Scientia",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q140934443",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Passage",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q140934506",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Maritime",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q140934536",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Radiance",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q140934587",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Perfect Timing",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Lesbian Simulator (art project) 10 47 53 813000",
+   "id": "Q140937471",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lesbian Simulator (art project)",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q141221829",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Valokaivo",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q141655422",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Kartastoja / 1",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q141673318",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Viivasto",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "20231027 201419 Chodź na pole - Tauron Arena Kraków",
+   "id": "Q15014400",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Tauron Arena Kraków",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "2022 Signal festival 06",
+   "id": "Q15140473",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Signal Festival",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Grande roue du festival montrel en lumiere",
+   "id": "Q16034471",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Montréal en lumière",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Kobe Luminarie 2017 (25372159798)",
+   "id": "Q1636567",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Kobe Luminarie",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Berlin, Bethlehems-Kirche (Rekonstruktion Memoria Urbana 2012), Kuppel erleuchtet.",
+   "id": "Q17051597",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "도시의 기억, 베를린",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Stern mit Allianz Arena",
+   "id": "Q1710238",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Stern des Südens",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Angerpark2012 nati08",
+   "id": "Q1800283",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Tiger and Turtle – Magic Mountain",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Moscow. Festival Circle of light 2012. Red square. (8047962795)",
+   "id": "Q18219743",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lightfest",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Lichtfest Leipzig 2023-10-09 2",
+   "id": "Q1823431",
+   "images": 11,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lichtfest Leipzig",
+   "previous_images": 11,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Düsseldorf Rheinturm - Lichtzeitpegel",
+   "id": "Q1823573",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lichtzeitpegel",
+   "previous_images": 1,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Medienfassade der Zeilgalerie bei Nacht",
+   "id": "Q184921",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Zeilgalerie",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "2014-11-09 Lichtgrenze Berlin 03",
+   "id": "Q18536617",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lichtgrenze",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Camp Pixelache in Vartiosaari, Helsinki, Finland, 6.–8. June 2014 (04)",
+   "id": "Q18694056",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Pixelache Helsinki",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Lichtskulptur Gelmeroda-LS 01-06-wikipedia",
+   "id": "Q19289172",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lichtskulptur Gelmeroda",
+   "previous_images": 1,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Llum BCN 2024 - 20240202 222157",
+   "id": "Q20103498",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Llum BCN",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Sol Lumen vanaf de Uithof",
+   "id": "Q2071621",
+   "images": 3,
+   "kr": false,
+   "kr_region": null,
+   "name": "Sol Lumen",
+   "previous_images": 3,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Bilbao-Moraza-11 301",
+   "id": "Q20888882",
+   "images": 11,
+   "kr": false,
+   "kr_region": null,
+   "name": "Bosque de Farolas",
+   "previous_images": 11,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Luciano baldessari, luminator bernocchi, X fiera internazionale di milano, 1929 (mi, casva) 01",
+   "id": "Q22703904",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "Luminator Bernocchi",
+   "previous_images": 1,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Opening Night Show (27705998766)",
+   "id": "Q22912864",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Star Wars: A Galactic Spectacular",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q24522389",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Hain",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "2019 - Urania am Abend am Donaukanal",
+   "id": "Q2494975",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Uniqa Tower",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Amsterdam Light Festival 2013-2014",
+   "id": "Q26156861",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Amsterdam Light Festival",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Berlin 2023 07 11 12 028000",
+   "id": "Q265292",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "transmediale",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Tuerkenstrasse68",
+   "id": "Q270746",
+   "images": 5,
+   "kr": false,
+   "kr_region": null,
+   "name": "8. November 1939 (Denkmal)",
+   "previous_images": 5,
+   "status": "carried_over",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Reizend Zand in Apeldoorn v2",
+   "id": "Q28873401",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "Travelling Sand",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Montevideo gebouw",
+   "id": "Q2920487",
+   "images": 6,
+   "kr": false,
+   "kr_region": null,
+   "name": "Netherlands Media Art Institute",
+   "previous_images": 6,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "20150928 HotelDesPostes enLumiere DSC08516 PtrQs",
+   "id": "Q2961245",
+   "images": 7,
+   "kr": false,
+   "kr_region": null,
+   "name": "Chartres en lumières",
+   "previous_images": 7,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q29885992",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Red, White and Blue",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Epcot- Illuminations Show (2434515290)",
+   "id": "Q3148738",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "IllumiNations: Reflections of Earth",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "2013-Sept.- Le Puy du Fou Cinescenie (15)",
+   "id": "Q3207426",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Cinescenie",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Central station Frankfurt - Germany - Luminale 2014 - April 3rd 2014 - 09",
+   "id": "Q327650",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Luminale",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Medienfassade kurz vor der Einweihung",
+   "id": "Q328491",
+   "images": 10,
+   "kr": false,
+   "kr_region": null,
+   "name": "Bayer-Hochhaus",
+   "previous_images": 10,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Медиафасад Казань Арены",
+   "id": "Q33993",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "카잔 아레나",
+   "previous_images": 1,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Hotel Fairmont Waterfront light up with heart (49779815981)",
+   "id": "Q351126",
+   "images": 10,
+   "kr": false,
+   "kr_region": null,
+   "name": "Project Blinkenlights",
+   "previous_images": 10,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "City Hall, Lyon, 8 December 2015",
+   "id": "Q4167",
+   "images": 2,
+   "kr": false,
+   "kr_region": null,
+   "name": "Festival of Lights",
+   "previous_images": 2,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Light festival in Jerusalem - פסטיבל האור בירושלים (3638888871)",
+   "id": "Q4173984",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Jerusalem Festival of Light",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "20120128 Gent Verlicht (0017)",
+   "id": "Q47902176",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Light Festival Ghent",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Kronach - Stadtgraben - Kronach leuchtet 2015 - 2 - 2015-05",
+   "id": "Q48757176",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Kronach leuchtet",
+   "previous_images": 12,
+   "status": "carried_over",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Fireworks at City Hall",
+   "id": "Q5054749",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Cavalcade of Lights Festival",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 1,
+   "card_title": "Celebrate the Magic (23868796873)",
+   "id": "Q5057595",
+   "images": 7,
+   "kr": false,
+   "kr_region": null,
+   "name": "Celebrate the Magic",
+   "previous_images": 7,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Cybersonica",
+   "id": "Q5197843",
+   "images": 1,
+   "kr": false,
+   "kr_region": null,
+   "name": "Cybersonica",
+   "previous_images": 1,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q5445785",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Festival of Lights",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Festival of Lights, New Plymouth, New Zealand",
+   "id": "Q5445787",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Festival of Lights",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Giny Vos - Lust for Life - 1999",
+   "id": "Q54856189",
+   "images": 7,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lust for Life",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q55122717",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "South by Southwest Film Festival",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q55373598",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Schlosslichtspiele 2015",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "C3A Córdoba",
+   "id": "Q5839725",
+   "images": 9,
+   "kr": false,
+   "kr_region": null,
+   "name": "Centro de Creación Contemporánea de Andalucía - C3A",
+   "previous_images": 9,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Zwolle JvM 02",
+   "id": "Q61473821",
+   "images": 3,
+   "kr": false,
+   "kr_region": null,
+   "name": "Energiesculptuur",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Multiverse light sculpture - HDR",
+   "id": "Q62471103",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Multiverse",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q626425",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "King Road Tower",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "2018-02-24 23-08-28 ILCE-6500 DSC08636",
+   "id": "Q63319303",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Bright Brussels",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_installation",
+   "card_tier": 4,
+   "card_title": "Kepler (part of Kendall Band), April 2011",
+   "id": "Q6388883",
+   "images": 10,
+   "kr": false,
+   "kr_region": null,
+   "name": "Kendall Band",
+   "previous_images": 10,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Luminosity — Ignite the Night! water drumming",
+   "id": "Q6703298",
+   "images": 5,
+   "kr": false,
+   "kr_region": null,
+   "name": "Luminosity — Ignite the Night!",
+   "previous_images": 5,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Deep space LIVE (light-show-0010)",
+   "id": "Q678361",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "아르스 일렉트로니카",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Sarajevo Tram-268 Line-6 2013-10-25",
+   "id": "Q7422981",
+   "images": 6,
+   "kr": false,
+   "kr_region": null,
+   "name": "Sarajevo City Center",
+   "previous_images": 6,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Argyle cut, The Rocks, Vivid Sydney - 2026 - -04",
+   "id": "Q7937834",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Vivid Sydney",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q796012",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "BIX Medienfassade",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "2019-12-22-bonn-bonngasse-21-lichtskulptur-beethoven-das-wasser-02",
+   "id": "Q80188532",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "Das Wasser; Lichtskulpturen Beethoven 2020",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "2019-12-20-bonn-poststrasse-lichtskulptur-beethoven-das-zimmer-02",
+   "id": "Q80192871",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "Das Zimmer; Lichtskulpturen Beethoven 2020",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "2019-12-22-bonn-muensterplatz-lichtskulptur-beethoven-der-buerger-01",
+   "id": "Q80196674",
+   "images": 3,
+   "kr": false,
+   "kr_region": null,
+   "name": "Der Bürger; Lichtskulpturen Beethoven 2020",
+   "previous_images": 3,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "2019-12-20-bonn-sternstrasse-53-lichtskulptur-beethoven-der-geist-01",
+   "id": "Q80198034",
+   "images": 3,
+   "kr": false,
+   "kr_region": null,
+   "name": "Der Geist; Lichtskulpturen Beethoven 2020",
+   "previous_images": 3,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "2019-12-20-bonn-hofgarten-lichtskulptur-beethoven-die-kugel-01",
+   "id": "Q80198623",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "Die Kugel; Lichtskulpturen Beethoven 2020",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "2019-12-22-bonn-stadthaus-lichtskulptur-beethoven-die-menschen-01",
+   "id": "Q80199477",
+   "images": 4,
+   "kr": false,
+   "kr_region": null,
+   "name": "Die Menschen; Lichtskulpturen Beethoven 2020",
+   "previous_images": 4,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "2019-12-22-bonn-kaiserplatz-lichtskulptur-beethoven-die-wand-01",
+   "id": "Q80200605",
+   "images": 3,
+   "kr": false,
+   "kr_region": null,
+   "name": "Die Wand; Lichtskulpturen Beethoven 2020",
+   "previous_images": 3,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "2019-12-22-bonn-alter-zoll-lichtskulptur-beethoven-die-welt-01",
+   "id": "Q80201137",
+   "images": 8,
+   "kr": false,
+   "kr_region": null,
+   "name": "Die Welt; Lichtskulpturen Beethoven 2020",
+   "previous_images": 8,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "2019-12-20-bonn-kaiserplatz-lichtskulptur-beethoven-die-wand-01",
+   "id": "Q80201211",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lichtskulpturen Beethoven 2020",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "2015-09-10-bonn-stadthaus-klangtreppe-ludwig-nimmt-die-treppe-01",
+   "id": "Q80312363",
+   "images": 2,
+   "kr": false,
+   "kr_region": null,
+   "name": "Ludwig nimmt die Treppe - Beethovenfest 2015",
+   "previous_images": 2,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Blaue Nacht 2010 Lorenzkirsche1",
+   "id": "Q882517",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Blaue Nacht",
+   "previous_images": 12,
+   "status": "carried_over",
+   "valid_card": true
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q885975",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Bluebox (Kunst)",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "EsLibre 2023 03",
+   "id": "Q96055560",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Etopia Centre for Arts & Technology",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "architecture_context",
+   "card_tier": 5,
+   "card_title": "Times Square by Max Neuhaus 3",
+   "id": "Q96409917",
+   "images": 5,
+   "kr": false,
+   "kr_region": null,
+   "name": "Times Square",
+   "previous_images": 5,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "BS She Will O The Wind",
+   "id": "Q96943615",
+   "images": 8,
+   "kr": false,
+   "kr_region": null,
+   "name": "Lichtparcours 2020",
+   "previous_images": 8,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Thom Kubli Black Hole Horizon 6",
+   "id": "Q97163414",
+   "images": 7,
+   "kr": false,
+   "kr_region": null,
+   "name": "Black Hole Horizon",
+   "previous_images": 7,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "LWL-Museum für Kunst und Kultur(Münster) msu-1809-",
+   "id": "Q97590510",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Silberne Frequenz",
+   "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Lichttunnel am Molo in Bregenz",
+   "id": "Q99213573",
+   "images": 7,
+   "kr": false,
+   "kr_region": null,
+   "name": "Light Tunnel",
+   "previous_images": 7,
+   "status": "scored",
+   "valid_card": true
+  }
+ ],
+ "rejected": {
+  "identity": 1835,
+  "low_res": 44,
+  "mislinked": 49,
+  "person": 257,
+  "rights": 44
+ },
+ "rejected_examples": {
+  "identity": [
+   {
+    "key": "img-8f07c11ebc44",
+    "project": "SEOUL006",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-87fc9bb640b2",
+    "project": "SEOUL006",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-0b9acae3d2eb",
+    "project": "SEOUL006",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-f70deb56d787",
+    "project": "SEOUL006",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-279a9bd8fd8d",
+    "project": "SEOUL006",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-8f0b0881e6da",
+    "project": "SEOUL006",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-08315af945fd",
+    "project": "SEOUL006",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-4cc2b6891340",
+    "project": "SEOUL006",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-8232b90365ce",
+    "project": "SEOUL006",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-ce2bb4c4b45e",
+    "project": "SEOUL006",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-f49e1f6dde17",
+    "project": "SEOUL018",
+    "reasons": [
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-9b0fd831cf45",
+    "project": "SEOUL018",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-3ddca7827d02",
+    "project": "SEOUL018",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-b85bfd848e77",
+    "project": "SEOUL018",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-a44ef36850f5",
+    "project": "SEOUL018",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-5a571d7b3932",
+    "project": "SEOUL018",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-9d5de560f2fe",
+    "project": "SEOUL018",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-953e84f4f2a7",
+    "project": "SEOUL018",
+    "reasons": [
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-c7305fceff55",
+    "project": "SEOUL018",
+    "reasons": [
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-dc3007782983",
+    "project": "SEOUL018",
+    "reasons": [
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-8099067dfede",
+    "project": "SEOUL018",
+    "reasons": [
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-2a3365c14114",
+    "project": "SEOUL018",
+    "reasons": [
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-a02e18c02bd2",
+    "project": "SEOUL018",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-ebc4434b3f83",
+    "project": "SEOUL018",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-319270c3d41d",
+    "project": "SEOUL018",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-b85bfd848e77",
+    "project": "SEOUL018",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-3722f8c59161",
+    "project": "SEOUL018",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-be8206b41821",
+    "project": "SEOUL018",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-6a99b26a41bd",
+    "project": "SEOUL018",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-8961c0a14126",
+    "project": "SEOUL018",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-96805d30ad55",
+    "project": "SEOUL018",
+    "reasons": [
+     "awaiting_review"
+    ]
+   },
+   {
+    "key": "img-a70d0f689486",
+    "project": "SEOUL044",
+    "reasons": [
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-221a46ea7d71",
+    "project": "SEOUL044",
+    "reasons": [
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-0d5af5a4d65c",
+    "project": "SEOUL044",
+    "reasons": [
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-42a2e2462898",
+    "project": "SEOUL044",
+    "reasons": [
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-f98aaa5643b1",
+    "project": "SEOUL044",
+    "reasons": [
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-647099b647c9",
+    "project": "SEOUL044",
+    "reasons": [
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-dcd80bda6ed3",
+    "project": "SEOUL044",
+    "reasons": [
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-e775928ed4d2",
+    "project": "SEOUL044",
+    "reasons": [
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-a3d4db7791e7",
+    "project": "SEOUL044",
+    "reasons": [
+     "identity_unproven"
+    ]
+   }
+  ],
+  "low_res": [
+   {
+    "key": "Lotte World Tower near Cheongdam Bridge crop.jpg",
+    "project": "SEOUL018",
+    "reasons": [
+     "too_small",
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "Korea Sevit Island 06 (15540748615).jpg",
+    "project": "SEOUL044",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "N Seoul Tower Panorama Night (cropped).jpg",
+    "project": "SEOUL043",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "N Seoul Tower Panorama Night.jpg",
+    "project": "SEOUL043",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "Seoullo 7017 (2).jpg",
+    "project": "SEOUL046",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Height comparison tower infinity.jpg",
+    "project": "Q15076316",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "2023 Lotus Lantern Festival 03.jpg",
+    "project": "CAT-080XNRV",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "2023 Lotus Lantern Festival 07.jpg",
+    "project": "CAT-080XNRV",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "Lotus Lantern Festival 2022 07 (52039782546).jpg",
+    "project": "CAT-080XNRV",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "V2 Institute for the Unstable Media facade.jpg",
+    "project": "Q110169084",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "20231027 201419 Chodź na pole - Tauron Arena Kraków - crop.jpg",
+    "project": "Q15014400",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "Frankfurt am Main - Zeilgalerie.jpg",
+    "project": "Q184921",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Panorama von Graz bei Nacht vom Schloßberg.jpg",
+    "project": "CAT-0EAYBY6",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "Kunsthaus-Graz-Nacht-Medienfassade.jpg",
+    "project": "CAT-0EAYBY6",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Bundesarchiv Bild 183-C1020-0007-001, Chemnitz, Straße der Nationen, Nacht.jpg",
+    "project": "CAT-15VOYUE",
+    "reasons": [
+     "too_small",
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "C-Rosenhof-night-gp.jpg",
+    "project": "CAT-15VOYUE",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "Kunsthaus-Graz-Nacht-Medienfassade.jpg",
+    "project": "CAT-1VRT7O9",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Palazzo Pretorio-GMG 11.jpg",
+    "project": "CAT-0JYY9CE",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Denkzeichen Georg Elser Berlin 09.jpg",
+    "project": "Q1188708",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "Bosque de Farolas Bilbao.jpg",
+    "project": "Q20888882",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Multiverse - Leo Villareal - 2016.jpg",
+    "project": "Q62471103",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "Bye bye Blue Goals.jpg",
+    "project": "CAT-01WE6KC",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Hamburg Bluegoal Ubahn.jpg",
+    "project": "CAT-01WE6KC",
+    "reasons": [
+     "rights:license_not_allowed",
+     "too_small"
+    ]
+   },
+   {
+    "key": "\"Breath\".jpg",
+    "project": "CAT-0T9MVFP",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "\"Yes to all\".jpg",
+    "project": "CAT-0T9MVFP",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Axis of Silence and Expodrome.jpg",
+    "project": "CAT-0T9MVFP",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Fly a dragon Kite.jpg",
+    "project": "CAT-0T9MVFP",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "ارشاش.jpg",
+    "project": "CAT-15Q3ETO",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "Haerle Hubacher Architekten BSA, Oerlikerpark Zürich, 2001.jpg",
+    "project": "Q127587463",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Victoria Harbour around Chinese New Year Night with Fireworks and Laser Show(edited).jpg",
+    "project": "Q1068874",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "Victoria Harbour around Chinese New Year Night with Fireworks and Laser Show.jpg",
+    "project": "Q1068874",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "Marunouchi Lights test - Flickr - Joi.jpg",
+    "project": "Q11524427",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Cinescenie yeah.jpg",
+    "project": "Q3207426",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "La furia de los dioses mayas.jpg",
+    "project": "CAT-03ULN0L",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "Festivaloflights (260619375).jpeg",
+    "project": "CAT-06MTGIV",
+    "reasons": [
+     "too_small",
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "Pyramids panorama at night - panoramio (1).jpg",
+    "project": "CAT-0BLB3MO",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "LaserShow System (FDA approved).jpg",
+    "project": "CAT-17XN1RX",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Anthere2005PixelAche.jpg",
+    "project": "Q18694056",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "WLANL - PjotrP - NIMK - Annja Krautgasser (1).jpg",
+    "project": "Q2920487",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "WLANL - PjotrP - NIMK - MARK NAPIER (1).jpg",
+    "project": "Q2920487",
+    "reasons": [
+     "too_small"
+    ]
+   }
+  ],
+  "mislinked": [
+   {
+    "key": "DDP - Garden of withe roses.jpg",
+    "project": "SEOUL006",
+    "reasons": [
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "Goong Teddy Bears.JPG",
+    "project": "SEOUL043",
+    "reasons": [
+     "subject:object_or_animal:teddy bears"
+    ]
+   },
+   {
+    "key": "img-a988be29e763",
+    "project": "Q15076316",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "img-b0cf22a07900",
+    "project": "Q15076316",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "20231021 184556 weźże wyluzuj neon sign.jpg",
+    "project": "Q15014400",
+    "reasons": [
+     "subject:object_or_animal:neon sign"
+    ]
+   },
+   {
+    "key": "Facade Zeilgalerie Frankfurt - Redesign 2010.jpg",
+    "project": "Q184921",
+    "reasons": [
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "Cna gobears.jpg",
+    "project": "Q351126",
+    "reasons": [
+     "subject:object_or_animal:bears",
+     "too_small"
+    ]
+   },
+   {
+    "key": "Chemnitz Hbf Gleishalle.jpg",
+    "project": "CAT-1QV2IWZ",
+    "reasons": [
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "Mirai Mizue, The Baby Birds of Norman McLaren, 2014 (14145425427).jpg",
+    "project": "CAT-0336B9D",
+    "reasons": [
+     "subject:object_or_animal:birds"
+    ]
+   },
+   {
+    "key": "Mirai Mizue, The Baby Birds of Norman McLaren, 2014 (14150895020).jpg",
+    "project": "CAT-0336B9D",
+    "reasons": [
+     "subject:object_or_animal:birds"
+    ]
+   },
+   {
+    "key": "Mirai Mizue, The Baby Birds of Norman McLaren, 2014 (14330206262).jpg",
+    "project": "CAT-0336B9D",
+    "reasons": [
+     "subject:object_or_animal:birds"
+    ]
+   },
+   {
+    "key": "13-05-24-ottakring-u-turn-02.jpg",
+    "project": "Q135276616",
+    "reasons": [
+     "subject:object_or_animal:statue"
+    ]
+   },
+   {
+    "key": "img-f760981043fa",
+    "project": "Q127588175",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:bird"
+    ]
+   },
+   {
+    "key": "img-01c5a4524540",
+    "project": "Q127587463",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:restaurant"
+    ]
+   },
+   {
+    "key": "img-4bedddd3edef",
+    "project": "Q127587463",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:statue"
+    ]
+   },
+   {
+    "key": "Spanish Fork Festival of Lights toy soldiers, Dec 16.jpg",
+    "project": "Q105749709",
+    "reasons": [
+     "subject:object_or_animal:toy"
+    ]
+   },
+   {
+    "key": "img-d50771d5c17e",
+    "project": "Q11524427",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "img-07fca4be0623",
+    "project": "Q11524427",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "20210222 Copenhagen Light Festival Højbro Plads - Absalon statue (51039221562).jpg",
+    "project": "Q124539982",
+    "reasons": [
+     "subject:object_or_animal:statue"
+    ]
+   },
+   {
+    "key": "2022 Signal festival 01.jpg",
+    "project": "Q15140473",
+    "reasons": [
+     "subject:object_or_animal:dog"
+    ]
+   },
+   {
+    "key": "2022 Signal festival 02.jpg",
+    "project": "Q15140473",
+    "reasons": [
+     "subject:object_or_animal:dog"
+    ]
+   },
+   {
+    "key": "Burst Of Color Illuminations Reflections Of Eart (112369359).jpeg",
+    "project": "Q3148738",
+    "reasons": [
+     "subject:object_or_animal:animal"
+    ]
+   },
+   {
+    "key": "Fête des Lumières (Lyon, 2024, place Bellecour).jpg",
+    "project": "Q4167",
+    "reasons": [
+     "subject:object_or_animal:statue"
+    ]
+   },
+   {
+    "key": "ARS Electronica Linz Austria (3822117769).jpg",
+    "project": "Q678361",
+    "reasons": [
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "Djembe George Sabra artist Austin.jpg",
+    "project": "Q139502938",
+    "reasons": [
+     "subject:object_or_animal:cooking"
+    ]
+   },
+   {
+    "key": "img-800db21856d3",
+    "project": "Q127587050",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:bird"
+    ]
+   },
+   {
+    "key": "img-9cd38154f7fa",
+    "project": "Q127587050",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:dogs"
+    ]
+   },
+   {
+    "key": "img-615005e2d45a",
+    "project": "Q127587238",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:statue"
+    ]
+   },
+   {
+    "key": "img-9c007d06a76b",
+    "project": "Q127587238",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:figurine"
+    ]
+   },
+   {
+    "key": "img-4e8d1f65a0d4",
+    "project": "Q127587832",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:dog"
+    ]
+   },
+   {
+    "key": "img-1fa6b3e0acc2",
+    "project": "Q127587846",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:statue"
+    ]
+   },
+   {
+    "key": "img-09ded19cbcf0",
+    "project": "Q127587849",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:menu"
+    ]
+   },
+   {
+    "key": "img-816c283c2086",
+    "project": "Q140933380",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:statues"
+    ]
+   },
+   {
+    "key": "img-2d1c87c5fd03",
+    "project": "Q140933888",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:poster"
+    ]
+   },
+   {
+    "key": "img-0a1a894fa139",
+    "project": "Q29885992",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:poster"
+    ]
+   },
+   {
+    "key": "img-0b48165d3d64",
+    "project": "Q126689470",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "img-c3df7777b5b9",
+    "project": "Q131338380",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "img-16ed36aa4809",
+    "project": "Q131338382",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "img-ef31fd06e3a9",
+    "project": "Q131338384",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "img-0819928c7bd7",
+    "project": "Q131338387",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   }
+  ],
+  "person": [
+   {
+    "key": "Korea President Park Kansong Culture Exhibition 01 (14324130250).jpg",
+    "project": "SEOUL006",
+    "reasons": [
+     "subject:people_or_event:president"
+    ]
+   },
+   {
+    "key": "2010.11.11 G20 서울 정상회의 (7445962682).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:g20"
+    ]
+   },
+   {
+    "key": "Dmitry Medvedev in South Korea 11 November 2010-7.jpeg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:president",
+     "too_small"
+    ]
+   },
+   {
+    "key": "G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (01).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:g-20"
+    ]
+   },
+   {
+    "key": "G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (02).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:g-20"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195536).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195870).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812196376).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812196692).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812197384).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812197824).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812198336).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812199496).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812199944).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "img-e9b9acd2bcad",
+    "project": "SEOUL022",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:portrait"
+    ]
+   },
+   {
+    "key": "KOCIS Korea President Park MMCA 01 (10862970136).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "subject:people_or_event:president"
+    ]
+   },
+   {
+    "key": "KOCIS Korea President Park MMCA 02 (10863073124).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "subject:people_or_event:president"
+    ]
+   },
+   {
+    "key": "KOCIS Korea President Park MMCA 03 (10863072674).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "subject:people_or_event:president"
+    ]
+   },
+   {
+    "key": "KOCIS Korea President Park MMCA 04 (10862922525).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "subject:people_or_event:president"
+    ]
+   },
+   {
+    "key": "Minister of Culture, Sports and Tourism Yu In-chon and Jeju Mayor Oh Young-hun at the National Museum of Modern and Contemporary Art in Seoul 20240611 (01).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "rights:license_not_allowed",
+     "subject:people_or_event:minister"
+    ]
+   },
+   {
+    "key": "Minister of Culture, Sports and Tourism Yu In-chon and Jeju Mayor Oh Young-hun at the National Museum of Modern and Contemporary Art in Seoul 20240611 (02).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "rights:license_not_allowed",
+     "subject:people_or_event:minister"
+    ]
+   },
+   {
+    "key": "Minister of Culture, Sports and Tourism Yu In-chon and Jeju Mayor Oh Young-hun at the National Museum of Modern and Contemporary Art in Seoul 20240611 (03).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "rights:license_not_allowed",
+     "subject:people_or_event:minister"
+    ]
+   },
+   {
+    "key": "Minister of Culture, Sports and Tourism Yu In-chon and Jeju Mayor Oh Young-hun at the National Museum of Modern and Contemporary Art in Seoul 20240611 (04).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "rights:license_not_allowed",
+     "subject:people_or_event:minister"
+    ]
+   },
+   {
+    "key": "img-fd116bd26c89",
+    "project": "SEOUL025",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:people"
+    ]
+   },
+   {
+    "key": "img-9f6e1e945d27",
+    "project": "SEOUL027",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:portrait"
+    ]
+   },
+   {
+    "key": "img-a8e18e3e8377",
+    "project": "SEOUL028",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:man"
+    ]
+   },
+   {
+    "key": "img-1a0c238be2c7",
+    "project": "SEOUL028",
+    "reasons": [
+     "identity_unproven",
+     "name:map_plan_logo_diagram_portrait_signature"
+    ]
+   },
+   {
+    "key": "img-5a97803a7867",
+    "project": "SEOUL028",
+    "reasons": [
+     "identity_unproven",
+     "name:map_plan_logo_diagram_portrait_signature"
+    ]
+   },
+   {
+    "key": "img-1520137794b1",
+    "project": "SEOUL028",
+    "reasons": [
+     "identity_unproven",
+     "name:map_plan_logo_diagram_portrait_signature"
+    ]
+   },
+   {
+    "key": "img-0ee3071a36f1",
+    "project": "SEOUL032",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:people"
+    ]
+   },
+   {
+    "key": "img-e5539994bbff",
+    "project": "SEOUL034",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:people"
+    ]
+   },
+   {
+    "key": "img-4be3ab513443",
+    "project": "SEOUL039",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:children"
+    ]
+   },
+   {
+    "key": "img-ab5f2f69a669",
+    "project": "Q15076316",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:people"
+    ]
+   },
+   {
+    "key": "img-c44cc13be265",
+    "project": "Q15076316",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work",
+     "subject:person:people"
+    ]
+   },
+   {
+    "key": "2013 Summer Universiade closing ceremony (2013-07-17) 10.jpg",
+    "project": "Q33993",
+    "reasons": [
+     "subject:people_or_event:ceremony"
+    ]
+   },
+   {
+    "key": "2013 Summer Universiade closing ceremony (2013-07-17) 11.jpg",
+    "project": "Q33993",
+    "reasons": [
+     "subject:people_or_event:ceremony"
+    ]
+   },
+   {
+    "key": "2013 Summer Universiade closing ceremony (2013-07-17) 13.jpg",
+    "project": "Q33993",
+    "reasons": [
+     "subject:people_or_event:ceremony"
+    ]
+   },
+   {
+    "key": "2013 Summer Universiade closing ceremony (2013-07-17) 14.jpg",
+    "project": "Q33993",
+    "reasons": [
+     "subject:people_or_event:ceremony"
+    ]
+   },
+   {
+    "key": "2013 Summer Universiade closing ceremony (2013-07-17) 15.jpg",
+    "project": "Q33993",
+    "reasons": [
+     "subject:people_or_event:ceremony"
+    ]
+   },
+   {
+    "key": "2013 Summer Universiade closing ceremony (2013-07-17) 16.jpg",
+    "project": "Q33993",
+    "reasons": [
+     "subject:people_or_event:ceremony"
+    ]
+   }
+  ],
+  "rights": [
+   {
+    "key": "롯대월드타워 - panoramio (3).jpg",
+    "project": "SEOUL018",
+    "reasons": [
+     "rights:foreign_no_freedom_of_panorama"
+    ]
+   },
+   {
+    "key": "계동에서 남산을 향해 바라본 도심.jpg",
+    "project": "SEOUL043",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "정동에서 남산을 바라본 도심 전경.jpg",
+    "project": "SEOUL043",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "img-f8a71eaa5471",
+    "project": "SEOUL028",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "Spb 06-2017 img18 Leader Tower.jpg",
+    "project": "Q13668707",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Jevrejsko groblje u Sarajevu.jpg",
+    "project": "Q7422981",
+    "reasons": [
+     "rights:foreign_no_freedom_of_panorama"
+    ]
+   },
+   {
+    "key": "Sarajevo Tram-257 Line-1 2013-10-25.jpg",
+    "project": "Q7422981",
+    "reasons": [
+     "rights:foreign_no_freedom_of_panorama"
+    ]
+   },
+   {
+    "key": "Sarajevo Tram-291 Line-3 2013-10-25.jpg",
+    "project": "Q7422981",
+    "reasons": [
+     "rights:foreign_no_freedom_of_panorama"
+    ]
+   },
+   {
+    "key": "16-09-25-Graz-Nachtaufnahmen-RR2 6452.jpg",
+    "project": "CAT-1VRT7O9",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Lindenbrauerei Unna Kamin 2008 IMGP6397 wp.jpg",
+    "project": "Q127588061",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Hong Kong Victoria Harbor light show.jpg",
+    "project": "Q1068874",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Victoria Harbor illumination.jpg",
+    "project": "Q1068874",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "2009-10-24-berlin-by-RalfR-01.jpg",
+    "project": "CAT-0GL7X3U",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "2009-10-24-berlin-by-RalfR-02.jpg",
+    "project": "CAT-0GL7X3U",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Amiens-Kathedrale-bei-Nacht.jpg",
+    "project": "CAT-194EIQ6",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Dotorgboom vienna.jpg",
+    "project": "Q18694056",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "16-09-25-Graz-Nachtaufnahmen-RR2 6452.jpg",
+    "project": "Q796012",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "img-3227e690ee89",
+    "project": "Q123597350",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-22cb61880936",
+    "project": "Q123597350",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-34f2a9c308ac",
+    "project": "Q123597350",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-54062115a3dc",
+    "project": "Q123597350",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-78e551d15053",
+    "project": "Q127587225",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-24d8cf679fdc",
+    "project": "Q127587709",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-3ec959b31ebb",
+    "project": "Q127588173",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-4e85ead736f3",
+    "project": "Q141673318",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-af1ce3066180",
+    "project": "Q141673318",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-b0c66cfeb940",
+    "project": "Q141673318",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-4235429e2bd4",
+    "project": "Q141673318",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "Classical spectacular laser effects.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Laser effects03.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Anthony inglis bow.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Anthony inglis conducting melbourne symphony orchestra.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Classical spectacular 2006 02.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Classical spectacular 2006 03.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Classical spectacular 2006 04.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Classical spectacular 2006 05.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Classical spectacular 2006.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Classical spectacular.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Classical spectacular02.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Classical spectacular03.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   }
+  ]
+ },
+ "removed": {},
+ "removed_examples": {},
+ "schema": 1,
+ "summary": {
+  "cards": {
+   "all": {
+    "projects": 395,
+    "rate_pct": 54.9,
+    "with_valid_card": 217
+   },
+   "korea": {
+    "projects": 54,
+    "rate_pct": 29.6,
+    "with_valid_card": 16
+   },
+   "world": {
+    "projects": 341,
+    "rate_pct": 58.9,
+    "with_valid_card": 201
+   }
+  },
+  "duplicates_removed": 0,
+  "duplicates_this_run": 7,
+  "images": 1795,
+  "low_res_rejected": 44,
+  "mislinked_rejected": 49,
+  "mislinked_removed": 0,
+  "newly_added_valid": 32,
+  "person_rejected": 257,
+  "person_removed": 0,
+  "portraits": 2,
+  "previous_images": 1763,
+  "rechecked_kept": 53,
+  "relevance_verified": 1742,
+  "removed_total": 0
+ },
+ "totals": {
+  "by_kind": {
+   "architecture_context": 311,
+   "event_documentation": 14,
+   "project_installation": 22,
+   "project_media": 1442,
+   "technical_documentation": 6
+  },
+  "by_provider": {
+   "commons": 1795
+  },
+  "by_role": {
+   "card": 104,
+   "context": 283,
+   "featured": 119,
+   "gallery": 1279,
+   "hero": 10
+  },
+  "by_tier": {
+   "1": 70,
+   "2": 234,
+   "3": 1154,
+   "4": 24,
+   "5": 313
+  },
+  "images": 1795,
+  "portraits": 2
+ }
+}
