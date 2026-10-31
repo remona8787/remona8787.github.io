@@ -1,31 +1,12 @@
 {
  "about": "Korea first: the live first-level divisions of South Korea (wd:Q884 p:P150 with ISO 3166-2 codes) and the region each maps to, the configured expectations compared with them, the Korean class instances per class, and the kr_region decision of every Korean project with the rule that made it.",
- "at": "2026-10-31T05:48:07.860Z",
- "class_instances": {
-  "Q110409771": 0,
-  "Q1136999": 0,
-  "Q115452528": 0,
-  "Q124414048": 0,
-  "Q126682939": 0,
-  "Q126682969": 0,
-  "Q1421557": 0,
-  "Q17158007": 0,
-  "Q1798004": 0,
-  "Q1823448": 0,
-  "Q2005487": 0,
-  "Q29885984": 0,
-  "Q378604": 0,
-  "Q4287692": 0,
-  "Q550484": 0,
-  "Q63442021": 0,
-  "Q776483": 0,
-  "Q926949": 0
- },
+ "at": "2026-10-31T12:37:54.956Z",
+ "class_instances": null,
  "class_query_example": "#aol:kr-class-instances Q17158007\nSELECT DISTINCT ?item WHERE {\n  ?item wdt:P31/wdt:P279* wd:Q17158007 .\n  { ?item wdt:P17 wd:Q884 . } UNION { ?item wdt:P131/wdt:P17 wd:Q884 . } UNION { ?item wdt:P131/wdt:P131/wdt:P17 wd:Q884 . } UNION { ?item wdt:P276/wdt:P17 wd:Q884 . }\n} LIMIT 2000",
  "country": {
   "expected": "South Korea",
-  "live_label": "South Korea",
-  "ok": true,
+  "live_label": null,
+  "ok": null,
   "purpose": "korea_country",
   "qid": "Q884"
  },
@@ -62,11 +43,20 @@
   },
   {
    "id": "Q12618343",
+   "matches": [
+    {
+     "region": "busan_ulsan_gyeongnam",
+     "token": "경상남도"
+    },
+    {
+     "region": "busan_ulsan_gyeongnam",
+     "token": "south gyeongsang"
+    }
+   ],
    "name": "진주남강유등축제",
    "qid": "Q12618343",
    "region": "busan_ulsan_gyeongnam",
-   "rule": "p131",
-   "via": "Q41151"
+   "rule": "p131_labels"
   },
   {
    "id": "Q12859650",
@@ -83,11 +73,20 @@
   },
   {
    "id": "Q15076316",
+   "matches": [
+    {
+     "region": "gyeonggi_incheon",
+     "token": "인천광역시"
+    },
+    {
+     "region": "gyeonggi_incheon",
+     "token": "incheon"
+    }
+   ],
    "name": "Tower Infinity",
    "qid": "Q15076316",
    "region": "gyeonggi_incheon",
-   "rule": "p131",
-   "via": "Q20934"
+   "rule": "p131_labels"
   },
   {
    "id": "Q3247002",
@@ -457,341 +456,8 @@
    "rule": "curated_seoul"
   }
  ],
- "divisions": {
-  "errors": [],
-  "expected": [
-   {
-    "expected_qid": "Q8684",
-    "live": "confirmed",
-    "name": "Seoul",
-    "region": "seoul",
-    "verified_by": "https://conceptnet.io/c/en/seoul (DBpedia-Wikidata resource Q8684)"
-   },
-   {
-    "expected_qid": "Q20937",
-    "live": "confirmed",
-    "name": "Gyeonggi",
-    "region": "gyeonggi_incheon",
-    "verified_by": "https://commons.wikimedia.org/wiki/Category:Gyeonggi-do (authority file Q20937)"
-   },
-   {
-    "expected_qid": "Q20934",
-    "live": "confirmed",
-    "name": "Incheon",
-    "region": "gyeonggi_incheon",
-    "verified_by": "https://www.wikidata.org/wiki/Q20934"
-   },
-   {
-    "expected_qid": "Q41071",
-    "live": "confirmed",
-    "name": "Gangwon",
-    "region": "gangwon",
-    "verified_by": "https://openhistoricalmap.org/relation/2741610/history (wikidata=Q41071, 강원도)"
-   },
-   {
-    "expected_qid": "Q20921",
-    "live": "confirmed",
-    "name": "Daejeon",
-    "region": "daejeon_sejong_chungcheong",
-    "verified_by": "https://commons.wikimedia.org/wiki/%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C (Wikidata Q20921)"
-   },
-   {
-    "expected_qid": "Q41066",
-    "live": "confirmed",
-    "name": "North Chungcheong",
-    "region": "daejeon_sejong_chungcheong",
-    "verified_by": "https://www.wikidata.org/wiki/Q41066"
-   },
-   {
-    "expected_qid": "Q41283",
-    "live": "confirmed",
-    "name": "Gwangju Metropolitan City",
-    "region": "gwangju_jeolla",
-    "verified_by": "https://www.wikidata.org/wiki/Q41283"
-   },
-   {
-    "expected_qid": "Q20927",
-    "live": "confirmed",
-    "name": "Daegu",
-    "region": "daegu_gyeongbuk",
-    "verified_by": "https://www.wikidata.org/wiki/Q20927"
-   },
-   {
-    "expected_qid": "Q41154",
-    "live": "confirmed",
-    "name": "North Gyeongsang",
-    "region": "daegu_gyeongbuk",
-    "verified_by": "https://www.wisski.uni-bayreuth.de/wisski/navigate/43593/view (http://www.wikidata.org/entity/Q41154)"
-   },
-   {
-    "expected_qid": "Q16520",
-    "live": "confirmed",
-    "name": "Busan",
-    "region": "busan_ulsan_gyeongnam",
-    "verified_by": "https://gateway.okhistory.org/explore/locations/p13513/ (Wikidata Q16520)"
-   },
-   {
-    "expected_qid": "Q41164",
-    "live": "confirmed",
-    "name": "Jeju",
-    "region": "jeju",
-    "verified_by": "https://www.wikidata.org/wiki/Q41164"
-   }
-  ],
-  "from": "live",
-  "list": [
-   {
-    "en": "Seoul",
-    "end": null,
-    "iso": "KR-11",
-    "ko": "서울특별시",
-    "qid": "Q8684",
-    "reason": "iso_3166_2",
-    "region": "seoul"
-   },
-   {
-    "en": "Busan",
-    "end": null,
-    "iso": "KR-26",
-    "ko": "부산광역시",
-    "qid": "Q16520",
-    "reason": "iso_3166_2",
-    "region": "busan_ulsan_gyeongnam"
-   },
-   {
-    "en": "Daegu",
-    "end": null,
-    "iso": "KR-27",
-    "ko": "대구광역시",
-    "qid": "Q20927",
-    "reason": "iso_3166_2",
-    "region": "daegu_gyeongbuk"
-   },
-   {
-    "en": "Incheon",
-    "end": null,
-    "iso": "KR-28",
-    "ko": "인천광역시",
-    "qid": "Q20934",
-    "reason": "iso_3166_2",
-    "region": "gyeonggi_incheon"
-   },
-   {
-    "en": "Gwangju",
-    "end": null,
-    "iso": "KR-29",
-    "ko": "광주광역시",
-    "qid": "Q41283",
-    "reason": "iso_3166_2",
-    "region": "gwangju_jeolla"
-   },
-   {
-    "en": "Daejeon",
-    "end": null,
-    "iso": "KR-30",
-    "ko": "대전광역시",
-    "qid": "Q20921",
-    "reason": "iso_3166_2",
-    "region": "daejeon_sejong_chungcheong"
-   },
-   {
-    "en": "Ulsan",
-    "end": null,
-    "iso": "KR-31",
-    "ko": "울산광역시",
-    "qid": "Q41278",
-    "reason": "iso_3166_2",
-    "region": "busan_ulsan_gyeongnam"
-   },
-   {
-    "en": "Gyeonggi Province",
-    "end": null,
-    "iso": "KR-41",
-    "ko": "경기도",
-    "qid": "Q20937",
-    "reason": "iso_3166_2",
-    "region": "gyeonggi_incheon"
-   },
-   {
-    "en": "Gangwon Province",
-    "end": null,
-    "iso": "KR-42",
-    "ko": "강원특별자치도",
-    "qid": "Q41071",
-    "reason": "iso_3166_2",
-    "region": "gangwon"
-   },
-   {
-    "en": "North Chungcheong",
-    "end": null,
-    "iso": "KR-43",
-    "ko": "충청북도",
-    "qid": "Q41066",
-    "reason": "iso_3166_2",
-    "region": "daejeon_sejong_chungcheong"
-   },
-   {
-    "en": "South Chungcheong",
-    "end": null,
-    "iso": "KR-44",
-    "ko": "충청남도",
-    "qid": "Q41070",
-    "reason": "iso_3166_2",
-    "region": "daejeon_sejong_chungcheong"
-   },
-   {
-    "en": "North Jeolla",
-    "end": null,
-    "iso": "KR-45",
-    "ko": "전북특별자치도",
-    "qid": "Q41157",
-    "reason": "iso_3166_2",
-    "region": "gwangju_jeolla"
-   },
-   {
-    "en": "South Jeolla",
-    "end": null,
-    "iso": "KR-46",
-    "ko": "전라남도",
-    "qid": "Q41161",
-    "reason": "iso_3166_2",
-    "region": "gwangju_jeolla"
-   },
-   {
-    "en": "North Gyeongsang",
-    "end": null,
-    "iso": "KR-47",
-    "ko": "경상북도",
-    "qid": "Q41154",
-    "reason": "iso_3166_2",
-    "region": "daegu_gyeongbuk"
-   },
-   {
-    "en": "South Gyeongsang",
-    "end": null,
-    "iso": "KR-48",
-    "ko": "경상남도",
-    "qid": "Q41151",
-    "reason": "iso_3166_2",
-    "region": "busan_ulsan_gyeongnam"
-   },
-   {
-    "en": "Jeju Province",
-    "end": null,
-    "iso": "KR-49",
-    "ko": "제주특별자치도",
-    "qid": "Q41164",
-    "reason": "iso_3166_2",
-    "region": "jeju"
-   },
-   {
-    "en": "Sejong",
-    "end": null,
-    "iso": "KR-50",
-    "ko": "세종특별자치시",
-    "qid": "Q20929",
-    "reason": "iso_3166_2",
-    "region": "daejeon_sejong_chungcheong"
-   }
-  ]
- },
- "probes": [
-  {
-   "configured_classes": [],
-   "en": "Seoul Lantern Festival",
-   "found_by": [
-    "wikidata_search",
-    "published"
-   ],
-   "ko": "서울빛초롱축제",
-   "located_kr": true,
-   "p131": [],
-   "p17": [
-    "Q884"
-   ],
-   "p31": [],
-   "qid": "Q12859650",
-   "title": "서울빛초롱축제"
-  },
-  {
-   "configured_classes": [],
-   "en": "Jinju Namgang Yudeung Festival",
-   "found_by": [
-    "wikidata_search",
-    "kowiki_search",
-    "published"
-   ],
-   "ko": "진주남강유등축제",
-   "located_kr": true,
-   "p131": [],
-   "p17": [
-    "Q884"
-   ],
-   "p31": [
-    "Q132241"
-   ],
-   "qid": "Q12618343",
-   "title": "진주남강유등축제"
-  },
-  {
-   "found_by": [],
-   "missing": true,
-   "qid": null,
-   "title": "보성차밭빛축제"
-  },
-  {
-   "found_by": [],
-   "missing": true,
-   "qid": null,
-   "title": "빛의 벙커"
-  },
-  {
-   "found_by": [],
-   "missing": true,
-   "qid": null,
-   "title": "아르떼뮤지엄"
-  },
-  {
-   "configured_classes": [],
-   "en": "Asian Culture Center",
-   "found_by": [],
-   "ko": "국립아시아문화전당",
-   "located_kr": true,
-   "p131": [
-    "Q50375"
-   ],
-   "p17": [
-    "Q884"
-   ],
-   "p31": [
-    "Q2659904",
-    "Q33506",
-    "Q207694",
-    "Q24354",
-    "Q117531692"
-   ],
-   "qid": "Q12585739",
-   "title": "국립아시아문화전당"
-  },
-  {
-   "configured_classes": [],
-   "en": "Pohang Space Walk",
-   "found_by": [],
-   "ko": "포항 스페이스워크",
-   "located_kr": true,
-   "p131": [
-    "Q42157"
-   ],
-   "p17": [
-    "Q884"
-   ],
-   "p31": [
-    "Q811979"
-   ],
-   "qid": "Q124021455",
-   "title": "포항 스페이스워크"
-  }
- ],
+ "divisions": null,
+ "probes": [],
  "regions": {
   "busan_ulsan_gyeongnam": 1,
   "daegu_gyeongbuk": 0,
@@ -804,240 +470,10 @@
  },
  "schema": 1,
  "search": {
-  "decisions": [
-   {
-    "accepted": false,
-    "name": "유등로",
-    "p31_labels": [
-     "road"
-    ],
-    "qid": "Q117431666",
-    "reasons": [
-     "not_a_place",
-     "no_place_event_or_work_class",
-     "label_match_not_work_or_event"
-    ],
-    "terms": [
-     "label:유등"
-    ]
-   },
-   {
-    "accepted": false,
-    "name": "유등면",
-    "p31_labels": [
-     "myeon"
-    ],
-    "qid": "Q12609732",
-    "reasons": [
-     "no_place_event_or_work_class",
-     "label_match_not_work_or_event"
-    ],
-    "terms": [
-     "label:유등"
-    ]
-   },
-   {
-    "accepted": true,
-    "name": "진주남강유등축제",
-    "p31_labels": [
-     "festival"
-    ],
-    "qid": "Q12618343",
-    "reasons": [],
-    "terms": [
-     "lantern festival",
-     "label:유등",
-     "label:등축제"
-    ]
-   },
-   {
-    "accepted": false,
-    "name": "서울빛초롱축제",
-    "p31_labels": [],
-    "qid": "Q12859650",
-    "reasons": [
-     "no_class_no_coordinates",
-     "not_a_place",
-     "no_place_event_or_work_class"
-    ],
-    "terms": [
-     "lantern festival",
-     "label:빛초롱"
-    ]
-   },
-   {
-    "accepted": false,
-    "name": "벨벳톡",
-    "p31_labels": [
-     "website"
-    ],
-    "qid": "Q140384772",
-    "reasons": [
-     "excluded_class:website",
-     "not_a_place",
-     "no_place_event_or_work_class"
-    ],
-    "terms": [
-     "몰입형"
-    ]
-   },
-   {
-    "accepted": false,
-    "name": "여수 연등동 벅수",
-    "p31_labels": [
-     "cultural heritage"
-    ],
-    "qid": "Q19349631",
-    "reasons": [
-     "not_a_place",
-     "no_place_event_or_work_class",
-     "label_match_not_work_or_event"
-    ],
-    "terms": [
-     "label:연등"
-    ]
-   },
-   {
-    "accepted": false,
-    "name": "유등초등학교",
-    "p31_labels": [
-     "primary school"
-    ],
-    "qid": "Q19657389",
-    "reasons": [
-     "no_place_event_or_work_class",
-     "label_match_not_work_or_event"
-    ],
-    "terms": [
-     "label:유등"
-    ]
-   },
-   {
-    "accepted": false,
-    "name": "송도달빛축제공원역",
-    "p31_labels": [
-     "metro station",
-     "terminus",
-     "underground station"
-    ],
-    "qid": "Q31178299",
-    "reasons": [
-     "label_match_not_work_or_event"
-    ],
-    "terms": [
-     "label:빛축제"
-    ]
-   },
-   {
-    "accepted": false,
-    "name": "부산 연등사 영산회상도",
-    "p31_labels": [
-     "cultural heritage"
-    ],
-    "qid": "Q55730415",
-    "reasons": [
-     "not_a_place",
-     "no_place_event_or_work_class",
-     "label_match_not_work_or_event"
-    ],
-    "terms": [
-     "label:연등"
-    ]
-   },
-   {
-    "accepted": false,
-    "name": "부산 연등사 석조지장보살좌상",
-    "p31_labels": [
-     "cultural heritage"
-    ],
-    "qid": "Q61093278",
-    "reasons": [
-     "not_a_place",
-     "no_place_event_or_work_class",
-     "label_match_not_work_or_event"
-    ],
-    "terms": [
-     "label:연등"
-    ]
-   },
-   {
-    "accepted": true,
-    "name": "연등회",
-    "p31_labels": [
-     "festival"
-    ],
-    "qid": "Q625724",
-    "reasons": [],
-    "terms": [
-     "lantern festival",
-     "label:연등"
-    ]
-   },
-   {
-    "accepted": false,
-    "name": "부산 연등사 석가영산회상도",
-    "p31_labels": [
-     "cultural heritage"
-    ],
-    "qid": "Q65255554",
-    "reasons": [
-     "not_a_place",
-     "no_place_event_or_work_class",
-     "label_match_not_work_or_event"
-    ],
-    "terms": [
-     "label:연등"
-    ]
-   }
-  ],
+  "decisions": [],
   "errors": [],
-  "items": 12,
-  "label_scan": {
-   "by_term": {
-    "등축제": 1,
-    "라이트쇼": 0,
-    "루미나리에": 0,
-    "미디어 아트": 0,
-    "미디어 파사드": 0,
-    "미디어아트": 0,
-    "미디어파사드": 0,
-    "불빛축제": 0,
-    "빛 축제": 0,
-    "빛의 벙커": 0,
-    "빛초롱": 1,
-    "빛축제": 1,
-    "아르떼뮤지엄": 0,
-    "연등": 5,
-    "유등": 4,
-    "프로젝션 매핑": 0,
-    "프로젝션매핑": 0
-   },
-   "limit": 500,
-   "new_items": 8,
-   "rows": 11,
-   "truncated": false
-  },
-  "terms": {
-   "lantern festival": 3,
-   "light festival": 0,
-   "media art": 0,
-   "media facade": 0,
-   "라이트쇼": 0,
-   "루미나리에": 0,
-   "몰입형": 1,
-   "미디어 아트": 0,
-   "미디어 파사드": 0,
-   "미디어아트": 0,
-   "미디어파사드": 0,
-   "불빛축제": 0,
-   "빛 축제": 0,
-   "빛의 벙커": 0,
-   "빛초롱": 0,
-   "빛축제": 0,
-   "아르떼뮤지엄": 0,
-   "야간경관": 0,
-   "유등축제": 0,
-   "프로젝션 매핑": 0
-  }
+  "items": 0,
+  "label_scan": null,
+  "terms": {}
  }
 }

@@ -1,171 +1,10 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 32,
-  "examples": [
-   {
-    "id": "img-5316fc6c0662",
-    "project": "CAT-0XKXRFR",
-    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743)"
-   },
-   {
-    "id": "img-accef38fed0b",
-    "project": "CAT-0XKXRFR",
-    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616298835)"
-   },
-   {
-    "id": "img-2bcdea479dc4",
-    "project": "CAT-0XKXRFR",
-    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616297171)"
-   },
-   {
-    "id": "img-2b43da2c9620",
-    "project": "CAT-0XKXRFR",
-    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616295419)"
-   },
-   {
-    "id": "img-fb05890d3205",
-    "project": "CAT-0XKXRFR",
-    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616293831)"
-   },
-   {
-    "id": "img-73b1df9d1c17",
-    "project": "CAT-0XKXRFR",
-    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616283251)"
-   },
-   {
-    "id": "img-d276c78924d4",
-    "project": "CAT-0XKXRFR",
-    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616300403)"
-   },
-   {
-    "id": "img-fe9d3f6dbbd3",
-    "project": "CAT-0XKXRFR",
-    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616302003)"
-   },
-   {
-    "id": "img-c4c7f141e671",
-    "project": "CAT-0XKXRFR",
-    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616303563)"
-   },
-   {
-    "id": "img-900953b066ab",
-    "project": "CAT-0XKXRFR",
-    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616306299)"
-   },
-   {
-    "id": "img-0c7f8e9be310",
-    "project": "CAT-0XKXRFR",
-    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616307767)"
-   },
-   {
-    "id": "img-470dae73cb82",
-    "project": "CAT-0XKXRFR",
-    "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616869484)"
-   },
-   {
-    "id": "img-5c87eee4b67c",
-    "project": "Q101435284",
-    "title": "Van Gogh Fietspad"
-   },
-   {
-    "id": "img-93d6d7365408",
-    "project": "Q114669123",
-    "title": "OdeAanRembrandtWolkers2017"
-   },
-   {
-    "id": "img-5900669e1644",
-    "project": "Q114669123",
-    "title": "Leiden169"
-   },
-   {
-    "id": "img-fb283087b318",
-    "project": "Q114669123",
-    "title": "Leiden - Light sculpture by Jan Wolkers"
-   },
-   {
-    "id": "img-563e971045c3",
-    "project": "Q114669123",
-    "title": "Ode aan Rembrandt"
-   },
-   {
-    "id": "img-5474c22540bf",
-    "project": "Q114669123",
-    "title": "Leiden153"
-   },
-   {
-    "id": "img-5e06f483562a",
-    "project": "Q114669123",
-    "title": "Ode aan Rembrandt, Leiden"
-   },
-   {
-    "id": "img-b4cc12401b8a",
-    "project": "Q130070499",
-    "title": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 01"
-   },
-   {
-    "id": "img-6dfffac7b82c",
-    "project": "Q130070499",
-    "title": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 03"
-   },
-   {
-    "id": "img-aa96a2337b28",
-    "project": "Q130070499",
-    "title": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 02"
-   },
-   {
-    "id": "img-009cebfae702",
-    "project": "Q54856189",
-    "title": "Giny Vos - Lust for Life - 1999"
-   },
-   {
-    "id": "img-ffd8b623e652",
-    "project": "Q54856189",
-    "title": "Naturalis Biodiversity Center - Museum - Exterior 01 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999"
-   },
-   {
-    "id": "img-3ed64e0efcc5",
-    "project": "Q54856189",
-    "title": "Naturalis Biodiversity Center - Museum - Exterior 02 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999"
-   },
-   {
-    "id": "img-850d32ae3136",
-    "project": "Q54856189",
-    "title": "Naturalis Biodiversity Center - Museum - Exterior 04 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999"
-   },
-   {
-    "id": "img-72936eb32102",
-    "project": "Q54856189",
-    "title": "Naturalis Biodiversity Center - Museum - Garden 02 - Artworks along the Plesmanweg, Leiden museum collection building with tower"
-   },
-   {
-    "id": "img-4dda36ea4f36",
-    "project": "Q54856189",
-    "title": "Naturalis Biodiversity Center - Museum - Exterior 05 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999"
-   },
-   {
-    "id": "img-7237cd122ad3",
-    "project": "Q54856189",
-    "title": "Naturalis Biodiversity Center - Museum - Exterior 09 - Collection Tower with artwork Lust for Life by Giny Vos, 1999"
-   },
-   {
-    "id": "img-edfe1953dae8",
-    "project": "Q61473821",
-    "title": "Zwolle JvM 02"
-   },
-   {
-    "id": "img-cdaec9fe3daf",
-    "project": "Q61473821",
-    "title": "Zwolle JvM 01"
-   },
-   {
-    "id": "img-cda95f841930",
-    "project": "Q61473821",
-    "title": "Zwolle station 1"
-   }
-  ]
+  "count": 0,
+  "examples": []
  },
- "at": "2026-10-31T05:48:07.860Z",
+ "at": "2026-10-31T12:37:54.956Z",
  "cards": {
   "all": {
    "projects": 395,
@@ -1359,7 +1198,7 @@
    "kr": false,
    "kr_region": null,
    "name": "Elixir by Moment Factory",
-   "previous_images": 0,
+   "previous_images": 12,
    "status": "scored",
    "valid_card": true
   },
@@ -1853,7 +1692,7 @@
    "kr": false,
    "kr_region": null,
    "name": "Van Gogh bicycle path",
-   "previous_images": 0,
+   "previous_images": 1,
    "status": "scored",
    "valid_card": true
   },
@@ -2139,7 +1978,7 @@
    "kr": false,
    "kr_region": null,
    "name": "Ode to Rembrandt",
-   "previous_images": 0,
+   "previous_images": 6,
    "status": "scored",
    "valid_card": true
   },
@@ -3270,7 +3109,7 @@
    "kr": false,
    "kr_region": null,
    "name": "Swirl",
-   "previous_images": 0,
+   "previous_images": 3,
    "status": "scored",
    "valid_card": true
   },
@@ -4934,7 +4773,7 @@
    "kr": false,
    "kr_region": null,
    "name": "Lust for Life",
-   "previous_images": 0,
+   "previous_images": 7,
    "status": "scored",
    "valid_card": true
   },
@@ -4986,7 +4825,7 @@
    "kr": false,
    "kr_region": null,
    "name": "Energiesculptuur",
-   "previous_images": 0,
+   "previous_images": 3,
    "status": "scored",
    "valid_card": true
   },
@@ -6845,11 +6684,11 @@
   "low_res_rejected": 44,
   "mislinked_rejected": 49,
   "mislinked_removed": 0,
-  "newly_added_valid": 32,
+  "newly_added_valid": 0,
   "person_rejected": 257,
   "person_removed": 0,
   "portraits": 2,
-  "previous_images": 1763,
+  "previous_images": 1795,
   "rechecked_kept": 53,
   "relevance_verified": 1742,
   "removed_total": 0

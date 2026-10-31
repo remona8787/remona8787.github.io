@@ -1,6 +1,6 @@
 {
  "about": "Per project: every image candidate (Commons and the other providers) with rights, identity, keyword evidence, visual and quality measurements, tier, approval, the hero and featured decisions and the near-duplicates removed.",
- "at": "2026-10-31T05:48:07.860Z",
+ "at": "2026-10-31T12:37:54.956Z",
  "projects": [
   {
    "candidates": [
@@ -38491,6 +38491,88 @@
       "method": "commons_category_or_item",
       "ok": true
      },
+     "key": "Van Gogh Fietspad.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 23,
+      "decoded": {
+       "bytes": 106830,
+       "format": "jpeg",
+       "height": 640,
+       "width": 960
+      },
+      "laplacian_var": 568.3,
+      "measured_width": 960,
+      "phash": "d8f0b0b0fcf8f0f0",
+      "sharpness": 87
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "p18",
+     "tier": 5,
+     "title": "Van Gogh Fietspad · Van Gogh Fietspad · picture wikilink: https://en.wikipedia.org/wiki/Daan_Roosegaarde",
+     "visual": {
+      "bright_share": 0.0045,
+      "colourfulness": 31.03,
+      "dark_share": 0.839,
+      "height": 213,
+      "mean_luminance": 0.1092,
+      "saturated_bright": 0.0151,
+      "visual": 28,
+      "width": 320
+     },
+     "width": 5000
+    }
+   ],
+   "card": "Van Gogh Fietspad.jpg",
+   "country_iso2": "NL",
+   "duplicates": [],
+   "featured": null,
+   "featured_decisions": [],
+   "hero": null,
+   "hero_decisions": [],
+   "name": "Van Gogh bicycle path",
+   "project": "Q101435284",
+   "providers": [
+    {
+     "id": "img-5417bb88b0d0",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "name_not_found",
+       "no_geotag"
+      ]
+     },
+     "license": "CC BY-SA 2.0",
+     "ok": false,
+     "page": "https://www.flickr.com/photos/122687277@N03/54448103394",
+     "provider": "openverse",
+     "reasons": [
+      "identity_unproven"
+     ],
+     "source_id": "766ae90a-2643-4011-bf12-46f9f1f4acc3",
+     "src": "https://live.staticflickr.com/65535/54448103394_e333fe8d2f_b.jpg",
+     "title": "T-intersection of off-road bicycle paths near Vue Van Gogh in Paris, France"
+    }
+   ],
+   "type": "light_art"
+  },
+  {
+   "candidates": [
+    {
+     "approved": null,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
      "key": "Praha Stare Mesto Na prikope 19 Myslbek lustr.jpg",
      "kind": "project_media",
      "media": 40,
@@ -42545,6 +42627,352 @@
      "title": "1994 02 12 De vijf Klaprozen"
     }
    ],
+   "type": "light_art"
+  },
+  {
+   "candidates": [
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Leiden - Light sculpture by Jan Wolkers.jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [
+      "light sculpture"
+     ],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "p18",
+     "tier": 3,
+     "title": "Leiden   Light sculpture by Jan Wolkers · Leiden - Light sculpture by Jan Wolkers · Light sculpture by Jan Wolkers: Ode to Rembrandt. Stationsplein, Leiden (The",
+     "visual": {
+      "bright_share": 0.0355,
+      "colourfulness": 54.65,
+      "dark_share": 0.0438,
+      "height": 427,
+      "mean_luminance": 0.4717,
+      "saturated_bright": 0.3787,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 2112
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Leiden153.JPG",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Leiden153 · Leiden153 · Sculpture by Jan Wolkers, Stationsplein, Leiden (The Netherlands). \"Ode to Rembrandt\". Moved to Bargelaan (other side of Leiden railway ",
+     "visual": {
+      "bright_share": 0.0065,
+      "colourfulness": 16.73,
+      "dark_share": 0.938,
+      "height": 427,
+      "mean_luminance": 0.0742,
+      "saturated_bright": 0.0097,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 2112
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Leiden169.JPG",
+     "kind": "project_media",
+     "media": 100,
+     "media_terms": [
+      "light art",
+      "light sculpture"
+     ],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 2,
+      "decoded": {
+       "bytes": 254373,
+       "format": "jpeg",
+       "height": 720,
+       "width": 960
+      },
+      "laplacian_var": 3472,
+      "measured_width": 960,
+      "phash": "e6676d6028b1f27e",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Leiden169 · Leiden169 · Plate near light sculpture by Jan Wolkers: Ode to Rembrandt. Stationsplein, Leiden (The Netherlands)",
+     "visual": {
+      "bright_share": 0.1166,
+      "colourfulness": 17.16,
+      "dark_share": 0.0372,
+      "height": 240,
+      "mean_luminance": 0.4872,
+      "saturated_bright": 0.0002,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 2816
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Ode aan Rembrandt, Leiden.JPG",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Ode aan Rembrandt, Leiden · Ode aan Rembrandt, Leiden · Werk: Ode aan Rembrandt; Kunstenaar: Jan Wolkers; Jaar: 2005; Straat: Stationsplein; Materiaal: Aluminiu",
+     "visual": {
+      "bright_share": 0.2125,
+      "colourfulness": 8.04,
+      "dark_share": 0.4547,
+      "height": 427,
+      "mean_luminance": 0.3579,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 960
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Ode aan Rembrandt.JPG",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 6,
+      "decoded": {
+       "bytes": 157345,
+       "format": "jpeg",
+       "height": 720,
+       "width": 960
+      },
+      "laplacian_var": 2338.9,
+      "measured_width": 960,
+      "phash": "1ede1f13d4ccd0d0",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Ode aan Rembrandt · Ode aan Rembrandt · Kunstwerk Ode aan Rembrandt; Kunstenaar: Jan Wolkers; Jaar: 2005; Straat: Bargelaan, Leiden; Materiaal: Aluminium en gla",
+     "visual": {
+      "bright_share": 0.3444,
+      "colourfulness": 46.25,
+      "dark_share": 0.1506,
+      "height": 240,
+      "mean_luminance": 0.4861,
+      "saturated_bright": 0.006,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 5184
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "own_category_of_light_work"
+     ],
+     "home_ok": true,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "OdeAanRembrandtWolkers2017.jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 39,
+      "decoded": {
+       "bytes": 129591,
+       "format": "jpeg",
+       "height": 1440,
+       "width": 960
+      },
+      "laplacian_var": 198.4,
+      "measured_width": 960,
+      "phash": "d0f8e5e5ece5f31b",
+      "sharpness": 72
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 2,
+     "title": "OdeAanRembrandtWolkers2017 · OdeAanRembrandtWolkers2017 · Ode to Rembrandt, sculpture by Jan Wolkers in Leiden",
+     "visual": {
+      "bright_share": 0.0245,
+      "colourfulness": 73.87,
+      "dark_share": 0.6164,
+      "height": 480,
+      "mean_luminance": 0.2063,
+      "saturated_bright": 0.2098,
+      "visual": 81,
+      "width": 320
+     },
+     "width": 3648
+    }
+   ],
+   "card": "OdeAanRembrandtWolkers2017.jpg",
+   "country_iso2": "NL",
+   "duplicates": [],
+   "featured": null,
+   "featured_decisions": [
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "OdeAanRembrandtWolkers2017.jpg",
+     "provider": "commons",
+     "reasons": [
+      "compression_artefacts"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Leiden169.JPG",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Leiden - Light sculpture by Jan Wolkers.jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Ode aan Rembrandt.JPG",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Leiden153.JPG",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Ode aan Rembrandt, Leiden.JPG",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "original_too_small",
+      "quality_not_measured"
+     ]
+    }
+   ],
+   "hero": null,
+   "hero_decisions": [
+    {
+     "allowlisted": false,
+     "below_target": false,
+     "file": "OdeAanRembrandtWolkers2017.jpg",
+     "hero_candidate": false,
+     "key": "OdeAanRembrandtWolkers2017.jpg",
+     "provider": "commons",
+     "reasons": [
+      "compression_artefacts"
+     ]
+    }
+   ],
+   "name": "Ode to Rembrandt",
+   "project": "Q114669123",
+   "providers": [],
    "type": "light_art"
   },
   {
@@ -50842,6 +51270,187 @@
      "title": "The Arch of Augustus, a city gate in the form of a triumphal arch with three vaults, the entrance to the city of Colonia Julia Fanestris by the via Flaminia, Fano, Italy"
     }
    ],
+   "type": "light_art"
+  },
+  {
+   "candidates": [
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": true,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 01.jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 7,
+      "decoded": {
+       "bytes": 312065,
+       "format": "jpeg",
+       "height": 1280,
+       "width": 960
+      },
+      "laplacian_var": 1865.7,
+      "measured_width": 960,
+      "phash": "3a18d61615b56959",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Nicky Assmann   Wervel   Turmoil (2019) at Forum Groningen in 2026 01 · Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 01 · Nicky Assmann - ",
+     "visual": {
+      "bright_share": 0.011,
+      "colourfulness": 75.17,
+      "dark_share": 0.2638,
+      "height": 427,
+      "mean_luminance": 0.3063,
+      "saturated_bright": 0.1245,
+      "visual": 48,
+      "width": 320
+     },
+     "width": 4284
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": true,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 02.jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 4,
+      "decoded": {
+       "bytes": 235862,
+       "format": "jpeg",
+       "height": 720,
+       "width": 960
+      },
+      "laplacian_var": 5659.1,
+      "measured_width": 960,
+      "phash": "740596164a7348ce",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Nicky Assmann   Wervel   Turmoil (2019) at Forum Groningen in 2026 02 · Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 02 · Nicky Assmann - ",
+     "visual": {
+      "bright_share": 0.0322,
+      "colourfulness": 37.82,
+      "dark_share": 0.3496,
+      "height": 240,
+      "mean_luminance": 0.2776,
+      "saturated_bright": 0.0271,
+      "visual": 23,
+      "width": 320
+     },
+     "width": 5712
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": true,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 03.jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 7,
+      "decoded": {
+       "bytes": 219272,
+       "format": "jpeg",
+       "height": 720,
+       "width": 960
+      },
+      "laplacian_var": 4149.1,
+      "measured_width": 960,
+      "phash": "3e7e7e2c5af98f59",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Nicky Assmann   Wervel   Turmoil (2019) at Forum Groningen in 2026 03 · Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 03 · Nicky Assmann - ",
+     "visual": {
+      "bright_share": 0.0206,
+      "colourfulness": 40.79,
+      "dark_share": 0.3272,
+      "height": 240,
+      "mean_luminance": 0.2692,
+      "saturated_bright": 0.0346,
+      "visual": 27,
+      "width": 320
+     },
+     "width": 5712
+    }
+   ],
+   "card": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 01.jpg",
+   "country_iso2": "NL",
+   "duplicates": [],
+   "featured": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 01.jpg",
+   "featured_decisions": [
+    {
+     "awaiting_review": false,
+     "featured_candidate": true,
+     "key": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 01.jpg",
+     "provider": "commons",
+     "reasons": []
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": true,
+     "key": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 03.jpg",
+     "provider": "commons",
+     "reasons": []
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": true,
+     "key": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 02.jpg",
+     "provider": "commons",
+     "reasons": []
+    }
+   ],
+   "hero": null,
+   "hero_decisions": [],
+   "name": "Swirl",
+   "project": "Q130070499",
+   "providers": [],
    "type": "light_art"
   },
   {
@@ -60327,6 +60936,556 @@
      "title": "sudan - the black pharaohs"
     }
    ],
+   "type": "light_art"
+  },
+  {
+   "candidates": [
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Naturalis Biodiversity Center - Museum - Exterior 09 - Collection Tower with artwork Lust for Life by Giny Vos, 1999.jpg",
+     "kind": "project_installation",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "p18",
+     "tier": 4,
+     "title": "Naturalis Biodiversity Center   Museum   Exterior 09   Collection Tower with artwork Lust for Life by Giny Vos, 1999 · Naturalis Biodiversity Center - Museum - ",
+     "visual": null,
+     "width": 3648
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Giny Vos - Lust for Life - 1999.JPG",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 9,
+      "decoded": {
+       "bytes": 120825,
+       "format": "jpeg",
+       "height": 640,
+       "width": 960
+      },
+      "laplacian_var": 1036.3,
+      "measured_width": 960,
+      "phash": "0c8c0e0f0f0f0e4e",
+      "sharpness": 95
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Giny Vos   Lust for Life   1999 · Giny Vos - Lust for Life - 1999 · Giny Vos - Lust for Life - 1999, op toren Naturalis, Darwinweg in Leiden (voorstellende de o",
+     "visual": {
+      "bright_share": 0.4012,
+      "colourfulness": 39.74,
+      "dark_share": 0.0419,
+      "height": 213,
+      "mean_luminance": 0.569,
+      "saturated_bright": 0.0038,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 5184
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Naturalis Biodiversity Center - Museum - Exterior 01 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 5,
+      "decoded": {
+       "bytes": 151557,
+       "format": "jpeg",
+       "height": 640,
+       "width": 960
+      },
+      "laplacian_var": 2842.7,
+      "measured_width": 960,
+      "phash": "0081f9f965613b9b",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Naturalis Biodiversity Center   Museum   Exterior 01   Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999 · Naturali",
+     "visual": {
+      "bright_share": 0.3291,
+      "colourfulness": 22.64,
+      "dark_share": 0.2036,
+      "height": 213,
+      "mean_luminance": 0.5066,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 4576
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Naturalis Biodiversity Center - Museum - Exterior 02 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 4,
+      "decoded": {
+       "bytes": 184778,
+       "format": "jpeg",
+       "height": 640,
+       "width": 960
+      },
+      "laplacian_var": 3422.6,
+      "measured_width": 960,
+      "phash": "0d33260c5b232f1c",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Naturalis Biodiversity Center   Museum   Exterior 02   Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999 · Naturali",
+     "visual": {
+      "bright_share": 0.1126,
+      "colourfulness": 34.95,
+      "dark_share": 0.1942,
+      "height": 213,
+      "mean_luminance": 0.4302,
+      "saturated_bright": 0.0006,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 4576
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Naturalis Biodiversity Center - Museum - Exterior 04 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Naturalis Biodiversity Center   Museum   Exterior 04   Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999 · Naturali",
+     "visual": {
+      "bright_share": 0.387,
+      "colourfulness": 21.76,
+      "dark_share": 0.1416,
+      "height": 213,
+      "mean_luminance": 0.5329,
+      "saturated_bright": 0.0002,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 4325
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Naturalis Biodiversity Center - Museum - Exterior 05 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Naturalis Biodiversity Center   Museum   Exterior 05   Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999 · Naturali",
+     "visual": {
+      "bright_share": 0.1218,
+      "colourfulness": 41.72,
+      "dark_share": 0.2207,
+      "height": 480,
+      "mean_luminance": 0.4561,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 1365
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Naturalis Biodiversity Center - Museum - Garden 02 - Artworks along the Plesmanweg, Leiden museum collection building with tower.jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Naturalis Biodiversity Center   Museum   Garden 02   Artworks along the Plesmanweg, Leiden museum collection building with tower · Naturalis Biodiversity Center",
+     "visual": {
+      "bright_share": 0.3556,
+      "colourfulness": 37.33,
+      "dark_share": 0.299,
+      "height": 213,
+      "mean_luminance": 0.4549,
+      "saturated_bright": 0.0127,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 4232
+    }
+   ],
+   "card": "Giny Vos - Lust for Life - 1999.JPG",
+   "country_iso2": "NL",
+   "duplicates": [],
+   "featured": null,
+   "featured_decisions": [
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Giny Vos - Lust for Life - 1999.JPG",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Naturalis Biodiversity Center - Museum - Exterior 01 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Naturalis Biodiversity Center - Museum - Exterior 02 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Naturalis Biodiversity Center - Museum - Exterior 04 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Naturalis Biodiversity Center - Museum - Garden 02 - Artworks along the Plesmanweg, Leiden museum collection building with tower.jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Naturalis Biodiversity Center - Museum - Exterior 05 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "original_too_small",
+      "quality_not_measured"
+     ]
+    }
+   ],
+   "hero": null,
+   "hero_decisions": [],
+   "name": "Lust for Life",
+   "project": "Q54856189",
+   "providers": [],
+   "type": "light_art"
+  },
+  {
+   "candidates": [
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Zwolle JvM 01.JPG",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [
+      "light sculpture"
+     ],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 7,
+      "decoded": {
+       "bytes": 155253,
+       "format": "jpeg",
+       "height": 720,
+       "width": 960
+      },
+      "laplacian_var": 2220.4,
+      "measured_width": 960,
+      "phash": "cc8e2f292a2a2828",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "p18",
+     "tier": 3,
+     "title": "Zwolle JvM 01 · Zwolle JvM 01 · light sculpture Energiesculptuur (1989) by Jan van Munster in Zwolle The Netherlands",
+     "visual": {
+      "bright_share": 0.2659,
+      "colourfulness": 31.42,
+      "dark_share": 0.0147,
+      "height": 240,
+      "mean_luminance": 0.584,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 2816
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Zwolle JvM 02.JPG",
+     "kind": "project_media",
+     "media": 80,
+     "media_terms": [
+      "light sculpture"
+     ],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 14,
+      "decoded": {
+       "bytes": 152547,
+       "format": "jpeg",
+       "height": 720,
+       "width": 960
+      },
+      "laplacian_var": 1090.9,
+      "measured_width": 960,
+      "phash": "0f1ad68408062d8d",
+      "sharpness": 96
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Zwolle JvM 02 · Zwolle JvM 02 · light sculpture Energiesculptuur (1989) by Jan van Munster in Zwolle/The Netherlands",
+     "visual": {
+      "bright_share": 0.1626,
+      "colourfulness": 19.38,
+      "dark_share": 0.0035,
+      "height": 240,
+      "mean_luminance": 0.5698,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 2816
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Zwolle station 1.jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 13,
+      "decoded": {
+       "bytes": 121654,
+       "format": "jpeg",
+       "height": 640,
+       "width": 960
+      },
+      "laplacian_var": 933.8,
+      "measured_width": 960,
+      "phash": "1f61d89999dd183e",
+      "sharpness": 94
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Zwolle station 1 · Zwolle station 1 · Zwolle train station",
+     "visual": {
+      "bright_share": 0.1068,
+      "colourfulness": 15.07,
+      "dark_share": 0.1034,
+      "height": 213,
+      "mean_luminance": 0.4483,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 1600
+    }
+   ],
+   "card": "Zwolle JvM 02.JPG",
+   "country_iso2": "NL",
+   "duplicates": [],
+   "featured": null,
+   "featured_decisions": [
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Zwolle JvM 02.JPG",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Zwolle JvM 01.JPG",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Zwolle station 1.jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok"
+     ]
+    }
+   ],
+   "hero": null,
+   "hero_decisions": [],
+   "name": "Energiesculptuur",
+   "project": "Q61473821",
+   "providers": [],
    "type": "light_art"
   },
   {
@@ -69876,6 +71035,728 @@
    ],
    "name": "Neons Parallax",
    "project": "CAT-0T9MVFP",
+   "providers": [],
+   "type": "light_art"
+  },
+  {
+   "candidates": [
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616283251).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616283251) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": {
+      "bright_share": 0.0593,
+      "colourfulness": 23.79,
+      "dark_share": 0.7037,
+      "height": 240,
+      "mean_luminance": 0.1838,
+      "saturated_bright": 0.0107,
+      "visual": 19,
+      "width": 320
+     },
+     "width": 4320
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": true,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 22,
+      "decoded": {
+       "bytes": 144012,
+       "format": "jpeg",
+       "height": 720,
+       "width": 960
+      },
+      "laplacian_var": 273,
+      "measured_width": 960,
+      "phash": "5f5794d6d88c0f1d",
+      "sharpness": 77
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 2,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": {
+      "bright_share": 0.0065,
+      "colourfulness": 78.05,
+      "dark_share": 0.7957,
+      "height": 240,
+      "mean_luminance": 0.1251,
+      "saturated_bright": 0.1582,
+      "visual": 100,
+      "width": 320
+     },
+     "width": 4320
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616293831).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616293831) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": {
+      "bright_share": 0.0332,
+      "colourfulness": 29.01,
+      "dark_share": 0.776,
+      "height": 240,
+      "mean_luminance": 0.1421,
+      "saturated_bright": 0.0179,
+      "visual": 28,
+      "width": 320
+     },
+     "width": 4320
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": true,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616295419).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616295419) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": {
+      "bright_share": 0.0115,
+      "colourfulness": 35.44,
+      "dark_share": 0.8658,
+      "height": 240,
+      "mean_luminance": 0.0876,
+      "saturated_bright": 0.0265,
+      "visual": 37,
+      "width": 320
+     },
+     "width": 4320
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": true,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616297171).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 24,
+      "decoded": {
+       "bytes": 133394,
+       "format": "jpeg",
+       "height": 720,
+       "width": 960
+      },
+      "laplacian_var": 344.6,
+      "measured_width": 960,
+      "phash": "6464e3e6e4c6c6e3",
+      "sharpness": 80
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 2,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616297171) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": {
+      "bright_share": 0.027,
+      "colourfulness": 72.14,
+      "dark_share": 0.6918,
+      "height": 240,
+      "mean_luminance": 0.1812,
+      "saturated_bright": 0.1601,
+      "visual": 90,
+      "width": 320
+     },
+     "width": 4320
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": true,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616298835).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 26,
+      "decoded": {
+       "bytes": 136508,
+       "format": "jpeg",
+       "height": 720,
+       "width": 960
+      },
+      "laplacian_var": 209.8,
+      "measured_width": 960,
+      "phash": "8397969a92020282",
+      "sharpness": 73
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 2,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616298835) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": {
+      "bright_share": 0.0191,
+      "colourfulness": 94.57,
+      "dark_share": 0.6945,
+      "height": 240,
+      "mean_luminance": 0.1773,
+      "saturated_bright": 0.256,
+      "visual": 91,
+      "width": 320
+     },
+     "width": 4320
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616300403).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616300403) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": null,
+     "width": 4320
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616302003).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616302003) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": null,
+     "width": 4320
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616303563).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616303563) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": null,
+     "width": 4320
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616306299).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616306299) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": null,
+     "width": 4320
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616307767).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616307767) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": null,
+     "width": 4320
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616869484).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616869484) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": null,
+     "width": 4320
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616871142).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616871142) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": null,
+     "width": 4320
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616874568).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616874568) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": null,
+     "width": 4320
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616876086).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616876086) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": null,
+     "width": 4320
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616888914).jpg",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616888914) · Montréal, Place des festivals, animation Élixir de Moment Fa",
+     "visual": null,
+     "width": 3240
+    }
+   ],
+   "card": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743).jpg",
+   "country_iso2": "CA",
+   "duplicates": [],
+   "featured": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743).jpg",
+   "featured_decisions": [
+    {
+     "awaiting_review": false,
+     "featured_candidate": true,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743).jpg",
+     "provider": "commons",
+     "reasons": []
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": true,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616298835).jpg",
+     "provider": "commons",
+     "reasons": []
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": true,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616297171).jpg",
+     "provider": "commons",
+     "reasons": []
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616295419).jpg",
+     "provider": "commons",
+     "reasons": [
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616293831).jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616283251).jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616300403).jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616302003).jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616303563).jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616306299).jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616307767).jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616869484).jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616871142).jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616874568).jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616876086).jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616888914).jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    }
+   ],
+   "hero": null,
+   "hero_decisions": [
+    {
+     "allowlisted": false,
+     "below_target": false,
+     "file": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743).jpg",
+     "hero_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743).jpg",
+     "provider": "commons",
+     "reasons": [
+      "compression_artefacts"
+     ]
+    },
+    {
+     "allowlisted": false,
+     "below_target": false,
+     "file": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616298835).jpg",
+     "hero_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616298835).jpg",
+     "provider": "commons",
+     "reasons": [
+      "compression_artefacts"
+     ]
+    },
+    {
+     "allowlisted": false,
+     "below_target": false,
+     "file": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616297171).jpg",
+     "hero_candidate": false,
+     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616297171).jpg",
+     "provider": "commons",
+     "reasons": [
+      "compression_artefacts"
+     ]
+    }
+   ],
+   "name": "Elixir by Moment Factory",
+   "project": "CAT-0XKXRFR",
    "providers": [],
    "type": "light_art"
   },
@@ -115670,1887 +117551,6 @@
    "project": "Q139502938",
    "providers": [],
    "type": "interactive_installation"
-  },
-  {
-   "candidates": [
-    {
-     "approved": null,
-     "evidence": [],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Van Gogh Fietspad.jpg",
-     "kind": "architecture_context",
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 23,
-      "decoded": {
-       "bytes": 106830,
-       "format": "jpeg",
-       "height": 640,
-       "width": 960
-      },
-      "laplacian_var": 568.3,
-      "measured_width": 960,
-      "phash": "d8f0b0b0fcf8f0f0",
-      "sharpness": 87
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "p18",
-     "tier": 5,
-     "title": "Van Gogh Fietspad · Van Gogh Fietspad · picture wikilink: https://en.wikipedia.org/wiki/Daan_Roosegaarde",
-     "visual": {
-      "bright_share": 0.0045,
-      "colourfulness": 31.03,
-      "dark_share": 0.839,
-      "height": 213,
-      "mean_luminance": 0.1092,
-      "saturated_bright": 0.0151,
-      "visual": 28,
-      "width": 320
-     },
-     "width": 5000
-    }
-   ],
-   "card": "Van Gogh Fietspad.jpg",
-   "country_iso2": "NL",
-   "duplicates": [],
-   "featured": null,
-   "featured_decisions": [],
-   "hero": null,
-   "hero_decisions": [],
-   "name": "Van Gogh bicycle path",
-   "project": "Q101435284",
-   "providers": [
-    {
-     "id": "img-5417bb88b0d0",
-     "identity": {
-      "ok": false,
-      "reasons": [
-       "name_not_found",
-       "no_geotag"
-      ]
-     },
-     "license": "CC BY-SA 2.0",
-     "ok": false,
-     "page": "https://www.flickr.com/photos/122687277@N03/54448103394",
-     "provider": "openverse",
-     "reasons": [
-      "identity_unproven"
-     ],
-     "source_id": "766ae90a-2643-4011-bf12-46f9f1f4acc3",
-     "src": "https://live.staticflickr.com/65535/54448103394_e333fe8d2f_b.jpg",
-     "title": "T-intersection of off-road bicycle paths near Vue Van Gogh in Paris, France"
-    }
-   ],
-   "type": "light_art"
-  },
-  {
-   "candidates": [
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Leiden - Light sculpture by Jan Wolkers.jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [
-      "light sculpture"
-     ],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "p18",
-     "tier": 3,
-     "title": "Leiden   Light sculpture by Jan Wolkers · Leiden - Light sculpture by Jan Wolkers · Light sculpture by Jan Wolkers: Ode to Rembrandt. Stationsplein, Leiden (The",
-     "visual": {
-      "bright_share": 0.0355,
-      "colourfulness": 54.65,
-      "dark_share": 0.0438,
-      "height": 427,
-      "mean_luminance": 0.4717,
-      "saturated_bright": 0.3787,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 2112
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Leiden153.JPG",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Leiden153 · Leiden153 · Sculpture by Jan Wolkers, Stationsplein, Leiden (The Netherlands). \"Ode to Rembrandt\". Moved to Bargelaan (other side of Leiden railway ",
-     "visual": {
-      "bright_share": 0.0065,
-      "colourfulness": 16.73,
-      "dark_share": 0.938,
-      "height": 427,
-      "mean_luminance": 0.0742,
-      "saturated_bright": 0.0097,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 2112
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Leiden169.JPG",
-     "kind": "project_media",
-     "media": 100,
-     "media_terms": [
-      "light art",
-      "light sculpture"
-     ],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 2,
-      "decoded": {
-       "bytes": 254373,
-       "format": "jpeg",
-       "height": 720,
-       "width": 960
-      },
-      "laplacian_var": 3472,
-      "measured_width": 960,
-      "phash": "e6676d6028b1f27e",
-      "sharpness": 100
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Leiden169 · Leiden169 · Plate near light sculpture by Jan Wolkers: Ode to Rembrandt. Stationsplein, Leiden (The Netherlands)",
-     "visual": {
-      "bright_share": 0.1166,
-      "colourfulness": 17.16,
-      "dark_share": 0.0372,
-      "height": 240,
-      "mean_luminance": 0.4872,
-      "saturated_bright": 0.0002,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 2816
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Ode aan Rembrandt, Leiden.JPG",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Ode aan Rembrandt, Leiden · Ode aan Rembrandt, Leiden · Werk: Ode aan Rembrandt; Kunstenaar: Jan Wolkers; Jaar: 2005; Straat: Stationsplein; Materiaal: Aluminiu",
-     "visual": {
-      "bright_share": 0.2125,
-      "colourfulness": 8.04,
-      "dark_share": 0.4547,
-      "height": 427,
-      "mean_luminance": 0.3579,
-      "saturated_bright": 0,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 960
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Ode aan Rembrandt.JPG",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 6,
-      "decoded": {
-       "bytes": 157345,
-       "format": "jpeg",
-       "height": 720,
-       "width": 960
-      },
-      "laplacian_var": 2338.9,
-      "measured_width": 960,
-      "phash": "1ede1f13d4ccd0d0",
-      "sharpness": 100
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Ode aan Rembrandt · Ode aan Rembrandt · Kunstwerk Ode aan Rembrandt; Kunstenaar: Jan Wolkers; Jaar: 2005; Straat: Bargelaan, Leiden; Materiaal: Aluminium en gla",
-     "visual": {
-      "bright_share": 0.3444,
-      "colourfulness": 46.25,
-      "dark_share": 0.1506,
-      "height": 240,
-      "mean_luminance": 0.4861,
-      "saturated_bright": 0.006,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 5184
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms",
-      "own_category_of_light_work"
-     ],
-     "home_ok": true,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "OdeAanRembrandtWolkers2017.jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 39,
-      "decoded": {
-       "bytes": 129591,
-       "format": "jpeg",
-       "height": 1440,
-       "width": 960
-      },
-      "laplacian_var": 198.4,
-      "measured_width": 960,
-      "phash": "d0f8e5e5ece5f31b",
-      "sharpness": 72
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 2,
-     "title": "OdeAanRembrandtWolkers2017 · OdeAanRembrandtWolkers2017 · Ode to Rembrandt, sculpture by Jan Wolkers in Leiden",
-     "visual": {
-      "bright_share": 0.0245,
-      "colourfulness": 73.87,
-      "dark_share": 0.6164,
-      "height": 480,
-      "mean_luminance": 0.2063,
-      "saturated_bright": 0.2098,
-      "visual": 81,
-      "width": 320
-     },
-     "width": 3648
-    }
-   ],
-   "card": "OdeAanRembrandtWolkers2017.jpg",
-   "country_iso2": "NL",
-   "duplicates": [],
-   "featured": null,
-   "featured_decisions": [
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "OdeAanRembrandtWolkers2017.jpg",
-     "provider": "commons",
-     "reasons": [
-      "compression_artefacts"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Leiden169.JPG",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Leiden - Light sculpture by Jan Wolkers.jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Ode aan Rembrandt.JPG",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Leiden153.JPG",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Ode aan Rembrandt, Leiden.JPG",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "original_too_small",
-      "quality_not_measured"
-     ]
-    }
-   ],
-   "hero": null,
-   "hero_decisions": [
-    {
-     "allowlisted": false,
-     "below_target": false,
-     "file": "OdeAanRembrandtWolkers2017.jpg",
-     "hero_candidate": false,
-     "key": "OdeAanRembrandtWolkers2017.jpg",
-     "provider": "commons",
-     "reasons": [
-      "compression_artefacts"
-     ]
-    }
-   ],
-   "name": "Ode to Rembrandt",
-   "project": "Q114669123",
-   "providers": [],
-   "type": "light_art"
-  },
-  {
-   "candidates": [
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": true,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 01.jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 7,
-      "decoded": {
-       "bytes": 312065,
-       "format": "jpeg",
-       "height": 1280,
-       "width": 960
-      },
-      "laplacian_var": 1865.7,
-      "measured_width": 960,
-      "phash": "3a18d61615b56959",
-      "sharpness": 100
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Nicky Assmann   Wervel   Turmoil (2019) at Forum Groningen in 2026 01 · Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 01 · Nicky Assmann - ",
-     "visual": {
-      "bright_share": 0.011,
-      "colourfulness": 75.17,
-      "dark_share": 0.2638,
-      "height": 427,
-      "mean_luminance": 0.3063,
-      "saturated_bright": 0.1245,
-      "visual": 48,
-      "width": 320
-     },
-     "width": 4284
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": true,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 02.jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 4,
-      "decoded": {
-       "bytes": 235862,
-       "format": "jpeg",
-       "height": 720,
-       "width": 960
-      },
-      "laplacian_var": 5659.1,
-      "measured_width": 960,
-      "phash": "740596164a7348ce",
-      "sharpness": 100
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Nicky Assmann   Wervel   Turmoil (2019) at Forum Groningen in 2026 02 · Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 02 · Nicky Assmann - ",
-     "visual": {
-      "bright_share": 0.0322,
-      "colourfulness": 37.82,
-      "dark_share": 0.3496,
-      "height": 240,
-      "mean_luminance": 0.2776,
-      "saturated_bright": 0.0271,
-      "visual": 23,
-      "width": 320
-     },
-     "width": 5712
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": true,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 03.jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 7,
-      "decoded": {
-       "bytes": 219272,
-       "format": "jpeg",
-       "height": 720,
-       "width": 960
-      },
-      "laplacian_var": 4149.1,
-      "measured_width": 960,
-      "phash": "3e7e7e2c5af98f59",
-      "sharpness": 100
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Nicky Assmann   Wervel   Turmoil (2019) at Forum Groningen in 2026 03 · Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 03 · Nicky Assmann - ",
-     "visual": {
-      "bright_share": 0.0206,
-      "colourfulness": 40.79,
-      "dark_share": 0.3272,
-      "height": 240,
-      "mean_luminance": 0.2692,
-      "saturated_bright": 0.0346,
-      "visual": 27,
-      "width": 320
-     },
-     "width": 5712
-    }
-   ],
-   "card": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 01.jpg",
-   "country_iso2": "NL",
-   "duplicates": [],
-   "featured": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 01.jpg",
-   "featured_decisions": [
-    {
-     "awaiting_review": false,
-     "featured_candidate": true,
-     "key": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 01.jpg",
-     "provider": "commons",
-     "reasons": []
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": true,
-     "key": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 03.jpg",
-     "provider": "commons",
-     "reasons": []
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": true,
-     "key": "Nicky Assmann - Wervel - Turmoil (2019) at Forum Groningen in 2026 02.jpg",
-     "provider": "commons",
-     "reasons": []
-    }
-   ],
-   "hero": null,
-   "hero_decisions": [],
-   "name": "Swirl",
-   "project": "Q130070499",
-   "providers": [],
-   "type": "light_art"
-  },
-  {
-   "candidates": [
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Naturalis Biodiversity Center - Museum - Exterior 09 - Collection Tower with artwork Lust for Life by Giny Vos, 1999.jpg",
-     "kind": "project_installation",
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "p18",
-     "tier": 4,
-     "title": "Naturalis Biodiversity Center   Museum   Exterior 09   Collection Tower with artwork Lust for Life by Giny Vos, 1999 · Naturalis Biodiversity Center - Museum - ",
-     "visual": null,
-     "width": 3648
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Giny Vos - Lust for Life - 1999.JPG",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 9,
-      "decoded": {
-       "bytes": 120825,
-       "format": "jpeg",
-       "height": 640,
-       "width": 960
-      },
-      "laplacian_var": 1036.3,
-      "measured_width": 960,
-      "phash": "0c8c0e0f0f0f0e4e",
-      "sharpness": 95
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Giny Vos   Lust for Life   1999 · Giny Vos - Lust for Life - 1999 · Giny Vos - Lust for Life - 1999, op toren Naturalis, Darwinweg in Leiden (voorstellende de o",
-     "visual": {
-      "bright_share": 0.4012,
-      "colourfulness": 39.74,
-      "dark_share": 0.0419,
-      "height": 213,
-      "mean_luminance": 0.569,
-      "saturated_bright": 0.0038,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 5184
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Naturalis Biodiversity Center - Museum - Exterior 01 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 5,
-      "decoded": {
-       "bytes": 151557,
-       "format": "jpeg",
-       "height": 640,
-       "width": 960
-      },
-      "laplacian_var": 2842.7,
-      "measured_width": 960,
-      "phash": "0081f9f965613b9b",
-      "sharpness": 100
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Naturalis Biodiversity Center   Museum   Exterior 01   Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999 · Naturali",
-     "visual": {
-      "bright_share": 0.3291,
-      "colourfulness": 22.64,
-      "dark_share": 0.2036,
-      "height": 213,
-      "mean_luminance": 0.5066,
-      "saturated_bright": 0,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 4576
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Naturalis Biodiversity Center - Museum - Exterior 02 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 4,
-      "decoded": {
-       "bytes": 184778,
-       "format": "jpeg",
-       "height": 640,
-       "width": 960
-      },
-      "laplacian_var": 3422.6,
-      "measured_width": 960,
-      "phash": "0d33260c5b232f1c",
-      "sharpness": 100
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Naturalis Biodiversity Center   Museum   Exterior 02   Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999 · Naturali",
-     "visual": {
-      "bright_share": 0.1126,
-      "colourfulness": 34.95,
-      "dark_share": 0.1942,
-      "height": 213,
-      "mean_luminance": 0.4302,
-      "saturated_bright": 0.0006,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 4576
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Naturalis Biodiversity Center - Museum - Exterior 04 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Naturalis Biodiversity Center   Museum   Exterior 04   Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999 · Naturali",
-     "visual": {
-      "bright_share": 0.387,
-      "colourfulness": 21.76,
-      "dark_share": 0.1416,
-      "height": 213,
-      "mean_luminance": 0.5329,
-      "saturated_bright": 0.0002,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 4325
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Naturalis Biodiversity Center - Museum - Exterior 05 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Naturalis Biodiversity Center   Museum   Exterior 05   Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999 · Naturali",
-     "visual": {
-      "bright_share": 0.1218,
-      "colourfulness": 41.72,
-      "dark_share": 0.2207,
-      "height": 480,
-      "mean_luminance": 0.4561,
-      "saturated_bright": 0,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 1365
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Naturalis Biodiversity Center - Museum - Garden 02 - Artworks along the Plesmanweg, Leiden museum collection building with tower.jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Naturalis Biodiversity Center   Museum   Garden 02   Artworks along the Plesmanweg, Leiden museum collection building with tower · Naturalis Biodiversity Center",
-     "visual": {
-      "bright_share": 0.3556,
-      "colourfulness": 37.33,
-      "dark_share": 0.299,
-      "height": 213,
-      "mean_luminance": 0.4549,
-      "saturated_bright": 0.0127,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 4232
-    }
-   ],
-   "card": "Giny Vos - Lust for Life - 1999.JPG",
-   "country_iso2": "NL",
-   "duplicates": [],
-   "featured": null,
-   "featured_decisions": [
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Giny Vos - Lust for Life - 1999.JPG",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Naturalis Biodiversity Center - Museum - Exterior 01 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Naturalis Biodiversity Center - Museum - Exterior 02 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Naturalis Biodiversity Center - Museum - Exterior 04 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Naturalis Biodiversity Center - Museum - Garden 02 - Artworks along the Plesmanweg, Leiden museum collection building with tower.jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Naturalis Biodiversity Center - Museum - Exterior 05 - Museum building with footbridge, collection tower with artwork Lust for Life by Giny Vos, 1999.jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "original_too_small",
-      "quality_not_measured"
-     ]
-    }
-   ],
-   "hero": null,
-   "hero_decisions": [],
-   "name": "Lust for Life",
-   "project": "Q54856189",
-   "providers": [],
-   "type": "light_art"
-  },
-  {
-   "candidates": [
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Zwolle JvM 01.JPG",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [
-      "light sculpture"
-     ],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 7,
-      "decoded": {
-       "bytes": 155253,
-       "format": "jpeg",
-       "height": 720,
-       "width": 960
-      },
-      "laplacian_var": 2220.4,
-      "measured_width": 960,
-      "phash": "cc8e2f292a2a2828",
-      "sharpness": 100
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "p18",
-     "tier": 3,
-     "title": "Zwolle JvM 01 · Zwolle JvM 01 · light sculpture Energiesculptuur (1989) by Jan van Munster in Zwolle The Netherlands",
-     "visual": {
-      "bright_share": 0.2659,
-      "colourfulness": 31.42,
-      "dark_share": 0.0147,
-      "height": 240,
-      "mean_luminance": 0.584,
-      "saturated_bright": 0,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 2816
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Zwolle JvM 02.JPG",
-     "kind": "project_media",
-     "media": 80,
-     "media_terms": [
-      "light sculpture"
-     ],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 14,
-      "decoded": {
-       "bytes": 152547,
-       "format": "jpeg",
-       "height": 720,
-       "width": 960
-      },
-      "laplacian_var": 1090.9,
-      "measured_width": 960,
-      "phash": "0f1ad68408062d8d",
-      "sharpness": 96
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Zwolle JvM 02 · Zwolle JvM 02 · light sculpture Energiesculptuur (1989) by Jan van Munster in Zwolle/The Netherlands",
-     "visual": {
-      "bright_share": 0.1626,
-      "colourfulness": 19.38,
-      "dark_share": 0.0035,
-      "height": 240,
-      "mean_luminance": 0.5698,
-      "saturated_bright": 0,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 2816
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Zwolle station 1.jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 13,
-      "decoded": {
-       "bytes": 121654,
-       "format": "jpeg",
-       "height": 640,
-       "width": 960
-      },
-      "laplacian_var": 933.8,
-      "measured_width": 960,
-      "phash": "1f61d89999dd183e",
-      "sharpness": 94
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Zwolle station 1 · Zwolle station 1 · Zwolle train station",
-     "visual": {
-      "bright_share": 0.1068,
-      "colourfulness": 15.07,
-      "dark_share": 0.1034,
-      "height": 213,
-      "mean_luminance": 0.4483,
-      "saturated_bright": 0,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 1600
-    }
-   ],
-   "card": "Zwolle JvM 02.JPG",
-   "country_iso2": "NL",
-   "duplicates": [],
-   "featured": null,
-   "featured_decisions": [
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Zwolle JvM 02.JPG",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Zwolle JvM 01.JPG",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Zwolle station 1.jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok"
-     ]
-    }
-   ],
-   "hero": null,
-   "hero_decisions": [],
-   "name": "Energiesculptuur",
-   "project": "Q61473821",
-   "providers": [],
-   "type": "light_art"
-  },
-  {
-   "candidates": [
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616283251).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616283251) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": {
-      "bright_share": 0.0593,
-      "colourfulness": 23.79,
-      "dark_share": 0.7037,
-      "height": 240,
-      "mean_luminance": 0.1838,
-      "saturated_bright": 0.0107,
-      "visual": 19,
-      "width": 320
-     },
-     "width": 4320
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": true,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 22,
-      "decoded": {
-       "bytes": 144012,
-       "format": "jpeg",
-       "height": 720,
-       "width": 960
-      },
-      "laplacian_var": 273,
-      "measured_width": 960,
-      "phash": "5f5794d6d88c0f1d",
-      "sharpness": 77
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 2,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": {
-      "bright_share": 0.0065,
-      "colourfulness": 78.05,
-      "dark_share": 0.7957,
-      "height": 240,
-      "mean_luminance": 0.1251,
-      "saturated_bright": 0.1582,
-      "visual": 100,
-      "width": 320
-     },
-     "width": 4320
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616293831).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616293831) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": {
-      "bright_share": 0.0332,
-      "colourfulness": 29.01,
-      "dark_share": 0.776,
-      "height": 240,
-      "mean_luminance": 0.1421,
-      "saturated_bright": 0.0179,
-      "visual": 28,
-      "width": 320
-     },
-     "width": 4320
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": true,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616295419).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616295419) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": {
-      "bright_share": 0.0115,
-      "colourfulness": 35.44,
-      "dark_share": 0.8658,
-      "height": 240,
-      "mean_luminance": 0.0876,
-      "saturated_bright": 0.0265,
-      "visual": 37,
-      "width": 320
-     },
-     "width": 4320
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": true,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616297171).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 24,
-      "decoded": {
-       "bytes": 133394,
-       "format": "jpeg",
-       "height": 720,
-       "width": 960
-      },
-      "laplacian_var": 344.6,
-      "measured_width": 960,
-      "phash": "6464e3e6e4c6c6e3",
-      "sharpness": 80
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 2,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616297171) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": {
-      "bright_share": 0.027,
-      "colourfulness": 72.14,
-      "dark_share": 0.6918,
-      "height": 240,
-      "mean_luminance": 0.1812,
-      "saturated_bright": 0.1601,
-      "visual": 90,
-      "width": 320
-     },
-     "width": 4320
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": true,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616298835).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 26,
-      "decoded": {
-       "bytes": 136508,
-       "format": "jpeg",
-       "height": 720,
-       "width": 960
-      },
-      "laplacian_var": 209.8,
-      "measured_width": 960,
-      "phash": "8397969a92020282",
-      "sharpness": 73
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 2,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616298835) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": {
-      "bright_share": 0.0191,
-      "colourfulness": 94.57,
-      "dark_share": 0.6945,
-      "height": 240,
-      "mean_luminance": 0.1773,
-      "saturated_bright": 0.256,
-      "visual": 91,
-      "width": 320
-     },
-     "width": 4320
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616300403).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616300403) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": null,
-     "width": 4320
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616302003).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616302003) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": null,
-     "width": 4320
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616303563).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616303563) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": null,
-     "width": 4320
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616306299).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616306299) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": null,
-     "width": 4320
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616307767).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616307767) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": null,
-     "width": 4320
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616869484).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616869484) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": null,
-     "width": 4320
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616871142).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616871142) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": null,
-     "width": 4320
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616874568).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616874568) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": null,
-     "width": 4320
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616876086).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616876086) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": null,
-     "width": 4320
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616888914).jpg",
-     "kind": "project_media",
-     "media": 40,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 3,
-     "title": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616888914) · Montréal, Place des festivals, animation Élixir de Moment Fa",
-     "visual": null,
-     "width": 3240
-    }
-   ],
-   "card": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743).jpg",
-   "country_iso2": "CA",
-   "duplicates": [],
-   "featured": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743).jpg",
-   "featured_decisions": [
-    {
-     "awaiting_review": false,
-     "featured_candidate": true,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743).jpg",
-     "provider": "commons",
-     "reasons": []
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": true,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616298835).jpg",
-     "provider": "commons",
-     "reasons": []
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": true,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616297171).jpg",
-     "provider": "commons",
-     "reasons": []
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616295419).jpg",
-     "provider": "commons",
-     "reasons": [
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616293831).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616283251).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616300403).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616302003).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616303563).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616306299).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616307767).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616869484).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616871142).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616874568).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616876086).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616888914).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    }
-   ],
-   "hero": null,
-   "hero_decisions": [
-    {
-     "allowlisted": false,
-     "below_target": false,
-     "file": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743).jpg",
-     "hero_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616288743).jpg",
-     "provider": "commons",
-     "reasons": [
-      "compression_artefacts"
-     ]
-    },
-    {
-     "allowlisted": false,
-     "below_target": false,
-     "file": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616298835).jpg",
-     "hero_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616298835).jpg",
-     "provider": "commons",
-     "reasons": [
-      "compression_artefacts"
-     ]
-    },
-    {
-     "allowlisted": false,
-     "below_target": false,
-     "file": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616297171).jpg",
-     "hero_candidate": false,
-     "key": "Montréal, Place des festivals, animation Élixir de Moment Factory, 27 septembre 2010 (5616297171).jpg",
-     "provider": "commons",
-     "reasons": [
-      "compression_artefacts"
-     ]
-    }
-   ],
-   "name": "Elixir by Moment Factory",
-   "project": "CAT-0XKXRFR",
-   "providers": [],
-   "type": "light_art"
   },
   {
    "candidates": [],
