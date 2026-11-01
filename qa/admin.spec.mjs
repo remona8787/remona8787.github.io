@@ -279,6 +279,8 @@ test('the project editor sends only changed fields, shows field states, and mana
  expect(m.rpcs('archive_admin_remove_source')).toHaveLength(0);
  await ed.locator('.source').first().getByRole('button',{name:'한 번 더 누르면 빼요'}).click();
  await expect.poll(()=>m.last('archive_admin_remove_source')?.body).toEqual({p_project_id:ID.p1,p_source_id:'s1'});
+ // The editor is drawn again once the project reloads; open the media form only after that, as a person would.
+ await expect(ed.locator('.source')).toHaveCount(1);
  // Media: only a cleared, free licence may be primary.
  await ed.locator('.media-item').nth(1).getByRole('button',{name:'고치기'}).click();
  const mf=ed.locator('form[data-form="media-set"]');
@@ -377,6 +379,12 @@ test.describe('rules, keywords and settings',()=>{
   const nf=page.locator('#ruleNew form');
   await nf.getByLabel('종류').selectOption('rss');
   await nf.getByLabel('이름').fill('designboom RSS');
+  // A reload of the rules (here after switching another rule) keeps what is typed in the new-rule form.
+  await page.locator('#ruleList').evaluate(el=>{el.firstElementChild.dataset.stale='1'});
+  await naver.getByRole('button',{name:/^(켜기|끄기)$/}).click();
+  await expect(page.locator('#ruleList [data-stale]')).toHaveCount(0);
+  await expect(nf.getByLabel('종류')).toHaveValue('rss');
+  await expect(nf.getByLabel('이름')).toHaveValue('designboom RSS');
   await nf.getByRole('button',{name:'규칙 추가'}).click();
   await expect(page.locator('#toast')).toHaveText('RSS·WebSub 규칙에는 피드 주소가 있어야 해요.');
   await nf.getByLabel('피드 주소 (RSS·WebSub)').fill('https://www.designboom.com/feed/');

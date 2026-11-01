@@ -659,6 +659,7 @@ forms['rule-save']=async(f,fd)=>{
  if(id)rule.id=id;
  else{rule.kind=kind;rule.name=g('name');rule.language=g('language');rule.region_hint=g('region_hint');if(!rule.name)throw formErr('name','규칙 이름을 적어 주세요.')}
  await rpc('archive_admin_upsert_rule',{p_rule:rule});
+ if(!id)put($('#ruleNew'),ruleForm({}));
  toast(id?'규칙을 저장했어요.':'규칙을 추가했어요.');await loadRules();
 };
 acts['rule-edit']=el=>{
@@ -693,7 +694,8 @@ async function loadRules(){
  const [rules,kws]=await Promise.allSettled([rpc('archive_admin_list_rules'),rpc('archive_admin_list_keywords')]);
  if(rules.status==='fulfilled'){S.rules=rows(rules.value);put($('#ruleList'),ruleCards(S.rules))}else put($('#ruleList'),errBox(rules.reason,'규칙을 불러오지 못했어요.'));
  if(kws.status==='fulfilled'){S.kw.items=rows(kws.value);renderKeywords()}else put($('#kwTable'),errBox(kws.reason,'키워드를 불러오지 못했어요.'));
- if(can('admin')){put($('#ruleNew'),ruleForm({}));if(!$('#kwEdit').childElementCount)put($('#kwEdit'),kwForm({}))}
+ // The add forms are drawn once and kept across reloads, so a reload after another save never wipes what is typed.
+ if(can('admin')){if(!$('#ruleNew').childElementCount)put($('#ruleNew'),ruleForm({}));if(!$('#kwEdit').childElementCount)put($('#kwEdit'),kwForm({}))}
 }
 forms['kw-filter']=()=>renderKeywords();
 forms['kw-save']=async(f,fd)=>{
