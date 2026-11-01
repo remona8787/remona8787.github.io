@@ -127,8 +127,8 @@
    "url": "https://lightroomseoul.com/en/"
   },
   {
-   "checked_at": "2026-10-31T05:56:47.486Z",
-   "consecutive_failures": 11,
+   "checked_at": "2026-11-01T06:20:55.513Z",
+   "consecutive_failures": 12,
    "field": "source:curated:source",
    "http_status": null,
    "project": "SEOUL023",
@@ -199,7 +199,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261031T054807Z-88c97b8b",
+ "build_id": "20261101T061107Z-0f51e7a7",
  "coordinate_checks": [
   {
    "distance_m": 1593,
@@ -2223,6 +2223,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -4078,6 +4079,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -4653,6 +4655,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "class_requires_coordinates"
    ]
   },
@@ -4889,13 +4892,12 @@
   },
   {
    "id": "Q141950366",
-   "name": null,
+   "name": "Himmelsleiter",
    "origins": [
     "wikidata_class"
    ],
    "qid": "Q141950366",
    "reasons": [
-    "no_name",
     "no_country",
     "no_coordinates_or_city"
    ]
@@ -4948,6 +4950,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -4997,6 +5000,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5022,6 +5026,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5171,6 +5176,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5280,6 +5286,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5340,6 +5347,7 @@
    "qid": "Q325698",
    "reasons": [
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5352,6 +5360,7 @@
    "qid": "Q33133506",
    "reasons": [
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5378,6 +5387,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5391,6 +5401,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5404,6 +5415,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5588,6 +5600,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5684,7 +5697,8 @@
    "id": "Q625724",
    "name": "Lotus Lantern Festival",
    "origins": [
-    "commons"
+    "commons",
+    "wikidata_search"
    ],
    "qid": "Q625724",
    "reasons": [
@@ -6676,6 +6690,7 @@
    "qid": "Q95204866",
    "reasons": [
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6689,6 +6704,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -7142,7 +7158,7 @@
    ]
   }
  ],
- "generated_at": "2026-10-31T21:38:52.737Z",
+ "generated_at": "2026-11-01T06:11:07.830Z",
  "image_rejections": {
   "extreme_aspect": 19,
   "interior_unrelated_to_work": 4,
@@ -9134,10 +9150,6 @@
   {
    "best_tier": 5,
    "id": "Q22703904"
-  },
-  {
-   "best_tier": 3,
-   "id": "Q270746"
   },
   {
    "best_tier": 3,

@@ -1,6 +1,6 @@
 {
  "about": "Country and location recovery (lib/places.mjs): projects whose only eligibility failures were a missing country or location, the evidence found (parent categories and their items, the category name, file geotags inside country borders, the item coordinates; the Wikipedia language as weak corroboration only) and the decision. Conflicting evidence leaves a project excluded.",
- "at": "2026-10-31T21:38:52.737Z",
+ "at": "2026-11-01T06:11:07.830Z",
  "decisions": [
   {
    "before": {
@@ -9627,6 +9627,28 @@
   },
   {
    "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Himmelsleiter by Billi Thanner",
+   "corroborated": false,
+   "country": null,
+   "evidence": [],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q141950366",
+   "name": "Himmelsleiter",
+   "outcome": "no_evidence",
+   "qid": "Q141950366",
+   "reason": null,
+   "rule": null,
+   "votes": {}
+  },
+  {
+   "before": {
     "country": "DE",
     "located": false
    },
@@ -11139,12 +11161,12 @@
    "parent_category": 74,
    "parent_item": 23
   },
-  "candidates": 222,
+  "candidates": 223,
   "capped": 0,
   "conflict": 17,
   "duplicate_of_project": 1,
-  "geotag_requests": 0,
-  "no_evidence": 54,
+  "geotag_requests": 1,
+  "no_evidence": 55,
   "part_of_project": 27,
   "recovered": 111,
   "region_candidates": 2

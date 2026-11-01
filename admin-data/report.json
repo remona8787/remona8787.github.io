@@ -1,96 +1,263 @@
 {
  "cache": {
-  "hits": 12495,
-  "misses": 3,
+  "hits": 12443,
+  "misses": 13,
   "sizes": {
    "commons-category": 299,
-   "commons-category-item": 633,
+   "commons-category-item": 635,
    "commons-depicts": 267,
    "commons-file-cats": 15,
    "commons-file-depicts": 2333,
    "commons-files": 2473,
-   "commons-geotags": 202,
+   "commons-geotags": 203,
    "commons-members": 508,
-   "commons-parents": 204,
+   "commons-parents": 205,
    "commons-search": 72,
-   "entities": 790,
-   "entities-aux": 2231,
+   "entities": 791,
+   "entities-aux": 2232,
    "links": 179,
    "openverse": 274,
    "overpass": 178,
    "quality": 698,
-   "sparql": 96,
+   "sparql": 100,
    "visual": 1224,
    "wiki-pages": 585,
-   "wiki-search": 76
+   "wiki-search": 76,
+   "wikidata-articles": 1,
+   "wikidata-search": 20
   },
-  "stale": 179,
-  "writes": 141
+  "stale": 305,
+  "writes": 306
  },
  "changes": {
-  "carried_over": [
+  "carried_over": [],
+  "changed": [
+   "CAT-006W654",
+   "CAT-01WE6KC",
+   "CAT-02UFF78",
+   "CAT-0336B9D",
+   "CAT-03ULN0L",
+   "CAT-060SMQ9",
+   "CAT-06MTGIV",
+   "CAT-06RUPY4",
+   "CAT-06VLQHR",
+   "CAT-07MN9XB",
+   "CAT-080XNRV",
+   "CAT-087XY0Y",
+   "CAT-08BN77L",
+   "CAT-09ZYAFP",
+   "CAT-0AEBIPR",
+   "CAT-0B9ZNFX",
+   "CAT-0BLB3MO",
+   "CAT-0CWOTJI",
+   "CAT-0E8G1MU",
+   "CAT-0EAYBY6",
+   "CAT-0GL7X3U",
+   "CAT-0H4BEQU",
+   "CAT-0JYY9CE",
+   "CAT-0LLELAR",
+   "CAT-0PSGJ9K",
+   "CAT-0QJFC3C",
+   "CAT-0RRRVOK",
+   "CAT-0T9MVFP",
+   "CAT-0TBVQ3P",
+   "CAT-0UUDID6",
+   "CAT-0V5ZFBN",
+   "CAT-0X5OH68",
+   "CAT-0X8IWCG",
+   "CAT-0XKXRFR",
+   "CAT-0YNL8BM",
+   "CAT-10OT2VI",
+   "CAT-14IPYSX",
+   "CAT-14L575Y",
+   "CAT-15Q3ETO",
+   "CAT-15VOYUE",
+   "CAT-179IC4O",
+   "CAT-17Q294E",
+   "CAT-18MPLNM",
+   "CAT-18PSLHE",
+   "CAT-194EIQ6",
+   "CAT-19UI5Z0",
+   "CAT-19WSIOC",
+   "CAT-1AXKR8E",
+   "CAT-1B947PC",
+   "CAT-1CFHLL4",
+   "CAT-1CT46DX",
+   "CAT-1CXE5YL",
+   "CAT-1EQT3UH",
+   "CAT-1FUKQNM",
+   "CAT-1FV2MEP",
+   "CAT-1GBA2KD",
+   "CAT-1GGUXSH",
+   "CAT-1KCQL6I",
+   "CAT-1MB7I90",
+   "CAT-1MIYU2V",
+   "CAT-1NNE06W",
+   "CAT-1OKTAW1",
+   "CAT-1OXNCQS",
+   "CAT-1QV2IWZ",
+   "CAT-1SSQIKM",
+   "CAT-1TQLHFI",
+   "CAT-1VRT7O9",
+   "Q102079673",
+   "Q10224945",
+   "Q10457263",
+   "Q105658382",
+   "Q105765811",
+   "Q105817457",
+   "Q1068874",
+   "Q107265489",
+   "Q108139453",
+   "Q110169084",
+   "Q111305324",
+   "Q113509569",
+   "Q113527000",
+   "Q114669123",
+   "Q116484",
+   "Q116823022",
+   "Q117225588",
+   "Q117248257",
+   "Q11756714",
+   "Q11783870",
+   "Q11825476",
+   "Q1188708",
+   "Q122440749",
+   "Q122944544",
+   "Q124539982",
+   "Q125715",
+   "Q12618343",
+   "Q12640281",
+   "Q126924742",
+   "Q127586812",
+   "Q128211807",
+   "Q12859650",
+   "Q131314431",
+   "Q132797212",
+   "Q133137484",
+   "Q134006872",
+   "Q134126751",
+   "Q135276616",
+   "Q136085207",
+   "Q136219703",
+   "Q13668707",
+   "Q136702043",
+   "Q137796942",
+   "Q140937471",
+   "Q15014400",
+   "Q15140473",
+   "Q16034471",
+   "Q1636567",
+   "Q17051597",
+   "Q1710238",
+   "Q1800283",
+   "Q18219743",
+   "Q1823431",
+   "Q184921",
+   "Q18536617",
+   "Q18694056",
+   "Q20103498",
+   "Q20888882",
+   "Q22912864",
+   "Q2494975",
+   "Q26156861",
+   "Q265292",
+   "Q28873401",
+   "Q2920487",
+   "Q2961245",
+   "Q3148738",
+   "Q3207426",
+   "Q327650",
+   "Q328491",
+   "Q351126",
+   "Q4173984",
+   "Q47902176",
+   "Q5054749",
+   "Q5057595",
+   "Q5445787",
+   "Q54856189",
+   "Q5839725",
+   "Q62471103",
+   "Q63319303",
+   "Q6388883",
+   "Q6703298",
+   "Q678361",
+   "Q7422981",
+   "Q7937834",
+   "Q80188532",
+   "Q80192871",
+   "Q80198623",
+   "Q80199477",
+   "Q80201137",
+   "Q80201211",
+   "Q96055560",
+   "Q96409917",
+   "Q96943615",
+   "Q97163414",
+   "Q97590510",
+   "Q99213573",
+   "SEOUL001",
+   "SEOUL006",
+   "SEOUL018",
+   "SEOUL025",
+   "SEOUL027",
+   "SEOUL033",
+   "SEOUL043",
+   "SEOUL044",
+   "SEOUL045",
+   "SEOUL046",
+   "SEOUL048"
+  ],
+  "merges": [],
+  "new": [],
+  "removed": [
    {
     "id": "Q270746",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
+    "last_seen": "2026-10-30T22:24:08.082Z",
+    "reason": "not_seen_in_3_runs"
    },
    {
     "id": "CAT-0ZY9NJG",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
+    "last_seen": "2026-10-30T22:24:08.082Z",
+    "reason": "not_seen_in_3_runs"
    },
    {
     "id": "CAT-13KGH9X",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
+    "last_seen": "2026-10-30T22:24:08.082Z",
+    "reason": "not_seen_in_3_runs"
    },
    {
     "id": "Q48757176",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
+    "last_seen": "2026-10-30T22:24:08.082Z",
+    "reason": "not_seen_in_3_runs"
    },
    {
     "id": "Q882517",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
+    "last_seen": "2026-10-30T22:24:08.082Z",
+    "reason": "not_seen_in_3_runs"
    }
-  ],
-  "changed": [],
-  "merges": [],
-  "new": [],
-  "removed": []
+  ]
  },
  "counts": {
   "candidates_awaiting_review": 11,
-  "carried_over": 5,
-  "changed": 0,
+  "carried_over": 0,
+  "changed": 174,
   "collected": 963,
   "eligible": 390,
   "excluded": 573,
-  "foreign": 341,
+  "foreign": 336,
   "hero_candidates_awaiting_review": 133,
   "kr": 54,
   "kr_with_region": 54,
   "merged": 0,
   "new": 0,
-  "observations": 984,
-  "observations_kept": 980,
+  "observations": 996,
+  "observations_kept": 982,
   "projects_built": 963,
-  "published": 395,
-  "removed": 0,
+  "published": 390,
+  "removed": 5,
   "stale": 0,
   "with_hero": 10,
-  "with_images": 218
+  "with_images": 213
  },
  "decisions": [
   {
@@ -1051,7 +1218,7 @@
    "cached": 270,
    "errors": 1,
    "last_error": "HTTP 403",
-   "ms": 201,
+   "ms": 72,
    "not_modified": 0,
    "ok": 0,
    "requests": 1,
@@ -1071,47 +1238,34 @@
    "statuses": {}
   },
   "commons.wikimedia.org": {
-   "bytes": 273976,
-   "cached": 509,
+   "bytes": 352389,
+   "cached": 501,
    "errors": 0,
    "last_error": null,
-   "ms": 66676,
+   "ms": 90842,
    "not_modified": 0,
-   "ok": 70,
-   "requests": 70,
+   "ok": 94,
+   "requests": 94,
    "statuses": {
-    "200": 70
+    "200": 94
    }
   },
   "de.wikipedia.org": {
-   "bytes": 1130,
+   "bytes": 2141,
    "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 384,
+   "ms": 1059,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
+   "ok": 2,
+   "requests": 2,
    "statuses": {
-    "200": 1
+    "200": 2
    }
   },
   "en.wikipedia.org": {
-   "bytes": 3264,
-   "cached": 3,
-   "errors": 0,
-   "last_error": null,
-   "ms": 446,
-   "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
-  },
-  "es.wikipedia.org": {
    "bytes": 0,
-   "cached": 3,
+   "cached": 4,
    "errors": 0,
    "last_error": null,
    "ms": 0,
@@ -1119,6 +1273,19 @@
    "ok": 0,
    "requests": 0,
    "statuses": {}
+  },
+  "es.wikipedia.org": {
+   "bytes": 1073,
+   "cached": 2,
+   "errors": 0,
+   "last_error": null,
+   "ms": 437,
+   "not_modified": 0,
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
   },
   "fr.wikipedia.org": {
    "bytes": 0,
@@ -1154,11 +1321,11 @@
    "statuses": {}
   },
   "ko.wikipedia.org": {
-   "bytes": 7710,
-   "cached": 14,
+   "bytes": 15828,
+   "cached": 21,
    "errors": 0,
    "last_error": null,
-   "ms": 9151,
+   "ms": 7224,
    "not_modified": 0,
    "ok": 9,
    "requests": 9,
@@ -1182,7 +1349,7 @@
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 738,
+   "ms": 1177,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -1202,46 +1369,50 @@
    "statuses": {}
   },
   "pt.wikipedia.org": {
-   "bytes": 0,
-   "cached": 3,
+   "bytes": 73,
+   "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 0,
+   "ms": 455,
    "not_modified": 0,
-   "ok": 0,
-   "requests": 0,
-   "statuses": {}
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
   },
   "query.wikidata.org": {
-   "bytes": 50527,
-   "cached": 24,
+   "bytes": 13748,
+   "cached": 37,
    "errors": 0,
    "last_error": null,
-   "ms": 15018,
+   "ms": 42307,
    "not_modified": 0,
-   "ok": 15,
-   "requests": 15,
+   "ok": 32,
+   "requests": 32,
    "statuses": {
-    "200": 15
+    "200": 32
    }
   },
   "ru.wikipedia.org": {
-   "bytes": 0,
-   "cached": 1,
-   "errors": 0,
-   "last_error": null,
-   "ms": 0,
-   "not_modified": 0,
-   "ok": 0,
-   "requests": 0,
-   "statuses": {}
-  },
-  "thumb.wikimedia.org": {
-   "bytes": 9255297,
+   "bytes": 11423,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 20544,
+   "ms": 1136,
+   "not_modified": 0,
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
+  },
+  "thumb.wikimedia.org": {
+   "bytes": 9250709,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 12542,
    "not_modified": 0,
    "ok": 300,
    "requests": 300,
@@ -1250,11 +1421,11 @@
    }
   },
   "tr.wikipedia.org": {
-   "bytes": 1677,
+   "bytes": 2370,
    "cached": 3,
    "errors": 0,
    "last_error": null,
-   "ms": 433,
+   "ms": 493,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -1263,38 +1434,38 @@
    }
   },
   "www.wikidata.org": {
-   "bytes": 7967,
-   "cached": 0,
-   "errors": 4,
-   "last_error": "api error maxlag",
-   "ms": 6312,
+   "bytes": 797548,
+   "cached": 13,
+   "errors": 0,
+   "last_error": null,
+   "ms": 12444,
    "not_modified": 0,
-   "ok": 0,
-   "requests": 16,
+   "ok": 15,
+   "requests": 15,
    "statuses": {
-    "200": 16
+    "200": 15
    }
   },
   "zh.wikipedia.org": {
-   "bytes": 73,
-   "cached": 2,
+   "bytes": 2775,
+   "cached": 1,
    "errors": 0,
    "last_error": null,
-   "ms": 521,
+   "ms": 1940,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
+   "ok": 2,
+   "requests": 2,
    "statuses": {
-    "200": 1
+    "200": 2
    }
   }
  },
  "image_audit": {
   "cards": {
    "all": {
-    "projects": 395,
-    "rate_pct": 54.9,
-    "with_valid_card": 217
+    "projects": 390,
+    "rate_pct": 54.4,
+    "with_valid_card": 212
    },
    "korea": {
     "projects": 54,
@@ -1302,14 +1473,14 @@
     "with_valid_card": 16
    },
    "world": {
-    "projects": 341,
-    "rate_pct": 58.9,
-    "with_valid_card": 201
+    "projects": 336,
+    "rate_pct": 58.3,
+    "with_valid_card": 196
    }
   },
   "duplicates_removed": 0,
   "duplicates_this_run": 7,
-  "images": 1795,
+  "images": 1742,
   "low_res_rejected": 44,
   "mislinked_rejected": 49,
   "mislinked_removed": 0,
@@ -1318,9 +1489,9 @@
   "person_removed": 0,
   "portraits": 2,
   "previous_images": 1795,
-  "rechecked_kept": 53,
+  "rechecked_kept": 0,
   "relevance_verified": 1742,
-  "removed_total": 0
+  "removed_total": 53
  },
  "images": {
   "awaiting_review": 0,
@@ -1348,7 +1519,7 @@
    "cards-05.jpg"
   ],
   "depicts_errors": 0,
-  "depicts_searches": 3,
+  "depicts_searches": 9,
   "duplicates": 7,
   "hero": 4,
   "identity_rejected": 1915,
@@ -1402,12 +1573,12 @@
    "parent_category": 74,
    "parent_item": 23
   },
-  "candidates": 222,
+  "candidates": 223,
   "capped": 0,
   "conflict": 17,
   "duplicate_of_project": 1,
-  "geotag_requests": 0,
-  "no_evidence": 54,
+  "geotag_requests": 1,
+  "no_evidence": 55,
   "part_of_project": 27,
   "recovered": 111,
   "region_candidates": 2
@@ -1451,7 +1622,7 @@
   "ru.wikipedia.org": "reachable",
   "thumb.wikimedia.org": "reachable",
   "tr.wikipedia.org": "reachable",
-  "www.wikidata.org": "failed",
+  "www.wikidata.org": "reachable",
   "zh.wikipedia.org": "reachable"
  },
  "review_queue": {
@@ -1460,13 +1631,13 @@
  },
  "run": {
   "budget_minutes": 25,
-  "build_id": "20261031T054807Z-88c97b8b",
+  "build_id": "20261101T061107Z-0f51e7a7",
   "drop_guard": null,
-  "duration_ms": 543463,
-  "finished_at": "2026-10-31T21:47:56.200Z",
-  "number": 60,
-  "publish": "unchanged",
-  "started_at": "2026-10-31T21:38:52.737Z",
+  "duration_ms": 587986,
+  "finished_at": "2026-11-01T06:20:55.816Z",
+  "number": 61,
+  "publish": "published",
+  "started_at": "2026-11-01T06:11:07.830Z",
   "status": "partial",
   "user_agent": "LightArchitectureArchive/0.18 (+https://remona8787.github.io/; remona56@hanmail.net)",
   "validation_errors": []
@@ -1475,11 +1646,11 @@
  "sources": {
   "commons": {
    "consecutive_failures": 0,
-   "duration_ms": 27696,
+   "duration_ms": 33917,
    "errors": [],
    "items": 295,
    "korea_items": 4,
-   "last_success": "2026-10-31T21:38:52.737Z",
+   "last_success": "2026-11-01T06:11:07.830Z",
    "status": "ok",
    "warnings": [
     {
@@ -1618,34 +1789,23 @@
    "consecutive_failures": 0,
    "errors": [],
    "items": 49,
-   "last_success": "2026-10-31T21:38:52.737Z",
+   "last_success": "2026-11-01T06:11:07.830Z",
    "status": "ok"
   },
   "enrich": {
    "consecutive_failures": 0,
-   "duration_ms": 32475,
-   "errors": [
-    {
-     "ids": "Q18732882|Q625724|Q104528099|Q105623405|Q106435339|Q108139453|Q118609545|Q118609578|Q118609622|Q122440749|Q123356841|Q123643841|Q125715|Q127387179|Q127587050|Q127587201|Q127587678|Q130392129|Q131338394|Q131338412|Q137592110|Q138515200|Q139831357|Q141950366|Q16034471",
-     "message": "maxlag: Waiting for wdqs1014: 7.0666666666667 seconds lagged.",
-     "stage": "enrich"
-    },
-    {
-     "ids": "Q16467728|Q2961245|Q55246811|Q56316887|Q6586927|Q92410275|Q92412574|Q92413931|Q97030914|Q98821543|Q98823844",
-     "message": "maxlag: Waiting for wdqs1014: 7.0666666666667 seconds lagged.",
-     "stage": "enrich"
-    }
-   ],
-   "items": 764,
-   "last_success": "2026-10-31T12:37:54.956Z",
-   "status": "partial"
+   "duration_ms": 10664,
+   "errors": [],
+   "items": 774,
+   "last_success": "2026-11-01T06:11:07.830Z",
+   "status": "ok"
   },
   "links": {
    "consecutive_failures": 0,
    "errors": [],
-   "from_cache": 147,
-   "items": 11,
-   "last_success": "2026-10-31T21:38:52.737Z",
+   "from_cache": 149,
+   "items": 9,
+   "last_success": "2026-11-01T06:11:07.830Z",
    "status": "ok",
    "unchecked": 0
   },
@@ -1653,12 +1813,12 @@
    "consecutive_failures": 0,
    "errors": [],
    "items": 0,
-   "last_success": "2026-10-31T21:38:52.737Z",
+   "last_success": "2026-11-01T06:11:07.830Z",
    "status": "ok"
   },
   "seoul_events": {
    "consecutive_failures": 0,
-   "duration_ms": 740,
+   "duration_ms": 1178,
    "errors": [],
    "items": 0,
    "last_success": null,
@@ -1677,42 +1837,70 @@
   },
   "web": {
    "consecutive_failures": 0,
-   "duration_ms": 304617,
+   "duration_ms": 404090,
    "errors": [
     {
      "http_status": 429,
      "message": "HTTP 429",
      "rule": "gdelt:GDELT en · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aenglish&mode=ArtList&format=json&maxrecords=250&timespan=12h&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aenglish&mode=ArtList&format=json&maxrecords=250&timespan=20h&sort=DateDesc"
     },
     {
-     "http_status": 429,
-     "message": "HTTP 429",
+     "http_status": null,
+     "message": "no answer within 20000 ms",
      "rule": "gdelt:GDELT ko · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Akorean&mode=ArtList&format=json&maxrecords=250&timespan=12h&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Akorean&mode=ArtList&format=json&maxrecords=250&timespan=20h&sort=DateDesc"
     },
     {
      "http_status": 429,
      "message": "HTTP 429",
-     "rule": "gdelt:GDELT zh · media facade",
+     "rule": "gdelt:GDELT de · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Achinese&mode=ArtList&format=json&maxrecords=250&timespan=18h&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Agerman&mode=ArtList&format=json&maxrecords=250&timespan=11h&sort=DateDesc"
     },
     {
      "http_status": 429,
      "message": "HTTP 429",
+     "rule": "gdelt:GDELT es · media facade",
+     "stage": "web_fetch",
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aspanish&mode=ArtList&format=json&maxrecords=250&timespan=7d&sort=DateDesc"
+    },
+    {
+     "http_status": 429,
+     "message": "HTTP 429",
+     "rule": "gdelt:GDELT it · media facade",
+     "stage": "web_fetch",
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aitalian&mode=ArtList&format=json&maxrecords=250&timespan=11h&sort=DateDesc"
+    },
+    {
+     "http_status": null,
+     "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
      "rule": "gdelt:GDELT nl · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Adutch&mode=ArtList&format=json&maxrecords=250&timespan=26h&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Adutch&mode=ArtList&format=json&maxrecords=250&timespan=34h&sort=DateDesc"
     },
     {
      "http_status": 429,
      "message": "HTTP 429",
      "rule": "gdelt:GDELT pl · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Apolish&mode=ArtList&format=json&maxrecords=250&timespan=12h&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Apolish&mode=ArtList&format=json&maxrecords=250&timespan=20h&sort=DateDesc"
+    },
+    {
+     "http_status": 429,
+     "message": "HTTP 429",
+     "rule": "gdelt:GDELT ar · media facade",
+     "stage": "web_fetch",
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aarabic&mode=ArtList&format=json&maxrecords=250&timespan=11h&sort=DateDesc"
+    },
+    {
+     "http_status": 404,
+     "message": "HTTP 404",
+     "rule": "rss:Designboom Korea",
+     "stage": "web_fetch",
+     "url": "https://www.designboom.com/tag/korea/feed/"
     }
    ],
    "items": 7,
@@ -1769,14 +1957,14 @@
       "invalid": 0,
       "prefilter": 0
      },
-     "errors": 1,
+     "errors": 0,
      "fetched": 0,
      "kept": 0,
      "key": "gdelt:GDELT zh · media facade",
      "kind": "gdelt",
      "not_modified": false,
      "reason": null,
-     "status": "error"
+     "status": "success"
     },
     {
      "dropped": {
@@ -1784,14 +1972,14 @@
       "invalid": 0,
       "prefilter": 0
      },
-     "errors": 0,
+     "errors": 1,
      "fetched": 0,
      "kept": 0,
      "key": "gdelt:GDELT de · media facade",
      "kind": "gdelt",
      "not_modified": false,
      "reason": null,
-     "status": "success"
+     "status": "error"
     },
     {
      "dropped": {
@@ -1809,10 +1997,19 @@
      "status": "success"
     },
     {
+     "dropped": {
+      "duplicate_url": 0,
+      "invalid": 0,
+      "prefilter": 0
+     },
+     "errors": 1,
+     "fetched": 0,
+     "kept": 0,
      "key": "gdelt:GDELT es · media facade",
-     "reason": "backoff",
-     "status": "skipped",
-     "until": "2026-10-31T22:51:22.403Z"
+     "kind": "gdelt",
+     "not_modified": false,
+     "reason": null,
+     "status": "error"
     },
     {
      "dropped": {
@@ -1820,14 +2017,14 @@
       "invalid": 0,
       "prefilter": 0
      },
-     "errors": 0,
+     "errors": 1,
      "fetched": 0,
      "kept": 0,
      "key": "gdelt:GDELT it · media facade",
      "kind": "gdelt",
      "not_modified": false,
      "reason": null,
-     "status": "success"
+     "status": "error"
     },
     {
      "dropped": {
@@ -1886,14 +2083,14 @@
       "invalid": 0,
       "prefilter": 0
      },
-     "errors": 0,
+     "errors": 1,
      "fetched": 0,
      "kept": 0,
      "key": "gdelt:GDELT ar · media facade",
      "kind": "gdelt",
      "not_modified": false,
      "reason": null,
-     "status": "success"
+     "status": "error"
     },
     {
      "dropped": {
@@ -1992,78 +2189,74 @@
      "status": "success"
     },
     {
+     "dropped": {
+      "duplicate_url": 0,
+      "invalid": 0,
+      "prefilter": 0
+     },
+     "errors": 1,
+     "fetched": 0,
+     "kept": 0,
      "key": "rss:Designboom Korea",
-     "reason": "backoff",
-     "status": "skipped",
-     "until": "2026-11-01T05:59:06.465Z"
+     "kind": "rss",
+     "not_modified": false,
+     "reason": null,
+     "status": "error"
     }
    ],
    "status": "partial"
   },
   "wikidata": {
    "consecutive_failures": 0,
-   "duration_ms": 48920,
-   "errors": [
-    {
-     "message": "maxlag: Waiting for wdqs1014: 7.1666666666667 seconds lagged.",
-     "stage": "discovery"
-    },
-    {
-     "message": "maxlag: Waiting for wdqs1014: 7.1666666666667 seconds lagged.",
-     "stage": "discovery"
-    },
-    {
-     "message": "country item Q884 not confirmed this run (live label differs or was not read)",
-     "stage": "korea"
-    }
-   ],
+   "duration_ms": 44321,
+   "errors": [],
    "items": 626,
    "korea_items": 0,
-   "korea_search_items": 0,
-   "last_success": "2026-10-31T05:48:07.860Z",
-   "status": "partial"
+   "korea_search_items": 12,
+   "last_success": "2026-11-01T06:11:07.830Z",
+   "status": "ok"
   },
   "wikipedia": {
    "consecutive_failures": 0,
-   "duration_ms": 10690,
+   "duration_ms": 7920,
    "errors": [],
    "items": 282,
    "korea_items": 86,
-   "last_success": "2026-10-31T21:38:52.737Z",
+   "last_success": "2026-11-01T06:11:07.830Z",
    "status": "ok"
   }
  },
  "stages": {
   "contact_sheets": {
-   "duration_ms": 80766,
+   "duration_ms": 72991,
    "status": "ok"
   },
   "enrich": {
-   "duration_ms": 32476,
+   "duration_ms": 10664,
    "status": "ok"
   },
   "images": {
-   "duration_ms": 42429,
+   "duration_ms": 57106,
    "status": "ok"
   },
   "links": {
-   "duration_ms": 81701,
+   "duration_ms": 40575,
    "status": "ok"
   },
   "overpass": {
-   "duration_ms": 1,
+   "duration_ms": 2,
    "status": "ok"
   },
   "places": {
-   "duration_ms": 676,
+   "duration_ms": 2085,
    "status": "ok"
   },
   "resolve": {
-   "duration_ms": 104,
+   "duration_ms": 62,
    "status": "ok"
   },
   "sources": {
-   "duration_ms": 304625,
+   "duration_ms": 404095,
    "status": "ok"
   }
  },
