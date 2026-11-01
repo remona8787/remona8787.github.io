@@ -651,6 +651,11 @@ failed requests or internal vocabulary.
 The deploy job warns when `.github/workflows/archive.yml` on main, or the copy at the root of `source`, differs from
 `deploy/pages-repo/` on source. Workflow files must be copied to main by hand: a GITHUB_TOKEN push may not change them.
 
+The verify-live job runs on a pinned image (`ubuntu-24.04`), not `ubuntu-latest`. Playwright installs Chromium only
+on the Ubuntu releases it supports. When `ubuntu-latest` became 26.04 (late October 2026), every run from #67 to #70
+failed at "Install Playwright and Chromium". Collect and deploy still published, but no live check ran. When you
+upgrade Playwright, check which images it supports before moving this label.
+
 ## 10. Costs
 
 **$0.**

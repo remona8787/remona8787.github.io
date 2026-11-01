@@ -172,7 +172,10 @@ jobs:
   verify-live:
     needs: deploy
     if: ${{ !cancelled() && needs.deploy.result == 'success' }}
-    runs-on: ubuntu-latest
+    # A pinned image, not ubuntu-latest: Playwright installs Chromium only on the Ubuntu releases it supports, and when
+    # ubuntu-latest moved to 26.04 (Oct 2026) "playwright install --with-deps chromium" failed there and no live check
+    # ran. Move this forward together with the Playwright version in package.json.
+    runs-on: ubuntu-24.04
     timeout-minutes: 40
     steps:
       - name: Check out source

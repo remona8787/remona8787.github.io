@@ -94,6 +94,8 @@ test('archive.yml: what each job runs', needYaml, () => {
   assert.equal(steps(deploy).find((s) => /commit-push\.sh site main/.test(s.run || '')).if, "steps.assemble.outputs.changed == 'true'")
   assert.match(runs(deploy), /cmp -s source\/deploy\/pages-repo\/\.github\/workflows\/archive\.yml site\/\.github\/workflows\/archive\.yml/)
   // verify-live: Chromium on the runner, the live URL, the deploy and build ids, review/live committed to data.
+  // A pinned Ubuntu image Playwright supports: on ubuntu-latest (26.04 since Oct 2026) the Chromium install failed.
+  assert.equal(verify['runs-on'], 'ubuntu-24.04')
   assert.match(runs(verify), /npx playwright install --with-deps chromium/)
   const v = steps(verify).find((s) => s.id === 'verify')
   assert.match(v.run, /node pipeline\/verify-live\.mjs --site="\$SITE_URL\/" --out=\.\.\/data\/review\/live --build-id="\$BUILD_ID" --deploy-id="\$DEPLOY_ID"/)
