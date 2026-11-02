@@ -1,7 +1,7 @@
 {
  "dataset": "light-architecture-archive",
- "version": "20261101T061107Z-0f51e7a7-p2",
- "data_as_of": "2026-11-01",
+ "version": "20261102T061153Z-b269415b-p2",
+ "data_as_of": "2026-11-02",
  "projects": [
   {
    "id": "CAT-006W654",
@@ -21873,7 +21873,7 @@
    "lat": null,
    "lng": null,
    "location_precision": "city",
-   "operating_status": "operating",
+   "operating_status": null,
    "kind": "facility",
    "start_date": null,
    "end_date": null,
@@ -21904,7 +21904,6 @@
     "name_ko": "curated:source",
     "name_original": "curated:source",
     "official_url": "curated:source",
-    "operating_status": "curated:source",
     "project_type": "curated:source",
     "summary_ko": "curated:source",
     "visit": "curated:source"
