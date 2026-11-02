@@ -1,5 +1,5 @@
 {
- "at": "2026-11-02T06:11:53.288Z",
+ "at": "2026-11-02T16:00:24.178Z",
  "decisions": [
   {
    "decision": "candidate",
@@ -7771,7 +7771,7 @@
    "qid": "Q116265680",
    "reason": "aggregate_topic_in_place",
    "root": "Category:Illuminated buildings by country",
-   "subcats": 6,
+   "subcats": 7,
    "title": "Category:Illuminated buildings in Argentina"
   },
   {
@@ -8077,7 +8077,7 @@
    "qid": null,
    "reason": "aggregate_topic_in_place",
    "root": "Category:Illuminated buildings by city",
-   "subcats": 18,
+   "subcats": 17,
    "title": "Category:Illuminated buildings in Berlin"
   },
   {
@@ -9051,7 +9051,7 @@
   },
   {
    "decision": "aggregate",
-   "files": 313,
+   "files": 314,
    "korea": false,
    "lat": null,
    "lng": null,
@@ -13001,7 +13001,7 @@
    "qid": "Q116265681",
    "reason": "aggregate_topic_in_place",
    "root": "Category:Illuminated buildings by country",
-   "subcats": 5,
+   "subcats": 6,
    "title": "Category:Illuminated buildings in Uruguay"
   },
   {
@@ -14669,7 +14669,7 @@
   },
   {
    "decision": "rejected",
-   "files": 5,
+   "files": 6,
    "korea": false,
    "lat": null,
    "lng": null,
@@ -16801,7 +16801,7 @@
   },
   {
    "decision": "aggregate",
-   "files": 410,
+   "files": 409,
    "korea": false,
    "lat": null,
    "lng": null,
@@ -19558,7 +19558,7 @@
    "qid": null,
    "reason": "blocklist_product_or_advertising",
    "root": "file-search:медиафасад",
-   "subcats": 8,
+   "subcats": 9,
    "title": "Category:Outdoor advertising in Moscow",
    "via_file": "Медиафасад на Московском доме книги.webp"
   },
@@ -23031,7 +23031,13 @@
    "via_file": "Medienfassade der Zeilgalerie bei Tag.jpg"
   }
  ],
- "errors": [],
+ "errors": [
+  {
+   "message": "cirrussearch-too-busy-error: Search is currently too busy. Please try again later.",
+   "stage": "commons_search_korea",
+   "term": "media art + Busan"
+  }
+ ],
  "partial": false,
  "schema": 1
 }
