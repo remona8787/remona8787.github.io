@@ -1,8 +1,8 @@
 {
  "broken_links": [
   {
-   "checked_at": "2026-11-01T22:15:58.312Z",
-   "consecutive_failures": 11,
+   "checked_at": "2026-11-03T01:12:48.946Z",
+   "consecutive_failures": 12,
    "field": "official_url",
    "http_status": 404,
    "project": "Q105749709",
@@ -10,8 +10,8 @@
    "url": "https://www.spanishfork.org/residents/news_and_events/fol/"
   },
   {
-   "checked_at": "2026-11-01T22:15:13.385Z",
-   "consecutive_failures": 6,
+   "checked_at": "2026-11-03T01:12:05.289Z",
+   "consecutive_failures": 7,
    "field": "official_url",
    "http_status": null,
    "project": "Q131338408",
@@ -19,8 +19,8 @@
    "url": "http://www.avfestival.co.uk/"
   },
   {
-   "checked_at": "2026-11-01T22:15:34.424Z",
-   "consecutive_failures": 6,
+   "checked_at": "2026-11-03T01:12:25.294Z",
+   "consecutive_failures": 7,
    "field": "official_url",
    "http_status": null,
    "project": "Q131338420",
@@ -100,8 +100,8 @@
    "url": "https://ddp.or.kr/"
   },
   {
-   "checked_at": "2026-11-01T22:15:37.002Z",
-   "consecutive_failures": 11,
+   "checked_at": "2026-11-03T01:12:27.960Z",
+   "consecutive_failures": 12,
    "field": "official_url",
    "http_status": 404,
    "project": "SEOUL007",
@@ -136,8 +136,8 @@
    "url": "https://lightroomseoul.com/en/visit"
   },
   {
-   "checked_at": "2026-11-01T22:15:35.564Z",
-   "consecutive_failures": 11,
+   "checked_at": "2026-11-03T01:12:26.467Z",
+   "consecutive_failures": 12,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "SEOUL032",
@@ -154,8 +154,8 @@
    "url": "https://parks.seoul.go.kr/culturetank"
   },
   {
-   "checked_at": "2026-11-01T22:15:56.653Z",
-   "consecutive_failures": 11,
+   "checked_at": "2026-11-03T01:12:47.559Z",
+   "consecutive_failures": 12,
    "field": "official_url",
    "http_status": null,
    "project": "SEOUL040",
@@ -199,7 +199,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261102T061153Z-b269415b",
+ "build_id": "20261103T010023Z-916e5532",
  "coordinate_checks": [
   {
    "distance_m": 1593,
@@ -2223,6 +2223,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -4078,6 +4079,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -4653,6 +4655,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "class_requires_coordinates"
    ]
   },
@@ -4947,6 +4950,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -4996,6 +5000,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5021,6 +5026,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5170,6 +5176,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5279,6 +5286,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5339,6 +5347,7 @@
    "qid": "Q325698",
    "reasons": [
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5351,6 +5360,7 @@
    "qid": "Q33133506",
    "reasons": [
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5377,6 +5387,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5390,6 +5401,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5403,6 +5415,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5587,6 +5600,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5683,7 +5697,8 @@
    "id": "Q625724",
    "name": "Lotus Lantern Festival",
    "origins": [
-    "commons"
+    "commons",
+    "wikidata_search"
    ],
    "qid": "Q625724",
    "reasons": [
@@ -6675,6 +6690,7 @@
    "qid": "Q95204866",
    "reasons": [
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6688,6 +6704,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -7141,7 +7158,7 @@
    ]
   }
  ],
- "generated_at": "2026-11-02T16:00:24.178Z",
+ "generated_at": "2026-11-03T01:00:23.944Z",
  "image_rejections": {
   "extreme_aspect": 19,
   "interior_unrelated_to_work": 4,
@@ -7651,11 +7668,6 @@
   {
    "id": "CAT-0JYY9CE",
    "project_type": "projection_mapping",
-   "type_source": "commons_category"
-  },
-  {
-   "id": "Q12859650",
-   "project_type": "festival_program",
    "type_source": "commons_category"
   },
   {

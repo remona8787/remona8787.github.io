@@ -1,5 +1,5 @@
 {
- "at": "2026-11-02T16:00:24.178Z",
+ "at": "2026-11-03T01:00:23.944Z",
  "decisions": [
   {
    "decision": "candidate",
@@ -3017,7 +3017,26 @@
   },
   {
    "decision": "evidence",
-   "files": 4,
+   "files": 1,
+   "korea": false,
+   "lat": null,
+   "lng": null,
+   "parent": "Category:Illuminated buildings in Uruguay",
+   "place_hint": {
+    "city": null,
+    "country_iso2": "UY",
+    "from": "Category:Illuminated buildings in Uruguay"
+   },
+   "project_type": null,
+   "qid": null,
+   "reason": "evidence_root",
+   "root": "Category:Illuminated buildings by country",
+   "subcats": 0,
+   "title": "Category:Buildings in Uruguay illuminated for IDEVAW"
+  },
+  {
+   "decision": "evidence",
+   "files": 8,
    "korea": false,
    "lat": null,
    "lng": null,
@@ -9823,7 +9842,7 @@
   },
   {
    "decision": "aggregate",
-   "files": 6,
+   "files": 8,
    "korea": false,
    "lat": null,
    "lng": null,
@@ -22549,7 +22568,7 @@
    "qid": "Q4052476",
    "reason": "blocklist_institution",
    "root": "file-search:media facade",
-   "subcats": 9,
+   "subcats": 10,
    "title": "Category:V2 Institute for the Unstable Media",
    "via_file": "V2 Institute for the Unstable Media facade.jpg"
   },
@@ -23031,13 +23050,7 @@
    "via_file": "Medienfassade der Zeilgalerie bei Tag.jpg"
   }
  ],
- "errors": [
-  {
-   "message": "cirrussearch-too-busy-error: Search is currently too busy. Please try again later.",
-   "stage": "commons_search_korea",
-   "term": "media art + Busan"
-  }
- ],
+ "errors": [],
  "partial": false,
  "schema": 1
 }
