@@ -1,5 +1,76 @@
 {
- "at": "2026-11-03T01:00:23.944Z",
- "entries": [],
+ "at": "2026-11-03T14:21:22.485Z",
+ "entries": [
+  {
+   "at": "2026-11-03T14:21:24.342Z",
+   "host": "www.wikidata.org",
+   "info": "Waiting for wdqs1016: 7.6666666666667 seconds lagged.",
+   "kind": "maxlag",
+   "wait_ms": 5000
+  },
+  {
+   "at": "2026-11-03T14:21:29.464Z",
+   "host": "www.wikidata.org",
+   "info": "Waiting for wdqs1016: 7.6666666666667 seconds lagged.",
+   "kind": "maxlag",
+   "wait_ms": 5000
+  },
+  {
+   "at": "2026-11-03T14:21:34.601Z",
+   "host": "www.wikidata.org",
+   "info": "Waiting for wdqs1016: 7.6666666666667 seconds lagged.",
+   "kind": "maxlag",
+   "wait_ms": 5000
+  },
+  {
+   "at": "2026-11-03T14:21:40.733Z",
+   "host": "www.wikidata.org",
+   "info": "Waiting for wdqs1016: 7.6666666666667 seconds lagged.",
+   "kind": "maxlag",
+   "wait_ms": 5000
+  },
+  {
+   "at": "2026-11-03T14:21:45.784Z",
+   "host": "openapi.seoul.go.kr:8088",
+   "kind": "http_error",
+   "message": "network error: fetch failed (Connect Timeout Error (attempted address: openapi.seoul.go.kr:8088, timeout: 10000ms))",
+   "url": "http://openapi.seoul.go.kr:8088/sample/json/culturalEventInfo/1/5/"
+  },
+  {
+   "at": "2026-11-03T14:21:45.863Z",
+   "host": "www.wikidata.org",
+   "info": "Waiting for wdqs1016: 7.6666666666667 seconds lagged.",
+   "kind": "maxlag",
+   "wait_ms": 5000
+  },
+  {
+   "at": "2026-11-03T14:21:51.011Z",
+   "host": "www.wikidata.org",
+   "info": "Waiting for wdqs1016: 7.6666666666667 seconds lagged.",
+   "kind": "maxlag",
+   "wait_ms": 5000
+  },
+  {
+   "at": "2026-11-03T14:27:50.210Z",
+   "host": "www.wikidata.org",
+   "info": "Waiting for wdqs1014: 8.9333333333333 seconds lagged.",
+   "kind": "maxlag",
+   "wait_ms": 5000
+  },
+  {
+   "at": "2026-11-03T14:27:55.322Z",
+   "host": "www.wikidata.org",
+   "info": "Waiting for wdqs1014: 8.9333333333333 seconds lagged.",
+   "kind": "maxlag",
+   "wait_ms": 5000
+  },
+  {
+   "at": "2026-11-03T14:28:00.490Z",
+   "host": "www.wikidata.org",
+   "info": "Waiting for wdqs1014: 8.9333333333333 seconds lagged.",
+   "kind": "maxlag",
+   "wait_ms": 5000
+  }
+ ],
  "schema": 1
 }
