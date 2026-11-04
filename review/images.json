@@ -1,6 +1,6 @@
 {
  "about": "Per project: every image candidate (Commons and the other providers) with rights, identity, keyword evidence, visual and quality measurements, tier, approval, the hero and featured decisions and the near-duplicates removed.",
- "at": "2026-11-03T23:26:08.542Z",
+ "at": "2026-11-04T06:29:53.632Z",
  "projects": [
   {
    "candidates": [
@@ -2644,6 +2644,54 @@
     {
      "approved": null,
      "evidence": [
+      "host_building_only"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Namsan Yirang Jamsol 남산자물쇠.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 2,
+      "decoded": {
+       "bytes": 264606,
+       "format": "jpeg",
+       "height": 720,
+       "width": 960
+      },
+      "laplacian_var": 3523.7,
+      "measured_width": 960,
+      "phash": "ebf7e6d395259b9b",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "depicts",
+     "tier": 5,
+     "title": "Namsan Yirang Jamsol 남산자물쇠 · Namsan Yirang Jamsol 남산자물쇠 · Traditional padlocks of eternal love at Seoul Tower",
+     "visual": {
+      "bright_share": 0.1125,
+      "colourfulness": 49.33,
+      "dark_share": 0.2175,
+      "height": 240,
+      "mean_luminance": 0.3977,
+      "saturated_bright": 0.058,
+      "visual": 11,
+      "width": 320
+     },
+     "width": 4000
+    },
+    {
+     "approved": null,
+     "evidence": [
       "institution_file:names_work"
      ],
      "home_ok": false,
@@ -2995,54 +3043,6 @@
      "title": "Haebangchon (55192249973) · Haebangchon (55192249973) · Haebangchon April 6, 2026 Haebangchon, Seoul Ministry of culture, sports and Tourism Official Photograph",
      "visual": null,
      "width": 5384
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "institution_file:names_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Korea Namsan NTower 06 (13238790903).jpg",
-     "kind": "architecture_context",
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 4,
-      "decoded": {
-       "bytes": 122506,
-       "format": "jpeg",
-       "height": 562,
-       "width": 960
-      },
-      "laplacian_var": 2597,
-      "measured_width": 960,
-      "phash": "dc78fb3203a3d96c",
-      "sharpness": 100
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "category",
-     "tier": 5,
-     "title": "Korea Namsan NTower 06 (13238790903) · Korea Namsan NTower 06 (13238790903) · N Seoul Tower The Location of drama ‘My Love From the Star’ The Korea Film Commiss",
-     "visual": {
-      "bright_share": 0.1938,
-      "colourfulness": 107.14,
-      "dark_share": 0.1563,
-      "height": 187,
-      "mean_luminance": 0.4867,
-      "saturated_bright": 0.319,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 3608
     }
    ],
    "card": "Panoramic view of Seoul, South Korea.jpg",
@@ -46472,7 +46472,7 @@
    ],
    "hero": null,
    "hero_decisions": [],
-   "name": "Denkzeichen Georg Elser",
+   "name": "Georg Elser memorial",
    "project": "Q1188708",
    "providers": [],
    "type": "light_art"

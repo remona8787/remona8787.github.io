@@ -1,10 +1,16 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 0,
-  "examples": []
+  "count": 1,
+  "examples": [
+   {
+    "id": "img-a54ead869fa0",
+    "project": "SEOUL043",
+    "title": "Namsan Yirang Jamsol 남산자물쇠"
+   }
+  ]
  },
- "at": "2026-11-03T23:26:08.542Z",
+ "at": "2026-11-04T06:29:53.632Z",
  "cards": {
   "all": {
    "projects": 390,
@@ -2081,7 +2087,7 @@
    "images": 12,
    "kr": false,
    "kr_region": null,
-   "name": "Denkzeichen Georg Elser",
+   "name": "Georg Elser memorial",
    "previous_images": 12,
    "status": "scored",
    "valid_card": true
@@ -6592,8 +6598,18 @@
    }
   ]
  },
- "removed": {},
- "removed_examples": {},
+ "removed": {
+  "not_a_candidate_this_run": 1
+ },
+ "removed_examples": {
+  "not_a_candidate_this_run": [
+   {
+    "id": "img-e1bdc3c1211c",
+    "project": "SEOUL043",
+    "title": "Korea Namsan NTower 06 (13238790903)"
+   }
+  ]
+ },
  "schema": 1,
  "summary": {
   "cards": {
@@ -6619,14 +6635,14 @@
   "low_res_rejected": 44,
   "mislinked_rejected": 49,
   "mislinked_removed": 0,
-  "newly_added_valid": 0,
+  "newly_added_valid": 1,
   "person_rejected": 257,
   "person_removed": 0,
   "portraits": 2,
   "previous_images": 1742,
   "rechecked_kept": 0,
   "relevance_verified": 1742,
-  "removed_total": 0
+  "removed_total": 1
  },
  "totals": {
   "by_kind": {
