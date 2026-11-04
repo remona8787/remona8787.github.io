@@ -1,16 +1,10 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 1,
-  "examples": [
-   {
-    "id": "img-a54ead869fa0",
-    "project": "SEOUL043",
-    "title": "Namsan Yirang Jamsol 남산자물쇠"
-   }
-  ]
+  "count": 0,
+  "examples": []
  },
- "at": "2026-11-04T06:29:53.632Z",
+ "at": "2026-11-04T19:48:24.082Z",
  "cards": {
   "all": {
    "projects": 390,
@@ -4754,7 +4748,7 @@
    "kr_region": null,
    "name": "Schlosslichtspiele 2015",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6598,18 +6592,8 @@
    }
   ]
  },
- "removed": {
-  "not_a_candidate_this_run": 1
- },
- "removed_examples": {
-  "not_a_candidate_this_run": [
-   {
-    "id": "img-e1bdc3c1211c",
-    "project": "SEOUL043",
-    "title": "Korea Namsan NTower 06 (13238790903)"
-   }
-  ]
- },
+ "removed": {},
+ "removed_examples": {},
  "schema": 1,
  "summary": {
   "cards": {
@@ -6635,14 +6619,14 @@
   "low_res_rejected": 44,
   "mislinked_rejected": 49,
   "mislinked_removed": 0,
-  "newly_added_valid": 1,
+  "newly_added_valid": 0,
   "person_rejected": 257,
   "person_removed": 0,
   "portraits": 2,
   "previous_images": 1742,
   "rechecked_kept": 0,
   "relevance_verified": 1742,
-  "removed_total": 1
+  "removed_total": 0
  },
  "totals": {
   "by_kind": {

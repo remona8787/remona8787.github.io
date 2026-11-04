@@ -1,6 +1,6 @@
 {
  "accept_score": 50,
- "at": "2026-11-04T06:29:53.632Z",
+ "at": "2026-11-04T19:48:24.082Z",
  "entity_decisions": [
   {
    "accepted": true,
@@ -145,6 +145,26 @@
    "score": 65,
    "term": "LED-Fassade",
    "url": "https://de.wikipedia.org/wiki/Tauron_Arena_Krak%C3%B3w"
+  },
+  {
+   "accepted": false,
+   "entity_reasons": [
+    "not_in_korea"
+   ],
+   "lang": "ko",
+   "p31_labels": [
+    "lights festival",
+    "luminaria"
+   ],
+   "qid": "Q1636567",
+   "reasons": [
+    "term_in_title",
+    "term_in_lead",
+    "page_has_coordinates"
+   ],
+   "score": 75,
+   "term": "루미나리에",
+   "url": "https://ko.wikipedia.org/wiki/%EA%B3%A0%EB%B2%A0_%EB%A3%A8%EB%AF%B8%EB%82%98%EB%A6%AC%EC%97%90"
   },
   {
    "accepted": true,
@@ -1350,7 +1370,7 @@
   },
   {
    "lang": "de",
-   "lead": "Das Estadio Ramón Sánchez Pizjuán ist ein Fußballstadion im Barrio Nervión der südspanischen Stadt Sevilla in der Autonomen Gemeinschaft Andalusien. Es bietet 43.833 Sitzplätze für die Zuschauer und ist seit 1958 die sportliche Heimat des Fußballvereins FC Sevilla.\n\n",
+   "lead": "Das Estadio Ramón Sánchez Pizjuán ist ein Fußballstadion im Barrio Nervión der südspanischen Stadt Sevilla in der Autonomen Gemeinschaft Andalusien. Es bietet 43.833 Sitzplätze für die Zuschauer und ist seit 1958 die sportliche Heimat des Fußballvereins FC Sevilla.",
    "min_score": 50,
    "qid": "Q275429",
    "reasons": [
@@ -1470,6 +1490,22 @@
    "term": "미디어파사드",
    "title": "미디어 파사드",
    "url": "https://ko.wikipedia.org/wiki/%EB%AF%B8%EB%94%94%EC%96%B4_%ED%8C%8C%EC%82%AC%EB%93%9C"
+  },
+  {
+   "lang": "ko",
+   "lead": "고베 루미나리에(Kobe Luminarie, 일본어: 神 (こう)戸 (べ)ルミナリエ)는 일본 효고현 고베시에서 1995년 12월부터 개최되기 시작한 조명 축제로, 한신-아와지 대지진의 희생자를 추모하고 고베의 재생과 부흥을 기원하기 위해 계획되었다.",
+   "min_score": 50,
+   "qid": "Q1636567",
+   "reasons": [
+    "term_in_title",
+    "term_in_lead",
+    "page_has_coordinates"
+   ],
+   "score": 75,
+   "snippet": "고베 루미나리에 (Kobe Luminarie, 일본어: 神 (こう)戸 (べ)ルミナリエ)는 일본 효고현 고베시에서 1995년 12월부터 개최되기 시작한 조명 축제로, 한신-아와지 대지진의 희생자를 추모하고 고베의 재생과 부흥을 기원하기 위해 계획되었다. 太田 2005, 30쪽",
+   "term": "루미나리에",
+   "title": "고베 루미나리에",
+   "url": "https://ko.wikipedia.org/wiki/%EA%B3%A0%EB%B2%A0_%EB%A3%A8%EB%AF%B8%EB%82%98%EB%A6%AC%EC%97%90"
   },
   {
    "lang": "ko",

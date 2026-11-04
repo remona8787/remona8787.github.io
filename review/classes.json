@@ -1,5 +1,5 @@
 {
- "at": "2026-11-04T06:29:53.632Z",
+ "at": "2026-11-04T19:48:24.082Z",
  "blocklist": [
   {
    "configured_label": "lighthouse",
@@ -536,7 +536,7 @@
    "configured_label": "media artwork",
    "error": null,
    "include": false,
-   "instances": 26921,
+   "instances": 26924,
    "korea_include": false,
    "label_matches": true,
    "live_description": "artwork representing media art",
@@ -555,9 +555,9 @@
   },
   {
    "configured_label": "illuminated building",
-   "error": null,
+   "error": "no answer within 65000 ms",
    "include": false,
-   "instances": 0,
+   "instances": null,
    "korea_include": false,
    "label_matches": true,
    "live_description": "state where a building is illuminated by a light source",
@@ -572,7 +572,7 @@
     "excluded_by_config"
    ],
    "verified": false,
-   "with_coords": 0
+   "with_coords": null
   }
  ],
  "errors": [],
@@ -592,7 +592,7 @@
   "Q378604": 265,
   "Q4287692": 0,
   "Q63442021": 5,
-  "Q776483": 1
+  "Q776483": null
  },
  "never_project": {
   "classes": [
