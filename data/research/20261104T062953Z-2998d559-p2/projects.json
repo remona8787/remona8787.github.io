@@ -1,7 +1,7 @@
 {
  "dataset": "light-architecture-archive",
- "version": "20261103T232608Z-916e5532-p2",
- "data_as_of": "2026-11-03",
+ "version": "20261104T062953Z-2998d559-p2",
+ "data_as_of": "2026-11-04",
  "projects": [
   {
    "id": "CAT-006W654",
@@ -5896,7 +5896,7 @@
   {
    "id": "Q1188708",
    "name_ko": null,
-   "name_en": "Denkzeichen Georg Elser",
+   "name_en": "Georg Elser memorial",
    "name_original": "Denkzeichen Georg Elser",
    "name_original_lang": "de",
    "project_type": "light_art",
@@ -5907,8 +5907,8 @@
    "city_ko": "미테",
    "district": null,
    "address": null,
-   "lat": 52.5123,
-   "lng": 13.3827,
+   "lat": 52.51231,
+   "lng": 13.38274,
    "location_precision": "exact",
    "operating_status": null,
    "kind": "facility",
@@ -15930,7 +15930,7 @@
    "official_url": "https://www.kobe-luminarie.jp/",
    "record_origin": "auto_collected",
    "added_at": "2026-10-20T11:45:17.714Z",
-   "source_count": 5,
+   "source_count": 6,
    "image_count": 12,
    "has_valid_image": true,
    "field_sources": {
@@ -15943,6 +15943,7 @@
     "official_url": "wikidata",
     "project_type": "wikidata",
     "summary_en": "wikidata",
+    "summary_ko": "wikidata",
     "year_operating_since": "wikidata"
    },
    "confidence_project_type": "sourced",
@@ -22435,7 +22436,7 @@
    "lat": null,
    "lng": null,
    "location_precision": "city",
-   "operating_status": "operating",
+   "operating_status": null,
    "kind": "facility",
    "start_date": null,
    "end_date": null,
@@ -22466,7 +22467,6 @@
     "name_ko": "curated:source",
     "name_original": "curated:source",
     "official_url": "curated:source",
-    "operating_status": "curated:source",
     "project_type": "curated:source",
     "summary_ko": "curated:source",
     "visit": "curated:source"
