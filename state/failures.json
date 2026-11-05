@@ -4,28 +4,28 @@
   "commons": {
    "consecutive_failures": 0,
    "last_error": null,
-   "last_success": "2026-11-05T06:52:11.262Z"
+   "last_success": "2026-11-05T19:59:24.969Z"
   },
   "curated": {
    "consecutive_failures": 0,
    "last_error": null,
-   "last_success": "2026-11-05T06:52:11.262Z"
+   "last_success": "2026-11-05T19:59:24.969Z"
   },
   "enrich": {
    "consecutive_failures": 0,
-   "last_error": "maxlag: Waiting for wdqs1011: 7.1333333333333 seconds lagged.",
-   "last_partial": "2026-11-05T06:52:11.262Z",
+   "last_error": "maxlag: Waiting for wdqs1016: 204.43333333333 seconds lagged.",
+   "last_partial": "2026-11-05T19:59:24.969Z",
    "last_success": "2026-11-04T06:29:53.632Z"
   },
   "links": {
    "consecutive_failures": 0,
    "last_error": null,
-   "last_success": "2026-11-05T06:52:11.262Z"
+   "last_success": "2026-11-05T19:59:24.969Z"
   },
   "overpass": {
    "consecutive_failures": 0,
    "last_error": null,
-   "last_success": "2026-11-05T06:52:11.262Z"
+   "last_success": "2026-11-05T19:59:24.969Z"
   },
   "seoul_events": {
    "consecutive_failures": 0,
@@ -39,20 +39,20 @@
   },
   "web": {
    "consecutive_failures": 0,
-   "last_error": "HTTP 429",
-   "last_partial": "2026-11-05T06:52:11.262Z",
+   "last_error": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
+   "last_partial": "2026-11-05T19:59:24.969Z",
    "last_success": "2026-10-27T22:17:26.715Z"
   },
   "wikidata": {
    "consecutive_failures": 0,
-   "last_error": "maxlag: Waiting for wdqs1011: 14.766666666667 seconds lagged.",
-   "last_partial": "2026-11-05T06:52:11.262Z",
+   "last_error": "maxlag: Waiting for wdqs1016: 197.36666666667 seconds lagged.",
+   "last_partial": "2026-11-05T19:59:24.969Z",
    "last_success": "2026-11-04T06:29:53.632Z"
   },
   "wikipedia": {
    "consecutive_failures": 0,
    "last_error": null,
-   "last_success": "2026-11-05T06:52:11.262Z"
+   "last_success": "2026-11-05T19:59:24.969Z"
   }
  }
 }

@@ -1,6 +1,6 @@
 {
  "about": "Korea first: the live first-level divisions of South Korea (wd:Q884 p:P150 with ISO 3166-2 codes) and the region each maps to, the configured expectations compared with them, the Korean class instances per class, and the kr_region decision of every Korean project with the rule that made it.",
- "at": "2026-11-05T06:52:11.262Z",
+ "at": "2026-11-05T19:59:24.969Z",
  "class_instances": null,
  "class_query_example": "#aol:kr-class-instances Q17158007\nSELECT DISTINCT ?item WHERE {\n  ?item wdt:P31/wdt:P279* wd:Q17158007 .\n  { ?item wdt:P17 wd:Q884 . } UNION { ?item wdt:P131/wdt:P17 wd:Q884 . } UNION { ?item wdt:P131/wdt:P131/wdt:P17 wd:Q884 . } UNION { ?item wdt:P276/wdt:P17 wd:Q884 . }\n} LIMIT 2000",
  "country": {
