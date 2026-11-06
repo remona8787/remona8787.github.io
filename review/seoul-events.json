@@ -1,6 +1,6 @@
 {
  "about": "Seoul cultural events (OA-15486 culturalEventInfo): without SEOUL_OPEN_DATA_KEY one probe with the sample key (reachability and the live field names; never published). Every event with its relevance decision; the relevant ones linked to a project (name within 300 m) or listed as place candidates. Keys never appear.",
- "at": "2026-11-06T06:52:11.070Z",
+ "at": "2026-11-06T19:26:56.642Z",
  "counts": {
   "merged": 0,
   "new_candidates": 0,
@@ -56,38 +56,6 @@
    "url": "https://tickets.interpark.com/goods/26010350"
   },
   {
-   "category": "콘서트",
-   "coords_swapped": false,
-   "date_text": "2026-12-22~2026-12-22",
-   "decision": {
-    "reasons": [
-     "no_media_term"
-    ],
-    "relevant": false,
-    "terms": []
-   },
-   "district": "영등포구",
-   "end": "2026-12-22",
-   "fee": "VIP석 88,000원 / R석 77,000원 / S석 66,000원",
-   "id": "SEV-0T96T2Q",
-   "is_free": false,
-   "kind": "event",
-   "lat": 37.5260087284496,
-   "lng": 126.900109255921,
-   "org": "기타",
-   "place": "영등포아트홀",
-   "player": "Piano : Kazumi Tateishi, Contrabass : Shinobu Sato, Drums : Mao Suzuki",
-   "probe": true,
-   "program": "이웃집 토토로, 하울의 움직이는 성 등 지브리 애니메이션의 명곡을 피아노, 콘트라베이스, 드럼의 일본 재즈 트리오 연주로 듣는 공연",
-   "start": "2026-12-22",
-   "status": "upcoming",
-   "target": "성인, 청소년",
-   "theme": "기타",
-   "time_text": "19:30",
-   "title": "2026 카즈미 타테이시 트리오 내한공연-지브리, 재즈를 만나다-(서울)",
-   "url": "https://tickets.interpark.com/goods/26010060"
-  },
-  {
    "category": "클래식",
    "coords_swapped": false,
    "date_text": "2026-12-22~2026-12-22",
@@ -118,6 +86,38 @@
    "time_text": "화 19:30",
    "title": "[서초문화재단] 2026서리풀 어울림 콘서트 [바이올리니스트 김지선의 Dia:logue-graph]",
    "url": "https://www.seochocf.or.kr/site/main/seocho/show/view?show_idx=1020"
+  },
+  {
+   "category": "콘서트",
+   "coords_swapped": false,
+   "date_text": "2026-12-22~2026-12-22",
+   "decision": {
+    "reasons": [
+     "no_media_term"
+    ],
+    "relevant": false,
+    "terms": []
+   },
+   "district": "영등포구",
+   "end": "2026-12-22",
+   "fee": "VIP석 88,000원 / R석 77,000원 / S석 66,000원",
+   "id": "SEV-0T96T2Q",
+   "is_free": false,
+   "kind": "event",
+   "lat": 37.5260087284496,
+   "lng": 126.900109255921,
+   "org": "기타",
+   "place": "영등포아트홀",
+   "player": "Piano : Kazumi Tateishi, Contrabass : Shinobu Sato, Drums : Mao Suzuki",
+   "probe": true,
+   "program": "이웃집 토토로, 하울의 움직이는 성 등 지브리 애니메이션의 명곡을 피아노, 콘트라베이스, 드럼의 일본 재즈 트리오 연주로 듣는 공연",
+   "start": "2026-12-22",
+   "status": "upcoming",
+   "target": "성인, 청소년",
+   "theme": "기타",
+   "time_text": "19:30",
+   "title": "2026 카즈미 타테이시 트리오 내한공연-지브리, 재즈를 만나다-(서울)",
+   "url": "https://tickets.interpark.com/goods/26010060"
   },
   {
    "category": "축제-관광/체육",
@@ -216,11 +216,11 @@
   "code": "INFO-000",
   "message": "정상 처리되었습니다",
   "rows": 5,
-  "total": 19720
+  "total": 19738
  },
  "schema": 1,
  "status": {
-  "duration_ms": 572,
+  "duration_ms": 1525,
   "errors": [],
   "items": 0,
   "last_success": null,

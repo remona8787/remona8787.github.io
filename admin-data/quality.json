@@ -28,8 +28,8 @@
    "url": "https://www.beherenow.org.uk/"
   },
   {
-   "checked_at": "2026-11-05T20:17:41.203Z",
-   "consecutive_failures": 17,
+   "checked_at": "2026-11-06T19:43:17.948Z",
+   "consecutive_failures": 18,
    "field": "official_url",
    "http_status": null,
    "project": "Q133137484",
@@ -46,8 +46,8 @@
    "url": "http://www.lightfest.ru/"
   },
   {
-   "checked_at": "2026-11-05T20:17:39.270Z",
-   "consecutive_failures": 17,
+   "checked_at": "2026-11-06T19:43:15.463Z",
+   "consecutive_failures": 18,
    "field": "official_url",
    "http_status": null,
    "project": "Q22912864",
@@ -64,8 +64,8 @@
    "url": "https://disneyworld.disney.go.com/entertainment/epcot/illuminations-reflections-of-earth/"
   },
   {
-   "checked_at": "2026-11-05T20:17:14.278Z",
-   "consecutive_failures": 17,
+   "checked_at": "2026-11-06T19:42:48.591Z",
+   "consecutive_failures": 18,
    "field": "official_url",
    "http_status": 404,
    "project": "Q327650",
@@ -73,8 +73,8 @@
    "url": "http://light-building.messefrankfurt.com/frankfurt/de/besucher/events/luminale.html"
   },
   {
-   "checked_at": "2026-11-05T07:03:56.163Z",
-   "consecutive_failures": 14,
+   "checked_at": "2026-11-06T19:42:45.464Z",
+   "consecutive_failures": 15,
    "field": "official_url",
    "http_status": 404,
    "project": "Q4173984",
@@ -91,8 +91,8 @@
    "url": "https://disneyworld.disney.go.com/entertainment/magic-kingdom/celebrate-the-magic/"
   },
   {
-   "checked_at": "2026-11-05T20:17:17.204Z",
-   "consecutive_failures": 17,
+   "checked_at": "2026-11-06T19:42:53.167Z",
+   "consecutive_failures": 18,
    "field": "official_url",
    "http_status": null,
    "project": "Q5839725",
@@ -100,8 +100,8 @@
    "url": "http://www.c3a.es"
   },
   {
-   "checked_at": "2026-11-05T20:17:19.270Z",
-   "consecutive_failures": 17,
+   "checked_at": "2026-11-06T19:42:55.462Z",
+   "consecutive_failures": 18,
    "field": "official_url",
    "http_status": null,
    "project": "SEOUL006",
@@ -118,8 +118,8 @@
    "url": "https://english.visitseoul.net/area/COEXK-POPSquare/ENPnj8f9x"
   },
   {
-   "checked_at": "2026-11-05T20:16:50.081Z",
-   "consecutive_failures": 3,
+   "checked_at": "2026-11-06T19:42:45.464Z",
+   "consecutive_failures": 4,
    "field": "official_url",
    "http_status": null,
    "project": "SEOUL009",
@@ -127,8 +127,8 @@
    "url": "https://dept.galleria.co.kr/store-info/luxuryhall/intro"
   },
   {
-   "checked_at": "2026-11-05T07:03:44.183Z",
-   "consecutive_failures": 1,
+   "checked_at": "2026-11-06T19:42:44.364Z",
+   "consecutive_failures": 2,
    "field": "source:curated:check1",
    "http_status": null,
    "project": "SEOUL009",
@@ -136,8 +136,8 @@
    "url": "https://dept.galleria.co.kr/store-info/luxuryhall/way/by-public-transportation"
   },
   {
-   "checked_at": "2026-11-05T20:17:39.809Z",
-   "consecutive_failures": 17,
+   "checked_at": "2026-11-06T19:43:16.628Z",
+   "consecutive_failures": 18,
    "field": "official_url",
    "http_status": 404,
    "project": "SEOUL021",
@@ -217,8 +217,8 @@
    "url": "https://parks.seoul.go.kr/template/sub/seoullo7017.do"
   },
   {
-   "checked_at": "2026-11-05T20:17:42.541Z",
-   "consecutive_failures": 17,
+   "checked_at": "2026-11-06T19:43:19.316Z",
+   "consecutive_failures": 18,
    "field": "official_url",
    "http_status": 404,
    "project": "SEOUL048",
@@ -235,7 +235,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261106T065211Z-f366aea0",
+ "build_id": "20261106T192656Z-05ba3b4a",
  "coordinate_checks": [
   {
    "distance_m": 1593,
@@ -2259,6 +2259,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -4114,6 +4115,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -4689,6 +4691,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "class_requires_coordinates"
    ]
   },
@@ -4983,6 +4986,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5032,6 +5036,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5057,6 +5062,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5206,6 +5212,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5315,6 +5322,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5375,6 +5383,7 @@
    "qid": "Q325698",
    "reasons": [
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5387,6 +5396,7 @@
    "qid": "Q33133506",
    "reasons": [
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5413,6 +5423,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5426,6 +5437,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5439,6 +5451,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5623,6 +5636,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -5719,7 +5733,8 @@
    "id": "Q625724",
    "name": "Lotus Lantern Festival",
    "origins": [
-    "commons"
+    "commons",
+    "wikidata_search"
    ],
    "qid": "Q625724",
    "reasons": [
@@ -6711,6 +6726,7 @@
    "qid": "Q95204866",
    "reasons": [
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -6724,6 +6740,7 @@
    "reasons": [
     "no_country",
     "no_coordinates_or_city",
+    "blocklist:Q5",
     "blocklist:class_label:human"
    ]
   },
@@ -7177,7 +7194,7 @@
    ]
   }
  ],
- "generated_at": "2026-11-06T06:52:11.070Z",
+ "generated_at": "2026-11-06T19:26:56.642Z",
  "image_rejections": {
   "extreme_aspect": 19,
   "interior_unrelated_to_work": 4,
@@ -7687,11 +7704,6 @@
   {
    "id": "CAT-0JYY9CE",
    "project_type": "projection_mapping",
-   "type_source": "commons_category"
-  },
-  {
-   "id": "Q12859650",
-   "project_type": "festival_program",
    "type_source": "commons_category"
   },
   {
