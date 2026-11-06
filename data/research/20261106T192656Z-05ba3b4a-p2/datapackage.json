@@ -1,12 +1,12 @@
 {
  "profile": "tabular-data-package",
- "id": "light-architecture-archive@20261106T065211Z-f366aea0-p2",
+ "id": "light-architecture-archive@20261106T192656Z-05ba3b4a-p2",
  "name": "light-architecture-archive",
  "title": "빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋",
- "version": "20261106T065211Z-f366aea0-p2",
- "build_id": "20261106T065211Z-f366aea0",
+ "version": "20261106T192656Z-05ba3b4a-p2",
+ "build_id": "20261106T192656Z-05ba3b4a",
  "package_format": 2,
- "created": "2026-11-06T06:52:11.070Z",
+ "created": "2026-11-06T19:26:56.642Z",
  "data_as_of": "2026-11-06",
  "homepage": "https://remona8787.github.io/",
  "description": "미디어파사드·건축 미디어아트·빛 설치 작품의 사실 정보(이름, 유형, 위치, 연도, 운영 상태, 식별자, 출처, 필드별 신뢰도), 레코드 사이의 관계, 공공 행사 정보, 공개 이미지의 저작권 정보. 편집부 해설문과 이미지 파일은 포함하지 않습니다.",
@@ -120,12 +120,12 @@
    "path": "https://remona8787.github.io/"
   }
  ],
- "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261106T065211Z-f366aea0-p2, 데이터 기준일 2026-11-06). https://remona8787.github.io/data/research/20261106T065211Z-f366aea0-p2/",
+ "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261106T192656Z-05ba3b4a-p2, 데이터 기준일 2026-11-06). https://remona8787.github.io/data/research/20261106T192656Z-05ba3b4a-p2/",
  "changes": {
-  "from": "20261105T065211Z-482a38ae",
+  "from": "20261106T065211Z-f366aea0",
   "added": 0,
   "removed": 0,
-  "changed": 0
+  "changed": 1
  },
  "resources": [
   {
@@ -134,8 +134,8 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "bytes": 215823,
-   "hash": "sha256:aea267937eb7220d34d90322cd02e597a70b166c08134ef2e4e4b503d0f2397e",
+   "bytes": 215810,
+   "hash": "sha256:25861a421a345c7785b7ee913eedda206c5f07e7f9fb3a20170fa3bd719d8a02",
    "schema": {
     "fields": [
      {
@@ -424,8 +424,8 @@
    "format": "json",
    "mediatype": "application/json",
    "encoding": "utf-8",
-   "bytes": 641683,
-   "hash": "sha256:c7a0fc2fe4c0e6be085e5c3857075cf1112a1188f5e44c97caacf2e5617e6352"
+   "bytes": 641670,
+   "hash": "sha256:96b0dabc294baaccff34c7e0c098c9a2de5d612cebfc4fed1592b7a847ced7e7"
   },
   {
    "name": "projects-geojson",
@@ -806,8 +806,8 @@
    "format": "xlsx",
    "mediatype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
    "encoding": "utf-8",
-   "bytes": 281364,
-   "hash": "sha256:894ac6d4a1f7cac9640721d00e5b29240cf4bba1167d35c690b4ca7ef25efac4"
+   "bytes": 281373,
+   "hash": "sha256:dea59b61ee488bb75f8a7feac2430adf3dcf213a120c23c6cfb6230262c970e9"
   },
   {
    "name": "citation",
@@ -816,7 +816,7 @@
    "mediatype": "text/plain",
    "encoding": "utf-8",
    "bytes": 274,
-   "hash": "sha256:b708553004c2b62f4f15f1829d391ca5f966984e2dd85b8e8e0d82cffac0dc1c"
+   "hash": "sha256:e5f277b7621a320d7e710c19ed76955a5bf6a0b12456397108f3768fd89b0233"
   },
   {
    "name": "changelog",
@@ -824,8 +824,8 @@
    "format": "md",
    "mediatype": "text/markdown",
    "encoding": "utf-8",
-   "bytes": 348,
-   "hash": "sha256:048b0c600bb9e8500976e7e9832bc2a18971521a08eab258068607ecbdf89c48"
+   "bytes": 359,
+   "hash": "sha256:f2649929e0528da1ccbf145f4b9e5ff261ad09feeb794e91f2f54c1f150baf32"
   }
  ]
 }
