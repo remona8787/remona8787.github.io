@@ -1,6 +1,6 @@
 {
  "about": "Country and location recovery (lib/places.mjs): projects whose only eligibility failures were a missing country or location, the evidence found (parent categories and their items, the category name, file geotags inside country borders, the item coordinates; the Wikipedia language as weak corroboration only) and the decision. Conflicting evidence leaves a project excluded.",
- "at": "2026-11-07T06:02:35.067Z",
+ "at": "2026-11-07T13:07:49.891Z",
  "decisions": [
   {
    "before": {
@@ -10264,6 +10264,2962 @@
      "parent_category"
     ]
    }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Horst Rellecke",
+   "center": {
+    "file": "SO-Wegmarken am Hellweg Nr10.jpg",
+    "lat": 51.491351,
+    "lng": 8.062445
+   },
+   "corroborated": false,
+   "country": "DE",
+   "evidence": [
+    {
+     "city": null,
+     "country": "DE",
+     "detail": {
+      "category": "Category:Male sculptors from Germany",
+      "matched": [
+       "Germany"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "DE",
+     "detail": {
+      "countries": {
+       "DE": 3
+      },
+      "files": 3
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "SO-Wegmarken am Hellweg Nr10.jpg",
+     "lat": 51.491351,
+     "lng": 8.062445
+    },
+    "countries": {
+     "DE": 3
+    },
+    "n": 3
+   },
+   "id": "Q1629853",
+   "located_after": true,
+   "name": "Horst Rellecke",
+   "outcome": "recovered",
+   "qid": "Q1629853",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "DE": [
+     "parent_category",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": "CA",
+    "located": false
+   },
+   "category": "Category:Moment Factory",
+   "corroborated": false,
+   "country": null,
+   "evidence": [
+    {
+     "city": "Montreal",
+     "country": "CA",
+     "detail": {
+      "category": "Category:Companies based in Montreal",
+      "matched": [
+       "Montreal"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "CA",
+     "detail": {
+      "category": "Category:Projection mapping in Canada",
+      "matched": [
+       "Canada"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "ES",
+     "detail": {
+      "countries": {
+       "CA": 1,
+       "ES": 7
+      },
+      "files": 8
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "La Sagrada Familia - Barcelona - 2012 - panoramio.jpg",
+     "lat": 41.404001,
+     "lng": 2.175135
+    },
+    "countries": {
+     "CA": 1,
+     "ES": 7
+    },
+    "n": 8
+   },
+   "id": "Q16467728",
+   "name": "Moment Factory",
+   "outcome": "conflict",
+   "qid": "Q16467728",
+   "reason": "strong evidence names CA and ES",
+   "rule": null,
+   "votes": {
+    "CA": [
+     "parent_category",
+     "parent_category"
+    ],
+    "ES": [
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Bruce Nauman",
+   "corroborated": false,
+   "country": null,
+   "evidence": [
+    {
+     "city": null,
+     "country": "US",
+     "detail": {
+      "category": "Category:Installation artists from the United States",
+      "matched": [
+       "United States"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "US",
+     "detail": {
+      "category": "Category:Male sculptors from the United States",
+      "matched": [
+       "United States"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Berlin",
+     "country": "DE",
+     "detail": {
+      "category": "Category:Members of the Academy of the Arts, Berlin",
+      "matched": [
+       "Berlin"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "US",
+     "detail": {
+      "category": "Category:Printmakers from the United States",
+      "matched": [
+       "United States"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Rome",
+     "country": "IT",
+     "detail": {
+      "category": "Category:Rome Prize winners",
+      "matched": [
+       "Rome"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "US",
+     "detail": {
+      "category": "Category:Video artists from the United States",
+      "matched": [
+       "United States"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "(20260614 104236560 HDR) Hamburger Bahnhof Berlin.jpg",
+     "lat": 52.52916,
+     "lng": 13.372195
+    },
+    "countries": {
+     "DE": 4,
+     "GB": 1,
+     "US": 2
+    },
+    "n": 7
+   },
+   "id": "Q168665",
+   "name": "Bruce Nauman",
+   "outcome": "conflict",
+   "qid": "Q168665",
+   "reason": "strong evidence names DE and IT and US",
+   "rule": null,
+   "votes": {
+    "DE": [
+     "parent_category"
+    ],
+    "IT": [
+     "parent_category"
+    ],
+    "US": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Luminaries",
+   "corroborated": false,
+   "country": null,
+   "evidence": [],
+   "geotags": {
+    "center": null,
+    "countries": {
+     "CA": 1,
+     "DE": 1,
+     "US": 1
+    },
+    "n": 3
+   },
+   "id": "Q17051001",
+   "name": "Luminaries",
+   "outcome": "conflict",
+   "qid": "Q17051001",
+   "reason": "geotags in several countries: {\"DE\":1,\"CA\":1,\"US\":1}",
+   "rule": null,
+   "votes": {}
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:Wandering Church (Juan Garaizabal)",
+   "corroborated": false,
+   "country": "DE",
+   "evidence": [
+    {
+     "city": "Berlin",
+     "country": "DE",
+     "detail": {
+      "category": "Category:2010s sculptures in Berlin",
+      "matched": [
+       "Berlin"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "DE",
+     "detail": {
+      "category": "Category:2012 sculptures in Germany",
+      "matched": [
+       "Germany"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Berlin",
+     "country": "DE",
+     "detail": {
+      "category": "Category:Bethlehemkirchplatz (Berlin-Mitte)",
+      "matched": [
+       "Berlin"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Berlin",
+     "country": "DE",
+     "detail": {
+      "category": "Category:Bethlehemskirche (Berlin-Mitte)",
+      "matched": [
+       "Berlin"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Berlin",
+     "country": "DE",
+     "detail": {
+      "category": "Category:Churches in Berlin in art",
+      "matched": [
+       "Berlin"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "DE",
+     "detail": {
+      "category": "Category:Installation art of Germany",
+      "matched": [
+       "Germany"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Berlin",
+     "country": "DE",
+     "detail": {
+      "category": "Category:Outdoor sculptures in Berlin",
+      "matched": [
+       "Berlin"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Berlin",
+     "country": "DE",
+     "detail": {
+      "category": "Category:Public art in Berlin",
+      "matched": [
+       "Berlin"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Berlin",
+     "country": "DE",
+     "detail": {
+      "category": "Category:Sculptures in Berlin-Mitte",
+      "matched": [
+       "Berlin"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Berlin",
+     "country": "DE",
+     "detail": {
+      "category": "Category:Steel sculptures in Berlin",
+      "matched": [
+       "Berlin"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "DE",
+     "detail": {
+      "item": "Q17051597",
+      "via": "Q183"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "DE",
+     "detail": {
+      "item": "Q39011",
+      "via": "Q183"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "DE",
+     "detail": {
+      "item": "Q14236388",
+      "via": "Q183"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "DE",
+     "detail": {
+      "countries": {
+       "DE": 3
+      },
+      "files": 3
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "Skulptur Bethlehemkirchplatz (Mitte) Houseball&Claes Oldenburg Coosje van Bruggen&1997.jpg",
+     "lat": 52.509167,
+     "lng": 13.388889
+    },
+    "countries": {
+     "DE": 3
+    },
+    "n": 3
+   },
+   "id": "Q17051597",
+   "located_after": true,
+   "name": "Wandering Church",
+   "outcome": "recovered",
+   "qid": "Q17051597",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "DE": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_item",
+     "parent_item",
+     "parent_item",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Susanne Rottenbacher",
+   "corroborated": false,
+   "country": "DE",
+   "evidence": [
+    {
+     "city": null,
+     "country": "DE",
+     "detail": {
+      "category": "Category:Female artists from Germany",
+      "matched": [
+       "Germany"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q1724115",
+   "located_after": false,
+   "name": "Susanne Rottenbacher",
+   "outcome": "recovered",
+   "qid": "Q1724115",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "DE": [
+     "parent_category"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Klangwelle Bonn",
+   "corroborated": false,
+   "country": null,
+   "evidence": [],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q1744340",
+   "name": "Klangwelle Bonn",
+   "outcome": "no_evidence",
+   "qid": "Q1744340",
+   "reason": null,
+   "rule": null,
+   "votes": {}
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Spectra (Ryoji Ikeda)",
+   "corroborated": false,
+   "country": "AU",
+   "evidence": [
+    {
+     "country": "AU",
+     "detail": {
+      "item": "Q17510860",
+      "via": "Q408"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q17510860",
+   "located_after": false,
+   "name": "Spectra",
+   "outcome": "recovered",
+   "qid": "Q17510860",
+   "reason": null,
+   "rule": "parent_item",
+   "votes": {
+    "AU": [
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": "DE",
+    "located": false
+   },
+   "category": "Category:Lichtparcours 2000",
+   "corroborated": false,
+   "country": "DE",
+   "evidence": [
+    {
+     "city": null,
+     "country": "DE",
+     "detail": {
+      "category": "Category:Light art in Germany",
+      "matched": [
+       "Germany"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q1823475",
+   "located_after": false,
+   "name": "Lichtparcours 2000",
+   "outcome": "recovered",
+   "qid": "Q1823475",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "DE": [
+     "parent_category"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:Zeilgalerie",
+   "corroborated": false,
+   "country": "DE",
+   "evidence": [
+    {
+     "city": "Frankfurt",
+     "country": "DE",
+     "detail": {
+      "category": "Category:Buildings in Frankfurt am Main by name",
+      "matched": [
+       "Frankfurt"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Frankfurt",
+     "country": "DE",
+     "detail": {
+      "category": "Category:Buildings in Frankfurt-Innenstadt",
+      "matched": [
+       "Frankfurt"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Frankfurt",
+     "country": "DE",
+     "detail": {
+      "category": "Category:Built in Frankfurt am Main in 1992",
+      "matched": [
+       "Frankfurt"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Frankfurt",
+     "country": "DE",
+     "detail": {
+      "category": "Category:Demolished buildings in Frankfurt-Innenstadt",
+      "matched": [
+       "Frankfurt"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Frankfurt",
+     "country": "DE",
+     "detail": {
+      "category": "Category:Shopping malls in Frankfurt am Main",
+      "matched": [
+       "Frankfurt"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "DE",
+     "detail": {
+      "item": "Q184921",
+      "via": "Q183"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "DE",
+     "detail": {
+      "countries": {
+       "DE": 3
+      },
+      "files": 3
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "Frankfurtzeil.jpg",
+     "lat": 50.113431,
+     "lng": 8.679828
+    },
+    "countries": {
+     "DE": 3
+    },
+    "n": 3
+   },
+   "id": "Q184921",
+   "located_after": true,
+   "name": "Zeilgalerie",
+   "outcome": "recovered",
+   "qid": "Q184921",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "DE": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_item",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Rhizomatiks",
+   "corroborated": false,
+   "country": "JP",
+   "evidence": [
+    {
+     "city": null,
+     "country": "JP",
+     "detail": {
+      "category": "Category:Media companies of Japan",
+      "matched": [
+       "Japan"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "JP",
+     "detail": {
+      "item": "Q20017650",
+      "via": "Q17"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q20017650",
+   "located_after": false,
+   "name": "Rhizomatiks",
+   "outcome": "recovered",
+   "qid": "Q20017650",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "JP": [
+     "parent_category",
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Classical spectacular",
+   "city": "Melbourne",
+   "corroborated": false,
+   "country": "AU",
+   "evidence": [
+    {
+     "city": "Melbourne",
+     "country": "AU",
+     "detail": {
+      "category": "Category:Events in Melbourne",
+      "matched": [
+       "Melbourne"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "AU",
+     "detail": {
+      "item": "Q222878",
+      "via": "Q408"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q21157037",
+   "located_after": true,
+   "name": "Classical spectacular",
+   "outcome": "recovered",
+   "qid": "Q21157037",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "AU": [
+     "parent_category",
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": "US",
+    "located": false
+   },
+   "category": "Category:Star Wars: A Galactic Spectacular",
+   "center": {
+    "file": "Opening Night Show (27461793640).jpg",
+    "lat": 28.357277,
+    "lng": -81.560075
+   },
+   "corroborated": false,
+   "country": "US",
+   "evidence": [
+    {
+     "city": null,
+     "country": "US",
+     "detail": {
+      "category": "Category:Projection mapping in the United States",
+      "matched": [
+       "United States"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "US",
+     "detail": {
+      "countries": {
+       "US": 9
+      },
+      "files": 9
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "Opening Night Show (27461793640).jpg",
+     "lat": 28.357277,
+     "lng": -81.560075
+    },
+    "countries": {
+     "US": 9
+    },
+    "n": 9
+   },
+   "id": "Q22912864",
+   "located_after": true,
+   "name": "Star Wars: A Galactic Spectacular",
+   "outcome": "recovered",
+   "qid": "Q22912864",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "US": [
+     "parent_category",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": "NL",
+    "located": false
+   },
+   "category": "Category:Amsterdam Light Festival",
+   "city": "Amsterdam",
+   "corroborated": false,
+   "country": "NL",
+   "evidence": [
+    {
+     "city": "Amsterdam",
+     "country": "NL",
+     "detail": {
+      "category": "Category:Events in Amsterdam",
+      "matched": [
+       "Amsterdam"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "NL",
+     "detail": {
+      "category": "Category:Festivals of lights in the Netherlands",
+      "matched": [
+       "Netherlands"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "NL",
+     "detail": {
+      "category": "Category:Light art in the Netherlands",
+      "matched": [
+       "Netherlands"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Amsterdam",
+     "country": "NL",
+     "detail": {
+      "category": "Category:Night in Amsterdam",
+      "matched": [
+       "Amsterdam"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "NL",
+     "detail": {
+      "item": "Q26156861",
+      "via": "Q55"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "city": "Amsterdam",
+     "country": "NL",
+     "detail": {
+      "category": "Category:Amsterdam Light Festival",
+      "matched": [
+       "Amsterdam"
+      ]
+     },
+     "kind": "category_name",
+     "strength": "strong"
+    },
+    {
+     "country": "NL",
+     "detail": {
+      "countries": {
+       "NL": 24
+      },
+      "files": 24
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "Amsterdam Light Festival 2020, foto 5.JPG",
+     "lat": 52.365801,
+     "lng": 4.908805
+    },
+    "countries": {
+     "NL": 24
+    },
+    "n": 24
+   },
+   "id": "Q26156861",
+   "located_after": true,
+   "name": "Amsterdam Light Festival",
+   "outcome": "recovered",
+   "qid": "Q26156861",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "NL": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_item",
+     "category_name",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Peter Struycken",
+   "city": "The Hague",
+   "corroborated": false,
+   "country": "NL",
+   "evidence": [
+    {
+     "city": "The Hague",
+     "country": "NL",
+     "detail": {
+      "category": "Category:Births in The Hague",
+      "matched": [
+       "The Hague"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "NL",
+     "detail": {
+      "category": "Category:Installation artists from the Netherlands",
+      "matched": [
+       "Netherlands"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "NL",
+     "detail": {
+      "category": "Category:Male sculptors from the Netherlands",
+      "matched": [
+       "Netherlands"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "NL",
+     "detail": {
+      "countries": {
+       "NL": 2
+      },
+      "files": 2
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {
+     "NL": 2
+    },
+    "n": 2
+   },
+   "id": "Q2706817",
+   "located_after": true,
+   "name": "Peter Struycken",
+   "outcome": "recovered",
+   "qid": "Q2706817",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "NL": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:Nederlands Instituut voor Mediakunst Montevideo",
+   "corroborated": false,
+   "country": "NL",
+   "evidence": [
+    {
+     "city": "Amsterdam",
+     "country": "NL",
+     "detail": {
+      "category": "Category:Art in Amsterdam",
+      "matched": [
+       "Amsterdam"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Amsterdam",
+     "country": "NL",
+     "detail": {
+      "category": "Category:Former museums in Amsterdam",
+      "matched": [
+       "Amsterdam"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Amsterdam",
+     "country": "NL",
+     "detail": {
+      "category": "Category:Keizersgracht 264, Amsterdam",
+      "matched": [
+       "Amsterdam"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "NL",
+     "detail": {
+      "item": "Q2920487",
+      "via": "Q55"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "NL",
+     "detail": {
+      "item": "Q17291082",
+      "via": "Q55"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "NL",
+     "detail": {
+      "countries": {
+       "NL": 6
+      },
+      "files": 6
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "WLANL - PjotrP - NIMK - Annja Krautgasser.jpg",
+     "lat": 52.371688,
+     "lng": 4.88451
+    },
+    "countries": {
+     "NL": 6
+    },
+    "n": 6
+   },
+   "id": "Q2920487",
+   "located_after": true,
+   "name": "Nederlands Instituut voor Mediakunst Montevideo",
+   "outcome": "recovered",
+   "qid": "Q2920487",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "NL": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_item",
+     "parent_item",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": "FR",
+    "located": false
+   },
+   "category": "Category:Chartres en lumières",
+   "center": {
+    "file": "20150928 HotelDesPostes enLumiere DSC08516 PtrQs.jpg",
+    "lat": 48.44527,
+    "lng": 1.48328
+   },
+   "corroborated": false,
+   "country": "FR",
+   "evidence": [
+    {
+     "city": null,
+     "country": "FR",
+     "detail": {
+      "category": "Category:Festivals of lights in France",
+      "matched": [
+       "France"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "FR",
+     "detail": {
+      "category": "Category:Projection mapping in France",
+      "matched": [
+       "France"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "FR",
+     "detail": {
+      "countries": {
+       "FR": 4
+      },
+      "files": 4
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "20150928 HotelDesPostes enLumiere DSC08516 PtrQs.jpg",
+     "lat": 48.44527,
+     "lng": 1.48328
+    },
+    "countries": {
+     "FR": 4
+    },
+    "n": 4
+   },
+   "id": "Q2961245",
+   "located_after": true,
+   "name": "Chartres en lumières",
+   "outcome": "recovered",
+   "qid": "Q2961245",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "FR": [
+     "parent_category",
+     "parent_category",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Malte Kebbel",
+   "corroborated": false,
+   "country": null,
+   "evidence": [
+    {
+     "city": null,
+     "country": "DE",
+     "detail": {
+      "category": "Category:Contemporary artists from Germany",
+      "matched": [
+       "Germany"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "DE",
+     "detail": {
+      "category": "Category:Designers from Germany",
+      "matched": [
+       "Germany"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "DE",
+     "detail": {
+      "category": "Category:Media artists from Germany",
+      "matched": [
+       "Germany"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {
+     "CA": 1
+    },
+    "n": 1
+   },
+   "id": "Q30302882",
+   "name": "Malte Kebbel",
+   "outcome": "conflict",
+   "qid": "Q30302882",
+   "reason": "geotags: {\"CA\":1}",
+   "rule": null,
+   "votes": {
+    "DE": [
+     "parent_category",
+     "parent_category",
+     "parent_category"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:IllumiNations: Reflections of Earth",
+   "center": {
+    "file": "Illuminations (5310039535).jpg",
+    "lat": 28.37052,
+    "lng": -81.55161
+   },
+   "corroborated": false,
+   "country": "US",
+   "evidence": [
+    {
+     "country": "US",
+     "detail": {
+      "item": "Q3148738",
+      "via": "Q30"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "US",
+     "detail": {
+      "item": "Q6858807",
+      "via": "Q30"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "US",
+     "detail": {
+      "countries": {
+       "US": 61
+      },
+      "files": 61
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "Illuminations (5310039535).jpg",
+     "lat": 28.37052,
+     "lng": -81.55161
+    },
+    "countries": {
+     "US": 61
+    },
+    "n": 61
+   },
+   "id": "Q3148738",
+   "located_after": true,
+   "name": "IllumiNations: Reflections of Earth",
+   "outcome": "recovered",
+   "qid": "Q3148738",
+   "reason": null,
+   "rule": "parent_item",
+   "votes": {
+    "US": [
+     "parent_item",
+     "parent_item",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:Cinescenie",
+   "corroborated": false,
+   "country": "FR",
+   "evidence": [
+    {
+     "city": null,
+     "country": "FR",
+     "detail": {
+      "category": "Category:Fireworks in France",
+      "matched": [
+       "France"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "FR",
+     "detail": {
+      "item": "Q3207426",
+      "via": "Q142"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "FR",
+     "detail": {
+      "countries": {
+       "FR": 27
+      },
+      "files": 27
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "2013-Sept.- Le Puy du Fou Cinescenie (12).JPG",
+     "lat": 46.889602,
+     "lng": -0.928116
+    },
+    "countries": {
+     "FR": 27
+    },
+    "n": 27
+   },
+   "id": "Q3207426",
+   "located_after": true,
+   "name": "Cinescenie",
+   "outcome": "recovered",
+   "qid": "Q3207426",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "FR": [
+     "parent_category",
+     "parent_item",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": "CA",
+    "located": false
+   },
+   "category": "Category:Moulin à images",
+   "corroborated": false,
+   "country": "CA",
+   "evidence": [
+    {
+     "city": null,
+     "country": "CA",
+     "detail": {
+      "category": "Category:Projection mapping in Canada",
+      "matched": [
+       "Canada"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "CA",
+     "detail": {
+      "item": "Q2816696",
+      "via": "Q16"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {
+     "CA": 1
+    },
+    "n": 1
+   },
+   "id": "Q3224819",
+   "located_after": false,
+   "name": "Moulin à images",
+   "outcome": "recovered",
+   "qid": "Q3224819",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "CA": [
+     "parent_category",
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": "ES",
+    "located": false
+   },
+   "category": "Category:Juan Garaizabal",
+   "corroborated": false,
+   "country": null,
+   "evidence": [
+    {
+     "city": null,
+     "country": "ES",
+     "detail": {
+      "category": "Category:20th-century sculptors from Spain",
+      "matched": [
+       "Spain"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Madrid",
+     "country": "ES",
+     "detail": {
+      "category": "Category:Births in Madrid",
+      "matched": [
+       "Madrid"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "ES",
+     "detail": {
+      "category": "Category:Contemporary artists from Spain",
+      "matched": [
+       "Spain"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "ES",
+     "detail": {
+      "category": "Category:Light art in Spain",
+      "matched": [
+       "Spain"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "ES",
+     "detail": {
+      "item": "Q8062384",
+      "via": "Q29"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {
+     "DE": 1
+    },
+    "n": 1
+   },
+   "id": "Q325698",
+   "name": "Juan Garaizabal",
+   "outcome": "conflict",
+   "qid": "Q325698",
+   "reason": "geotags: {\"DE\":1}",
+   "rule": null,
+   "votes": {
+    "ES": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": "DE",
+    "located": false
+   },
+   "category": "Category:Luminale",
+   "city": "Frankfurt",
+   "corroborated": false,
+   "country": "DE",
+   "evidence": [
+    {
+     "city": "Frankfurt",
+     "country": "DE",
+     "detail": {
+      "category": "Category:Events in Frankfurt am Main",
+      "matched": [
+       "Frankfurt"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "DE",
+     "detail": {
+      "category": "Category:Light art in Germany",
+      "matched": [
+       "Germany"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "DE",
+     "detail": {
+      "item": "Q327650",
+      "via": "Q183"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "DE",
+     "detail": {
+      "countries": {
+       "DE": 2
+      },
+      "files": 2
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "Kiefer Frankfurt Osthafenbrücke, Luminale 2014 (13639467835).jpg",
+     "lat": 50.106238,
+     "lng": 8.711182
+    },
+    "countries": {
+     "DE": 2
+    },
+    "n": 2
+   },
+   "id": "Q327650",
+   "located_after": true,
+   "name": "Luminale",
+   "outcome": "recovered",
+   "qid": "Q327650",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "DE": [
+     "parent_category",
+     "parent_category",
+     "parent_item",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:Bayer-Hochhaus",
+   "corroborated": false,
+   "country": "DE",
+   "evidence": [
+    {
+     "country": "DE",
+     "detail": {
+      "item": "Q328491",
+      "via": "Q183"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {
+     "DE": 1
+    },
+    "n": 1
+   },
+   "id": "Q328491",
+   "located_after": true,
+   "name": "Bayer-Hochhaus",
+   "outcome": "recovered",
+   "qid": "Q328491",
+   "reason": null,
+   "rule": "parent_item",
+   "votes": {
+    "DE": [
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": "DE",
+    "located": false
+   },
+   "category": "Category:Anja Christine Roß",
+   "corroborated": false,
+   "country": "DE",
+   "evidence": [
+    {
+     "city": null,
+     "country": "DE",
+     "detail": {
+      "category": "Category:Contemporary artists from Germany",
+      "matched": [
+       "Germany"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "DE",
+     "detail": {
+      "category": "Category:Light art in Germany",
+      "matched": [
+       "Germany"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q33133506",
+   "located_after": false,
+   "name": "Anja Christine Roß",
+   "outcome": "recovered",
+   "qid": "Q33133506",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "DE": [
+     "parent_category",
+     "parent_category"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:Kazan Arena",
+   "corroborated": false,
+   "country": "RU",
+   "evidence": [
+    {
+     "city": null,
+     "country": "RU",
+     "detail": {
+      "category": "Category:Association football venues in Russia",
+      "matched": [
+       "Russia"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "RU",
+     "detail": {
+      "category": "Category:Built in Russia in 2013",
+      "matched": [
+       "Russia"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Kazan",
+     "country": "RU",
+     "detail": {
+      "category": "Category:Chistopol street (Kazan)",
+      "matched": [
+       "Kazan"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Kazan",
+     "country": "RU",
+     "detail": {
+      "category": "Category:FC Rubin Kazan",
+      "matched": [
+       "Kazan"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Kazan",
+     "country": "RU",
+     "detail": {
+      "category": "Category:Stadiums in Kazan",
+      "matched": [
+       "Kazan"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "RU",
+     "detail": {
+      "item": "Q33993",
+      "via": "Q159"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "RU",
+     "detail": {
+      "item": "Q4438148",
+      "via": "Q159"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "city": "Kazan",
+     "country": "RU",
+     "detail": {
+      "category": "Category:Kazan Arena",
+      "matched": [
+       "Kazan"
+      ]
+     },
+     "kind": "category_name",
+     "strength": "strong"
+    },
+    {
+     "country": "RU",
+     "detail": {
+      "countries": {
+       "RU": 15
+      },
+      "files": 15
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "Kazan Arena 08-2016.jpg",
+     "lat": 55.800917,
+     "lng": 49.128639
+    },
+    "countries": {
+     "RU": 15
+    },
+    "n": 15
+   },
+   "id": "Q33993",
+   "located_after": true,
+   "name": "Kazan Arena",
+   "outcome": "recovered",
+   "qid": "Q33993",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "RU": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_item",
+     "parent_item",
+     "category_name",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:Project Blinkenlights",
+   "corroborated": false,
+   "country": "DE",
+   "evidence": [
+    {
+     "country": "DE",
+     "detail": {
+      "item": "Q351126",
+      "via": "Q183"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q351126",
+   "located_after": true,
+   "name": "Project Blinkenlights",
+   "outcome": "recovered",
+   "qid": "Q351126",
+   "reason": null,
+   "rule": "parent_item",
+   "votes": {
+    "DE": [
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Adriaan Geuze",
+   "corroborated": false,
+   "country": "NL",
+   "evidence": [
+    {
+     "city": null,
+     "country": "NL",
+     "detail": {
+      "category": "Category:Kinetic artists from the Netherlands",
+      "matched": [
+       "Netherlands"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "NL",
+     "detail": {
+      "category": "Category:Landscape or garden designers from the Netherlands",
+      "matched": [
+       "Netherlands"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "NL",
+     "detail": {
+      "category": "Category:Members of the Royal Netherlands Academy of Arts",
+      "matched": [
+       "Netherlands"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "NL",
+     "detail": {
+      "item": "Q693119",
+      "via": "Q55"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q367547",
+   "located_after": false,
+   "name": "Adriaan Geuze",
+   "outcome": "recovered",
+   "qid": "Q367547",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "NL": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": "FR",
+    "located": false
+   },
+   "category": "Category:Fête des lumières",
+   "city": "Lyon",
+   "corroborated": false,
+   "country": "FR",
+   "evidence": [
+    {
+     "city": "Lyon",
+     "country": "FR",
+     "detail": {
+      "category": "Category:Cultural events in Lyon",
+      "matched": [
+       "Lyon"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "FR",
+     "detail": {
+      "category": "Category:Festivals of lights in France",
+      "matched": [
+       "France"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "FR",
+     "detail": {
+      "category": "Category:Illuminated buildings in France",
+      "matched": [
+       "France"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "FR",
+     "detail": {
+      "category": "Category:Light art in France",
+      "matched": [
+       "France"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Lyon",
+     "country": "FR",
+     "detail": {
+      "category": "Category:Night in Lyon",
+      "matched": [
+       "Lyon"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "FR",
+     "detail": {
+      "category": "Category:Projection mapping in France",
+      "matched": [
+       "France"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Lyon",
+     "country": "FR",
+     "detail": {
+      "category": "Category:Tourism in Lyon",
+      "matched": [
+       "Lyon"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "FR",
+     "detail": {
+      "item": "Q4167",
+      "via": "Q142"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q4167",
+   "located_after": true,
+   "name": "Fête des lumières",
+   "outcome": "recovered",
+   "qid": "Q4167",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "FR": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Light Festival, Jerusalem",
+   "center": {
+    "file": "פסטיבל האור -מצג על בתי מחסה.jpg",
+    "lat": 31.77443,
+    "lng": 35.23207
+   },
+   "corroborated": false,
+   "country": "IL",
+   "evidence": [
+    {
+     "city": null,
+     "country": "IL",
+     "detail": {
+      "category": "Category:Festivals of lights in Israel",
+      "matched": [
+       "Israel"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "IL",
+     "detail": {
+      "category": "Category:Installation art of Israel",
+      "matched": [
+       "Israel"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "IL",
+     "detail": {
+      "item": "Q4173984",
+      "via": "Q801"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "IL",
+     "detail": {
+      "countries": {
+       "IL": 4
+      },
+      "files": 4
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "פסטיבל האור -מצג על בתי מחסה.jpg",
+     "lat": 31.77443,
+     "lng": 35.23207
+    },
+    "countries": {
+     "IL": 4
+    },
+    "n": 4
+   },
+   "id": "Q4173984",
+   "located_after": true,
+   "name": "Light Festival, Jerusalem",
+   "outcome": "recovered",
+   "qid": "Q4173984",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "IL": [
+     "parent_category",
+     "parent_category",
+     "parent_item",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Dorothy Tanner",
+   "city": "New York",
+   "corroborated": false,
+   "country": "US",
+   "evidence": [
+    {
+     "city": "New York",
+     "country": "US",
+     "detail": {
+      "category": "Category:Artists from New York (state)",
+      "matched": [
+       "New York"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "New York",
+     "country": "US",
+     "detail": {
+      "category": "Category:Births in the Bronx, New York City",
+      "matched": [
+       "New York City"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q45921773",
+   "located_after": true,
+   "name": "Dorothy Tanner",
+   "outcome": "recovered",
+   "qid": "Q45921773",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "US": [
+     "parent_category",
+     "parent_category"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Light Festival Ghent",
+   "city": "Ghent",
+   "corroborated": false,
+   "country": "BE",
+   "evidence": [
+    {
+     "city": "Ghent",
+     "country": "BE",
+     "detail": {
+      "category": "Category:Events in Ghent",
+      "matched": [
+       "Ghent"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "BE",
+     "detail": {
+      "category": "Category:Festivals of lights in Belgium",
+      "matched": [
+       "Belgium"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Ghent",
+     "country": "BE",
+     "detail": {
+      "category": "Category:Night in Ghent",
+      "matched": [
+       "Ghent"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Ghent",
+     "country": "BE",
+     "detail": {
+      "category": "Category:Light Festival Ghent",
+      "matched": [
+       "Ghent"
+      ]
+     },
+     "kind": "category_name",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {
+     "BE": 1
+    },
+    "n": 1
+   },
+   "id": "Q47902176",
+   "located_after": true,
+   "name": "Light Festival Ghent",
+   "outcome": "recovered",
+   "qid": "Q47902176",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "BE": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "category_name"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": "US",
+    "located": false
+   },
+   "category": "Category:Celebrate the Magic",
+   "corroborated": false,
+   "country": "US",
+   "evidence": [
+    {
+     "city": null,
+     "country": "US",
+     "detail": {
+      "category": "Category:Projection mapping in the United States",
+      "matched": [
+       "United States"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "US",
+     "detail": {
+      "item": "Q5057595",
+      "via": "Q30"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q5057595",
+   "located_after": false,
+   "name": "Celebrate the Magic",
+   "outcome": "recovered",
+   "qid": "Q5057595",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "US": [
+     "parent_category",
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Dorkbot",
+   "corroborated": false,
+   "country": null,
+   "evidence": [
+    {
+     "country": "US",
+     "detail": {
+      "item": "Q2984573",
+      "via": "Q30"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "Henke Q*A - Dorkbot Melbourne 14.2.jpg",
+     "lat": -37.798441,
+     "lng": 144.978697
+    },
+    "countries": {
+     "AU": 2,
+     "US": 1
+    },
+    "n": 3
+   },
+   "id": "Q5298037",
+   "name": "Dorkbot",
+   "outcome": "conflict",
+   "qid": "Q5298037",
+   "reason": "geotags: {\"AU\":2,\"US\":1}",
+   "rule": null,
+   "votes": {
+    "US": [
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:Festival of Lights (New Plymouth)",
+   "corroborated": false,
+   "country": "NZ",
+   "evidence": [
+    {
+     "city": null,
+     "country": "NZ",
+     "detail": {
+      "category": "Category:Festivals in New Zealand",
+      "matched": [
+       "New Zealand"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "NZ",
+     "detail": {
+      "category": "Category:Festivals of lights in New Zealand",
+      "matched": [
+       "New Zealand"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "NZ",
+     "detail": {
+      "category": "Category:Lighting in New Zealand",
+      "matched": [
+       "New Zealand"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "NZ",
+     "detail": {
+      "item": "Q5445787",
+      "via": "Q664"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "NZ",
+     "detail": {
+      "item": "Q7259118",
+      "via": "Q664"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "NZ",
+     "detail": {
+      "countries": {
+       "IN": 1,
+       "NZ": 24
+      },
+      "files": 25
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "NZ NP Festival of Lights 2024.jpg",
+     "lat": -39.064435,
+     "lng": 174.078656
+    },
+    "countries": {
+     "IN": 1,
+     "NZ": 24
+    },
+    "n": 25
+   },
+   "id": "Q5445787",
+   "located_after": true,
+   "name": "Festival of Lights",
+   "outcome": "recovered",
+   "qid": "Q5445787",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "NZ": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_item",
+     "parent_item",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Field of Light",
+   "corroborated": false,
+   "country": null,
+   "evidence": [],
+   "geotags": {
+    "center": {
+     "file": "FieldoflightUluru.jpg",
+     "lat": -25.254603,
+     "lng": 130.998961
+    },
+    "countries": {
+     "AU": 8,
+     "GB": 6
+    },
+    "n": 14
+   },
+   "id": "Q5447104",
+   "name": "Field of Light",
+   "outcome": "conflict",
+   "qid": "Q5447104",
+   "reason": "geotags in several countries: {\"GB\":6,\"AU\":8}",
+   "rule": null,
+   "votes": {}
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:Imagine Peace Tower",
+   "corroborated": false,
+   "country": "IS",
+   "evidence": [
+    {
+     "city": "Reykjavik",
+     "country": "IS",
+     "detail": {
+      "category": "Category:Monuments and memorials in Reykjavík",
+      "matched": [
+       "Reykjavik"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Reykjavik",
+     "country": "IS",
+     "detail": {
+      "category": "Category:Night in Reykjavík",
+      "matched": [
+       "Reykjavik"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "IS",
+     "detail": {
+      "item": "Q116492",
+      "via": "Q189"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "IS",
+     "detail": {
+      "countries": {
+       "IS": 10
+      },
+      "files": 10
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "Iceland - Peace Tower 21 (6571373193).jpg",
+     "lat": 64.163333,
+     "lng": -21.859166
+    },
+    "countries": {
+     "IS": 10
+    },
+    "n": 10
+   },
+   "id": "Q55246811",
+   "located_after": true,
+   "name": "Imagine Peace Tower",
+   "outcome": "recovered",
+   "qid": "Q55246811",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "IS": [
+     "parent_category",
+     "parent_category",
+     "parent_item",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": "DE",
+    "located": false
+   },
+   "category": "Category:Stern des Südens",
+   "city": "Munich",
+   "corroborated": false,
+   "country": "DE",
+   "evidence": [
+    {
+     "city": "Munich",
+     "country": "DE",
+     "detail": {
+      "category": "Category:2009 in Munich",
+      "matched": [
+       "Munich"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "DE",
+     "detail": {
+      "category": "Category:Christmas 2009 in Germany",
+      "matched": [
+       "Germany"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "DE",
+     "detail": {
+      "category": "Category:Light art in Germany",
+      "matched": [
+       "Germany"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "DE",
+     "detail": {
+      "item": "Q2583639",
+      "via": "Q183"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q55271535",
+   "located_after": true,
+   "name": "Stern des Südens",
+   "outcome": "recovered",
+   "qid": "Q55271535",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "DE": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Olafur Eliasson",
+   "corroborated": false,
+   "country": null,
+   "evidence": [
+    {
+     "city": null,
+     "country": "DK",
+     "detail": {
+      "category": "Category:Artists from Denmark",
+      "matched": [
+       "Denmark"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "IS",
+     "detail": {
+      "category": "Category:Artists from Iceland",
+      "matched": [
+       "Iceland"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "DE",
+     "detail": {
+      "category": "Category:Recipients of the Cross of the Order of Merit of the Federal Republic of Germany",
+      "matched": [
+       "Germany"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {
+     "DE": 1,
+     "DK": 1,
+     "GB": 3,
+     "NO": 3,
+     "SE": 1
+    },
+    "n": 9
+   },
+   "id": "Q55299000",
+   "name": "Olafur Eliasson",
+   "outcome": "conflict",
+   "qid": "Q55299000",
+   "reason": "strong evidence names DE and DK and IS",
+   "rule": null,
+   "votes": {
+    "DE": [
+     "parent_category"
+    ],
+    "DK": [
+     "parent_category"
+    ],
+    "IS": [
+     "parent_category"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": "ES",
+    "located": false
+   },
+   "category": "Category:Festival Luz y Vanguardias, Salamanca",
+   "corroborated": false,
+   "country": "ES",
+   "evidence": [
+    {
+     "city": null,
+     "country": "ES",
+     "detail": {
+      "category": "Category:Arts festivals in Spain",
+      "matched": [
+       "Spain"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "ES",
+     "detail": {
+      "category": "Category:Festivals of lights in Spain",
+      "matched": [
+       "Spain"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "ES",
+     "detail": {
+      "category": "Category:Projection mapping in Spain",
+      "matched": [
+       "Spain"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "ES",
+     "detail": {
+      "item": "Q56316887",
+      "via": "Q29"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {
+     "ES": 1
+    },
+    "n": 1
+   },
+   "id": "Q56316887",
+   "located_after": false,
+   "name": "Festival Luz y Vanguardias, Salamanca",
+   "outcome": "recovered",
+   "qid": "Q56316887",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "ES": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_item"
+    ]
+   }
   }
  ],
  "schema": 1,
@@ -10271,17 +13227,17 @@
   "aggregate_name": 11,
   "by_rule": {
    "file_geotags": 13,
-   "parent_category": 99,
-   "parent_item": 26
+   "parent_category": 126,
+   "parent_item": 30
   },
   "candidates": 237,
   "capped": 0,
-  "conflict": 11,
+  "conflict": 19,
   "duplicate_of_project": 1,
-  "geotag_requests": 19,
-  "no_evidence": 16,
+  "geotag_requests": 29,
+  "no_evidence": 17,
   "partial": true,
-  "recovered": 138,
+  "recovered": 169,
   "region_candidates": 2
  }
 }

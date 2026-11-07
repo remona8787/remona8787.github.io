@@ -46,8 +46,8 @@
    "url": "https://english.visitseoul.net/exhibition/CheonggyeSoulOcean/ENP20kefn"
   },
   {
-   "checked_at": "2026-11-06T07:07:31.391Z",
-   "consecutive_failures": 14,
+   "checked_at": "2026-11-07T13:24:23.049Z",
+   "consecutive_failures": 15,
    "field": "official_url",
    "http_status": null,
    "project": "SEOUL023",
@@ -82,8 +82,8 @@
    "url": "https://parks.seoul.go.kr/culturetank"
   },
   {
-   "checked_at": "2026-11-06T07:06:52.973Z",
-   "consecutive_failures": 2,
+   "checked_at": "2026-11-07T13:24:05.634Z",
+   "consecutive_failures": 3,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "SEOUL040",
@@ -100,8 +100,8 @@
    "url": "https://www.thehyundaiseoul.com/"
   },
   {
-   "checked_at": "2026-11-06T07:07:14.105Z",
-   "consecutive_failures": 14,
+   "checked_at": "2026-11-07T13:24:06.351Z",
+   "consecutive_failures": 15,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "SEOUL044",
@@ -109,8 +109,8 @@
    "url": "https://english.visitseoul.net/attractions/Sebitseom_/24646"
   },
   {
-   "checked_at": "2026-11-06T07:07:33.095Z",
-   "consecutive_failures": 14,
+   "checked_at": "2026-11-07T13:24:24.211Z",
+   "consecutive_failures": 15,
    "field": "source:curated:check2",
    "http_status": 404,
    "project": "SEOUL046",
@@ -127,8 +127,8 @@
    "url": "https://www.starfield.co.kr/coexmall/starfieldLibrary"
   },
   {
-   "checked_at": "2026-11-06T07:07:54.874Z",
-   "consecutive_failures": 14,
+   "checked_at": "2026-11-07T13:24:41.470Z",
+   "consecutive_failures": 15,
    "field": "official_url",
    "http_status": null,
    "project": "SEOUL049",
@@ -136,7 +136,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261107T060235Z-cfdccae2",
+ "build_id": "20261107T130749Z-1c44e2d8",
  "coordinate_checks": [],
  "excluded": [
   {
@@ -6915,18 +6915,6 @@
    ]
   },
   {
-   "id": "Q1629853",
-   "name": "Horst Rellecke",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q1629853",
-   "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
    "id": "Q16352954",
    "name": null,
    "origins": [
@@ -7001,17 +6989,6 @@
    ]
   },
   {
-   "id": "Q17051597",
-   "name": "Wandering Church",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q17051597",
-   "reasons": [
-    "no_country"
-   ]
-  },
-  {
    "id": "Q1724115",
    "name": "Susanne Rottenbacher",
    "origins": [
@@ -7019,7 +6996,6 @@
    ],
    "qid": "Q1724115",
    "reasons": [
-    "no_country",
     "no_coordinates_or_city"
    ]
   },
@@ -7043,7 +7019,6 @@
    ],
    "qid": "Q17510860",
    "reasons": [
-    "no_country",
     "no_coordinates_or_city"
    ]
   },
@@ -7110,17 +7085,6 @@
    ]
   },
   {
-   "id": "Q184921",
-   "name": "Zeilgalerie",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q184921",
-   "reasons": [
-    "no_country"
-   ]
-  },
-  {
    "id": "Q18694056",
    "name": null,
    "origins": [
@@ -7165,7 +7129,6 @@
    ],
    "qid": "Q20017650",
    "reasons": [
-    "no_country",
     "no_coordinates_or_city"
    ]
   },
@@ -7183,18 +7146,6 @@
    ]
   },
   {
-   "id": "Q21157037",
-   "name": "Classical spectacular",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q21157037",
-   "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
    "id": "Q22703904",
    "name": null,
    "origins": [
@@ -7204,17 +7155,6 @@
    "reasons": [
     "no_name",
     "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "Q22912864",
-   "name": "Star Wars: A Galactic Spectacular",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q22912864",
-   "reasons": [
     "no_coordinates_or_city"
    ]
   },
@@ -7301,17 +7241,6 @@
    ]
   },
   {
-   "id": "Q26156861",
-   "name": "Amsterdam Light Festival",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q26156861",
-   "reasons": [
-    "no_coordinates_or_city"
-   ]
-  },
-  {
    "id": "Q265292",
    "name": null,
    "origins": [
@@ -7320,18 +7249,6 @@
    "qid": "Q265292",
    "reasons": [
     "no_name",
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "Q2706817",
-   "name": "Peter Struycken",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q2706817",
-   "reasons": [
     "no_country",
     "no_coordinates_or_city"
    ]
@@ -7429,17 +7346,6 @@
    ]
   },
   {
-   "id": "Q2920487",
-   "name": "Nederlands Instituut voor Mediakunst Montevideo",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q2920487",
-   "reasons": [
-    "no_country"
-   ]
-  },
-  {
    "id": "Q29413234",
    "name": null,
    "origins": [
@@ -7451,17 +7357,6 @@
     "no_country",
     "no_coordinates_or_city",
     "class_requires_coordinates"
-   ]
-  },
-  {
-   "id": "Q2961245",
-   "name": "Chartres en lumières",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q2961245",
-   "reasons": [
-    "no_coordinates_or_city"
    ]
   },
   {
@@ -7504,18 +7399,6 @@
    ]
   },
   {
-   "id": "Q3148738",
-   "name": "IllumiNations: Reflections of Earth",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q3148738",
-   "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
    "id": "Q31841837",
    "name": null,
    "origins": [
@@ -7527,17 +7410,6 @@
     "no_country",
     "no_coordinates_or_city",
     "class_requires_coordinates"
-   ]
-  },
-  {
-   "id": "Q3207426",
-   "name": "Cinescenie",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q3207426",
-   "reasons": [
-    "no_country"
    ]
   },
   {
@@ -7563,28 +7435,6 @@
    ]
   },
   {
-   "id": "Q327650",
-   "name": "Luminale",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q327650",
-   "reasons": [
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "Q328491",
-   "name": "Bayer-Hochhaus",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q328491",
-   "reasons": [
-    "no_country"
-   ]
-  },
-  {
    "id": "Q33133506",
    "name": "Anja Christine Roß",
    "origins": [
@@ -7593,28 +7443,6 @@
    "qid": "Q33133506",
    "reasons": [
     "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "Q33993",
-   "name": "Kazan Arena",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q33993",
-   "reasons": [
-    "no_country"
-   ]
-  },
-  {
-   "id": "Q351126",
-   "name": "Project Blinkenlights",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q351126",
-   "reasons": [
-    "no_country"
    ]
   },
   {
@@ -7639,44 +7467,6 @@
    ],
    "qid": "Q367547",
    "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "Q4167",
-   "name": "Fête des lumières",
-   "origins": [
-    "commons",
-    "wikidata_class"
-   ],
-   "qid": "Q4167",
-   "reasons": [
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "Q4173984",
-   "name": "Light Festival, Jerusalem",
-   "origins": [
-    "commons",
-    "wikidata_class"
-   ],
-   "qid": "Q4173984",
-   "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "Q45921773",
-   "name": "Dorothy Tanner",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q45921773",
-   "reasons": [
-    "no_country",
     "no_coordinates_or_city"
    ]
   },
@@ -7706,19 +7496,6 @@
     "no_country",
     "no_coordinates_or_city",
     "class_requires_coordinates"
-   ]
-  },
-  {
-   "id": "Q47902176",
-   "name": "Light Festival Ghent",
-   "origins": [
-    "commons",
-    "wikidata_class"
-   ],
-   "qid": "Q47902176",
-   "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
    ]
   },
   {
@@ -7851,18 +7628,6 @@
    ]
   },
   {
-   "id": "Q5445787",
-   "name": "Festival of Lights",
-   "origins": [
-    "commons",
-    "wikidata_class"
-   ],
-   "qid": "Q5445787",
-   "reasons": [
-    "no_country"
-   ]
-  },
-  {
    "id": "Q5445799",
    "name": null,
    "origins": [
@@ -7897,28 +7662,6 @@
    "reasons": [
     "no_name",
     "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "Q55246811",
-   "name": "Imagine Peace Tower",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q55246811",
-   "reasons": [
-    "no_country"
-   ]
-  },
-  {
-   "id": "Q55271535",
-   "name": "Stern des Südens",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q55271535",
-   "reasons": [
     "no_coordinates_or_city"
    ]
   },
@@ -10242,15 +9985,15 @@
    ]
   }
  ],
- "generated_at": "2026-11-07T06:02:35.067Z",
+ "generated_at": "2026-11-07T13:07:49.891Z",
  "image_rejections": {
   "extreme_aspect": 17,
-  "interior_unrelated_to_work": 3,
-  "rights:license_not_allowed": 7,
-  "subject:object_or_animal": 7,
-  "subject:people_or_event": 17,
+  "interior_unrelated_to_work": 4,
+  "rights:license_not_allowed": 23,
+  "subject:object_or_animal": 9,
+  "subject:people_or_event": 33,
   "subject:person": 1,
-  "too_small": 16
+  "too_small": 27
  },
  "low_confidence_types": [
   {
@@ -10266,6 +10009,16 @@
   {
    "id": "CAT-14L575Y",
    "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q26156861",
+   "project_type": "festival_program",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q328491",
+   "project_type": "media_facade",
    "type_source": "commons_category"
   },
   {
@@ -10319,8 +10072,18 @@
    "type_source": "commons_category"
   },
   {
+   "id": "Q2961245",
+   "project_type": "projection_mapping",
+   "type_source": "commons_category"
+  },
+  {
    "id": "CAT-0CWOTJI",
    "project_type": "projection_mapping",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q3207426",
+   "project_type": "festival_program",
    "type_source": "commons_category"
   },
   {
@@ -10331,6 +10094,11 @@
   {
    "id": "CAT-1CT46DX",
    "project_type": "projection_mapping",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q21157037",
+   "project_type": "festival_program",
    "type_source": "commons_category"
   },
   {
@@ -10361,6 +10129,11 @@
   {
    "id": "CAT-1NNE06W",
    "project_type": "festival_program",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q45921773",
+   "project_type": "light_art",
    "type_source": "commons_category"
   },
   {
@@ -10559,6 +10332,11 @@
    "type_source": "commons_category"
   },
   {
+   "id": "Q1629853",
+   "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
    "id": "CAT-1FUKQNM",
    "project_type": "media_facade",
    "type_source": "commons_category"
@@ -10569,13 +10347,28 @@
    "type_source": "commons_category"
   },
   {
+   "id": "Q3148738",
+   "project_type": "festival_program",
+   "type_source": "commons_category"
+  },
+  {
    "id": "CAT-19UI5Z0",
    "project_type": "festival_program",
    "type_source": "commons_category"
   },
   {
+   "id": "Q55246811",
+   "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
    "id": "Q11783870",
    "project_type": "festival_program",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q33993",
+   "project_type": "media_facade",
    "type_source": "commons_category"
   },
   {
@@ -10649,6 +10442,11 @@
    "type_source": "commons_category"
   },
   {
+   "id": "Q327650",
+   "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
    "id": "Q54856189",
    "project_type": "light_art",
    "type_source": "commons_category"
@@ -10666,6 +10464,11 @@
   {
    "id": "Q12640281",
    "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q2920487",
+   "project_type": "other",
    "type_source": "commons_category"
   },
   {
@@ -10716,6 +10519,11 @@
   {
    "id": "CAT-17XN1RX",
    "project_type": "festival_program",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q2706817",
+   "project_type": "light_art",
    "type_source": "commons_category"
   },
   {
@@ -10839,6 +10647,16 @@
    "type_source": "commons_category"
   },
   {
+   "id": "Q22912864",
+   "project_type": "projection_mapping",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q55271535",
+   "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
    "id": "CAT-18MPLNM",
    "project_type": "festival_program",
    "type_source": "commons_category"
@@ -10879,6 +10697,11 @@
    "type_source": "commons_category"
   },
   {
+   "id": "Q17051597",
+   "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
    "id": "CAT-1CFHLL4",
    "project_type": "festival_program",
    "type_source": "commons_category"
@@ -10896,6 +10719,11 @@
   {
    "id": "Q137796942",
    "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q184921",
+   "project_type": "media_facade",
    "type_source": "commons_category"
   },
   {
@@ -11773,6 +11601,12 @@
    "project_type": "light_art"
   },
   {
+   "country_iso2": "AU",
+   "id": "Q21157037",
+   "name": "Classical spectacular",
+   "project_type": "festival_program"
+  },
+  {
    "country_iso2": "BE",
    "id": "Q24522389",
    "name": null,
@@ -12257,8 +12091,8 @@
    "id": "Q15076316"
   },
   {
-   "best_tier": 2,
-   "id": "Q17051597"
+   "best_tier": 3,
+   "id": "Q1629853"
   },
   {
    "best_tier": 3,
@@ -12286,6 +12120,10 @@
   },
   {
    "best_tier": 3,
+   "id": "Q2706817"
+  },
+  {
+   "best_tier": 3,
    "id": "Q28873401"
   },
   {
@@ -12297,16 +12135,12 @@
    "id": "Q328491"
   },
   {
-   "best_tier": 2,
+   "best_tier": 3,
    "id": "Q351126"
   },
   {
    "best_tier": 3,
    "id": "Q4167"
-  },
-  {
-   "best_tier": 3,
-   "id": "Q47902176"
   },
   {
    "best_tier": 5,
@@ -12315,6 +12149,10 @@
   {
    "best_tier": 3,
    "id": "Q54856189"
+  },
+  {
+   "best_tier": 3,
+   "id": "Q55271535"
   },
   {
    "best_tier": 5,

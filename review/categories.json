@@ -1,5 +1,5 @@
 {
- "at": "2026-11-07T06:02:35.067Z",
+ "at": "2026-11-07T13:07:49.891Z",
  "decisions": [
   {
    "decision": "candidate",
@@ -16967,7 +16967,11 @@
    "lat": null,
    "lng": null,
    "parent": null,
-   "place_hint": null,
+   "place_hint": {
+    "city": null,
+    "country_iso2": "ES",
+    "from": "Category:Light art in Spain"
+   },
    "project_type": "light_art",
    "qid": null,
    "reason": "aggregate_topic_in_place",

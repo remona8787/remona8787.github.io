@@ -1,31 +1,31 @@
 {
  "cache": {
-  "hits": 6849,
-  "misses": 1285,
+  "hits": 8870,
+  "misses": 195,
   "sizes": {
    "commons-category": 299,
    "commons-category-item": 916,
-   "commons-depicts": 268,
+   "commons-depicts": 274,
    "commons-file-cats": 15,
-   "commons-file-depicts": 2529,
-   "commons-files": 2668,
-   "commons-geotags": 221,
-   "commons-members": 534,
+   "commons-file-depicts": 2566,
+   "commons-files": 2705,
+   "commons-geotags": 249,
+   "commons-members": 543,
    "commons-parents": 260,
    "commons-search": 72,
    "entities": 791,
    "entities-aux": 2495,
    "links": 179,
-   "openverse": 287,
-   "overpass": 179,
-   "quality": 777,
+   "openverse": 290,
+   "overpass": 184,
+   "quality": 788,
    "sparql": 101,
-   "visual": 1349,
+   "visual": 1367,
    "wiki-pages": 586,
    "wiki-search": 76
   },
-  "stale": 833,
-  "writes": 1437
+  "stale": 849,
+  "writes": 302
  },
  "changes": {
   "carried_over": [
@@ -61,38 +61,7 @@
     ]
    },
    {
-    "id": "Q1068874",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q108139453",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q111305324",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q114245074",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q11524427",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -114,14 +83,6 @@
     ]
    },
    {
-    "id": "Q123705149",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q123766012",
     "reason": "source_not_complete",
     "sources": [
@@ -130,55 +91,7 @@
     ]
    },
    {
-    "id": "Q124300145",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q125675831",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q125740412",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q12618343",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q127586803",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q127586928",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q127586999",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -210,22 +123,6 @@
     ]
    },
    {
-    "id": "Q127587206",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q127587277",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q127587279",
     "reason": "source_not_complete",
     "sources": [
@@ -235,22 +132,6 @@
    },
    {
     "id": "Q127587301",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q127587303",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q127587527",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -275,14 +156,6 @@
    },
    {
     "id": "Q127587792",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q127587794",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -338,14 +211,6 @@
     ]
    },
    {
-    "id": "Q127588009",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q127588061",
     "reason": "source_not_complete",
     "sources": [
@@ -354,23 +219,7 @@
     ]
    },
    {
-    "id": "Q127588063",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q127588164",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q127588166",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -394,22 +243,6 @@
     ]
    },
    {
-    "id": "Q127588175",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q12859650",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q131338379",
     "reason": "source_not_complete",
     "sources": [
@@ -426,23 +259,7 @@
     ]
    },
    {
-    "id": "Q131338382",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q131338384",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q131338386",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -458,14 +275,6 @@
     ]
    },
    {
-    "id": "Q131338391",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q131338393",
     "reason": "source_not_complete",
     "sources": [
@@ -474,23 +283,7 @@
     ]
    },
    {
-    "id": "Q131338395",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q131338397",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q131338399",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -514,14 +307,6 @@
     ]
    },
    {
-    "id": "Q131338409",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q131338410",
     "reason": "source_not_complete",
     "sources": [
@@ -530,23 +315,7 @@
     ]
    },
    {
-    "id": "Q131338412",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q131338414",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q131338416",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -563,14 +332,6 @@
    },
    {
     "id": "Q132797212",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q133137484",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -602,23 +363,7 @@
     ]
    },
    {
-    "id": "Q134126751",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q136085207",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q136219703",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -665,39 +410,7 @@
     ]
    },
    {
-    "id": "Q138718345",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q139502938",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q139969474",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q140054569",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q140062281",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -714,22 +427,6 @@
    },
    {
     "id": "Q140933888",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q140934443",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q140934506",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -761,47 +458,10 @@
     ]
    },
    {
-    "id": "Q1636567",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q1710238",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
     "id": "Q1800283",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q1823431",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q22912864",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q2494975",
-    "reason": "source_not_complete",
-    "sources": [
      "enrich"
     ]
    },
@@ -814,13 +474,6 @@
     ]
    },
    {
-    "id": "Q2920487",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
     "id": "Q29885992",
     "reason": "source_not_complete",
     "sources": [
@@ -829,99 +482,7 @@
     ]
    },
    {
-    "id": "Q3148738",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q3207426",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q351126",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q4167",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q4173984",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q47902176",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q5054749",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q5057595",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
     "id": "Q5445785",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q5445787",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q55122717",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q62471103",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q63319303",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -945,23 +506,7 @@
     ]
    },
    {
-    "id": "Q80201137",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q80312363",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q885975",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -984,14 +529,6 @@
     ]
    },
    {
-    "id": "Q105621899",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q113509569",
     "reason": "source_not_complete",
     "sources": [
@@ -1000,55 +537,7 @@
     ]
    },
    {
-    "id": "Q113527000",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q114053490",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q115347055",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q123597350",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q125124583",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q126682295",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q126689470",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -1072,39 +561,7 @@
     ]
    },
    {
-    "id": "Q127587050",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q127587052",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q127587058",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q127587065",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q127587201",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -1136,31 +593,7 @@
     ]
    },
    {
-    "id": "Q127587238",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q127587241",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q127587276",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q127587388",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -1184,31 +617,7 @@
     ]
    },
    {
-    "id": "Q127587678",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q127587832",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q127587838",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q127587847",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -1248,14 +657,6 @@
     ]
    },
    {
-    "id": "Q127588107",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q127588109",
     "reason": "source_not_complete",
     "sources": [
@@ -1264,7 +665,7 @@
     ]
    },
    {
-    "id": "Q127588161",
+    "id": "Q127588170",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -1272,7 +673,789 @@
     ]
    },
    {
-    "id": "Q127588170",
+    "id": "Q131338387",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q131338390",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q131338394",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q131338398",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q131338400",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q131338408",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q131338413",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q131338417",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q138505573",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q139969264",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q139973326",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q140922593",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q140923042",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q140923279",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q140933380",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q140934536",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q140934587",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q15014400",
+    "reason": "source_not_complete",
+    "sources": [
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q2071621",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q24522389",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q55373598",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q6703298",
+    "reason": "source_not_complete",
+    "sources": [
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q7422981",
+    "reason": "source_not_complete",
+    "sources": [
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q7937834",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q796012",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q80196674",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q80198034",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q80199477",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q96409917",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q96943615",
+    "reason": "source_not_complete",
+    "sources": [
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q97163414",
+    "reason": "source_not_complete",
+    "sources": [
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q99213573",
+    "reason": "source_not_complete",
+    "sources": [
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q1068874",
+    "reason": "source_not_complete",
+    "sources": [
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q108139453",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q114245074",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q11524427",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q123705149",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q124300145",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q125740412",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q12618343",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127586803",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127586928",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127586999",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127587206",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127587277",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127587303",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127587527",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127587794",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127588009",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127588063",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127588166",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127588175",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q12859650",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q131338382",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q131338386",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q131338391",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q131338395",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q131338399",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q131338409",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q131338412",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q131338416",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q133137484",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q134126751",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q136219703",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q138718345",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q139969474",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q140054569",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q140062281",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q140934443",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q140934506",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q1636567",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q1710238",
+    "reason": "source_not_complete",
+    "sources": [
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q1823431",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q2494975",
+    "reason": "source_not_complete",
+    "sources": [
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q5054749",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q5057595",
+    "reason": "source_not_complete",
+    "sources": [
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q55122717",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q62471103",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q63319303",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q80201137",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q885975",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q105621899",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q113527000",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q114053490",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q115347055",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q125124583",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q126682295",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q126689470",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127587050",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127587058",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127587065",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127587201",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127587238",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127587241",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127587388",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127587678",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127587832",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127587847",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127588107",
+    "reason": "source_not_complete",
+    "sources": [
+     "wikidata",
+     "enrich"
+    ]
+   },
+   {
+    "id": "Q127588161",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -1312,23 +1495,7 @@
     ]
    },
    {
-    "id": "Q131338387",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q131338389",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q131338390",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -1344,31 +1511,7 @@
     ]
    },
    {
-    "id": "Q131338394",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q131338396",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q131338398",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q131338400",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -1384,31 +1527,7 @@
     ]
    },
    {
-    "id": "Q131338408",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q131338411",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q131338413",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q131338417",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -1472,63 +1591,7 @@
     ]
    },
    {
-    "id": "Q138505573",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q138786110",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q139969264",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q139973326",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q140922593",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q140923042",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q140923279",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q140933380",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -1544,37 +1607,7 @@
     ]
    },
    {
-    "id": "Q140934536",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q140934587",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q15014400",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
     "id": "Q15076316",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q17051597",
     "reason": "source_not_complete",
     "sources": [
      "enrich"
@@ -1585,13 +1618,6 @@
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q184921",
-    "reason": "source_not_complete",
-    "sources": [
      "enrich"
     ]
    },
@@ -1612,14 +1638,6 @@
     ]
    },
    {
-    "id": "Q2071621",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q22703904",
     "reason": "source_not_complete",
     "sources": [
@@ -1628,58 +1646,7 @@
     ]
    },
    {
-    "id": "Q24522389",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q26156861",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q2961245",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q327650",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q328491",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q33993",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
     "id": "Q5197843",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q55373598",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -1701,37 +1668,7 @@
     ]
    },
    {
-    "id": "Q6703298",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
     "id": "Q678361",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q7422981",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q7937834",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q796012",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -1747,31 +1684,7 @@
     ]
    },
    {
-    "id": "Q80196674",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q80198034",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
     "id": "Q80198623",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q80199477",
     "reason": "source_not_complete",
     "sources": [
      "wikidata",
@@ -1793,213 +1706,58 @@
      "wikidata",
      "enrich"
     ]
-   },
-   {
-    "id": "Q96409917",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata",
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q96943615",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q97163414",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
-   },
-   {
-    "id": "Q99213573",
-    "reason": "source_not_complete",
-    "sources": [
-     "enrich"
-    ]
    }
   ],
   "changed": [
-   "CAT-006W654",
-   "CAT-01WE6KC",
-   "CAT-02UFF78",
-   "CAT-0336B9D",
-   "CAT-03ULN0L",
-   "CAT-060SMQ9",
-   "CAT-06MTGIV",
-   "CAT-06RUPY4",
-   "CAT-06VLQHR",
-   "CAT-07MN9XB",
-   "CAT-080XNRV",
-   "CAT-087XY0Y",
-   "CAT-08BN77L",
-   "CAT-09ZYAFP",
-   "CAT-0AEBIPR",
-   "CAT-0B9ZNFX",
-   "CAT-0BLB3MO",
-   "CAT-0CWOTJI",
-   "CAT-0E8G1MU",
-   "CAT-0EAYBY6",
-   "CAT-0GL7X3U",
-   "CAT-0H4BEQU",
-   "CAT-0JYY9CE",
-   "CAT-0LLELAR",
-   "CAT-0PSGJ9K",
-   "CAT-0QJFC3C",
-   "CAT-0RRRVOK",
-   "CAT-0T9MVFP",
-   "CAT-0TBVQ3P",
-   "CAT-0UUDID6",
-   "CAT-0V5ZFBN",
-   "CAT-0X5OH68",
-   "CAT-0X8IWCG",
-   "CAT-0XKXRFR",
-   "CAT-0YNL8BM",
-   "CAT-10OT2VI",
-   "CAT-14IPYSX",
-   "CAT-14L575Y",
-   "CAT-15Q3ETO",
-   "CAT-15VOYUE",
-   "CAT-179IC4O",
-   "CAT-17Q294E",
-   "CAT-18MPLNM",
-   "CAT-18PSLHE",
-   "CAT-194EIQ6",
-   "CAT-19UI5Z0",
-   "CAT-19WSIOC",
-   "CAT-1AXKR8E",
-   "CAT-1B947PC",
-   "CAT-1CFHLL4",
-   "CAT-1CT46DX",
-   "CAT-1CXE5YL",
-   "CAT-1EQT3UH",
-   "CAT-1FUKQNM",
-   "CAT-1FV2MEP",
-   "CAT-1GBA2KD",
-   "CAT-1GGUXSH",
-   "CAT-1KCQL6I",
-   "CAT-1MB7I90",
-   "CAT-1MIYU2V",
-   "CAT-1NNE06W",
-   "CAT-1OKTAW1",
-   "CAT-1OXNCQS",
-   "CAT-1QV2IWZ",
-   "CAT-1SSQIKM",
-   "CAT-1TQLHFI",
-   "CAT-1VRT7O9",
-   "Q101435284",
-   "Q102079622",
-   "Q102079673",
-   "Q10224945",
-   "Q10457263",
-   "Q105658382",
-   "Q105749709",
-   "Q105765811",
-   "Q107265489",
-   "Q110169084",
-   "Q110264446",
-   "Q114669123",
-   "Q116823022",
-   "Q117225588",
-   "Q117248257",
-   "Q11756714",
-   "Q11783870",
-   "Q1188708",
-   "Q122440749",
-   "Q122689319",
-   "Q122944544",
-   "Q124539982",
-   "Q125715",
-   "Q12640281",
-   "Q126924742",
-   "Q127586812",
-   "Q128211807",
-   "Q130070499",
-   "Q131314431",
-   "Q134006872",
-   "Q136702043",
-   "Q137796942",
-   "Q140937471",
-   "Q15140473",
-   "Q16034471",
-   "Q18219743",
-   "Q18536617",
-   "Q20103498",
-   "Q20888882",
-   "Q28873401",
-   "Q54856189",
-   "Q61473821",
-   "SEOUL006",
-   "SEOUL018",
-   "SEOUL022",
-   "SEOUL025",
-   "SEOUL027",
-   "SEOUL033",
-   "SEOUL035",
-   "SEOUL043",
-   "SEOUL044",
-   "SEOUL045",
-   "SEOUL046",
-   "SEOUL048"
+   "Q17051597",
+   "Q184921",
+   "Q22912864",
+   "Q26156861",
+   "Q2920487",
+   "Q2961245",
+   "Q3148738",
+   "Q3207426",
+   "Q327650",
+   "Q328491",
+   "Q33993",
+   "Q351126",
+   "Q4167",
+   "Q4173984",
+   "Q47902176",
+   "Q5445787"
   ],
   "merges": [],
   "new": [
-   "CAT-08VX4AM",
-   "CAT-0LW7VGW",
-   "CAT-0M67H5V",
-   "CAT-0MJOWPH",
-   "CAT-0MQ6OJT",
-   "CAT-0OYNWS3",
-   "CAT-0P833SK",
-   "CAT-0PI2PHJ",
-   "CAT-0XZQYTI",
-   "CAT-12M7NDT",
-   "CAT-1HPTKTH",
-   "CAT-1KKOU2O",
-   "CAT-1KUOFRN",
-   "CAT-1L4O1GM",
-   "CAT-1LENN5L",
-   "CAT-1LON8UK",
-   "CAT-1LYMUJJ",
-   "CAT-1MIM1XH",
-   "CAT-1NCKV0E",
-   "CAT-1NMKGPD",
-   "CAT-1QYCJJ2",
-   "CAT-1R8C581",
-   "CAT-1RIBQX0",
-   "CAT-1RSBCLZ",
-   "CAT-1S2AYAY",
-   "CAT-1SCAJZX",
-   "Q55248927"
+   "Q1629853",
+   "Q21157037",
+   "Q2706817",
+   "Q45921773",
+   "Q55246811",
+   "Q55271535"
   ],
   "removed": []
  },
  "counts": {
   "candidates_awaiting_review": 11,
-  "carried_over": 228,
-  "changed": 121,
+  "carried_over": 212,
+  "changed": 16,
   "collected": 955,
-  "eligible": 189,
-  "excluded": 766,
-  "foreign": 362,
-  "hero_candidates_awaiting_review": 129,
+  "eligible": 211,
+  "excluded": 744,
+  "foreign": 368,
+  "hero_candidates_awaiting_review": 143,
   "kr": 55,
   "kr_with_region": 55,
   "merged": 0,
-  "new": 27,
+  "new": 6,
   "observations": 985,
   "observations_kept": 970,
   "projects_built": 955,
-  "published": 417,
+  "published": 423,
   "removed": 0,
   "stale": 0,
   "with_hero": 10,
-  "with_images": 236
+  "with_images": 241
  },
  "decisions": [
   {
@@ -2460,8 +2218,9 @@
    "by": "claude (visual review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-50-049-set_hero.json",
    "note": "Contact sheet #83 reviewed visually: Jerusalem Festival of Light: light art on the Old City walls.",
+   "project": "Q4173984",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q4173984"
   },
   {
@@ -2925,7 +2684,7 @@
    "note": "Reviewed on hero-candidates contact sheet #83: Jerusalem Festival of Light: light art on the Old City walls.",
    "project": "Q4173984",
    "reasons": [],
-   "status": "project_not_published"
+   "status": "hero"
   },
   {
    "image": "보성차밭 빛 축제 (11).jpg",
@@ -2951,16 +2710,16 @@
  ],
  "http": {
   "api.openverse.org": {
-   "bytes": 137180,
-   "cached": 99,
+   "bytes": 181856,
+   "cached": 108,
    "errors": 1,
    "last_error": "HTTP 403",
-   "ms": 33470,
+   "ms": 45416,
    "not_modified": 0,
-   "ok": 17,
-   "requests": 18,
+   "ok": 11,
+   "requests": 12,
    "statuses": {
-    "200": 17,
+    "200": 11,
     "403": 1
    }
   },
@@ -2976,24 +2735,24 @@
    "statuses": {}
   },
   "commons.wikimedia.org": {
-   "bytes": 2355836,
-   "cached": 270,
+   "bytes": 625979,
+   "cached": 313,
    "errors": 1,
    "last_error": "time budget exhausted (rate_limit_wait)",
-   "ms": 132509,
+   "ms": 98717,
    "not_modified": 0,
-   "ok": 141,
-   "requests": 142,
+   "ok": 103,
+   "requests": 104,
    "statuses": {
-    "200": 141
+    "200": 103
    }
   },
   "de.wikipedia.org": {
-   "bytes": 2141,
-   "cached": 2,
+   "bytes": 5068,
+   "cached": 1,
    "errors": 0,
    "last_error": null,
-   "ms": 1094,
+   "ms": 1080,
    "not_modified": 0,
    "ok": 2,
    "requests": 2,
@@ -3002,22 +2761,24 @@
    }
   },
   "en.wikipedia.org": {
-   "bytes": 0,
-   "cached": 4,
+   "bytes": 10385,
+   "cached": 3,
    "errors": 0,
    "last_error": null,
-   "ms": 0,
+   "ms": 2901,
    "not_modified": 0,
-   "ok": 0,
-   "requests": 0,
-   "statuses": {}
+   "ok": 3,
+   "requests": 3,
+   "statuses": {
+    "200": 3
+   }
   },
   "es.wikipedia.org": {
-   "bytes": 1073,
-   "cached": 2,
+   "bytes": 1140,
+   "cached": 3,
    "errors": 0,
    "last_error": null,
-   "ms": 762,
+   "ms": 283,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -3026,15 +2787,17 @@
    }
   },
   "fr.wikipedia.org": {
-   "bytes": 0,
+   "bytes": 479,
    "cached": 3,
    "errors": 0,
    "last_error": null,
-   "ms": 0,
+   "ms": 237,
    "not_modified": 0,
-   "ok": 0,
-   "requests": 0,
-   "statuses": {}
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
   },
   "it.wikipedia.org": {
    "bytes": 0,
@@ -3048,24 +2811,22 @@
    "statuses": {}
   },
   "ja.wikipedia.org": {
-   "bytes": 774,
-   "cached": 0,
+   "bytes": 0,
+   "cached": 1,
    "errors": 0,
    "last_error": null,
-   "ms": 1458,
+   "ms": 0,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   },
   "ko.wikipedia.org": {
-   "bytes": 3689,
-   "cached": 19,
+   "bytes": 4972,
+   "cached": 20,
    "errors": 0,
    "last_error": null,
-   "ms": 3107,
+   "ms": 3058,
    "not_modified": 0,
    "ok": 4,
    "requests": 4,
@@ -3089,7 +2850,7 @@
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 1261,
+   "ms": 1309,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -3102,7 +2863,7 @@
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 16804,
+   "ms": 35328,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -3122,37 +2883,35 @@
    "statuses": {}
   },
   "pt.wikipedia.org": {
-   "bytes": 73,
-   "cached": 2,
+   "bytes": 0,
+   "cached": 3,
    "errors": 0,
    "last_error": null,
-   "ms": 809,
+   "ms": 0,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   },
   "query.wikidata.org": {
-   "bytes": 162287,
-   "cached": 30,
+   "bytes": 8231,
+   "cached": 28,
    "errors": 0,
    "last_error": null,
-   "ms": 11479,
+   "ms": 10141,
    "not_modified": 0,
-   "ok": 13,
-   "requests": 13,
+   "ok": 11,
+   "requests": 11,
    "statuses": {
-    "200": 13
+    "200": 11
    }
   },
   "ru.wikipedia.org": {
-   "bytes": 11423,
-   "cached": 0,
+   "bytes": 4705,
+   "cached": 1,
    "errors": 0,
    "last_error": null,
-   "ms": 1584,
+   "ms": 234,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -3161,24 +2920,24 @@
    }
   },
   "thumb.wikimedia.org": {
-   "bytes": 28228858,
+   "bytes": 11577589,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 98993,
+   "ms": 18766,
    "not_modified": 0,
-   "ok": 500,
-   "requests": 500,
+   "ok": 329,
+   "requests": 329,
    "statuses": {
-    "200": 500
+    "200": 329
    }
   },
   "tr.wikipedia.org": {
-   "bytes": 2370,
+   "bytes": 5054,
    "cached": 3,
    "errors": 0,
    "last_error": null,
-   "ms": 805,
+   "ms": 329,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -3186,52 +2945,37 @@
     "200": 1
    }
   },
-  "upload.wikimedia.org": {
-   "bytes": 304920,
-   "cached": 0,
-   "errors": 0,
-   "last_error": null,
-   "ms": 422,
-   "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
-   "statuses": {
-    "200": 2
-   }
-  },
   "www.wikidata.org": {
-   "bytes": 52344,
+   "bytes": 52431,
    "cached": 0,
    "errors": 26,
    "last_error": "api error maxlag",
-   "ms": 40070,
+   "ms": 35063,
    "not_modified": 0,
    "ok": 0,
-   "requests": 105,
+   "requests": 106,
    "statuses": {
-    "200": 105
+    "200": 106
    }
   },
   "zh.wikipedia.org": {
-   "bytes": 2775,
-   "cached": 1,
+   "bytes": 0,
+   "cached": 3,
    "errors": 0,
    "last_error": null,
-   "ms": 2262,
+   "ms": 0,
    "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
-   "statuses": {
-    "200": 2
-   }
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   }
  },
  "image_audit": {
   "cards": {
    "all": {
-    "projects": 417,
-    "rate_pct": 56.1,
-    "with_valid_card": 234
+    "projects": 423,
+    "rate_pct": 56.5,
+    "with_valid_card": 239
    },
    "korea": {
     "projects": 55,
@@ -3239,33 +2983,33 @@
     "with_valid_card": 12
    },
    "world": {
-    "projects": 362,
-    "rate_pct": 61.3,
-    "with_valid_card": 222
+    "projects": 368,
+    "rate_pct": 61.7,
+    "with_valid_card": 227
    }
   },
   "duplicates_removed": 0,
   "duplicates_this_run": 5,
-  "images": 1896,
-  "low_res_rejected": 30,
-  "mislinked_rejected": 10,
+  "images": 1945,
+  "low_res_rejected": 40,
+  "mislinked_rejected": 13,
   "mislinked_removed": 0,
-  "newly_added_valid": 237,
-  "person_rejected": 28,
+  "newly_added_valid": 54,
+  "person_rejected": 45,
   "person_removed": 0,
-  "portraits": 1,
-  "previous_images": 1742,
-  "rechecked_kept": 613,
-  "relevance_verified": 1283,
-  "removed_total": 83
+  "portraits": 0,
+  "previous_images": 1896,
+  "rechecked_kept": 457,
+  "relevance_verified": 1488,
+  "removed_total": 5
  },
  "images": {
   "awaiting_review": 0,
   "below_threshold": 1,
   "by_provider": {
-   "commons": 1283
+   "commons": 1488
   },
-  "candidates": 3606,
+  "candidates": 4544,
   "contact_sheets": [
    "hero-commons-01.jpg",
    "hero-commons-02.jpg",
@@ -3277,16 +3021,17 @@
    "featured-commons-04.jpg",
    "featured-commons-05.jpg",
    "featured-commons-06.jpg",
+   "featured-commons-07.jpg",
    "cards-01.jpg",
    "cards-02.jpg",
    "cards-03.jpg",
    "cards-04.jpg"
   ],
   "depicts_errors": 0,
-  "depicts_searches": 1,
+  "depicts_searches": 6,
   "duplicates": 5,
   "hero": 4,
-  "identity_rejected": 248,
+  "identity_rejected": 265,
   "institution_context": 27,
   "kept_demoted_context": 0,
   "kept_dropped_irrelevant": 0,
@@ -3294,58 +3039,58 @@
   "kept_dropped_unverified": 0,
   "kept_previous": 0,
   "measure_errors": 0,
-  "measured": 124,
-  "none": 41,
+  "measured": 18,
+  "none": 42,
   "openverse_rate_limit": {
    "x-ratelimit-available-anon_burst": 19,
    "x-ratelimit-available-anon_sustained": 199
   },
   "portraits": 0,
-  "processed": 189,
+  "processed": 211,
   "provider_errors": {
    "openverse": 1
   },
   "provider_new_requests": {
-   "openverse": 18
+   "openverse": 12
   },
   "provider_rejected": {
-   "openverse:identity_unproven": 248,
-   "openverse:name": 3,
+   "openverse:identity_unproven": 265,
+   "openverse:name": 4,
    "openverse:rights": 1,
    "openverse:subject": 7
   },
   "provider_requests": {
-   "openverse": 117
+   "openverse": 120
   },
-  "provider_unverified": 135,
-  "quality_fetched": 78,
-  "quality_measured": 78,
+  "provider_unverified": 152,
+  "quality_fetched": 11,
+  "quality_measured": 11,
   "rejected": {
    "extreme_aspect": 17,
-   "interior_unrelated_to_work": 3,
-   "rights:license_not_allowed": 7,
-   "subject:object_or_animal": 7,
-   "subject:people_or_event": 17,
+   "interior_unrelated_to_work": 4,
+   "rights:license_not_allowed": 23,
+   "subject:object_or_animal": 9,
+   "subject:people_or_event": 33,
    "subject:person": 1,
-   "too_small": 16
+   "too_small": 27
   },
-  "thumbnails_fetched": 124
+  "thumbnails_fetched": 18
  },
  "places": {
   "aggregate_name": 11,
   "by_rule": {
    "file_geotags": 13,
-   "parent_category": 99,
-   "parent_item": 26
+   "parent_category": 126,
+   "parent_item": 30
   },
   "candidates": 237,
   "capped": 0,
-  "conflict": 11,
+  "conflict": 19,
   "duplicate_of_project": 1,
-  "geotag_requests": 19,
-  "no_evidence": 16,
+  "geotag_requests": 29,
+  "no_evidence": 17,
   "partial": true,
-  "recovered": 138,
+  "recovered": 169,
   "region_candidates": 2
  },
  "public_data": {
@@ -3388,23 +3133,22 @@
   "ru.wikipedia.org": "reachable",
   "thumb.wikimedia.org": "reachable",
   "tr.wikipedia.org": "reachable",
-  "upload.wikimedia.org": "reachable",
   "www.wikidata.org": "failed",
   "zh.wikipedia.org": "reachable"
  },
  "review_queue": {
   "candidates": 11,
-  "hero_candidates": 129
+  "hero_candidates": 143
  },
  "run": {
   "budget_minutes": 25,
-  "build_id": "20261107T060235Z-cfdccae2",
+  "build_id": "20261107T130749Z-1c44e2d8",
   "drop_guard": null,
-  "duration_ms": 1111961,
-  "finished_at": "2026-11-07T06:21:07.028Z",
-  "number": 75,
+  "duration_ms": 1047143,
+  "finished_at": "2026-11-07T13:25:17.034Z",
+  "number": 76,
   "publish": "published",
-  "started_at": "2026-11-07T06:02:35.067Z",
+  "started_at": "2026-11-07T13:07:49.891Z",
   "status": "partial",
   "user_agent": "LightArchitectureArchive/0.18 (+https://remona8787.github.io/; remona56@hanmail.net)",
   "validation_errors": []
@@ -3413,11 +3157,11 @@
  "sources": {
   "commons": {
    "consecutive_failures": 0,
-   "duration_ms": 39298,
+   "duration_ms": 22973,
    "errors": [],
    "items": 295,
    "korea_items": 4,
-   "last_success": "2026-11-07T06:02:35.067Z",
+   "last_success": "2026-11-07T13:07:49.891Z",
    "status": "ok",
    "warnings": [
     {
@@ -3556,12 +3300,12 @@
    "consecutive_failures": 0,
    "errors": [],
    "items": 49,
-   "last_success": "2026-11-07T06:02:35.067Z",
+   "last_success": "2026-11-07T13:07:49.891Z",
    "status": "ok"
   },
   "enrich": {
    "consecutive_failures": 0,
-   "duration_ms": 401492,
+   "duration_ms": 402438,
    "errors": [
     {
      "message": "time budget exhausted (enrich)"
@@ -3574,22 +3318,22 @@
   "links": {
    "consecutive_failures": 0,
    "errors": [],
-   "from_cache": 80,
-   "items": 10,
-   "last_success": "2026-11-07T06:02:35.067Z",
+   "from_cache": 76,
+   "items": 14,
+   "last_success": "2026-11-07T13:07:49.891Z",
    "status": "ok",
    "unchecked": 0
   },
   "overpass": {
    "consecutive_failures": 0,
    "errors": [],
-   "items": 1,
-   "last_success": "2026-11-07T06:02:35.067Z",
+   "items": 5,
+   "last_success": "2026-11-07T13:07:49.891Z",
    "status": "ok"
   },
   "seoul_events": {
    "consecutive_failures": 0,
-   "duration_ms": 1262,
+   "duration_ms": 1310,
    "errors": [],
    "items": 0,
    "last_success": null,
@@ -3608,77 +3352,63 @@
   },
   "web": {
    "consecutive_failures": 0,
-   "duration_ms": 350245,
+   "duration_ms": 349143,
    "errors": [
-    {
-     "http_status": null,
-     "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
-     "rule": "gdelt:GDELT en · media facade",
-     "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aenglish&mode=ArtList&format=json&maxrecords=250&timespan=26h&sort=DateDesc"
-    },
     {
      "http_status": 429,
      "message": "HTTP 429",
-     "rule": "gdelt:GDELT ko · media facade",
+     "rule": "gdelt:GDELT en · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Akorean&mode=ArtList&format=json&maxrecords=250&timespan=4d&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aenglish&mode=ArtList&format=json&maxrecords=250&timespan=33h&sort=DateDesc"
     },
     {
      "http_status": 429,
      "message": "HTTP 429",
      "rule": "gdelt:GDELT ja · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Ajapanese&mode=ArtList&format=json&maxrecords=250&timespan=26h&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Ajapanese&mode=ArtList&format=json&maxrecords=250&timespan=33h&sort=DateDesc"
     },
     {
      "http_status": 429,
      "message": "HTTP 429",
      "rule": "gdelt:GDELT de · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Agerman&mode=ArtList&format=json&maxrecords=250&timespan=26h&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Agerman&mode=ArtList&format=json&maxrecords=250&timespan=33h&sort=DateDesc"
     },
     {
-     "http_status": 429,
-     "message": "HTTP 429",
+     "http_status": null,
+     "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
      "rule": "gdelt:GDELT fr · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Afrench&mode=ArtList&format=json&maxrecords=250&timespan=13h&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Afrench&mode=ArtList&format=json&maxrecords=250&timespan=20h&sort=DateDesc"
     },
     {
      "http_status": 429,
      "message": "HTTP 429",
      "rule": "gdelt:GDELT pt · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aportuguese&mode=ArtList&format=json&maxrecords=250&timespan=13h&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aportuguese&mode=ArtList&format=json&maxrecords=250&timespan=20h&sort=DateDesc"
     },
     {
      "http_status": 429,
      "message": "HTTP 429",
-     "rule": "gdelt:GDELT nl · media facade",
-     "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Adutch&mode=ArtList&format=json&maxrecords=250&timespan=26h&sort=DateDesc"
-    },
-    {
-     "http_status": null,
-     "message": "no answer within 20000 ms",
      "rule": "gdelt:GDELT ru · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Arussian&mode=ArtList&format=json&maxrecords=250&timespan=26h&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Arussian&mode=ArtList&format=json&maxrecords=250&timespan=33h&sort=DateDesc"
+    },
+    {
+     "http_status": 429,
+     "message": "HTTP 429",
+     "rule": "gdelt:GDELT ar · media facade",
+     "stage": "web_fetch",
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aarabic&mode=ArtList&format=json&maxrecords=250&timespan=4d&sort=DateDesc"
     },
     {
      "http_status": 429,
      "message": "HTTP 429",
      "rule": "gdelt:GDELT tr · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aturkish&mode=ArtList&format=json&maxrecords=250&timespan=26h&sort=DateDesc"
-    },
-    {
-     "http_status": 200,
-     "message": "response exceeded the 2097152-byte cap while streaming",
-     "rule": "rss:Dezeen",
-     "stage": "web_fetch",
-     "url": "https://www.dezeen.com/feed/"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aturkish&mode=ArtList&format=json&maxrecords=250&timespan=33h&sort=DateDesc"
     }
    ],
    "items": 7,
@@ -3700,19 +3430,10 @@
      "status": "error"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 0
-     },
-     "errors": 1,
-     "fetched": 0,
-     "kept": 0,
      "key": "gdelt:GDELT ko · media facade",
-     "kind": "gdelt",
-     "not_modified": false,
-     "reason": null,
-     "status": "error"
+     "reason": "backoff",
+     "status": "skipped",
+     "until": "2026-11-08T14:03:46.519Z"
     },
     {
      "dropped": {
@@ -3816,14 +3537,14 @@
       "invalid": 0,
       "prefilter": 0
      },
-     "errors": 1,
+     "errors": 0,
      "fetched": 0,
      "kept": 0,
      "key": "gdelt:GDELT nl · media facade",
      "kind": "gdelt",
      "not_modified": false,
      "reason": null,
-     "status": "error"
+     "status": "success"
     },
     {
      "dropped": {
@@ -3856,10 +3577,19 @@
      "status": "error"
     },
     {
+     "dropped": {
+      "duplicate_url": 0,
+      "invalid": 0,
+      "prefilter": 0
+     },
+     "errors": 1,
+     "fetched": 0,
+     "kept": 0,
      "key": "gdelt:GDELT ar · media facade",
-     "reason": "backoff",
-     "status": "skipped",
-     "until": "2026-11-07T11:31:35.838Z"
+     "kind": "gdelt",
+     "not_modified": false,
+     "reason": null,
+     "status": "error"
     },
     {
      "dropped": {
@@ -3877,19 +3607,10 @@
      "status": "error"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 0
-     },
-     "errors": 1,
-     "fetched": 0,
-     "kept": 0,
      "key": "rss:Dezeen",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "error"
+     "reason": "backoff",
+     "status": "skipped",
+     "until": "2026-11-09T06:08:22.343Z"
     },
     {
      "dropped": {
@@ -3977,14 +3698,14 @@
   },
   "wikidata": {
    "consecutive_failures": 0,
-   "duration_ms": 41892,
+   "duration_ms": 42868,
    "errors": [
     {
-     "message": "maxlag: Waiting for wdqs1014: 8.1 seconds lagged.",
+     "message": "maxlag: Waiting for wdqs1016: 8.0666666666667 seconds lagged.",
      "stage": "discovery"
     },
     {
-     "message": "maxlag: Waiting for wdqs1014: 8.7666666666667 seconds lagged.",
+     "message": "maxlag: Waiting for wdqs1016: 8.0666666666667 seconds lagged.",
      "stage": "discovery"
     },
     {
@@ -4000,45 +3721,45 @@
   },
   "wikipedia": {
    "consecutive_failures": 0,
-   "duration_ms": 4262,
+   "duration_ms": 3955,
    "errors": [],
    "items": 282,
    "korea_items": 86,
-   "last_success": "2026-11-07T06:02:35.067Z",
+   "last_success": "2026-11-07T13:07:49.891Z",
    "status": "ok"
   }
  },
  "stages": {
   "contact_sheets": {
-   "duration_ms": 79377,
+   "duration_ms": 72814,
    "status": "ok"
   },
   "enrich": {
-   "duration_ms": 401493,
+   "duration_ms": 402438,
    "status": "ok"
   },
   "images": {
-   "duration_ms": 180914,
+   "duration_ms": 103807,
    "status": "ok"
   },
   "links": {
-   "duration_ms": 53860,
+   "duration_ms": 54845,
    "status": "ok"
   },
   "overpass": {
-   "duration_ms": 16806,
+   "duration_ms": 35329,
    "status": "ok"
   },
   "places": {
-   "duration_ms": 28730,
+   "duration_ms": 28355,
    "status": "partial"
   },
   "resolve": {
-   "duration_ms": 76,
+   "duration_ms": 60,
    "status": "ok"
   },
   "sources": {
-   "duration_ms": 350252,
+   "duration_ms": 349149,
    "status": "ok"
   }
  },

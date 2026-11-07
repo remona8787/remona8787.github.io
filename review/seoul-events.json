@@ -1,6 +1,6 @@
 {
  "about": "Seoul cultural events (OA-15486 culturalEventInfo): without SEOUL_OPEN_DATA_KEY one probe with the sample key (reachability and the live field names; never published). Every event with its relevance decision; the relevant ones linked to a project (name within 300 m) or listed as place candidates. Keys never appear.",
- "at": "2026-11-07T06:02:35.067Z",
+ "at": "2026-11-07T13:07:49.891Z",
  "counts": {
   "merged": 0,
   "new_candidates": 0,
@@ -56,38 +56,6 @@
    "url": "https://tickets.interpark.com/goods/26010350"
   },
   {
-   "category": "클래식",
-   "coords_swapped": false,
-   "date_text": "2026-12-22~2026-12-22",
-   "decision": {
-    "reasons": [
-     "no_media_term"
-    ],
-    "relevant": false,
-    "terms": []
-   },
-   "district": "서초구",
-   "end": "2026-12-22",
-   "fee": null,
-   "id": "SEV-0AIYO36",
-   "is_free": true,
-   "kind": "event",
-   "lat": 37.49904352601313,
-   "lng": 126.99165409240258,
-   "org": "서초문화재단",
-   "place": "반포심산아트홀",
-   "player": null,
-   "probe": true,
-   "program": null,
-   "start": "2026-12-22",
-   "status": "upcoming",
-   "target": "초등학생 이상 관람가능",
-   "theme": "기타",
-   "time_text": "화 19:30",
-   "title": "[서초문화재단] 2026서리풀 어울림 콘서트 [바이올리니스트 김지선의 Dia:logue-graph]",
-   "url": "https://www.seochocf.or.kr/site/main/seocho/show/view?show_idx=1020"
-  },
-  {
    "category": "콘서트",
    "coords_swapped": false,
    "date_text": "2026-12-22~2026-12-22",
@@ -118,6 +86,38 @@
    "time_text": "19:30",
    "title": "2026 카즈미 타테이시 트리오 내한공연-지브리, 재즈를 만나다-(서울)",
    "url": "https://tickets.interpark.com/goods/26010060"
+  },
+  {
+   "category": "클래식",
+   "coords_swapped": false,
+   "date_text": "2026-12-22~2026-12-22",
+   "decision": {
+    "reasons": [
+     "no_media_term"
+    ],
+    "relevant": false,
+    "terms": []
+   },
+   "district": "서초구",
+   "end": "2026-12-22",
+   "fee": null,
+   "id": "SEV-0AIYO36",
+   "is_free": true,
+   "kind": "event",
+   "lat": 37.49904352601313,
+   "lng": 126.99165409240258,
+   "org": "서초문화재단",
+   "place": "반포심산아트홀",
+   "player": null,
+   "probe": true,
+   "program": null,
+   "start": "2026-12-22",
+   "status": "upcoming",
+   "target": "초등학생 이상 관람가능",
+   "theme": "기타",
+   "time_text": "화 19:30",
+   "title": "[서초문화재단] 2026서리풀 어울림 콘서트 [바이올리니스트 김지선의 Dia:logue-graph]",
+   "url": "https://www.seochocf.or.kr/site/main/seocho/show/view?show_idx=1020"
   },
   {
    "category": "축제-관광/체육",
@@ -216,11 +216,11 @@
   "code": "INFO-000",
   "message": "정상 처리되었습니다",
   "rows": 5,
-  "total": 19738
+  "total": 19737
  },
  "schema": 1,
  "status": {
-  "duration_ms": 1262,
+  "duration_ms": 1310,
   "errors": [],
   "items": 0,
   "last_success": null,
