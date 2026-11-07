@@ -1,35 +1,35 @@
 {
  "profile": "tabular-data-package",
- "id": "light-architecture-archive@20261107T060235Z-cfdccae2-p2",
+ "id": "light-architecture-archive@20261107T130749Z-1c44e2d8-p2",
  "name": "light-architecture-archive",
  "title": "빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋",
- "version": "20261107T060235Z-cfdccae2-p2",
- "build_id": "20261107T060235Z-cfdccae2",
+ "version": "20261107T130749Z-1c44e2d8-p2",
+ "build_id": "20261107T130749Z-1c44e2d8",
  "package_format": 2,
- "created": "2026-11-07T06:02:35.067Z",
+ "created": "2026-11-07T13:07:49.891Z",
  "data_as_of": "2026-11-07",
  "homepage": "https://remona8787.github.io/",
  "description": "미디어파사드·건축 미디어아트·빛 설치 작품의 사실 정보(이름, 유형, 위치, 연도, 운영 상태, 식별자, 출처, 필드별 신뢰도), 레코드 사이의 관계, 공공 행사 정보, 공개 이미지의 저작권 정보. 편집부 해설문과 이미지 파일은 포함하지 않습니다.",
  "counts": {
-  "projects": 417,
-  "with_coordinates": 194,
-  "sources": 744,
-  "images": 1896,
-  "relations": 37,
+  "projects": 423,
+  "with_coordinates": 199,
+  "sources": 723,
+  "images": 1945,
+  "relations": 21,
   "events": 0,
-  "agents": 90,
+  "agents": 86,
   "agents_by_type": {
-   "artist": 86,
-   "architect": 3,
+   "artist": 83,
+   "architect": 2,
    "organization": 1
   },
   "by_country": {
-   "DE": 118,
+   "DE": 120,
    "KR": 55,
    "GB": 47,
    "FR": 33,
-   "US": 27,
-   "NL": 24,
+   "US": 28,
+   "NL": 25,
    "CA": 20,
    "AT": 12,
    "FI": 11,
@@ -39,15 +39,16 @@
    "BE": 5,
    "CH": 5,
    "RU": 4,
+   "AU": 3,
    "IT": 3,
    "JP": 3,
    "NZ": 3,
    "TH": 3,
    "AE": 2,
-   "AU": 2,
    "CN": 2,
    "EG": 2,
    "HR": 2,
+   "IS": 2,
    "RO": 2,
    "SA": 2,
    "SE": 2,
@@ -57,7 +58,6 @@
    "HK": 1,
    "IL": 1,
    "IN": 1,
-   "IS": 1,
    "MX": 1,
    "PH": 1
   },
@@ -68,8 +68,8 @@
    "gyeonggi_incheon": 1
   },
   "by_type": {
-   "light_art": 186,
-   "festival_program": 132,
+   "light_art": 191,
+   "festival_program": 133,
    "media_facade": 35,
    "other": 23,
    "projection_mapping": 22,
@@ -79,15 +79,14 @@
    "urban_screen": 1
   },
   "by_kind": {
-   "facility": 279,
-   "festival": 132,
-   "exhibition": 5,
-   "program": 1
+   "facility": 285,
+   "festival": 133,
+   "exhibition": 5
   },
   "by_status": {
-   "unknown": 406,
+   "unknown": 414,
    "ended": 6,
-   "seasonal": 5
+   "seasonal": 3
   }
  },
  "licenses": [
@@ -119,12 +118,12 @@
    "path": "https://remona8787.github.io/"
   }
  ],
- "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261107T060235Z-cfdccae2-p2, 데이터 기준일 2026-11-07). https://remona8787.github.io/data/research/20261107T060235Z-cfdccae2-p2/",
+ "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261107T130749Z-1c44e2d8-p2, 데이터 기준일 2026-11-07). https://remona8787.github.io/data/research/20261107T130749Z-1c44e2d8-p2/",
  "changes": {
-  "from": "20261106T192656Z-05ba3b4a",
-  "added": 27,
+  "from": "20261107T060235Z-cfdccae2",
+  "added": 6,
   "removed": 0,
-  "changed": 54
+  "changed": 16
  },
  "resources": [
   {
@@ -133,8 +132,8 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "bytes": 221139,
-   "hash": "sha256:50793c571561387f3965c85b1bdeee91e76e3ddf6b9e87cf07f171c9c70e3d28",
+   "bytes": 221471,
+   "hash": "sha256:ab5ae24bdb626c35bcb861511c74ddadeef0411f1395c8541ad47bf7d2594d66",
    "schema": {
     "fields": [
      {
@@ -423,8 +422,8 @@
    "format": "json",
    "mediatype": "application/json",
    "encoding": "utf-8",
-   "bytes": 676763,
-   "hash": "sha256:e24af9e656ec331aa39d187032767a08c3c4adddfbfa20bbeee1a680da28cbf2"
+   "bytes": 683679,
+   "hash": "sha256:7540b2acbe958bed0a0a3384f1a2e7082a26c7a47bd9241f203c6ae1459f4603"
   },
   {
    "name": "projects-geojson",
@@ -432,8 +431,8 @@
    "format": "geojson",
    "mediatype": "application/geo+json",
    "encoding": "utf-8",
-   "bytes": 60510,
-   "hash": "sha256:cfb1cc4d82ab10fef004e64192aea33d96aeace3f5838e966af2f2198ac7b72b"
+   "bytes": 62022,
+   "hash": "sha256:4e66e2c2545f3a60234a1eaf89c26cf2c6e18eb2e22f53eff5b663d68c1397f1"
   },
   {
    "name": "sources",
@@ -441,8 +440,8 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "bytes": 89131,
-   "hash": "sha256:17e4e40e2edf4710e307f350c614f71609e513f3933886aa6007276f1a4ffed0",
+   "bytes": 86432,
+   "hash": "sha256:3bc3844d62e6d5efa38d2afe54e0e4a4025c70cc229bbc564ee13638de59ed6a",
    "schema": {
     "fields": [
      {
@@ -485,8 +484,8 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "bytes": 553638,
-   "hash": "sha256:9638b550bb11219f7d5ff70e1d8773d9a307fbf6344048672df2d9c84bf6e95f",
+   "bytes": 565926,
+   "hash": "sha256:8f97542e0db492470721a9f3d9d90178fe654c7e43b7ca81ad18f53eaf591806",
    "schema": {
     "fields": [
      {
@@ -570,8 +569,8 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "bytes": 4814,
-   "hash": "sha256:2d5da408ea1e9af2f6ad1302d2e3fb4d78cf67f9384e7bfe10c8f6ed829e2452",
+   "bytes": 2894,
+   "hash": "sha256:ed5de3ec4dfcfd7485624ca0a8526d258e68aa8aa36632e0a2076f8df9242c91",
    "schema": {
     "fields": [
      {
@@ -748,8 +747,8 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "bytes": 8035,
-   "hash": "sha256:8cd16bad3b83739e54592399d1282b6096e86317b5ed59c06c30b994d87d907f",
+   "bytes": 7669,
+   "hash": "sha256:d1e0a1095414b971d772283f26a48e834b51bdb3f583607f6b56f9268cf06928",
    "schema": {
     "fields": [
      {
@@ -805,8 +804,8 @@
    "format": "xlsx",
    "mediatype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
    "encoding": "utf-8",
-   "bytes": 294388,
-   "hash": "sha256:530519b76a687881259602d5031ecb943f4035d0493ec716f945705662a95bdd"
+   "bytes": 297027,
+   "hash": "sha256:a0ad2a6cb3282fae733ac3fbf5c2d0cff074d4357bd7b3201fc27abde6844d9b"
   },
   {
    "name": "citation",
@@ -815,7 +814,7 @@
    "mediatype": "text/plain",
    "encoding": "utf-8",
    "bytes": 274,
-   "hash": "sha256:4c1ab53d22abcf60cb62027cd5ad3840b4d10b397d13e937c941468824f576f3"
+   "hash": "sha256:692cd4862cbf4ea0d5073b875b16a6a1cc5c9015219e208368dc49d0385f50a4"
   },
   {
    "name": "changelog",
@@ -823,8 +822,8 @@
    "format": "md",
    "mediatype": "text/markdown",
    "encoding": "utf-8",
-   "bytes": 1304,
-   "hash": "sha256:a92644ac75b6707316df0a2be3134654da4b4d5e8b1124097be1947c06411f36"
+   "bytes": 568,
+   "hash": "sha256:bcbddd45f7d8522c9804ab8b2ada21c1fe854f6e7d2c35d671c7145a55332ec8"
   }
  ]
 }

@@ -1,8 +1,8 @@
 # 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋
 
-- 데이터셋 ID: `light-architecture-archive` · 버전: `20261107T060235Z-cfdccae2-p2` (수집 빌드 ID `20261107T060235Z-cfdccae2`와 패키지 형식 p2)
-- 생성: 2026-11-07T06:02:35.067Z · 데이터 기준일: 2026-11-07
-- 프로젝트 417건 (좌표 있음 194건) · 출처 744건 · 이미지 정보 1896건 · 관계 37건 · 행사 0건 · 작가·건축가·기관 90건
+- 데이터셋 ID: `light-architecture-archive` · 버전: `20261107T130749Z-1c44e2d8-p2` (수집 빌드 ID `20261107T130749Z-1c44e2d8`와 패키지 형식 p2)
+- 생성: 2026-11-07T13:07:49.891Z · 데이터 기준일: 2026-11-07
+- 프로젝트 423건 (좌표 있음 199건) · 출처 723건 · 이미지 정보 1945건 · 관계 21건 · 행사 0건 · 작가·건축가·기관 86건
 - 국가 36곳 · 국내 권역 seoul 52, busan_ulsan_gyeongnam 1, gwangju_jeolla 1, gyeonggi_incheon 1
 
 ## 파일
@@ -42,7 +42,7 @@ projects.csv · projects.json · projects.geojson · sources.csv · images.csv �
 
 ## 인용
 
-빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261107T060235Z-cfdccae2-p2, 데이터 기준일 2026-11-07). https://remona8787.github.io/data/research/20261107T060235Z-cfdccae2-p2/
+빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261107T130749Z-1c44e2d8-p2, 데이터 기준일 2026-11-07). https://remona8787.github.io/data/research/20261107T130749Z-1c44e2d8-p2/
 
 ## 필드 정의 (데이터 사전)
 
