@@ -1,14 +1,14 @@
 {
  "accept_score": 50,
- "at": "2026-11-06T19:26:56.642Z",
+ "at": "2026-11-07T06:02:35.067Z",
  "entity_decisions": [
   {
-   "accepted": true,
-   "entity_reasons": [],
-   "lang": "en",
-   "p31_labels": [
-    "skyscraper"
+   "accepted": false,
+   "entity_reasons": [
+    "no_wikidata_facts"
    ],
+   "lang": "en",
+   "p31_labels": [],
    "qid": "Q626425",
    "reasons": [
     "term_in_lead",
@@ -21,14 +21,12 @@
    "url": "https://en.wikipedia.org/wiki/King_Road_Tower"
   },
   {
-   "accepted": true,
-   "entity_reasons": [],
-   "lang": "en",
-   "p31_labels": [
-    "art museum",
-    "training facility",
-    "serviced office"
+   "accepted": false,
+   "entity_reasons": [
+    "no_wikidata_facts"
    ],
+   "lang": "en",
+   "p31_labels": [],
    "qid": "Q96055560",
    "reasons": [
     "term_in_lead",
@@ -40,12 +38,12 @@
    "url": "https://en.wikipedia.org/wiki/Etopia_Centre_for_Arts_%26_Technology"
   },
   {
-   "accepted": true,
-   "entity_reasons": [],
-   "lang": "en",
-   "p31_labels": [
-    "building"
+   "accepted": false,
+   "entity_reasons": [
+    "no_wikidata_facts"
    ],
+   "lang": "en",
+   "p31_labels": [],
    "qid": "Q15076316",
    "reasons": [
     "term_in_lead",
@@ -59,13 +57,10 @@
   {
    "accepted": false,
    "entity_reasons": [
-    "excluded_class:enterprise",
-    "not_a_place"
+    "no_wikidata_facts"
    ],
    "lang": "en",
-   "p31_labels": [
-    "enterprise"
-   ],
+   "p31_labels": [],
    "qid": "Q116871512",
    "reasons": [
     "term_in_lead",
@@ -76,13 +71,12 @@
    "url": "https://en.wikipedia.org/wiki/Expolight"
   },
   {
-   "accepted": true,
-   "entity_reasons": [],
-   "lang": "en",
-   "p31_labels": [
-    "tower block",
-    "shopping center"
+   "accepted": false,
+   "entity_reasons": [
+    "no_wikidata_facts"
    ],
+   "lang": "en",
+   "p31_labels": [],
    "qid": "Q7422981",
    "reasons": [
     "term_in_lead",
@@ -93,13 +87,12 @@
    "url": "https://en.wikipedia.org/wiki/Sarajevo_City_Center"
   },
   {
-   "accepted": true,
-   "entity_reasons": [],
-   "lang": "de",
-   "p31_labels": [
-    "display device",
-    "light installation"
+   "accepted": false,
+   "entity_reasons": [
+    "no_wikidata_facts"
    ],
+   "lang": "de",
+   "p31_labels": [],
    "qid": "Q796012",
    "reasons": [
     "term_in_title",
@@ -112,12 +105,12 @@
    "url": "https://de.wikipedia.org/wiki/BIX_Medienfassade"
   },
   {
-   "accepted": true,
-   "entity_reasons": [],
-   "lang": "de",
-   "p31_labels": [
-    "office building"
+   "accepted": false,
+   "entity_reasons": [
+    "no_wikidata_facts"
    ],
+   "lang": "de",
+   "p31_labels": [],
    "qid": "Q2494975",
    "reasons": [
     "term_in_lead",
@@ -130,12 +123,12 @@
    "url": "https://de.wikipedia.org/wiki/Uniqa_Tower"
   },
   {
-   "accepted": true,
-   "entity_reasons": [],
-   "lang": "de",
-   "p31_labels": [
-    "multi-purpose hall"
+   "accepted": false,
+   "entity_reasons": [
+    "no_wikidata_facts"
    ],
+   "lang": "de",
+   "p31_labels": [],
    "qid": "Q15014400",
    "reasons": [
     "term_in_lead",
@@ -149,13 +142,10 @@
   {
    "accepted": false,
    "entity_reasons": [
-    "not_in_korea"
+    "no_wikidata_facts"
    ],
    "lang": "ko",
-   "p31_labels": [
-    "lights festival",
-    "luminaria"
-   ],
+   "p31_labels": [],
    "qid": "Q1636567",
    "reasons": [
     "term_in_title",
@@ -167,12 +157,12 @@
    "url": "https://ko.wikipedia.org/wiki/%EA%B3%A0%EB%B2%A0_%EB%A3%A8%EB%AF%B8%EB%82%98%EB%A6%AC%EC%97%90"
   },
   {
-   "accepted": true,
-   "entity_reasons": [],
-   "lang": "ko",
-   "p31_labels": [
-    "festival"
+   "accepted": false,
+   "entity_reasons": [
+    "no_wikidata_facts"
    ],
+   "lang": "ko",
+   "p31_labels": [],
    "qid": "Q12618343",
    "reasons": [
     "term_in_title",
@@ -185,9 +175,7 @@
   {
    "accepted": false,
    "entity_reasons": [
-    "no_class_no_coordinates",
-    "no_coordinates_or_country",
-    "not_a_place"
+    "no_wikidata_facts"
    ],
    "lang": "ko",
    "p31_labels": [],
@@ -203,13 +191,10 @@
   {
    "accepted": false,
    "entity_reasons": [
-    "no_coordinates_or_country"
+    "no_wikidata_facts"
    ],
    "lang": "ko",
-   "p31_labels": [
-    "architectural element",
-    "type of work of art"
-   ],
+   "p31_labels": [],
    "qid": "Q183061",
    "reasons": [
     "term_in_lead",
@@ -220,13 +205,12 @@
    "url": "https://ko.wikipedia.org/wiki/%ED%8C%8C%EC%82%AC%EB%93%9C"
   },
   {
-   "accepted": true,
-   "entity_reasons": [],
-   "lang": "es",
-   "p31_labels": [
-    "building",
-    "museum"
+   "accepted": false,
+   "entity_reasons": [
+    "no_wikidata_facts"
    ],
+   "lang": "es",
+   "p31_labels": [],
    "qid": "Q5839725",
    "reasons": [
     "term_in_lead",
@@ -238,12 +222,12 @@
    "url": "https://es.wikipedia.org/wiki/Centro_de_Creaci%C3%B3n_Contempor%C3%A1nea_de_Andaluc%C3%ADa"
   },
   {
-   "accepted": true,
-   "entity_reasons": [],
-   "lang": "ru",
-   "p31_labels": [
-    "building"
+   "accepted": false,
+   "entity_reasons": [
+    "no_wikidata_facts"
    ],
+   "lang": "ru",
+   "p31_labels": [],
    "qid": "Q13668707",
    "reasons": [
     "term_in_lead",
@@ -257,13 +241,10 @@
   {
    "accepted": false,
    "entity_reasons": [
-    "excluded_class:business",
-    "not_a_place"
+    "no_wikidata_facts"
    ],
    "lang": "ru",
-   "p31_labels": [
-    "business"
-   ],
+   "p31_labels": [],
    "qid": "Q64547378",
    "reasons": [
     "term_in_lead",

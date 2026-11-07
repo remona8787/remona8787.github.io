@@ -1,6 +1,6 @@
 {
  "about": "Country and location recovery (lib/places.mjs): projects whose only eligibility failures were a missing country or location, the evidence found (parent categories and their items, the category name, file geotags inside country borders, the item coordinates; the Wikipedia language as weak corroboration only) and the decision. Conflicting evidence leaves a project excluded.",
- "at": "2026-11-06T19:26:56.642Z",
+ "at": "2026-11-07T06:02:35.067Z",
  "decisions": [
   {
    "before": {
@@ -85,85 +85,6 @@
   },
   {
    "before": {
-    "country": "IN",
-    "located": false
-   },
-   "category": "Category:Dipavali",
-   "corroborated": false,
-   "country": "IN",
-   "evidence": [
-    {
-     "country": "IN",
-     "detail": {
-      "countries": {
-       "IN": 19,
-       "MY": 1,
-       "SG": 1,
-       "US": 1
-      },
-      "files": 22
-     },
-     "kind": "file_geotags",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": null,
-    "countries": {
-     "IN": 19,
-     "MY": 1,
-     "SG": 1,
-     "US": 1
-    },
-    "n": 22
-   },
-   "id": "Q10244",
-   "located_after": false,
-   "name": "Diwali",
-   "outcome": "recovered",
-   "qid": "Q10244",
-   "reason": null,
-   "rule": "file_geotags",
-   "votes": {
-    "IN": [
-     "file_geotags"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:Infinity mirrors",
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": {
-    "center": null,
-    "countries": {
-     "AT": 2,
-     "BE": 1,
-     "ES": 2,
-     "IN": 1,
-     "LA": 1,
-     "RU": 1,
-     "SG": 1,
-     "TR": 2,
-     "US": 2
-    },
-    "n": 13
-   },
-   "id": "Q11412391",
-   "name": "infinity mirror",
-   "outcome": "conflict",
-   "qid": "Q11412391",
-   "reason": "geotags in several countries: {\"BE\":1,\"AT\":2,\"US\":2,\"LA\":1,\"ES\":2,\"TR\":2,\"IN\":1,\"RU\":1,\"SG\":1}",
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
     "country": "KR",
     "located": false
    },
@@ -222,10 +143,10 @@
     "countries": {},
     "n": 0
    },
-   "id": "Q3247002",
+   "id": "Q18732882",
    "name": "Daeboreum",
    "outcome": "conflict",
-   "qid": "Q3247002",
+   "qid": "Q18732882",
    "reason": "strong evidence names KP and KR",
    "rule": null,
    "votes": {
@@ -238,28 +159,6 @@
      "parent_category"
     ]
    }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:Dreamachine",
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": {
-    "center": null,
-    "countries": {},
-    "n": 0
-   },
-   "id": "Q60393",
-   "name": "Dreamachine",
-   "outcome": "no_evidence",
-   "qid": "Q60393",
-   "reason": null,
-   "rule": null,
-   "votes": {}
   },
   {
    "before": {
@@ -902,57 +801,6 @@
     "country": null,
     "located": false
    },
-   "category": "Category:Classical spectacular",
-   "city": "Melbourne",
-   "corroborated": false,
-   "country": "AU",
-   "evidence": [
-    {
-     "city": "Melbourne",
-     "country": "AU",
-     "detail": {
-      "category": "Category:Events in Melbourne",
-      "matched": [
-       "Melbourne"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "country": "AU",
-     "detail": {
-      "item": "Q222878",
-      "via": "Q408"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": null,
-    "countries": {},
-    "n": 0
-   },
-   "id": "CAT-05MF2O1",
-   "located_after": true,
-   "name": "Classical spectacular",
-   "outcome": "recovered",
-   "qid": null,
-   "reason": null,
-   "rule": "parent_category",
-   "votes": {
-    "AU": [
-     "parent_category",
-     "parent_item"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
    "category": "Category:150 ans du Viaduc de Morlaix",
    "corroborated": false,
    "country": "FR",
@@ -1346,8 +1194,9 @@
     "located": false
    },
    "category": "Category:Cathédrale Saint-Jean de Lyon lors de la Fête des Lumières",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": "Lyon",
@@ -1380,11 +1229,11 @@
     "n": 0
    },
    "id": "CAT-08VX4AM",
+   "located_after": true,
    "name": "Cathédrale Saint-Jean de Lyon lors de la Fête des Lumières",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -2821,8 +2670,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2005",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": null,
@@ -2867,11 +2717,11 @@
     "n": 0
    },
    "id": "CAT-0LW7VGW",
+   "located_after": true,
    "name": "Fête des lumières 2005",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -2926,8 +2776,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2004",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": null,
@@ -2984,11 +2835,11 @@
     "n": 0
    },
    "id": "CAT-0M67H5V",
+   "located_after": true,
    "name": "Fête des lumières 2004",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -3001,12 +2852,100 @@
   },
   {
    "before": {
+    "country": "NL",
+    "located": false
+   },
+   "category": "Category:Origin (Vendel & De Wolf)",
+   "city": "Amsterdam",
+   "corroborated": false,
+   "country": "NL",
+   "evidence": [
+    {
+     "city": "Amsterdam",
+     "country": "NL",
+     "detail": {
+      "category": "Category:Derkinderenstraat, Amsterdam",
+      "matched": [
+       "Amsterdam"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "NL",
+     "detail": {
+      "category": "Category:Light art in the Netherlands",
+      "matched": [
+       "Netherlands"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Amsterdam",
+     "country": "NL",
+     "detail": {
+      "category": "Category:Sculptures in Amsterdam Nieuw-West",
+      "matched": [
+       "Amsterdam"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "NL",
+     "detail": {
+      "item": "Q19015998",
+      "via": "Q55"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "NL",
+     "detail": {
+      "item": "Q2913055",
+      "via": "Q55"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "CAT-0MJOWPH",
+   "located_after": true,
+   "name": "Origin",
+   "outcome": "recovered",
+   "qid": null,
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "NL": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_item",
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
     "country": null,
     "located": false
    },
    "category": "Category:Fête des lumières 2006",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": null,
@@ -3051,11 +2990,11 @@
     "n": 0
    },
    "id": "CAT-0MQ6OJT",
+   "located_after": true,
    "name": "Fête des lumières 2006",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -3224,8 +3163,9 @@
     "located": false
    },
    "category": "Category:Place des Terreaux durant la Fête des Lumières",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": "Lyon",
@@ -3272,11 +3212,11 @@
     "n": 2
    },
    "id": "CAT-0OYNWS3",
+   "located_after": true,
    "name": "Place des Terreaux durant la Fête des Lumières",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -3292,8 +3232,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2009",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": null,
@@ -3338,11 +3279,11 @@
     "n": 0
    },
    "id": "CAT-0P833SK",
+   "located_after": true,
    "name": "Fête des lumières 2009",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -3358,8 +3299,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2008",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": null,
@@ -3406,11 +3348,11 @@
     "n": 1
    },
    "id": "CAT-0PI2PHJ",
+   "located_after": true,
    "name": "Fête des lumières 2008",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -4218,8 +4160,13 @@
     "located": false
    },
    "category": "Category:Place Bellecour pendant la Fête des Lumières",
+   "center": {
+    "file": "Lyon 2e - Place Bellecour - Installations pour la fête des lumières 2021.jpeg",
+    "lat": 45.758587,
+    "lng": 4.831498
+   },
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "country": "FR",
@@ -4245,11 +4192,11 @@
     "n": 8
    },
    "id": "CAT-0XZQYTI",
+   "located_after": true,
    "name": "Place Bellecour pendant la Fête des Lumières",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "file_geotags",
    "votes": {
     "FR": [
@@ -4344,86 +4291,6 @@
   {
    "before": {
     "country": null,
-    "located": true
-   },
-   "category": "Category:Sports venues in Russia",
-   "corroborated": false,
-   "country": null,
-   "evidence": [
-    {
-     "city": null,
-     "country": "RU",
-     "detail": {
-      "category": "Category:Entertainment venues in Russia",
-      "matched": [
-       "Russia"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "RU",
-     "detail": {
-      "category": "Category:Event venues in Russia",
-      "matched": [
-       "Russia"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "RU",
-     "detail": {
-      "category": "Category:Sports in Russia",
-      "matched": [
-       "Russia"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "RU",
-     "detail": {
-      "category": "Category:Sports venues in Russia",
-      "matched": [
-       "Russia"
-      ]
-     },
-     "kind": "category_name",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": null,
-    "countries": {
-     "RU": 1
-    },
-    "n": 1
-   },
-   "id": "CAT-0ZEDHAY",
-   "name": "Sports venues in Russia",
-   "outcome": "aggregate_name",
-   "qid": null,
-   "reason": "a category of things in a country",
-   "rule": "parent_category",
-   "votes": {
-    "RU": [
-     "parent_category",
-     "parent_category",
-     "parent_category",
-     "category_name"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": null,
     "located": false
    },
    "category": "Category:When Red Light Shows Wait Here sign",
@@ -4477,8 +4344,13 @@
     "located": false
    },
    "category": "Category:Fontaine des Jacobins pendant la fête des Lumières",
+   "center": {
+    "file": "La fontaine des Jacobins pendant la fête des lumières 2010 à Lyon (2ème arrondissement).JPG",
+    "lat": 45.760472,
+    "lng": 4.833556
+   },
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "country": "FR",
@@ -4513,11 +4385,11 @@
     "n": 3
    },
    "id": "CAT-12M7NDT",
+   "located_after": true,
    "name": "Fontaine des Jacobins pendant la fête des Lumières",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_item",
    "votes": {
     "FR": [
@@ -4533,7 +4405,7 @@
    },
    "category": "Category:Lichtsäule auf dem Kerstenplatz",
    "corroborated": false,
-   "country": null,
+   "country": "DE",
    "evidence": [
     {
      "country": "DE",
@@ -4551,11 +4423,11 @@
     "n": 0
    },
    "id": "CAT-1343SLI",
+   "located_after": false,
    "name": "Lichtsäule auf dem Kerstenplatz",
-   "outcome": "part_of_project",
-   "part_of": "Q127587129",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q127587129",
+   "reason": null,
    "rule": "parent_item",
    "votes": {
     "DE": [
@@ -6409,8 +6281,9 @@
     "located": false
    },
    "category": "Category:Sharjah Light Festival 2023",
+   "city": "Sharjah",
    "corroborated": false,
-   "country": null,
+   "country": "AE",
    "evidence": [
     {
      "city": null,
@@ -6481,11 +6354,11 @@
     "n": 3
    },
    "id": "CAT-1HPTKTH",
+   "located_after": true,
    "name": "Sharjah Light Festival 2023",
-   "outcome": "part_of_project",
-   "part_of": "Q116823022",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q116823022",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "AE": [
@@ -6619,8 +6492,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2012",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": null,
@@ -6665,11 +6539,11 @@
     "n": 0
    },
    "id": "CAT-1KKOU2O",
+   "located_after": true,
    "name": "Fête des lumières 2012",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -6685,8 +6559,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2013",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": null,
@@ -6748,11 +6623,11 @@
     "n": 4
    },
    "id": "CAT-1KUOFRN",
+   "located_after": true,
    "name": "Fête des lumières 2013",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -6769,8 +6644,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2010",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": null,
@@ -6820,11 +6696,11 @@
     "n": 11
    },
    "id": "CAT-1L4O1GM",
+   "located_after": true,
    "name": "Fête des lumières 2010",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -6840,8 +6716,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2011",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": null,
@@ -6886,11 +6763,11 @@
     "n": 0
    },
    "id": "CAT-1LENN5L",
+   "located_after": true,
    "name": "Fête des lumières 2011",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -6984,8 +6861,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2016",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": "Lyon",
@@ -7018,11 +6896,11 @@
     "n": 0
    },
    "id": "CAT-1LON8UK",
+   "located_after": true,
    "name": "Fête des lumières 2016",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -7077,8 +6955,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2017",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": "Lyon",
@@ -7113,11 +6992,11 @@
     "n": 1
    },
    "id": "CAT-1LYMUJJ",
+   "located_after": true,
    "name": "Fête des lumières 2017",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -7132,8 +7011,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2015",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": "Lyon",
@@ -7166,11 +7046,11 @@
     "n": 0
    },
    "id": "CAT-1MIM1XH",
+   "located_after": true,
    "name": "Fête des lumières 2015",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -7185,8 +7065,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2018",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": "Lyon",
@@ -7236,11 +7117,11 @@
     "n": 4
    },
    "id": "CAT-1NCKV0E",
+   "located_after": true,
    "name": "Fête des lumières 2018",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -7256,8 +7137,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2019",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": "Lyon",
@@ -7307,11 +7189,11 @@
     "n": 14
    },
    "id": "CAT-1NMKGPD",
+   "located_after": true,
    "name": "Fête des lumières 2019",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -7523,8 +7405,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2025",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": "Lyon",
@@ -7547,11 +7430,11 @@
     "n": 1
    },
    "id": "CAT-1QYCJJ2",
+   "located_after": true,
    "name": "Fête des lumières 2025",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -7565,8 +7448,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2024",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": "Lyon",
@@ -7587,11 +7471,11 @@
     "n": 0
    },
    "id": "CAT-1R8C581",
+   "located_after": true,
    "name": "Fête des lumières 2024",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -7605,8 +7489,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2023",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": "Lyon",
@@ -7656,11 +7541,11 @@
     "n": 99
    },
    "id": "CAT-1RIBQX0",
+   "located_after": true,
    "name": "Fête des lumières 2023",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -7716,8 +7601,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2022",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": "Lyon",
@@ -7767,11 +7653,11 @@
     "n": 99
    },
    "id": "CAT-1RSBCLZ",
+   "located_after": true,
    "name": "Fête des lumières 2022",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -7788,7 +7674,7 @@
    },
    "category": "Category:Fête des Lumières-related deletion requests",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": null,
@@ -7809,11 +7695,11 @@
     "n": 0
    },
    "id": "CAT-1RSZIO9",
+   "located_after": false,
    "name": "Fête des Lumières-related deletion requests",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -7971,8 +7857,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2021",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": "Lyon",
@@ -8022,11 +7909,11 @@
     "n": 5
    },
    "id": "CAT-1S2AYAY",
+   "located_after": true,
    "name": "Fête des lumières 2021",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -8042,8 +7929,9 @@
     "located": false
    },
    "category": "Category:Fête des lumières 2020",
+   "city": "Lyon",
    "corroborated": false,
-   "country": null,
+   "country": "FR",
    "evidence": [
     {
      "city": "Lyon",
@@ -8078,11 +7966,11 @@
     "n": 1
    },
    "id": "CAT-1SCAJZX",
+   "located_after": true,
    "name": "Fête des lumières 2020",
-   "outcome": "part_of_project",
-   "part_of": "Q4167",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q4167",
+   "reason": null,
    "rule": "parent_category",
    "votes": {
     "FR": [
@@ -8578,7 +8466,7 @@
    },
    "id": "Q10224945",
    "located_after": true,
-   "name": "Guangzhou International Light  Festival",
+   "name": "Guangzhou International Light Festival",
    "outcome": "recovered",
    "qid": "Q10224945",
    "reason": null,
@@ -8589,6 +8477,126 @@
      "parent_category",
      "parent_category",
      "category_name"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:Colour by numbers",
+   "corroborated": false,
+   "country": "SE",
+   "evidence": [
+    {
+     "country": "SE",
+     "detail": {
+      "item": "Q10457263",
+      "via": "Q34"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "SE",
+     "detail": {
+      "item": "Q10552317",
+      "via": "Q34"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "SE",
+     "detail": {
+      "item": "Q15093715",
+      "via": "Q34"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q10457263",
+   "located_after": true,
+   "name": "Colour by numbers",
+   "outcome": "recovered",
+   "qid": "Q10457263",
+   "reason": null,
+   "rule": "parent_item",
+   "votes": {
+    "SE": [
+     "parent_item",
+     "parent_item",
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:Festival of Lights (Spanish Fork, Utah)",
+   "corroborated": false,
+   "country": "US",
+   "evidence": [
+    {
+     "city": null,
+     "country": "US",
+     "detail": {
+      "category": "Category:Festivals of lights in the United States",
+      "matched": [
+       "United States"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "US",
+     "detail": {
+      "category": "Category:Light art in the United States",
+      "matched": [
+       "United States"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "US",
+     "detail": {
+      "item": "Q105749709",
+      "via": "Q30"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q105749709",
+   "located_after": true,
+   "name": "Festival of Lights",
+   "outcome": "recovered",
+   "qid": "Q105749709",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "US": [
+     "parent_category",
+     "parent_category",
+     "parent_item"
     ]
    }
   },
@@ -8634,80 +8642,10 @@
   },
   {
    "before": {
-    "country": "NL",
-    "located": false
-   },
-   "category": "Category:Chicks, 1994",
-   "center": {
-    "file": "Kiplampen bij het Kookpunt, april 1997 - 01.jpg",
-    "lat": 51.931108,
-    "lng": 4.484503
-   },
-   "corroborated": false,
-   "country": "NL",
-   "evidence": [
-    {
-     "country": "NL",
-     "detail": {
-      "item": "Q113509569",
-      "via": "Q29999"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    },
-    {
-     "country": "NL",
-     "detail": {
-      "item": "Q113532364",
-      "via": "Q29999"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    },
-    {
-     "country": "NL",
-     "detail": {
-      "countries": {
-       "NL": 4
-      },
-      "files": 4
-     },
-     "kind": "file_geotags",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": {
-     "file": "Kiplampen bij het Kookpunt, april 1997 - 01.jpg",
-     "lat": 51.931108,
-     "lng": 4.484503
-    },
-    "countries": {
-     "NL": 4
-    },
-    "n": 4
-   },
-   "id": "Q113509569",
-   "located_after": true,
-   "name": "Chicks, 1994",
-   "outcome": "recovered",
-   "qid": "Q113509569",
-   "reason": null,
-   "rule": "parent_item",
-   "votes": {
-    "NL": [
-     "parent_item",
-     "parent_item",
-     "file_geotags"
-    ]
-   }
-  },
-  {
-   "before": {
     "country": null,
     "located": false
    },
-   "category": "Category:De vijf klaprozen, 1994",
+   "category": "Category:Centrum Beeldende Kunst Rotterdam",
    "city": "Rotterdam",
    "corroborated": false,
    "country": "NL",
@@ -8716,7 +8654,31 @@
      "city": "Rotterdam",
      "country": "NL",
      "detail": {
-      "category": "Category:De Graankorrel (Rotterdam)",
+      "category": "Category:Art galleries in Rotterdam",
+      "matched": [
+       "Rotterdam"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Rotterdam",
+     "country": "NL",
+     "detail": {
+      "category": "Category:Art of Rotterdam",
+      "matched": [
+       "Rotterdam"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Rotterdam",
+     "country": "NL",
+     "detail": {
+      "category": "Category:History of Henkes building (Rotterdam)",
       "matched": [
        "Rotterdam"
       ]
@@ -8727,7 +8689,7 @@
     {
      "country": "NL",
      "detail": {
-      "item": "Q2755027",
+      "item": "Q110169084",
       "via": "Q55"
      },
      "kind": "parent_item",
@@ -8736,38 +8698,45 @@
     {
      "country": "NL",
      "detail": {
-      "countries": {
-       "NL": 2
-      },
-      "files": 2
+      "item": "Q27861183",
+      "via": "Q55"
      },
-     "kind": "file_geotags",
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "city": "Rotterdam",
+     "country": "NL",
+     "detail": {
+      "category": "Category:Centrum Beeldende Kunst Rotterdam",
+      "matched": [
+       "Rotterdam"
+      ]
+     },
+     "kind": "category_name",
      "strength": "strong"
     }
    ],
    "geotags": {
-    "center": {
-     "file": "Galerie 2x2 Delfshaven, 1994.jpg",
-     "lat": 51.907643,
-     "lng": 4.447858
-    },
-    "countries": {
-     "NL": 2
-    },
-    "n": 2
+    "center": null,
+    "countries": {},
+    "n": 0
    },
-   "id": "Q113527000",
+   "id": "Q110169084",
    "located_after": true,
-   "name": "De vijf klaprozen, 1994",
+   "name": "Centrum Beeldende Kunst Rotterdam",
    "outcome": "recovered",
-   "qid": "Q113527000",
+   "qid": "Q110169084",
    "reason": null,
    "rule": "parent_category",
    "votes": {
     "NL": [
      "parent_category",
+     "parent_category",
+     "parent_category",
      "parent_item",
-     "file_geotags"
+     "parent_item",
+     "category_name"
     ]
    }
   },
@@ -8776,16 +8745,82 @@
     "country": null,
     "located": false
    },
-   "category": null,
+   "category": "Category:TeamLab",
+   "corroborated": false,
+   "country": "JP",
+   "evidence": [
+    {
+     "city": null,
+     "country": "JP",
+     "detail": {
+      "category": "Category:Installation art of Japan",
+      "matched": [
+       "Japan"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "JP",
+     "detail": {
+      "item": "Q11318607",
+      "via": "Q17"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {
+     "JP": 1
+    },
+    "n": 1
+   },
+   "id": "Q11318607",
+   "located_after": false,
+   "name": "TeamLab",
+   "outcome": "recovered",
+   "qid": "Q11318607",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "JP": [
+     "parent_category",
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": false
+   },
+   "category": "Category:Infinity mirrors",
    "corroborated": false,
    "country": null,
    "evidence": [],
-   "geotags": null,
-   "id": "Q115862188",
-   "name": "Nights of Lights",
-   "outcome": "no_evidence",
-   "qid": "Q115862188",
-   "reason": null,
+   "geotags": {
+    "center": null,
+    "countries": {
+     "AT": 2,
+     "BE": 1,
+     "ES": 2,
+     "IN": 1,
+     "LA": 1,
+     "RU": 1,
+     "SG": 1,
+     "TR": 2,
+     "US": 2
+    },
+    "n": 13
+   },
+   "id": "Q11412391",
+   "name": "Infinity mirrors",
+   "outcome": "conflict",
+   "qid": "Q11412391",
+   "reason": "geotags in several countries: {\"BE\":1,\"AT\":2,\"US\":2,\"LA\":1,\"ES\":2,\"TR\":2,\"IN\":1,\"RU\":1,\"SG\":1}",
    "rule": null,
    "votes": {}
   },
@@ -8794,162 +8829,104 @@
     "country": null,
     "located": false
    },
-   "category": null,
+   "category": "Category:Sharjah Light Festival",
+   "city": "Sharjah",
    "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115918849",
-   "name": "City Canvas",
-   "outcome": "no_evidence",
-   "qid": "Q115918849",
+   "country": "AE",
+   "evidence": [
+    {
+     "city": "Sharjah",
+     "country": "AE",
+     "detail": {
+      "category": "Category:Events in Sharjah",
+      "matched": [
+       "Sharjah"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "AE",
+     "detail": {
+      "item": "Q116823022",
+      "via": "Q878"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "city": "Sharjah",
+     "country": "AE",
+     "detail": {
+      "category": "Category:Sharjah Light Festival",
+      "matched": [
+       "Sharjah"
+      ]
+     },
+     "kind": "category_name",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q116823022",
+   "located_after": true,
+   "name": "Sharjah Light Festival",
+   "outcome": "recovered",
+   "qid": "Q116823022",
    "reason": null,
-   "rule": null,
-   "votes": {}
+   "rule": "parent_category",
+   "votes": {
+    "AE": [
+     "parent_category",
+     "parent_item",
+     "category_name"
+    ]
+   }
   },
   {
    "before": {
     "country": null,
     "located": false
    },
-   "category": null,
+   "category": "Category:Claudia Reh",
    "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919172",
-   "name": "L102 Light Amber",
-   "outcome": "no_evidence",
-   "qid": "Q115919172",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
+   "country": "DE",
+   "evidence": [
+    {
+     "city": null,
+     "country": "DE",
+     "detail": {
+      "category": "Category:Female artists from Germany",
+      "matched": [
+       "Germany"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
    },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919202",
-   "name": "Light Art Installation",
-   "outcome": "no_evidence",
-   "qid": "Q115919202",
+   "id": "Q117011395",
+   "located_after": false,
+   "name": "Claudia Reh",
+   "outcome": "recovered",
+   "qid": "Q117011395",
    "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919205",
-   "name": "Light test 157",
-   "outcome": "no_evidence",
-   "qid": "Q115919205",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919249",
-   "name": "Material Conditions of Inner Spaces",
-   "outcome": "no_evidence",
-   "qid": "Q115919249",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919274",
-   "name": "Model of an Imaginary Structure",
-   "outcome": "no_evidence",
-   "qid": "Q115919274",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919277",
-   "name": "Momentary Appearence: Katharsis",
-   "outcome": "no_evidence",
-   "qid": "Q115919277",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919494",
-   "name": "Shadow takes a walk",
-   "outcome": "no_evidence",
-   "qid": "Q115919494",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919749",
-   "name": "Connection",
-   "outcome": "no_evidence",
-   "qid": "Q115919749",
-   "reason": null,
-   "rule": null,
-   "votes": {}
+   "rule": "parent_category",
+   "votes": {
+    "DE": [
+     "parent_category"
+    ]
+   }
   },
   {
    "before": {
@@ -9002,6 +8979,81 @@
     "SE": [
      "parent_category",
      "parent_category"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:SkyBlues",
+   "corroborated": false,
+   "country": "NZ",
+   "evidence": [
+    {
+     "country": "NZ",
+     "detail": {
+      "item": "Q117248257",
+      "via": "Q664"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "NZ",
+     "detail": {
+      "item": "Q139639538",
+      "via": "Q664"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "NZ",
+     "detail": {
+      "item": "Q116176194",
+      "via": "Q664"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "NZ",
+     "detail": {
+      "countries": {
+       "NZ": 8
+      },
+      "files": 8
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "SkyBlues 05.jpg",
+     "lat": -41.284881,
+     "lng": 174.777131
+    },
+    "countries": {
+     "NZ": 8
+    },
+    "n": 8
+   },
+   "id": "Q117248257",
+   "located_after": true,
+   "name": "SkyBlues",
+   "outcome": "recovered",
+   "qid": "Q117248257",
+   "reason": null,
+   "rule": "parent_item",
+   "votes": {
+    "NZ": [
+     "parent_item",
+     "parent_item",
+     "parent_item",
+     "file_geotags"
     ]
    }
   },
@@ -9116,220 +9168,440 @@
     "country": null,
     "located": false
    },
-   "category": null,
+   "category": "Category:International Light Festival Skyway",
+   "center": {
+    "file": "Untitled, Globule Ubiquity Vibrations by Bruno Peinado on International Light Festival Skyway'09 in Toruń.jpg",
+    "lat": 53.009822,
+    "lng": 18.601931
+   },
    "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q118609523",
-   "name": "Mechatron 10/11",
-   "outcome": "no_evidence",
-   "qid": "Q118609523",
+   "country": "PL",
+   "evidence": [
+    {
+     "city": null,
+     "country": "PL",
+     "detail": {
+      "category": "Category:Festivals of lights in Poland",
+      "matched": [
+       "Poland"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "PL",
+     "detail": {
+      "item": "Q11783870",
+      "via": "Q36"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "PL",
+     "detail": {
+      "countries": {
+       "PL": 3
+      },
+      "files": 3
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "Untitled, Globule Ubiquity Vibrations by Bruno Peinado on International Light Festival Skyway'09 in Toruń.jpg",
+     "lat": 53.009822,
+     "lng": 18.601931
+    },
+    "countries": {
+     "PL": 3
+    },
+    "n": 3
+   },
+   "id": "Q11783870",
+   "located_after": true,
+   "name": "International Light Festival Skyway",
+   "outcome": "recovered",
+   "qid": "Q11783870",
    "reason": null,
-   "rule": null,
-   "votes": {}
+   "rule": "parent_category",
+   "votes": {
+    "PL": [
+     "parent_category",
+     "parent_item",
+     "file_geotags"
+    ]
+   }
   },
   {
    "before": {
     "country": null,
     "located": false
    },
-   "category": null,
+   "category": "Category:P.I.W.O. Light Shows",
    "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q118609527",
-   "name": "Chronhomme 3",
-   "outcome": "no_evidence",
-   "qid": "Q118609527",
+   "country": "PL",
+   "evidence": [
+    {
+     "country": "PL",
+     "detail": {
+      "item": "Q11825476",
+      "via": "Q36"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "Q11825476",
+   "located_after": false,
+   "name": "P.I.W.O. Light Shows",
+   "outcome": "recovered",
+   "qid": "Q11825476",
    "reason": null,
-   "rule": null,
-   "votes": {}
+   "rule": "parent_item",
+   "votes": {
+    "PL": [
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:Eyelight Lane",
+   "corroborated": false,
+   "country": "NZ",
+   "evidence": [
+    {
+     "city": null,
+     "country": "NZ",
+     "detail": {
+      "category": "Category:2014 sculptures in New Zealand",
+      "matched": [
+       "New Zealand"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Auckland",
+     "country": "NZ",
+     "detail": {
+      "category": "Category:Auckland Council Art Collection",
+      "matched": [
+       "Auckland"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Auckland",
+     "country": "NZ",
+     "detail": {
+      "category": "Category:Sculptures in Auckland",
+      "matched": [
+       "Auckland"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "NZ",
+     "detail": {
+      "item": "Q122689319",
+      "via": "Q664"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "NZ",
+     "detail": {
+      "item": "Q121849545",
+      "via": "Q664"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "NZ",
+     "detail": {
+      "item": "Q135227853",
+      "via": "Q664"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "NZ",
+     "detail": {
+      "countries": {
+       "NZ": 2
+      },
+      "files": 2
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "Eyelight Lane 20240114 161357 01.jpg",
+     "lat": -36.845981,
+     "lng": 174.767162
+    },
+    "countries": {
+     "NZ": 2
+    },
+    "n": 2
+   },
+   "id": "Q122689319",
+   "located_after": true,
+   "name": "Eyelight Lane",
+   "outcome": "recovered",
+   "qid": "Q122689319",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "NZ": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_item",
+     "parent_item",
+     "parent_item",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:Lichtbrunnen (Linz)",
+   "corroborated": false,
+   "country": "AT",
+   "evidence": [
+    {
+     "city": "Linz",
+     "country": "AT",
+     "detail": {
+      "category": "Category:Fountains in Linz",
+      "matched": [
+       "Linz"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Linz",
+     "country": "AT",
+     "detail": {
+      "category": "Category:Hofgasse (Linz)",
+      "matched": [
+       "Linz"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Linz",
+     "country": "AT",
+     "detail": {
+      "category": "Category:Public art in Linz-Innenstadt",
+      "matched": [
+       "Linz"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "AT",
+     "detail": {
+      "item": "Q122944544",
+      "via": "Q40"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "AT",
+     "detail": {
+      "item": "Q106635011",
+      "via": "Q40"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "city": "Linz",
+     "country": "AT",
+     "detail": {
+      "category": "Category:Lichtbrunnen (Linz)",
+      "matched": [
+       "Linz"
+      ]
+     },
+     "kind": "category_name",
+     "strength": "strong"
+    },
+    {
+     "country": "AT",
+     "detail": {
+      "countries": {
+       "AT": 5
+      },
+      "files": 5
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "Linz-Hofberg-Lichtbrunnen-05505.jpg",
+     "lat": 48.305852,
+     "lng": 14.284424
+    },
+    "countries": {
+     "AT": 5
+    },
+    "n": 5
+   },
+   "id": "Q122944544",
+   "located_after": true,
+   "name": "Lichtbrunnen",
+   "outcome": "recovered",
+   "qid": "Q122944544",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "AT": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_item",
+     "parent_item",
+     "category_name",
+     "file_geotags"
+    ]
+   }
   },
   {
    "before": {
     "country": null,
     "located": false
    },
-   "category": null,
+   "category": "Category:Copenhagen Light Festival",
+   "city": "Copenhagen",
    "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q118609542",
-   "name": "Laserfilm",
-   "outcome": "no_evidence",
-   "qid": "Q118609542",
+   "country": "DK",
+   "evidence": [
+    {
+     "city": "Copenhagen",
+     "country": "DK",
+     "detail": {
+      "category": "Category:Culture of Copenhagen",
+      "matched": [
+       "Copenhagen"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "DK",
+     "detail": {
+      "category": "Category:Festivals in Denmark",
+      "matched": [
+       "Denmark"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "DK",
+     "detail": {
+      "item": "Q124539982",
+      "via": "Q35"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "city": "Copenhagen",
+     "country": "DK",
+     "detail": {
+      "category": "Category:Copenhagen Light Festival",
+      "matched": [
+       "Copenhagen"
+      ]
+     },
+     "kind": "category_name",
+     "strength": "strong"
+    },
+    {
+     "country": "DK",
+     "detail": {
+      "countries": {
+       "DK": 9
+      },
+      "files": 9
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "Copenhagen 2017-02-03 (39173892605).jpg",
+     "lat": 55.667135,
+     "lng": 12.576105
+    },
+    "countries": {
+     "DK": 9
+    },
+    "n": 9
+   },
+   "id": "Q124539982",
+   "located_after": true,
+   "name": "Copenhagen Light Festival",
+   "outcome": "recovered",
+   "qid": "Q124539982",
    "reason": null,
-   "rule": null,
-   "votes": {}
+   "rule": "parent_category",
+   "votes": {
+    "DK": [
+     "parent_category",
+     "parent_category",
+     "parent_item",
+     "category_name",
+     "file_geotags"
+    ]
+   }
   },
   {
    "before": {
     "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q118609549",
-   "name": "Lightwave",
-   "outcome": "no_evidence",
-   "qid": "Q118609549",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q118609570",
-   "name": "Waterfall",
-   "outcome": "no_evidence",
-   "qid": "Q118609570",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q118609573",
-   "name": "Luma2solator",
-   "outcome": "no_evidence",
-   "qid": "Q118609573",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q118609584",
-   "name": "Revolutions per Minute / ... et in Occidente Lux",
-   "outcome": "no_evidence",
-   "qid": "Q118609584",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q118609613",
-   "name": "Zeus Playing",
-   "outcome": "no_evidence",
-   "qid": "Q118609613",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q118609615",
-   "name": "Hyper Book. “Angelica and Medoro” by Luis de Góngora",
-   "outcome": "no_evidence",
-   "qid": "Q118609615",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q118609617",
-   "name": "The Space of the Book. The Sublime",
-   "outcome": "no_evidence",
-   "qid": "Q118609617",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q118609706",
-   "name": "Game of Life",
-   "outcome": "no_evidence",
-   "qid": "Q118609706",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q118609716",
-   "name": "The Colloquy of Mobiles",
-   "outcome": "no_evidence",
-   "qid": "Q118609716",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "ID",
     "located": false
    },
    "category": "Category:Tumbilotohe",
@@ -9374,6 +9646,61 @@
     "ID": [
      "parent_category",
      "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:Monument to the Sun in Zadar",
+   "corroborated": false,
+   "country": "HR",
+   "evidence": [
+    {
+     "country": "HR",
+     "detail": {
+      "item": "Q12640281",
+      "via": "Q224"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "HR",
+     "detail": {
+      "countries": {
+       "HR": 34
+      },
+      "files": 34
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "Pozdrav Suncu 迎日廣場 - panoramio.jpg",
+     "lat": 44.117521,
+     "lng": 15.219999
+    },
+    "countries": {
+     "HR": 34
+    },
+    "n": 34
+   },
+   "id": "Q12640281",
+   "located_after": true,
+   "name": "Monument to the Sun in Zadar",
+   "outcome": "recovered",
+   "qid": "Q12640281",
+   "reason": null,
+   "rule": "parent_item",
+   "votes": {
+    "HR": [
+     "parent_item",
+     "file_geotags"
     ]
    }
   },
@@ -9442,58 +9769,56 @@
   },
   {
    "before": {
-    "country": "NL",
-    "located": false
+    "country": null,
+    "located": true
    },
-   "category": "Category:Pearl Light, 1995",
+   "category": "Category:Lichtinstallation am Landgericht",
    "corroborated": false,
-   "country": "NL",
+   "country": "DE",
    "evidence": [
     {
-     "country": "NL",
+     "country": "DE",
      "detail": {
-      "item": "Q130391940",
-      "via": "Q55"
+      "item": "Q127586812",
+      "via": "Q183"
      },
      "kind": "parent_item",
      "strength": "strong"
     },
     {
-     "country": "NL",
+     "country": "DE",
      "detail": {
-      "item": "Q113532386",
-      "via": "Q55"
+      "countries": {
+       "DE": 12
+      },
+      "files": 12
      },
-     "kind": "parent_item",
-     "strength": "strong"
-    },
-    {
-     "country": "NL",
-     "detail": {
-      "item": "Q113532364",
-      "via": "Q29999"
-     },
-     "kind": "parent_item",
+     "kind": "file_geotags",
      "strength": "strong"
     }
    ],
    "geotags": {
-    "center": null,
-    "countries": {},
-    "n": 0
+    "center": {
+     "file": "Wuppertal Eiland 2014 001.JPG",
+     "lat": 51.257653,
+     "lng": 7.161844
+    },
+    "countries": {
+     "DE": 12
+    },
+    "n": 12
    },
-   "id": "Q130391940",
-   "located_after": false,
-   "name": "Pearl Light, 1995",
+   "id": "Q127586812",
+   "located_after": true,
+   "name": "Lichtinstallation am Landgericht",
    "outcome": "recovered",
-   "qid": "Q130391940",
+   "qid": "Q127586812",
    "reason": null,
    "rule": "parent_item",
    "votes": {
-    "NL": [
+    "DE": [
      "parent_item",
-     "parent_item",
-     "parent_item"
+     "file_geotags"
     ]
    }
   },
@@ -9502,26 +9827,293 @@
     "country": null,
     "located": false
    },
-   "category": "Category:Little Swan 1996",
+   "category": "Category:Krzysztof Wodiczko",
    "corroborated": false,
-   "country": "NL",
+   "country": null,
    "evidence": [
     {
-     "country": "NL",
+     "city": null,
+     "country": "CA",
      "detail": {
-      "item": "Q113532386",
-      "via": "Q55"
+      "category": "Category:Artists from Canada",
+      "matched": [
+       "Canada"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Warsaw",
+     "country": "PL",
+     "detail": {
+      "category": "Category:Births in Warsaw",
+      "matched": [
+       "Warsaw"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "PL",
+     "detail": {
+      "category": "Category:Contemporary artists from Poland",
+      "matched": [
+       "Poland"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "PL",
+     "detail": {
+      "category": "Category:Officers of the Order of Polonia Restituta",
+      "matched": [
+       "Polonia"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "CA",
+     "detail": {
+      "category": "Category:Video artists from Canada",
+      "matched": [
+       "Canada"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "CA",
+     "detail": {
+      "countries": {
+       "CA": 4,
+       "IT": 1
+      },
+      "files": 5
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "Krzysztof Wodiczko, Homeless Projection, 2014 (15542756829).jpg",
+     "lat": 45.508004,
+     "lng": -73.565912
+    },
+    "countries": {
+     "CA": 4,
+     "IT": 1
+    },
+    "n": 5
+   },
+   "id": "Q1284738",
+   "name": "Krzysztof Wodiczko",
+   "outcome": "conflict",
+   "qid": "Q1284738",
+   "reason": "strong evidence names CA and PL",
+   "rule": null,
+   "votes": {
+    "CA": [
+     "parent_category",
+     "parent_category",
+     "file_geotags"
+    ],
+    "PL": [
+     "parent_category",
+     "parent_category",
+     "parent_category"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": null,
+    "located": true
+   },
+   "category": "Category:Mori Building Digital Art Museum: teamLab Borderless",
+   "corroborated": false,
+   "country": "JP",
+   "evidence": [
+    {
+     "city": "Tokyo",
+     "country": "JP",
+     "detail": {
+      "category": "Category:Art museums in Minato, Tokyo",
+      "matched": [
+       "Tokyo"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "JP",
+     "detail": {
+      "item": "Q131314431",
+      "via": "Q17"
      },
      "kind": "parent_item",
      "strength": "strong"
     },
     {
-     "country": "NL",
+     "country": "JP",
      "detail": {
-      "item": "Q113532364",
-      "via": "Q29999"
+      "item": "Q11318607",
+      "via": "Q17"
      },
      "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "JP",
+     "detail": {
+      "countries": {
+       "JP": 4
+      },
+      "files": 4
+     },
+     "kind": "file_geotags",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": {
+     "file": "TeamLab Borderless Azabudai Hills.jpg",
+     "lat": 35.66185,
+     "lng": 139.741842
+    },
+    "countries": {
+     "JP": 4
+    },
+    "n": 4
+   },
+   "id": "Q131314431",
+   "located_after": true,
+   "name": "Mori Building Digital Art Museum: teamLab Borderless",
+   "outcome": "recovered",
+   "qid": "Q131314431",
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "JP": [
+     "parent_category",
+     "parent_item",
+     "parent_item",
+     "file_geotags"
+    ]
+   }
+  },
+  {
+   "before": {
+    "country": "HR",
+    "located": false
+   },
+   "category": "Category:Festival of Lights, Zagreb",
+   "city": "Zagreb",
+   "corroborated": false,
+   "country": "HR",
+   "evidence": [
+    {
+     "city": "Zagreb",
+     "country": "HR",
+     "detail": {
+      "category": "Category:Art events in Zagreb",
+      "matched": [
+       "Zagreb"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Zagreb",
+     "country": "HR",
+     "detail": {
+      "category": "Category:Cultural events in Zagreb",
+      "matched": [
+       "Zagreb"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "HR",
+     "detail": {
+      "category": "Category:Festivals of lights in Croatia",
+      "matched": [
+       "Croatia"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Zagreb",
+     "country": "HR",
+     "detail": {
+      "category": "Category:Illuminated buildings in Zagreb",
+      "matched": [
+       "Zagreb"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "HR",
+     "detail": {
+      "category": "Category:Light art in Croatia",
+      "matched": [
+       "Croatia"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Zagreb",
+     "country": "HR",
+     "detail": {
+      "category": "Category:Zagreb in the 21st century",
+      "matched": [
+       "Zagreb"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "HR",
+     "detail": {
+      "item": "Q134006872",
+      "via": "Q224"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "city": "Zagreb",
+     "country": "HR",
+     "detail": {
+      "category": "Category:Festival of Lights, Zagreb",
+      "matched": [
+       "Zagreb"
+      ]
+     },
+     "kind": "category_name",
      "strength": "strong"
     }
    ],
@@ -9530,17 +10122,23 @@
     "countries": {},
     "n": 0
    },
-   "id": "Q130392129",
-   "located_after": false,
-   "name": "Little Swan 1996",
+   "id": "Q134006872",
+   "located_after": true,
+   "name": "Festival of Lights, Zagreb",
    "outcome": "recovered",
-   "qid": "Q130392129",
+   "qid": "Q134006872",
    "reason": null,
-   "rule": "parent_item",
+   "rule": "parent_category",
    "votes": {
-    "NL": [
+    "HR": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_category",
      "parent_item",
-     "parent_item"
+     "category_name"
     ]
    }
   },
@@ -9559,7 +10157,7 @@
     "n": 0
    },
    "id": "Q1396323",
-   "name": "Color organ",
+   "name": "Color organs",
    "outcome": "no_evidence",
    "qid": "Q1396323",
    "reason": null,
@@ -9613,7 +10211,7 @@
    },
    "id": "Q140937471",
    "located_after": true,
-   "name": "Lesbian Simulator (art project)",
+   "name": "Lesbian Simulator",
    "outcome": "recovered",
    "qid": "Q140937471",
    "reason": null,
@@ -9624,28 +10222,6 @@
      "file_geotags"
     ]
    }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:Himmelsleiter by Billi Thanner",
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": {
-    "center": null,
-    "countries": {},
-    "n": 0
-   },
-   "id": "Q141950366",
-   "name": "Himmelsleiter",
-   "outcome": "no_evidence",
-   "qid": "Q141950366",
-   "reason": null,
-   "rule": null,
-   "votes": {}
   },
   {
    "before": {
@@ -9688,1487 +10264,24 @@
      "parent_category"
     ]
    }
-  },
-  {
-   "before": {
-    "country": "US",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q16844203",
-   "name": "Holiday Trail of Lights",
-   "outcome": "no_evidence",
-   "qid": "Q16844203",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:Luminaries",
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": {
-    "center": null,
-    "countries": {
-     "CA": 1,
-     "DE": 1,
-     "US": 1
-    },
-    "n": 3
-   },
-   "id": "Q17051001",
-   "name": "luminaria",
-   "outcome": "conflict",
-   "qid": "Q17051001",
-   "reason": "geotags in several countries: {\"DE\":1,\"CA\":1,\"US\":1}",
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "DE",
-    "located": false
-   },
-   "category": "Category:Stern des Südens",
-   "city": "Munich",
-   "corroborated": false,
-   "country": "DE",
-   "evidence": [
-    {
-     "city": "Munich",
-     "country": "DE",
-     "detail": {
-      "category": "Category:2009 in Munich",
-      "matched": [
-       "Munich"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "DE",
-     "detail": {
-      "category": "Category:Christmas 2009 in Germany",
-      "matched": [
-       "Germany"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "DE",
-     "detail": {
-      "category": "Category:Light art in Germany",
-      "matched": [
-       "Germany"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "country": "DE",
-     "detail": {
-      "item": "Q2583639",
-      "via": "Q183"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": null,
-    "countries": {},
-    "n": 0
-   },
-   "id": "Q1710238",
-   "located_after": true,
-   "name": "Stern des Südens",
-   "outcome": "recovered",
-   "qid": "Q1710238",
-   "reason": null,
-   "rule": "parent_category",
-   "votes": {
-    "DE": [
-     "parent_category",
-     "parent_category",
-     "parent_category",
-     "parent_item"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:Klangwelle Bonn",
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": {
-    "center": null,
-    "countries": {},
-    "n": 0
-   },
-   "id": "Q1744340",
-   "name": "Klangwelle Bonn",
-   "outcome": "no_evidence",
-   "qid": "Q1744340",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "AU",
-    "located": false
-   },
-   "category": "Category:Spectra (Ryoji Ikeda)",
-   "corroborated": false,
-   "country": "AU",
-   "evidence": [
-    {
-     "country": "AU",
-     "detail": {
-      "item": "Q17510860",
-      "via": "Q408"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": null,
-    "countries": {},
-    "n": 0
-   },
-   "id": "Q17510860",
-   "located_after": false,
-   "name": "Spectra",
-   "outcome": "recovered",
-   "qid": "Q17510860",
-   "reason": null,
-   "rule": "parent_item",
-   "votes": {
-    "AU": [
-     "parent_item"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": "DE",
-    "located": false
-   },
-   "category": "Category:Lichtparcours 2000",
-   "corroborated": false,
-   "country": "DE",
-   "evidence": [
-    {
-     "city": null,
-     "country": "DE",
-     "detail": {
-      "category": "Category:Light art in Germany",
-      "matched": [
-       "Germany"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": null,
-    "countries": {},
-    "n": 0
-   },
-   "id": "Q1823475",
-   "located_after": false,
-   "name": "Lichtparcours 2000",
-   "outcome": "recovered",
-   "qid": "Q1823475",
-   "reason": null,
-   "rule": "parent_category",
-   "votes": {
-    "DE": [
-     "parent_category"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": "CA",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q24190312",
-   "name": "Winter Festival of Lights",
-   "outcome": "no_evidence",
-   "qid": "Q24190312",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q28864047",
-   "name": "Que pouvait bien raconter saint François aux oiseaux",
-   "outcome": "no_evidence",
-   "qid": "Q28864047",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q28864049",
-   "name": "Radiesthesic Hall 1",
-   "outcome": "no_evidence",
-   "qid": "Q28864049",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q28864051",
-   "name": "Le siècle de Lévi-Strauss",
-   "outcome": "no_evidence",
-   "qid": "Q28864051",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q28864052",
-   "name": "Fate will tear us apart (Christiane)",
-   "outcome": "no_evidence",
-   "qid": "Q28864052",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q28864054",
-   "name": "Fate will tear us apart (Sébastien)",
-   "outcome": "no_evidence",
-   "qid": "Q28864054",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q28864055",
-   "name": "Fate will tear us apart (Mike)",
-   "outcome": "no_evidence",
-   "qid": "Q28864055",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FR",
-    "located": false
-   },
-   "category": "Category:Chartres en lumières",
-   "center": {
-    "file": "20150928 HotelDesPostes enLumiere DSC08516 PtrQs.jpg",
-    "lat": 48.44527,
-    "lng": 1.48328
-   },
-   "corroborated": false,
-   "country": "FR",
-   "evidence": [
-    {
-     "city": null,
-     "country": "FR",
-     "detail": {
-      "category": "Category:Festivals of lights in France",
-      "matched": [
-       "France"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "FR",
-     "detail": {
-      "category": "Category:Projection mapping in France",
-      "matched": [
-       "France"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "country": "FR",
-     "detail": {
-      "countries": {
-       "FR": 4
-      },
-      "files": 4
-     },
-     "kind": "file_geotags",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": {
-     "file": "20150928 HotelDesPostes enLumiere DSC08516 PtrQs.jpg",
-     "lat": 48.44527,
-     "lng": 1.48328
-    },
-    "countries": {
-     "FR": 4
-    },
-    "n": 4
-   },
-   "id": "Q2961245",
-   "located_after": true,
-   "name": "Chartres en lumières",
-   "outcome": "recovered",
-   "qid": "Q2961245",
-   "reason": null,
-   "rule": "parent_category",
-   "votes": {
-    "FR": [
-     "parent_category",
-     "parent_category",
-     "file_geotags"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": "CA",
-    "located": false
-   },
-   "category": "Category:Moulin à images",
-   "corroborated": false,
-   "country": "CA",
-   "evidence": [
-    {
-     "city": null,
-     "country": "CA",
-     "detail": {
-      "category": "Category:Projection mapping in Canada",
-      "matched": [
-       "Canada"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "country": "CA",
-     "detail": {
-      "item": "Q2816696",
-      "via": "Q16"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": null,
-    "countries": {
-     "CA": 1
-    },
-    "n": 1
-   },
-   "id": "Q3224819",
-   "located_after": false,
-   "name": "Moulin à images",
-   "outcome": "recovered",
-   "qid": "Q3224819",
-   "reason": null,
-   "rule": "parent_category",
-   "votes": {
-    "CA": [
-     "parent_category",
-     "parent_item"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:Light Festival Ghent",
-   "city": "Ghent",
-   "corroborated": false,
-   "country": "BE",
-   "evidence": [
-    {
-     "city": "Ghent",
-     "country": "BE",
-     "detail": {
-      "category": "Category:Events in Ghent",
-      "matched": [
-       "Ghent"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "BE",
-     "detail": {
-      "category": "Category:Festivals of lights in Belgium",
-      "matched": [
-       "Belgium"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": "Ghent",
-     "country": "BE",
-     "detail": {
-      "category": "Category:Night in Ghent",
-      "matched": [
-       "Ghent"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": "Ghent",
-     "country": "BE",
-     "detail": {
-      "category": "Category:Light Festival Ghent",
-      "matched": [
-       "Ghent"
-      ]
-     },
-     "kind": "category_name",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": null,
-    "countries": {
-     "BE": 1
-    },
-    "n": 1
-   },
-   "id": "Q47902176",
-   "located_after": true,
-   "name": "Light Festival Ghent",
-   "outcome": "recovered",
-   "qid": "Q47902176",
-   "reason": null,
-   "rule": "parent_category",
-   "votes": {
-    "BE": [
-     "parent_category",
-     "parent_category",
-     "parent_category",
-     "category_name"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q5057646",
-   "name": "Celebration of Lights",
-   "outcome": "no_evidence",
-   "qid": "Q5057646",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:Dorkbot",
-   "corroborated": false,
-   "country": null,
-   "evidence": [
-    {
-     "country": "US",
-     "detail": {
-      "item": "Q2984573",
-      "via": "Q30"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": {
-     "file": "Henke Q*A - Dorkbot Melbourne 14.2.jpg",
-     "lat": -37.798441,
-     "lng": 144.978697
-    },
-    "countries": {
-     "AU": 2,
-     "US": 1
-    },
-    "n": 3
-   },
-   "id": "Q5298037",
-   "name": "Dorkbot",
-   "outcome": "conflict",
-   "qid": "Q5298037",
-   "reason": "geotags: {\"AU\":2,\"US\":1}",
-   "rule": null,
-   "votes": {
-    "US": [
-     "parent_item"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": "CA",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q5445799",
-   "name": "Festival of Northern Lights",
-   "outcome": "no_evidence",
-   "qid": "Q5445799",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:Field of Light",
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": {
-    "center": {
-     "file": "FieldoflightUluru.jpg",
-     "lat": -25.254603,
-     "lng": 130.998961
-    },
-    "countries": {
-     "AU": 8,
-     "GB": 6
-    },
-    "n": 14
-   },
-   "id": "Q5447104",
-   "name": "Field of Light",
-   "outcome": "conflict",
-   "qid": "Q5447104",
-   "reason": "geotags in several countries: {\"GB\":6,\"AU\":8}",
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "ES",
-    "located": false
-   },
-   "category": "Category:Festival Luz y Vanguardias, Salamanca",
-   "corroborated": false,
-   "country": "ES",
-   "evidence": [
-    {
-     "city": null,
-     "country": "ES",
-     "detail": {
-      "category": "Category:Arts festivals in Spain",
-      "matched": [
-       "Spain"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "ES",
-     "detail": {
-      "category": "Category:Festivals of lights in Spain",
-      "matched": [
-       "Spain"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "ES",
-     "detail": {
-      "category": "Category:Projection mapping in Spain",
-      "matched": [
-       "Spain"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "country": "ES",
-     "detail": {
-      "item": "Q56316887",
-      "via": "Q29"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": null,
-    "countries": {
-     "ES": 1
-    },
-    "n": 1
-   },
-   "id": "Q56316887",
-   "located_after": false,
-   "name": "Festival Luz y Vanguardias, Salamanca",
-   "outcome": "recovered",
-   "qid": "Q56316887",
-   "reason": null,
-   "rule": "parent_category",
-   "votes": {
-    "ES": [
-     "parent_category",
-     "parent_category",
-     "parent_category",
-     "parent_item"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:Drone display",
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": {
-    "center": null,
-    "countries": {
-     "BR": 3,
-     "CL": 1,
-     "DE": 1,
-     "JP": 1,
-     "KP": 1,
-     "KR": 1,
-     "TR": 14,
-     "TW": 10
-    },
-    "n": 32
-   },
-   "id": "Q60744298",
-   "name": "drone display",
-   "outcome": "conflict",
-   "qid": "Q60744298",
-   "reason": "geotags in several countries: {\"BR\":3,\"TR\":14,\"DE\":1,\"KR\":1,\"TW\":10,\"JP\":1,\"CL\":1,\"KP\":1}",
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q64658399",
-   "name": "House of Eternal Return",
-   "outcome": "no_evidence",
-   "qid": "Q64658399",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "GB",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q6546052",
-   "name": "Light Night",
-   "outcome": "no_evidence",
-   "qid": "Q6546052",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:Lumino Kinetic art",
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": {
-    "center": null,
-    "countries": {},
-    "n": 0
-   },
-   "id": "Q6703289",
-   "name": "Lumino kinetic art",
-   "outcome": "no_evidence",
-   "qid": "Q6703289",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "US",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q6731738",
-   "name": "Magnificent Mile Lights Festival",
-   "outcome": "no_evidence",
-   "qid": "Q6731738",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "US",
-    "located": false
-   },
-   "category": "Category:Sensation (event)",
-   "corroborated": false,
-   "country": null,
-   "evidence": [
-    {
-     "city": null,
-     "country": "BE",
-     "detail": {
-      "category": "Category:Electronic music festivals in Belgium",
-      "matched": [
-       "Belgium"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "CL",
-     "detail": {
-      "category": "Category:Electronic music festivals in Chile",
-      "matched": [
-       "Chile"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "DK",
-     "detail": {
-      "category": "Category:Electronic music festivals in Denmark",
-      "matched": [
-       "Denmark"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "DE",
-     "detail": {
-      "category": "Category:Electronic music festivals in Germany",
-      "matched": [
-       "Germany"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "NO",
-     "detail": {
-      "category": "Category:Electronic music festivals in Norway",
-      "matched": [
-       "Norway"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "RU",
-     "detail": {
-      "category": "Category:Electronic music festivals in Russia",
-      "matched": [
-       "Russia"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "ES",
-     "detail": {
-      "category": "Category:Electronic music festivals in Spain",
-      "matched": [
-       "Spain"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "GB",
-     "detail": {
-      "category": "Category:Electronic music festivals in the United Kingdom",
-      "matched": [
-       "United Kingdom"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "RU",
-     "detail": {
-      "category": "Category:Festivals in Russia by name",
-      "matched": [
-       "Russia"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": "Düsseldorf",
-     "country": "DE",
-     "detail": {
-      "category": "Category:Music events in Düsseldorf",
-      "matched": [
-       "Düsseldorf"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "country": "US",
-     "detail": {
-      "item": "Q697882",
-      "via": "Q30"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": {
-     "file": "LTU-A DUS Sensation White Silvester 2007.jpg",
-     "lat": 51.260498,
-     "lng": 6.733009
-    },
-    "countries": {
-     "DE": 2,
-     "LV": 1,
-     "RU": 1
-    },
-    "n": 4
-   },
-   "id": "Q697882",
-   "name": "Sensation",
-   "outcome": "conflict",
-   "qid": "Q697882",
-   "reason": "strong evidence names BE and CL and DE and DK and ES and GB and NO and RU and US",
-   "rule": null,
-   "votes": {
-    "BE": [
-     "parent_category"
-    ],
-    "CL": [
-     "parent_category"
-    ],
-    "DE": [
-     "parent_category",
-     "parent_category"
-    ],
-    "DK": [
-     "parent_category"
-    ],
-    "ES": [
-     "parent_category"
-    ],
-    "GB": [
-     "parent_category"
-    ],
-    "NO": [
-     "parent_category"
-    ],
-    "RU": [
-     "parent_category",
-     "parent_category"
-    ],
-    "US": [
-     "parent_item"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": "DE",
-    "located": false
-   },
-   "category": "Category:Essen Light Festival",
-   "corroborated": false,
-   "country": "DE",
-   "evidence": [
-    {
-     "city": null,
-     "country": "DE",
-     "detail": {
-      "category": "Category:Festivals of lights in Germany",
-      "matched": [
-       "Germany"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "country": "DE",
-     "detail": {
-      "item": "Q72433512",
-      "via": "Q183"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": null,
-    "countries": {},
-    "n": 0
-   },
-   "id": "Q72433512",
-   "located_after": false,
-   "name": "Essen Light Festival",
-   "outcome": "recovered",
-   "qid": "Q72433512",
-   "reason": null,
-   "rule": "parent_category",
-   "votes": {
-    "DE": [
-     "parent_category",
-     "parent_item"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": "AU",
-    "located": false
-   },
-   "category": "Category:Vivid Sydney",
-   "city": "Sydney",
-   "corroborated": false,
-   "country": "AU",
-   "evidence": [
-    {
-     "city": "Sydney",
-     "country": "AU",
-     "detail": {
-      "category": "Category:Events in Sydney",
-      "matched": [
-       "Sydney"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "AU",
-     "detail": {
-      "category": "Category:Festivals of lights in Australia",
-      "matched": [
-       "Australia"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "AU",
-     "detail": {
-      "category": "Category:Illuminated buildings in Australia",
-      "matched": [
-       "Australia"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": "Sydney",
-     "country": "AU",
-     "detail": {
-      "category": "Category:Night in Sydney",
-      "matched": [
-       "Sydney"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "country": "AU",
-     "detail": {
-      "item": "Q7937834",
-      "via": "Q408"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    },
-    {
-     "city": "Sydney",
-     "country": "AU",
-     "detail": {
-      "category": "Category:Vivid Sydney",
-      "matched": [
-       "Sydney"
-      ]
-     },
-     "kind": "category_name",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": null,
-    "countries": {},
-    "n": 0
-   },
-   "id": "Q7937834",
-   "located_after": true,
-   "name": "Vivid Sydney",
-   "outcome": "recovered",
-   "qid": "Q7937834",
-   "reason": null,
-   "rule": "parent_category",
-   "votes": {
-    "AU": [
-     "parent_category",
-     "parent_category",
-     "parent_category",
-     "parent_category",
-     "parent_item",
-     "category_name"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": "NL",
-    "located": false
-   },
-   "category": "Category:Culture of the Netherlands",
-   "corroborated": false,
-   "country": null,
-   "evidence": [
-    {
-     "city": null,
-     "country": "NL",
-     "detail": {
-      "category": "Category:Culture of the Kingdom of the Netherlands",
-      "matched": [
-       "Netherlands"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "NL",
-     "detail": {
-      "category": "Category:Netherlands",
-      "matched": [
-       "Netherlands"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "NL",
-     "detail": {
-      "category": "Category:Netherlands by topic",
-      "matched": [
-       "Netherlands"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "NL",
-     "detail": {
-      "category": "Category:Culture of the Netherlands",
-      "matched": [
-       "Netherlands"
-      ]
-     },
-     "kind": "category_name",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": null,
-    "countries": {
-     "HU": 1,
-     "NL": 1
-    },
-    "n": 2
-   },
-   "id": "Q924524",
-   "name": "culture of the Netherlands",
-   "outcome": "conflict",
-   "qid": "Q924524",
-   "reason": "geotags: {\"HU\":1,\"NL\":1}",
-   "rule": null,
-   "votes": {
-    "NL": [
-     "parent_category",
-     "parent_category",
-     "parent_category",
-     "category_name"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": "CZ",
-    "located": false
-   },
-   "category": "Category:Transmission (festival)",
-   "corroborated": false,
-   "country": null,
-   "evidence": [
-    {
-     "city": null,
-     "country": "SK",
-     "detail": {
-      "category": "Category:Electronic music festivals in Slovakia",
-      "matched": [
-       "Slovakia"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": null,
-     "country": "CZ",
-     "detail": {
-      "category": "Category:Electronic music festivals in the Czech Republic",
-      "matched": [
-       "Czech Republic"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "city": "Prague",
-     "country": "CZ",
-     "detail": {
-      "category": "Category:Events at O2 Arena (Prague)",
-      "matched": [
-       "Prague"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "country": "CZ",
-     "detail": {
-      "item": "Q9361221",
-      "via": "Q213"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": null,
-    "countries": {},
-    "n": 0
-   },
-   "id": "Q9361221",
-   "name": "Transmission",
-   "outcome": "conflict",
-   "qid": "Q9361221",
-   "reason": "strong evidence names CZ and SK",
-   "rule": null,
-   "votes": {
-    "CZ": [
-     "parent_category",
-     "parent_category",
-     "parent_item"
-    ],
-    "SK": [
-     "parent_category"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": "DE",
-    "located": false
-   },
-   "category": "Category:Lichtparcours 2020",
-   "center": {
-    "file": "BS Light Steps.JPG",
-    "lat": 52.255597,
-    "lng": 10.521324
-   },
-   "corroborated": false,
-   "country": "DE",
-   "evidence": [
-    {
-     "city": null,
-     "country": "DE",
-     "detail": {
-      "category": "Category:Light art in Germany",
-      "matched": [
-       "Germany"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "country": "DE",
-     "detail": {
-      "countries": {
-       "DE": 8
-      },
-      "files": 8
-     },
-     "kind": "file_geotags",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": {
-     "file": "BS Light Steps.JPG",
-     "lat": 52.255597,
-     "lng": 10.521324
-    },
-    "countries": {
-     "DE": 8
-    },
-    "n": 8
-   },
-   "id": "Q96943615",
-   "located_after": true,
-   "name": "Lichtparcours 2020",
-   "outcome": "recovered",
-   "qid": "Q96943615",
-   "reason": null,
-   "rule": "parent_category",
-   "votes": {
-    "DE": [
-     "parent_category",
-     "file_geotags"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:Black Hole Horizon",
-   "center": {
-    "file": "Thom Kubli Black Hole Horizon 1.jpg",
-    "lat": 48.288601,
-    "lng": 14.289042
-   },
-   "corroborated": false,
-   "country": "AT",
-   "evidence": [
-    {
-     "country": "AT",
-     "detail": {
-      "countries": {
-       "AT": 6
-      },
-      "files": 6
-     },
-     "kind": "file_geotags",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": {
-     "file": "Thom Kubli Black Hole Horizon 1.jpg",
-     "lat": 48.288601,
-     "lng": 14.289042
-    },
-    "countries": {
-     "AT": 6
-    },
-    "n": 6
-   },
-   "id": "Q97163414",
-   "located_after": true,
-   "name": "Black Hole Horizon",
-   "outcome": "recovered",
-   "qid": "Q97163414",
-   "reason": null,
-   "rule": "file_geotags",
-   "votes": {
-    "AT": [
-     "file_geotags"
-    ]
-   }
   }
  ],
  "schema": 1,
  "stats": {
-  "aggregate_name": 12,
+  "aggregate_name": 11,
   "by_rule": {
-   "file_geotags": 14,
-   "parent_category": 74,
-   "parent_item": 23
+   "file_geotags": 13,
+   "parent_category": 99,
+   "parent_item": 26
   },
-  "candidates": 223,
+  "candidates": 237,
   "capped": 0,
-  "conflict": 17,
+  "conflict": 11,
   "duplicate_of_project": 1,
-  "geotag_requests": 0,
-  "no_evidence": 55,
-  "part_of_project": 27,
-  "recovered": 111,
+  "geotag_requests": 19,
+  "no_evidence": 16,
+  "partial": true,
+  "recovered": 138,
   "region_candidates": 2
  }
 }
