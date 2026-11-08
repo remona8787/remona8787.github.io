@@ -520,6 +520,50 @@ test('the drop guard keeps the previous dataset when more than half would disapp
   assert.equal((await readJSON(path.join(copy, 'state/tracker.json'))).projects.Q99100000.missing_runs, 2, 'the tracker does not advance on a kept run')
 })
 
+// Wikidata lagging (the live runs of 2026-11-07): every wbgetentities answer is a maxlag error, so the client waits
+// and retries each batch; the entities are older than their 72 h TTL, so they must be asked.
+const lagged = (url) => (url.startsWith('https://www.wikidata.org/') && /action=wbgetentities/.test(url)
+  ? new Response(JSON.stringify({ error: { code: 'maxlag', info: 'Waiting for wdqs1012: 13 seconds lagged.' } }), { headers: { 'content-type': 'application/json', 'retry-after': '30' } })
+  : null)
+
+test('a lagging Wikidata keeps the never-a-project rules: the labels of the last check stand in', needSharp, async () => {
+  const { dir, data } = await firstRun()
+  const copy = await tmp()
+  await cp(dir, copy, { recursive: true })
+  const r = await run(copy, { start: START + 100 * HOUR, fail: lagged })
+  const classes = await readJSON(path.join(copy, 'review/classes.json'))
+  const city = classes.blocklist.find((b) => b.qid === 'Q486972')
+  assert.equal(city.label_matches, true)
+  assert.equal(city.label_from_cache, true)
+  assert.ok(classes.never_project.classes.includes('Q486972'), JSON.stringify(classes.never_project.classes))
+  // Namwon (a city, through Category:Namwon) stays out, as in the first run; nothing new is published.
+  assert.ok(classes.never_project.decisions.some((d) => d.qid === 'Q42087'))
+  const after = await site(copy)
+  assert.ok(!after.records.has('Q42087'))
+  assert.deepEqual(r.report.changes.new, [])
+  assert.deepEqual([...after.records.keys()].sort(), [...data.records.keys()].sort())
+})
+
+test('a run whose enrichment stops early keeps the previous dataset, and the next run publishes', needSharp, async () => {
+  const { dir, data } = await firstRun()
+  const copy = await tmp()
+  await cp(dir, copy, { recursive: true })
+  const index = await readFile(path.join(copy, 'site-data/index.json'), 'utf8')
+  const tracker = await readFile(path.join(copy, 'state/tracker.json'), 'utf8')
+  // With a 6-minute budget the maxlag waits outlast the enrichment deadline: no Wikidata facts are read.
+  const r = await run(copy, { start: START + 100 * HOUR, fail: lagged, pipeline: { budget_minutes: 6 } })
+  assert.equal(r.report.sources.enrich.items, 0)
+  assert.equal(r.publishStatus, 'kept_previous_enrich_incomplete')
+  assert.equal(r.report.run.status, 'kept_previous_enrich_incomplete')
+  assert.equal(r.report.run.build_id, data.manifest.build_id)
+  assert.equal(await readFile(path.join(copy, 'site-data/index.json'), 'utf8'), index, 'site-data is untouched')
+  assert.equal(await readFile(path.join(copy, 'state/tracker.json'), 'utf8'), tracker, 'the tracker does not advance on a kept run')
+  // Wikidata answers again: the next run publishes the same projects.
+  const next = await run(copy, { start: START + 106 * HOUR })
+  assert.ok(['published', 'unchanged'].includes(next.publishStatus), next.publishStatus)
+  assert.deepEqual([...(await site(copy)).records.keys()].sort(), [...data.records.keys()].sort())
+})
+
 test('P180 depicts searches: only for projects without named night and media evidence, capped per run, then cached', needSharp, async () => {
   const depicts = (env) => env.requests.filter((q) => /haswbstatement:P180/.test(decodeURIComponent(q.url))).map((q) => decodeURIComponent(q.url).match(/P180=(Q\d+)/)[1])
   const { result } = await firstRun()

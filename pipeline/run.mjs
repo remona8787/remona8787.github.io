@@ -171,7 +171,7 @@ export async function runPipeline(o) {
       const t = clock(), e = []
       try {
         // Live labels of every class, blocklist item, property and the country item (one or two requests).
-        classReview = await discoverClasses(client, cfg.classes, { cache, ttlHours: ttl.class_counts ?? 24, counts: false, extraItems: [{ qid: KC.country.qid, label: KC.country.label, purpose: 'korea_country' }] })
+        classReview = await discoverClasses(client, cfg.classes, { cache, ttlHours: ttl.class_counts ?? 24, labelTtlHours: ttl.labels ?? 168, counts: false, extraItems: [{ qid: KC.country.qid, label: KC.country.label, purpose: 'korea_country' }] })
         e.push(...classReview.errors)
         const props = new Map(classReview.properties.map((x) => [x.pid, x.ok]))
         const countryOk = classReview.items.find((x) => x.qid === KC.country.qid)?.ok === true
@@ -352,6 +352,9 @@ export async function runPipeline(o) {
   // Used only while the live label matches (an unverified QID never blocks on its own).
   const neverBlocks = (cfg.classes.blocklist || []).filter((b) => b.subclasses && liveOk(b))
   const neverMember = new Map(), neverErrors = []
+  // Whether enrichment read the facts and the never-a-project classes to the end (a failed batch that its stale cache
+  // stands in for still counts). A run where it did not keeps the previous dataset (see the output).
+  let enrichFinished = false
   await st.run('enrich', async () => {
     const t = clock(), e = []
     const props = Object.keys(cfg.classes.properties || {}).filter((k) => /^P\d+$/.test(k) && !badProps.has(k))
@@ -401,6 +404,7 @@ export async function runPipeline(o) {
         e.push(...neverErrors)
       }
       status('enrich', { status: e.length ? 'partial' : 'ok', items: facts.size, errors: e.slice(0, 50), duration_ms: clock() - t })
+      enrichFinished = true
     } catch (x) {
       err('enrich', x)
       status('enrich', { status: isBudget(x) ? 'partial' : 'error', items: facts.size, errors: [...e.slice(0, 50), { message: msg(x) }], duration_ms: clock() - t })
@@ -729,9 +733,16 @@ export async function runPipeline(o) {
   const validation = checkDataset(files)
   const prevCount = prev.records.size
   const dropGuard = prevCount > 0 && records.length < prevCount * (1 - (P.output?.max_drop_ratio ?? 0.5))
+  // Enrichment that stopped early (the time budget, an error) leaves no Wikidata facts, or not the never-a-project
+  // classes, and the rules that keep editions, people and places out and find a project's photos (P18, the Commons
+  // category) read them. On 2026-11-07 two such runs published 33 new projects (Commons subcategories of a known
+  // festival, items of people) and emptied the DDP gallery. Such a run keeps the previous dataset; its cache writes
+  // help the next run finish.
+  const enrichIncomplete = prevCount > 0 && !enrichFinished
   let publishStatus = 'published'
   if (validation.length) publishStatus = 'kept_previous_invalid_output'
   else if (dropGuard) publishStatus = 'kept_previous_drop_guard'
+  else if (enrichIncomplete) publishStatus = 'kept_previous_enrich_incomplete'
   else if (unchanged) publishStatus = 'unchanged'
   const anyPartial = Object.values(sourceStatus).some((s) => s.status === 'partial' || s.status === 'error') || Object.values(st.out).some((s) => s.status !== 'ok')
   if (publishStatus === 'published' || publishStatus === 'unchanged') {

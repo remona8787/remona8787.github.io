@@ -139,6 +139,12 @@ full URL.
   - The new dataset is written to a staging directory, checked against the schema (`lib/schema.mjs`) and only then swapped in.
   - An invalid dataset is not published (`publish: kept_previous_invalid_output`).
   - Neither is a drop of more than half of the projects at once (`kept_previous_drop_guard`).
+  - Nor a run whose enrichment stopped early, at its time budget or an error (`kept_previous_enrich_incomplete`): it
+    has no Wikidata facts, or not the never-a-project classes, and the rules that keep editions, people and places
+    out and find a project's photos read them. On 2026-11-07 two such runs (Wikidata lagging, entities past their
+    72 h TTL) published 33 new projects, Commons subcategories of the Fête des Lumières among them, and emptied the DDP
+    gallery. A batch that fails while enrichment goes on is still covered by its stale cache entries and counts as read.
+    The kept run's cache writes help the next run finish.
   - A project that a failed or partial source no longer returns is carried over unchanged.
   - A project missing although all its sources completed stays for 3 runs (listed as stale in quality.json), then it is removed.
   - Hidden or ineligible projects go at once.
@@ -351,7 +357,9 @@ Wikipedia relevance, web candidate), never the basics. Every excluded project an
 - items whose P31/P279* reaches a class of `config/classes.json` blocklist with `"subclasses": true`: administrative
   territorial entity (Q56061), city (Q515), human settlement (Q486972), edit-a-thon (Q16022392), hackathon (Q2627975,
   used once its live label matches). One class-membership query per 100 items; every class is used only while its
-  live label matches. The settlement classes spare an item that is also of a light-work class or of a work, event or
+  live label matches. When Wikidata fails or lags (maxlag) at the label check, the label of the last successful check
+  stands in (`state/cache/labels.json`, marked `label_from_cache` in `review/classes.json`), so a lagging Wikidata
+  never turns these rules off (on 2026-11-07 it did: no class was in use and items of people were published). The settlement classes spare an item that is also of a light-work class or of a work, event or
   venue class by label (`entity_rules.work_or_event_class_pattern`: a festival organised as a community).
 
 Decisions are in `review/classes.json` `never_project` (with the errors of the membership queries). A record published

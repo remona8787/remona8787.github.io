@@ -289,8 +289,13 @@ export async function fetchAux(client, qids, { cache, ttlHours = 720, stage = 'e
   return { aux: out, errors }
 }
 
-/** Live labels of classes and properties (review/classes.json, review/properties.json). */
-export async function fetchLabels(client, ids, { stage = 'discovery' } = {}) {
+/**
+ * Live labels of classes and properties (review/classes.json, review/properties.json). They are always asked live (the
+ * check is whether a label changed); each answer is cached ('labels') so that, when Wikidata fails or lags, the label
+ * of the last successful check stands in (marked from_cache) rather than none. Without it a lagging Wikidata turned
+ * off every unverified never-a-project class and blocklist item (2026-11-07: cities and people were published).
+ */
+export async function fetchLabels(client, ids, { stage = 'discovery', cache = null, ttlHours = 168 } = {}) {
   const out = new Map(), errors = []
   for (const group of chunk(uniq(ids), 50)) {
     const p = new URLSearchParams({ action: 'wbgetentities', format: 'json', ids: group.join('|'), props: 'labels|descriptions', languages: 'en|ko', redirects: 'yes' })
@@ -298,12 +303,14 @@ export async function fetchLabels(client, ids, { stage = 'discovery' } = {}) {
       const json = await client.json(`${WD_API}?${p}`, { stage })
       for (const id of group) {
         const e = json?.entities?.[id]
-        if (!e || e.missing !== undefined) { out.set(id, { missing: true }); continue }
-        out.set(id, { id: e.id, redirect: e.id !== id ? e.id : null, en: e.labels?.en?.value || null, ko: e.labels?.ko?.value || null, description: e.descriptions?.en?.value || null })
+        const v = !e || e.missing !== undefined ? { missing: true } : { id: e.id, redirect: e.id !== id ? e.id : null, en: e.labels?.en?.value || null, ko: e.labels?.ko?.value || null, description: e.descriptions?.en?.value || null }
+        out.set(id, v)
+        cache?.set('labels', id, v, { ttlMs: ttlHours * HOUR })
       }
     } catch (e) {
       if (e?.code === 'budget') throw e
       errors.push({ stage, message: String(e?.message || e).slice(0, 300) })
+      for (const id of group) { const old = cache?.any('labels', id); if (old) out.set(id, { ...old, from_cache: true }) }
     }
   }
   return { labels: out, errors }
@@ -315,12 +322,12 @@ const norm = (s) => String(s || '').toLowerCase().normalize('NFKC').replace(/\s+
  * Class discovery: live label, instance counts and the publish decision of every configured class and blocklist
  * item, and the live labels of every configured property.
  */
-export async function discoverClasses(client, classesConfig, { cache, ttlHours = 24, counts = true, extraItems = [] }) {
+export async function discoverClasses(client, classesConfig, { cache, ttlHours = 24, labelTtlHours = 168, counts = true, extraItems = [] }) {
   const classes = classesConfig.classes || []
   const block = classesConfig.blocklist || []
   const props = Object.entries(classesConfig.properties || {}).filter(([k]) => /^P\d+$/.test(k))
   const errors = []
-  const { labels, errors: e1 } = await fetchLabels(client, [...classes.map((c) => c.qid), ...block.map((b) => b.qid), ...props.map(([p]) => p), ...extraItems.map((x) => x.qid)])
+  const { labels, errors: e1 } = await fetchLabels(client, [...classes.map((c) => c.qid), ...block.map((b) => b.qid), ...props.map(([p]) => p), ...extraItems.map((x) => x.qid)], { cache, ttlHours: labelTtlHours })
   errors.push(...e1)
   const review = []
   for (const c of classes) {
@@ -336,7 +343,7 @@ export async function discoverClasses(client, classesConfig, { cache, ttlHours =
     const publish = !!(usable && c.include)
     review.push({
       qid: c.qid, configured_label: c.label, live_label: live?.en ?? null, live_label_ko: live?.ko ?? null, live_description: live?.description ?? null,
-      label_matches: labelOk, verified: !!c.verified, include: !!c.include, korea_include: !!c.korea_include, project_type: c.project_type, publish,
+      label_matches: labelOk, ...(live?.from_cache ? { label_from_cache: true } : {}), verified: !!c.verified, include: !!c.include, korea_include: !!c.korea_include, project_type: c.project_type, publish,
       // Korea first: a verified class with a matching live label is also read for its items located in Korea (P17),
       // and published from there when it is included or korea_include (config/classes.json).
       publish_korea: !!(usable && (c.include || c.korea_include)),
@@ -346,7 +353,7 @@ export async function discoverClasses(client, classesConfig, { cache, ttlHours =
   if (counts) await addClassCounts(client, review, { ttlHours, errors })
   const blocklist = block.map((b) => {
     const live = labels.get(b.qid) || null
-    return { qid: b.qid, configured_label: b.label, live_label: live?.en ?? null, label_matches: live && !live.missing ? norm(live.en) === norm(b.label) : null, verified: !!b.verified, reason: b.reason }
+    return { qid: b.qid, configured_label: b.label, live_label: live?.en ?? null, label_matches: live && !live.missing ? norm(live.en) === norm(b.label) : null, ...(live?.from_cache ? { label_from_cache: true } : {}), verified: !!b.verified, reason: b.reason }
   })
   const properties = props.map(([pid, expected]) => {
     const live = labels.get(pid) || null
