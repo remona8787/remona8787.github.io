@@ -23,7 +23,7 @@ test('theme choice persists',async({page})=>{
  await expect(page.getByRole('radio',{name:'시스템'})).toHaveAttribute('aria-checked','true');
  await page.getByRole('radio',{name:'다크'}).click();
  await expect.poll(()=>page.evaluate(()=>document.documentElement.dataset.theme)).toBe('dark');
- expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(13, 15, 38)');
+ expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(11, 12, 20)');
  await page.reload();expect(await page.evaluate(()=>document.documentElement.dataset.theme)).toBe('dark');
  await expect(page.getByRole('radio',{name:'다크'})).toHaveAttribute('aria-checked','true');
  await page.getByRole('radio',{name:'라이트'}).click();
@@ -38,13 +38,13 @@ test.describe('system dark',()=>{
  test.use({colorScheme:'dark',viewport:{width:1280,height:800}});
  test('the system dark setting applies until a theme is chosen',async({page})=>{
   await page.goto('/#home');
-  expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(13, 15, 38)');
-  await expect(page.locator('.sidebar .brand-logo.logo-dark')).toBeVisible();
-  await expect(page.locator('.sidebar .brand-logo.logo-light')).toBeHidden();
+  expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(11, 12, 20)');
+  await expect(page.locator('.topbar-brand .logo-dark')).toBeVisible();
+  await expect(page.locator('.topbar-brand .logo-light')).toBeHidden();
   await page.goto('/#settings');await page.getByRole('radio',{name:'라이트'}).click();
   expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(247, 247, 245)');
-  await expect(page.locator('.sidebar .brand-logo.logo-light')).toBeVisible();
-  await expect(page.locator('.sidebar .brand-logo.logo-dark')).toBeHidden();
+  await expect(page.locator('.topbar-brand .logo-light')).toBeVisible();
+  await expect(page.locator('.topbar-brand .logo-dark')).toBeHidden();
  });
 });
 // Editorial courses (seed curation ids CUR001…): the page lists the stops in order and copies into my courses.

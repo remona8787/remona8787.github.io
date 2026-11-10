@@ -1,4 +1,9 @@
-# 최신 버전: v0.23.0
+# 최신 버전: v0.24.0
+
+- v0.24 (2026-11-10): 전반 디자인 개편. 미술관 소장품 사이트(MoMA·Cooper Hewitt·Rijksmuseum)의 흰 바탕·잉크색 글자·가는 선·사진
+  우선 카드, Google Arts & Culture의 어두운 사진 띠, Airbnb의 검색·필터 칩, Apple의 큰 제목을 참고한 패턴(복제가 아님). 큰 화면은
+  가로 메뉴, 주요 버튼은 잉크색 알약, 나머지는 테두리. 색 토큰은 `styles.css` 맨 위(대비는 `tests/contrast.test.cjs`가 확인),
+  컴포넌트 규칙은 맨 끝의 v0.24 design layer.
 
 - v0.23 (2026-11-10): v0.22.1(2026-11-01, 별도 배포본 https://light-architecture-jihyun.guma.chatgpt.site 에서 진행된 작업)을
   이 저장소에 합쳤습니다. 작품 사진 정책(`site-public-cleared/art-photo-policy.js`: 권리·크기·대상·시각 근거를 모두 갖춘

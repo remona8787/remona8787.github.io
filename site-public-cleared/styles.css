@@ -9,16 +9,16 @@
 :root{
   color-scheme:light;
   --font-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,system-ui,'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;
-  --bg:#F6F5FB;
+  --bg:#F7F7F5;
   --surface:#FFFFFF;
   --elevated:#FFFFFF;
-  --panel:#EFEDF7;
-  --panel-strong:#E4E1F0;
-  --line:#E3E0EE;
-  --line-strong:#8A86A8;
+  --panel:#EFEFEC;
+  --panel-strong:#E4E4E0;
+  --line:#E2E2DE;
+  --line-strong:#85857E;
   --text:#151A38;
-  --text-muted:#5B5877;
-  --text-subtle:#706C8A;
+  --text-muted:#55576A;
+  --text-subtle:#696B79;
   --accent:#6B52DE;
   --accent-strong:#5539C8;
   --accent-ink:#FFFFFF;
@@ -38,7 +38,7 @@
   --warning-bg:#FFF1E3;
   --warning-ink:#83400F;
   --focus:#6B52DE;
-  --chip-on-bg:#1C1F4A;
+  --chip-on-bg:#151A38;
   --chip-on-ink:#FFFFFF;
   --inverse-bg:#1C1F4A;
   --inverse-ink:#FFFFFF;
@@ -52,7 +52,7 @@
   --hero-mid:#2B2873;
   --hero-end:#4D38B6;
   --card-border:#FFFFFF00;
-  --shadow-1:0 1px 2px #12143A0F,0 4px 12px #12143A0F;
+  --shadow-1:0 1px 2px #0000000A,0 2px 8px #0000000A;
   --shadow-2:0 6px 20px #12143A1F;
   --shadow-3:0 -8px 32px #12143A29;
   --shadow-dialog:0 24px 64px #12143A3D;
@@ -60,23 +60,23 @@
 }
 :root[data-theme=dark]{
     color-scheme:dark;
-    --bg:#0D0F26;
-    --surface:#151834;
-    --elevated:#1D2044;
-    --panel:#232750;
-    --panel-strong:#2D3160;
-    --line:#2F335C;
-    --line-strong:#76729C;
+    --bg:#0B0C14;
+    --surface:#12131D;
+    --elevated:#1A1B27;
+    --panel:#1E1F2B;
+    --panel-strong:#272836;
+    --line:#2A2B39;
+    --line-strong:#77788C;
     --text:#F4F1FF;
-    --text-muted:#ADA9CB;
-    --text-subtle:#8E8AB0;
+    --text-muted:#ABAABD;
+    --text-subtle:#8F8EA3;
     --accent:#A08CFF;
     --accent-strong:#BDB0FF;
     --accent-ink:#151A38;
     --accent-soft:#2A2366;
     --accent-on-soft:#D3CAFF;
     --navy:#262B6E;
-    --navy-deep:#0D0F26;
+    --navy-deep:#0B0C14;
     --navy-ink:#FFFFFF;
     --navy-muted:#CBC6F2;
     --vermilion:#FF5A3D;
@@ -94,15 +94,15 @@
     --inverse-bg:#F4F1FF;
     --inverse-ink:#151A38;
     --inverse-accent:#5539C8;
-    --glass:#151834E6;
-    --tabbar:#151834EB;
+    --glass:#12131DE6;
+    --tabbar:#12131DEB;
     --scrim:#000000B3;
     --credit-bg:#0D0F26C2;
     --backdrop:#000000A6;
-    --hero-start:#0D0F26;
+    --hero-start:#0B0C14;
     --hero-mid:#1F1D5A;
     --hero-end:#4A33A8;
-    --card-border:#2F335C;
+    --card-border:#2A2B39;
     --shadow-1:0 1px 2px #00000066;
     --shadow-2:0 8px 24px #00000073;
     --shadow-3:0 -8px 32px #00000080;
@@ -114,23 +114,23 @@
 @media (prefers-color-scheme:dark){
   :root:not([data-theme=light]){
     color-scheme:dark;
-    --bg:#0D0F26;
-    --surface:#151834;
-    --elevated:#1D2044;
-    --panel:#232750;
-    --panel-strong:#2D3160;
-    --line:#2F335C;
-    --line-strong:#76729C;
+    --bg:#0B0C14;
+    --surface:#12131D;
+    --elevated:#1A1B27;
+    --panel:#1E1F2B;
+    --panel-strong:#272836;
+    --line:#2A2B39;
+    --line-strong:#77788C;
     --text:#F4F1FF;
-    --text-muted:#ADA9CB;
-    --text-subtle:#8E8AB0;
+    --text-muted:#ABAABD;
+    --text-subtle:#8F8EA3;
     --accent:#A08CFF;
     --accent-strong:#BDB0FF;
     --accent-ink:#151A38;
     --accent-soft:#2A2366;
     --accent-on-soft:#D3CAFF;
     --navy:#262B6E;
-    --navy-deep:#0D0F26;
+    --navy-deep:#0B0C14;
     --navy-ink:#FFFFFF;
     --navy-muted:#CBC6F2;
     --vermilion:#FF5A3D;
@@ -148,15 +148,15 @@
     --inverse-bg:#F4F1FF;
     --inverse-ink:#151A38;
     --inverse-accent:#5539C8;
-    --glass:#151834E6;
-    --tabbar:#151834EB;
+    --glass:#12131DE6;
+    --tabbar:#12131DEB;
     --scrim:#000000B3;
     --credit-bg:#0D0F26C2;
     --backdrop:#000000A6;
-    --hero-start:#0D0F26;
+    --hero-start:#0B0C14;
     --hero-mid:#1F1D5A;
     --hero-end:#4A33A8;
-    --card-border:#2F335C;
+    --card-border:#2A2B39;
     --shadow-1:0 1px 2px #00000066;
     --shadow-2:0 8px 24px #00000073;
     --shadow-3:0 -8px 32px #00000080;
@@ -2148,7 +2148,6 @@ img[data-no-derivatives]{object-fit:contain!important;object-position:center!imp
 .card-context{position:absolute;left:10px;bottom:10px;max-width:calc(100% - 64px);padding:4px 7px;border-radius:6px;background:#06071AE6;color:#fff;font-size:12px;line-height:18px;pointer-events:none}
 
 /* Art-led editorial surfaces: brand violet remains the action colour. */
-:root[data-theme="light"]{--bg:#F7F7F5;--surface:#FFFFFF;--line:#E1E2E6}
 .art-editorial{background:#0B0E16!important;color:#F7F8FC;padding-bottom:28px}
 .art-editorial .hero-intro{padding:28px 0 24px}
 .art-editorial .hero-kicker{color:#B9BCCA;font-size:12px;letter-spacing:.1em}
@@ -2223,15 +2222,116 @@ img[data-no-derivatives]{object-fit:contain!important;object-position:center!imp
 }
 @media(prefers-reduced-motion:reduce){.art-editorial .hero-img{animation:none;transform:none}}
 
-:root{--bg:#F7F7F5;--panel:#EFF0F3;--line:#E0E2E7}
 .home-section.home-world{background:none;border-radius:0}
 .home-world::before{background:none;border-radius:0}
 .home-courses .curation-card:not(.has-photo) .curation-link{background:none;color:var(--text)}
 .home-courses .curation-card:not(.has-photo) h3{color:var(--text)}
 .home-courses .curation-card:not(.has-photo) .curation-sub,.home-courses .curation-card:not(.has-photo) .curation-meta{color:var(--text-muted);background:none}
-@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0D0F26;--panel:#171A36;--line:#343852}}
 /* Touch targets (v0.23): the banner's title and credit links are at least 24 px tall (WCAG 2.5.8 target size), and on
    touch screens the caption's 더 보기 button keeps 44 px, as every other control of the place page does. */
 .hero-gallery .plate-title,.art-editorial .plate-title{min-height:24px}
 .hero-gallery .plate-credit,.art-editorial .plate-credit{display:inline-flex;align-items:center;min-height:24px}
 @media (max-width:1023px){.dp-capmore{min-height:44px!important}}
+
+/* ============================================================================================================
+   v0.24 design layer — "gallery" language.
+   References (patterns, not copies): the collection sites of art museums (MoMA, Cooper Hewitt, Rijksmuseum) for
+   neutral white, near-black type, hairline rules instead of boxes and shadows, photo-first cards with captions under
+   them and object pages with a fact table; Google Arts & Culture for the dark, immersive photo band; Airbnb for the
+   quiet search pill and outline filter chips; Apple for large, tightly tracked display type. Brand anchors stay
+   (Ink #151A38, Purple #6B52DE, Vermilion): purple only for links, focus and the active state, ink for primary
+   actions. Tokens are in the theme blocks at the top (tests/contrast.test.cjs checks them).
+   ============================================================================================================ */
+:root{--r-card:10px;--r-md:10px;--r-lg:14px}
+
+/* Type: one display family, heavier and tighter at the top of the hierarchy, calm body text. */
+.large-title{font-size:32px;line-height:38px;font-weight:800;letter-spacing:-.035em}
+@media (min-width:1024px){.large-title{font-size:44px;line-height:52px;letter-spacing:-.04em}}
+.page-sub{max-width:68ch}
+h2{letter-spacing:-.025em}
+.section-eyebrow{color:var(--text-muted);font-weight:700;letter-spacing:.14em}
+.eyebrow:not(.on-dark){color:var(--text-muted);font-weight:600}
+.card-eyebrow{color:var(--text-muted);font-weight:600;letter-spacing:.02em}
+
+/* Shell: the page colour runs under the sidebar; one hairline separates them. The active section is ink and bold
+   with a short ink rule, not a tinted pill. */
+.topbar{border-bottom:1px solid var(--line)}
+.top-search{box-shadow:none}
+@media (min-width:1024px){
+  .sidebar{background:var(--bg);border-right:1px solid var(--line)}
+  .nav-link{border-radius:8px;color:var(--text-muted)}
+  .nav-link:hover{background:var(--panel);color:var(--text)}
+  .nav-link.active{background:transparent;color:var(--text);font-weight:700;box-shadow:inset 3px 0 0 var(--text)}
+  .nav-link.active .nav-icon{color:var(--text)}
+  .nav-link.active .nav-count{background:var(--panel);color:var(--text)}
+}
+
+/* Actions: ink pills for the main action, hairline outlines for the rest. */
+.button{border-radius:var(--r-pill);background:var(--chip-on-bg);color:var(--chip-on-ink)}
+.button:hover{background:var(--navy)}
+.button.subtle{background:transparent;border-color:var(--line-strong);color:var(--text)}
+.button.subtle:hover{background:var(--panel)}
+.button.tonal{border-radius:var(--r-pill)}
+.button.large,.button.small{border-radius:var(--r-pill)}
+
+/* Chips: outline, ink when chosen (the filter vocabulary of a search page, not of a dashboard). */
+.chip{background:transparent;border-color:var(--line)}
+.chip:hover{border-color:var(--text-muted)}
+.chip[aria-pressed=true],.chip.active{background:var(--chip-on-bg);border-color:var(--chip-on-bg);color:var(--chip-on-ink)}
+.topic-link{border-radius:var(--r-pill);background:transparent}
+.topic-link:hover{background:var(--panel)}
+.pill{background:transparent;box-shadow:none;border:1px solid var(--line);color:var(--text-muted)}
+
+/* Cards: the photo leads, the caption sits under it; no shadows, a slow zoom on hover. */
+.card-body{padding:12px 0 0}
+.place-card h3{font-size:17px;line-height:24px;font-weight:700;letter-spacing:-.015em}
+.card-art img{transition:transform .6s var(--ease-standard)}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){.place-card:hover .card-art img{transform:scale(1.03)}}
+.save-button{box-shadow:none}
+.group{border-radius:var(--r-lg);box-shadow:none;border:1px solid var(--line)}
+
+/* Home: an editorial rhythm, each section opened by a hairline and a large heading. */
+:root[data-page=home] .home-section{padding-top:var(--s-6);border-top:1px solid var(--line)}
+.home-head h2{font-size:28px;line-height:34px;font-weight:800;letter-spacing:-.03em}
+@media (min-width:1024px){.home-head h2{font-size:36px;line-height:42px;letter-spacing:-.035em}}
+.home-discovery{border-radius:0;box-shadow:none;background:transparent}
+:root[data-page=home] .home-discovery{max-width:calc(var(--content-max) - 2 * var(--gutter));margin-left:auto;margin-right:auto;padding-left:0;padding-right:0}
+
+/* Search: the filter column reads as part of the page (rules between groups), not as a floating box. */
+@media (min-width:1024px){.filter-aside .advanced-filters.inline .filter-panel{border:0;border-radius:0;background:transparent}.filter-aside .sheet-head{padding-left:0;padding-right:0}.filter-aside .sheet-body{padding-left:0;padding-right:0}}
+
+/* Object page: a museum label — a large title, the facts in a ruled table, an ink underline on the open tab. */
+.detail-title h1{font-size:34px;line-height:40px;font-weight:800;letter-spacing:-.035em}
+@media (min-width:1024px){.detail-title h1{font-size:48px;line-height:54px;letter-spacing:-.04em}}
+.dp-tabs [role=tab]{font-weight:600}
+.dp-tabs [role=tab][aria-selected=true]{font-weight:700}
+
+/* Desktop shell (v0.24): the sections as a horizontal strip under the top bar, as museum and editorial sites do, so
+   the photos get the full width. The bar keeps the logo, search, language and account and stays on screen; the strip
+   scrolls away with the page. Tablets keep the icon rail, phones the tab bar; the place page keeps its own layout. */
+@media (min-width:1024px){
+  :root{--nav-h:52px}
+  .workspace{margin-left:0}
+  .topbar{margin-bottom:var(--nav-h)}
+  .topbar-lead{flex:0 0 auto;min-width:0;gap:var(--s-2)}
+  .topbar-brand,:root[data-page=home] .topbar-brand{display:flex;align-items:center}
+  .sidebar{position:absolute;top:var(--topbar-h);left:0;right:0;bottom:auto;z-index:40;width:auto;height:var(--nav-h);padding:0 var(--gutter);flex-direction:row;align-items:center;gap:var(--s-4);background:var(--bg);border-right:0;border-bottom:1px solid var(--line);overflow:visible}
+  .sidebar .brand{display:none!important}
+  #navigation{flex-direction:row;align-items:center;gap:var(--s-1);height:100%;max-width:none;flex:none}
+  .nav-link{flex:none;min-height:40px;padding:0 12px;border-radius:0;font-size:15px;line-height:20px;font-weight:600;color:var(--text-muted);white-space:nowrap}
+  .nav-link .nav-icon{display:none}
+  .nav-link:hover{background:transparent;color:var(--text)}
+  .nav-link.active{background:transparent;color:var(--text);font-weight:700;box-shadow:inset 0 -2px 0 var(--text)}
+  .nav-count{margin-left:6px}
+  .sidebar-bottom{display:flex;flex-direction:row;align-items:center;gap:var(--s-1);margin:0 0 0 auto}
+  .side-link{min-height:40px;padding:0 10px;border-radius:0;font-size:var(--fs-label);white-space:nowrap}
+  .side-link .icon{display:none}
+  .side-link:hover{background:transparent;color:var(--text)}
+  .version{padding:0 0 0 var(--s-2);white-space:nowrap}
+  .map-explorer{height:calc(100dvh - var(--topbar-h) - var(--nav-h))}
+}
+@media (min-width:1024px) and (max-width:1279px){
+  .nav-link{padding:0 8px;font-size:14px}
+  .side-link{padding:0 6px}
+  .version{display:none}
+}
