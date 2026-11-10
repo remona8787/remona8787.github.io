@@ -9,12 +9,12 @@
 :root{
   color-scheme:light;
   --font-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,system-ui,'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;
-  --bg:#F7F7F5;
+  --bg:#F5F5F7;
   --surface:#FFFFFF;
   --elevated:#FFFFFF;
-  --panel:#EFEFEC;
-  --panel-strong:#E4E4E0;
-  --line:#E2E2DE;
+  --panel:#ECECF0;
+  --panel-strong:#E2E2E8;
+  --line:#E2E2E8;
   --line-strong:#85857E;
   --text:#151A38;
   --text-muted:#55576A;
@@ -44,7 +44,7 @@
   --inverse-ink:#FFFFFF;
   --inverse-accent:#A08CFF;
   --glass:#FFFFFFE6;
-  --tabbar:#FFFFFFEB;
+  --tabbar:#FFFFFFF2;
   --scrim:#12143AC7;
   --credit-bg:#12143ABD;
   --backdrop:#12143A8C;
@@ -95,7 +95,7 @@
     --inverse-ink:#151A38;
     --inverse-accent:#5539C8;
     --glass:#12131DE6;
-    --tabbar:#12131DEB;
+    --tabbar:#12131DF2;
     --scrim:#000000B3;
     --credit-bg:#0D0F26C2;
     --backdrop:#000000A6;
@@ -149,7 +149,7 @@
     --inverse-ink:#151A38;
     --inverse-accent:#5539C8;
     --glass:#12131DE6;
-    --tabbar:#12131DEB;
+    --tabbar:#12131DF2;
     --scrim:#000000B3;
     --credit-bg:#0D0F26C2;
     --backdrop:#000000A6;
@@ -2233,105 +2233,405 @@ img[data-no-derivatives]{object-fit:contain!important;object-position:center!imp
 .hero-gallery .plate-credit,.art-editorial .plate-credit{display:inline-flex;align-items:center;min-height:24px}
 @media (max-width:1023px){.dp-capmore{min-height:44px!important}}
 
-/* ============================================================================================================
-   v0.24 design layer — "gallery" language.
-   References (patterns, not copies): the collection sites of art museums (MoMA, Cooper Hewitt, Rijksmuseum) for
-   neutral white, near-black type, hairline rules instead of boxes and shadows, photo-first cards with captions under
-   them and object pages with a fact table; Google Arts & Culture for the dark, immersive photo band; Airbnb for the
-   quiet search pill and outline filter chips; Apple for large, tightly tracked display type. Brand anchors stay
-   (Ink #151A38, Purple #6B52DE, Vermilion): purple only for links, focus and the active state, ink for primary
-   actions. Tokens are in the theme blocks at the top (tests/contrast.test.cjs checks them).
-   ============================================================================================================ */
-:root{--r-card:10px;--r-md:10px;--r-lg:14px}
-
-/* Type: one display family, heavier and tighter at the top of the hierarchy, calm body text. */
-.large-title{font-size:32px;line-height:38px;font-weight:800;letter-spacing:-.035em}
-@media (min-width:1024px){.large-title{font-size:44px;line-height:52px;letter-spacing:-.04em}}
-.page-sub{max-width:68ch}
-h2{letter-spacing:-.025em}
-.section-eyebrow{color:var(--text-muted);font-weight:700;letter-spacing:.14em}
-.eyebrow:not(.on-dark){color:var(--text-muted);font-weight:600}
-.card-eyebrow{color:var(--text-muted);font-weight:600;letter-spacing:.02em}
-
-/* Shell: the page colour runs under the sidebar; one hairline separates them. The active section is ink and bold
-   with a short ink rule, not a tinted pill. */
-.topbar{border-bottom:1px solid var(--line)}
-.top-search{box-shadow:none}
-@media (min-width:1024px){
-  .sidebar{background:var(--bg);border-right:1px solid var(--line)}
-  .nav-link{border-radius:8px;color:var(--text-muted)}
-  .nav-link:hover{background:var(--panel);color:var(--text)}
-  .nav-link.active{background:transparent;color:var(--text);font-weight:700;box-shadow:inset 3px 0 0 var(--text)}
-  .nav-link.active .nav-icon{color:var(--text)}
-  .nav-link.active .nav-count{background:var(--panel);color:var(--text)}
+/* ====================================================================================================================
+   v0.25 "Afterglow" — the design language of a night-light archive (2026-11-10).
+   Mobile first. The works are photographed at night, so the page frames them like a dark room frames light: night
+   bands for the photo-led parts, a calm light ground (or the deep night of the dark theme) for reading. Patterns of
+   current product design, not copies of any site: iOS-style floating glass tab bar, bento tiles, swipe carousels,
+   large bold Korean type set without tracking tricks, aurora gradients where a photo is missing, and motion tied to
+   scrolling rather than to a clock.
+   Korean text: every heading keeps words whole (keep-all) and balances its lines; no letter-spacing on Hangul labels
+   (spaced Hangul reads as broken text); licences never break inside "CC BY-SA".
+   Motion: time-based only for one-off entrances (hero, page change, tab change); everything else follows the scroll
+   (animation-timeline), so nothing moves unless the reader moves it. Movement is translate/scale only, never opacity,
+   so a screenshot or an accessibility scan always sees the final colours. All of it is off under reduced motion.
+   ==================================================================================================================== */
+:root{
+  --r-card:20px;--r-md:16px;--r-lg:24px;--r-xl:32px;
+  --ease-out-expo:cubic-bezier(.16,1,.3,1);--ease-spring:cubic-bezier(.34,1.4,.64,1);
+  --aurora-violet:#7B61FF;--aurora-cyan:#38BDF8;--aurora-pink:#F472B6;--aurora-amber:#FBBF24;--aurora-green:#34D399;--aurora-red:#FB7185;
+  --night-0:#06070D;
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Actions: ink pills for the main action, hairline outlines for the rest. */
-.button{border-radius:var(--r-pill);background:var(--chip-on-bg);color:var(--chip-on-ink)}
+/* ----- Night bands: the dark-theme tokens inside any light page, so text tokens stay legible on night ----- */
+.night,:root[data-page=home] .home-featured,:root .about-band,:root[data-page=home] .topbar{
+  color-scheme:dark;
+  --bg:#0B0C14;--surface:#12131D;--elevated:#1A1B27;--panel:#1E1F2B;--panel-strong:#272836;--line:#2A2B39;--line-strong:#77788C;
+  --text:#F4F1FF;--text-muted:#ABAABD;--text-subtle:#8F8EA3;--accent:#A08CFF;--accent-strong:#BDB0FF;--accent-ink:#151A38;
+  --accent-soft:#2A2366;--accent-on-soft:#D3CAFF;--chip-on-bg:#F4F1FF;--chip-on-ink:#151A38;--glass:#12131DE6;--focus:#BDB0FF;
+  --card-border:#2A2B39;--vermilion:#FF5A3D;--vermilion-strong:#FF6B4D;--vermilion-ink:#1F0A05;
+  color:var(--text);
+}
+
+/* The home page's top bar is part of the night stage: dark glass, the logo for dark grounds. */
+:root[data-page=home] .topbar{background:#06070DD9}
+:root[data-page=home] .topbar .logo-light{display:none!important}
+:root[data-page=home] .topbar .logo-dark{display:block!important}
+@keyframes bar-shade-night{to{border-bottom-color:#FFFFFF1F;box-shadow:0 8px 24px #00000040}}
+@media (prefers-reduced-motion:no-preference){@supports (animation-timeline:scroll()){:root[data-page=home] .topbar{animation-name:bar-shade-night}}}
+
+/* ----- Type: whole Korean words, balanced headings, honest sizes ----- */
+h1,h2,h3,.large-title,.hero-title,.plate-title,.region-name{word-break:keep-all;overflow-wrap:break-word;text-wrap:balance}
+p,li,dd,.page-sub,.section-sub,.hero-lede{text-wrap:pretty}
+.large-title{font-size:30px;line-height:38px;font-weight:800;letter-spacing:-.03em}
+@media (min-width:1024px){.large-title{font-size:48px;line-height:56px;letter-spacing:-.035em}}
+.page-sub{max-width:62ch;color:var(--text-muted);font-size:15px;line-height:24px}
+h2{letter-spacing:-.025em}
+/* Labels in Hangul: no tracking, no capitals. */
+.section-eyebrow,.section-no,.hero-kicker,.plate-kicker,.card-eyebrow,.eyebrow,.ph-type{letter-spacing:0!important;text-transform:none!important}
+
+/* ----- Licence text never breaks inside its code ("CC BY-" / "SA 2.0") ----- */
+.credit-lic{white-space:nowrap}
+
+/* ===== Shell ===== */
+.topbar{border-bottom:1px solid transparent;transition:border-color var(--dur-fast) var(--ease-standard)}
+@supports not (animation-timeline:scroll()){.topbar{border-bottom-color:var(--line)}}
+@media (prefers-reduced-motion:no-preference){@supports (animation-timeline:scroll()){
+  .topbar{animation:bar-shade linear both;animation-timeline:scroll(root);animation-range:0 96px}
+}}
+@media (prefers-reduced-motion:reduce){.topbar{border-bottom-color:var(--line)}}
+@keyframes bar-shade{to{border-bottom-color:var(--line);box-shadow:0 8px 24px #0B0C1414}}
+/* Reading progress on a place page: a thin aurora line under the bar, tied to the scroll. */
+@media (prefers-reduced-motion:no-preference){@supports (animation-timeline:scroll()){
+  :root[data-page=place] .topbar::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,var(--aurora-violet),var(--aurora-cyan),var(--aurora-pink));transform-origin:0 50%;animation:read-progress linear both;animation-timeline:scroll(root)}
+}}
+@keyframes read-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* Phones: a floating glass tab bar, inset from the screen edges, with a pill that springs in under the active tab. */
+@media (max-width:767px){
+  .sidebar{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));height:var(--tabbar-h);padding:0 6px;border:1px solid var(--line);border-radius:28px;background:var(--tabbar);-webkit-backdrop-filter:blur(28px) saturate(1.8);backdrop-filter:blur(28px) saturate(1.8);box-shadow:0 12px 32px #0B0C1424,0 2px 6px #0B0C1414}
+  .workspace{padding-bottom:calc(var(--tabbar-h) + 34px + env(safe-area-inset-bottom))}
+  #navigation{height:100%}
+  .nav-link{border-radius:22px}
+  .nav-link .nav-icon{width:52px;height:30px}
+  .nav-link.active .nav-icon{background:var(--accent-soft)}
+  .nav-short{font-size:11px;font-weight:700;letter-spacing:0}
+  .detail-actionbar{left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom));padding:8px;border:1px solid var(--line);border-radius:28px;background:var(--glass);-webkit-backdrop-filter:blur(28px) saturate(1.8);backdrop-filter:blur(28px) saturate(1.8);box-shadow:0 12px 32px #0B0C1424}
+  :root[data-page=place] .workspace{padding-bottom:calc(84px + 24px + env(safe-area-inset-bottom))}
+}
+@media (prefers-reduced-motion:no-preference){
+  .nav-link.active .nav-icon{animation:tab-pop .42s var(--ease-spring) both}
+  .nav-link:active .nav-icon{transform:scale(.9)}
+  .nav-link .nav-icon{transition:transform var(--dur-press) var(--ease-standard),background-color var(--dur-fast) var(--ease-standard)}
+}
+@keyframes tab-pop{from{transform:scale(.55)}to{transform:none}}
+
+/* ===== Buttons, chips, pills ===== */
+.button{border-radius:var(--r-pill);background:var(--chip-on-bg);color:var(--chip-on-ink);font-weight:700;transition:transform var(--dur-press) var(--ease-standard),background-color var(--dur-fast) var(--ease-standard)}
 .button:hover{background:var(--navy)}
-.button.subtle{background:transparent;border-color:var(--line-strong);color:var(--text)}
+.button.subtle{background:var(--surface);border-color:var(--line);color:var(--text)}
 .button.subtle:hover{background:var(--panel)}
-.button.tonal{border-radius:var(--r-pill)}
+.button.tonal{background:var(--accent-soft);color:var(--accent-on-soft);border-radius:var(--r-pill)}
 .button.large,.button.small{border-radius:var(--r-pill)}
+.button:active,.chip:active,.topic-link:active,.glass-button:active{transform:scale(.96)}
+.chip{border:0;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);font-weight:600;transition:background-color var(--dur-fast) var(--ease-standard),transform var(--dur-press) var(--ease-standard)}
+.chip:hover{background:var(--panel)}
+.chip[aria-pressed=true],.chip.active{background:var(--chip-on-bg);box-shadow:none;color:var(--chip-on-ink)}
+.pill{border:0;background:var(--panel);color:var(--text-muted);font-weight:600;border-radius:var(--r-pill);padding:0 10px}
+.pill.live{background:var(--vermilion-strong);color:var(--vermilion-ink)}
+.text-link{color:var(--accent-strong)}
+.search-box .search-field,.search-field{border-radius:16px}
 
-/* Chips: outline, ink when chosen (the filter vocabulary of a search page, not of a dashboard). */
-.chip{background:transparent;border-color:var(--line)}
-.chip:hover{border-color:var(--text-muted)}
-.chip[aria-pressed=true],.chip.active{background:var(--chip-on-bg);border-color:var(--chip-on-bg);color:var(--chip-on-ink)}
-.topic-link{border-radius:var(--r-pill);background:transparent}
-.topic-link:hover{background:var(--panel)}
-.pill{background:transparent;box-shadow:none;border:1px solid var(--line);color:var(--text-muted)}
+/* ===== Home ===== */
+:root[data-page=home] main{padding-top:0}
+:root[data-page=home] .home-section{margin-top:56px;padding-top:0;border-top:0}
+@media (min-width:1024px){:root[data-page=home] .home-section{margin-top:88px}}
 
-/* Cards: the photo leads, the caption sits under it; no shadows, a slow zoom on hover. */
-.card-body{padding:12px 0 0}
-.place-card h3{font-size:17px;line-height:24px;font-weight:700;letter-spacing:-.015em}
-.card-art img{transition:transform .6s var(--ease-standard)}
-@media (hover:hover) and (prefers-reduced-motion:no-preference){.place-card:hover .card-art img{transform:scale(1.03)}}
-.save-button{box-shadow:none}
+/* --- Hero: a night stage with drifting aurora, the title, the search and a swipeable photo carousel --- */
+:root .hero.hero-gallery,:root .hero.art-editorial{position:relative;overflow:hidden;isolation:isolate;margin:0 calc(-1 * var(--gutter));padding:0 0 32px;background:var(--night-0)!important;color:#FFFFFF}
+.hero-gallery::before{content:'';position:absolute;z-index:-2;left:-30%;right:-30%;top:-40%;height:120%;background:radial-gradient(38% 34% at 22% 40%,#7B61FFA6 0%,#7B61FF00 70%),radial-gradient(34% 30% at 78% 28%,#38BDF873 0%,#38BDF800 70%),radial-gradient(30% 28% at 58% 72%,#F472B666 0%,#F472B600 70%);filter:blur(36px);pointer-events:none}
+.hero-gallery::after{content:'';position:absolute;z-index:-1;inset:0;background:var(--grain);opacity:.7;pointer-events:none}
+@media (prefers-reduced-motion:no-preference){.hero-gallery::before{animation:aurora 22s ease-in-out infinite alternate}}
+@keyframes aurora{0%{transform:translate3d(-4%,0,0) rotate(0deg) scale(1)}50%{transform:translate3d(5%,4%,0) rotate(8deg) scale(1.08)}100%{transform:translate3d(-2%,-3%,0) rotate(-6deg) scale(1.02)}}
+:root .hero-gallery .hero-intro{position:relative;inset:auto;display:block;width:auto;padding:36px var(--gutter) 28px;background:none}
+:root .hero-gallery .hero-kicker{display:inline-flex;align-items:center;gap:8px;margin:0 0 16px;padding:6px 12px 6px 10px;border-radius:var(--r-pill);background:#FFFFFF14;box-shadow:inset 0 0 0 1px #FFFFFF26;color:#E9E5FF;font-size:13px;line-height:18px;font-weight:600}
+.hero-gallery .hero-kicker::before{content:'';width:8px;height:8px;border-radius:50%;background:#A08CFF;box-shadow:0 0 0 3px #A08CFF40,0 0 12px #A08CFF}
+@media (prefers-reduced-motion:no-preference){.hero-gallery .hero-kicker::before{animation:glow-pulse 2.4s ease-in-out infinite}}
+@keyframes glow-pulse{50%{box-shadow:0 0 0 6px #A08CFF1F,0 0 18px #A08CFF}}
+:root .hero-gallery .hero-title{margin:0;color:#FFFFFF;font-size:44px;line-height:52px;font-weight:800;letter-spacing:-.035em;text-shadow:0 0 48px #A08CFF59}
+@media (max-width:359px){:root .hero-gallery .hero-title{font-size:38px;line-height:46px}}
+:root .hero-gallery .hero-lede{display:block;margin:14px 0 0;max-width:34em;color:#CFCAF0;font-size:16px;line-height:26px}
+:root .hero-gallery .hero-stats{display:inline-flex;margin:16px 0 0;color:#E9E5FF;font-size:14px;line-height:20px;font-weight:700}
+:root .hero-gallery .hero-search{width:100%;max-width:560px;height:56px;margin-top:20px;border:0;background:#FFFFFF;box-shadow:0 0 0 1px #FFFFFF33,0 16px 48px #7B61FF59}
+:root .hero-gallery .hero-search input{color:#151A38}
+:root .hero-gallery .hero-search input::placeholder{color:#55576A}
+:root .hero-gallery .hero-search>.icon{color:#151A38}
+:root .hero-gallery .hero-search .search-go{background:#6B52DE;color:#FFFFFF}
+:root[data-theme=dark] .hero-gallery .hero-search{background:#1A1B27;box-shadow:0 0 0 1px #FFFFFF26,0 16px 48px #7B61FF4D}
+:root[data-theme=dark] .hero-gallery .hero-search input,:root[data-theme=dark] .hero-gallery .hero-search>.icon{color:#F4F1FF}
+:root[data-theme=dark] .hero-gallery .hero-search input::placeholder{color:#ABAABD}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .hero-gallery .hero-search{background:#1A1B27;box-shadow:0 0 0 1px #FFFFFF26,0 16px 48px #7B61FF4D}:root:not([data-theme=light]) .hero-gallery .hero-search input,:root:not([data-theme=light]) .hero-gallery .hero-search>.icon{color:#F4F1FF}:root:not([data-theme=light]) .hero-gallery .hero-search input::placeholder{color:#ABAABD}}
+:root .hero-gallery .hero-stage{position:relative;height:auto;min-height:0;padding:0;background:none;overflow:visible}
+/* The photos: caption over the photo's foot on a scrim; the credit sits above the scrim, never under it. */
+:root .hero-gallery .hero-slide{position:relative;display:block;min-width:0;height:auto;aspect-ratio:4/5;border-radius:24px;overflow:hidden;isolation:isolate;background:#12131D;box-shadow:0 24px 60px #00000066}
+:root .hero-gallery .hero-slide::after{content:'';display:block;position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,#06070D00 42%,#06070DD9 88%);pointer-events:none}
+:root .hero-gallery .hero-photo-link{position:absolute;inset:0;display:block;overflow:hidden}
+:root .hero-gallery .hero-photo-link>picture{display:block;width:100%;height:100%}
+:root .hero-gallery .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:none}
+:root .hero-gallery .hero-plate{position:absolute;z-index:2;left:18px;right:18px;bottom:18px;top:auto;width:auto;display:grid;gap:6px;justify-items:start;text-align:left;padding:0;background:none}
+:root .hero-gallery .plate-kicker{color:#E9E5FF;font-size:13px;line-height:18px;font-weight:600;white-space:normal}
+:root .hero-gallery .plate-title{display:inline-flex;align-items:center;gap:6px;min-height:24px;color:#FFFFFF;font-size:24px;line-height:30px;font-weight:800;letter-spacing:-.025em}
+:root .hero-gallery .hero-slide:not(.hero-lead) .plate-title{font-size:20px;line-height:26px}
+:root .hero-gallery .plate-credit{display:inline-flex;align-items:center;min-height:24px;padding:3px 10px;border-radius:var(--r-pill);background:#06070DB3;color:#FFFFFF;font-size:12px;line-height:16px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+@media (max-width:1023px){
+  :root .hero-gallery .hero-track{display:grid;grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:86%;gap:12px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding:0 var(--gutter);scroll-padding:0 var(--gutter);scrollbar-width:none}
+  .hero-gallery .hero-track::-webkit-scrollbar{display:none}
+  :root .hero-gallery .hero-track:has(>.hero-slide:only-child){grid-auto-columns:100%}
+  :root .hero-gallery .hero-slide,:root .hero-gallery .hero-slide:first-child{grid-column:auto;height:auto;scroll-snap-align:start;box-shadow:none}
+}
+@media (min-width:600px) and (max-width:1023px){:root .hero-gallery .hero-track{grid-auto-columns:62%}:root .hero-gallery .hero-slide{aspect-ratio:4/3}}
+@media (min-width:1024px){
+  :root .hero.hero-gallery,:root .hero.art-editorial{margin:0 calc(-1 * var(--gutter));padding:0 var(--gutter) 48px}
+  :root .hero-gallery .hero-intro{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(320px,1fr);column-gap:56px;align-items:end;padding:72px 0 44px}
+  :root .hero-gallery .hero-kicker,:root .hero-gallery .hero-title,:root .hero-gallery .hero-lede{grid-column:1}
+  :root .hero-gallery .hero-kicker{justify-self:start}
+  :root .hero-gallery .hero-title{font-size:76px;line-height:84px;letter-spacing:-.04em}
+  :root .hero-gallery .hero-stats{grid-column:2;grid-row:2;align-self:end;margin:0}
+  :root .hero-gallery .hero-search{grid-column:2;grid-row:3;align-self:start;margin-top:14px}
+  :root .hero-gallery .hero-track{display:grid;grid-auto-flow:row;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);grid-template-rows:repeat(2,minmax(0,1fr));gap:20px;height:620px;overflow:visible;padding:0}
+  :root .hero-gallery .hero-slide{aspect-ratio:auto;height:100%}
+  :root .hero-gallery .hero-slide:first-child{grid-column:1;grid-row:1/3;height:100%}
+  :root .hero-gallery .hero-slide:not(:first-child){grid-column:2}
+  :root .hero-gallery .hero-track:has(>.hero-slide:only-child){grid-template-columns:minmax(0,1fr)}
+  :root .hero-gallery .hero-track:has(>.hero-slide:nth-child(2):last-child) .hero-slide:not(:first-child){grid-row:1/3}
+  :root .hero-gallery .hero-lead .plate-title{font-size:34px;line-height:40px}
+  :root .hero-gallery .hero-plate{left:28px;right:28px;bottom:26px}
+}
+/* Motion: a slow settle of each photo (once), a lift on hover; the intro rises in on arrival. */
+@media (prefers-reduced-motion:no-preference){
+  :root .hero-gallery .hero-img{animation:photo-settle 14s var(--ease-out-expo) both}
+  .hero-gallery .hero-intro>*{animation:rise-in .62s var(--ease-out-expo) both}
+  .hero-gallery .hero-intro>:nth-child(2){animation-delay:.06s}
+  .hero-gallery .hero-intro>:nth-child(3){animation-delay:.12s}
+  .hero-gallery .hero-intro>:nth-child(n+4){animation-delay:.18s}
+  .hero-gallery .hero-slide{animation:rise-in .8s var(--ease-out-expo) .14s both}
+  @media (hover:hover){:root .hero-gallery .hero-slide{transition:transform .5s var(--ease-out-expo),box-shadow .5s var(--ease-out-expo)}:root .hero-gallery .hero-slide:hover{transform:translateY(-4px);box-shadow:0 32px 80px #7B61FF40}}
+}
+@keyframes photo-settle{from{scale:1.14}to{scale:1}}
+@keyframes rise-in{from{opacity:0;translate:0 22px}to{opacity:1;translate:none}}
+
+/* --- Quick topics: bento tiles with a gradient icon and the count --- */
+:root[data-page=home] .home-discovery{max-width:calc(var(--content-max) - 2 * var(--gutter));margin:28px auto 0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none}
+.home-discovery .discovery-caption{align-items:baseline;margin-bottom:14px}
+.home-discovery .discovery-caption h2{font-size:22px;line-height:30px;font-weight:800;letter-spacing:-.03em}
+.home-discovery .dataset-freshness{font-size:12px;line-height:18px;color:var(--text-muted)}
+:root .quick-topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0}
+:root .topic-link{position:relative;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:16px;min-height:112px;padding:16px;border:0;border-radius:var(--r-card);background:var(--surface);color:var(--text);box-shadow:var(--shadow-1);overflow:hidden;isolation:isolate;font-size:15px;line-height:20px;font-weight:700;transition:transform var(--dur-press) var(--ease-standard),box-shadow var(--dur-fast) var(--ease-standard)}
+:root .topic-link:hover{background:var(--surface);box-shadow:var(--shadow-2)}
+:root .topic-link>.icon:first-child{width:42px;height:42px;padding:10px;border-radius:14px;background:linear-gradient(135deg,var(--aurora-violet),var(--aurora-cyan));color:#FFFFFF;box-shadow:0 8px 20px #7B61FF40}
+.topic-link[href*="festival_program"]>.icon:first-child{background:linear-gradient(135deg,var(--aurora-amber),var(--aurora-pink));box-shadow:0 8px 20px #F472B640}
+.topic-link[href*="interactive_installation"]>.icon:first-child{background:linear-gradient(135deg,var(--aurora-green),var(--aurora-cyan));box-shadow:0 8px 20px #38BDF840}
+:root .topic-link .topic-count{position:absolute;top:16px;right:16px;color:var(--text-muted);font-size:13px;line-height:18px;font-weight:700}
+:root .topic-link>.icon:last-child{position:absolute;right:14px;bottom:14px;width:18px;height:18px;color:var(--text-muted)}
+:root .topic-link>span:not(.topic-count){padding-right:24px}
+:root .topic-link.topic-all{justify-content:flex-end;background:radial-gradient(90% 80% at 100% 0%,#38BDF859 0%,#38BDF800 60%),linear-gradient(135deg,#5539C8 0%,#2B2873 100%);color:#FFFFFF;box-shadow:0 10px 28px #5539C840}
+:root .topic-link.topic-all:hover{background:radial-gradient(90% 80% at 100% 0%,#38BDF873 0%,#38BDF800 60%),linear-gradient(135deg,#5539C8 0%,#2B2873 100%)}
+:root .topic-link.topic-all>.icon{position:absolute;right:14px;bottom:14px;width:20px;height:20px;padding:0;border-radius:0;background:none;box-shadow:none;color:#FFFFFF}
+:root .quick-topics>.topic-link:nth-child(odd):last-child{grid-column:1/-1;min-height:64px}
+@media (min-width:768px){:root .quick-topics{grid-template-columns:repeat(4,minmax(0,1fr))}:root .quick-topics>.topic-link:nth-child(odd):last-child{grid-column:auto;min-height:112px}}
+
+/* --- Scroll-linked marquee band (decorative; moves only when the page scrolls) --- */
+.marquee{position:relative;margin:44px calc(-1 * var(--gutter)) -12px;overflow:hidden;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,#0000,#000 12%,#000 88%,#0000);mask-image:linear-gradient(90deg,#0000,#000 12%,#000 88%,#0000)}
+.marquee-track{display:flex;align-items:center;width:max-content;gap:24px;white-space:nowrap;font-size:40px;line-height:52px;font-weight:800;letter-spacing:-.03em;color:var(--text)}
+.marquee-track .on{color:var(--accent)}
+.marquee-track i{flex:none;width:.3em;height:.3em;transform:rotate(45deg);border-radius:2px;background:linear-gradient(135deg,var(--aurora-violet),var(--aurora-cyan))}
+@media (min-width:1024px){.marquee{margin-top:88px}.marquee-track{font-size:80px;line-height:96px;gap:44px}}
+@media (prefers-reduced-motion:no-preference){@supports (animation-timeline:view()){.marquee-track{animation:marquee-slide linear both;animation-timeline:view();animation-range:cover 0% cover 100%}}}
+@keyframes marquee-slide{from{translate:0 0}to{translate:-30% 0}}
+
+/* --- Section heads: an accent chip, a large heading and a pill link --- */
+:root .home-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 16px;margin:0 0 20px}
+:root .home-head .home-head-text{flex:1 1 280px}
+:root .section-eyebrow{display:inline-flex;align-items:center;gap:7px;margin:0 0 12px;padding:5px 11px 5px 9px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--accent-on-soft);font-size:12px;line-height:16px;font-weight:700;justify-self:start;width:max-content;max-width:100%}
+:root .section-eyebrow::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+:root .home-head h2{margin:0;font-size:28px;line-height:36px;font-weight:800;letter-spacing:-.03em}
+:root .home-head .section-sub{margin-top:8px;font-size:15px;line-height:23px;color:var(--text-muted)}
+@media (min-width:1024px){:root .home-head h2{font-size:44px;line-height:52px;letter-spacing:-.035em}:root .home-head .section-sub{font-size:17px;line-height:27px}}
+:root .home-head .section-tools .text-link{position:relative;min-height:40px;padding:0 14px 0 16px;border-radius:var(--r-pill);background:var(--panel);color:var(--text);font-size:14px;font-weight:700;gap:4px}
+:root .home-head .section-tools .text-link::after{content:'';position:absolute;inset:-2px 0}
+:root .home-head .section-tools .text-link:hover{text-decoration:none;background:var(--panel-strong)}
+
+/* --- Cards --- */
+:root .place-card .card-media{border-radius:var(--r-card)}
+:root .card-art{border-radius:var(--r-card);background:var(--night-2)}
+:root .place-card .card-body{padding:12px 2px 0}
+:root .place-card .card-eyebrow{margin:0 0 4px;color:var(--accent-strong);font-size:12px;line-height:16px;font-weight:700}
+:root .place-card h3{font-size:16px;line-height:22px;font-weight:700;letter-spacing:-.02em}
+:root .place-card .card-meta{font-size:13px;line-height:19px;color:var(--text-muted)}
+@media (min-width:1024px){:root .place-card h3{font-size:18px;line-height:25px}:root .place-card .card-meta{font-size:14px;line-height:21px}}
+.card-art img{transition:transform .7s var(--ease-out-expo)}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){.place-card:hover .card-art img{transform:scale(1.05)}}
+@media (prefers-reduced-motion:no-preference){.place-card:active .card-art{transform:scale(.98);transition:transform var(--dur-press) var(--ease-standard)}}
+/* The pointer light (desktop): a soft glow that follows the pointer over a card's photo (motion.js sets --mx/--my). */
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  .place-card .card-media::after{content:'';position:absolute;inset:0;z-index:2;border-radius:inherit;background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),#FFFFFF2E,#FFFFFF00 60%);opacity:0;transition:opacity .3s var(--ease-standard);pointer-events:none}
+  .place-card:hover .card-media::after{opacity:1}
+}
+:root .image-credit{left:8px;bottom:8px;min-height:24px;padding:3px 9px;border-radius:var(--r-pill);background:#06070DA6;color:#FFFFFF;font-size:10.5px;line-height:14px;font-weight:500;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:1}
+:root .image-credit.mini{border-radius:50%;padding:0}
+:root .save-button{top:10px;right:10px;width:38px;height:38px;background:#FFFFFFD9;color:#151A38;box-shadow:0 4px 14px #0B0C1426}
+:root .save-button.saved{color:#C4321E}
+:root .save-button.saved .icon{animation:heart-pop .45s var(--ease-spring)}
+@media (prefers-reduced-motion:reduce){:root .save-button.saved .icon{animation:none}}
+:root .card-badge{top:10px;left:10px}
+.place-card .pill.live::before{animation:live-pulse 1.6s ease-in-out infinite}
+
+/* --- Placeholders: an aurora in the type's colours and the type as a glass chip (no monogram) --- */
+:root .ph{--ph-a:#7B61FF;--ph-b:#38BDF8;--ph-c:#F472B6;background-color:#0E0F1C;background-image:radial-gradient(60% 55% at 22% 28%,color-mix(in srgb,var(--ph-a) 70%,transparent) 0%,transparent 70%),radial-gradient(55% 50% at 80% 70%,color-mix(in srgb,var(--ph-b) 55%,transparent) 0%,transparent 72%),radial-gradient(45% 40% at 62% 18%,color-mix(in srgb,var(--ph-c) 40%,transparent) 0%,transparent 70%),linear-gradient(160deg,#10112A 0%,#0A0B16 100%)}
+:root .ph::before{opacity:.55}
+:root .ph::after{content:'';position:absolute;inset:0;background:var(--grain);opacity:.9;pointer-events:none}
+:root .ph .ph-glyph{display:none}
+:root .ph .ph-type{top:auto;right:auto;left:12px;bottom:12px;max-width:calc(100% - 24px);padding:5px 11px;border-radius:var(--r-pill);background:#FFFFFF1F;box-shadow:inset 0 0 0 1px #FFFFFF33;color:#FFFFFF;font-size:12px;line-height:16px;font-weight:700;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+:root .place-card:has(.card-badge) .ph-type{top:auto;bottom:12px}
+:root .ph-hero .ph-type{left:var(--gutter);bottom:20px;font-size:13px;line-height:18px;padding:6px 14px}
+.ph-projection_mapping{--ph-a:#F472B6;--ph-b:#7B61FF;--ph-c:#FBBF24}
+.ph-urban_screen{--ph-a:#38BDF8;--ph-b:#7B61FF;--ph-c:#34D399}
+.ph-media_wall{--ph-a:#22D3EE;--ph-b:#6366F1;--ph-c:#F472B6}
+.ph-interactive_installation{--ph-a:#34D399;--ph-b:#38BDF8;--ph-c:#A78BFA}
+.ph-light_art{--ph-a:#FBBF24;--ph-b:#F472B6;--ph-c:#7B61FF}
+.ph-festival_program{--ph-a:#FB923C;--ph-b:#F472B6;--ph-c:#FBBF24}
+.ph-media_architecture{--ph-a:#818CF8;--ph-b:#22D3EE;--ph-c:#C084FC}
+.ph-other,.ph-region{--ph-a:#A78BFA;--ph-b:#64748B;--ph-c:#38BDF8}
+/* The aurora turns as its card scrolls through the screen (only while on screen; no clock). */
+@media (prefers-reduced-motion:no-preference){@supports (animation-timeline:view()){
+  :root .ph{background-size:140% 140%,140% 140%,140% 140%,100% 100%;animation:ph-drift linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+}}
+@keyframes ph-drift{from{background-position:0% 0%,100% 100%,50% 0%,0 0}to{background-position:100% 60%,0% 30%,20% 100%,0 0}}
+
+/* --- Rails: swipe with snap; cards grow in as they slide into view --- */
+:root .world-strip,:root .grid.rail{scroll-snap-type:x mandatory;scrollbar-width:none}
+@media (max-width:1023px){
+  :root .world-strip{grid-auto-columns:72%;gap:14px}
+  :root .home-world .world-card .card-art,:root .home-programs .card-art{aspect-ratio:4/5}
+}
+@media (prefers-reduced-motion:no-preference){@supports (animation-timeline:view()){@media (max-width:1023px){
+  :root .rail-scroll>.place-card,:root .rail-scroll>.collection,:root .hero-gallery .hero-track>.hero-slide{animation:rail-in linear both;animation-timeline:view(inline);animation-range:entry 0% entry 100%}
+}}}
+@keyframes rail-in{from{scale:.9}to{scale:1}}
+
+/* --- Korea's regions: tiles with an aurora orb; empty regions stay quiet --- */
+:root .home-kr-regions .kr-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+:root .home-kr-regions .kr-tile{position:relative;min-height:96px;border:0;border-radius:var(--r-card);background:var(--surface);box-shadow:var(--shadow-1);overflow:hidden;isolation:isolate;transition:transform var(--dur-press) var(--ease-standard)}
+:root .home-kr-regions .kr-tile::before{content:'';position:absolute;z-index:-1;right:18px;top:18px;width:10px;height:10px;border-radius:50%;background:#A08CFF;box-shadow:0 0 0 4px #A08CFF33,0 0 24px 8px #7B61FF59;pointer-events:none}
+:root .home-kr-regions .kr-tile.is-empty{background:var(--panel);box-shadow:none}
+:root .home-kr-regions .kr-tile.is-empty::before{display:none}
+:root .home-kr-regions .region-link{min-height:96px;padding:16px 18px;align-items:flex-end}
+:root .home-kr-regions .region-name{font-size:18px;line-height:24px;font-weight:800;letter-spacing:-.02em}
+:root .home-kr-regions .region-count{font-size:13px;line-height:18px;font-weight:600}
+:root .home-kr-regions .kr-tile:active{transform:scale(.97)}
+@media (min-width:1024px){:root .home-kr-regions .kr-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}:root .home-kr-regions .kr-tile,:root .home-kr-regions .region-link{min-height:128px}:root .home-kr-regions .region-name{font-size:22px;line-height:28px}}
+
+/* --- Featured: a full-bleed night band (the gallery's dark room) --- */
+:root[data-page=home] .home-featured{position:relative;overflow:clip;padding:44px 0 48px;background:var(--night-0);box-shadow:0 0 0 100vmax var(--night-0);clip-path:inset(0 -100vmax)}
+:root[data-page=home] .home-featured::before{content:'';position:absolute;z-index:0;inset:-20% 0 auto auto;width:80%;height:70%;background:radial-gradient(closest-side,#7B61FF40,#7B61FF00);filter:blur(30px);pointer-events:none}
+:root[data-page=home] .home-featured>*{position:relative;z-index:1}
+:root[data-page=home] .home-featured .card-art{background:#12131D}
+:root[data-page=home] .home-featured .feature-grid{gap:24px 12px}
+/* Two or three featured works on a wide screen: the lead and the rest beside it, no half-empty row. */
+@media (min-width:1024px){:root .feature-grid:has(>.place-card:nth-child(2):last-child),:root .feature-grid:has(>.place-card:nth-child(3):last-child){grid-template-columns:minmax(0,2fr) minmax(0,1fr)}:root .feature-grid:has(>.place-card:nth-child(2):last-child)>.feature-lead,:root .feature-grid:has(>.place-card:nth-child(3):last-child)>.feature-lead{grid-column:1;grid-row:1/3}}
+@media (min-width:1024px){:root[data-page=home] .home-featured{padding:72px 0 80px}}
+
+/* --- Courses: tall gradient cards with an outline number --- */
+:root .home-courses .curation-card,:root .home-courses .curation-card:not(.has-photo){border:0;border-radius:var(--r-lg);background-color:#12143A;color:#FFFFFF;box-shadow:none}
+:root .home-courses .curation-card:not(.has-photo){background-image:radial-gradient(80% 60% at 85% 0%,#7B61FF8C 0%,#7B61FF00 70%),radial-gradient(70% 50% at 0% 100%,#38BDF859 0%,#38BDF800 70%),linear-gradient(170deg,#1C1F4A 0%,#0B0C14 100%)}
+:root .home-courses .curation-card.tone-1:not(.has-photo){background-image:radial-gradient(80% 60% at 15% 0%,#F472B680 0%,#F472B600 70%),radial-gradient(70% 50% at 100% 100%,#7B61FF73 0%,#7B61FF00 70%),linear-gradient(170deg,#2B1F4A 0%,#0B0C14 100%)}
+:root .home-courses .curation-card.tone-2:not(.has-photo){background-image:radial-gradient(80% 60% at 85% 10%,#FBBF2466 0%,#FBBF2400 70%),radial-gradient(70% 50% at 0% 100%,#FB718566 0%,#FB718500 70%),linear-gradient(170deg,#2A1A2E 0%,#0B0C14 100%)}
+:root .home-courses .curation-card.tone-3:not(.has-photo){background-image:radial-gradient(80% 60% at 50% 0%,#34D39966 0%,#34D39900 70%),radial-gradient(70% 50% at 100% 100%,#38BDF866 0%,#38BDF800 70%),linear-gradient(170deg,#0F2A33 0%,#0B0C14 100%)}
+:root .home-courses .curation-card:not(.has-photo) .curation-link{color:#FFFFFF}
+:root .home-courses .curation-card:not(.has-photo) h3,:root .home-courses .curation-card h3{color:#FFFFFF;font-size:20px;line-height:27px;font-weight:800;letter-spacing:-.025em}
+:root .home-courses .curation-card:not(.has-photo) .curation-sub,:root .home-courses .curation-card:not(.has-photo) .curation-meta{color:#D9D4F5}
+:root .home-courses .curation-card .collection-number,:root .home-courses .curation-card:not(.has-photo) .collection-number{color:#FFFFFF;font-size:52px;line-height:56px;font-weight:800;letter-spacing:-.04em}
+
+/* --- About band --- */
+:root .about-band{border-radius:var(--r-xl);background:var(--night-0);box-shadow:0 24px 60px #0B0C1433}
+:root .about-band::before{content:'';position:absolute;z-index:-1;inset:auto -10% -40% 20%;height:90%;background:radial-gradient(closest-side,#7B61FF59,#7B61FF00);filter:blur(30px);pointer-events:none}
+:root .about-band h2{font-size:26px;line-height:34px;font-weight:800;letter-spacing:-.03em;color:#FFFFFF}
+:root .about-band p{color:#CFCAF0}
+
+/* ===== Scroll-linked arrival: headings and cards rise a little as they enter the screen ===== */
+@media (prefers-reduced-motion:no-preference){@supports (animation-timeline:view()){
+  :root[data-page=home] .home-section,:root[data-page=home] .home-discovery,:root .about-band,:root .grid.results:not(.rows)>.place-card,:root .grid.results.rows>*,:root .page-head{animation:lift-in linear both;animation-timeline:view();animation-range:entry 0% entry 80%}
+  :root .feature-grid .card-art img,:root .grid.results .card-art img{animation:img-settle linear both;animation-timeline:view();animation-range:entry 0% cover 45%}
+}}
+@keyframes lift-in{from{translate:0 28px}to{translate:none}}
+@keyframes img-settle{from{scale:1.16}to{scale:1}}
+
+/* ===== Explore and section pages ===== */
+.explore-intro,.page-head{margin-top:8px}
+:root .search-box .search-field{min-height:52px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line);border:0}
+:root .search-box .search-field:focus{box-shadow:0 0 0 2px var(--focus)}
+.result-group{font-size:20px;line-height:28px;font-weight:800;letter-spacing:-.025em}
+.result-group .tnum{color:var(--text-muted);font-weight:600;font-size:15px}
+:root .grid.results:not(.rows){gap:24px 12px}
+@media (max-width:599px){:root .grid.results:not(.rows) .card-art{aspect-ratio:1/1}:root .grid.results .card-link h3{font-size:15px;line-height:21px}}
+.segmented,.view-switch{border-radius:14px}
+.segmented button,.view-switch button{border-radius:11px}
+
+/* ===== Place page ===== */
+:root .detail-title .eyebrow,:root .dp-title .eyebrow{display:inline-flex;margin-bottom:10px;padding:4px 10px;border-radius:var(--r-pill);background:var(--accent-soft);color:var(--accent-on-soft);font-size:12px;line-height:16px;font-weight:700}
+:root .detail-title h1,:root .dp-title h1{font-size:32px;line-height:40px;font-weight:800;letter-spacing:-.03em}
+@media (min-width:1024px){:root .detail-title h1,:root .dp-title h1{font-size:48px;line-height:56px;letter-spacing:-.035em}}
+:root .dp-stage{border-radius:0 0 var(--r-lg) var(--r-lg);overflow:hidden}
+:root .dp-stage.no-photo>.card-art{aspect-ratio:auto;height:100%;max-height:none}
+@media (min-width:1024px){:root .dp-stage{border-radius:var(--r-lg)}}
+.dp-nophoto{margin-top:12px;color:var(--text-muted);font-size:14px}
+/* The title block's actions: one row that scrolls sideways on a phone instead of three ragged lines. */
+@media (max-width:767px){
+  :root .dp-actions{flex-wrap:nowrap;overflow-x:auto;margin:16px calc(-1 * var(--gutter)) 0;padding:2px var(--gutter) 6px;scroll-padding:0 var(--gutter);scrollbar-width:none}
+  :root .dp-actions::-webkit-scrollbar{display:none}
+  :root .dp-actions .button{flex:none}
+}
+:root .dp-tags li{border:0;background:var(--panel);color:var(--text-muted);font-weight:600}
+:root .dp-tabs{background:var(--bg)}
+:root .dp-tabs [role=tab]{font-weight:600}
+:root .dp-tabs [role=tab][aria-selected=true]{font-weight:800}
+:root .dp-tabs [role=tab]::after{height:3px;border-radius:3px;background:linear-gradient(90deg,var(--aurora-violet),var(--aurora-cyan))}
 .group{border-radius:var(--r-lg);box-shadow:none;border:1px solid var(--line)}
 
-/* Home: an editorial rhythm, each section opened by a hairline and a large heading. */
-:root[data-page=home] .home-section{padding-top:var(--s-6);border-top:1px solid var(--line)}
-.home-head h2{font-size:28px;line-height:34px;font-weight:800;letter-spacing:-.03em}
-@media (min-width:1024px){.home-head h2{font-size:36px;line-height:42px;letter-spacing:-.035em}}
-.home-discovery{border-radius:0;box-shadow:none;background:transparent}
-:root[data-page=home] .home-discovery{max-width:calc(var(--content-max) - 2 * var(--gutter));margin-left:auto;margin-right:auto;padding-left:0;padding-right:0}
+/* ===== Page change: the new screen rises in (one-off) ===== */
+@media (prefers-reduced-motion:no-preference){#view.view-enter>*{animation:view-rise .42s var(--ease-out-expo) backwards}}
+@keyframes view-rise{from{opacity:0;translate:0 14px}}
 
-/* Search: the filter column reads as part of the page (rules between groups), not as a floating box. */
-@media (min-width:1024px){.filter-aside .advanced-filters.inline .filter-panel{border:0;border-radius:0;background:transparent}.filter-aside .sheet-head{padding-left:0;padding-right:0}.filter-aside .sheet-body{padding-left:0;padding-right:0}}
+/* ===== Footer ===== */
+.site-footer{border-top:0}
 
-/* Object page: a museum label — a large title, the facts in a ruled table, an ink underline on the open tab. */
-.detail-title h1{font-size:34px;line-height:40px;font-weight:800;letter-spacing:-.035em}
-@media (min-width:1024px){.detail-title h1{font-size:48px;line-height:54px;letter-spacing:-.04em}}
-.dp-tabs [role=tab]{font-weight:600}
-.dp-tabs [role=tab][aria-selected=true]{font-weight:700}
+/* ===== Print and reduced motion: everything in its final place ===== */
+@media print{.marquee{display:none}*{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.marquee-track{translate:none}}
 
-/* Desktop shell (v0.24): the sections as a horizontal strip under the top bar, as museum and editorial sites do, so
-   the photos get the full width. The bar keeps the logo, search, language and account and stays on screen; the strip
-   scrolls away with the page. Tablets keep the icon rail, phones the tab bar; the place page keeps its own layout. */
+/* Desktop shell (v0.24, restyled): the sections as a pill strip under the top bar, so the photos get the full width.
+   The bar keeps the logo, search, language and account and stays on screen; the strip scrolls away with the page.
+   Tablets keep the icon rail, phones the floating tab bar; the place page keeps its own layout. */
 @media (min-width:1024px){
-  :root{--nav-h:52px}
+  :root{--nav-h:56px}
   .workspace{margin-left:0}
   .topbar{margin-bottom:var(--nav-h)}
   .topbar-lead{flex:0 0 auto;min-width:0;gap:var(--s-2)}
   .topbar-brand,:root[data-page=home] .topbar-brand{display:flex;align-items:center}
   .sidebar{position:absolute;top:var(--topbar-h);left:0;right:0;bottom:auto;z-index:40;width:auto;height:var(--nav-h);padding:0 var(--gutter);flex-direction:row;align-items:center;gap:var(--s-4);background:var(--bg);border-right:0;border-bottom:1px solid var(--line);overflow:visible}
+  :root[data-page=home] .sidebar{background:var(--night-0);border-bottom-color:#FFFFFF14}
+  :root[data-page=home] .sidebar .nav-link,:root[data-page=home] .sidebar .side-link,:root[data-page=home] .sidebar .version{color:#CFCAF0}
+  :root[data-page=home] .sidebar .nav-link:hover,:root[data-page=home] .sidebar .side-link:hover{color:#FFFFFF;background:#FFFFFF14}
+  :root[data-page=home] .sidebar .nav-link.active{background:#FFFFFF;color:#151A38}
   .sidebar .brand{display:none!important}
-  #navigation{flex-direction:row;align-items:center;gap:var(--s-1);height:100%;max-width:none;flex:none}
-  .nav-link{flex:none;min-height:40px;padding:0 12px;border-radius:0;font-size:15px;line-height:20px;font-weight:600;color:var(--text-muted);white-space:nowrap}
+  #navigation{flex-direction:row;align-items:center;gap:4px;height:100%;max-width:none;flex:none}
+  .nav-link{flex:none;min-height:40px;padding:0 14px;border-radius:var(--r-pill);font-size:15px;line-height:20px;font-weight:600;color:var(--text-muted);white-space:nowrap;box-shadow:none}
   .nav-link .nav-icon{display:none}
-  .nav-link:hover{background:transparent;color:var(--text)}
-  .nav-link.active{background:transparent;color:var(--text);font-weight:700;box-shadow:inset 0 -2px 0 var(--text)}
+  .nav-link:hover{background:var(--panel);color:var(--text)}
+  .nav-link.active{background:var(--chip-on-bg);color:var(--chip-on-ink);font-weight:700;box-shadow:none}
+  .nav-link.active .nav-count{background:var(--accent);color:var(--accent-ink)}
   .nav-count{margin-left:6px}
   .sidebar-bottom{display:flex;flex-direction:row;align-items:center;gap:var(--s-1);margin:0 0 0 auto}
-  .side-link{min-height:40px;padding:0 10px;border-radius:0;font-size:var(--fs-label);white-space:nowrap}
+  .side-link{min-height:40px;padding:0 10px;border-radius:var(--r-pill);font-size:var(--fs-label);white-space:nowrap}
   .side-link .icon{display:none}
-  .side-link:hover{background:transparent;color:var(--text)}
+  .side-link:hover{background:var(--panel);color:var(--text)}
   .version{padding:0 0 0 var(--s-2);white-space:nowrap}
   .map-explorer{height:calc(100dvh - var(--topbar-h) - var(--nav-h))}
+  :root[data-page=home] main{padding-top:0}
 }
 @media (min-width:1024px) and (max-width:1279px){
-  .nav-link{padding:0 8px;font-size:14px}
+  .nav-link{padding:0 10px;font-size:14px}
   .side-link{padding:0 6px}
   .version{display:none}
 }
