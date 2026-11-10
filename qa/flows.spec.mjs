@@ -28,7 +28,7 @@ test('theme choice persists',async({page})=>{
  await expect(page.getByRole('radio',{name:'다크'})).toHaveAttribute('aria-checked','true');
  await page.getByRole('radio',{name:'라이트'}).click();
  await expect.poll(()=>page.evaluate(()=>document.documentElement.dataset.theme)).toBe('light');
- expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(245, 245, 247)');
+ expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(246, 245, 242)');
  // A radio group: arrow keys move the choice and the focus.
  await page.getByRole('radio',{name:'라이트'}).focus();await page.keyboard.press('ArrowRight');
  await expect(page.getByRole('radio',{name:'다크'})).toHaveAttribute('aria-checked','true');
@@ -42,7 +42,7 @@ test.describe('system dark',()=>{
   await expect(page.locator('.topbar-brand .logo-dark')).toBeVisible();
   await expect(page.locator('.topbar-brand .logo-light')).toBeHidden();
   await page.goto('/#settings');await page.getByRole('radio',{name:'라이트'}).click();
-  expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(245, 245, 247)');
+  expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(246, 245, 242)');
   await expect(page.locator('.topbar-brand .logo-light')).toBeVisible();
   await expect(page.locator('.topbar-brand .logo-dark')).toBeHidden();
  });

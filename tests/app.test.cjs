@@ -39,7 +39,7 @@ test('every icon the app renders exists in the built sprite, and no unicode glyp
  const rid=JSON.parse(t.saved[C.KEY]).routes[0].id;
  for(const page of ['home','explore','map','saved','my','routes','route/'+rid,'curation/CUR001','journal','calendar','settings','data','magazine','place/SEOUL001','place/WD-Q7937834','missing']){t.context.location.hash='#'+page;t.eval('render()');collect(t.nodes.get('#view').innerHTML);collect(t.nodes.get('#navigation').innerHTML)}
  t.context.location.hash='#explore';t.eval('render()');const home=t.nodes.get('#view').innerHTML;
- assert.ok(/<button type="button" class="image-credit" data-credit="SEOUL001" data-asset="a\.jpg"><span class="sr-only">사진 출처 <\/span><span class="credit-text">© Kim · <span class="credit-lic">CC BY-SA 4\.0<\/span><\/span><\/button>/.test(home),'credit pill on the photo');
+ assert.ok(/<button type="button" class="image-credit" data-credit="SEOUL001" data-asset="a\.jpg"><span class="sr-only">사진 출처 <\/span><span class="credit-text"><span class="credit-who">© Kim<\/span> · <span class="credit-lic">CC BY-SA 4\.0<\/span><\/span><\/button>/.test(home),'credit pill on the photo');
  await t.click({credit:'SEOUL001',asset:'a.jpg'});const sheet=t.nodes.get('#modal').innerHTML;collect(sheet);assert.ok(sheet.includes('© Kim · CC BY-SA 4.0')&&sheet.includes('https://commons.wikimedia.org/wiki/File:A.jpg')&&sheet.includes('https://creativecommons.org/licenses/by-sa/4.0'));
  t.eval("addToRoute('SEOUL003')");collect(t.nodes.get('#modal').innerHTML);
  collect(require('node:fs').readFileSync(__dirname+'/../site-public-cleared/index.html','utf8'));

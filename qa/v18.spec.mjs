@@ -104,8 +104,9 @@ test.describe('home',()=>{
   await expect(page.locator('.home-world .place-card')).toHaveCount(6);
   for(const sel of ['.home-featured','.home-programs'])expect(await page.locator(sel+' .place-card').evaluateAll(xs=>xs.every(x=>x.dataset.country==='KR'))).toBe(true);
   expect(await page.locator('.home-world .place-card').evaluateAll(xs=>xs.every(x=>x.dataset.country&&x.dataset.country!=='KR'))).toBe(true);
-  // Section order (v0.22): the world strip first, then Korea's regions, featured and programmes.
-  expect((await page.locator('#view .home-section').evaluateAll(xs=>xs.map(x=>x.className.split(' ')[1]))).slice(0,4)).toEqual(['home-world','home-kr-regions','home-featured','home-programs']);
+  // Section order (v0.25): Korea first — featured media facades, media art and exhibitions, the regions — then the world.
+  const order=(await page.locator('#view .home-section').evaluateAll(xs=>xs.map(x=>x.className.split(' ')[1]))).filter(c=>['home-featured','home-programs','home-kr-regions','home-world'].includes(c));
+  expect(order).toEqual(['home-featured',...(await programs.count()?['home-programs']:[]),'home-kr-regions','home-world']);
   await page.waitForLoadState('networkidle');
   expect(seen,'the home page reads home.json only').toEqual(['home.json']);
   // A region tile opens that region.
@@ -607,6 +608,8 @@ test.describe('place page (SEOUL006 regression)',()=>{
   const tabs=page.locator('.dp-tabs [role=tab]');
   await expect(tabs).toHaveText(['개요','건축·미디어 기술','작품·전시','위치·관람','자료·출처']);
   await page.locator('.dp-tabs').scrollIntoViewIfNeeded();await page.evaluate(()=>window.scrollBy(0,-120));
+  // The tab itself fully on screen first, so the click's own scrolling (Playwright's, not the page's) is not measured.
+  await page.getByRole('tab',{name:'건축·미디어 기술'}).scrollIntoViewIfNeeded();
   const y=await page.evaluate(()=>scrollY);
   await page.getByRole('tab',{name:'건축·미디어 기술'}).click();
   await expect(page.locator('#dp-panel-architecture')).toBeVisible();await expect(page.locator('#dp-panel-overview')).toBeHidden();

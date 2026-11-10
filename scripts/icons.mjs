@@ -15,6 +15,8 @@ export const REGULAR=[
  'map-pin','map-pin-area','bookmarks-simple','path','calendar-blank','notebook','book-open-text','globe-hemisphere-east','info','warning','star','sun','moon','circle-half','clock','seal-check','lifebuoy','file-text','scroll',
  // place page gallery and reports, partners
  'magnifying-glass-plus','corners-out','flag','envelope-simple','github-logo','handshake',
+ // the home stage
+ 'pause','play',
  // archive: research data page, citation, language, data status, map legend
  'chart-bar','quotes','translate','database','link-break','seal-question','users-three','circle',
  // categories (catalog.js)
