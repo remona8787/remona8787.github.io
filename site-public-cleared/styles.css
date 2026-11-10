@@ -888,7 +888,7 @@ fieldset.field{min-width:0;margin:0;padding:0;border:0}
 .hero-photo-link>picture{display:block;width:100%;height:100%}
 .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 /* A light passing over the photo when it arrives: projected light scanning a facade. */
-.hero-slide::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(105deg,#FFFFFF00 35%,#FFFFFF2E 50%,#FFFFFF00 65%) 0 0/250% 100% no-repeat;background-position:150% 0;mix-blend-mode:soft-light;opacity:0}
+.hero-slide::before{content:'';position:absolute;top:0;bottom:0;left:0;z-index:1;width:45%;pointer-events:none;background:linear-gradient(105deg,#FFFFFF00 0%,#FFFFFF1F 50%,#FFFFFF00 100%);opacity:0;transform:translateX(-110%);will-change:transform}
 .hero-plate{position:absolute;left:var(--gutter);right:var(--gutter);bottom:64px;z-index:3;display:grid;justify-items:start;gap:6px}
 .plate-kicker{max-width:100%;color:#D7D4E6;font-size:var(--fs-caption);line-height:var(--lh-caption);font-weight:600}
 .plate-title{display:inline-flex;align-items:center;gap:8px;min-height:24px;max-width:100%;color:#FFFFFF;font-size:20px;line-height:26px;font-weight:800;letter-spacing:-.02em}
@@ -2040,11 +2040,11 @@ a.group-row:hover .row-chev{transform:translateX(3px)}
 }
 
 @keyframes view-rise{from{opacity:0;transform:translateY(12px)}}
-@keyframes rise{from{transform:translateY(18px);clip-path:inset(0 0 100% 0)}to{transform:none;clip-path:inset(-24px)}}
+@keyframes rise{from{transform:translateY(16px)}to{transform:none}}
 @keyframes word-up{from{transform:translateY(108%)}to{transform:none}}
 @keyframes lift{from{transform:translateY(24px)}to{transform:none}}
 @keyframes stage-push{from{transform:scale(1.12)}to{transform:scale(1.01)}}
-@keyframes light-sweep{0%{opacity:0;background-position:150% 0}25%{opacity:1}100%{opacity:0;background-position:-60% 0}}
+@keyframes light-sweep{0%{opacity:0;transform:translateX(-110%)}25%{opacity:1}100%{opacity:0;transform:translateX(330%)}}
 @keyframes dot-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @keyframes tab-pop{from{transform:scale(.55)}to{transform:none}}
 @keyframes heart-pop{40%{transform:scale(1.28)}}

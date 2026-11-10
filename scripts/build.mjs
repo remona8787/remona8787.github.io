@@ -104,6 +104,18 @@ const htmlPages=async(dir=out)=>(await readdir(dir,{recursive:true})).filter(f=>
  console.log('Content-Security-Policy meta in',n,'page(s)');
 }
 
+// The stylesheet is authored as readable chapters (site-public-cleared/styles.css); the built copy is minified
+// (comments and whitespace only: esbuild keeps the cascade order), so the page downloads less before it can render.
+{
+ const {transform}=await import('esbuild');
+ for(const rel of ['styles.css']){
+  const file=path.join(out,rel),css=await readFile(file,'utf8');
+  const {code}=await transform(css,{loader:'css',minify:true,target:['chrome111','safari16.4','firefox121']});
+  await writeFile(file,code);
+  console.log('Minified',rel,css.length,'→',code.length,'bytes');
+ }
+}
+
 // GitHub Pages runs Jekyll unless told not to, which would drop files that start with "_" and waste build time.
 await writeFile(path.join(out,'.nojekyll'),'');
 
