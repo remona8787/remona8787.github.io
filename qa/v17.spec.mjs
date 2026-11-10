@@ -15,38 +15,21 @@ const tiles=page=>page.route(/^https:\/\/([abc]\.)?tile\.openstreetmap\.org\//,r
 const pixels=page=>page.locator('canvas[data-led="hero"]').evaluate(c=>c.toDataURL());
 
 test.describe('home',()=>{
- test('hero slides are real projects with their media running, credited, linked to their page',async({page})=>{
+ // v0.22 art photo policy (site-public-cleared/art-photo-policy.js): a v0.17 image has no kind and no evidence (rights,
+ // measured size, identity, visual), so it represents no project; the banner of such a home.json is the LED graphic
+ // and its cards show the designed placeholders. The sections are still regrouped Korea first.
+ test('a v0.17 home.json: no photo without art evidence, the LED graphic banner, sections Korea first',async({page})=>{
   await serveDataset(page,V17);await serveImages(page);
   await page.setViewportSize({width:1440,height:900});
   await page.goto('/#home');
-  const slides=page.locator('.hero .hero-slide');
-  await expect(slides).toHaveCount(HERO.length);
   expect(HERO.length).toBeGreaterThan(1);
-  for(let i=0;i<HERO.length;i++){
-   const s=slides.nth(i),h=HERO[i],p=HOME17.projects[h.project];
-   await expect(s.locator('.plate-title')).toHaveAttribute('href','#place/AR-'+h.project);
-   await expect(s.locator('.plate-title')).toContainText(p.name_ko);
-   await expect(s.locator('.plate-credit')).toHaveText(new RegExp(`© ${h.image.author} · ${h.image.license.replace(/[.]/g,'\\.')}`));
-   await expect(s.locator('.plate-credit')).toHaveAttribute('href',h.image.page);
-   expect(await s.locator('img').getAttribute('src')).toContain('_hero_');
-  }
-  // The first slide is the page's largest image: loaded eagerly with priority, the rest lazily, all with a srcset.
-  await expect(slides.first().locator('img')).toHaveAttribute('fetchpriority','high');
-  await expect(slides.nth(1).locator('img')).toHaveAttribute('loading','lazy');
-  await expect.poll(()=>slides.first().locator('img').evaluate(e=>e.complete&&e.naturalWidth>0)).toBe(true);
-  expect(await slides.first().locator('img').getAttribute('srcset')).toMatch(/ 1920w/);
-  // The carousel moves with its buttons and stays on real projects.
-  await page.locator('[data-hero-step="1"]').click();
-  await expect.poll(()=>page.locator('#heroTrack').evaluate(e=>Math.round(e.scrollLeft/e.clientWidth))).toBe(1);
-  // No image without media-active evidence anywhere on the home page (no daytime context photo, no unrelated photo).
-  const srcs=await page.locator('#view img[data-place-photo]').evaluateAll(xs=>xs.map(x=>x.getAttribute('src')));
-  expect(srcs.length).toBeGreaterThan(8);
-  for(const src of srcs)expect(src,'home image').toMatch(/_(hero|night|art|led|scene|small)_\d/);
-  // Sections (v0.18, Korea first): Korean regions, featured, programmes, then the world; counts of a v0.17 home.json.
-  for(const h of ['지역으로 만나는 한국의 빛','세계의 미디어파사드'])await expect(page.locator('.home-section h2',{hasText:h})).toHaveCount(1);
-  expect(await page.locator('.home-featured .place-card, .home-programs .place-card').count(),'Korean projects of home.json in the Korean sections').toBeGreaterThan(0);
+  await expect(page.locator('.hero-generative canvas.led-canvas[data-led="hero"]')).toHaveCount(1);
+  await expect(page.locator('.hero .hero-slide')).toHaveCount(0);
+  await expect(page.locator('#view img[data-place-photo]')).toHaveCount(0);
+  // Sections (v0.18, Korea first): Korean regions, then the world; counts of a v0.17 home.json.
+  await expect(page.locator('.home-section h2',{hasText:'지역으로 만나는 한국의 빛'})).toHaveCount(1);
   await expect(page.locator('.home-kr-regions .kr-tile')).toHaveCount(8);
-  await expect(page.locator('.hero-stats')).toHaveText(`프로젝트 ${HOME17.counts.projects}개 · ${HOME17.counts.countries}개 나라`);
+  await expect(page.locator('.hero-stats')).toHaveText(`${HOME17.counts.countries}개국 · ${HOME17.counts.projects}개 사례`);
   // A region opens its page.
   await page.locator('.home-kr-regions a[href="#korea/seoul"]').click();
   await expect(page).toHaveURL(/#korea\/seoul$/);
@@ -65,7 +48,7 @@ test.describe('home',()=>{
   const p2=await page.context().newPage();await noDataset(p2);
   await p2.goto('/#home');
   await expect(p2.locator('.hero-generative canvas.led-canvas')).toHaveCount(1);
-  await expect(p2.locator('.hero-title')).toHaveText('빛으로 읽는 한국의 건축');
+  await expect(p2.locator('.hero-title')).toHaveText('빛이 바꾸는 공간');
   await expect(p2.locator('#view img[data-place-photo]')).toHaveCount(0);
  });
 

@@ -120,6 +120,17 @@ the pattern once in `thumb_template`. A `thumb` that is not an https URL becomes
 `thumb_template.replace('{path}', thumb).replace('{file}', last path segment)`. Below the threshold every thumb is a
 full URL.
 
+Since v0.23 (the v0.22.1 art photo policy, `site-public-cleared/art-photo-policy.js`) a thumb is always a photo of the
+work itself: rights (licence, author, source page, not non-commercial), at least 900 px wide with acceptable measured
+quality, identity (reviewed, or a linked page with a media score of at least 40 and a visual reason) and a work kind
+(`project_media`, `project_installation`). A project without such a photo has no thumb; its building or context photos
+stay in its record. The index says so with `representative_policy: "artwork_only"` and `thumb_kind_default`
+(`thumb_installation_rows` lists the rows whose thumb is an installation photo), carries `build_id` (the app asks once
+more past the HTTP cache when a file of another build arrives) and `location_precision` by id for positions that are
+not exact (`city`, `approximate`; only exact and street positions count as sourced coordinates). The manifest, home and
+stats counts add `with_art_representative`. The app applies the same module to every photo it shows on cards, the
+banner and region tiles.
+
 ## 3. What a run guarantees
 
 - **Polite.** Every request carries `User-Agent: LightArchitectureArchive/0.18 (+https://remona8787.github.io/; remona56@hanmail.net)`.

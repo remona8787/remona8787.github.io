@@ -57,7 +57,7 @@ function available(p,today){return p.operation_verified===true&&valid(p.verified
 function wikidataCoords(p){return p.coordinate_source==='wikidata'&&p.coordinate_review_status==='source'}
 // Archive and static-dataset coordinates reported by a source (the dataset publishes only coordinates it has a source for).
 function sourceCoords(p){return (p.coordinate_source==='archive'||p.coordinate_source==='dataset')&&p.coordinate_review_status==='source'}
-function mappable(p){return (p.coordinate_review_status==='verified'||wikidataCoords(p)||sourceCoords(p))&&typeof p.latitude==='number'&&typeof p.longitude==='number'&&Number.isFinite(p.latitude)&&Number.isFinite(p.longitude)&&Math.abs(p.latitude)<=90&&Math.abs(p.longitude)<=180&&/^https:\/\//.test(p.coordinate_source_url||'')}
+function mappable(p){return (p.coordinate_review_status==='verified'||wikidataCoords(p)||sourceCoords(p))&&typeof p.latitude==='number'&&typeof p.longitude==='number'&&Number.isFinite(p.latitude)&&Number.isFinite(p.longitude)&&Math.abs(p.latitude)<=90&&Math.abs(p.longitude)<=180&&!(p.latitude===0&&p.longitude===0)&&/^https:\/\//.test(p.coordinate_source_url||'')}
 function coordKind(p){return !mappable(p)?null:wikidataCoords(p)?'wikidata':sourceCoords(p)?'source':'verified'}
 function names(p){return [p.name_kr,p.name_en,p.name_ko,p.name_original,...(Array.isArray(p.aliases)?p.aliases:[])].filter(Boolean)}
 function creditNames(p){return [p.architect,p.artist,p.producer,...(Array.isArray(p.credits)?p.credits.flatMap(c=>[c.name,c.name_en]):[])].filter(Boolean)}
@@ -65,7 +65,7 @@ function rank(p,q){q=text(q).trim();if(!q)return 0;const ns=names(p).map(text),n
 // Thousands of places: build each searchable text once, and only when there is a query. It covers every name and
 // alias, credits, the building, the address, the city and the country in Korean and English, and the type labels.
 const hayCache=typeof WeakMap==='function'?new WeakMap():null;
-function hay(p){let h=hayCache&&hayCache.get(p);if(h===undefined){const r=region(p),type=typeOf(p);h=[...names(p),p.district,p.address,p.short_description,p.summary_en,p.building_name,...creditNames(p),r.country,r.city,cityLabel(r.cityKey,'en'),cityLabel(r.cityKey,'ko'),r.iso&&T?T.countryName(r.iso,'ko'):'',r.iso&&T?T.countryName(r.iso,'en'):'',...(Array.isArray(p.categories)?p.categories.flatMap(k=>[k,(categories.find(c=>c[0]===k)||[])[1]]):[]),type&&T?T.label('project_type',type,'ko')+' '+T.label('project_type',type,'en'):'',krRegionOf(p)&&T?T.krRegionLabel(krRegionOf(p),'ko')+' '+T.krRegionLabel(krRegionOf(p),'en'):''].map(text).join(' ');if(hayCache)hayCache.set(p,h)}return h}
+function hay(p){let h=hayCache&&hayCache.get(p);if(h===undefined){const r=region(p),type=typeOf(p);h=[...names(p),p.district,p.city_ko,p.address,p.short_description,p.summary_en,p.building_name,...creditNames(p),r.country,r.city,cityLabel(r.cityKey,'en'),cityLabel(r.cityKey,'ko'),r.iso&&T?T.countryName(r.iso,'ko'):'',r.iso&&T?T.countryName(r.iso,'en'):'',...(Array.isArray(p.categories)?p.categories.flatMap(k=>[k,(categories.find(c=>c[0]===k)||[])[1]]):[]),type&&T?T.label('project_type',type,'ko')+' '+T.label('project_type',type,'en'):'',krRegionOf(p)&&T?T.krRegionLabel(krRegionOf(p),'ko')+' '+T.krRegionLabel(krRegionOf(p),'en'):''].map(text).join(' ');if(hayCache)hayCache.set(p,h)}return h}
 // One place against the filters. skip leaves one facet out (facet counts show what each option would add).
 function match(p,f,today,ctx,words,skip){
  if(p.is_published===false)return false;

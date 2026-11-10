@@ -4,6 +4,7 @@
 // Every value is checked against the controlled vocabularies of site-public-cleared/archive-taxonomy.js: anything
 // unknown, malformed or unsafe becomes null (never a guess), and a row without a usable slug or any name is dropped.
 import T from '../site-public-cleared/archive-taxonomy.js'
+import ART from '../site-public-cleared/art-photo-policy.js'
 
 export const ARCHIVE_VIEW = 'public_archive_projects'
 // Columns the app reads (PostgREST select). visibility is not read: the view returns published projects only.
@@ -144,11 +145,16 @@ export function archiveMedia(placeId, list) {
   for (const m of [...list].sort((a, b) => Number(!!b?.is_primary) - Number(!!a?.is_primary)).slice(0, 12)) {
     const url = https(m?.url), license = text(m?.license, 120), creator = text(m?.author, 200) || text(m?.attribution, 300)
     if (!url || !license || !creator) continue
-    out.push({
+    const row = {
       place_code: placeId, provider: 'archive', provider_asset_id: 'archive:' + url, display_url: url, original_file_url: url,
       clearance_status: 'cleared', review_required: false, creator, license_code: license, license_url: https(m?.license_url) || '',
       source_url: https(m?.page_url) || url, caption: text(m?.attribution, 300) || '', is_primary: !!m?.is_primary,
-    })
+      // The image kind and the evidence the art photo policy reads (site-public-cleared/art-photo-policy.js).
+      kind: ['project_media', 'project_installation', 'architecture_context', 'technical_documentation', 'event_documentation', 'artist_portrait'].includes(m?.kind) ? m.kind : 'unverified',
+      approved: typeof m?.approved === 'boolean' ? m.approved : null, width: Number.isFinite(m?.width) ? m.width : null, height: Number.isFinite(m?.height) ? m.height : null,
+      quality: m?.quality, media_active: m?.media_active,
+    }
+    out.push({ ...row, art_representative: ART.isRepresentative(row) })
   }
   return out
 }

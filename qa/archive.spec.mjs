@@ -130,9 +130,10 @@ test('filters: facets with counts, country and city, year range, photos; chips r
  await expect.poll(()=>count(page)).toBe(all);
  // The record origin and review group is research data (exports), not a public filter (v0.17).
  await expect(panel.locator('[data-facet="origin"]')).toHaveCount(0);
- // Photos: only places whose photo is cleared.
+ // Photos: only places with a cleared photo of the work itself (art-photo-policy.js); a building's context photo
+ // does not count.
  await panel.locator('[data-filter-toggle="has_photo"]').click();
- await expect.poll(()=>count(page)).toBe(await page.evaluate(()=>allPlaces().filter(p=>mediaFor(p).length).length));
+ await expect.poll(()=>count(page)).toBe(await page.evaluate(()=>allPlaces().filter(p=>photoFor(p)).length));
  await expect(page.locator('#placeResults')).toContainText('아르스 일렉트로니카 센터');
  await panel.getByRole('button',{name:'모두 지우기'}).click();
  await expect.poll(()=>count(page)).toBe(all);
@@ -325,7 +326,7 @@ test('research data page: statistics of the filtered set; CSV and JSON exports c
  const europe=listed.filter(p=>p.region==='europe');
  await expect.poll(()=>count(page)).toBe(europe.length);
  await page.getByRole('link',{name:'이 결과의 통계와 내보내기'}).click();
- await expect(page).toHaveURL(/#data$/);
+ await expect(page).toHaveURL(/#data\?region=europe$/);
  await expect(page.locator('#view h1')).toHaveText('연구 데이터');
  await expect(page.locator('.data-scope-line')).toContainText(`${europe.length}곳`);
  await expect(page.locator('.data-scope .chip')).toHaveText(['유럽']);

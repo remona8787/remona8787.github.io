@@ -15,7 +15,7 @@ const img = (n, role, tier, project = null) => ({
   id: stableImageId('commons', fname(n)), project, provider: 'commons', src: thumb(n).replace('/thumb/', '/').replace(/\/500px-[^/]+$/, ''), page: `https://commons.wikimedia.org/wiki/File:${fname(n)}`,
   display: [330, 500, 960, 1280, 1920, 3840].map((w) => [w, thumb(n).replace('500px', w + 'px')]), thumb: thumb(n),
   author: 'Photographer ' + n, rights_holder: 'Photographer ' + n, license: 'CC BY-SA 4.0', license_url: 'https://creativecommons.org/licenses/by-sa/4.0', attribution: `Photographer ${n} · CC BY-SA 4.0 · Wikimedia Commons`,
-  usage: 'cache', width: 4000, height: 3000, bytes: 2400000, format: 'jpeg', quality: { sharpness: 70, blockiness: 3, score: 80 }, media_active: { score: tier <= 2 ? 80 : 20, reasons: ['visual:80'] },
+  usage: 'cache', width: 4000, height: 3000, bytes: 2400000, format: 'jpeg', quality: { sharpness: 70, blockiness: 3, score: 80 }, media_active: { score: tier <= 2 ? 80 : 20, reasons: tier <= 2 ? ['visual:80', 'dark_frame', 'saturated_light'] : ['visual:20'] },
   tier, role, checked_at: '2026-10-20', approved: role === 'hero' ? true : null,
 })
 const ISO = ['JP', 'DE', 'FR', 'KR', 'US', 'GB', 'NL', 'AU', 'BR', 'AE']
@@ -51,7 +51,7 @@ test('shards: a power of two of about 200 projects each, stable per id', () => {
 
 test('index.json: the contract fields first, under 1 MB raw for 5,000 projects, lazily loadable', () => {
   const rs = records(5000)
-  const ix = buildIndex(rs)
+  const ix = buildIndex(rs, { buildId: 'b-1' })
   assert.deepEqual(ix.fields.slice(0, 13), ['id', 'name_ko', 'name_en', 'name_original', 'country_iso2', 'city', 'lat', 'lng', 'project_type', 'year', 'thumb', 'visual_rank', 'shard'])
   assert.deepEqual(ix.fields, INDEX_FIELDS)
   const bytes = Buffer.byteLength(JSON.stringify(ix))
@@ -63,15 +63,24 @@ test('index.json: the contract fields first, under 1 MB raw for 5,000 projects, 
   const withThumb = ix.rows.findIndex((r) => r[t])
   assert.match(ix.rows[withThumb][t], /^[0-9a-f]\/[0-9a-f]{2}\/[^/]+\.jpg$/)
   assert.equal(expandThumb(ix.rows[withThumb][t], ix.thumb_template), rs[withThumb].images.find((i) => i.role === 'card' || i.role === 'hero').thumb)
-  const row = Object.fromEntries(ix.fields.map((f, i) => [f, ix.rows[2][i]]))
-  assert.equal(row.visual_rank, 3, 'visual_rank is the card image tier: 1 media facade running … 5 architectural')
+  const row = Object.fromEntries(ix.fields.map((f, i) => [f, ix.rows[9][i]]))
+  assert.equal(row.visual_rank, 2, 'visual_rank is the card image tier: 1 media facade running … 5 architectural')
   assert.deepEqual([row.thumb_w, row.thumb_h], [500, 375], 'the thumb size for the layout')
+  // Every thumbnail is a photo of the work (art-photo-policy.js), and the index says so; a project whose only card is
+  // a weak one (tier 3, low media evidence, not reviewed) has no thumbnail rather than a doubtful one.
+  assert.deepEqual([ix.build_id, ix.representative_policy, ix.thumb_kind_default], ['b-1', 'artwork_only', 'project_media'])
+  assert.equal(ix.rows[2][t], null)
+  assert.equal(ix.thumb_installation_rows, undefined, 'no installation photo among the cards')
+  // Positions that are not exact are named by id (a city centre, an approximate point).
+  const city = { ...rs[3], location_precision: 'city' }, near = { ...rs[4], location_precision: 'approximate' }
+  assert.deepEqual(buildIndex([rs[0], city, near]).location_precision, { [city.id]: 'city', [near.id]: 'approximate' })
+  assert.equal(buildIndex([rs[0]]).location_precision, undefined)
   assert.equal(ix.rows[0][t], null, 'no image → no thumb and no rank (the designed placeholder)')
   assert.equal(ix.rows[0][ix.fields.indexOf('visual_rank')], null)
   // A small archive keeps full https URLs (what the current app reads).
   const small = buildIndex(rs.slice(0, 300))
   assert.equal(small.thumb_template, undefined)
-  assert.match(small.rows[2][t], /^https:\/\/upload\.wikimedia\.org\//)
+  assert.match(small.rows[9][t], /^https:\/\/upload\.wikimedia\.org\//)
 })
 
 test('home.json v0.18: Korea first (hero ≥ 70 % Korean, eight regions, featured, programmes), world highlights, v0.17 fields kept', () => {

@@ -6,6 +6,7 @@
 // row without a usable id or any name is dropped, and an image without a licence and an author or attribution is
 // never shown. Columns of index.json are read by name from its "fields" list, so the pipeline may add columns.
 import T from '../site-public-cleared/archive-taxonomy.js'
+import ART from '../site-public-cleared/art-photo-policy.js'
 
 export const DATA_SCHEMA = 1
 // The app's broad light categories (catalog.js) for project types that clearly belong to one (the same table as
@@ -141,6 +142,9 @@ export function image(m) {
   const sizes = renditions(src, https(m.thumb), display, width, num(m.thumb_w, 1e4))
   const tier = v18 && Number.isInteger(rawTier) && V18_TIER[/** @type {1|2|3|4|5} */ (rawTier)] ? V18_TIER[/** @type {1|2|3|4|5} */ (rawTier)] : tierOf(m)
   return {
+    // Whether the photo shows the work itself with its rights, size, identity and visual evidence
+    // (site-public-cleared/art-photo-policy.js); only such photos represent a project on cards, the banner and tiles.
+    art_representative: ART.isRepresentative(m),
     thumb, src: src || thumb, page: https(m.page) || https(m.page_url), license, license_url: https(m.license_url), author, attribution,
     role: text(m.role, 40), tier, width, height,
     focal: fx !== null && fy !== null && fx >= 0 && fy >= 0 ? { x: fx, y: fy } : null, caption: i18n(m.caption, 300), taken: text(m.date || m.taken, 40),
@@ -153,11 +157,13 @@ export function image(m) {
     sizes, maxw: sizes.length ? sizes[sizes.length - 1][0] : null,
     kind: kindOf(m), raw_tier: v18 && Number.isInteger(rawTier) ? rawTier : null,
     media_active: num(typeof m.media_active === 'object' && m.media_active ? m.media_active.score : m.media_active, 100),
-    subject: text(m.subject, 200),
+    subject: text(m.subject, 200), media_evidence: Array.isArray(m.media_active?.reasons) ? m.media_active.reasons : [],
     // v0.18 pipeline: the file's title and description (a caption when the record gives none), and the rights facts
     // the sponsor rule reads (commercial use allowed, KOGL type).
     title: cleanTitle(m.title), description: text(m.description, 600),
     commercial_use: m.commercial_use === true ? true : m.commercial_use === false ? false : null, kogl_type: Number.isInteger(m.kogl_type) && m.kogl_type >= 1 && m.kogl_type <= 4 ? m.kogl_type : null,
+    // No derivatives (KOGL type 3, CC …-ND): the photo is shown as it is, never cropped into another format.
+    no_derivatives: m.no_derivatives === true || m.kogl_type === 3 || /KOGL\s+Type\s+3|\bND\b|no[ -]derivatives/i.test(license),
   }
 }
 // A Commons page title as a caption: no "File:" prefix, no extension.
@@ -187,6 +193,10 @@ export function toPlace(r, { publicURL = '' } = {}) {
   const record = String(publicURL || '').replace(/\/+$/, '')
   const coordURL = wd ? 'https://www.wikidata.org/wiki/' + wd : record.startsWith('https:') ? record + '/#place/' + placeId : null
   const located = lat !== null && lng !== null && !(lat === 0 && lng === 0) && !!coordURL
+  // index.json location_precision (by id): an approximate or unknown position is shown on the map but never as a
+  // reviewed coordinate; a row without one keeps the earlier meaning (exact).
+  const precision = r.location_precision === undefined ? 'exact' : ['exact', 'street', 'approximate', 'unknown'].includes(r.location_precision) ? r.location_precision : 'unknown'
+  const precise = precision === 'exact' || precision === 'street'
   // visual_rank (index.json): the tier of the card image, 1 media active at night … 4 context; null = no image.
   // card_tier is accepted as another name for it.
   const kr = iso !== 'KR' ? null : Object.prototype.hasOwnProperty.call(r, 'kr_region') ? krKey(r.kr_region) : T.krRegionOf ? T.krRegionOf(r.city, r.address, r.city_ko) : null
@@ -199,12 +209,15 @@ export function toPlace(r, { publicURL = '' } = {}) {
     primary_category: type ? CATEGORY_OF_TYPE[/** @type {keyof typeof CATEGORY_OF_TYPE} */ (type)] || null : null, project_type: type,
     region: T.regionOf(iso), kr_region: kr, country_iso2: iso, country: iso ? T.countryName(iso, 'ko') : '', city: text(r.city, 120) || '', city_ko: text(r.city_ko, 60), district: text(r.district, 120) || '', address: '',
     latitude: located ? lat : null, longitude: located ? lng : null,
-    coordinate_review_status: located ? 'source' : null, coordinate_source: located ? 'dataset' : null, coordinate_source_url: located ? coordURL : null, location_precision: located ? 'exact' : 'unknown',
+    coordinate_review_status: located && precise ? 'source' : null, coordinate_source: located ? 'dataset' : null, coordinate_source_url: located ? coordURL : null, location_precision: located ? precision : 'unknown',
     year_installed: year(r.year ?? r.year_installed), year_completed: year(r.year_completed),
     review_status: 'unreviewed', record_origin: 'auto_collected', field_status: {}, credits: [], sources: [], assessments: [], technologies: [], content_types: [], spatial_context: [],
     curated_place_id: cur, wikidata: wd, website: '', official_url: null, source_url: wd ? 'https://www.wikidata.org/wiki/' + wd : '',
     // Without a stated tier an index thumbnail counts as context (tier 4): it never reaches the home page.
-    thumb, card_tier: thumb ? tierOfRow || 4 : null, thumb_w: thumb ? num(r.thumb_w, 1e4) : null, thumb_h: thumb ? num(r.thumb_h, 1e4) : null,
+    // card_kind: the kind of the index thumbnail when the index says its thumbnails are photos of the work
+    // (representative_policy "artwork_only"); without it a thumbnail never represents the project.
+    thumb, card_kind: ['project_media', 'project_installation'].includes(r.card_kind) ? r.card_kind : null, card_tier: thumb ? tierOfRow || 4 : null, thumb_w: thumb ? num(r.thumb_w, 1e4) : null, thumb_h: thumb ? num(r.thumb_h, 1e4) : null,
+    thumb_no_derivatives: r.thumb_no_derivatives === true,
     first_collected_at: time(r.added_at ?? r.added ?? r.first_seen), created_at: time(r.added_at ?? r.added ?? r.first_seen),
     scope: iso === 'KR' ? 'korea' : 'world',
     ...recordStatus(r),
@@ -254,11 +267,19 @@ export function fromIndex(json, o = {}) {
   if (!json || !Array.isArray(json.fields) || !Array.isArray(json.rows)) throw Error('invalid_index')
   const fields = json.fields.map((/** @type {any} */ f) => String(f)), seen = new Set(), out = []
   const template = typeof json.thumb_template === 'string' && TEMPLATE.test(json.thumb_template) ? json.thumb_template : null
-  for (const row of json.rows) {
+  // Index metadata (pipeline/lib/output.mjs buildIndex): rows whose thumbnail is an installation photo, ids whose
+  // thumbnail allows no derivatives, the location precision by id, and whether every thumbnail is a work photo.
+  const installation = new Set(Array.isArray(json.thumb_installation_rows) ? json.thumb_installation_rows : [])
+  const noDerivatives = new Set(Array.isArray(json.thumb_no_derivatives) ? json.thumb_no_derivatives.filter((/** @type {any} */ x) => datasetId(x)) : [])
+  const precision = json.location_precision && typeof json.location_precision === 'object' && !Array.isArray(json.location_precision) ? json.location_precision : null
+  for (const [n, row] of json.rows.entries()) {
     if (!Array.isArray(row)) continue
     /** @type {Record<string, any>} */ const r = {}
     for (let i = 0; i < fields.length; i++) r[fields[i]] = row[i]
+    if (precision && Object.hasOwn(precision, r.id)) r.location_precision = precision[r.id]
+    if (noDerivatives.has(r.id)) r.thumb_no_derivatives = true
     if (template) r.thumb = expandThumb(r.thumb, template)
+    if (json.representative_policy === 'artwork_only') r.card_kind = installation.has(n) ? 'project_installation' : json.thumb_kind_default || 'project_media'
     const p = toPlace(r, o)
     if (!p || seen.has(p.place_id)) continue
     seen.add(p.place_id); out.push(p)
@@ -268,13 +289,15 @@ export function fromIndex(json, o = {}) {
 
 /** A card photo of a compact row (the index thumb, credit unknown until the shard is read) or of a home card. */
 export function cardMedia(/** @type {any} */ p, /** @type {any} */ img) {
+  // A card photo is a photo of the work; a home card whose image is not one shows no photo rather than another.
+  if (img && !ART.isRepresentative(img)) return null
   const m = img ? image(img) : null
   if (m) return mediaRow(p.place_id, m, 0)
   if (!p.thumb) return null
   // An index thumbnail: shown on explore cards (any tier there), its author and licence read with the record.
   // Its sizes: the Commons widths up to the thumbnail's own (the original's width is in the record, not the row).
   const tw = p.thumb_w || thumbWidth(p.thumb), sizes = (tw && commonsSizes(p.thumb, null)?.filter(x => x[0] <= tw)) || (tw ? [[tw, p.thumb]] : [])
-  return { place_code: p.place_id, provider: 'dataset', provider_asset_id: 'dataset:' + p.thumb, display_url: p.thumb, original_file_url: '', clearance_status: 'cleared', review_required: false, creator: '', license_code: '', license_url: '', source_url: '', tier: p.card_tier || 4, home_ok: false, role: null, credit_pending: true, shard: p.shard, sizes, maxw: sizes.length ? sizes[sizes.length - 1][0] : null, width: null, height: null, ratio: p.thumb_w && p.thumb_h ? p.thumb_w / p.thumb_h : null }
+  return { place_code: p.place_id, provider: 'dataset', provider_asset_id: 'dataset:' + p.thumb, display_url: p.thumb, original_file_url: '', clearance_status: 'cleared', review_required: false, creator: '', license_code: '', license_url: '', source_url: '', tier: p.card_tier || 4, home_ok: false, kind: p.card_kind, art_representative: !!p.card_kind, role: null, credit_pending: true, no_derivatives: p.thumb_no_derivatives === true, shard: p.shard, sizes, maxw: sizes.length ? sizes[sizes.length - 1][0] : null, width: null, height: null, ratio: p.thumb_w && p.thumb_h ? p.thumb_w / p.thumb_h : null }
 }
 /** An image record → the app's media row (the same fields as the Commons photos). */
 export function mediaRow(/** @type {string} */ placeId, /** @type {ReturnType<typeof image>} */ m, /** @type {number} */ i) {
@@ -285,8 +308,9 @@ export function mediaRow(/** @type {string} */ placeId, /** @type {ReturnType<ty
     clearance_status: 'cleared', review_required: false, creator: m.author || m.attribution || '', attribution: m.attribution, license_code: m.license, license_url: m.license_url || '',
     source_url: m.page || m.src, caption: '', caption_i18n: m.caption, captured_at: m.taken || '', tier: m.tier, home_ok: m.home_ok, role: m.role, width: m.width, height: m.height, focal: m.focal, order: i,
     image_provider: m.provider, rights_holder: m.rights_holder, usage: m.usage, approved: m.approved, context: m.context, sizes: m.sizes, maxw: m.maxw,
+    art_representative: m.art_representative, media_evidence: m.media_evidence,
     kind: m.kind, raw_tier: m.raw_tier, media_active: m.media_active, subject: m.subject,
-    title: m.title, description: m.description, commercial_use: m.commercial_use, kogl_type: m.kogl_type,
+    title: m.title, description: m.description, commercial_use: m.commercial_use, kogl_type: m.kogl_type, no_derivatives: m.no_derivatives,
   }
 }
 
@@ -391,7 +415,7 @@ export function fromHome(json, o = {}) {
   }
   const list = (/** @type {any} */ v, n = 24) => (Array.isArray(v) ? v : []).slice(0, n).map(take).filter(Boolean)
   const hero = (Array.isArray(json.hero) ? json.hero : []).slice(0, 8).map((/** @type {any} */ h) => {
-    const p = take(h?.project ?? h?.id), img = image(h?.image)
+    const p = take(h?.project ?? h?.id), img = ART.isRepresentative(h?.image) ? image(h?.image) : null
     // A hero slide needs media-active evidence: v0.18 a reviewed tier-1/2 image, before that a tier-1 one (the
     // reviewed hero list). Whether it is large enough for the slot is the app's call (its width and sizes).
     return p && img && (img.v18 ? img.tier <= 2 && img.approved === true : img.tier === 1) ? { place: p, image: img } : null
@@ -399,7 +423,7 @@ export function fromHome(json, o = {}) {
   const group = (/** @type {any} */ v, /** @type {(k: any) => string|null} */ key, n = 24) => (Array.isArray(v) ? v : []).slice(0, n).map((/** @type {any} */ g) => {
     const k = key(g?.key), count = Number(g?.count)
     if (!k || !Number.isInteger(count) || count < 0) return null
-    const p = g.project !== undefined ? take(g.project) : null, img = image(g.image)
+    const p = g.project !== undefined ? take(g.project) : null, img = ART.isRepresentative(g.image) ? image(g.image) : null
     return { key: k, count, place: p, image: img && img.tier <= 3 ? img : null }
   }).filter(Boolean)
   const voc = (/** @type {string} */ name) => (/** @type {any} */ k) => vocab(name, k)
@@ -419,7 +443,7 @@ export function fromHome(json, o = {}) {
   const v18 = ['kr_regions', 'kr_featured', 'kr_programs', 'world'].some(k => json[k] !== undefined)
   return {
     shape: v18 ? 'v18' : 'v17', build_id: text(json.build_id, 80), generated_at: time(json.generated_at),
-    counts: { projects: count(c.projects), countries: count(c.countries), with_images: count(c.with_images), kr: count(c.kr ?? c.korea), world: count(c.world ?? c.foreign) },
+    counts: { projects: count(c.projects), countries: count(c.countries), with_images: count(c.with_art_representative ?? c.with_images), kr: count(c.kr ?? c.korea), world: count(c.world ?? c.foreign) },
     hero, krRegions: group(json.kr_regions, krKey, 8), krFeatured: list(json.kr_featured), krPrograms: list(json.kr_programs), world,
     featured: list(json.featured), recent: list(json.recent, 12),
     regions: group(json.regions, voc('region')), types: group(json.types, voc('project_type')), themes,

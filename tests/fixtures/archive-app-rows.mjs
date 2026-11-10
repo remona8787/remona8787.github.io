@@ -22,7 +22,8 @@ const base = {
 const verified = (...fields) => Object.fromEntries(fields.map(f => [f, { state: 'editor_verified', at: '2026-10-10T00:00:00.000Z' }]))
 const reported = (...fields) => Object.fromEntries(fields.map(f => [f, { state: 'source_reported' }]))
 const src = (o) => ({ title: null, url: null, publisher: null, kind: 'news', language: 'en', published_at: null, retrieved_at: '2026-09-01T03:00:00.000Z', last_checked_at: '2026-10-15T03:00:00.000Z', link_state: 'ok', reliability: 55, license: null, supports: [], ...o })
-const photo = (o) => ({ url: null, page_url: null, license: 'CC BY-SA 4.0', license_url: 'https://creativecommons.org/licenses/by-sa/4.0', author: 'Archive Photographer', attribution: null, is_primary: true, ...o })
+// A reviewed photo of the work (kind, editorial verdict, size): what the art photo policy needs to show it on a card.
+const photo = (o) => ({ url: null, page_url: null, license: 'CC BY-SA 4.0', license_url: 'https://creativecommons.org/licenses/by-sa/4.0', author: 'Archive Photographer', attribution: null, is_primary: true, kind: 'project_media', approved: true, width: 1600, height: 1067, ...o })
 const p = (o) => ({ ...base, ...o })
 
 export const ARCHIVE_ROWS = [

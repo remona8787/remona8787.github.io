@@ -7,6 +7,10 @@ import {BRANCHES,branchIdOf,parseBranch,mergeItems} from '../edge-functions/_sha
 import {toServerRows,SERVER_COLUMNS,SERVER_MEDIA_COLUMNS} from '../edge-functions/_shared/global-places-server.mjs';
 import {wdqsBranch,commonsPage,commonsResponse,BRANCH_ROWS,FAILING,FILES} from '../tests/fixtures/global-places-fixtures.mjs';
 import {serverViewRows} from '../tests/fixtures/global-places-server-fixtures.mjs';
+// v0.22 art photo policy (art-photo-policy.js): a synced Wikidata photo carries no evidence that it shows the work, so
+// it is never a card photo; once its rights check passes it is one of the place's photos, listed on the place page
+// under 추가 자료 with its credit.
+const syncedPhotos=(page,name)=>page.evaluate(n=>{const p=allPlaces().find(x=>nm(x)===n);return p?mediaFor(p).map(m=>`${m.creator} · ${m.license_code}`).join('|'):''},name);
 
 const SUPABASE='https://aoltest.supabase.co',KEY='sb_publishable_test',VIEW=SUPABASE+'/rest/v1/public_discovered_places';
 const PNG=readFileSync(new URL('../site-public-cleared/assets/icon-512.png',import.meta.url));
@@ -62,10 +66,9 @@ test('server mode: one request with the publishable key replaces the Wikidata qu
  await page.evaluate(()=>AOLApp.render());
  for(const name of ['진주남강유등축제','광안대교','서울빛초롱축제','BUSAN X the SKY','비비드 시드니'])await expect(card(page,name)).toHaveCount(1);
  const vivid=card(page,'비비드 시드니');
- await expect(vivid.locator('.image-credit')).toContainText('Lee Photographer · CC BY-SA 4.0');
- await vivid.scrollIntoViewIfNeeded();
- await expect.poll(()=>vivid.locator('img[data-place-photo]').evaluate(e=>e.complete&&e.naturalWidth>0)).toBe(true);
- await expect(card(page,'진주남강유등축제').locator('.image-credit')).toContainText('Park · CC BY 2.0');
+ await expect.poll(()=>syncedPhotos(page,'비비드 시드니')).toContain('Lee Photographer · CC BY-SA 4.0');
+ await expect(vivid.locator('img[data-place-photo]')).toHaveCount(0);
+ await expect.poll(()=>syncedPhotos(page,'진주남강유등축제')).toContain('Park · CC BY 2.0');
  for(const name of ['빛의 축제','쿤스트하우스 그라츠'])await expect(card(page,name).first().locator('img[data-place-photo]')).toHaveCount(0);
  // One request: the view, with the publishable key as apikey (no bearer token), the columns the app reads, a page of 1000.
  expect(calls.list).toEqual([{select:SERVER_COLUMNS,apikey:KEY,authorization:null,prefer:'count=exact',qid:null,order:'qid.asc',limit:'1000',offset:'0'}]);
@@ -95,7 +98,7 @@ test('server mode keeps the 6-hour cache: no request on reload; a copy whose ser
  expect(await status(page)).toBe('cached');
  expect(calls.list.length,'fresh: not asked again').toBe(1);
  await page.evaluate(()=>{showCount=1000;AOLApp.render()});
- await expect(card(page,'비비드 시드니').locator('.image-credit')).toContainText('Lee Photographer');
+ await expect.poll(()=>syncedPhotos(page,'비비드 시드니')).toContain('Lee Photographer');
  const age=(data,checked)=>page.evaluate(([d,c])=>{const v=JSON.parse(localStorage.getItem('aol_global_v1'));v.fetchedAt=new Date(Date.now()-d).toISOString();v.checkedAt=new Date(Date.now()-c).toISOString();localStorage.setItem('aol_global_v1',JSON.stringify(v))},[data,checked]);
  // The server's data is 7 hours old (its next run is due) but this browser asked 10 minutes ago: wait.
  await age(7*H,10*60e3);

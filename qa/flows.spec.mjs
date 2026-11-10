@@ -1,5 +1,6 @@
 // Core guest flows in a real browser: records persist across reloads, backup downloads, theme toggles, offline shell works.
 import {test,expect} from './fixtures.mjs';
+import {serveDataset} from './fixtures/site-data-routes.mjs';
 test('visit record survives reload',async({page})=>{
  await page.goto('/#place/SEOUL001');
  await page.locator('[data-visit]').click();
@@ -27,7 +28,7 @@ test('theme choice persists',async({page})=>{
  await expect(page.getByRole('radio',{name:'다크'})).toHaveAttribute('aria-checked','true');
  await page.getByRole('radio',{name:'라이트'}).click();
  await expect.poll(()=>page.evaluate(()=>document.documentElement.dataset.theme)).toBe('light');
- expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(246, 245, 251)');
+ expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(247, 247, 245)');
  // A radio group: arrow keys move the choice and the focus.
  await page.getByRole('radio',{name:'라이트'}).focus();await page.keyboard.press('ArrowRight');
  await expect(page.getByRole('radio',{name:'다크'})).toHaveAttribute('aria-checked','true');
@@ -41,7 +42,7 @@ test.describe('system dark',()=>{
   await expect(page.locator('.sidebar .brand-logo.logo-dark')).toBeVisible();
   await expect(page.locator('.sidebar .brand-logo.logo-light')).toBeHidden();
   await page.goto('/#settings');await page.getByRole('radio',{name:'라이트'}).click();
-  expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(246, 245, 251)');
+  expect(await page.evaluate(()=>getComputedStyle(document.body).backgroundColor)).toBe('rgb(247, 247, 245)');
   await expect(page.locator('.sidebar .brand-logo.logo-light')).toBeVisible();
   await expect(page.locator('.sidebar .brand-logo.logo-dark')).toBeHidden();
  });
@@ -70,7 +71,7 @@ test.describe('offline',()=>{
   await page.reload();await expect.poll(()=>page.evaluate(()=>!!navigator.serviceWorker.controller)).toBe(true);
   await context.setOffline(true);
   await page.reload();
-  await expect(page.getByRole('heading',{name:'빛으로 읽는 한국의 건축'})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'빛이 바꾸는 공간'})).toBeVisible();
   await page.goto('/#place/SEOUL001');await expect(page.locator('#view h1')).toBeVisible();
  });
 });
@@ -98,7 +99,7 @@ test.describe('updates',()=>{
   deploy='C';
   await page.reload();
   expect(await page.evaluate(()=>window.__aolDeploy)).toBe('C');
-  await expect(page.getByRole('heading',{name:'빛으로 읽는 한국의 건축'})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'빛이 바꾸는 공간'})).toBeVisible();
  });
 });
 test('self-hosted map library loads under the production CSP',async({page})=>{
@@ -112,10 +113,12 @@ test('self-hosted map library loads under the production CSP',async({page})=>{
 // A cleared photo that cannot load (offline, removed upstream) becomes the branded placeholder in place of the image
 // only: the page layout, the title and the photo credit stay as they were.
 test('a photo that fails to load keeps the layout and its credit',async({page})=>{
+ // A dataset project with photos of the work (the art photo policy keeps a building's context photo out of the lead).
  await page.setViewportSize({width:390,height:844});
+ await serveDataset(page);
  await page.route(/^https:\/\/(upload|thumb)\.wikimedia\.org\//,r=>r.fulfill({status:404,body:''}));
- await page.goto('/#place/SEOUL031');
- await expect(page.locator('.detail-hero .photo-failed')).toBeVisible();
+ await page.goto('/#place/AR-kunsthaus-graz-bix');
+ await expect(page.locator('.detail-hero .photo-failed').first()).toBeVisible();
  await expect(page.locator('#detailPhotos .dp-cap[data-i="0"] .dp-credit')).toBeVisible();
  await expect(page.locator('#view h1')).toBeInViewport();
  // The gallery's failed photo stays inside its own frame instead of covering the page. (Retried as a block: a

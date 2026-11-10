@@ -17,7 +17,7 @@ const cfg = window.AOL_CONFIG || {}
 const publicURL = String(cfg.PUBLIC_URL || '')
 const base = new URL('data/', document.baseURI)
 const TIMEOUT_MS = 20000
-let buildId = null, home = null, indexState = 'idle', indexRun = null, manifest = null, manifestRun = null
+let buildId = null, home = null, indexState = 'idle', indexRun = null, manifest = null, manifestRun = null, indexRetryAt = 0
 /** @type {Map<string, any>} compact places by app id (home cards, index rows) */
 const compact = new Map()
 /** @type {Map<string, any>} full records by app id ({place, media, videos}) */
@@ -30,12 +30,18 @@ const cards = new Map()
 async function get(path) {
   const url = new URL(path, base)
   if (buildId && !path.endsWith('manifest.json') && !path.endsWith('home.json')) url.searchParams.set('v', buildId)
-  const res = await fetch(url, { credentials: 'omit', signal: AbortSignal.timeout(TIMEOUT_MS) })
-  if (!res.ok) { const e = Error('HTTP ' + res.status); e.status = res.status; throw e }
-  const type = res.headers.get('content-type') || ''
-  // A host that answers every path with its HTML 404 or app page has no dataset.
-  if (type && !/json/i.test(type)) { const e = Error('not_json'); e.status = 404; throw e }
-  return res.json()
+  // A file of another build than the one this page started from (a cache or CDN that still has the old one) is asked
+  // once more past the HTTP cache; a second mismatch is an error rather than a mix of two builds.
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const res = await fetch(url, { credentials: 'omit', signal: AbortSignal.timeout(TIMEOUT_MS), ...(attempt ? { cache: 'reload' } : {}) })
+    if (!res.ok) { const e = Error('HTTP ' + res.status); e.status = res.status; throw e }
+    const type = res.headers.get('content-type') || ''
+    // A host that answers every path with its HTML 404 or app page has no dataset.
+    if (type && !/json/i.test(type)) { const e = Error('not_json'); e.status = 404; throw e }
+    const json = await res.json()
+    if (!buildId || !json?.build_id || json.build_id === buildId || path === 'home.json') return json
+    if (attempt) throw Error('dataset_version_mismatch')
+  }
 }
 
 let version = 0
@@ -48,7 +54,7 @@ function publish(status) {
     if (f?.media.length) media.push(...f.media)
     else { const c = cards.get(p.place_id); if (c) media.push(c) }
   }
-  window.AOL_DATASET = { status, buildId, home, projects, media, index: indexState, count: projects.length, version: ++version }
+  window.AOL_DATASET = { status, buildId, generatedAt: manifest?.generated_at || home?.generated_at || null, home, projects, media, index: indexState, count: projects.length, version: ++version }
   window.AOL_DATASET_MEDIA = media
   const app = window.AOLApp
   ;(app?.softRender || app?.render)?.()
@@ -74,6 +80,8 @@ async function loadHome() {
 export function ensureIndex() {
   if (status !== 'ok') return Promise.resolve(false)
   if (indexRun) return indexRun
+  // After a failed read the index is not asked again for 15 s (each render would otherwise ask at once).
+  if (Date.now() < indexRetryAt) return Promise.resolve(false)
   indexState = 'loading'
   indexRun = (async () => {
     try {
@@ -81,7 +89,7 @@ export function ensureIndex() {
       const list = fromIndex(json, { publicURL })
       addCompact(list, list.map(p => cardMedia(p, null)).filter(Boolean))
       indexState = 'ok'
-    } catch { indexState = 'error'; indexRun = null }
+    } catch { indexState = 'error'; indexRun = null; indexRetryAt = Date.now() + 15000 }
     publish(status)
     return indexState === 'ok'
   })()
@@ -127,7 +135,7 @@ export async function ensureRecord(placeId) {
   if (!p?.shard) return false
   const ok = await loadShard(p.shard)
   ensureIndex()
-  return ok
+  return ok && full.has(id)
 }
 
 export const record = placeId => full.get(placeId) || null
@@ -138,14 +146,15 @@ export const loading = placeId => { const p = compact.get(placeId); return !!p?.
 function need() {
   if (status !== 'ok') return
   let page = 'home', id = ''
-  try { [page = 'home', id = ''] = decodeURIComponent(location.hash.slice(1) || 'home').split('/') } catch {}
+  // A search address carries its filters after "?" (site-public-cleared/search-state.js): "#explore?q=…".
+  try { [page = 'home', id = ''] = decodeURIComponent((location.hash.slice(1) || 'home').split('?')[0]).split('/') } catch {}
   if (page === 'home' && !home) loadHome().then(() => publish(status), () => {})
   else if (['explore', 'map', 'data', 'korea', 'programs', 'world'].includes(page)) ensureIndex()
   else if (page === 'place' && id) ensureRecord(id)
 }
 
 // Probe: the file the first screen needs anyway (home.json on the home page, the small manifest elsewhere).
-const first = (() => { try { return (decodeURIComponent(location.hash.slice(1)).split('/')[0] || 'home') === 'home' } catch { return true } })()
+const first = (() => { try { return (decodeURIComponent(location.hash.slice(1).split('?')[0]).split('/')[0] || 'home') === 'home' } catch { return true } })()
 export const ready = (async () => {
   try {
     if (first) await loadHome()

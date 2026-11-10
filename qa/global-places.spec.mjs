@@ -6,6 +6,10 @@ import AxeBuilder from '@axe-core/playwright';
 import {readFileSync} from 'node:fs';
 import {BRANCHES,branchIdOf} from '../edge-functions/_shared/global-places.mjs';
 import {wdqsBranch,commonsPage,commonsResponse,BRANCH_ROWS,FAILING,FILES} from '../tests/fixtures/global-places-fixtures.mjs';
+// v0.22 art photo policy (art-photo-policy.js): a synced Wikidata photo carries no evidence that it shows the work, so
+// it is never a card photo; once its rights check passes it is one of the place's photos, listed on the place page
+// under 추가 자료 with its credit.
+const syncedPhotos=(page,name)=>page.evaluate(n=>{const p=allPlaces().find(x=>nm(x)===n);return p?mediaFor(p).map(m=>`${m.creator} · ${m.license_code}`).join('|'):''},name);
 
 const PNG=readFileSync(new URL('../site-public-cleared/assets/icon-512.png',import.meta.url));
 const cors={'access-control-allow-origin':'*','content-type':'application/json'};
@@ -74,9 +78,8 @@ test('home without the dataset: the LED graphic, counts from curated and synced 
  for(const dup of ['반포대교','서울로 7017'])await expect(page.locator('#placeResults h3',{hasText:new RegExp('^'+dup+'$')})).toHaveCount(0);
  // Vivid Sydney's photo clears (CC BY-SA), Lyon's is blocked (NoFoP-France), Graz's is NC.
  const vivid=card(page,'비비드 시드니');
- await expect(vivid.locator('.image-credit')).toContainText('Lee Photographer · CC BY-SA 4.0');
- await vivid.scrollIntoViewIfNeeded();
- await expect.poll(()=>vivid.locator('img[data-place-photo]').evaluate(e=>e.complete&&e.naturalWidth>0)).toBe(true);
+ await expect.poll(()=>syncedPhotos(page,'비비드 시드니')).toContain('Lee Photographer · CC BY-SA 4.0');
+ await expect(vivid.locator('img[data-place-photo]')).toHaveCount(0);
  for(const name of ['빛의 축제','쿤스트하우스 그라츠'])await expect(card(page,name).first().locator('img[data-place-photo]')).toHaveCount(0);
  // Entity-encoded markup in a label is shown as text, never run.
  await expect(page.locator('#placeResults')).toContainText('<img src=x onerror="window.__xss=1">빛');
@@ -191,7 +194,7 @@ test('detail: Wikidata facts with sources, and the photo with full attribution o
  await expect(fig).toContainText('CC BY-SA 4.0');
  await expect(fig).toContainText('2019-05-30');
  await expect(fig.locator('a',{hasText:'이미지 원본'})).toHaveAttribute('href','https://commons.wikimedia.org/wiki/File:Vivid_Sydney_2019.jpg');
- await expect(fig.locator('a',{hasText:'CC BY-SA 4.0'})).toHaveAttribute('href','https://creativecommons.org/licenses/by-sa/4.0');
+ await expect(fig.locator('a',{hasText:'사용조건'})).toHaveAttribute('href','https://creativecommons.org/licenses/by-sa/4.0');
  // A blocked photo is never shown: the gallery shows the designed placeholder; the reason stays in the sync's record.
  await page.goto('/#place/WD-Q4167');
  await expect(page.locator('h1')).toHaveText('빛의 축제');
@@ -364,7 +367,7 @@ test('when localStorage is full the sync keeps its result in memory',async({page
  await expect.poll(()=>status(page)).toBe('partial');
  expect(await counts(page)).toMatchObject({korea:KOREA_SHOWN+CURATED_HIDDEN,world:WORLD_SHOWN});
  await page.evaluate(()=>AOLApp.render());
- await expect(card(page,'비비드 시드니').locator('.image-credit')).toContainText('Lee Photographer');
+ await expect.poll(()=>syncedPhotos(page,'비비드 시드니')).toContain('Lee Photographer');
  expect(await page.evaluate(()=>localStorage.getItem('aol_global_v1'))).toBeNull();
 });
 
@@ -372,7 +375,7 @@ for(const r of ['home','explore','map','settings','place/WD-Q7937834'])test(`a11
  await mockApis(page);
  await page.goto('/#'+r);
  await expect.poll(()=>status(page)).toBe('partial');
- if(r==='explore'){await page.evaluate(()=>{showCount=1000;AOLApp.render()});await expect(card(page,'비비드 시드니').locator('.image-credit')).toContainText('Lee Photographer')}
+ if(r==='explore'){await page.evaluate(()=>{showCount=1000;AOLApp.render()});await expect(card(page,'비비드 시드니')).toHaveCount(1);await expect.poll(()=>syncedPhotos(page,'비비드 시드니')).toContain('Lee Photographer')}
  if(r.startsWith('place/'))await expect(page.locator('#detailPhotos .dp-cap, #detailPhotos .dp-extra figure')).toContainText('Lee Photographer');
  const {violations}=await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21a','wcag21aa']).analyze();
  expect(violations.map(v=>`${v.id} (${v.impact}): ${v.nodes.slice(0,3).map(n=>n.target.join(' ')).join(' | ')}`)).toEqual([]);

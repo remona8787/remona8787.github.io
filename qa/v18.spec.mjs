@@ -21,7 +21,7 @@ test.describe('menu',()=>{
   await page.goto('/#home');
   await expect(page.locator('#navigation .nav-link')).toHaveCount(7);
   expect(await page.locator('#navigation .nav-link').evaluateAll(xs=>xs.map(x=>x.getAttribute('href')))).toEqual(SECTIONS.map(s=>'#'+s));
-  await expect(page.locator('#navigation .nav-link .nav-label')).toHaveText(['홈','국내 미디어파사드','국내 미디어아트·전시','지도','세계 미디어파사드','아카이브 검색','내 컬렉션']);
+  await expect(page.locator('#navigation .nav-link .nav-label')).toHaveText(['홈','국내 미디어파사드','국내 미디어아트·전시','지도','세계 사례','아카이브 검색','내 컬렉션']);
   await expect(page.locator('#navigation a[href="#home"]')).toHaveAttribute('aria-current','page');
   await page.locator('#navigation a[href="#korea"]').click();
   await expect(page.locator('#view h1')).toHaveText('국내 미디어파사드');
@@ -38,7 +38,7 @@ test.describe('menu',()=>{
   // Every tab is a 44 px target at least.
   for(const b of await tabs.evaluateAll(xs=>xs.map(x=>{const r=x.getBoundingClientRect();return [r.width,r.height]})))expect(Math.min(...b)).toBeGreaterThanOrEqual(44);
   await page.locator('#quickSearch').click();
-  await expect(page).toHaveURL(/#explore$/);
+  await expect(page).toHaveURL(/#explore(\?.*)?$/);
   await expect(page.locator('#view h1')).toHaveText('아카이브 검색');
   await page.locator('.top-more summary').click();
   const items=page.locator('#moreMenu .menu-item');
@@ -52,7 +52,9 @@ test.describe('menu',()=>{
 });
 
 test.describe('home',()=>{
- test('Korean hero photos that fill the screen, eight Korean regions with counts, Korea featured, the world after',async({page})=>{
+ // v0.22 layout (merged in v0.23): a lead photo and two beside it, work photos of different types (art-photo-policy.js),
+ // Korean projects only whenever there is one (the owner's request); quick topics; the world strip before Korea's sections.
+ test('Korean hero photos: up to three of different types, eight Korean regions with counts, Korea featured, the world strip',async({page})=>{
   const seen=await serveDataset(page);await serveImages(page);
   await page.setViewportSize({width:1440,height:900});
   await page.goto('/#home');
@@ -60,38 +62,50 @@ test.describe('home',()=>{
   const krHero=HOME.hero.filter(h=>rec(h.project).country_iso2==='KR');
   expect(krHero.length).toBeGreaterThan(1);
   expect(HOME.hero.length).toBeGreaterThan(krHero.length,'the fixture also has foreign hero photos');
-  await expect(slides).toHaveCount(krHero.length);
-  for(let i=0;i<krHero.length;i++){
-   const s=slides.nth(i),h=krHero[i];
+  await expect(slides).toHaveCount(Math.min(3,krHero.length));
+  const shown=await slides.evaluateAll(xs=>xs.map(x=>x.querySelector('.plate-title').getAttribute('href').replace('#place/AR-','')));
+  for(const [i,id] of shown.entries()){
+   const s=slides.nth(i),h=krHero.find(x=>x.project===id);
+   expect(h,id+' is a Korean hero photo of home.json').toBeTruthy();
    await expect(s).toHaveAttribute('data-country','KR');
-   await expect(s.locator('.plate-title')).toHaveAttribute('href','#place/AR-'+h.project);
+   await expect(s.locator('.hero-photo-link')).toHaveAttribute('href','#place/AR-'+id);
    await expect(s.locator('.plate-credit')).toContainText(`© ${h.image.author} · ${h.image.license}`);
-   await expect(s.locator('.plate-credit')).toContainText('Wikimedia Commons');
   }
-  // The first slide is the page's largest image: eager with priority, a srcset up to 3840 (below the 4000 px original).
+  // Different types first: no two slides of one type while another type is available.
+  const types=shown.map(id=>rec(id).project_type),available=new Set(krHero.map(h=>rec(h.project).project_type));
+  expect(new Set(types).size).toBe(Math.min(types.length,available.size));
+  // The lead is the page's largest image: eager with priority, a srcset up to 1920 (at most 2560 on wide screens).
   const first=slides.first().locator('img');
+  await expect(slides.first()).toHaveClass(/hero-lead/);
   await expect(first).toHaveAttribute('fetchpriority','high');
   await expect(first).not.toHaveAttribute('loading','lazy');
   await expect(first).toHaveAttribute('decoding','async');
-  expect(await first.getAttribute('srcset')).toMatch(/ 3840w$/);
+  expect(await first.getAttribute('srcset')).toMatch(/ 1920w$/);
   await expect(slides.nth(1).locator('img')).toHaveAttribute('loading','lazy');
-  await expect(page.locator('.hero-intro .hero-stats')).toHaveText(`국내 ${HOME.counts.kr}곳 · 세계 ${HOME.counts.world}곳`);
+  await expect(page.locator('.hero-intro .hero-stats')).toHaveText(`${HOME.counts.countries}개국 · ${HOME.counts.projects}개 사례`);
+  // Quick topics with their counts; each opens the archive search with that type in the address.
+  const topics=page.locator('.home-discovery .topic-link');
+  await expect(topics.last()).toHaveAttribute('href','#explore?');
+  for(const a of await topics.evaluateAll(xs=>xs.slice(0,-1).map(x=>x.getAttribute('href'))))expect(a).toMatch(/^#explore\?project_type=[a-z_]+$/);
   // Eight Korean regions in order, with the counts of home.json; a region without a large photo gets its tile design.
   const tilesLoc=page.locator('.home-kr-regions .kr-tile');
   await expect(tilesLoc).toHaveCount(8);
   await expect(tilesLoc.locator('.region-name')).toHaveText(['서울','경기·인천','강원','대전·세종·충청','광주·전라','대구·경북','부산·울산·경남','제주']);
   await expect(tilesLoc.locator('.region-count')).toHaveText(HOME.kr_regions.map(r=>`${r.count}개 프로젝트`));
   await expect(page.locator('.home-kr-regions a[href="#korea/gyeonggi_incheon"] .ph-region')).toHaveCount(1);
-  // Korean featured and programmes, then the world: the editorial mix is about three quarters Korean.
-  await expect(page.locator('.home-featured .place-card')).toHaveCount(5);
-  await expect(page.locator('.home-programs .place-card')).toHaveCount(Math.min(8,HOME.kr_programs.length));
+  // Korean featured and programmes (each with a work photo, none twice on the page), and the world strip.
+  const featured=page.locator('.home-featured .place-card'),programs=page.locator('.home-programs .place-card');
+  expect(await featured.count()).toBeGreaterThan(0);expect(await featured.count()).toBeLessThanOrEqual(5);
+  expect(await programs.count()).toBeLessThanOrEqual(8);
+  for(const cards of [featured,programs])expect(await cards.evaluateAll(xs=>xs.every(x=>x.querySelector('img[data-place-photo]')))).toBe(true);
+  const ids=await page.locator('.home-featured .place-card, .home-programs .place-card').evaluateAll(xs=>xs.map(x=>x.querySelector('a[href^="#place/"]')?.getAttribute('href')));
+  expect(new Set(ids).size).toBe(ids.length);
+  for(const id of shown)expect(ids,'a hero project is not repeated among the programmes').not.toContain('#place/AR-'+id);
   await expect(page.locator('.home-world .place-card')).toHaveCount(6);
   for(const sel of ['.home-featured','.home-programs'])expect(await page.locator(sel+' .place-card').evaluateAll(xs=>xs.every(x=>x.dataset.country==='KR'))).toBe(true);
   expect(await page.locator('.home-world .place-card').evaluateAll(xs=>xs.every(x=>x.dataset.country&&x.dataset.country!=='KR'))).toBe(true);
-  const mix=await page.locator('#view [data-country]').evaluateAll(xs=>xs.filter(x=>x.dataset.country==='KR').length/xs.length);
-  expect(mix).toBeGreaterThanOrEqual(.7);
-  // Section order: regions, featured, programmes … world last.
-  expect(await page.locator('#view .home-section').evaluateAll(xs=>xs.map(x=>x.className.split(' ')[1]))).toEqual(['home-kr-regions','home-featured','home-programs','home-courses','home-world']);
+  // Section order (v0.22): the world strip first, then Korea's regions, featured and programmes.
+  expect((await page.locator('#view .home-section').evaluateAll(xs=>xs.map(x=>x.className.split(' ')[1]))).slice(0,4)).toEqual(['home-world','home-kr-regions','home-featured','home-programs']);
   await page.waitForLoadState('networkidle');
   expect(seen,'the home page reads home.json only').toEqual(['home.json']);
   // A region tile opens that region.
@@ -104,14 +118,14 @@ test.describe('home',()=>{
   for(const [w,h] of [[390,844],[1440,900]]){
    await page.setViewportSize({width:w,height:h});
    await page.goto('/#home');await expect(page.locator('.hero-slide').first()).toBeVisible();
-   for(const [sel,min] of [['.hero-slide img',1600],['.feature-lead .card-art img',960],['.kr-tile .region-art img',480]]){
+   for(const [sel,min] of [['.hero-lead img',1600],['.hero-slide:not(.hero-lead) img',960],['.feature-lead .card-art img',960],['.kr-tile .region-art img',480]]){
     const ws=await widest(page.locator(sel));
     expect(ws.length,sel).toBeGreaterThan(0);
     for(const x of ws)expect(x,sel).toBeGreaterThanOrEqual(min);
    }
    // On a phone never more than 1920 px: a 3840 px rendition of a large Korean hero made the live phone home page
    // load 5 MB (LCP 7.1 s, 2026-10-27). Wide screens keep up to 3840 px (the first home test).
-   if(h>w)for(const x of await widest(page.locator('.hero-slide img')))expect(x,'phone hero at most 1920 px').toBeLessThanOrEqual(1920);
+   if(h>w)for(const x of await widest(page.locator('.hero-lead img')))expect(x,'phone hero at most 1920 px').toBeLessThanOrEqual(1920);
    const srcs=await page.locator('#view img[data-place-photo]').evaluateAll(xs=>xs.map(x=>x.getAttribute('src')));
    for(const src of srcs)expect(src,'home image').not.toMatch(/_day_\d/);
   }
@@ -151,11 +165,12 @@ test.describe('home',()=>{
   expect(files['home.json'].kr_regions).toBeUndefined();
   const seen=await serveDataset(page,files);await serveImages(page);
   await page.goto('/#home');
-  await expect(page.locator('.hero-slide').first()).toBeVisible();
-  expect(await page.locator('.hero-slide').evaluateAll(xs=>xs.map(x=>x.dataset.country))).toEqual(files['home.json'].hero.filter(h=>rec(h.project).country_iso2==='KR').map(()=>'KR'));
+  // Its images carry no kind or evidence (art-photo-policy.js): the LED graphic banner, no photo cards; regions Korea first.
+  await expect(page.locator('.hero-generative canvas.led-canvas')).toHaveCount(1);
+  await expect(page.locator('.hero-slide')).toHaveCount(0);
   await expect(page.locator('.home-kr-regions .kr-tile')).toHaveCount(8);
   await expect(page.locator('.home-kr-regions .region-count')).toHaveCount(0);
-  expect(await page.locator('.home-featured .place-card, .home-programs .place-card').evaluateAll(xs=>xs.length>0&&xs.every(x=>x.dataset.country==='KR'))).toBe(true);
+  await expect(page.locator('#view img[data-place-photo]')).toHaveCount(0);
   await page.waitForLoadState('networkidle');
   expect(seen).toEqual(['home.json']);
  });
@@ -184,7 +199,7 @@ test.describe('Korean and world sections',()=>{
   }
   // To the archive search, filtered to the region.
   await page.locator('[data-explore-kr="seoul"]').click();
-  await expect(page).toHaveURL(/#explore$/);
+  await expect(page).toHaveURL(/#explore(\?.*)?$/);
   await expect(page.locator('#placeResults .result-meta')).toHaveAttribute('data-count',String(counts[0]));
  });
  test('국내 미디어아트·전시: Korean programmes by type and region; the count is the list',async({page})=>{
@@ -269,7 +284,7 @@ test('the map opens on Korea; the world is one switch away; pins, list and count
  const c=await page.evaluate(()=>currentMap.getCenter());
  expect(c.lat).toBeGreaterThan(33);expect(c.lat).toBeLessThan(39);expect(c.lng).toBeGreaterThan(124);expect(c.lng).toBeLessThan(132);
  await page.locator('[data-map-scope="world"]').click();
- await expect(page).toHaveURL(/#map\/world$/);
+ await expect(page).toHaveURL(/#map\/world(\?.*)?$/);
  const allMapped=await page.evaluate(()=>results().filter(AOLCatalog.mappable).length);
  expect(allMapped).toBeGreaterThan(krMapped);
  await expect(page.locator('#mapResults .result-meta')).toHaveAttribute('data-count',String(allMapped));
@@ -279,11 +294,15 @@ test('the map opens on Korea; the world is one switch away; pins, list and count
 });
 
 test.describe('place pages',()=>{
- test('a small photo leads at its own size on a dark mat, never stretched',async({page})=>{
+ // v0.22 art photo policy: a photo under 900 px is not a photo of the work for the lead (quality), so the project's
+ // only 500 px photo is listed under 추가 자료, at most at its own size; the lead is the designed placeholder.
+ test('a small photo never leads and is never stretched; a large one fills the frame',async({page})=>{
   await serveDataset(page);await serveImages(page);
   await page.setViewportSize({width:1440,height:900});
   await page.goto('/#place/AR-suwon-hwaseong-media-art');
-  const img=page.locator('.detail-hero .detail-art.matted img');
+  await expect(page.locator('.detail-hero.no-photo')).toHaveCount(1);
+  await page.locator('#detailPhotos .dp-extra summary').click();
+  const img=page.locator('#detailPhotos .dp-extra figure img').first();
   await expect(img).toBeVisible();
   for(const x of await widest(img))expect(x).toBeLessThanOrEqual(500);
   expect((await img.boundingBox()).width).toBeLessThanOrEqual(500);
@@ -624,6 +643,8 @@ test.describe('place page (SEOUL006 regression)',()=>{
  });
  test('reports: per photo and per page; without a server, a prefilled GitHub issue and e-mail; review first',async({page})=>{
   await page.goto('/#place/SEOUL006');
+  // v0.22: the caption opens with 더 보기, which shows its full text and the photo report button.
+  await page.locator('#detailPhotos .dp-cap[data-i="0"] [data-dp-cap]').click();
   await page.locator('#detailPhotos .dp-cap[data-i="0"] [data-report]').click();
   const dlg=page.locator('#modal');
   await expect(dlg).toContainText('사진 신고');

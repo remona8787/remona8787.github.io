@@ -725,7 +725,7 @@ export async function runPipeline(o) {
   const shards = [...new Set(records.map((r) => r.shard))].sort()
   const files = {
     manifest: buildManifest({ buildId, generatedAt, records, shards, sources: unchanged ? prev.manifest.sources : sourcesManifest }),
-    index: buildIndex(records),
+    index: buildIndex(records, { buildId }),
     home: buildHome(records, picks, { buildId, generatedAt, heroMax: P.output?.home_hero_max ?? 6, featuredMax: P.output?.home_featured ?? 12 }),
     stats: buildStats(records, { buildId, generatedAt }),
     shards: Object.fromEntries(shards.map((s) => [s, { schema: 1, shard: s, build_id: buildId, projects: records.filter((r) => r.shard === s) }])),

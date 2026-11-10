@@ -260,7 +260,9 @@ test('home.json v0.18: hero, Korean regions, featured and programmes, the world 
   assert.equal(v17.shape, 'v17')
   assert.ok(v17.featured.length && v17.regions.length && v17.types.length)
   assert.deepEqual([v17.krRegions, v17.krFeatured, v17.world], [[], [], null])
-  assert.ok(v17.hero.length >= 3 && v17.hero.every(x => x.image.tier === 1 && !x.image.v18))
+  // A v0.17 hero image has no kind and no evidence (rights, measured size, identity), so the art photo policy
+  // (site-public-cleared/art-photo-policy.js, v0.22) keeps it off the banner; the pipeline has written v0.18 since.
+  assert.equal(v17.hero.length, 0)
   // The plain-list form of world.
   assert.equal(R.fromHome({ ...d.home, world: d.home.world.highlights }).world.highlights.length, d.home.world.highlights.length)
 })

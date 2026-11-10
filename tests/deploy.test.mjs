@@ -50,7 +50,7 @@ test('SITE_URL goes into config.js PUBLIC_URL, config.example.js, robots.txt, si
   assert.match(robots, new RegExp(`^Sitemap: ${SITE}/sitemap\\.xml$`, 'm'))
   assert.match(robots, /^Disallow: \/admin\/$/m)
   const locs = [...(await readFile(path.join(out, 'sitemap.xml'), 'utf8')).matchAll(/<loc>([^<]*)<\/loc>/g)].map((m) => m[1])
-  assert.deepEqual(locs, ['/', '/about.html', '/privacy.html', '/terms.html', '/support.html', '/delete-account.html', '/partner.html'].map((p) => SITE + p))
+  assert.deepEqual(locs, ['/', '/about.html', '/privacy.html', '/terms.html', '/support.html', '/delete-account.html', '/partner.html', '/updates.html'].map((p) => SITE + p))
   for (const p of locs.slice(1)) assert.ok((await stat(path.join(out, new URL(p).pathname))).isFile(), p)
   const index = await readFile(path.join(out, 'index.html'), 'utf8')
   assert.match(index, new RegExp(`<link rel="canonical" href="${SITE}/">`))
@@ -82,7 +82,7 @@ test('every built page carries the _headers Content-Security-Policy (minus frame
   // /data/*.json of the static archive is same-origin: connect-src 'self' covers it.
   assert.ok(directives.find((d) => d.startsWith('connect-src '))?.split(/\s+/).includes("'self'"))
   const list = await pages(out)
-  assert.deepEqual(list, ['404.html', 'about.html', 'admin/index.html', 'delete-account.html', 'index.html', 'partner.html', 'privacy.html', 'support.html', 'terms.html'])
+  assert.deepEqual(list, ['404.html', 'about.html', 'admin/index.html', 'delete-account.html', 'index.html', 'partner.html', 'privacy.html', 'support.html', 'terms.html', 'updates.html'])
   for (const f of list) {
     const html = await readFile(path.join(out, f), 'utf8')
     const metas = [...html.matchAll(/<meta http-equiv="Content-Security-Policy" content="([^"]*)">/g)]
@@ -127,7 +127,7 @@ test('GitHub Pages: .nojekyll; 404.html works at any depth and sw.js at the site
 test('one version number: package.json, package-lock.json, VERSION.json, the shell label and the legal pages', async () => {
   const pkg = JSON.parse(await read('package.json')), lock = JSON.parse(await read('package-lock.json')), version = JSON.parse(await read('VERSION.json'))
   const v = pkg.version
-  assert.equal(v, '0.19.0')
+  assert.equal(v, '0.23.0')
   assert.deepEqual([lock.version, lock.packages[''].version, version.version], [v, v, v])
   assert.ok((await read('site-public-cleared/index.html')).includes(`<span class="version" data-i18n="shell.version">빛의 건축 v${v}</span>`))
   for (const page of ['privacy.html', 'terms.html', 'support.html', 'delete-account.html']) assert.match(await read('site-public-cleared/' + page), new RegExp(`버전 ${v.replace(/\./g, '\\.')}\\b`), page)

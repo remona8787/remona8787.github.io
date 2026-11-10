@@ -10,6 +10,8 @@
 // 'scene' = an exhibition or installation scene (tier 4); 'day' = daytime architectural context (tier 5); 'small' = a
 // media-active photo only 500 px wide (it may fill a card, never a hero or a featured slot); no kind = no image at all
 // (the UI draws the designed placeholder).
+import ART from '../../site-public-cleared/art-photo-policy.js'
+
 export const PROJECTS = [
   // Curated seed places keep their ids (SEOUL…) in the dataset and carry its coordinates.
   // id, name_ko, name_en, name_original (lang), iso, city, lat, lng, type, year, images, extra
@@ -90,14 +92,17 @@ function image(id, kind, i) {
     license: i % 3 === 0 ? 'CC BY-SA 4.0' : i % 3 === 1 ? 'CC BY 2.0' : 'CC0 1.0',
     license_url: i % 3 === 0 ? 'https://creativecommons.org/licenses/by-sa/4.0' : i % 3 === 1 ? 'https://creativecommons.org/licenses/by/2.0' : 'https://creativecommons.org/publicdomain/zero/1.0/',
     usage: 'hotlink', width: W, height: H, bytes: W * H / 4, format: 'jpeg',
-    quality: { sharpness: 0.81, blockiness: 0.04, score: 0.86 }, media_active: ACTIVE[kind],
+    // As the pipeline writes them: quality on a 0–100 scale, media_active with the reasons behind its score, and the
+    // image kind (a daytime photo is the building's context; the others show the work).
+    quality: { sharpness: 81, blockiness: 4, score: 86 }, media_active: { score: ACTIVE[kind], reasons: kind === 'day' ? [] : ['visual:' + ACTIVE[kind], 'dark_frame', 'saturated_light'] },
+    kind: kind === 'day' ? 'architecture_context' : 'project_media',
     tier: TIER[kind], role: ROLE[kind], home_ok: TIER[kind] <= 3, checked_at: at, approved: ['hero', 'night'].includes(kind) ? true : null,
   }
 }
 // The same image as the pipeline wrote it before v0.18 (no provider, display or verdict; tiers 1–4), for the
 // fallback specs.
 const V17_TIER = { 1: 1, 2: 2, 3: 3, 4: 3, 5: 4 }
-export function v17Image(m) { if (!m) return m; const { id, project, provider, display, rights_holder, usage, bytes, format, quality, media_active, checked_at, approved, thumb_w, ...rest } = m; return { ...rest, tier: V17_TIER[m.tier], role: m.role === 'context' ? 'context' : m.tier === 1 ? (m.role === 'hero' ? 'hero' : 'media_active') : m.tier === 2 ? 'media_art' : 'lighting' } }
+export function v17Image(m) { if (!m) return m; const { id, project, provider, display, rights_holder, usage, bytes, format, quality, media_active, checked_at, approved, thumb_w, kind, ...rest } = m; return { ...rest, tier: V17_TIER[m.tier], role: m.role === 'context' ? 'context' : m.tier === 1 ? (m.role === 'hero' ? 'hero' : 'media_active') : m.tier === 2 ? 'media_art' : 'lighting' } }
 // Shards as the pipeline makes them (pipeline/lib/output.mjs): FNV-1a of the id modulo a power-of-two shard count.
 const fnv1a = text => { let h = 0x811c9dc5; for (const b of new TextEncoder().encode(String(text))) { h ^= b; h = Math.imul(h, 0x01000193) >>> 0 } return h >>> 0 }
 const shardCount = (n, target) => { let c = 1; while (n / c > target) c *= 2; return c }
@@ -122,6 +127,9 @@ export function record([id, ko, en, orig, iso, city, lat, lng, type, year, kinds
 }
 // The card image: the best tier, and never a context photo while a media-active one exists (the pipeline's rule).
 const best = r => [...r.images].sort((a, b) => a.tier - b.tier)[0] || null
+// The index thumbnail of a v0.18 dataset, as the pipeline picks it (pipeline/lib/output.mjs artCardOf): a photo of the
+// work (site-public-cleared/art-photo-policy.js), else none.
+const artCard = r => ART.representativeOf(r)
 export const INDEX_FIELDS = ['id', 'name_ko', 'name_en', 'name_original', 'country_iso2', 'city', 'lat', 'lng', 'project_type', 'year', 'thumb', 'visual_rank', 'shard', 'added_at', 'kr_region', 'thumb_w', 'thumb_h', 'city_ko', 'district']
 // Korean city names and districts (시·군·구) of some Korean projects, for the drill-down of a region page (v0.18). The
 // others have none, as in the live data, and count under 위치 미상.
@@ -148,7 +156,9 @@ export function siteData(input, { buildId = BUILD_ID, generatedAt = at, compact 
   const count = (f, list = records) => list.reduce((o, r) => { const k = f(r); if (k) o[k] = (o[k] || 0) + 1; return o }, {})
   const shards = Array.from({ length: n }, (_, i) => String(i).padStart(3, '0')).filter(s => records.some(r => r.shard === s))
   const rank = b => !b ? null : shape === 'v17' ? b.tier : RANK[b.tier]
-  const index = { schema: 1, fields: shape === 'v17' ? INDEX_FIELDS.slice(0, 14) : INDEX_FIELDS, ...(compact ? { thumb_template: THUMB_TEMPLATE } : {}), rows: records.map(r => { const b = best(r); const row = [r.id, r.name_ko, r.name_en, r.name_original, r.country_iso2, r.city, r.lat, r.lng, r.project_type, r.year_installed, b ? (compact ? compactThumb(b.thumb) : b.thumb) : null, rank(b), r.shard, r.added_at.slice(0, 10)]; return shape === 'v17' ? row : [...row, r.kr_region ?? null, b ? 500 : null, b ? Math.round(500 * b.height / b.width) : null, r.city_ko ?? null, r.district ?? null] }) }
+  // v0.18 (since v0.23): thumbnails are photos of the work only, and the index says so (representative_policy).
+  const policy = shape === 'v17' ? {} : { build_id: buildId, representative_policy: 'artwork_only', thumb_kind_default: 'project_media' }
+  const index = { schema: 1, ...policy, fields: shape === 'v17' ? INDEX_FIELDS.slice(0, 14) : INDEX_FIELDS, ...(compact ? { thumb_template: THUMB_TEMPLATE } : {}), rows: records.map(r => { const b = shape === 'v17' ? best(r) : artCard(r); const row = [r.id, r.name_ko, r.name_en, r.name_original, r.country_iso2, r.city, r.lat, r.lng, r.project_type, r.year_installed, b ? (compact ? compactThumb(b.thumb) : b.thumb) : null, rank(b), r.shard, r.added_at.slice(0, 10)]; return shape === 'v17' ? row : [...row, r.kr_region ?? null, b ? 500 : null, b ? Math.round(500 * b.height / b.width) : null, r.city_ko ?? null, r.district ?? null] }) }
   const active = i => shape === 'v17' ? i.tier <= 3 : i.tier <= 4 && i.role !== 'context'
   const large = i => (i.width || 0) >= 1600
   const lit = records.filter(r => best(r) && active(best(r)))

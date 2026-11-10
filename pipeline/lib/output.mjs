@@ -3,6 +3,7 @@
 // Field names follow docs/ARCHIVE_SPEC.md §6 (client fields) plus images[], sources[] and visit; a fact without a
 // source is null. docs/PIPELINE.md documents every field.
 import T from '../../site-public-cleared/archive-taxonomy.js'
+import ART from '../../site-public-cleared/art-photo-policy.js'
 import { fnv1a, round, compareStrings, sha256, stableStringify } from './util.mjs'
 import { stableImageId, cleanMediaUrl, THUMB_STEPS, kindOfTier, rightsUse } from './images.mjs'
 
@@ -233,20 +234,33 @@ export const expandThumb = (thumb, template) => (thumb && template && !/^https:/
 
 /** The card image of a record: the card, else the featured or the hero image. */
 export const cardOf = (r) => r.images.find((i) => i.role === 'card') || r.images.find((i) => i.role === 'featured') || r.images.find((i) => i.role === 'hero') || null
+// The photo that represents a project on cards and in the index: a photo of the work itself with its rights, size,
+// identity and visual evidence (site-public-cleared/art-photo-policy.js, the rule the app applies too).
+export const artCardOf = (r) => ART.representativeOf(r)
+const withArt = (records) => records.filter((r) => artCardOf(r)).length
 
-/** index.json: compact rows (the card image's thumbnail, its size, and its tier: 1 media facade running … 5 architectural). */
-export function buildIndex(records, { compactAboveBytes = 512 * 1024 } = {}) {
-  const rows = records.map((r) => {
-    const card = cardOf(r)
+/**
+ * index.json: compact rows (the card image's thumbnail, its size, and its tier: 1 media facade running … 5 architectural).
+ * The thumbnail is always a photo of the work (artCardOf; representative_policy "artwork_only", thumb_kind_default and
+ * thumb_installation_rows give its kind); a project without one has none. location_precision names the projects whose
+ * position is not exact (city, approximate); build_id lets the app see that the index belongs to the build it started.
+ */
+export function buildIndex(records, { compactAboveBytes = 512 * 1024, buildId = null } = {}) {
+  const installation = [], precision = {}
+  const rows = records.map((r, n) => {
+    const card = artCardOf(r)
+    if (card?.kind === 'project_installation') installation.push(n)
+    if (r.location_precision && r.location_precision !== 'exact') precision[r.id] = r.location_precision
     const [tw, th] = thumbSize(card)
     return [r.id, r.name_ko, r.name_en, r.name_original && r.name_original !== r.name_en && r.name_original !== r.name_ko ? r.name_original : null,
       r.country_iso2, r.city, r.lat === null ? null : round(r.lat, 4), r.lng === null ? null : round(r.lng, 4), r.project_type, yearOf(r),
       card?.thumb ?? null, card?.tier ?? null, r.shard, r.added_at ? r.added_at.slice(0, 10) : null, r.kr_region ?? null, card ? tw : null, card ? th : null, r.city_ko ?? null, r.district ?? null]
   })
-  const full = { schema: DATA_SCHEMA, fields: INDEX_FIELDS, rows }
+  const meta = { ...(buildId ? { build_id: buildId } : {}), representative_policy: 'artwork_only', thumb_kind_default: 'project_media', ...(installation.length ? { thumb_installation_rows: installation } : {}), ...(Object.keys(precision).length ? { location_precision: precision } : {}) }
+  const full = { schema: DATA_SCHEMA, ...meta, fields: INDEX_FIELDS, rows }
   if (Buffer.byteLength(JSON.stringify(full)) <= compactAboveBytes) return full
   const t = INDEX_FIELDS.indexOf('thumb')
-  return { schema: DATA_SCHEMA, fields: INDEX_FIELDS, thumb_template: THUMB_TEMPLATE, rows: rows.map((row) => { const c = row.slice(); c[t] = compactThumb(c[t]); return c }) }
+  return { schema: DATA_SCHEMA, ...meta, fields: INDEX_FIELDS, thumb_template: THUMB_TEMPLATE, rows: rows.map((row) => { const c = row.slice(); c[t] = compactThumb(c[t]); return c }) }
 }
 
 const compact = (r, image) => ({
@@ -344,7 +358,7 @@ export function buildHome(records, picks, { buildId, generatedAt, heroMax = 6, f
   return {
     schema: DATA_SCHEMA, build_id: buildId, generated_at: generatedAt,
     counts: {
-      projects: records.length, countries: countries.size, with_images: records.filter((r) => r.images.length).length,
+      projects: records.length, countries: countries.size, with_images: records.filter((r) => r.images.length).length, with_art_representative: withArt(records),
       korea: korea.length, korea_with_images: korea.filter((r) => r.images.length).length, world: records.length - korea.length, world_countries: new Set(records.filter((r) => !kr(r)).map((r) => r.country_iso2)).size,
       by_kr_region: Object.fromEntries(T.keys('kr_region').map((k) => [k, records.filter((r) => r.kr_region === k).length])),
     },
@@ -367,6 +381,7 @@ export function buildStats(records, { buildId, generatedAt }) {
     counts: {
       projects: records.length,
       with_images: records.filter((r) => r.images.length).length,
+      with_art_representative: withArt(records),
       with_media_active_image: records.filter((r) => r.images.some((i) => i.tier === 1)).length,
       with_hero: records.filter((r) => r.images.some((i) => i.role === 'hero')).length,
       with_coordinates: records.filter((r) => r.lat !== null).length,
@@ -396,6 +411,7 @@ export function buildManifest({ buildId, generatedAt, records, shards, sources }
     counts: {
       projects: records.length,
       with_images: records.filter((r) => r.images.length).length,
+      with_art_representative: withArt(records),
       with_hero: records.filter((r) => r.images.some((i) => i.role === 'hero')).length,
       by_type: tally(records, (r) => r.project_type),
       by_region: tally(records, (r) => r.region),

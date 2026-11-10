@@ -34,24 +34,23 @@ async function mockApis(page,{fail=false}={}){
  return calls;
 }
 
-test('photos sync with attribution and appear on cards and detail pages',async({page})=>{
+test('photos sync with attribution and appear on the place page under 추가 자료, never as a card photo',async({page})=>{
  const calls=await mockApis(page);
- // v0.17: a Wikidata P18 photo is not evidence of media running, so it shows on explore cards and the place page,
- // never on the home page.
+ // v0.22 art photo policy (art-photo-policy.js): a Wikidata P18 photo carries no evidence that it shows the work
+ // (no kind, no measured size, no review), so it is never a card or home photo; the place page lists it with its full
+ // credit under 추가 자료.
  await page.goto('/#explore');
  await expect.poll(()=>page.evaluate(()=>window.AOL_LIVE?.status)).toBe('ok');
  const ddp=page.locator('.place-card',{hasText:'동대문디자인플라자'}).first();
  await expect(async()=>{await ddp.scrollIntoViewIfNeeded()}).toPass();
- await expect(ddp.locator('img[data-place-photo]')).toBeVisible();
- await expect(ddp.locator('.image-credit')).toContainText('Kim Photographer · CC BY-SA 4.0');
- await expect.poll(()=>ddp.locator('img[data-place-photo]').evaluate(e=>e.complete&&e.naturalWidth>0)).toBe(true);
+ await expect(ddp.locator('img[data-place-photo]')).toHaveCount(0);
  expect(calls.wdqs).toBe(1);
 
  await page.goto('/#place/SEOUL006');
  const fig=page.locator('#detailPhotos .dp-cap, #detailPhotos .dp-extra figure').filter({hasText:'Kim Photographer'});
  await expect(fig).toContainText('CC BY-SA 4.0');await expect(fig).toContainText('2019-05-04');
  await expect(fig.locator('a',{hasText:'이미지 원본'})).toHaveAttribute('href','https://commons.wikimedia.org/wiki/File:DDP_night.jpg');
- await expect(fig.locator('a',{hasText:'CC BY-SA 4.0'})).toHaveAttribute('href','https://creativecommons.org/licenses/by-sa/4.0');
+ await expect(fig.locator('a',{hasText:'사용조건'})).toHaveAttribute('href','https://creativecommons.org/licenses/by-sa/4.0');
  // The matched item's facts join the page's own sections; no sync wording.
  await expect(page.locator('#detailSources a[href="https://www.wikidata.org/wiki/Q482004"]')).toHaveCount(1);
  await expect(page.locator('#detailSources a[href="https://ddp.or.kr/"]')).toHaveCount(1);
@@ -82,7 +81,7 @@ test('host-building photos are labelled; non-free licenses are never shown',asyn
 
 test('results are cached for 6 hours; a failed refresh keeps the last good result',async({page})=>{
  const calls=await mockApis(page);
- await page.goto('/#place/SEOUL006');await expect(page.locator('#detailPhotos img[data-place-photo]').first()).toBeVisible();
+ await page.goto('/#place/SEOUL006');await expect(page.locator('#detailPhotos .dp-extra figure',{hasText:'Kim Photographer'})).toHaveCount(1);
  await page.reload();await page.waitForLoadState('networkidle');
  expect(calls.wdqs,'fresh cache: no new query').toBe(1);
  // Age the cache past 6 hours and make the source fail.
@@ -93,7 +92,7 @@ test('results are cached for 6 hours; a failed refresh keeps the last good resul
  await expect.poll(()=>failed).toBe(1);
  await expect.poll(()=>page.evaluate(()=>window.AOL_LIVE?.status)).toBe('stale');
  await page.goto('/#place/SEOUL006');
- await expect(page.locator('#detailPhotos .dp-cap, #detailPhotos .dp-extra figure').filter({hasText:'Kim Photographer'})).toBeVisible();
+ await expect(page.locator('#detailPhotos .dp-cap, #detailPhotos .dp-extra figure').filter({hasText:'Kim Photographer'})).toHaveCount(1);
 });
 
 // v0.17: no sync controls on settings; the engine's manual refresh and the takedown list still work.
