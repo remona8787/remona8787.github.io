@@ -1166,10 +1166,28 @@
      "checked_at": "2026-11-11",
      "method": "web_search",
      "title": "2023 세종 빛 축제 개최 안내"
+    },
+    {
+     "url": "https://www.sejong.go.kr/bbs/R0071/view.do?nttId=B000000120917Xj4tK3t",
+     "kind": "official",
+     "publisher": "세종특별자치시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "「2024 세종시 빛 축제」 안내('24.12.13.~'25.1.15.)"
     }
    ],
    "recurrence": "annual",
-   "summary_ko": "세종시에서 열린 빛 축제로, 2023년 행사에는 미디어파사드와 레이저쇼가 포함되었다."
+   "summary_ko": "세종시에서 열린 빛 축제로, 2023년 행사에는 미디어파사드와 레이저쇼가 포함되었다.",
+   "editions": [
+    {
+     "id": "2024",
+     "start": "2024-12-13",
+     "end": "2025-01-15",
+     "source": "https://www.sejong.go.kr/bbs/R0071/view.do?nttId=B000000120917Xj4tK3t",
+     "checked_at": "2026-11-11",
+     "title": "2024 세종시 빛 축제"
+    }
+   ]
   },
   {
    "id": "REG-KR-0031",
@@ -6454,6 +6472,621 @@
    ],
    "recurrence": "annual",
    "summary_ko": "양천구의 겨울 빛 축제로, 오목공원에 수목을 형상화한 빛 조형물과 2층 공중보행로까지 이어지는 방사형 스트링조명을 설치한다."
+  },
+  {
+   "id": "REG-KR-0209",
+   "kind": "work",
+   "project_type": "media_facade",
+   "name_ko": "성남물빛정원 미디어파사드·미디어터널",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gyeonggi",
+   "city": "Seongnam",
+   "city_ko": "성남시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://snvision.seongnam.go.kr/sub_read.html?uid=23317",
+     "kind": "official",
+     "publisher": "성남시 시정소식지 비전성남",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "성남시, 구미동 물빛정원 5일 미디어 아트 첫선"
+    },
+    {
+     "url": "https://snvision.seongnam.go.kr/sub_read.html?uid=23324",
+     "kind": "official",
+     "publisher": "성남시 시정소식지 비전성남",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "신상진 성남시장, 성남물빛정원 미디어 아트 개막식 참석"
+    }
+   ],
+   "summary_ko": "성남시가 옛 하수처리장을 바꾼 성남물빛정원에서 뮤직홀 외벽에 영상을 투사하는 미디어파사드와 침전지 건물 안 45m 미디어터널을 2026년 9월 5일 공개했다. 탄천의 수달·너구리·개구리 등이 등장하는 8분 30초 분량의 「고요한 탄천의 밤, 동물들의 음악회」를 상영한다."
+  },
+  {
+   "id": "REG-KR-0210",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "행주가 예술이야",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gyeonggi",
+   "city": "Goyang",
+   "city_ko": "고양시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=e4a61414-cd41-4bbb-bc85-3d4cb4cd2a15",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "행주가 예술이야"
+    },
+    {
+     "url": "https://www.goyang.go.kr/visitgoyang/www/contents.do?key=595&searchCtgry=1674023925303",
+     "kind": "official",
+     "publisher": "고양특례시 문화관광",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "대표축제 - 고양특례시문화관광"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_ko": "고양 행주산성의 야간 문화관광 축제로, 충장사·충의정 미디어아트와 북소리에 반응하는 미디어아트쇼를 운영했다."
+  },
+  {
+   "id": "REG-KR-0211",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "세종시 빛트리 축제",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "sejong",
+   "city": "Sejong",
+   "city_ko": "세종특별자치시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.sejong.go.kr/bbs/R0071/view.do?nttId=B000000142258Pz0wW4m",
+     "kind": "official",
+     "publisher": "세종특별자치시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "시민 주도 '2025 세종시 빛트리 축제(11.22~12.31)"
+    }
+   ],
+   "summary_ko": "세종시 빛트리축제 시민추진단과 세종시교회총연합회가 주관하고 세종시가 후원한 겨울 빛 축제로, 이응다리 남측광장과 수변공원 일대에 빛의 트리숲을 운영했다.",
+   "editions": [
+    {
+     "id": "2025",
+     "start": "2025-11-22",
+     "end": "2025-12-31",
+     "source": "https://www.sejong.go.kr/bbs/R0071/view.do?nttId=B000000142258Pz0wW4m",
+     "checked_at": "2026-11-11",
+     "title": "2025 세종시 빛트리 축제",
+     "venue": "이응다리 남측광장 및 수변공원 일원"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0212",
+   "kind": "festival",
+   "project_type": "projection_mapping",
+   "name_ko": "대전 0시 축제 미디어파사드 쇼",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "daejeon",
+   "city": "Daejeon",
+   "city_ko": "대전광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.daejeon.go.kr/its/ItsdjNormalboardView.do?menuSeq=5930&boardSeq=2612&boardGubun=itsdj01&pageIndex=2",
+     "kind": "official",
+     "publisher": "대전광역시 월간 대전이즈유",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "[대전 0시 축제]대전 DNA 담은 콘텐츠 총출동"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "대전 원도심의 여름 축제인 대전 0시 축제에서 미래존 등에 선보인 미디어파사드 쇼와 몰입형 미디어아트다."
+  },
+  {
+   "id": "REG-KR-0213",
+   "kind": "work",
+   "project_type": "media_wall",
+   "name_ko": "사운드 월 (ACC 미디어아트 랩 미디어파사드)",
+   "name_en": "SOUND WALL",
+   "country_iso2": "KR",
+   "kr_division": "gwangju",
+   "city": "Gwangju",
+   "city_ko": "광주광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.acc.go.kr/main/exhibition.do?PID=0204&action=Read&bnkey=EM_0000005800",
+     "kind": "official",
+     "publisher": "국립아시아문화전당",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "ACC 미디어아트 랩 미디어파사드 <사운드 월: SOUND WALL>"
+    },
+    {
+     "url": "https://www.acc.go.kr/webzine/index.do?article=781&lang=ko",
+     "kind": "official",
+     "publisher": "국립아시아문화전당 웹진",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "문자와 소리를 통한 디지털 공감의 창(窓), ‘사운드 월’"
+    }
+   ],
+   "admission": "free",
+   "summary_ko": "태싯그룹이 한글을 소재로 만든 관객참여형 오디오비주얼 작품으로, 관객이 보낸 글자가 국립아시아문화전당의 가로 75m 미디어월에서 점·선·면으로 해체되고 다시 조합되며 소리를 만든다. 하늘마당 미디어큐브의 「사운드 슬로프」와 함께 전시됐다.",
+   "editions": [
+    {
+     "id": "2022",
+     "start": "2022-11-03",
+     "end": "2023-02-04",
+     "source": "https://www.acc.go.kr/main/exhibition.do?PID=0204&action=Read&bnkey=EM_0000005800",
+     "checked_at": "2026-11-11",
+     "title": "ACC 미디어아트 랩 미디어파사드 <사운드 월: SOUND WALL>",
+     "admission": "free"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0214",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "광주 국가유산야행",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gwangju",
+   "city": "Gwangju",
+   "city_ko": "광주광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=a8478f7f-2acc-48ef-a879-cfdd7f7b5852",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "광주 국가유산야행"
+    },
+    {
+     "url": "https://donggu.kr/tour/M0000120/tour/view.do",
+     "kind": "official",
+     "publisher": "광주 동구 문화관광",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "광주 국가유산 야행"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "광주 동구 5·18민주광장 일대에서 열리는 국가유산 야행으로, 야경 프로그램에 빛터널 「함께 걷는 읍성길」과 미디어파사드 「빛의 집」이 들어 있다.",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-04-24",
+     "end": "2026-04-25",
+     "source": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=a8478f7f-2acc-48ef-a879-cfdd7f7b5852",
+     "checked_at": "2026-11-11",
+     "title": "2026 광주 국가유산야행"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0215",
+   "kind": "work",
+   "project_type": "light_art",
+   "name_ko": "밤빛 품은 수원천 (수원 국가유산 야행)",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gyeonggi",
+   "city": "Suwon",
+   "city_ko": "수원시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.swcf.or.kr/?p=207",
+     "kind": "official",
+     "publisher": "수원문화재단",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "2026 수원 국가유산 야행"
+    },
+    {
+     "url": "https://www.swcf.or.kr/?p=247",
+     "kind": "official",
+     "publisher": "수원문화재단",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "수원 국가유산 야행 > 연장프로그램"
+    }
+   ],
+   "summary_ko": "수원 국가유산 야행의 야경 프로그램으로, 용연~화홍문~수원천 일원에 미디어아트와 조명을 전시한다. 2026년에는 야행(8월 14~16일) 뒤에도 8월 30일까지 연장 운영했다.",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-08-14",
+     "end": "2026-08-30",
+     "source": "https://www.swcf.or.kr/?p=247",
+     "checked_at": "2026-11-11",
+     "title": "밤빛 품은 수원천",
+     "venue": "용연~화홍문~수원천 일원"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0216",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "피란수도부산 국가유산야행",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "busan",
+   "city": "Busan",
+   "city_ko": "부산광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?cmsCntntsId=2486085&Flag=Y",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "피란수도부산 국가유산야행"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "부산의 피란수도 유산을 무대로 한 국가유산 야행으로, 영도대교 미디어파사드를 프로그램에 포함한다."
+  },
+  {
+   "id": "REG-KR-0217",
+   "kind": "facility",
+   "project_type": "interactive_installation",
+   "name_ko": "K-문화 스테이션 (서울광장 지하)",
+   "name_en": "K-Culture Station",
+   "country_iso2": "KR",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.seoul.go.kr/news/news_report.do?nttNo=458481",
+     "kind": "official",
+     "publisher": "서울특별시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "40년만에 열린 서울광장 지하공간… K콘텐츠 체험 플랫폼"
+    },
+    {
+     "url": "https://mediahub.seoul.go.kr/archives/2019193",
+     "kind": "official",
+     "publisher": "내 손안에 서울",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "\"이번 역은 'K-문화 스테이션'입니다\" 서울광장 지하 이색 문화공간 탄생"
+    }
+   ],
+   "admission": "paid",
+   "summary_ko": "시청역과 을지로입구역 사이 서울광장 지하 335m 공간을 바꾼 서울시 펀스테이션으로, 미디어아트·프로젝션 맵핑·홀로그램·VR 체험존으로 꾸민 몰입형 미디어 전시를 바꿔 가며 연다. 첫 전시는 빅뱅 데뷔 20주년 몰입형 미디어 전시 「COSMOS」였다."
+  },
+  {
+   "id": "REG-KR-0218",
+   "kind": "work",
+   "project_type": "media_facade",
+   "name_ko": "국립현대미술관 청주 「미디어 캔버스」",
+   "name_en": "MMCA Cheongju Media Canvas",
+   "country_iso2": "KR",
+   "kr_division": "chungbuk",
+   "city": "Cheongju",
+   "city_ko": "청주시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.mmca.go.kr/pr/pressDetail.do?bdCId=202302230008700",
+     "kind": "official",
+     "publisher": "국립현대미술관",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "국립현대미술관 청주, 건물 외벽 초대형 ‹미디어 캔버스› 공개"
+    }
+   ],
+   "admission": "free",
+   "summary_ko": "국립현대미술관 청주 건물 외벽에 설치한 곡면형 디지털 사이니지로, 거리를 지나는 시민이 미술을 접하도록 소장품과 미디어 작가의 작품을 송출한다. 첫 송출에는 소장품 2점과 박제성의 신작 2점이 올라갔다."
+  },
+  {
+   "id": "REG-KR-0219",
+   "kind": "facility",
+   "project_type": "interactive_installation",
+   "name_ko": "국립해양박물관 미디어 전시실",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "busan",
+   "city": "Busan",
+   "city_ko": "부산광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://webzine.nfm.go.kr/2024/05/30/%EB%94%94%EC%9E%90%EC%9D%B4%EB%84%88%EB%8A%94-%EC%96%B4%EB%96%A4-%EC%A0%84%EC%8B%9C%EB%A5%BC-%EC%A2%8B%EC%95%84%ED%95%98%EB%83%90%EA%B3%A0%EC%9A%94%E3%80%8A%EA%B5%AD%EB%A6%BD%EC%84%B8%EA%B3%84/",
+     "kind": "public_agency",
+     "publisher": "국립민속박물관 웹진",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "디자이너는 어떤 전시를 좋아하냐고요? 《국립세계문자박물관 & 국립해양박물관 상설전시관》"
+    }
+   ],
+   "summary_ko": "국립해양박물관 상설전시관의 미디어 전시실로, 한국해양진흥공사와 협업해 만든 미디어아트를 360도 벽면과 바닥에 상시 상영한다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0220",
+   "kind": "work",
+   "project_type": "media_facade",
+   "name_ko": "낙강교 미디어파사드",
+   "kr_division": "gyeongbuk",
+   "city": "Sangju",
+   "city_ko": "상주시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=e200546a-c377-44d3-b1e0-cf9b4af5f408",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "낙강교"
+    }
+   ],
+   "summary_ko": "상주 경천섬 공원과 회상나루 관광지를 잇는 보도 현수교 낙강교에 설치한 야간 경관 조명과 미디어파사드로, 상주와 경천섬을 주제로 한 콘텐츠를 상영한다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0221",
+   "kind": "work",
+   "project_type": "media_facade",
+   "name_ko": "남한강출렁다리 미디어파사드",
+   "kr_division": "gyeonggi",
+   "city": "Yeoju",
+   "city_ko": "여주시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=07d9e70b-5bef-4628-8d1c-5b186c9d9e6e",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "남한강출렁다리"
+    }
+   ],
+   "summary_ko": "2025년 5월 개통한 여주 남한강출렁다리 상부의 미디어파사드 경관 조명과 바닥의 미디어글라스다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0222",
+   "kind": "work",
+   "project_type": "light_art",
+   "name_ko": "예당호 출렁다리·음악분수 야간 연출",
+   "kr_division": "chungnam",
+   "city": "Yesan",
+   "city_ko": "예산군",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=6165b70f-4e76-4b28-b3f7-a69904365f65",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "예산 예당호에서 만나는 형형색색 음악분수, 느릿느릿 느린호수길"
+    }
+   ],
+   "summary_ko": "예산 예당호 출렁다리에 그러데이션 LED 조명이 들어오고, 음악분수와 함께 워터스크린·빔 프로젝터·레이저로 야간 공연을 연출한다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0223",
+   "kind": "work",
+   "project_type": "light_art",
+   "name_ko": "남당항 해양분수공원 음악분수 레이저쇼",
+   "kr_division": "chungnam",
+   "city": "Hongseong",
+   "city_ko": "홍성군",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=3a5279a6-dcc2-4f81-b4ce-3595295c1891",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "남당항 해양분수공원"
+    }
+   ],
+   "summary_ko": "홍성 남당항 해양분수공원의 음악분수로, 밤에는 천수만 바다를 배경으로 레이저쇼 등 조명 연출을 곁들인다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0224",
+   "kind": "work",
+   "project_type": "media_facade",
+   "name_ko": "구로구청 미디어캔버스",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
+   "sources": [
+    {
+     "url": "https://www.guro.go.kr/www/selectBbsNttView.do?bbsNo=662&nttNo=143816&pageUnit=10&key=1790&pageIndex=1",
+     "kind": "official",
+     "publisher": "구로구",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": null
+    }
+   ],
+   "summary_ko": "구로구청 본관 외벽 전면에 설치한 가로 9.96m·세로 13m 미디어캔버스로, 매일 일몰에 점등하고 오후 11시에 소등한다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0225",
+   "kind": "facility",
+   "project_type": "interactive_installation",
+   "name_ko": "뮤지엄 다",
+   "kr_division": "busan",
+   "city": "Busan",
+   "city_ko": "부산광역시",
+   "sources": [
+    {
+     "url": "https://www.busan.go.kr/news/totalnews01/view?dataNo=63242",
+     "kind": "official",
+     "publisher": "부산광역시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "우리나라 최초 미디어아트 미술관 문 열었다"
+    }
+   ],
+   "summary_ko": "부산시 소식이 국내 최초 미디어아트 미술관으로 소개한 전시관으로, 개관전은 「완전한 세상」이었다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0226",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "안산별빛마을 애니멀&하트빌리지 빛축제",
+   "kr_division": "gyeonggi",
+   "city": "Ansan",
+   "city_ko": "안산시",
+   "sources": [
+    {
+     "url": "https://gnews.gg.go.kr/news/news_detail.do?number=202411201027097383C124&s_code=C401&newsType=N",
+     "kind": "public_agency",
+     "publisher": "경기도뉴스포털",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "[카드뉴스] 반짝반짝 경기도! 경기도 인기 야간명소 소개"
+    }
+   ],
+   "summary_ko": "안산별빛마을의 빛 축제로, 사계절 빛의 정원과 실물 크기에 가까운 동물 조형물을 조명으로 꾸민다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0227",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "서울랜드 불빛축제 루나파크",
+   "kr_division": "gyeonggi",
+   "city": "Gwacheon",
+   "city_ko": "과천시",
+   "sources": [
+    {
+     "url": "https://gnews.gg.go.kr/news/news_detail.do?number=202411201027097383C124&s_code=C401&newsType=N",
+     "kind": "public_agency",
+     "publisher": "경기도뉴스포털",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "[카드뉴스] 반짝반짝 경기도! 경기도 인기 야간명소 소개"
+    },
+    {
+     "url": "https://gnews.gg.go.kr/news/news_detail.do?number=202312161130276713C076&s_code=C076",
+     "kind": "public_agency",
+     "publisher": "경기도뉴스포털",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "도심 속 빛으로 꾸며지는 마법의 세계, 서울랜드 빛축제 ‘루나파크’"
+    }
+   ],
+   "admission": "paid",
+   "summary_ko": "과천 서울랜드의 야간 불빛 축제로, 밤마다 놀이공원 전체를 조명과 공연 무대로 바꾼다."
+  },
+  {
+   "id": "REG-KR-0228",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "인천개항장 국가유산야행",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "incheon",
+   "city": "Incheon",
+   "city_ko": "인천광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=387cfe24-b54f-464d-a06d-c1599d7eba59",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "인천개항장 국가유산야행"
+    },
+    {
+     "url": "https://www.incheon.go.kr/goodmorning/GOOD010201/view?nttNo=2042158&srchPblicteIssnoCode=202410&srchCategoryCode=CLTUR",
+     "kind": "official",
+     "publisher": "인천광역시 굿모닝인천",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "축제는 행복이다"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "인천 개항장 문화지구 일원에서 열리는 국가유산 야행으로, 2024년 행사에는 곳곳에 미디어아트쇼와 야간 경관조명이 마련됐다.",
+   "editions": [
+    {
+     "id": "2024",
+     "start": "2024-10-19",
+     "end": "2024-10-20",
+     "source": "https://www.incheon.go.kr/goodmorning/GOOD010201/view?nttNo=2042158&srchPblicteIssnoCode=202410&srchCategoryCode=CLTUR",
+     "checked_at": "2026-11-11",
+     "title": "인천 개항장 문화유산 야행"
+    },
+    {
+     "id": "2026",
+     "start": "2026-10-09",
+     "end": "2026-10-11",
+     "source": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=387cfe24-b54f-464d-a06d-c1599d7eba59",
+     "checked_at": "2026-11-11",
+     "title": "인천개항장 국가유산야행"
+    }
+   ]
   }
  ]
 }
