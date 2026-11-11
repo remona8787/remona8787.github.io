@@ -454,10 +454,13 @@ export const label = (labels, langs) => { for (const l of langs) if (labels?.[l]
  * an English label matching cityPattern; else the first administrative area. Returns {qid, rule} or null.
  */
 export function findCity(entity, auxMap, cityPattern) {
-  // P195 (collection) last: a work held by a museum without its own location is found at the museum's city.
-  const start = [...(entity.claims.P131 || []), ...(entity.claims.P276 || []), ...(entity.claims.P195 || [])].map((v) => v.item).filter(Boolean)
+  const start = [...(entity.claims.P131 || []), ...(entity.claims.P276 || [])].map((v) => v.item).filter(Boolean)
   const seen = new Set()
-  let level = start
+  // P195 (collection) last, and only through its own administrative area: a work held by a museum without a location
+  // of its own is found at the museum's city, but the collection is never itself the city (11-11: "Best of Light Art
+  // in Finland" was shown as the city of 32 works).
+  const viaCollection = (entity.claims.P195 || []).map((v) => v.item).filter(Boolean).flatMap((q) => auxMap.get(q)?.p131 || [])
+  let level = start.length ? start : viaCollection
   let first = null
   for (let depth = 0; depth < 4 && level.length; depth++) {
     const next = []

@@ -68,3 +68,19 @@ test('routes: every route entry of config/classes.json is verified, keyed apart 
   }
   for (const p of ['P186', 'P136', 'P135', 'P195']) assert.ok(cfg.properties[p], p)
 })
+
+test('routes: a collection (P195) leads to its city through its own administrative area, never as the city itself', async () => {
+  const { findCity } = await import('../pipeline/lib/wikidata.mjs')
+  const city = /\bcity\b/i
+  const aux = new Map([
+    ['Q900', { en: 'Some Museum', p31: ['Q33506'], p131: ['Q901'] }],
+    ['Q901', { en: 'Turku', p31: ['Q515'], p131: [] }],
+    ['Q515', { en: 'city', p31: [], p131: [] }],
+    ['Q33506', { en: 'museum', p31: [], p131: [] }],
+    ['Q910', { en: 'Best of Light Art in Finland', p31: ['Q2668072'], p131: [] }],
+    ['Q2668072', { en: 'collection', p31: [], p131: [] }],
+  ])
+  assert.deepEqual(findCity({ claims: { P195: [{ item: 'Q900' }] } }, aux, city), { qid: 'Q901', rule: 'p131_city_class', depth: 0 })
+  assert.equal(findCity({ claims: { P195: [{ item: 'Q910' }] } }, aux, city), null, 'a collection without a place gives no city')
+  assert.deepEqual(findCity({ claims: { P131: [{ item: 'Q901' }], P195: [{ item: 'Q910' }] } }, aux, city), { qid: 'Q901', rule: 'p131_city_class', depth: 0 }, 'an own P131 wins')
+})
