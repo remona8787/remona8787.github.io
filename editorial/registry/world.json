@@ -1,0 +1,684 @@
+{
+ "schema": 1,
+ "about": "Abroad: festival series with editions from the organisers' or public agencies' own pages, checked by web search on checked_at. attach_to adds editions to a project the archive already has (its id stays). Dates are those the source states; a date not yet announced stays empty (unconfirmed).",
+ "records": [
+  {
+   "id": "REG-FR-0901",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Fête des Lumières",
+   "name_original": "Fête des Lumières",
+   "country_iso2": "FR",
+   "city": "Lyon",
+   "timezone": "Europe/Paris",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.fetedeslumieres.lyon.fr/en/page/dates-and-opening-hours",
+     "kind": "official",
+     "publisher": "Ville de Lyon",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Dates and opening hours - Fête des Lumières 2026"
+    }
+   ],
+   "attach_to": "Q4167",
+   "admission": "free",
+   "recurrence": "annual",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-12-05",
+     "end": "2026-12-08",
+     "source": "https://www.fetedeslumieres.lyon.fr/en/page/dates-and-opening-hours",
+     "checked_at": "2026-11-11",
+     "hours": "5, 7, 8 Dec 19:00–23:00; 6 Dec 18:00–22:00",
+     "admission": "free"
+    }
+   ]
+  },
+  {
+   "id": "REG-NL-0901",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Amsterdam Light Festival",
+   "name_original": "Amsterdam Light Festival",
+   "country_iso2": "NL",
+   "city": "Amsterdam",
+   "timezone": "Europe/Amsterdam",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://amsterdamlightfestival.com/en/dates-hours",
+     "kind": "official",
+     "publisher": "Amsterdam Light Festival",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Dates & Hours"
+    }
+   ],
+   "attach_to": "Q26156861",
+   "recurrence": "annual",
+   "editions": [
+    {
+     "id": "15",
+     "start": "2026-11-26",
+     "end": "2027-01-17",
+     "source": "https://amsterdamlightfestival.com/en/dates-hours",
+     "checked_at": "2026-11-11",
+     "title": "Edition 15",
+     "hours": "16:30–23:00 (31 Dec until 21:00)"
+    },
+    {
+     "id": "16",
+     "start": "2027-11-25",
+     "end": "2028-01-16",
+     "source": "https://amsterdamlightfestival.com/en/dates-hours",
+     "checked_at": "2026-11-11",
+     "title": "Edition 16"
+    }
+   ]
+  },
+  {
+   "id": "REG-AU-0901",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Vivid Sydney",
+   "name_original": "Vivid Sydney",
+   "country_iso2": "AU",
+   "city": "Sydney",
+   "timezone": "Australia/Sydney",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.nsw.gov.au/visiting-and-exploring-nsw/nsw-events/vivid-sydney-2027",
+     "kind": "public_agency",
+     "publisher": "NSW Government",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Vivid Sydney 2027"
+    },
+    {
+     "url": "https://www.vividsydney.com/",
+     "kind": "official",
+     "publisher": "Destination NSW",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    }
+   ],
+   "attach_to": "Q7937834",
+   "recurrence": "annual",
+   "editions": [
+    {
+     "id": "2027",
+     "start": "2027-05-28",
+     "end": "2027-06-19",
+     "source": "https://www.nsw.gov.au/visiting-and-exploring-nsw/nsw-events/vivid-sydney-2027",
+     "checked_at": "2026-11-11",
+     "hours": "18:00–23:00"
+    }
+   ]
+  },
+  {
+   "id": "REG-JP-0901",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Kobe Luminarie",
+   "name_original": "神戸ルミナリエ",
+   "country_iso2": "JP",
+   "city": "Kobe",
+   "timezone": "Asia/Tokyo",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://kobe-luminarie.jp/",
+     "kind": "official",
+     "publisher": "神戸ルミナリエ組織委員会",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "【公式サイト】第32回神戸ルミナリエ"
+    }
+   ],
+   "attach_to": "Q1636567",
+   "recurrence": "annual",
+   "admission": "mixed",
+   "editions": [
+    {
+     "id": "32",
+     "start": "2027-01-29",
+     "end": "2027-02-07",
+     "source": "https://kobe-luminarie.jp/",
+     "checked_at": "2026-11-11",
+     "title": "第32回神戸ルミナリエ",
+     "hours": "薄暮–21:30",
+     "venue": "東遊園地・旧外国人居留地・メリケンパーク",
+     "admission": "mixed"
+    }
+   ]
+  },
+  {
+   "id": "REG-CH-0901",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Lilu Light Festival Lucerne",
+   "name_original": "Lilu Lichtfestival Luzern",
+   "country_iso2": "CH",
+   "city": "Lucerne",
+   "timezone": "Europe/Zurich",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://lichtfestivalluzern.ch/en/",
+     "kind": "official",
+     "publisher": "Lilu Lichtfestival Luzern",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    },
+    {
+     "url": "https://www.luzern.com/en/poi/lilu-light-festival-lucerne",
+     "kind": "public_agency",
+     "publisher": "Luzern Tourismus",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    }
+   ],
+   "attach_to": "Q124300145",
+   "recurrence": "annual",
+   "editions": [
+    {
+     "id": "2027",
+     "start": "2027-01-14",
+     "end": "2027-01-24",
+     "source": "https://lichtfestivalluzern.ch/en/",
+     "checked_at": "2026-11-11",
+     "title": "8th Lilu Light Festival Lucerne",
+     "hours": "18:00–22:00"
+    }
+   ]
+  },
+  {
+   "id": "REG-BE-0901",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Bright Brussels",
+   "name_original": "Bright Brussels",
+   "country_iso2": "BE",
+   "city": "Brussels",
+   "timezone": "Europe/Brussels",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.visit.brussels/content/dam/visitbrussels/pdf-brochures/presse/cp/bright2026/2025-11-25-pr-bright-save-the-date.pdf",
+     "kind": "public_agency",
+     "publisher": "visit.brussels",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    },
+    {
+     "url": "https://www.visit.brussels/en/visitors/agenda/bright-festival?Eat+Brussels=Programme",
+     "kind": "public_agency",
+     "publisher": "visit.brussels",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Bright Brussels Festival"
+    }
+   ],
+   "attach_to": "Q63319303",
+   "recurrence": "annual",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-02-12",
+     "end": "2026-02-15",
+     "source": "https://www.visit.brussels/content/dam/visitbrussels/pdf-brochures/presse/cp/bright2026/2025-11-25-pr-bright-save-the-date.pdf",
+     "checked_at": "2026-11-11"
+    },
+    {
+     "id": "2027",
+     "start": "2027-02-11",
+     "end": "2027-02-14",
+     "source": "https://www.visit.brussels/en/visitors/agenda/bright-festival?Eat+Brussels=Programme",
+     "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "id": "REG-BE-0902",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Light Festival Ghent",
+   "name_original": "Lichtfestival Gent",
+   "country_iso2": "BE",
+   "city": "Ghent",
+   "timezone": "Europe/Brussels",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://lichtfestival.stad.gent/en",
+     "kind": "official",
+     "publisher": "Stad Gent",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Lichtfestival Gent"
+    }
+   ],
+   "attach_to": "Q47902176",
+   "recurrence": "triennial",
+   "editions": [
+    {
+     "id": "2024",
+     "start": "2024-01-31",
+     "end": "2024-02-04",
+     "source": "https://lichtfestival.stad.gent/en",
+     "checked_at": "2026-11-11"
+    },
+    {
+     "id": "2027",
+     "start": null,
+     "end": null,
+     "source": "https://lichtfestival.stad.gent/en",
+     "checked_at": "2026-11-11",
+     "note": "The city confirms a 2027 edition; no date is set."
+    }
+   ]
+  },
+  {
+   "id": "REG-DK-0901",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Copenhagen Light Festival",
+   "name_original": "Copenhagen Light Festival",
+   "country_iso2": "DK",
+   "city": "Copenhagen",
+   "timezone": "Europe/Copenhagen",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://copenhagenlightfestival.org/nice-to-know/",
+     "kind": "official",
+     "publisher": "Copenhagen Light Festival",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    },
+    {
+     "url": "https://copenhagenlightfestival.org/guided-tours-and-light-run-2027/",
+     "kind": "official",
+     "publisher": "Copenhagen Light Festival",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Guided tours and Light run 2027"
+    }
+   ],
+   "attach_to": "Q124539982",
+   "recurrence": "annual",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-01-30",
+     "end": "2026-02-22",
+     "source": "https://copenhagenlightfestival.org/nice-to-know/",
+     "checked_at": "2026-11-11",
+     "hours": "17:00–22:00"
+    },
+    {
+     "id": "2027",
+     "start": null,
+     "end": null,
+     "source": "https://copenhagenlightfestival.org/guided-tours-and-light-run-2027/",
+     "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "id": "REG-DE-0901",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Festival of Lights",
+   "name_original": "Festival of Lights",
+   "country_iso2": "DE",
+   "city": "Berlin",
+   "timezone": "Europe/Berlin",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://festival-of-lights.de/en/faq/",
+     "kind": "official",
+     "publisher": "Festival of Lights Berlin",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "FAQ - Festival of Lights"
+    }
+   ],
+   "attach_to": "Q125715",
+   "recurrence": "annual",
+   "editions": [
+    {
+     "id": "22",
+     "start": "2026-10-09",
+     "end": "2026-10-18",
+     "source": "https://festival-of-lights.de/en/faq/",
+     "checked_at": "2026-11-11",
+     "title": "22nd Festival of Lights",
+     "hours": "19:00–23:00"
+    }
+   ]
+  },
+  {
+   "id": "REG-CZ-0901",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Signal Festival",
+   "name_original": "Signal Festival",
+   "country_iso2": "CZ",
+   "city": "Prague",
+   "timezone": "Europe/Prague",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.signalfestival.com/en/news/signal-festival-2026-programme-revealed/",
+     "kind": "official",
+     "publisher": "Signal Festival",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Signal Festival 2026 Programme Revealed"
+    }
+   ],
+   "attach_to": "Q15140473",
+   "recurrence": "annual",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-10-15",
+     "end": "2026-10-18",
+     "source": "https://www.signalfestival.com/en/news/signal-festival-2026-programme-revealed/",
+     "checked_at": "2026-11-11",
+     "hours": "19:00–24:00"
+    }
+   ]
+  },
+  {
+   "id": "REG-DE-0902",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Lichtfest Leipzig",
+   "name_original": "Lichtfest Leipzig",
+   "country_iso2": "DE",
+   "city": "Leipzig",
+   "timezone": "Europe/Berlin",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.leipzig.de/kultur-und-freizeit/veranstaltungen/eventsingle/event/lichtfest-leipzig-2026",
+     "kind": "official",
+     "publisher": "Stadt Leipzig",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Lichtfest Leipzig 2026"
+    }
+   ],
+   "attach_to": "Q1823431",
+   "recurrence": "annual",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-10-09",
+     "end": "2026-10-09",
+     "source": "https://www.leipzig.de/kultur-und-freizeit/veranstaltungen/eventsingle/event/lichtfest-leipzig-2026",
+     "checked_at": "2026-11-11",
+     "hours": "from 19:00",
+     "venue": "Innenstadt"
+    }
+   ]
+  },
+  {
+   "id": "REG-NL-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "GLOW Eindhoven",
+   "name_original": "GLOW",
+   "country_iso2": "NL",
+   "city": "Eindhoven",
+   "timezone": "Europe/Amsterdam",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://gloweindhoven.nl/en/practical/",
+     "kind": "official",
+     "publisher": "GLOW Eindhoven",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "GLOW - Practical"
+    },
+    {
+     "url": "https://www.thisiseindhoven.com/en/events/glow-2026",
+     "kind": "public_agency",
+     "publisher": "This is Eindhoven",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Light art festival GLOW 2026"
+    }
+   ],
+   "official_url": "https://gloweindhoven.nl/",
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_en": "A free light art festival in Eindhoven and nearby towns: about thirty light artworks along a route of some five kilometres.",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-11-07",
+     "end": "2026-11-14",
+     "source": "https://gloweindhoven.nl/en/practical/",
+     "checked_at": "2026-11-11",
+     "title": "GLOW 2026 · CONNECT",
+     "hours": "18:30–23:00",
+     "admission": "free"
+    }
+   ]
+  },
+  {
+   "id": "REG-GB-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Winter Lights at Canary Wharf",
+   "name_original": "Winter Lights at Canary Wharf",
+   "country_iso2": "GB",
+   "city": "London",
+   "timezone": "Europe/London",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://canarywharf.com/winter-lights/",
+     "kind": "official",
+     "publisher": "Canary Wharf Group",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Winter Lights at Canary Wharf 2026"
+    }
+   ],
+   "official_url": "https://canarywharf.com/winter-lights/",
+   "recurrence": "annual",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-01-20",
+     "end": "2026-01-31",
+     "source": "https://canarywharf.com/winter-lights/",
+     "checked_at": "2026-11-11",
+     "hours": "17:00–22:00"
+    },
+    {
+     "id": "2027",
+     "start": null,
+     "end": null,
+     "source": "https://canarywharf.com/winter-lights/",
+     "checked_at": "2026-11-11",
+     "title": "11th edition (dates not yet published)"
+    }
+   ]
+  },
+  {
+   "id": "REG-SG-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "i Light Singapore",
+   "name_original": "i Light Singapore",
+   "country_iso2": "SG",
+   "city": "Singapore",
+   "timezone": "Asia/Singapore",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.ura.gov.sg/Corporate/Media-Room/Media-Releases/pr26-34",
+     "kind": "public_agency",
+     "publisher": "Urban Redevelopment Authority",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "i Light Singapore 2026 unleashes the power of Movement at Marina Bay this June"
+    },
+    {
+     "url": "https://www.ilightsingapore.gov.sg/",
+     "kind": "public_agency",
+     "publisher": "URA",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    }
+   ],
+   "official_url": "https://www.ilightsingapore.gov.sg/",
+   "recurrence": "annual",
+   "summary_en": "Sustainable light art festival at Marina Bay organised by the Urban Redevelopment Authority.",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-06-05",
+     "end": "2026-06-28",
+     "source": "https://www.ura.gov.sg/Corporate/Media-Room/Media-Releases/pr26-34",
+     "checked_at": "2026-11-11",
+     "hours": "19:30–22:30"
+    }
+   ]
+  },
+  {
+   "id": "REG-GB-0002",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Lumiere Durham",
+   "name_original": "Lumiere Durham",
+   "country_iso2": "GB",
+   "city": "Durham",
+   "timezone": "Europe/London",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.lumiere-festival.com/",
+     "kind": "official",
+     "publisher": "Artichoke",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Lumiere Festival"
+    }
+   ],
+   "official_url": "https://www.lumiere-festival.com/",
+   "recurrence": "biennial",
+   "editions": [
+    {
+     "id": "2025",
+     "start": "2025-11-13",
+     "end": "2025-11-15",
+     "source": "https://www.lumiere-festival.com/lumiere-durham-2025-book-tickets/",
+     "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "id": "REG-TW-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Taiwan Lantern Festival",
+   "name_original": "台灣燈會",
+   "country_iso2": "TW",
+   "city": "Miaoli",
+   "timezone": "Asia/Taipei",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://eng.taiwan.net.tw/m1.aspx?sno=0044360",
+     "kind": "public_agency",
+     "publisher": "Tourism Administration, Republic of China (Taiwan)",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_en": "The national lantern festival of Taiwan, held in a different host city each year; 2027 in Miaoli (Zhunan and Toufen).",
+   "editions": [
+    {
+     "id": "2027",
+     "start": "2027-02-20",
+     "end": null,
+     "source": "https://eng.taiwan.net.tw/m1.aspx?sno=0044360",
+     "checked_at": "2026-11-11",
+     "venue": "Zhunan and Toufen Sports Parks, Miaoli",
+     "note": "Tentative; the release gives the start only."
+    }
+   ]
+  },
+  {
+   "id": "REG-SA-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Noor Riyadh",
+   "name_original": "Noor Riyadh",
+   "country_iso2": "SA",
+   "city": "Riyadh",
+   "timezone": "Asia/Riyadh",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://spa.gov.sa/en/N2388569",
+     "kind": "public_agency",
+     "publisher": "Saudi Press Agency",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Riyadh Art Announces Fifth Edition of Noor Riyadh"
+    },
+    {
+     "url": "https://riyadhart.sa/en/noor-riyadh/",
+     "kind": "official",
+     "publisher": "Riyadh Art",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    }
+   ],
+   "official_url": "https://riyadhart.sa/en/noor-riyadh/",
+   "recurrence": "annual",
+   "summary_en": "Light art festival of Riyadh Art with large-scale light installations across the city.",
+   "editions": [
+    {
+     "id": "2025",
+     "start": "2025-11-20",
+     "end": "2025-12-06",
+     "source": "https://spa.gov.sa/en/N2388569",
+     "checked_at": "2026-11-11",
+     "title": "Fifth edition"
+    }
+   ]
+  }
+ ]
+}
