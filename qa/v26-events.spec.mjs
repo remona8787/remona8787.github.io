@@ -44,17 +44,26 @@ test('calendar: festivals and exhibitions by period, region and admission, statu
  expect(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)).toBeLessThanOrEqual(0);
 });
 
-test('calendar: without events.json there is no events section and nothing breaks',async({page})=>{
- await serveDataset(page,FIXTURE);
+test('calendar: a dataset without events.json is never asked for it; no events section',async({page})=>{
+ const seen=await serveDataset(page,FIXTURE);
  await page.goto('/#calendar');
  await expect(page.locator('.large-title')).toBeVisible();
  await expect.poll(()=>page.evaluate(()=>window.AOL_DATASET?.status)).toBe('ok');
- await expect(page.locator('#events .event-row')).toHaveCount(0);
+ await expect(page.locator('#events')).toHaveCount(0);
+ expect(seen.filter(f=>f.startsWith('events.json'))).toHaveLength(0);
+});
+
+test('home: a home.json without status_file is never followed by a status request',async({page})=>{
+ const seen=await serveDataset(page,FIXTURE);
+ await page.goto('/#home');
+ await expect.poll(()=>page.evaluate(()=>window.AOL_DATASET?.status)).toBe('ok');
+ await page.waitForTimeout(300);
+ expect(seen.filter(f=>f.startsWith('status.json'))).toHaveLength(0);
 });
 
 test('home: data change and last collection check are two different times',async({page})=>{
  const status={schema:1,last_check_at:'2026-10-20T12:20:00Z',data_changed_at:'2026-10-20T06:17:00Z',build_id:FIXTURE['manifest.json'].build_id,last_check:{outcome:'unchanged'}};
- await serveDataset(page,{...FIXTURE,'status.json':status});
+ await serveDataset(page,{...FIXTURE,'home.json':{...FIXTURE['home.json'],status_file:'status.json'},'status.json':status});
  await page.goto('/#home');
  const f=page.locator('.dataset-freshness').first();
  await expect(f.locator('time').first()).toHaveAttribute('datetime','2026-10-20T06:17:00Z');

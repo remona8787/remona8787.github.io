@@ -70,8 +70,11 @@ function addCompact(list, mediaRows = []) {
 }
 
 let status = 'probing'
+let homeStatusFile = false
 async function loadHome() {
   const json = await get('home.json')
+  // A home.json that names status.json (v0.26) says the collector writes it; an older one is never asked for it.
+  homeStatusFile = json?.status_file === 'status.json'
   home = fromHome(json, { publicURL })
   buildId = home.build_id || buildId
   addCompact(home.places, home.media)
@@ -144,7 +147,9 @@ export async function ensureRecord(placeId) {
 // that show them; a missing file leaves them null and the screens say nothing about them.
 export function ensureEvents() {
   if (status !== 'ok') return Promise.resolve(false)
-  if (!eventsRun) eventsRun = get('events.json').then(j => { events = j && Array.isArray(j.series) ? j : null; publish(status); return !!events }, () => { events = null; publish(status); return false })
+  // Only when the manifest names events.json (a dataset before v0.26 has none, and is never asked for it).
+  if (!eventsRun) eventsRun = getManifest().then(m => m?.files?.events === 'events.json' ? get('events.json') : null)
+    .then(j => { events = j && Array.isArray(j.series) ? j : { series: [], none: true }; publish(status); return Array.isArray(j?.series) }, () => { events = null; publish(status); return false })
   return eventsRun
 }
 export function ensureRunStatus() {
@@ -165,9 +170,9 @@ function need() {
   let page = 'home', id = ''
   // A search address carries its filters after "?" (site-public-cleared/search-state.js): "#explore?q=…".
   try { [page = 'home', id = ''] = decodeURIComponent((location.hash.slice(1) || 'home').split('?')[0]).split('/') } catch {}
-  if (page === 'home') ensureRunStatus()
   if (page === 'calendar') ensureEvents()
-  if (page === 'home' && !home) loadHome().then(() => publish(status), () => {})
+  if (page === 'home' && home && homeStatusFile) ensureRunStatus()
+  if (page === 'home' && !home) loadHome().then(() => { publish(status); if (homeStatusFile) ensureRunStatus() }, () => {})
   else if (['explore', 'map', 'data', 'korea', 'programs', 'world'].includes(page)) ensureIndex()
   else if (page === 'place' && id) ensureRecord(id)
 }

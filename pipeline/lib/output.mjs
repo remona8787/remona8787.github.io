@@ -371,6 +371,8 @@ export function buildHome(records, picks, { buildId, generatedAt, heroMax = 6, f
     hero, kr_regions: krRegions, kr_featured: krFeatured, kr_programs: krPrograms,
     world: { highlights: worldHighlights, count: records.length - korea.length, countries: new Set(records.filter((r) => !kr(r)).map((r) => r.country_iso2)).size },
     featured, regions, types, themes: [], recent, projects,
+    // v0.26: the collector's status (when it last checked, when the data last changed), read by the home page.
+    status_file: 'status.json',
   }
 }
 
