@@ -4915,6 +4915,615 @@
      "checked_at": "2026-11-11"
     }
    ]
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "id": "REG-KR-0156",
+   "name_ko": "국립제주박물관 실감영상실",
+   "kr_division": "jeju",
+   "city": "Jeju",
+   "city_ko": "제주시",
+   "sources": [
+    {
+     "url": "https://jeju.museum.go.kr/html/kr/sub02/sub02_0204.html",
+     "kind": "official",
+     "publisher": "국립제주박물관",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "실감영상실"
+    }
+   ],
+   "summary_ko": "국립제주박물관 지하 1층의 실감영상실로, 장한철의 『표해록』을 바탕으로 한 미디어아트 「표해, 바다 너머의 꿈」 등을 상영한다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "id": "REG-KR-0157",
+   "name_ko": "국립나주박물관 실감콘텐츠 체험관",
+   "kr_division": "jeonnam",
+   "city": "Naju",
+   "city_ko": "나주시",
+   "sources": [
+    {
+     "url": "https://naju.museum.go.kr/kor/sub02_03.do",
+     "kind": "official",
+     "publisher": "국립나주박물관",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "전시안내"
+    }
+   ],
+   "summary_ko": "국립나주박물관의 실감콘텐츠 체험관이다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "id": "REG-KR-0158",
+   "name_ko": "국립대구박물관 디지털아트존",
+   "kr_division": "daegu",
+   "city": "Daegu",
+   "city_ko": "대구광역시",
+   "sources": [
+    {
+     "url": "https://daegu.museum.go.kr/resvdftappl/resvVRExprnapplInfo.do?rsv_gb=CDIDX00027&menu_nix=5wvR8W8n",
+     "kind": "official",
+     "publisher": "국립대구박물관",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "디지털아트존 안내"
+    }
+   ],
+   "admission": "free",
+   "summary_ko": "국립대구박물관의 실감콘텐츠 체험관으로, 매핑 영상과 VR 체험을 운영한다."
+  },
+  {
+   "id": "REG-KR-0159",
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "name_ko": "몽환",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gyeonggi",
+   "city": "Ansan",
+   "city_ko": "안산시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=a5e39609-95b3-4f6e-98a3-0ee089f91812",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "몽환"
+    }
+   ],
+   "summary_ko": "안산의 약 1,300평 규모 몰입형 미디어아트 전시관으로, 앉아서 감상할 수 있다."
+  },
+  {
+   "id": "REG-KR-0160",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "양재천 벚꽃 등(燈) 축제",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=412a5d7d-4e58-47ee-85e3-7bf121e7aa93",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "양재천 벚꽃 등(燈) 축제"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "서울 양재천 벚꽃길에 등(燈)을 밝히는 봄 축제다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0161",
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "name_ko": "광화원 (광화시대 실감형 콘텐츠)",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
+   "sources": [
+    {
+     "url": "https://mediahub.seoul.go.kr/archives/2003729",
+     "kind": "public_agency",
+     "publisher": "내 손안에 서울(서울시)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "경복궁역과 광화문역에서 실감나는 '광화시대' 체험해 보세요!"
+    },
+    {
+     "url": "https://opengov.seoul.go.kr/mediahub/25334134",
+     "kind": "public_agency",
+     "publisher": "서울시 정보소통광장",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "상상이 현실로! '광화시대'에서 만난 실감형 콘텐츠"
+    }
+   ],
+   "summary_ko": "경복궁역 지하 1층의 미디어아트 상설전시 공간으로, 한국의 자연 풍경을 빛의 정원으로 구현했다. 서울시 「광화시대」 실감형 콘텐츠의 하나다. 현재 운영 여부는 확인이 필요하다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0162",
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "name_ko": "청와대 사랑채 미디어아트실",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=cf7792ce-09cb-4507-b7bc-45e0e78acbbc",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "청와대 사랑채"
+    }
+   ],
+   "admission": "free",
+   "summary_ko": "청와대 사랑채 1층 상설전시관의 미디어아트실로, 한국관광의 대표 이미지를 다면 영상으로 보여 준다. 인터랙티브 터치월과 미디어 아카이브월도 있다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0163",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "범어사 연등",
+   "kr_division": "busan",
+   "city": "Busan",
+   "city_ko": "부산광역시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=cb31980d-de86-4421-92a1-2c8a456f1dae",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "석가탄신일에 가 볼 만한 부산 연등축제 사찰 3"
+    },
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/fes_detail.do?cotid=ec8da5b6-114b-42fb-8041-73c22ed5b2fa",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "범어사(부산)"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "부산 금정구 범어사에서 부처님오신날 무렵 천왕문과 불이문으로 이어지는 길목에 연등을 밝히는 행사다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kind": "work",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
+   "id": "REG-KR-0164",
+   "project_type": "media_facade",
+   "name_ko": "K-컬처 스크린 「더 키네틱」 (대한민국역사박물관 외벽)",
+   "sources": [
+    {
+     "url": "https://www.korea.kr/news/policyNewsView.do?newsId=148915236",
+     "kind": "public_agency",
+     "publisher": "대한민국 정책브리핑(문화체육관광부)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "K-컬처 스퀘어에서 즐기는 실감형 미디어 아트"
+    }
+   ],
+   "summary_ko": "광화문 K-컬처 스퀘어의 하나로, 대한민국역사박물관 외벽에서 상영하는 실감형 미디어아트 스크린이다. 문화체육관광부와 한국콘텐츠진흥원이 조성했다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kind": "work",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
+   "id": "REG-KR-0165",
+   "project_type": "light_art",
+   "name_ko": "감사의 정원 「감사의빛 23」",
+   "sources": [
+    {
+     "url": "https://mediahub.seoul.go.kr/archives/2018357",
+     "kind": "public_agency",
+     "publisher": "내 손안에 서울(서울시)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "숭고한 희생을 일상에서 기억하는 공간…'감사의 정원'을 둘러보다"
+    }
+   ],
+   "admission": "free",
+   "summary_ko": "광화문광장 감사의 정원의 지상 조형물로, 6·25전쟁 참전국을 기리며 저녁 8시부터 자정까지 레이저 빛기둥을 밝힌다. 지하에는 미디어 전시관 프리덤홀이 있다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kind": "festival",
+   "project_type": "festival_program",
+   "recurrence": "annual",
+   "id": "REG-KR-0166",
+   "name_ko": "대전오색빛축제",
+   "kr_division": "daejeon",
+   "city": "Daejeon",
+   "city_ko": "대전광역시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=d4c76f18-707f-4846-95bc-f24c09fc3235",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "오색빛축제와 문화 콘텐츠가 어우러진 겨울 여행지, 대전 원도심 여행"
+    }
+   ],
+   "summary_ko": "대전 원도심에서 열리는 겨울 빛 축제다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kind": "festival",
+   "project_type": "festival_program",
+   "recurrence": "annual",
+   "id": "REG-KR-0167",
+   "name_ko": "울산대공원 빛 축제",
+   "kr_division": "ulsan",
+   "city": "Ulsan",
+   "city_ko": "울산광역시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=0330ecfb-2680-4fb8-890b-be49c2b38ed8",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "울산대공원 빛 축제"
+    }
+   ],
+   "summary_ko": "울산 남구 울산대공원에서 열리는 빛 축제다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kind": "festival",
+   "project_type": "festival_program",
+   "recurrence": "annual",
+   "id": "REG-KR-0168",
+   "name_ko": "간절곶 빛축제",
+   "kr_division": "ulsan",
+   "city": "Ulsan",
+   "city_ko": "울산광역시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=ed762e4b-260e-4241-8b4d-09d19b7a4e81",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "부산 근교 울산 당일치기 여행 코스 :: 간절곶 해돋이, 대왕암공원, 간절곶 빛축제"
+    }
+   ],
+   "summary_ko": "울주군 서생면 간절곶 공원을 수만 개의 LED 조명과 미디어아트, 체험형 콘텐츠로 꾸미는 겨울 빛 축제다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0169",
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "name_ko": "태백 빛의 광산",
+   "kr_division": "gangwon",
+   "city": "Taebaek",
+   "city_ko": "태백시",
+   "sources": [
+    {
+     "url": "https://www.gangwon.to/gwtour/information/news?articleSeq=60918",
+     "kind": "public_agency",
+     "publisher": "강원관광 (강원특별자치도)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "[2026년 강원 방문의 해] 8월 추천 여행지"
+    }
+   ],
+   "summary_ko": "태백의 탄광 역사를 빛과 미디어아트로 보여 주는 탄광유산 디지털 아카이빙 전시 공간이다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0170",
+   "kind": "work",
+   "project_type": "other",
+   "name_ko": "무주 남대천 한풍루 미디어아트",
+   "kr_division": "jeonbuk",
+   "city": "Muju",
+   "city_ko": "무주군",
+   "sources": [
+    {
+     "url": "https://www.jeonbuk.go.kr/newsroom/board/view.jeonbuk?boardId=BBS_0000090&menuCd=DOM_000001101000000000&paging=ok&startPage=1&dataSid=623062",
+     "kind": "public_agency",
+     "publisher": "전북특별자치도",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "전북, 밤의 감성으로 물들다… '2025 야행명소 10선' 선정"
+    }
+   ],
+   "summary_ko": "무주 남대천 한풍루 일대의 야간 미디어아트로, 전북특별자치도의 2025 야행명소 10선에 꼽혔다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0171",
+   "kind": "program",
+   "project_type": "other",
+   "name_ko": "순창 강천산 미디어쇼",
+   "kr_division": "jeonbuk",
+   "city": "Sunchang",
+   "city_ko": "순창군",
+   "sources": [
+    {
+     "url": "https://www.jeonbuk.go.kr/newsroom/board/view.jeonbuk?boardId=BBS_0000090&menuCd=DOM_000001101000000000&paging=ok&startPage=1&dataSid=623062",
+     "kind": "public_agency",
+     "publisher": "전북특별자치도",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "전북, 밤의 감성으로 물들다… '2025 야행명소 10선' 선정"
+    }
+   ],
+   "summary_ko": "순창 강천산의 야간 미디어쇼로, 전북특별자치도의 2025 야행명소 10선에 꼽혔다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0172",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "경주 프로방스빛축제",
+   "kr_division": "gyeongbuk",
+   "city": "Gyeongju",
+   "city_ko": "경주시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=f176a181-c3e2-4b5d-b915-31d0902dd1dc",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "[가을여행주간] 대구의 밤은 화려하고, 경주의 밤은 고즈넉하다"
+    }
+   ],
+   "admission": "paid",
+   "summary_ko": "경주힐링테마파크의 야간 빛 축제로, 유럽 마을을 닮은 로맨틱 가든과 포토존을 조명으로 꾸민다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": "Big-O Show",
+   "id": "REG-KR-0173",
+   "kind": "program",
+   "project_type": "other",
+   "name_ko": "여수 빅오쇼",
+   "kr_division": "jeonnam",
+   "city": "Yeosu",
+   "city_ko": "여수시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=ec1515b2-8a5c-45c9-99dc-a8c23fea9f9b",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "[야간관광지] 밤이 더 아름다운 대한민국! 대한민국 밤밤곡곡 100"
+    }
+   ],
+   "summary_ko": "여수 엑스포 해양공원의 야간 멀티미디어 쇼로, 한국관광공사 「대한민국 밤밤곡곡 100」에 소개됐다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0174",
+   "kind": "work",
+   "project_type": "other",
+   "name_ko": "울산 빛의 공원 미디어아트",
+   "kr_division": "ulsan",
+   "city": "Ulsan",
+   "city_ko": "울산광역시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=ec1515b2-8a5c-45c9-99dc-a8c23fea9f9b",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "[야간관광지] 밤이 더 아름다운 대한민국! 대한민국 밤밤곡곡 100"
+    },
+    {
+     "url": "https://korean.visitkorea.or.kr/smarttourcity/city/ulsan.kto",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 스마트관광도시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "스마트관광도시 울산"
+    }
+   ],
+   "summary_ko": "울산의 야간 미디어아트 명소로, 한국관광공사 「대한민국 밤밤곡곡 100」과 스마트관광도시 울산 소개에 실렸다. 정확한 위치는 확인이 필요하다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kind": "facility",
+   "project_type": "interactive_installation",
+   "id": "REG-KR-0175",
+   "name_ko": "인터렉티브아트뮤지엄",
+   "kr_division": "gyeonggi",
+   "city": "Gapyeong",
+   "city_ko": "가평군",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=1e64d9f2-a817-4a01-bb29-5f624ce0713e",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "인터렉티브아트뮤지엄"
+    }
+   ],
+   "summary_ko": "가평의 인터랙티브 아트 전용 전시관이다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "id": "REG-KR-0176",
+   "name_ko": "DMZ 생생누리",
+   "kr_division": "gyeonggi",
+   "city": "Paju",
+   "city_ko": "파주시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=39c3c565-0862-42c8-a887-92409e734fe4",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "더 가까이, 더 생생하게! 실감미디어로 체험하는 DMZ 생생누리"
+    }
+   ],
+   "summary_ko": "파주 임진각 관광지의 실감미디어 체험관으로, 1층 체험관과 2층 영상관에서 DMZ를 미디어 영상과 VR로 보여 준다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kind": "work",
+   "project_type": "other",
+   "id": "REG-KR-0177",
+   "name_ko": "밀양시립박물관 미디어아트 큐브",
+   "kr_division": "gyeongnam",
+   "city": "Miryang",
+   "city_ko": "밀양시",
+   "sources": [
+    {
+     "url": "https://www.korea.kr/news/reporterView.do?newsId=148911663",
+     "kind": "public_agency",
+     "publisher": "대한민국 정책브리핑",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "“엄마, 박물관이 진짜 살아있는 것 같아요”"
+    }
+   ],
+   "summary_ko": "밀양시립박물관의 미디어아트 큐브로, 17세기 고지도 「지승지도」를 바탕으로 밀양 12경을 디지털 민화로 되살렸다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kr_division": "gyeongnam",
+   "city": "Jinju",
+   "city_ko": "진주시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=9e44131e-7511-49a1-8f6b-acbd12d3c8e5",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "[야간관광 특화도시10] 리버나이트 '진주'"
+    }
+   ],
+   "id": "REG-KR-0178",
+   "kind": "facility",
+   "project_type": "light_art",
+   "name_ko": "소망진산 유등테마공원",
+   "summary_ko": "진주 남강변 소망진산의 유등 테마공원으로, 유등을 상설로 밝히는 야간 명소다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kr_division": "gyeongnam",
+   "city": "Jinju",
+   "city_ko": "진주시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=9e44131e-7511-49a1-8f6b-acbd12d3c8e5",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "[야간관광 특화도시10] 리버나이트 '진주'"
+    }
+   ],
+   "id": "REG-KR-0179",
+   "kind": "work",
+   "project_type": "interactive_installation",
+   "name_ko": "물초울공원 반응형 미디어아트",
+   "summary_ko": "진주 물초울공원의 관람객 움직임에 반응하는 미디어아트다."
   }
  ]
 }
