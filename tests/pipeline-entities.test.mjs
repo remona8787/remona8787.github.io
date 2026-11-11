@@ -158,6 +158,10 @@ test('Commons categories: aggregates, editions, blocklisted and specific categor
   assert.deepEqual(d('Category:Light artists'), { decision: 'rejected', reason: 'blocklist_people' })
   assert.deepEqual(d('Category:Laser light shows'), { decision: 'rejected', reason: 'blocklist_product_or_advertising' })
   assert.deepEqual(d('Category:Christmas lights in Vienna'), { decision: 'rejected', reason: 'blocklist_unrelated_light_topic' })
+  // v0.26.2: fire shows and Christmas decorations are not light art, so their sub-categories are never walked.
+  assert.equal(d('Category:Firetwirling').decision, 'rejected')
+  assert.equal(d('Category:LED Christmas lighting').decision, 'rejected')
+  assert.equal(d('Category:Iceberg, Atomic3').decision, 'candidate', 'a named light work stays a candidate')
   assert.deepEqual(d('Category:Some festival', { subcats: 60, files: 2 }), { decision: 'aggregate', reason: 'many_subcategories_few_files' })
   assert.deepEqual(d('Category:Empty', { subcats: 0, files: 0 }), { decision: 'rejected', reason: 'empty_category' })
   assert.deepEqual(d('Category:Schlosslichtspiele Karlsruhe'), { decision: 'candidate', reason: 'specific_category' })
@@ -288,4 +292,26 @@ test('relations: the record\'s own (P361, P179, P276), its events, and the editi
   assert.ok(!r.has('Q4'), "a host building's statements are not the work's")
   assert.ok(![...r.values()].flat().some((x) => x.subject?.name === '2009 Light Festival, Jerusalem'), 'a generic name never matches')
   assert.ok(![...r.values()].flat().some((x) => x.subject?.name === 'Lotus Lantern Festival at night'), 'a view is not an edition')
+})
+
+test('Commons walk (v0.26.2): a light work inside a part of a project category stays a candidate', async () => {
+  // Light art → Light art events (a candidate) → Luminothérapie, Montréal (a part: inside a candidate) → Iceberg,
+  // Atomic3 (a work of its own). Build 20261111T073737Z folded the works of the programme into it.
+  const tree = {
+    'Category:Light art': ['Category:Light art events'],
+    'Category:Light art events': ['Category:Luminothérapie, Montréal'],
+    'Category:Luminothérapie, Montréal': ['Category:Iceberg, Atomic3'],
+    'Category:Iceberg, Atomic3': [],
+  }
+  const page = (t) => ({ ns: 14, title: t, categoryinfo: { size: 10, files: 8, subcats: tree[t].length } })
+  const client = { json: async (url) => {
+    const p = new URL(url).searchParams
+    if (p.get('generator') === 'categorymembers') return { query: { pages: (tree[p.get('gcmtitle')] || []).map(page) } }
+    if (p.get('titles')) return { query: { pages: p.get('titles').split('|').map((t) => (tree[t] ? page(t) : { ns: 14, title: t, missing: true })) } }
+    return { query: { pages: [] } }
+  } }
+  const config = { ...cfg.categories, roots: [{ title: 'Category:Light art', mode: 'candidates', depth: 4, project_type: 'light_art' }], korea_roots: [], korea_search: [], search_terms: [] }
+  const out = await discoverCategories(client, config, { korea: false })
+  assert.equal(out.categories.get('Category:Luminothérapie, Montréal').decision, 'part')
+  assert.equal(out.categories.get('Category:Iceberg, Atomic3').decision, 'candidate')
 })

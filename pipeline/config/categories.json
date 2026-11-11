@@ -253,7 +253,7 @@
   "min_subcats_for_aggregate": 25,
   "max_files_for_aggregate": 5
  },
- "blocklist_patterns": [{"pattern":"\\b(construction of|interior of|incidental views of|remote views of|events at|views from|people at)\\b","reason":"views_of_a_building_or_work"},{"pattern":"\\b(fire danc\\w*|feuerplanet|snow festival|moving sidewalks?|christmas markets?|weihnachtsm\\w*|augustusmarkt|sokkelplan)\\b","reason":"not_light_art_v0261"},
+ "blocklist_patterns": [{"pattern":"\\b(construction of|interior of|incidental views of|remote views of|events at|views from|people at)\\b","reason":"views_of_a_building_or_work"},{"pattern":"\\b(fire danc\\w*|fire ?twirl\\w*|feuerplanet|snow festival|moving sidewalks?|christmas markets?|christmas lighting|weihnachtsm\\w*|augustusmarkt|sokkelplan)\\b","reason":"not_light_art_v0261"},
   {
    "pattern": "\\b(artists?|people|persons?|portraits?|designers?|photographers?)\\b",
    "reason": "people"
