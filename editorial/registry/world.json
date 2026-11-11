@@ -1150,6 +1150,744 @@
      "checked_at": "2026-11-11"
     }
    ]
+  },
+  {
+   "id": "REG-US-0002",
+   "kind": "work",
+   "project_type": "media_architecture",
+   "name_ko": "스피어 엑소스피어",
+   "name_en": "Sphere (Exosphere)",
+   "name_original": "Sphere",
+   "name_original_lang": "en",
+   "country_iso2": "US",
+   "city": "Las Vegas",
+   "city_ko": "라스베이거스",
+   "timezone": "America/Los_Angeles",
+   "confidence": "B",
+   "sources": [
+    {
+     "url": "https://avnetwork.com/news/spheres-fully-programmable-led-screen-transforms-the-las-vegas-skyline",
+     "kind": "news",
+     "publisher": "AV Network",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Watch This: The Las Vegas Skyline Like You've Never Seen It Before"
+    },
+    {
+     "url": "https://blooloop.com/technology/news/sphere-las-vegas-illuminated-exterior/",
+     "kind": "news",
+     "publisher": "blooloop",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    }
+   ],
+   "summary_en": "The fully programmable exterior of Sphere in Las Vegas: about 580,000 square feet of LED surface with some 1.2 million LED pucks, first lit on 4 July 2023 and used for artistic and branded content.",
+   "summary_ko": "라스베이거스 스피어의 외부 전체를 덮은 프로그래밍 가능한 LED 표면(약 5만 4천㎡, LED 퍽 약 120만 개)으로, 2023년 7월 4일 처음 점등해 예술 콘텐츠와 브랜드 콘텐츠를 상영한다."
+  },
+  {
+   "id": "REG-AE-0004",
+   "kind": "work",
+   "project_type": "media_facade",
+   "name_ko": "부르즈 할리파 LED 미디어파사드",
+   "name_en": "Burj Khalifa LED façade light shows",
+   "name_original": "Burj Khalifa",
+   "name_original_lang": "en",
+   "country_iso2": "AE",
+   "city": "Dubai",
+   "city_ko": "두바이",
+   "timezone": "Asia/Dubai",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://properties.emaar.com/burj-khalifa",
+     "kind": "official",
+     "publisher": "Emaar Properties",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    },
+    {
+     "url": "https://gulfnews.com/uae/how-burj-khalifa-puts-on-its-stellar-light-shows-1.61074857",
+     "kind": "news",
+     "publisher": "Gulf News",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "How Burj Khalifa puts on its stellar light shows"
+    }
+   ],
+   "summary_en": "The LED media façade on the east side of Burj Khalifa, Dubai, running some 770 m up the 828 m tower; Emaar stages its evening light shows and the New Year's Eve show of music, lights, lasers and fireworks.",
+   "summary_ko": "두바이 부르즈 할리파 동쪽 면의 LED 미디어파사드로, 828m 타워 가운데 약 770m 높이에 걸쳐 있으며 Emaar가 저녁 라이트쇼와 새해 전야 쇼를 운영한다."
+  },
+  {
+   "id": "REG-SG-0004",
+   "kind": "work",
+   "project_type": "light_art",
+   "name_ko": "스펙트라 – 빛과 물의 쇼",
+   "name_en": "Spectra – A Light & Water Show",
+   "name_original": "Spectra",
+   "name_original_lang": "en",
+   "country_iso2": "SG",
+   "city": "Singapore",
+   "city_ko": "싱가포르",
+   "timezone": "Asia/Singapore",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.marinabaysands.com/attractions/spectra.html",
+     "kind": "official",
+     "publisher": "Marina Bay Sands",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Spectra"
+    },
+    {
+     "url": "https://jp.marinabaysands.com/content/dam/revamp/company-information/media-centre/2022/apr/spectra-makes-a-dazzling-return-to-marina-bay-sands.pdf",
+     "kind": "official",
+     "publisher": "Marina Bay Sands",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Spectra makes a dazzling return to Marina Bay Sands"
+    }
+   ],
+   "admission": "free",
+   "summary_en": "Free nightly 15-minute outdoor light, laser and water show over the bay at the Event Plaza of Marina Bay Sands, Singapore, since 2017.",
+   "summary_ko": "싱가포르 마리나 베이 샌즈 이벤트 플라자 앞 수면에서 2017년부터 매일 밤 무료로 열리는 15분 길이의 빛·레이저·물 쇼다."
+  },
+  {
+   "id": "REG-FI-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "룩스 헬싱키",
+   "name_en": "Lux Helsinki",
+   "name_original": "Lux Helsinki",
+   "name_original_lang": "fi",
+   "country_iso2": "FI",
+   "city": "Helsinki",
+   "city_ko": "헬싱키",
+   "timezone": "Europe/Helsinki",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://hel.fi/en/news/lux-helsinki-will-showcase-the-diverse-forms-of-light-art-in-january",
+     "kind": "official",
+     "publisher": "City of Helsinki",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Lux Helsinki will showcase the diverse forms of light art in January"
+    },
+    {
+     "url": "https://luxhelsinki.fi/en/info-3/frequently-asked-questions/",
+     "kind": "official",
+     "publisher": "Lux Helsinki",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Frequently Asked Questions"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_en": "Free annual light art festival in Helsinki in early January, organised and produced by the Helsinki Events Foundation; since 2025 the city also acquires one or two of its light artworks each year.",
+   "summary_ko": "매년 1월 초 헬싱키에서 무료로 열리는 빛 예술 축제로, 헬싱키 이벤트 재단이 주최하며 2025년부터 시가 해마다 작품 한두 점을 매입해 도시에 남긴다.",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-01-06",
+     "end": "2026-01-11",
+     "hours": "17:00–22:00",
+     "source": "https://hel.fi/en/news/lux-helsinki-will-showcase-the-diverse-forms-of-light-art-in-january",
+     "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "id": "REG-JP-0005",
+   "kind": "work",
+   "project_type": "projection_mapping",
+   "name_ko": "TOKYO Night & Light (도쿄도청 프로젝션 매핑)",
+   "name_en": "TOKYO Night & Light",
+   "name_original": "TOKYO Night & Light",
+   "name_original_lang": "en",
+   "country_iso2": "JP",
+   "city": "Tokyo",
+   "city_ko": "도쿄",
+   "timezone": "Asia/Tokyo",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.english.metro.tokyo.lg.jp/w/000-101-010299",
+     "kind": "official",
+     "publisher": "Tokyo Metropolitan Government",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    },
+    {
+     "url": "https://tokyoprojectionmappingproject.jp/en",
+     "kind": "official",
+     "publisher": "Tokyo Projection Mapping Executive Committee",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    },
+    {
+     "url": "https://www.guinnessworldrecords.com/world-records/760680-largest-architectural-projection-mapped-display-permanent",
+     "kind": "reference",
+     "publisher": "Guinness World Records",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Largest architectural projection-mapped display (permanent)"
+    }
+   ],
+   "admission": "free",
+   "summary_en": "Permanent projection mapping on the east wall of the Tokyo Metropolitan Government Building No. 1 in Shinjuku, shown nightly since 25 February 2024; Guinness World Records lists it as the largest permanent architectural projection-mapped display (13,904.956 m²).",
+   "summary_ko": "신주쿠 도쿄도청 제1본청사 동쪽 벽면에 2024년 2월 25일부터 매일 밤 상영하는 상설 프로젝션 매핑으로, 기네스 세계기록에 상설 건축 프로젝션 매핑 최대 면적(13,904.956㎡)으로 올라 있다."
+  },
+  {
+   "id": "REG-JP-0006",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "삿포로 화이트 일루미네이션",
+   "name_en": "Sapporo White Illumination",
+   "name_original": "さっぽろホワイトイルミネーション",
+   "name_original_lang": "ja",
+   "country_iso2": "JP",
+   "city": "Sapporo",
+   "city_ko": "삿포로",
+   "timezone": "Asia/Tokyo",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.sapporo.travel/white-illumination/",
+     "kind": "official",
+     "publisher": "Sapporo White Illumination Executive Committee (Sapporo Convention and Visitors Bureau)",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    },
+    {
+     "url": "https://www.visit-hokkaido.jp/event/detail_11003.html",
+     "kind": "public_agency",
+     "publisher": "Hokkaido Tourism Organization",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_en": "Free winter illumination in central Sapporo, held since 1981 at Odori Park and other downtown venues such as Ekimae-dori and Minami-Ichijo.",
+   "summary_ko": "1981년부터 삿포로 도심 오도리 공원과 에키마에 거리·미나미이치조 등에서 무료로 열리는 겨울 일루미네이션이다."
+  },
+  {
+   "id": "REG-JP-0007",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "나바나노사토 겨울 일루미네이션",
+   "name_en": "Nabana no Sato Winter Illumination",
+   "name_original": "なばなの里 ウィンターイルミネーション",
+   "name_original_lang": "ja",
+   "country_iso2": "JP",
+   "city": "Kuwana",
+   "city_ko": "구와나",
+   "timezone": "Asia/Tokyo",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.nagashima-onsen.co.jp/nabana/illumination/index.html",
+     "kind": "official",
+     "publisher": "Nagashima Resort (Nabana no Sato)",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    },
+    {
+     "url": "https://explore.visitmie-japan.travel/en/report/detail_157.html",
+     "kind": "public_agency",
+     "publisher": "Mie Prefecture tourism (Visit Mie)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Enjoy fields of beautiful flowers and eco-friendly illuminations at Nabana no Sato"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "paid",
+   "summary_en": "Seasonal illumination at Nabana no Sato, a flower park in Nagashima Resort, Kuwana (Mie Prefecture), with a light tunnel and large light displays from autumn to late spring.",
+   "summary_ko": "미에현 구와나시 나가시마 리조트 안 꽃 테마파크 나바나노사토에서 가을부터 늦봄까지 빛 터널과 대형 빛 연출을 선보이는 일루미네이션이다."
+  },
+  {
+   "id": "REG-AU-0001",
+   "kind": "work",
+   "project_type": "projection_mapping",
+   "name_ko": "바두 길리 (시드니 오페라하우스 돛 프로젝션)",
+   "name_en": "Badu Gili",
+   "name_original": "Badu Gili",
+   "name_original_lang": "en",
+   "country_iso2": "AU",
+   "city": "Sydney",
+   "city_ko": "시드니",
+   "timezone": "Australia/Sydney",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.sydneyoperahouse.com/experiences/badu-gili",
+     "kind": "official",
+     "publisher": "Sydney Opera House",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Badu Gili Lighting of the Sails"
+    },
+    {
+     "url": "https://www.sydneyoperahouse.com/opera-house-launches-new-badu-gili-sails-projection-exploring-celestial-navigation",
+     "kind": "official",
+     "publisher": "Sydney Opera House",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Opera House launches new Badu Gili sails projection exploring celestial navigation"
+    }
+   ],
+   "admission": "free",
+   "summary_en": "Free nightly First Nations art projection of about six minutes on the eastern Bennelong sails of the Sydney Opera House since 2017, renewed in successive chapters.",
+   "summary_ko": "2017년부터 시드니 오페라하우스 동쪽 베넬롱 돛에 매일 밤 약 6분간 무료로 상영하는 원주민(First Nations) 예술 프로젝션으로, 회차마다 새 작품을 선보인다."
+  },
+  {
+   "id": "REG-AU-0002",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "일루미네이트 애들레이드",
+   "name_en": "Illuminate Adelaide",
+   "name_original": "Illuminate Adelaide",
+   "name_original_lang": "en",
+   "country_iso2": "AU",
+   "city": "Adelaide",
+   "city_ko": "애들레이드",
+   "timezone": "Australia/Adelaide",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.illuminateadelaide.com/news/illuminate-adelaide-shines-light-on-innovative-program-of-music-art-light-and-technology/",
+     "kind": "official",
+     "publisher": "Illuminate Adelaide",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    },
+    {
+     "url": "https://premier.sa.gov.au/media-releases/news-archive/lights-on-for-glowing-illuminate-adelaide-2024",
+     "kind": "public_agency",
+     "publisher": "Premier of South Australia",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Lights on for glowing Illuminate Adelaide 2024"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_en": "Winter festival of light, art, music and technology in Adelaide each July since 2021, with free and ticketed events such as the City Lights projection trail.",
+   "summary_ko": "2021년부터 매년 7월 애들레이드에서 빛·예술·음악·기술을 엮어 여는 겨울 축제로, 도심 프로젝션 산책로 「City Lights」 등 무료·유료 프로그램으로 이루어진다."
+  },
+  {
+   "id": "REG-AU-0003",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "파치마 – 빛의 축제",
+   "name_en": "Parrtjima – A Festival in Light",
+   "name_original": "Parrtjima – A Festival in Light",
+   "name_original_lang": "en",
+   "country_iso2": "AU",
+   "city": "Alice Springs",
+   "city_ko": "앨리스스프링스",
+   "timezone": "Australia/Darwin",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://parrtjimaaustralia.com.au",
+     "kind": "official",
+     "publisher": "Northern Territory Major Events Company",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    },
+    {
+     "url": "https://tourismandeventsnt.com.au/news/parrtjima-2025-program-to-celebrate-10-spectacular-editions-of-light-storytelling-and-culture",
+     "kind": "public_agency",
+     "publisher": "Tourism and Events NT",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    },
+    {
+     "url": "https://activatealice.nt.gov.au/whats-on/parrtjima-2025-festival-light",
+     "kind": "public_agency",
+     "publisher": "Northern Territory Government (Activate Alice)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Parrtjima 2025 - A Festival in Light"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_en": "Free First Nations festival in light in Alice Springs (Mparntwe), with installations at Alice Springs Desert Park and projections on the MacDonnell Ranges; the 2025 edition (4–13 April) was the tenth.",
+   "summary_ko": "앨리스스프링스(음파른트웨)에서 무료로 열리는 원주민 빛 축제로, 앨리스스프링스 사막공원의 설치 작품과 맥도넬 산맥 프로젝션으로 이루어진다. 2025년(4월 4~13일)이 10회째였다.",
+   "editions": [
+    {
+     "id": "2025",
+     "start": "2025-04-04",
+     "end": "2025-04-13",
+     "source": "https://tourismandeventsnt.com.au/news/parrtjima-2025-program-to-celebrate-10-spectacular-editions-of-light-storytelling-and-culture",
+     "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "id": "REG-US-0003",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "캐널 컨버전스",
+   "name_en": "Canal Convergence",
+   "name_original": "Canal Convergence",
+   "name_original_lang": "en",
+   "country_iso2": "US",
+   "city": "Scottsdale",
+   "city_ko": "스코츠데일",
+   "timezone": "America/Phoenix",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://scottsdalearts.org/2020/07/02/history-of-canal-convergence-part-2/",
+     "kind": "official",
+     "publisher": "Scottsdale Arts",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Canal Convergence: An Evolution"
+    },
+    {
+     "url": "https://scottsdalearts.org/our-story/news-press/posts/2025-nr-2-canal-convergence-artwork-announcement/",
+     "kind": "official",
+     "publisher": "Scottsdale Arts",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_en": "Free annual festival of water, art and light on the Scottsdale Waterfront along the Arizona Canal, organised by Scottsdale Arts (Scottsdale Public Art) since 2012, with light-based and interactive installations.",
+   "summary_ko": "2012년부터 스코츠데일 아츠(스코츠데일 퍼블릭 아트)가 애리조나 운하 변 스코츠데일 워터프런트에서 매년 무료로 여는 물·예술·빛 축제로, 빛과 인터랙티브 설치 작품을 선보인다."
+  },
+  {
+   "id": "REG-US-0004",
+   "kind": "program",
+   "project_type": "projection_mapping",
+   "name_ko": "아트 온 더 마트",
+   "name_en": "Art on theMART",
+   "name_original": "Art on theMART",
+   "name_original_lang": "en",
+   "country_iso2": "US",
+   "city": "Chicago",
+   "city_ko": "시카고",
+   "timezone": "America/Chicago",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://chicago.gov/city/en/depts/mayor/press_room/press_releases/2018/august/081618_ArtOntheMart.html",
+     "kind": "public_agency",
+     "publisher": "City of Chicago, Office of the Mayor",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Art On theMART To Launch September 29, 2018 As Largest Digital Art Projection In The World"
+    },
+    {
+     "url": "https://www.chicago.gov/city/en/depts/mayor/press_room/press_releases/2018/February/ArtontheMART.html",
+     "kind": "public_agency",
+     "publisher": "City of Chicago, Office of the Mayor",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    }
+   ],
+   "summary_en": "Digital art projection on the Chicago River façade of theMART, launched on 29 September 2018 under an agreement between the City of Chicago and theMART and announced by the city as the largest digital art projection in the world.",
+   "summary_ko": "시카고시와 더 마트(theMART)의 협약으로 2018년 9월 29일 시작된, 시카고강 쪽 더 마트 외벽의 디지털 아트 프로젝션으로, 시는 세계 최대 규모의 디지털 아트 프로젝션이라고 발표했다."
+  },
+  {
+   "id": "REG-AU-0004",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "인라이튼 캔버라",
+   "name_en": "Enlighten Canberra",
+   "name_original": "Enlighten Canberra",
+   "name_original_lang": "en",
+   "country_iso2": "AU",
+   "city": "Canberra",
+   "city_ko": "캔버라",
+   "timezone": "Australia/Sydney",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.act.gov.au/our-canberra/latest-news/2024/january/enlighten-festival-to-light-up-canberra",
+     "kind": "public_agency",
+     "publisher": "ACT Government",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Enlighten Festival to light up Canberra"
+    },
+    {
+     "url": "https://www.cmtedd.act.gov.au/open_government/inform/act_government_media_releases/barr/2022/2022-enlighten-festival",
+     "kind": "public_agency",
+     "publisher": "ACT Government (CMTEDD)",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    },
+    {
+     "url": "https://nca.gov.au/events/enlighten-festival-2026",
+     "kind": "public_agency",
+     "publisher": "National Capital Authority",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Enlighten Festival 2026"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_en": "ACT Government festival held each year in early March in Canberra, with projections on national institutions such as Parliament House, the National Library and the National Gallery of Australia.",
+   "summary_ko": "호주 수도준주(ACT) 정부가 매년 3월 초 캔버라에서 여는 축제로, 국회의사당·국립도서관·국립미술관 등 국가 기관 건물에 프로젝션을 펼친다."
+  },
+  {
+   "id": "REG-GB-0003",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "스펙트라 – 스코틀랜드 빛 축제",
+   "name_en": "Spectra – Scotland's Festival of Light",
+   "name_original": "Spectra",
+   "name_original_lang": "en",
+   "country_iso2": "GB",
+   "city": "Aberdeen",
+   "city_ko": "애버딘",
+   "timezone": "Europe/London",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.aberdeencity.gov.uk/AAGM/whats-aberdeen-art-galleries-and-museums/spectra-aberdeens-festival-of-light",
+     "kind": "public_agency",
+     "publisher": "Aberdeen City Council",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Spectra – Aberdeen's festival of light"
+    },
+    {
+     "url": "https://aberdeencity.gov.uk/node/12843",
+     "kind": "public_agency",
+     "publisher": "Aberdeen City Council",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "SPECTRA 2025"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_en": "Free four-night winter festival of light commissioned by Aberdeen City Council, with light installations and projections in the city centre such as Union Terrace Gardens, Marischal Square and Aberdeen Art Gallery.",
+   "summary_ko": "애버딘 시의회가 주최하는 무료 겨울 빛 축제로, 나흘 밤 동안 유니언 테라스 가든·마리샬 스퀘어·애버딘 미술관 등 도심 곳곳에 빛 설치 작품과 프로젝션을 선보인다."
+  },
+  {
+   "id": "REG-IT-0001",
+   "kind": "festival",
+   "project_type": "light_art",
+   "name_ko": "루치 다르티스타 (토리노)",
+   "name_en": "Luci d'Artista (Turin)",
+   "name_original": "Luci d'Artista",
+   "name_original_lang": "it",
+   "country_iso2": "IT",
+   "city": "Turin",
+   "city_ko": "토리노",
+   "timezone": "Europe/Rome",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://turismotorino.org/en/visit/events/luci-dartista",
+     "kind": "public_agency",
+     "publisher": "Turismo Torino e Provincia",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Luci d'Artista"
+    },
+    {
+     "url": "https://www.italia.it/it/piemonte/torino/cosa-fare/luci-artista-luminarie-di-torino",
+     "kind": "public_agency",
+     "publisher": "Italia.it (ENIT – Italian national tourism)",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_en": "City of Turin project of contemporary light art begun in 1998, when Italian artists were commissioned to make light installations for the city's streets and squares; new editions each winter, and some works remain on permanent display.",
+   "summary_ko": "1998년 토리노시가 이탈리아 작가들에게 거리와 광장을 위한 빛 작품을 의뢰하며 시작한 현대 빛 예술 프로젝트로, 매년 겨울 새 에디션이 열리고 일부 작품은 상설 전시된다.",
+   "editions": [
+    {
+     "id": "29",
+     "start": "2026-10-23",
+     "end": "2027-01-10",
+     "source": "https://www.e-flux.com/announcements/6787961/luci-d-artista-29th-edition",
+     "checked_at": "2026-11-11",
+     "title": "Luci d'Artista 29th edition"
+    }
+   ]
+  },
+  {
+   "id": "REG-LT-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "빌뉴스 빛 축제",
+   "name_en": "Vilnius Light Festival",
+   "name_original": "Vilniaus šviesų festivalis",
+   "name_original_lang": "lt",
+   "country_iso2": "LT",
+   "city": "Vilnius",
+   "city_ko": "빌뉴스",
+   "timezone": "Europe/Vilnius",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.govilnius.lt/vilnius-light-festival-2026",
+     "kind": "official",
+     "publisher": "Go Vilnius (official development agency of the City of Vilnius)",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    },
+    {
+     "url": "https://www.govilnius.lt/vilniuss-biggest-events",
+     "kind": "official",
+     "publisher": "Go Vilnius",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Vilnius Light Festival January 22–24, 2027"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_en": "Free annual light-art festival in Vilnius Old Town (UNESCO World Heritage), held since 2019 around the city's birthday on 25 January.",
+   "summary_ko": "2019년부터 매년 빌뉴스 시 생일(1월 25일) 무렵 유네스코 세계유산인 구시가지에서 무료로 열리는 빛 예술 축제다.",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-01-23",
+     "end": "2026-01-25",
+     "source": "https://www.govilnius.lt/vilnius-light-festival-2026",
+     "checked_at": "2026-11-11"
+    },
+    {
+     "id": "2027",
+     "start": "2027-01-22",
+     "end": "2027-01-24",
+     "source": "https://www.govilnius.lt/vilniuss-biggest-events",
+     "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "id": "REG-GB-0901",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Blackpool Illuminations",
+   "name_original": "Blackpool Illuminations",
+   "country_iso2": "GB",
+   "city": "Blackpool",
+   "timezone": "Europe/London",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.visitblackpool.com/things-to-do/blackpool-illuminations-and-lightpool/blackpool-illuminations-switch-on/",
+     "kind": "official",
+     "publisher": "VisitBlackpool (Blackpool Council)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Blackpool Illuminations Switch-On"
+    },
+    {
+     "url": "https://www.justpark.com/resource-centre/blackpool-illuminations-2026-parking-guide-for-the-switch-on-and-the-fireworks-championship-",
+     "kind": "reference",
+     "publisher": "JustPark",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Blackpool Illuminations 2026: Parking Guide for the Switch-On and the Fireworks Championship"
+    }
+   ],
+   "attach_to": "Q4923257",
+   "admission": "free",
+   "recurrence": "annual",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-09-04",
+     "end": "2027-01-03",
+     "source": "https://www.justpark.com/resource-centre/blackpool-illuminations-2026-parking-guide-for-the-switch-on-and-the-fireworks-championship-",
+     "checked_at": "2026-11-11",
+     "title": "2026 season (switch-on 4 September)"
+    }
+   ]
+  },
+  {
+   "id": "REG-JP-0902",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Marunouchi Illumination",
+   "name_original": "丸の内イルミネーション",
+   "country_iso2": "JP",
+   "city": "Tokyo",
+   "timezone": "Asia/Tokyo",
+   "confidence": "B",
+   "sources": [
+    {
+     "url": "https://www.enjoytokyo.jp/event/2091501/",
+     "kind": "reference",
+     "publisher": "Let's Enjoy Tokyo",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "丸の内イルミネーション 2026"
+    },
+    {
+     "url": "https://visit-chiyoda.tokyo/app/event/detail/964",
+     "kind": "reference",
+     "publisher": "Chiyoda City Tourism Association (visit-chiyoda.tokyo)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "丸の内イルミネーション 2026"
+    }
+   ],
+   "attach_to": "CAT-1W4W4BP",
+   "recurrence": "annual",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-11-12",
+     "end": "2027-02-14",
+     "source": "https://www.enjoytokyo.jp/event/2091501/",
+     "checked_at": "2026-11-11",
+     "venue": "Marunouchi Naka-dori",
+     "hours": "16:00–23:00 (to 24:00 in December)"
+    }
+   ]
+  },
+  {
+   "id": "REG-JP-0903",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Sendai Pageant of Starlight",
+   "name_original": "SENDAI光のページェント",
+   "country_iso2": "JP",
+   "city": "Sendai",
+   "timezone": "Asia/Tokyo",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.city.sendai.jp/kyoikukate/documents/20260819hikapeangels.pdf",
+     "kind": "public_agency",
+     "publisher": "City of Sendai",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    }
+   ],
+   "attach_to": "Q11242901",
+   "recurrence": "annual",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-12-04",
+     "end": "2026-12-27",
+     "source": "https://www.city.sendai.jp/kyoikukate/documents/20260819hikapeangels.pdf",
+     "checked_at": "2026-11-11",
+     "title": "2026 (dates provisional per the city, 予定)",
+     "venue": "Jozenji-dori and other sites in central Sendai"
+    }
+   ]
   }
  ]
 }
