@@ -113,6 +113,19 @@ test('page images (v0.26.1): the free lead image of each article, 50 titles per 
   assert.equal(calls.length, 1, 'answers (with and without an image) come from the cache')
 })
 
+test('page images (v0.26.3): a project whose previous photo was its lead image asks for it again, so the photo does not flip', async () => {
+  const { needsLeadImage } = await import('../pipeline/lib/image-stage.mjs')
+  const titles = [{ lang: 'de', title: 'Lichtfestival Luzern' }]
+  const lead = { images: [{ provider: 'commons', identity: { ok: true, method: 'commons_pageimage' } }] }
+  const other = { images: [{ provider: 'commons', identity: { ok: true, method: 'commons_night_category' } }] }
+  assert.equal(needsLeadImage({ wiki_titles: titles }, undefined), true, 'new project without images')
+  assert.equal(needsLeadImage({ wiki_titles: titles }, { images: [] }), true, 'previous record without images')
+  assert.equal(needsLeadImage({ wiki_titles: titles }, lead), true, 'previous photo was the lead image (Q124300145 lost it on 2026-11-11)')
+  assert.equal(needsLeadImage({ wiki_titles: titles }, other), false, 'previous photo came from elsewhere: no extra request')
+  assert.equal(needsLeadImage({ wiki_titles: titles, p18: ['A.jpg'] }, lead), false, 'P18 comes first')
+  assert.equal(needsLeadImage({ wiki_titles: [] }, undefined), false, 'no article, nothing to ask')
+})
+
 test('years (v0.26.1): a Wikidata date outside 1000–2100 is left out instead of failing the dataset', async () => {
   const { yearsOf } = await import('../pipeline/lib/entities.mjs')
   assert.deepEqual(yearsOf({ inception: 450, start: null, end: null }, 'light_art', true), { year_installed: null, year_operating_since: null, year_ended: null })

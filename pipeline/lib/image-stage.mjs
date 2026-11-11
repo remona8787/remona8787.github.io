@@ -33,6 +33,19 @@ const msg = (e) => redactKeys(String(e?.message || e)).slice(0, 300)
 const WEAK_IDENTITY = new Set(['name_location', 'geotag_name'])
 
 /**
+ * Whether the stage asks for the free lead image of the item's articles (v0.26.1): for a project without P18 that
+ * has articles and no images in the previous dataset, and (v0.26.3) also for one whose previous photo was such a lead
+ * image. Without the second case a project the stage processes again loses that photo, since no other source has it,
+ * and gets it back on the following run, flipping each time (Q124300145, Lichtfestival Luzern, 2026-11-11).
+ * @param {{p18?: string[], wiki_titles?: any[]}} p @param {{images?: any[]}|undefined|null} old the previous record
+ */
+export function needsLeadImage(p, old) {
+  if ((p.p18 || []).length || !(p.wiki_titles || []).length) return false
+  const images = old?.images || []
+  return !images.length || images.some((i) => i?.identity?.method === 'commons_pageimage')
+}
+
+/**
  * @param {{client: any, cache: any, P: any, env: Record<string, string|undefined>, ed: any, heroAllow: Set<string>, prev: any, state: any,
  *   published: any[], evidenceByKey: Map<string, string[]>, catRules: any, krRegionNames: Record<string, string[]>, startedAt: string, err: Function, stages: any}} ctx
  */
@@ -376,13 +389,14 @@ export async function imageStage(ctx) {
   }
 
   // ---------------------------------------------------------------- lead images of the items' articles (v0.26.1)
-  // For projects without P18 and without images in the previous dataset: the free lead image of each article of the
-  // item (the wikis config/pipeline.json sitelink_wikis names), one request per 50 titles per wiki, cached two weeks.
+  // For projects without P18 and without images in the previous dataset, or whose previous photo was such a lead image
+  // (needsLeadImage): the free lead image of each article of the item (the wikis config/pipeline.json sitelink_wikis
+  // names), one request per 50 titles per wiki, cached two weeks.
   const leadImages = new Map()
   let leadRequests = 0
   if (IC.pageimages !== false) {
     const wikis = new Set((P.sitelink_wikis || []).map((w) => w.replace(/wiki$/, '')))
-    const need = order.filter((p) => !(p.p18 || []).length && !hadImages(p) && (p.wiki_titles || []).length)
+    const need = order.filter((p) => needsLeadImage(p, prev.records.get(p.id)))
     const byLang = new Map()
     for (const p of need) for (const t of p.wiki_titles) if (!wikis.size || wikis.has(t.lang)) byLang.set(t.lang, [...(byLang.get(t.lang) || []), { p, title: t.title }])
     for (const [lang, list] of byLang) {
