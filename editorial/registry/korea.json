@@ -604,7 +604,7 @@
    "city": "Gwangju",
    "city_ko": "광주광역시",
    "timezone": "Asia/Seoul",
-   "confidence": "B",
+   "confidence": "A",
    "sources": [
     {
      "url": "https://www.twig24.com/news/local_gj/2025/09/25/20250925020011",
@@ -620,6 +620,14 @@
      "publisher": "다음 뉴스",
      "checked_at": "2026-11-11",
      "method": "web_search"
+    },
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=1f388773-44e9-4d52-a905-6de25c0a6bba&amp=&con_type=11000",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "예술이 빛나는 밤, 광주 국립아시아문화전당 미디어파사드"
     }
    ],
    "district": "동구",
@@ -2332,6 +2340,113 @@
      "venue": "국립세종수목원",
      "source": "https://www.sejong.go.kr/prog/scheduleDetail/SCN_1/monthList.do",
      "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0066",
+   "kind": "facility",
+   "project_type": "projection_mapping",
+   "name_ko": "첨성대 미디어파사드",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gyeongbuk",
+   "city": "Gyeongju",
+   "city_ko": "경주시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.gyeongju.go.kr/news/page.do?step=258&parm_bod_uid=306902&mnu_uid=1331",
+     "kind": "official",
+     "publisher": "경주시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "첨성대 미디어파사드, 22일부터 정상 상영"
+    }
+   ],
+   "summary_ko": "경주 첨성대에 영상을 투사하는 미디어파사드로, 2025년 10월 시스템 오류로 중단됐다가 다시 상영되었다(경주시 보도)."
+  },
+  {
+   "id": "REG-KR-0067",
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "name_ko": "뮤지엄 딥다이브",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gangwon",
+   "city": "Pyeongchang",
+   "city_ko": "평창군",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=84bd85ee-6caa-4fad-825b-d17d559aec05",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "뮤지엄 딥다이브"
+    }
+   ],
+   "summary_ko": "2023년 7월 용평에 문을 연 몰입형 미디어아트 전시관으로, 12가지 테마 전시 공간으로 구성된다."
+  },
+  {
+   "id": "REG-KR-0068",
+   "kind": "program",
+   "project_type": "projection_mapping",
+   "name_ko": "한탄강 가든 나이트 투어 미디어파사드",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gyeonggi",
+   "city": "Pocheon",
+   "city_ko": "포천시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=0528bbc5-300f-4067-a7d9-a267bb33649e",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "[밤하늘 아래 펼쳐지는 빛의 향연] 전국 야간 미디어아트 투어"
+    }
+   ],
+   "summary_ko": "포천 한탄강의 비둘기낭 폭포와 주상절리를 스크린 삼아 미디어파사드를 펼치는 야간 프로그램이다."
+  },
+  {
+   "id": "REG-KR-0905",
+   "kind": "exhibition",
+   "project_type": "media_facade",
+   "name_ko": "아뜰리에 광화(세종문화회관 미디어파사드)",
+   "country_iso2": "KR",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "attach_to": "SEOUL002",
+   "sources": [
+    {
+     "url": "https://mediahub.seoul.go.kr/archives/2016682",
+     "kind": "official",
+     "publisher": "서울특별시 내 손안에 서울",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "발걸음 붙잡는 미디어아트의 향연! 3대 전시 플랫폼서 겨울편 개막"
+    }
+   ],
+   "admission": "free",
+   "editions": [
+    {
+     "id": "2025-winter",
+     "start": "2025-12-21",
+     "end": "2026-03-19",
+     "source": "https://mediahub.seoul.go.kr/archives/2016682",
+     "checked_at": "2026-11-11",
+     "hours": "18:00–23:00",
+     "title": "겨울 시즌"
     }
    ]
   }
