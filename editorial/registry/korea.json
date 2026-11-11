@@ -2257,11 +2257,11 @@
    "name_ko": "어울림정원 빛축제",
    "name_en": null,
    "country_iso2": "KR",
-   "kr_division": "jeonnam",
-   "city": "Jeonnam",
-   "city_ko": "전라남도",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
    "timezone": "Asia/Seoul",
-   "confidence": "C",
+   "confidence": "A",
    "sources": [
     {
      "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=4a5e4431-b885-4ed7-9108-5eb7b3006ca9",
@@ -2270,9 +2270,39 @@
      "checked_at": "2026-11-11",
      "method": "web_search",
      "title": "어울림정원 빛축제"
+    },
+    {
+     "url": "https://culture.seoul.go.kr/culture/culture/cultureEvent/view.do?cultcode=154841&menuNo=200008",
+     "kind": "public_agency",
+     "publisher": "서울문화포털 (서울특별시)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "[구로구] 2025 구로G페스티벌 x 어울림정원 빛축제"
+    },
+    {
+     "url": "https://www.guro.go.kr/www/selectBbsNttView.do?bbsNo=665&nttNo=224508&pageUnit=10&key=1793&pageIndex=1",
+     "kind": "official",
+     "publisher": "구로구",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": null
     }
    ],
-   "review_note": "KTO 축제 페이지만 확인, 개최 시·군 미확인"
+   "summary_ko": "구로구가 구로G페스티벌과 함께 안양천 생태초화원 일대에 여는 빛 축제로, 입구와 주요 지점에 테마별 빛 조형물을, 산책로에 줄조명을 설치한다.",
+   "admission": "free",
+   "recurrence": "annual",
+   "editions": [
+    {
+     "id": "2025",
+     "start": "2025-09-19",
+     "end": "2025-10-26",
+     "source": "https://www.guro.go.kr/www/selectBbsNttView.do?bbsNo=665&nttNo=224508&pageUnit=10&key=1793&pageIndex=1",
+     "checked_at": "2026-11-11",
+     "title": "2025 구로G페스티벌 x 어울림정원 빛축제",
+     "venue": "안양천 생태초화원",
+     "admission": "free"
+    }
+   ]
   },
   {
    "id": "REG-KR-0063",
@@ -5944,6 +5974,486 @@
     }
    ],
    "summary_ko": "부산 최초의 몰입형 미디어아트 갤러리카페로 소개된 곳으로, 반 고흐 작품을 중심으로 영상을 바꿔 상영한다."
+  },
+  {
+   "id": "REG-KR-0196",
+   "kind": "work",
+   "project_type": "projection_mapping",
+   "name_ko": "독립기념관 겨레의탑 미디어파사드",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "chungnam",
+   "city": "Cheonan",
+   "city_ko": "천안시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.i815.or.kr/digitalHall/pages/top.html",
+     "kind": "official",
+     "publisher": "독립기념관",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "겨레의탑 미디어파사드"
+    },
+    {
+     "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=ae25ca2d-4aab-4b5d-9ecb-bedebdf2b037",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "단풍나무숲길 힐링축제"
+    }
+   ],
+   "admission": "free",
+   "summary_ko": "천안 독립기념관 겨레의탑을 캔버스로 한국 독립운동의 역사와 정신을 표현하는 미디어파사드로, 단풍나무숲길 야간개장 때 상영한다.",
+   "editions": [
+    {
+     "id": "2026-autumn",
+     "start": "2026-10-15",
+     "end": "2026-11-15",
+     "source": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=ae25ca2d-4aab-4b5d-9ecb-bedebdf2b037",
+     "checked_at": "2026-11-11",
+     "title": "단풍나무숲길 힐링축제 「별 헤는 밤」",
+     "admission": "free"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0197",
+   "kind": "facility",
+   "project_type": "interactive_installation",
+   "name_ko": "선비세상 한복아트관·한옥문화관 미디어아트",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gyeongbuk",
+   "city": "Yeongju",
+   "city_ko": "영주시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=3ca93592-04cf-4595-9133-1d380f954c7d",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "6월 연휴, 아이와 함께 경북 영주 가볼 만한 곳 :: 소수서원, 선비세상, 무섬마을"
+    },
+    {
+     "url": "https://www.yeongju.go.kr/sunbeeworld/page.do?mnu_code=sw01",
+     "kind": "official",
+     "publisher": "영주시 선비세상",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "선비세상 소개"
+    }
+   ],
+   "summary_ko": "영주 선비세상의 한옥문화관 사계절 영상과 한복아트관의 오방색 인터랙티브 미디어아트다."
+  },
+  {
+   "id": "REG-KR-0198",
+   "kind": "festival",
+   "project_type": "projection_mapping",
+   "name_ko": "서산해미읍성축제 야간 미디어파사드",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "chungnam",
+   "city": "Seosan",
+   "city_ko": "서산시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.seosan.go.kr/tour/contents.do?key=6105",
+     "kind": "official",
+     "publisher": "서산시 문화관광",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "서산해미읍성축제 - 문화관광"
+    },
+    {
+     "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=edf5996d-f34f-476c-9d32-358e72bdf46a",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "서산해미읍성축제"
+    },
+    {
+     "url": "https://www.mcst.go.kr/site/s_culture/festival/festivalView.jsp?pSeq=11686&pRo=75",
+     "kind": "public_agency",
+     "publisher": "문화체육관광부",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "지역축제 - 서산해미읍성축제"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "서산해미읍성축제 기간에 해미읍성 일원에서 상영하는 야간 미디어파사드와 야간 경관 콘텐츠다.",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-10-09",
+     "end": "2026-10-11",
+     "source": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=edf5996d-f34f-476c-9d32-358e72bdf46a",
+     "checked_at": "2026-11-11",
+     "title": "제23회 서산해미읍성축제"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0199",
+   "kind": "work",
+   "project_type": "light_art",
+   "name_ko": "고창읍성 맹종죽림 아트쇼",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "jeonbuk",
+   "city": "Gochang",
+   "city_ko": "고창군",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=ab7ac971-eae8-4a23-8f0f-749e86492ea1",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "고창읍성 맹종죽림"
+    }
+   ],
+   "summary_ko": "고창읍성 안 맹종죽림에서 밤에 펼쳐지는 빛 연출로, 대나무숲 안에 작은 불빛들이 형형색색으로 빛난다."
+  },
+  {
+   "id": "REG-KR-0200",
+   "kind": "work",
+   "project_type": "projection_mapping",
+   "name_ko": "간현관광지 나오라쇼",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gangwon",
+   "city": "Wonju",
+   "city_ko": "원주시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.wonju.go.kr/tour/contents.do?key=5518",
+     "kind": "official",
+     "publisher": "원주시 원주관광",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "나오라쇼 소개 - 소금산그랜드밸리"
+    },
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=d6c1fcaa-b373-45a3-a35e-3108be2384c9",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "빛의 밤을 즐기러 나와~ 원주 간현관광지 나오라쇼"
+    }
+   ],
+   "admission": "paid",
+   "summary_ko": "원주 간현관광지의 야간 프로그램으로, 가로 250m·높이 70m 자연암벽에 빔프로젝터 12대로 설화 「은혜 갚은 꿩」을 투사하는 미디어파사드와 삼산천교 일대의 레이저·안개분수·빛의 터널 연출로 이루어진다."
+  },
+  {
+   "id": "REG-KR-0201",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "운정호수공원 불빛정원",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gyeonggi",
+   "city": "Paju",
+   "city_ko": "파주시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=5731ca2a-5bab-4148-94d2-556f59dd0a69",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "운정호수공원 불꽃축제"
+    },
+    {
+     "url": "https://www.paju.go.kr/youth/user/board/BD_board.view.do?bbsCd=9054&seq=20261019161315161",
+     "kind": "official",
+     "publisher": "파주시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": null
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_ko": "파주 운정호수공원 불꽃축제와 함께 운영하는 불빛정원으로, 축제 당일부터 12월 31일까지 빛을 활용한 경관을 선보인다.",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-10-31",
+     "end": "2026-12-31",
+     "source": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=5731ca2a-5bab-4148-94d2-556f59dd0a69",
+     "checked_at": "2026-11-11",
+     "title": "제8회 운정호수공원 불꽃축제 「다시, 빛」 불빛정원",
+     "admission": "free"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0202",
+   "kind": "facility",
+   "project_type": "interactive_installation",
+   "name_ko": "성성호수공원 방문자센터 미디어아트 영상관",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "chungnam",
+   "city": "Cheonan",
+   "city_ko": "천안시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://chungnam.go.kr/cnportal/media/article/view.do?articleNo=MD0003166529&menuNo=500168&pageIndex=",
+     "kind": "public_agency",
+     "publisher": "충청남도",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "천안 호수공원 총정리"
+    }
+   ],
+   "summary_ko": "천안 성성호수공원 방문자센터 안에 빛과 영상을 활용해 꾸민 영상관으로, 실감형 미디어아트를 상영한다."
+  },
+  {
+   "id": "REG-KR-0203",
+   "kind": "festival",
+   "project_type": "media_facade",
+   "name_ko": "창원국가산단 「빛의 대로」 미디어파사드",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gyeongnam",
+   "city": "Changwon",
+   "city_ko": "창원시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.changwon.go.kr/cwportal/10310/10429/10432.web?gcode=1011&idx=861268&amode=view",
+     "kind": "official",
+     "publisher": "창원시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": null
+    },
+    {
+     "url": "https://www.changwon.go.kr/cwportal/10310/10445/10921.web?amode=view&newsId=22901",
+     "kind": "official",
+     "publisher": "창원시보",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": null
+    }
+   ],
+   "summary_ko": "창원국가산단 문화선도산단 사업의 하나로, 2025년 11월 한국산업단지공단 경남지역본부와 경남사회적경제혁신타운 외벽에 미디어파사드를 상영하고 창원문화복합타운 외벽 LED에 미디어아트를 띄웠다."
+  },
+  {
+   "id": "REG-KR-0204",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "광양 국제미디어아트 페스티벌",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "jeonnam",
+   "city": "Gwangyang",
+   "city_ko": "광양시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://gwangyang.go.kr/board.es?act=view&bid=0001&list_no=190108&mid=a11001000000",
+     "kind": "official",
+     "publisher": "광양시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "2025 광양 국제미디어아트 페스티벌 개최 알림"
+    },
+    {
+     "url": "https://gwangyang.go.kr/board.es?act=view&bid=0057&list_no=190941&mid=a11007000000",
+     "kind": "official",
+     "publisher": "광양시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "2025 광양 국제미디어아트 페스티벌 개최"
+    },
+    {
+     "url": "https://gwangyang.go.kr/tour/?menuCd=DOM_000000403001001001",
+     "kind": "official",
+     "publisher": "광양시 문화관광",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": null
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "광양시가 여는 국제 미디어아트 축제다. 2025년에는 광양시 전역 8개 전시장과 시청사·중동 아파트 외벽 미디어파사드로, 2026년에는 「낯선 존재와 소통하는 법」을 주제로 광양예술창고와 365센터에서 열렸다.",
+   "editions": [
+    {
+     "id": "2025",
+     "start": "2025-10-22",
+     "end": "2025-11-04",
+     "source": "https://gwangyang.go.kr/board.es?act=view&bid=0001&list_no=190108&mid=a11001000000",
+     "checked_at": "2026-11-11",
+     "title": "2025 광양 국제미디어아트 페스티벌"
+    },
+    {
+     "id": "2026",
+     "start": "2026-10-16",
+     "end": "2026-10-21",
+     "source": "https://gwangyang.go.kr/tour/?menuCd=DOM_000000403001001001",
+     "checked_at": "2026-11-11",
+     "title": "2026 광양 국제 미디어아트 페스티벌 「낯선 존재와 소통하는 법」",
+     "venue": "광양예술창고, 365센터"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0205",
+   "kind": "work",
+   "project_type": "projection_mapping",
+   "name_ko": "빛의 바다 속초",
+   "name_en": "Sokcho Sea of Light",
+   "country_iso2": "KR",
+   "kr_division": "gangwon",
+   "city": "Sokcho",
+   "city_ko": "속초시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.sokcho.go.kr/ct/tour",
+     "kind": "official",
+     "publisher": "속초시 속초관광",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": null
+    },
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=52abdda3-d12c-4ade-86d6-27d4fe78d1c7",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "속초 여행 가볼만한곳 강원도 여름휴가 추천 설악향기로, 보광미니골프장, 속초중앙시장, 속초해수욕장 빛의 바다 속초 놀거리"
+    }
+   ],
+   "summary_ko": "속초해수욕장 모래사장 가로 70m·세로 15m를 무대로 영상과 음악을 연출하는 야간 미디어아트로, 속초시는 해변 모래사장을 활용한 전국 최초·최대 규모라고 소개한다."
+  },
+  {
+   "id": "REG-KR-0206",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "우이천 빛나다 (우이천 빛 조형물 전시)",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://culture.seoul.go.kr/culture/festival/borough/view.do?festivalId=285&menuNo=200029&pageIndex=5",
+     "kind": "public_agency",
+     "publisher": "서울문화포털 (서울특별시)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "우이천 빛 조형물 전시 [우이천 빛나다]"
+    },
+    {
+     "url": "https://culture.seoul.go.kr/culture/culture/cultureEvent/view.do?cultcode=151088&menuNo=200008",
+     "kind": "public_agency",
+     "publisher": "서울문화포털 (서울특별시)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "우이천 빛 조형물 전시 [우이천 빛나다]"
+    }
+   ],
+   "admission": "free",
+   "summary_ko": "강북구가 우이천 번창교~우이제2교 일대에 겨울 간식을 주제로 한 빛 조형물을 일몰부터 23시까지 밝힌 전시다.",
+   "editions": [
+    {
+     "id": "2024-winter",
+     "start": "2024-12-01",
+     "end": "2025-01-31",
+     "source": "https://culture.seoul.go.kr/culture/festival/borough/view.do?festivalId=285&menuNo=200029&pageIndex=5",
+     "checked_at": "2026-11-11",
+     "title": "우이천 빛 조형물 전시 [우이천 빛나다]",
+     "admission": "free"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0207",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "우이천 등(燈)축제 「강북 꿈꾸는 물고기」",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://culture.seoul.go.kr/culture/culture/cultureEvent/view.do?cultcode=149607&menuNo=200009",
+     "kind": "public_agency",
+     "publisher": "서울문화포털 (서울특별시)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "[강북문화재단] 우이천 등(燈)축제 [강북 꿈꾸는 물고기]"
+    }
+   ],
+   "summary_ko": "강북문화재단이 우이천 번창교~우이2교 구간에서 연 등(燈) 축제다.",
+   "editions": [
+    {
+     "id": "2024",
+     "start": "2024-10-08",
+     "end": "2024-10-20",
+     "source": "https://culture.seoul.go.kr/culture/culture/cultureEvent/view.do?cultcode=149607&menuNo=200009",
+     "checked_at": "2026-11-11",
+     "title": "우이천 등(燈)축제 [강북 꿈꾸는 물고기]"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0208",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "양천 비체나라 페스티벌",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.yangcheon.go.kr/site/yangcheon/ex/bbs/View.do?cbIdx=290&bcIdx=282871",
+     "kind": "official",
+     "publisher": "양천구",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": null
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "양천구의 겨울 빛 축제로, 오목공원에 수목을 형상화한 빛 조형물과 2층 공중보행로까지 이어지는 방사형 스트링조명을 설치한다."
   }
  ]
 }
