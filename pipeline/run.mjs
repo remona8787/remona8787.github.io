@@ -549,6 +549,9 @@ export async function runPipeline(o) {
     if (placeOut.stats.partial) st.mark('places', 'partial')
   })
   // Pass 2: Korean regions and 시·군·구, eligibility.
+  // v0.26.2: a registry record attached to a project (attach_to, confidence A or B) also names the project's division,
+  // from the official page it cites (진주남강유등축제: 진주시, 경상남도), when nothing more specific gives one.
+  const attachDivision = new Map(registry.records.filter((r) => r.attach_to && r.kr_division && ['A', 'B'].includes(r.confidence)).map((r) => [r.attach_to, r.kr_division]))
   for (const p of projects) {
     // kr_region (lib/korea.mjs): every rule's outcome is logged in review/korea.json.
     const kr = p.kr_region_registry ? { region: p.kr_region_registry, rule: 'curated_registry' } : krRegionOf(p, krArgs(p))
@@ -557,7 +560,7 @@ export async function runPipeline(o) {
     // or of the city; a region of one division (Seoul, Jeju) gives it. Never guessed from a district name alone.
     if (p.country_iso2 === 'KR') {
       const one = KR_DIVISIONS.filter((d) => d.region === kr.region)
-      p.kr_division = p.kr_division_registry || divisionOfText(p.address, p.tourapi?.addr1, p.city_ko) || (one.length === 1 ? one[0].key : null)
+      p.kr_division = p.kr_division_registry || attachDivision.get(p.id) || divisionOfText(p.address, p.tourapi?.addr1, p.city_ko) || (one.length === 1 ? one[0].key : null)
       if (p.kr_division && one.length && !one.some((d) => d.key === p.kr_division)) p.kr_division = null
     }
     if (kr.region) p.field_sources = { ...(p.field_sources || {}), kr_region: { editorial: 'editorial', curated_seoul: 'curated', curated_registry: 'curated', p131: 'wikidata', p131_labels: 'wikidata', tourapi_ldong: 'tourapi', tourapi_areacode: 'tourapi' }[kr.rule] || (String(kr.rule).startsWith('commons_parent') ? 'derived:commons_parent_category' : 'derived:gazetteer') }
