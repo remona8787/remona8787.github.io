@@ -26,7 +26,10 @@ name: archive
 
 on:
   schedule:
+    # Every six hours (UTC). GitHub starts schedules late or skips them when busy, so a catch-up schedule two and a
+    # half hours later runs the collector only when no collect ran in the last five hours (pipeline/ci/gate.mjs).
     - cron: '17 */6 * * *'
+    - cron: '47 2-23/6 * * *'
   workflow_dispatch:
     inputs:
       collect:
@@ -46,6 +49,8 @@ concurrency:
 
 permissions:
   contents: write
+  # The health job opens, updates and closes one issue when collection needs the operator (pipeline/ci/health.mjs).
+  issues: write
 
 env:
   NODE_VERSION: '22'
@@ -77,14 +82,22 @@ jobs:
           fetch-depth: 1
       - name: Switch to the data branch (created empty on the first run)
         run: bash source/pipeline/ci/use-branch.sh data data
+      - name: Gate (the catch-up schedule runs only when no collect ran in the last 5 hours)
+        id: gate
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+        run: node source/pipeline/ci/gate.mjs --data=data --schedule="$SCHEDULE" --catch-up='47 2-23/6 * * *' --min-hours=5
       - uses: actions/setup-node@v4
+        if: steps.gate.outputs.run == 'true'
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: npm
           cache-dependency-path: source/pipeline/package-lock.json
       - name: Install the pipeline dependencies (sharp)
+        if: steps.gate.outputs.run == 'true'
         run: npm ci --prefix source/pipeline --no-audit --no-fund
       - name: Collect
+        if: steps.gate.outputs.run == 'true'
         id: run
         env:
           BUDGET_MINUTES: ${{ inputs.budget_minutes || 25 }}
@@ -213,3 +226,45 @@ jobs:
         env:
           MESSAGE: "Verify live ${{ needs.deploy.outputs.deploy_id }}: ${{ steps.verify.outcome }} (run ${{ github.run_id }})"
         run: bash source/pipeline/ci/commit-push.sh data data "$MESSAGE" 120
+
+  health:
+    # After every run, whatever happened: one issue tells the operator when collection failed, stopped, kept the previous
+    # dataset or has not changed the data for a week, and is closed when all is well again. Data is never changed here.
+    needs: [collect, deploy, verify-live]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          ref: source
+          path: source
+      - name: Check out the repository for the data branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: data
+          fetch-depth: 1
+      - name: Switch to the data branch
+        run: bash source/pipeline/ci/use-branch.sh data data
+      - name: Assess
+        id: health
+        run: >-
+          node source/pipeline/ci/health.mjs --data=data --body=health.md
+          --collect="${{ needs.collect.result }}" --deploy="${{ needs.deploy.result }}" --verify="${{ needs.verify-live.result }}"
+          --run-url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      - name: Open, update or close the health issue
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          ALERT: ${{ steps.health.outputs.alert }}
+        run: |
+          title="archive: collection needs attention"
+          open=$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number' || true)
+          if [ "$ALERT" = "true" ]; then
+            if [ -n "$open" ]; then gh issue comment "$open" --body-file health.md; else gh issue create --title "$title" --body-file health.md; fi
+          elif [ -n "$open" ]; then
+            gh issue close "$open" --comment "All checks are fine again: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          fi
