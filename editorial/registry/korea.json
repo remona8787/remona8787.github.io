@@ -7383,6 +7383,49 @@
     }
    ],
    "summary_ko": "옛 경부선 무월산터널을 2017년 빛의 터널로 바꾼 밀양의 테마파크다."
+  },
+  {
+   "id": "REG-KR-0239",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "창원 빛의 거리",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gyeongnam",
+   "city": "Changwon",
+   "city_ko": "창원시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://changwon.go.kr/tour/board/view.do?menuCode=&boardNo=3&dataNo=1212",
+     "kind": "official",
+     "publisher": "창원시 창원관광",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "반짝반짝 크리스마스, 창원 빛의 거리"
+    },
+    {
+     "url": "https://culture.changwon.go.kr/index.changwon?contentId=130&bbsId=BBSMSTR_000000000082&nttId=7993&menuNo=11010000",
+     "kind": "official",
+     "publisher": "창원시 문화관광",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "빛의 거리"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "마산 창동·오동동의 빛터널에서 시작해 상남동 분수광장, 용호동 메타세콰이어길, 진해 중원로터리로 넓힌 창원시의 겨울 빛 거리로, 빛터널과 조명 트리, 포토존 조형물을 설치한다.",
+   "editions": [
+    {
+     "id": "2025-winter",
+     "start": "2025-11-01",
+     "end": "2026-02-28",
+     "source": "https://changwon.go.kr/tour/board/view.do?menuCode=&boardNo=3&dataNo=1212",
+     "checked_at": "2026-11-11",
+     "title": "2025 창원 빛의 거리"
+    }
+   ]
   }
  ]
 }
