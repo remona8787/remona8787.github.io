@@ -881,6 +881,39 @@
   "www.wikidata.org": "reachable",
   "zh.wikipedia.org": "reachable"
  },
+ "registry": {
+  "attached": 0,
+  "by_confidence": {
+   "A": 2,
+   "C": 1
+  },
+  "events": {
+   "cancelled": 0,
+   "editions": 3,
+   "ended": 1,
+   "ongoing": 1,
+   "postponed": 0,
+   "series": 1,
+   "unconfirmed": 1,
+   "upcoming": 0
+  },
+  "files": [
+   {
+    "file": "fixture.json",
+    "records": 3
+   }
+  ],
+  "problems": [],
+  "published": 2,
+  "records": 3,
+  "review_queue": [
+   {
+    "id": "REG-KR-9003",
+    "name": "픽스처 미확인 축제",
+    "note": null
+   }
+  ]
+ },
  "review_queue": {
   "candidates": 2,
   "hero_candidates": 12

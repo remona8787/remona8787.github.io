@@ -874,6 +874,18 @@ export async function runPipeline(o) {
     // Korean public data: requests, rows received, relevant items, merged into known projects, new place candidates and
     // what reached the public dataset (docs/PUBLIC_DATA.md).
     public_data: sourceCounts,
+    // The research registry and the events file (lib/registry.mjs): records by confidence, the ones published, the
+    // problems that kept a record out, and the editions by status.
+    registry: {
+      files: registry.files,
+      records: registry.records.length,
+      by_confidence: registry.records.reduce((o, r) => { o[r.confidence] = (o[r.confidence] || 0) + 1; return o }, {}),
+      attached: registry.records.filter((r) => r.attach_to).length,
+      published: records.filter((r) => registry.records.some((x) => x.id === r.id)).length,
+      review_queue: registry.records.filter((r) => r.confidence === 'C').map((r) => ({ id: r.id, name: r.name_ko || r.name_en, note: r.review_note || null })),
+      problems: registry.problems,
+      events: events.counts,
+    },
     changes: { new: newIds.slice(0, 200), changed: changed.slice(0, 200), removed: track.removed, carried_over: track.carried, merges: [...merges, ...ed.merges.filter((m) => m.entry.status === 'applied').map((m) => ({ rule: 'editorial_merge', a: m.from, b: m.into }))] },
     decisions,
     hero_list: heroList,
@@ -972,8 +984,18 @@ export function runSummary(report) {
     '',
     ...auditSummary(report.image_audit),
     ...publicDataSummary(report.public_data),
+    ...registrySummary(report.registry),
   ]
   return lines.join('\n') + '\n'
+}
+
+/** The research registry and the events (v0.26). */
+function registrySummary(rg) {
+  if (!rg) return []
+  const e = rg.events || {}
+  return ['#### Registry and events', '',
+    `- records: ${rg.records} (${Object.entries(rg.by_confidence || {}).map(([k, v]) => `${k} ${v}`).join(', ') || 'none'}), ${rg.published} published, ${rg.attached} add editions to existing projects, ${(rg.review_queue || []).length} waiting for review, ${(rg.problems || []).length} invalid`,
+    `- events: ${e.series ?? 0} series, ${e.editions ?? 0} editions — ${e.ongoing ?? 0} ongoing, ${e.upcoming ?? 0} upcoming, ${e.ended ?? 0} ended, ${e.cancelled ?? 0} cancelled, ${e.postponed ?? 0} postponed, ${e.unconfirmed ?? 0} unconfirmed`, '']
 }
 
 /** Markdown table of the Korean public data sources' counts. */
