@@ -61,7 +61,8 @@ test('assemble: dist + site-data → data/; admin-data is never published; main 
     }
     assert.ok(!existsSync(path.join(w.site, 'data/stale.json')), 'a data/ folder of the build never mixes with the dataset')
     assert.ok(!existsSync(path.join(w.site, 'data/admin')), 'internal admin data stays on the data branch')
-    assert.deepEqual((await readdir(path.join(w.site, 'data'))).sort(), ['home.json', 'index.json', 'manifest.json', 'projects', 'research', 'stats.json'])
+    assert.deepEqual((await readdir(path.join(w.site, 'data'))).sort(), ['events.json', 'home.json', 'index.json', 'manifest.json', 'projects', 'research', 'stats.json', 'status.json'])
+    for (const f of ['events.json', 'status.json']) assert.deepEqual(await readFile(path.join(w.site, 'data', f)), await readFile(path.join(FIX, 'site-data', f)), f + ' copied byte for byte (v0.26)')
     assert.match(await readFile(path.join(w.site, 'robots.txt'), 'utf8'), /^Disallow: \/admin\/\nDisallow: \/data\/admin\/\nSitemap:/m)
     const stamp = JSON.parse(await readFile(path.join(w.site, 'deploy.json'), 'utf8'))
     assert.deepEqual(stamp, { schema: 1, deploy_id: r.deploy_id, build_id: manifest.build_id, dataset: 'data_branch', admin: 'not_published', source: 'aaa', data: 'bbb', at: '2026-10-20T07:00:00.000Z' })
@@ -213,7 +214,7 @@ test('research package: the deployed dataset\'s version (latest.json = build id)
     const B = A.slice(0, -8) + 'b0b0b0b0'
     // Every file of a dataset carries its build id.
     const rebuild = async (id, patch = {}) => {
-      for (const f of ['manifest.json', 'index.json', 'home.json', 'stats.json', ...manifest.files.shards]) {
+      for (const f of ['manifest.json', 'index.json', 'home.json', 'stats.json', ...(manifest.files.events ? [manifest.files.events] : []), ...manifest.files.shards]) {
         const file = path.join(w.data, 'site-data', f)
         const j = JSON.parse(await readFile(file, 'utf8'))
         await writeFile(file, JSON.stringify({ ...j, build_id: id, ...(f === 'manifest.json' ? patch : {}) }))
