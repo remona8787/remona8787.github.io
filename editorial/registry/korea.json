@@ -2449,6 +2449,470 @@
      "title": "겨울 시즌"
     }
    ]
+  },
+  {
+   "id": "REG-KR-0069",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "광복 80년 기념 빛 축제",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=bcaf095a-f26a-47b1-aaaf-92eb48be6872",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "광복 80년 기념 빛 축제"
+    }
+   ],
+   "recurrence": "once",
+   "summary_ko": "광복 80년을 기념해 광화문 일대에서 열린 빛 축제로, 건물 외벽 미디어파사드 쇼가 주 프로그램이었다.",
+   "editions": [
+    {
+     "id": "2025",
+     "start": "2025-08-15",
+     "end": "2025-08-23",
+     "source": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=bcaf095a-f26a-47b1-aaaf-92eb48be6872",
+     "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0070",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "허브아일랜드 불빛축제",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gyeonggi",
+   "city": "Pocheon",
+   "city_ko": "포천시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.pocheon.go.kr/ktour/viewTnTursmResrceWeb.do?key=7386&resrceNo=257&sa2=CT012003",
+     "kind": "public_agency",
+     "publisher": "포천시 문화관광",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "허브아일랜드 불빛축제"
+    },
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=ce989e96-0494-4919-abad-7640d7f98403",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "불빛의 동화, 허브 크리스마스"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "포천 허브아일랜드의 야간 조명 행사로, 산타마을 라이팅쇼와 불빛 터널 등 정원 전체를 조명으로 연출한다."
+  },
+  {
+   "id": "REG-KR-0071",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "구미산단 페스티벌",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gyeongbuk",
+   "city": "Gumi",
+   "city_ko": "구미시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=03a23773-4e67-4d36-ad73-1e8df57b1f6d",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "구미산단 페스티벌"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "구미 국가산업단지에서 열리는 축제로, 미디어파사드 쇼가 주 프로그램이다.",
+   "editions": [
+    {
+     "id": "2025",
+     "start": "2025-10-08",
+     "end": "2025-10-09",
+     "source": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=03a23773-4e67-4d36-ad73-1e8df57b1f6d",
+     "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0072",
+   "kind": "facility",
+   "project_type": "interactive_installation",
+   "name_ko": "오월드 나이트 유니버스",
+   "name_en": "O-World Night Universe",
+   "country_iso2": "KR",
+   "kr_division": "daejeon",
+   "city": "Daejeon",
+   "city_ko": "대전광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=1c0117ad-e1a8-4ed5-b1c7-89be2dc7d010",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "밤이 되면 깨어나는 마법의 세계, 대전 오월드 나이트유니버스"
+    },
+    {
+     "url": "https://www.oworld.kr/newkfsweb/cop/bbs/selectViewPage.do?bbsId=BBSMSTR_1470&mn=KFS_34_04_01",
+     "kind": "official",
+     "publisher": "대전오월드",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "O! World 소개"
+    }
+   ],
+   "summary_ko": "대전 오월드 플라워랜드의 야간 미디어아트 전시장으로, 대형 스크린과 바닥 인터랙티브 영상, 분수 위 영상 투사 쇼로 구성된다."
+  },
+  {
+   "id": "REG-KR-0073",
+   "kind": "work",
+   "project_type": "media_wall",
+   "name_ko": "수성못 아나몰픽 미디어아트 「MOTII」",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "daegu",
+   "city": "Daegu",
+   "city_ko": "대구광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://news.daegu.go.kr/newshome/mtnmain.php?mtnkey=articleview&mkey=2&aid=257945",
+     "kind": "public_agency",
+     "publisher": "대구광역시 대구뉴스",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "대구 최초 아나몰픽 미디어아트 영상 수성못 'MOTII'를 수놓다"
+    }
+   ],
+   "summary_ko": "수성못 관광안내소 상부 벽면의 아나몰픽(착시형) 미디어아트 전광판이다."
+  },
+  {
+   "id": "REG-KR-0074",
+   "kind": "work",
+   "project_type": "media_facade",
+   "name_ko": "앞산빨래터 미디어파사드",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "daegu",
+   "city": "Daegu",
+   "city_ko": "대구광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://news.daegu.go.kr/newshome/mtnmain.php?mtnkey=articleview&mkey=2&aid=257945",
+     "kind": "public_agency",
+     "publisher": "대구광역시 대구뉴스",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "대구 최초 아나몰픽 미디어아트 영상 수성못 'MOTII'를 수놓다"
+    }
+   ],
+   "summary_ko": "앞산빨래터의 높이 9m, 폭 23m 벽천분수 정면을 활용한 미디어파사드 체험존이다."
+  },
+  {
+   "id": "REG-KR-0075",
+   "kind": "work",
+   "project_type": "projection_mapping",
+   "name_ko": "구암서원 미디어파사드",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "daegu",
+   "city": "Daegu",
+   "city_ko": "대구광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://tour.daegu.go.kr/index.do?menu_id=00004250",
+     "kind": "public_agency",
+     "publisher": "대구관광안내",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "구암서원 미디어 파사드"
+    },
+    {
+     "url": "https://www.buk.daegu.kr/cmsh/buk.daegu.kr/file/juyo_2021.pdf",
+     "kind": "public_agency",
+     "publisher": "대구광역시 북구",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "juyo_2021.pdf"
+    }
+   ],
+   "summary_ko": "대구 북구 구암서원의 야간 미디어 공연으로, 초현당 외벽의 4부작 미디어파사드 공연과 연비루 지붕의 인터랙티브 체험존으로 구성된다."
+  },
+  {
+   "id": "REG-KR-0076",
+   "kind": "program",
+   "project_type": "projection_mapping",
+   "name_ko": "전동성당 미디어파사드 공연",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "jeonbuk",
+   "city": "Jeonju",
+   "city_ko": "전주시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.jeonju.go.kr/planweb/board/view.9is?contentUid=ff8080818990c349018b041a87373953&boardUid=ff8080818990c349018b1dbaa78e4b41&dataUid=9be517a8914526ec0191daf751f542fa",
+     "kind": "public_agency",
+     "publisher": "전주시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "「전동성당 미디어파사드 공연」 개최 안내"
+    }
+   ],
+   "admission": "free",
+   "summary_ko": "전주 전동성당 외벽에 펼친 미디어파사드 공연으로, 2024년에는 「빛의 동행 : 함께 빛으로 춤추는 전주」를 주제로 열렸다.",
+   "editions": [
+    {
+     "id": "2024",
+     "start": "2024-10-04",
+     "end": "2024-10-27",
+     "source": "https://www.jeonju.go.kr/planweb/board/view.9is?contentUid=ff8080818990c349018b041a87373953&boardUid=ff8080818990c349018b1dbaa78e4b41&dataUid=9be517a8914526ec0191daf751f542fa",
+     "checked_at": "2026-11-11",
+     "admission": "free"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0077",
+   "kind": "exhibition",
+   "project_type": "media_facade",
+   "name_ko": "광주비엔날레 미디어파사드 특별전",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gwangju",
+   "city": "Gwangju",
+   "city_ko": "광주광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/fes_detail.do?cotid=4ac50003-2cb6-4135-848d-9643fbd57c88",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "광주비엔날레미디어파사드 특별전"
+    }
+   ],
+   "summary_ko": "광주비엔날레와 연계해 열린 미디어파사드 특별전이다."
+  },
+  {
+   "id": "REG-KR-0078",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "이월드 별빛축제",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "daegu",
+   "city": "Daegu",
+   "city_ko": "대구광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=848888eb-eb9a-4813-a367-bbb04868165a",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "오색찬란 겨울잔치, 대구 이월드 별빛축제"
+    }
+   ],
+   "summary_ko": "대구 이월드의 겨울 조명 축제로, 놀이공원 전체를 조명으로 꾸민다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0079",
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "name_ko": "딜라이트 담양",
+   "kr_division": "jeonnam",
+   "city": "Damyang",
+   "city_ko": "담양군",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=b5e14ba7-5e8e-442a-ae51-f6391ba15c8a",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "딜라이트 담양"
+    }
+   ],
+   "summary_ko": "담양의 실감형 미디어아트 전시관이다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": "Lee Lee Nam Studio",
+   "id": "REG-KR-0080",
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "name_ko": "이이남스튜디오",
+   "kr_division": "gwangju",
+   "city": "Gwangju",
+   "city_ko": "광주광역시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=605a9ccb-9a55-44aa-b7e3-73d1d0029d94",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "이이남스튜디오"
+    }
+   ],
+   "summary_ko": "광주 양림동에 있는 미디어아트 작가 이이남의 창작공간 겸 미디어아트 전시 공간이다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0081",
+   "kind": "exhibition",
+   "project_type": "light_art",
+   "name_ko": "창경궁 물빛연화",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
+   "sources": [
+    {
+     "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156676302",
+     "kind": "public_agency",
+     "publisher": "대한민국 정책브리핑(국가유산청 보도자료)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "창경궁에서 선보이는 빛의 향연, 「창경궁 물빛연화」(3.7.~12.31.)"
+    }
+   ],
+   "summary_ko": "창경궁에서 선보인 빛 연출 전시로, 국가유산청이 보도자료로 알린 장기 야간 프로그램이다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0082",
+   "kind": "work",
+   "project_type": "media_facade",
+   "name_ko": "탑정호 출렁다리 미디어파사드",
+   "kr_division": "chungnam",
+   "city": "Nonsan",
+   "city_ko": "논산시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=12e1ebe1-d066-4cc3-aca9-b5589b8e541f",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "낮과 밤의 다른 매력을 찾아서, 충남 논산시 탑정호"
+    }
+   ],
+   "summary_ko": "논산 탑정호 출렁다리의 케이블에 연출되는 미디어파사드로, 주변 산책로와 광장의 야간 조명과 함께 운영된다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0083",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "태안빛축제",
+   "kr_division": "chungnam",
+   "city": "Taean",
+   "city_ko": "태안군",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=307992a2-2509-49c6-aeb8-a6ede798a80a",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "낮엔 해수욕, 밤엔 빛축제, 낮과 밤이 다 즐거운 태안"
+    }
+   ],
+   "summary_ko": "태안의 야간 빛 축제로, 일몰 후 점등해 밤까지 조명 정원을 개장한다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0084",
+   "kind": "facility",
+   "project_type": "light_art",
+   "name_ko": "충주라이트월드",
+   "kr_division": "chungbuk",
+   "city": "Chungju",
+   "city_ko": "충주시",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=1af46489-3515-4dac-92c7-c6babf5e99e9",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "충주라이트월드"
+    }
+   ],
+   "summary_ko": "전통에서 첨단까지 다양한 빛의 소재로 꾸민 충주의 빛 테마 관광지다. 현재 운영 여부는 확인이 필요하다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0085",
+   "kind": "work",
+   "project_type": "media_facade",
+   "name_ko": "남동국가산업단지 미디어파사드",
+   "kr_division": "incheon",
+   "city": "Incheon",
+   "city_ko": "인천광역시",
+   "sources": [
+    {
+     "url": "https://gonggam.korea.kr/newsContentView.es?mid=a12601000000&section_id=NCCD_CULTURE&news_id=25d666e6-92f7-4ff2-a05f-29ce40a7426e",
+     "kind": "public_agency",
+     "publisher": "정책주간지 공감",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": null
+    }
+   ],
+   "summary_ko": "인천 남동국가산업단지의 공장 외벽에 설치한 미디어파사드로, 산업단지 야간 경관 개선 사례로 소개됐다."
   }
  ]
 }
