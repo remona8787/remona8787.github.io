@@ -1,7 +1,7 @@
 window.AOL_CONFIG = {
  SUPABASE_URL: '',
  SUPABASE_PUBLISHABLE_KEY: '',
- PUBLIC_URL: 'https://light-architecture-jihyun.peppydegu2.chatgpt.site',
+ PUBLIC_URL: 'https://remona8787.github.io',
  TILE_URL: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
  TILE_ATTRIBUTION: '© OpenStreetMap contributors',
  SUPPORT_EMAIL: '',

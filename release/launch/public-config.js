@@ -2,7 +2,7 @@
 window.AOL_CONFIG={
  SUPABASE_URL:'https://refwrdfxbhcsguweicle.supabase.co',
  SUPABASE_PUBLISHABLE_KEY:'sb_publishable_1yW330X5Xz1UbOno3OQogA_HAuZ42ZR',
- PUBLIC_URL:'https://light-architecture-jihyun.peppydegu2.chatgpt.site',
+ PUBLIC_URL:'https://remona8787.github.io',
  TILE_URL:'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
  TILE_ATTRIBUTION:'© OpenStreetMap contributors',
  SUPPORT_EMAIL: 'remona56@hanmail.net',OPERATOR_NAME: '김지현 (JIHYUN KIM)',PRIVACY_OFFICER: '김지현 (JIHYUN KIM)',MEDIA_MODE:'hybrid'

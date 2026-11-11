@@ -83,6 +83,25 @@ const htmlPages=async(dir=out)=>(await readdir(dir,{recursive:true})).filter(f=>
  console.log('Site URL',SITE_URL);
 }
 
+// Operator and contact on the static pages (privacy, terms, support, about…): the values of config.js are written into
+// their <span data-config="…"></span> placeholders at build time, so the pages name the operator without JavaScript
+// (crawlers, reader modes, app-store reviewers). legal.js still fills them at runtime and flags an empty value.
+{
+ const config=await readFile(path.join(out,'config.js'),'utf8');
+ const value=key=>(config.match(new RegExp(`^\\s*${key}:\\s*'([^'\\\\]*)'`,'m'))?.[1]||'').trim();
+ const esc=t=>t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+ const vals={OPERATOR_NAME:value('OPERATOR_NAME'),SUPPORT_EMAIL:value('SUPPORT_EMAIL')};
+ vals.PRIVACY_OFFICER=value('PRIVACY_OFFICER')||vals.OPERATOR_NAME;
+ const fill=(key,v)=>key==='SUPPORT_EMAIL'&&/^[^\s@<>"']+@[^\s@<>"']+\.[^\s@<>"']+$/.test(v)?`<a href="mailto:${esc(v)}">${esc(v)}</a>`:esc(v);
+ let n=0;
+ for(const file of await htmlPages()){
+  const html=await readFile(file,'utf8');
+  const next=html.replace(/<span data-config="([A-Z_]+)"><\/span>/g,(m,key)=>key in vals&&vals[key]?(n++,`<span data-config="${key}">${fill(key,vals[key])}</span>`):m);
+  if(next!==html)await writeFile(file,next);
+ }
+ console.log('Operator details written into',n,'static placeholder(s)');
+}
+
 // Hosts without custom headers (GitHub Pages) still get the security policy: every page carries the _headers
 // Content-Security-Policy as a meta tag right after <meta charset>, without frame-ancestors (ignored in a meta
 // element; X-Frame-Options and frame-ancestors need real headers). tests/deploy.test.mjs keeps the two equal.
