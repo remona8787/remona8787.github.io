@@ -320,7 +320,9 @@ export async function discoverCategories(client, config, { cache, ttlHours = 72,
         }
         const d = classifyCategory(child.title, child, root, rules)
         const entry = record(child, d, { root: root.title, parent: info.title, project_type: root.project_type ?? null, place_hint: placeHint, korea: !!root.korea })
-        if (d.decision === 'candidate' && parentEntry?.decision === 'candidate') {
+        // v0.26.1: also inside a part (Peter Struycken → Sokkelplan Den Haag → each plinth's sculpture), so a
+        // deeper walk never turns the members of a project's sub-category into projects of their own.
+        if (d.decision === 'candidate' && (parentEntry?.decision === 'candidate' || parentEntry?.decision === 'part')) {
           // A specific category inside a project category is part of that project (a work of a festival, its night views).
           entry.decision = 'part'; entry.reason = 'inside_project_category'
           parentEntry.parts = [...(parentEntry.parts || []), child.title]
