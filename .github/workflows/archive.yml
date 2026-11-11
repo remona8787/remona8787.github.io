@@ -211,9 +211,18 @@ jobs:
           cache-dependency-path: source/package-lock.json
       - name: Install Playwright and Chromium
         working-directory: source
+        # The system packages come from the Ubuntu mirrors. On 2026-11-11 the runner could not resolve
+        # azure.archive.ubuntu.com twice in a row, the install failed after 10 minutes and no live check ran. Two tries of
+        # six minutes each, then Chromium without the system packages (the runner image already carries a browser's
+        # libraries); if that fails too, the step fails and the health job reports it.
         run: |
           npm ci --no-audit --no-fund
-          npx playwright install --with-deps chromium
+          for i in 1 2; do
+            if timeout 360 npx playwright install --with-deps chromium; then exit 0; fi
+            echo "playwright install --with-deps chromium failed (try $i)"
+            sleep 20
+          done
+          npx playwright install chromium
       - name: Wait for the deploy, then check the live site at 390×844 and 1440×900
         id: verify
         working-directory: source

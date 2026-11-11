@@ -129,6 +129,9 @@ test('archive.yml: what each job runs', needYaml, () => {
   // A pinned Ubuntu image Playwright supports: on ubuntu-latest (26.04 since Oct 2026) the Chromium install failed.
   assert.equal(verify['runs-on'], 'ubuntu-24.04')
   assert.match(runs(verify), /npx playwright install --with-deps chromium/)
+  // A mirror outage must not cost the live check (2026-11-11): bounded retries, then Chromium without system packages.
+  assert.match(runs(verify), /for i in 1 2; do\n\s*if timeout 360 npx playwright install --with-deps chromium; then exit 0; fi/)
+  assert.match(runs(verify), /done\n\s*npx playwright install chromium\n/)
   const v = steps(verify).find((s) => s.id === 'verify')
   assert.match(v.run, /node pipeline\/verify-live\.mjs --site="\$SITE_URL\/" --out=\.\.\/data\/review\/live --build-id="\$BUILD_ID" --deploy-id="\$DEPLOY_ID"/)
   assert.equal(v.env.DEPLOY_ID, '${{ needs.deploy.outputs.deploy_id }}')
