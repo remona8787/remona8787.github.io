@@ -112,3 +112,10 @@ test('page images (v0.26.1): the free lead image of each article, 50 titles per 
   assert.deepEqual([...again], [['Old Title', 'Bay Lights 2013.jpg']])
   assert.equal(calls.length, 1, 'answers (with and without an image) come from the cache')
 })
+
+test('years (v0.26.1): a Wikidata date outside 1000–2100 is left out instead of failing the dataset', async () => {
+  const { yearsOf } = await import('../pipeline/lib/entities.mjs')
+  assert.deepEqual(yearsOf({ inception: 450, start: null, end: null }, 'light_art', true), { year_installed: null, year_operating_since: null, year_ended: null })
+  assert.deepEqual(yearsOf({ inception: 1969, start: 2101, end: null }, 'light_art', true), { year_installed: 1969, year_operating_since: null, year_ended: null })
+  assert.deepEqual(yearsOf({ inception: 2005, start: null, end: null }, 'festival_program', false), { year_operating_since: 2005, year_ended: null })
+})

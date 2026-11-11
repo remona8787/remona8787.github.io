@@ -48,7 +48,7 @@ import { relationsOf } from './lib/relations.mjs'
 import T from '../site-public-cleared/archive-taxonomy.js'
 import { loadEditorial, compileEditorial, heroAllowSet, applyToProject, finishLog } from './lib/editorial.mjs'
 import { publicRecord, buildIndex, buildHome, buildStats, buildManifest, shardCount, shardOf, contentHash, upgradeRecord } from './lib/output.mjs'
-import { checkDataset, checkReport, checkQuality, checkCandidates } from './lib/schema.mjs'
+import { checkDataset, checkRecord, checkReport, checkQuality, checkCandidates } from './lib/schema.mjs'
 import { loadState, saveState, updateFailures, trackProjects, ORIGIN_SOURCE } from './lib/state.mjs'
 import { compactTime, uniq, chunk, isQid, stableStringify, sha256, compareStrings, wikidataPage, bareFile, redactKeys } from './lib/util.mjs'
 
@@ -746,6 +746,19 @@ export async function runPipeline(o) {
     // A record carried over from a v0.17 run gets the v0.18 shape (image objects, kr_region), nothing else changes.
     if (old) records.push({ ...upgradeRecord(old), shard: shardOf(id, count) })
   }
+  // One record that fails the published schema is left out (and listed in the report) rather than keeping the whole
+  // previous dataset (v0.26.1; on 11-11 06:25 one bad year held back 27 new projects). A record of the previous
+  // dataset is kept as it was instead.
+  const invalidRecords = []
+  for (let i = records.length - 1; i >= 0; i--) {
+    const errs = []
+    checkRecord(records[i], records[i].id, (ok, at, what) => { if (!ok) errs.push(`${at}: ${what}`); return ok })
+    if (!errs.length) continue
+    const old = prev.records.get(records[i].id)
+    invalidRecords.push({ id: records[i].id, errors: errs.slice(0, 5), kept_previous: !!old })
+    if (old) records[i] = { ...upgradeRecord(old), shard: records[i].shard }
+    else records.splice(i, 1)
+  }
   records.sort((a, b) => compareStrings(a.id, b.id))
   // A carried-over record keeps only relations to records of this dataset.
   const recordIds = new Set(records.map((r) => r.id))
@@ -892,6 +905,7 @@ export async function runPipeline(o) {
     // Korean public data: requests, rows received, relevant items, merged into known projects, new place candidates and
     // what reached the public dataset (docs/PUBLIC_DATA.md).
     public_data: sourceCounts,
+    invalid_records: invalidRecords,
     // The research registry and the events file (lib/registry.mjs): records by confidence, the ones published, the
     // problems that kept a record out, and the editions by status.
     registry: {

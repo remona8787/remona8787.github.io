@@ -139,11 +139,15 @@ export function projectType({ editorial, curated, classTypes, wikipedia, wikiped
 }
 
 /** Year fields by what the item is: a work's inception is its installation, a building's its completion. */
+// A year the record can state (the published schema's range): a Wikidata date outside it (a work dated to antiquity
+// by a wrong precision, a placeholder) is left out rather than failing the whole dataset (11-11 06:25 run).
+const plausibleYear = (y) => (Number.isInteger(y) && y >= 1000 && y <= 2100 ? y : null)
 export function yearsOf(f, projectType, itemIsWork) {
   if (!f) return {}
-  if (projectType === 'festival_program') return { year_operating_since: first(f.start, f.inception), year_ended: f.end }
-  if (itemIsWork) return { year_installed: f.inception, year_operating_since: f.start, year_ended: f.end }
-  return { year_completed: f.inception, year_operating_since: f.start, year_ended: f.end }
+  const inception = plausibleYear(f.inception), start = plausibleYear(f.start), end = plausibleYear(f.end)
+  if (projectType === 'festival_program') return { year_operating_since: first(start, inception), year_ended: end }
+  if (itemIsWork) return { year_installed: inception, year_operating_since: start, year_ended: end }
+  return { year_completed: inception, year_operating_since: start, year_ended: end }
 }
 
 /** The first administrative name of a Korean address that is a city ("서울특별시 중구 …" → 서울특별시, "경기도 수원시 …" → 수원시). */
