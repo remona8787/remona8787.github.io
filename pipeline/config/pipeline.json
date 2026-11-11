@@ -495,6 +495,10 @@
       "upload.wikimedia.org"
     ]
   },
+  "wikidata_routes": {
+    "about": "Material, genre and movement routes (config/classes.json route): an item found only through them is capped at max_per_creator_place per creator, country and city (the most linked first); the rest wait in the review queue as route_diversity_cap.",
+    "max_per_creator_place": 6
+  },
   "output": {
     "shard_target": 200,
     "home_featured": 12,

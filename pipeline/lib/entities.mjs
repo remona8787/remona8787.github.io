@@ -293,6 +293,7 @@ export function buildProject(obs, facts, ctx = {}) {
   const add = (s) => { if (s.url && !sources.some((x) => x.url === s.url)) sources.push(s) }
   for (const o of obs) for (const s of o.sources || []) add(s)
   if (p.qid) add({ id: 'wikidata', kind: 'wikidata', title: host ? `Wikidata ${p.qid} (building)` : `Wikidata ${p.qid}`, url: wikidataPage(p.qid), publisher: 'Wikidata' })
+  p.sitelink_count = f && !host ? Object.keys(f.sitelinks || {}).filter((w) => w !== 'commonswiki').length : 0
   if (f && !host) {
     // Fixed order (Korean, English, then by code): cached entities come back with sorted keys, fresh ones do not.
     const rank = (w) => { const i = ['kowiki', 'enwiki'].indexOf(w); return i < 0 ? 9 : i }

@@ -28,7 +28,7 @@ import { defaultSleep, errorText } from '../edge-functions/_shared/archive/http.
 import { createClient, USER_AGENT } from './lib/net.mjs'
 import { Cache, HOUR } from './lib/cache.mjs'
 import { readJSON, writeJSON, writeFileAtomic, swapDir, listFiles } from './lib/io.mjs'
-import { discoverClasses, addClassCounts, classInstances, countryClassInstances, countryClassInstancesQuery, classMembershipQuery, krLabelScanQuery, searchItems, itemsOfArticles, sparql, qidFromUri, fetchEntities, fetchAux, auxRefs, auxNext, factsOf } from './lib/wikidata.mjs'
+import { classKey, discoverClasses, addClassCounts, classInstances, countryClassInstances, countryClassInstancesQuery, classMembershipQuery, krLabelScanQuery, searchItems, itemsOfArticles, sparql, qidFromUri, fetchEntities, fetchAux, auxRefs, auxNext, factsOf } from './lib/wikidata.mjs'
 import { compileGazetteer, discoverKrDivisions, krRegionOf, koreanPlaceOf, krPlaceFromChain, KR_REGIONS } from './lib/korea.mjs'
 import { discoverTourApi, tourObservation } from './lib/tourapi.mjs'
 import { discoverCategories, categoryRules, nightParent } from './lib/commons.mjs'
@@ -222,7 +222,7 @@ export async function runPipeline(o) {
               const more = again.length ? await itemsOfArticles(client, 'kowiki', again, { cache, ttlHours: ttl.sparql ?? 24 }) : new Map()
               for (const [t, r] of resolved) if (r && more.get(r)) found.set(t, { ...more.get(r), resolved_title: r })
               const qids = [...found.values()].filter(Boolean).map((x) => x.qid)
-              const usable = classReview.classes.filter((c) => c.publish_korea || c.publish).map((c) => c.qid)
+              const usable = uniq(classReview.classes.filter((c) => (c.publish_korea || c.publish) && (!c.route || c.route === 'class')).map((c) => c.qid))
               const member = new Map()
               if (qids.length && usable.length) for (const r of await sparql(client, classMembershipQuery(qids, usable), { stage: 'korea', cache: { ns: 'sparql', key: 'membership:' + qids.join(','), ttlMs: (ttl.sparql ?? 24) * 3600e3 } })) { const i = qidFromUri(r.item?.value), c = qidFromUri(r.class?.value); if (i && c) member.set(i, [...(member.get(i) || []), c]) }
               krProbes = KC.probes.map((title) => { const x = found.get(title); return x ? { title, ...x, located_kr: x.p17.includes(KC.country.qid) || x.p131.length > 0, configured_classes: member.get(x.qid) || [] } : { title, qid: null, missing: true } })
@@ -301,10 +301,12 @@ export async function runPipeline(o) {
   say(`[pipeline] sources: ${Object.entries(sourceStatus).map(([k, v]) => `${k}=${v.status}(${v.items})`).join(' ')}`)
 
   // Observations from the sources (Korean ones first: they are enriched first).
-  const classByQid = new Map((classReview?.classes || []).map((c) => [c.qid, c]))
-  const classCfg = new Map((cfg.classes.classes || []).map((c) => [c.qid, c]))
-  // Light-work classes: an item of one of them is the work itself (entities.mjs item_is_work).
-  const workClasses = new Set([...classCfg.keys(), ...classByQid.keys()])
+  // Keyed by classKey: the QID, plus ":route" for an entry found by material, genre or movement (v0.26).
+  const classByQid = new Map((classReview?.classes || []).map((c) => [c.key || c.qid, c]))
+  const classCfg = new Map((cfg.classes.classes || []).map((c) => [classKey(c), c]))
+  // Light-work classes: an item of one of them is the work itself (entities.mjs item_is_work). Route entries
+  // (materials such as LEDs, a genre) are not classes of the item.
+  const workClasses = new Set((cfg.classes.classes || []).filter((c) => !c.route || c.route === 'class').map((c) => c.qid))
   const classObservation = (qid, classQids, korea) => ({
     origin: 'wikidata_class', qid, korea,
     class_types: classQids.map((c) => ({ qid: c, project_type: classByQid.get(c)?.project_type, publish: !!(korea ? classByQid.get(c)?.publish_korea : classByQid.get(c)?.publish), low_confidence: !!classCfg.get(c)?.low_confidence, require_coordinates: !!classCfg.get(c)?.require_coordinates })),
@@ -553,6 +555,31 @@ export async function runPipeline(o) {
     p.eligibility = el
     if (el.eligible) published.push(p)
     else excluded.push({ id: p.id, qid: p.qid, name: p.name_en || p.name_ko || p.name_original, origins: p.origins, reasons: el.reasons, ...(p.place_recovery_failed ? { place: p.place_recovery_failed } : {}) })
+  }
+  // Route diversity (v0.26): items found only through a material, genre or movement route (no light class, no other
+  // source) are capped per creator and place, so one artist's works in one collection do not fill the archive. The
+  // rest wait in the review queue (reason route_diversity_cap); a curated or editor-approved record is never capped.
+  {
+    const cap = P.wikidata_routes?.max_per_creator_place ?? 6
+    const routeOnly = (p) => !p.curated_id && !p.editorial?.approved && p.origins.every((o) => o === 'wikidata_class' || o === 'evidence') &&
+      (p.evidence || []).filter((e) => e.kind === 'wikidata_class').flatMap((e) => e.classes || []).every((k) => String(k).includes(':'))
+    const groups = new Map()
+    for (const p of published.filter(routeOnly)) {
+      const creator = (p.credits || []).find((c) => c.role !== 'operator' && c.wikidata_qid)?.wikidata_qid || 'unknown'
+      const key = creator + '|' + (p.country_iso2 || '') + '|' + (p.city || '')
+      groups.set(key, [...(groups.get(key) || []), p])
+    }
+    const capped = new Set()
+    for (const [, list] of groups) {
+      if (list.length <= cap) continue
+      list.sort((a, b) => (b.sitelink_count || 0) - (a.sitelink_count || 0) || (b.images?.length || 0) - (a.images?.length || 0) || compareStrings(a.id, b.id))
+      for (const p of list.slice(cap)) capped.add(p)
+    }
+    for (const p of capped) {
+      published.splice(published.indexOf(p), 1)
+      p.eligibility = { eligible: false, reasons: ['route_diversity_cap'] }
+      excluded.push({ id: p.id, qid: p.qid, name: p.name_en || p.name_ko || p.name_original, origins: p.origins, reasons: ['route_diversity_cap'] })
+    }
   }
   say(`[pipeline] resolved ${projects.length} projects from ${kept.length} observations: ${published.length} eligible, ${excluded.length} excluded`)
 

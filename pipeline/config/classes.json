@@ -7,7 +7,8 @@
     "Blocklist classes only remove items (an item whose own P31 is one of them). An entry is applied when it is verified, or when this run's live label of the QID equals the configured label (logged in review/classes.json).",
     "\"subclasses\": true: never a project, also through P31/P279* (one class-membership query per 100 items); \"unless_work_or_event\": true spares an item that is also of a light-work class or of a work, event or venue class by label (config/pipeline.json entity_rules.work_or_event_class_pattern). Decisions in review/classes.json never_project.",
     "When several classes give different types, a class that is the item's own P31 wins; otherwise the most specific type (lib/entities.mjs TYPE_PRIORITY).",
-    "Korea first (v0.18): every usable class (verified, live label matching) is also read for its items located in South Korea (wdt:P17 wd:Q884) before any worldwide query; those items are published from classes that are included, or marked korea_include."
+    "Korea first (v0.18): every usable class (verified, live label matching) is also read for its items located in South Korea (wdt:P17 wd:Q884) before any worldwide query; those items are published from classes that are included, or marked korea_include.",
+    "Routes (v0.26): an entry with \"route\" other than class selects items by another statement of the item: \"material\" = works of art (P31/P279* Q838948, verified_by https://www.wikidata.org/wiki/Q838948) made from the entry (P186), \"genre\" = P136, \"movement\" = P135. Its key is QID:route (review/classes.json key). A route entry is never a class of the item (no item_is_work, no probe membership); its items pass the same entity rules, blocklist and eligibility, and a location (country and coordinates or city) is required as for every project."
   ],
   "verified_at": "2026-10-20",
   "verified_method": "WebSearch with allowed_domains [\"wikidata.org\"], one query per QID (\"<label> <QID>\"); verified_by is the result URL that showed the item.",
@@ -34,7 +35,14 @@
     {"qid":"Q380051","label":"laser lighting show","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q380051","include":false,"project_type":"festival_program","rule":"Discovery only: mostly concert and venue effects, not architecture."},
     {"qid":"Q926949","label":"musical fountain","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q926949","include":false,"korea_include":true,"project_type":"light_art","rule":"Worldwide discovery only: water and light shows (e.g. Sentosa Musical Fountain Q7451371). Korea first: published from for items located in South Korea (korea_include), such as the Banpo Bridge Moonlight Rainbow Fountain."},
     {"qid":"Q110775916","label":"media artwork","verified":false,"verified_by":null,"unverified_reason":"No search result showed this item page itself (only a talk page mentioning it).","include":false,"project_type":"other","rule":"Excluded: 26,875 instances on 2026-10-19 (30 with coordinates), mostly films, series and media files."},
-    {"qid":"Q116262603","label":"illuminated building","verified":false,"verified_by":null,"unverified_reason":"No search result showed this item.","include":false,"project_type":"media_architecture","rule":"Discovery only: 0 instances on 2026-10-19 (\"state where a building is illuminated\"). Architectural lighting enters only through the specific classes above; Commons \"Illuminated buildings\" categories are image evidence only (config/categories.json)."}
+    {"qid":"Q116262603","label":"illuminated building","verified":false,"verified_by":null,"unverified_reason":"No search result showed this item.","include":false,"project_type":"media_architecture","rule":"Discovery only: 0 instances on 2026-10-19 (\"state where a building is illuminated\"). Architectural lighting enters only through the specific classes above; Commons \"Illuminated buildings\" categories are image evidence only (config/categories.json)."},
+    {"qid":"Q1421557","route":"genre","label":"light art","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q1421557","verified_at":"2026-10-20","include":true,"project_type":"light_art","rule":"Items whose genre (P136) is light art: light works catalogued by museums and public-art projects that are not typed with a light class."},
+    {"qid":"Q1421557","route":"movement","label":"light art","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q1421557","verified_at":"2026-10-20","include":true,"project_type":"light_art","rule":"Items whose movement (P135) is light art."},
+    {"qid":"Q25504","route":"material","label":"light-emitting diode","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q25504","verified_at":"2026-11-11","include":true,"project_type":"light_art","rule":"Works of art made from LEDs (P186): LED installations and sculptures, public and in collections."},
+    {"qid":"Q182925","route":"material","label":"fluorescent lamp","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q182925","verified_at":"2026-11-11","include":true,"project_type":"light_art","rule":"Works of art made from fluorescent lamps (P186): fluorescent light installations."},
+    {"qid":"Q12177156","route":"material","label":"neon lighting","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q12177156","verified_at":"2026-11-11","include":true,"project_type":"light_art","rule":"Works of art made from neon lighting (P186)."},
+    {"qid":"Q6006","route":"material","label":"neon sign","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q6006","verified_at":"2026-11-11","include":true,"project_type":"light_art","rule":"Works of art made from neon tubes recorded as neon sign (P186); the route needs the item to be a work of art, so plain signage is not selected."},
+    {"qid":"Q9128","route":"material","label":"light","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q9128","verified_at":"2026-11-11","include":true,"project_type":"light_art","rule":"Works of art whose material (P186) is light itself (skyspaces, light rooms)."}
   ],
   "blocklist": [
     {"qid":"Q39715","label":"lighthouse","verified":true,"verified_by":"https://www.wikidata.org/wiki/Q39715","reason":"navigation light, not light art"},
@@ -80,6 +88,14 @@
     "P5817": "state of use",
     "P276": "location",
     "P150": "contains the administrative territorial entity",
-    "P300": "ISO 3166-2 code", "P50": "author", "P112": "founded by", "P585": "point in time", "P2257": "event interval"
+    "P300": "ISO 3166-2 code",
+    "P50": "author",
+    "P112": "founded by",
+    "P585": "point in time",
+    "P2257": "event interval",
+    "P186": "made from material",
+    "P136": "genre",
+    "P135": "movement",
+    "P195": "collection"
   }
 }

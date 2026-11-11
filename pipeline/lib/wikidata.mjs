@@ -31,15 +31,38 @@ export async function sparql(client, query, { cache = null, stage = 'wikidata' }
   return rows
 }
 
-export const classCountQuery = (qid) => `#aol:class-count ${qid}
+/**
+ * How an entry of config/classes.json selects its items (its "route"; v0.26):
+ *   class (default)  instances of the class and its subclasses (P31/P279*);
+ *   material         works of art (P31/P279* Q838948) made from the entry (P186: LEDs, fluorescent lamps, neon, light);
+ *   genre            items whose genre (P136) is the entry (light art);
+ *   movement         items whose movement (P135) is the entry.
+ * A route only finds candidates: every item still goes through the same entity rules, blocklist and eligibility.
+ */
+export const WORK_OF_ART = 'Q838948'
+export const ROUTES = new Set(['class', 'material', 'genre', 'movement'])
+export function routePattern(qid, route = 'class') {
+  switch (route || 'class') {
+    case 'material': return `?item wdt:P186 wd:${qid} . ?item wdt:P31/wdt:P279* wd:${WORK_OF_ART} .`
+    case 'genre': return `?item wdt:P136 wd:${qid} .`
+    case 'movement': return `?item wdt:P135 wd:${qid} .`
+    case 'class': return `?item wdt:P31/wdt:P279* wd:${qid} .`
+    default: throw Error('unknown route ' + route)
+  }
+}
+const routeTag = (route) => (route && route !== 'class' ? ' ' + route : '')
+/** The key of a classes.json entry: its QID, plus ":route" for a route other than class (Q1421557 and Q1421557:genre). */
+export const classKey = (c) => c.qid + (c.route && c.route !== 'class' ? ':' + c.route : '')
+
+export const classCountQuery = (qid, route = 'class') => `#aol:class-count ${qid}${routeTag(route)}
 SELECT (COUNT(DISTINCT ?item) AS ?instances) (COUNT(DISTINCT ?located) AS ?with_coords) WHERE {
-  ?item wdt:P31/wdt:P279* wd:${qid} .
+  ${routePattern(qid, route)}
   OPTIONAL { ?item wdt:P625 ?coord . BIND(?item AS ?located) }
 }`
 
-export const classInstancesQuery = (qid, limit = INSTANCE_LIMIT) => `#aol:class-instances ${qid}
+export const classInstancesQuery = (qid, limit = INSTANCE_LIMIT, route = 'class') => `#aol:class-instances ${qid}${routeTag(route)}
 SELECT DISTINCT ?item WHERE {
-  ?item wdt:P31/wdt:P279* wd:${qid} .
+  ${routePattern(qid, route)}
 } LIMIT ${limit}`
 
 /**
@@ -47,10 +70,10 @@ SELECT DISTINCT ?item WHERE {
  * item's own country (P17), or the country of its administrative area (P131, one or two levels up) or of its
  * location (P276): many Korean items have P131 but no P17.
  */
-export const countryClassInstancesQuery = (qid, countryQid, limit = 2000) => `#aol:kr-class-instances ${qid}
+export const countryClassInstancesQuery = (qid, countryQid, limit = 2000, route = 'class') => `#aol:kr-class-instances ${qid}${routeTag(route)}
 SELECT DISTINCT ?item WHERE {
-  ?item wdt:P31/wdt:P279* wd:${qid} .
-  { ?item wdt:P17 wd:${countryQid} . } UNION { ?item wdt:P131/wdt:P17 wd:${countryQid} . } UNION { ?item wdt:P131/wdt:P131/wdt:P17 wd:${countryQid} . } UNION { ?item wdt:P276/wdt:P17 wd:${countryQid} . }
+  ${routePattern(qid, route)}
+  { ?item wdt:P17 wd:${countryQid} . } UNION { ?item wdt:P131/wdt:P17 wd:${countryQid} . } UNION { ?item wdt:P131/wdt:P131/wdt:P17 wd:${countryQid} . } UNION { ?item wdt:P276/wdt:P17 wd:${countryQid} . } UNION { ?item wdt:P195/wdt:P17 wd:${countryQid} . }
 } LIMIT ${limit}`
 
 /** Which of the given items are instances of which of the given classes (#aol:class-membership; probes). */
@@ -334,15 +357,16 @@ export async function discoverClasses(client, classesConfig, { cache, ttlHours =
     const live = labels.get(c.qid) || null
     const labelOk = live && !live.missing ? norm(live.en) === norm(c.label) : null
     const reasons = []
+    if (!ROUTES.has(c.route || 'class')) reasons.push('unknown_route')
     if (!c.verified) reasons.push('not_verified')
     if (!c.include) reasons.push('excluded_by_config')
     if (live?.missing) reasons.push('item_missing')
     if (live?.redirect) reasons.push('redirects_to_' + live.redirect)
     if (labelOk === false) reasons.push('live_label_differs')
-    const usable = !!(c.verified && labelOk !== false && !live?.missing && !live?.redirect)
+    const usable = !!(c.verified && ROUTES.has(c.route || 'class') && labelOk !== false && !live?.missing && !live?.redirect)
     const publish = !!(usable && c.include)
     review.push({
-      qid: c.qid, configured_label: c.label, live_label: live?.en ?? null, live_label_ko: live?.ko ?? null, live_description: live?.description ?? null,
+      qid: c.qid, key: classKey(c), route: ROUTES.has(c.route || 'class') ? (c.route || 'class') : 'class', configured_label: c.label, live_label: live?.en ?? null, live_label_ko: live?.ko ?? null, live_description: live?.description ?? null,
       label_matches: labelOk, ...(live?.from_cache ? { label_from_cache: true } : {}), verified: !!c.verified, include: !!c.include, korea_include: !!c.korea_include, project_type: c.project_type, publish,
       // Korea first: a verified class with a matching live label is also read for its items located in Korea (P17),
       // and published from there when it is included or korea_include (config/classes.json).
@@ -367,11 +391,13 @@ export async function discoverClasses(client, classesConfig, { cache, ttlHours =
   return { classes: review, blocklist, properties, items, errors }
 }
 
+const routeKey = (route) => (route && route !== 'class' ? ':' + route : '')
+
 /** Live instance counts of every class (review/classes.json); fills review entries in place. */
 export async function addClassCounts(client, review, { ttlHours = 24, errors = [] } = {}) {
   for (const c of review) {
     try {
-      const n = parseCount(await sparql(client, classCountQuery(c.qid), { cache: { ns: 'sparql', key: 'count:' + c.qid, ttlMs: ttlHours * HOUR }, stage: 'discovery' }))
+      const n = parseCount(await sparql(client, classCountQuery(c.qid, c.route), { cache: { ns: 'sparql', key: 'count:' + c.qid + routeKey(c.route), ttlMs: ttlHours * HOUR }, stage: 'discovery' }))
       c.instances = n.instances; c.with_coords = n.with_coords
     } catch (e) {
       if (e?.code === 'budget') throw e
@@ -390,13 +416,13 @@ export async function countryClassInstances(client, review, countryQid, { cache,
   const byQid = new Map(), perClass = {}, errors = []
   for (const c of review.filter((x) => x.publish_korea)) {
     try {
-      const qids = parseInstances(await sparql(client, countryClassInstancesQuery(c.qid, countryQid, limit), { cache: { ns: 'sparql', key: `country-instances:${countryQid}:${c.qid}`, ttlMs: ttlHours * HOUR }, stage: 'korea' }))
-      perClass[c.qid] = qids.length
-      for (const q of qids) byQid.set(q, [...(byQid.get(q) || []), c.qid])
+      const qids = parseInstances(await sparql(client, countryClassInstancesQuery(c.qid, countryQid, limit, c.route), { cache: { ns: 'sparql', key: `country-instances:${countryQid}:${c.qid}${routeKey(c.route)}`, ttlMs: ttlHours * HOUR }, stage: 'korea' }))
+      perClass[c.key] = qids.length
+      for (const q of qids) byQid.set(q, [...(byQid.get(q) || []), c.key])
     } catch (e) {
       if (e?.code === 'budget') throw e
-      perClass[c.qid] = null
-      errors.push({ stage: 'korea', class: c.qid, message: String(e?.message || e).slice(0, 300) })
+      perClass[c.key] = null
+      errors.push({ stage: 'korea', class: c.key, message: String(e?.message || e).slice(0, 300) })
     }
   }
   return { byQid, perClass, errors }
@@ -407,13 +433,13 @@ export async function classInstances(client, review, { cache, ttlHours = 24, lim
   const byQid = new Map(), perClass = {}, errors = []
   for (const c of review.filter((x) => x.publish)) {
     try {
-      const qids = parseInstances(await sparql(client, classInstancesQuery(c.qid, limit), { cache: { ns: 'sparql', key: 'instances:' + c.qid, ttlMs: ttlHours * HOUR }, stage: 'wikidata' }))
-      perClass[c.qid] = qids.length
-      for (const q of qids) byQid.set(q, [...(byQid.get(q) || []), c.qid])
+      const qids = parseInstances(await sparql(client, classInstancesQuery(c.qid, limit, c.route), { cache: { ns: 'sparql', key: 'instances:' + c.qid + routeKey(c.route), ttlMs: ttlHours * HOUR }, stage: 'wikidata' }))
+      perClass[c.key] = qids.length
+      for (const q of qids) byQid.set(q, [...(byQid.get(q) || []), c.key])
     } catch (e) {
       if (e?.code === 'budget') throw e
-      perClass[c.qid] = null
-      errors.push({ stage: 'wikidata', class: c.qid, message: String(e?.message || e).slice(0, 300) })
+      perClass[c.key] = null
+      errors.push({ stage: 'wikidata', class: c.key, message: String(e?.message || e).slice(0, 300) })
     }
   }
   return { byQid, perClass, errors }
@@ -428,7 +454,8 @@ export const label = (labels, langs) => { for (const l of langs) if (labels?.[l]
  * an English label matching cityPattern; else the first administrative area. Returns {qid, rule} or null.
  */
 export function findCity(entity, auxMap, cityPattern) {
-  const start = [...(entity.claims.P131 || []), ...(entity.claims.P276 || [])].map((v) => v.item).filter(Boolean)
+  // P195 (collection) last: a work held by a museum without its own location is found at the museum's city.
+  const start = [...(entity.claims.P131 || []), ...(entity.claims.P276 || []), ...(entity.claims.P195 || [])].map((v) => v.item).filter(Boolean)
   const seen = new Set()
   let level = start
   let first = null
@@ -453,7 +480,7 @@ export function findCity(entity, auxMap, cityPattern) {
 export function auxRefs(entities) {
   const out = new Set()
   for (const e of entities) {
-    for (const p of ['P17', 'P131', 'P276', 'P31', 'P84', 'P170', 'P50', 'P112', 'P137', 'P301', 'P5817']) for (const v of e.claims[p] || []) if (v.item) out.add(v.item)
+    for (const p of ['P17', 'P131', 'P276', 'P195', 'P31', 'P84', 'P170', 'P50', 'P112', 'P137', 'P301', 'P5817']) for (const v of e.claims[p] || []) if (v.item) out.add(v.item)
   }
   return [...out]
 }
@@ -506,7 +533,7 @@ export function factsOf(entity, auxMap, { cityPattern, originalLanguageByCountry
   let country = null, countryQid = null, countryRule = null
   for (const v of c.P17 || []) { const iso = isoOfCountry(v.item, auxMap); if (iso) { country = iso; countryQid = v.item; countryRule = 'p17'; break } }
   if (!country) {
-    for (const [pid, rule] of [['P131', 'p131_country'], ['P276', 'p276_country']]) {
+    for (const [pid, rule] of [['P131', 'p131_country'], ['P276', 'p276_country'], ['P195', 'p195_country']]) {
       for (const v of c[pid] || []) { const r = countryOfPlace(v.item, auxMap); if (r) { country = r.iso; countryQid = r.via; countryRule = rule; break } }
       if (country) break
     }
