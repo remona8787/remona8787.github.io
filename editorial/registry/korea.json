@@ -804,6 +804,14 @@
      "checked_at": "2026-11-11",
      "title": "서울라이트 DDP 2026 가을",
      "admission": "free"
+    },
+    {
+     "id": "2026-winter",
+     "start": "2026-12-17",
+     "end": null,
+     "source": "https://festival.seoul.go.kr/festival/main/festivalView.do?festacode=452",
+     "checked_at": "2026-11-11",
+     "title": "서울라이트 DDP 2026 겨울"
     }
    ]
   },
@@ -3066,7 +3074,7 @@
    "name_en": null,
    "id": "REG-KR-0091",
    "kind": "facility",
-   "project_type": "light_art",
+   "project_type": "projection_mapping",
    "name_ko": "테라판타지아",
    "kr_division": "gyeonggi",
    "city": "Pocheon",
@@ -3079,9 +3087,17 @@
      "checked_at": "2026-11-11",
      "method": "web_search",
      "title": "테라판타지아"
+    },
+    {
+     "url": "https://ggtour.or.kr/recommend-travel/story/56c56b77-e7e3-4693-8c28-e325d8c9abc0",
+     "kind": "public_agency",
+     "publisher": "경기관광공사 경기도 관광",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "포천 야경 미디어아트 테라 판타지아 여행 명소 추천"
     }
    ],
-   "summary_ko": "포천의 야간 미디어아트 파크다."
+   "summary_ko": "포천 한탄강 일대를 따라 걷는 야간 미디어아트 파크로, 주상절리 적벽에 펼치는 미디어파사드 쇼 「빛의 화산」이 대표 콘텐츠다."
   },
   {
    "country_iso2": "KR",
@@ -4482,6 +4498,423 @@
     }
    ],
    "summary_ko": "강릉 경포생태저류지의 지름 10m LED 달 조형물과 미디어아트, 참여형 프로그램으로 이뤄진 빛 전시다."
+  },
+  {
+   "id": "REG-KR-0143",
+   "kind": "work",
+   "project_type": "media_architecture",
+   "name_ko": "광안대교 경관조명",
+   "name_en": "Gwangan Bridge lighting",
+   "country_iso2": "KR",
+   "kr_division": "busan",
+   "city": "Busan",
+   "city_ko": "부산광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://busan.go.kr/nbtnewsBU/1705990?curPage=2&srchBeginDt=&srchEndDt=&srchKey=&srchText=",
+     "kind": "public_agency",
+     "publisher": "부산광역시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "부산의 상징 광안대교, 12년 만에 새 단장 완료… 더 화려한 조명으로 밤바다 수놓는다"
+    }
+   ],
+   "summary_ko": "부산 광안대교의 LED 경관조명으로, 2025년 개선 사업으로 등기구를 늘리고 무빙라이트와 미디어 콘텐츠를 더했다. 부산불꽃축제에서는 다리 조명으로 미디어파사드를 연출한다."
+  },
+  {
+   "id": "REG-KR-0144",
+   "kind": "work",
+   "project_type": "media_wall",
+   "name_ko": "인천문화예술회관 광장 미디어월",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "incheon",
+   "city": "Incheon",
+   "city_ko": "인천광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.incheon.go.kr/IC010205/view?repSeq=DOM_0000000003610399&curPage=1053",
+     "kind": "public_agency",
+     "publisher": "인천광역시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "인천의 밤, 야간 명소로 시민 감성 힐링!"
+    }
+   ],
+   "summary_ko": "인천문화예술회관 광장의 미디어월로, 인천시 미디어아트 공모전 작품을 저녁마다 상영했다. 현재 운영 여부는 확인이 필요하다."
+  },
+  {
+   "id": "REG-KR-0145",
+   "kind": "festival",
+   "project_type": "projection_mapping",
+   "name_ko": "공주 국가유산야행",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "chungnam",
+   "city": "Gongju",
+   "city_ko": "공주시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=59539b0a-79cc-451a-b3dc-aa682dcdf4de",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "공주 국가유산야행"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "공주 원도심의 국가유산 야간 축제로, 국가유산 미디어파사드가 주 프로그램이다.",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-09-04",
+     "end": "2026-09-06",
+     "source": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=59539b0a-79cc-451a-b3dc-aa682dcdf4de",
+     "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0146",
+   "kind": "festival",
+   "project_type": "projection_mapping",
+   "name_ko": "대구 국가유산야행",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "daegu",
+   "city": "Daegu",
+   "city_ko": "대구광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=8b644768-b1e4-4071-a78f-9770ac19829d",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "대구 국가유산야행"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "대구 중구 근대골목 일대의 국가유산 야간 축제로, 청라언덕 일대 미디어아트와 야간 경관 연출이 주 프로그램이다.",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-10-16",
+     "end": "2026-10-17",
+     "source": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=8b644768-b1e4-4071-a78f-9770ac19829d",
+     "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0147",
+   "kind": "facility",
+   "project_type": "light_art",
+   "name_ko": "숲속애 빛의 정원",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "chungnam",
+   "city": "Boryeong",
+   "city_ko": "보령시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/ms_detail.do?cotid=398903bb-7c2d-454b-a58b-79f02e75a0b0",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "숲속애 빛의 정원"
+    }
+   ],
+   "summary_ko": "충남 보령의 야간 조명 정원으로, 수백만 개의 조명과 빛 조형물로 꾸몄다."
+  },
+  {
+   "id": "REG-KR-0148",
+   "kind": "program",
+   "project_type": "other",
+   "name_ko": "삽교호 드론 라이트쇼",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "chungnam",
+   "city": "Dangjin",
+   "city_ko": "당진시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://tour.chungnam.go.kr/prog/fstvl/kor/sub02_01_01/view.do?fstvlNo=320",
+     "kind": "public_agency",
+     "publisher": "충남관광",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "삽교호 드론 라이트쇼"
+    },
+    {
+     "url": "https://www.dangjin.go.kr/media/Board/media/0101/View/24558",
+     "kind": "public_agency",
+     "publisher": "당진시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "당진시정뉴스 4월 5주"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "당진 삽교호 바다공원에서 시즌 중 매주 토요일 저녁 여는 드론 라이트쇼로, 중부권 첫 상설 드론 쇼를 표방한다.",
+   "editions": [
+    {
+     "id": "2026-spring",
+     "start": "2026-05-02",
+     "end": "2026-06-06",
+     "source": "https://tour.chungnam.go.kr/prog/fstvl/kor/sub02_01_01/view.do?fstvlNo=320",
+     "checked_at": "2026-11-11"
+    },
+    {
+     "id": "2026-autumn",
+     "start": "2026-09-12",
+     "end": "2026-10-17",
+     "source": "https://tour.chungnam.go.kr/prog/fstvl/kor/sub02_01_01/view.do?fstvlNo=320",
+     "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0149",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "호수의 가을과 겨울 그리고 루미나리에 (석촌호수 루미나리에)",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
+   "sources": [
+    {
+     "url": "https://www.songpa.go.kr/culture/detailInfo.do?key=3796&resrceCd=CT0155-1030773",
+     "kind": "public_agency",
+     "publisher": "송파구 문화관광",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "호수의 가을과 겨울 그리고 루미나리에"
+    },
+    {
+     "url": "https://mediahub.seoul.go.kr/archives/2016661",
+     "kind": "public_agency",
+     "publisher": "내 손안에 서울(서울시)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "석촌호수, 이렇게 예뻤어? 루미나리에 200% 즐기는 꿀팁"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_ko": "송파구 석촌호수 동·서호 일대의 겨울 루미나리에 빛 축제로, 게이트형 조명 구조물과 LED 조형물을 설치한다. 2026년 주제는 「Love & Dream Forever」다.",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-10-30",
+     "end": "2027-02-28",
+     "source": "https://www.songpa.go.kr/culture/detailInfo.do?key=3796&resrceCd=CT0155-1030773",
+     "checked_at": "2026-11-11",
+     "admission": "free"
+    }
+   ]
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0150",
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "name_ko": "목감미디어아트홀",
+   "kr_division": "gyeonggi",
+   "city": "Siheung",
+   "city_ko": "시흥시",
+   "sources": [
+    {
+     "url": "https://www.siheung.go.kr//cultour/contents.do?mId=0203010000",
+     "kind": "public_agency",
+     "publisher": "시흥시 문화관광",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "목감미디어아트홀"
+    }
+   ],
+   "summary_ko": "시흥 목감동의 미디어아트 상설 전시관으로, 실감형 콘텐츠 체험과 설치미술 전시를 한다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "id": "REG-KR-0151",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "화성 루나빛축제",
+   "kr_division": "gyeonggi",
+   "city": "Hwaseong",
+   "city_ko": "화성시",
+   "sources": [
+    {
+     "url": "https://tour.hscity.go.kr/NEW/6festival/festival5.jsp",
+     "kind": "public_agency",
+     "publisher": "화성시 관광",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "2026년 화성시 주요 축제·행사 일정"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "화성 동탄호수공원에서 열리는 빛 축제다.",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-10-31",
+     "end": "2026-10-31",
+     "source": "https://tour.hscity.go.kr/NEW/6festival/festival5.jsp",
+     "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0152",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "김제 꽃빛드리 축제",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "jeonbuk",
+   "city": "Gimje",
+   "city_ko": "김제시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=fb7960a3-cfde-4c88-8ee9-0f33928808d4",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "김제 꽃빛드리 축제"
+    },
+    {
+     "url": "https://www.gimje.go.kr/tour/index.gimje?menuCd=DOM_000000309006000000",
+     "kind": "public_agency",
+     "publisher": "김제시 문화관광",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "김제 꽃빛드리축제"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_ko": "김제시민문화체육공원에서 낮에는 꽃, 밤에는 조명으로 빛의 정원을 연출하는 봄 축제다.",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-04-03",
+     "end": "2026-04-05",
+     "source": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=fb7960a3-cfde-4c88-8ee9-0f33928808d4",
+     "checked_at": "2026-11-11",
+     "admission": "free"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0153",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "밀락루체페스타",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "busan",
+   "city": "Busan",
+   "city_ko": "부산광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://korean.visitkorea.or.kr/detail/rem_detail.do?cotid=6a16f1c8-1951-46a1-916f-97d99636ea7f",
+     "kind": "public_agency",
+     "publisher": "한국관광공사 대한민국 구석구석",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "[현지인 추천] 부산 1박 2일 뚜벅이 여행코스 :: 흰여울문화마을, 전포카페거리, 해리단길, 밀락루체페스타"
+    }
+   ],
+   "summary_ko": "한국관광공사 부산 여행 코스 기사에 소개된 부산의 빛 축제다. 장소와 기간은 확인이 필요하다."
+  },
+  {
+   "id": "REG-KR-0154",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "빛가람 빛정원 페스타",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "jeonnam",
+   "city": "Naju",
+   "city_ko": "나주시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.naju.go.kr/www/administration/reporting/coverage?idx=587840&mode=view&page_scale=30",
+     "kind": "public_agency",
+     "publisher": "나주시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "나주시, ‘2025 빛가람 빛정원 페스타’ 오는 21일 개막"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "나주 빛가람호수공원 일대의 도심형 야간정원 축제로, 조명 연출과 미디어아트로 구성된다. 2025년에는 11월 21일 개막했다."
+  },
+  {
+   "id": "REG-KR-0155",
+   "kind": "exhibition",
+   "project_type": "light_art",
+   "name_ko": "용산어린이정원 겨울빛 전시 「빛과 함께 걷는 기억의 길」",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "seoul",
+   "city": "Seoul",
+   "city_ko": "서울특별시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.korea.kr/news/reporterView.do?newsId=148958341",
+     "kind": "public_agency",
+     "publisher": "대한민국 정책브리핑",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "용산어린이정원 문이 열렸다…겨울빛 전시에 용리단길 쿠폰까지"
+    }
+   ],
+   "summary_ko": "용산어린이정원의 겨울 야간 전시로, 빛을 따라 걸으며 미디어아트를 보는 산책형 구성이다.",
+   "editions": [
+    {
+     "id": "2025",
+     "start": "2025-12-30",
+     "end": "2026-02-01",
+     "source": "https://www.korea.kr/news/reporterView.do?newsId=148958341",
+     "checked_at": "2026-11-11"
+    }
+   ]
   }
  ]
 }
