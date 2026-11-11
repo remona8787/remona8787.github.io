@@ -194,7 +194,7 @@ export function assessCandidate(cand, info, ctx) {
   if (EXTERIOR_TYPES.has(ctx.project_type) && INTERIOR.test(text)) reasons.push('interior_unrelated_to_work')
   // From the item's P18, depicts or category while the item is an institution, building, tower or district (or a
   // host building) rather than the work: entities.mjs item_institution, image-stage.mjs commonsFiles.
-  const institution = cand.institution === true || (!!ctx.host && ['p18', 'category', 'depicts', 'event_category', 'night_category'].includes(cand.source))
+  const institution = cand.institution === true || (!!ctx.host && ['p18', 'pageimage', 'category', 'depicts', 'event_category', 'night_category'].includes(cand.source))
   const ownWorkCategory = !institution && OWN_CATEGORY_SOURCES.has(cand.source) && WORK_TYPES.has(ctx.project_type)
   // The title and description decide the subject (categories also name the place, events held there, etc.).
   const subject = otherSubject([title, info.object_name, info.description, ...(info.categories || []).filter((c) => PEOPLE_EVENT.test(c))].filter(Boolean).join(' · '), { ...ctx, ownWorkCategory })

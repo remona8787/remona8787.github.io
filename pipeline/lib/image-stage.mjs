@@ -12,6 +12,7 @@
 // What the budget did not reach keeps the previous run's images (upgraded to the v0.18 image object when needed).
 import { fileInfo, categoryMembers, categoryFiles, depictsFiles, fileDepictsStatements, isNightCategory, isEventCategory } from './commons.mjs'
 import { fetchAux } from './wikidata.mjs'
+import { pageImages } from './wikipedia.mjs'
 import { assessCandidate, assessText, tierOf, chooseImages, imageObject, nameEvidence, commonsCandidate, otherSubject, PERSON_STRONG, namesCreator, BAD_NAME, stableImageId, cleanMediaUrl } from './images.mjs'
 import { measureImage } from './visual.mjs'
 import { measureQuality, qualityScore } from './quality.mjs'
@@ -53,7 +54,11 @@ export async function imageStage(ctx) {
   const openverseLimits = {}
   // Korea first: Korean projects, then curated, then those that had images, then by type and id.
   const typeOrder = ['media_facade', 'projection_mapping', 'media_wall', 'urban_screen', 'interactive_installation', 'light_art', 'media_architecture', 'festival_program', 'other']
-  const order = [...published].sort((a, b) => (b.country_iso2 === 'KR' ? 1 : 0) - (a.country_iso2 === 'KR' ? 1 : 0) || (b.curated_id ? 1 : 0) - (a.curated_id ? 1 : 0) || (prev.records.get(b.id)?.images?.length ? 1 : 0) - (prev.records.get(a.id)?.images?.length ? 1 : 0) || typeOrder.indexOf(a.project_type) - typeOrder.indexOf(b.project_type) || (b.p18.length ? 1 : 0) - (a.p18.length ? 1 : 0) || compareStrings(a.id, b.id))
+  // v0.26.1: a project without images in the previous dataset comes before one that has them (after Korea first), so
+  // the per-run caps (depicts searches, provider requests, the time budget) go to the ones that need a photo; a project
+  // the budget does not reach keeps its previous images.
+  const hadImages = (p) => !!(prev.records.get(p.id)?.images?.length)
+  const order = [...published].sort((a, b) => (b.country_iso2 === 'KR' ? 1 : 0) - (a.country_iso2 === 'KR' ? 1 : 0) || (hadImages(a) ? 1 : 0) - (hadImages(b) ? 1 : 0) || (b.curated_id ? 1 : 0) - (a.curated_id ? 1 : 0) || typeOrder.indexOf(a.project_type) - typeOrder.indexOf(b.project_type) || (b.p18.length ? 1 : 0) - (a.p18.length ? 1 : 0) || compareStrings(a.id, b.id))
   const editorialImages = ed.setImages || new Map()
 
   // ---------------------------------------------------------------- Commons candidates of one project
@@ -71,6 +76,9 @@ export async function imageStage(ctx) {
     // building has none here, entities.mjs), so it is never an institution file.
     const inst = !!p.item_institution
     for (const f of p.p18 || []) add(f, 'p18')
+    // The free lead image of the item's articles (v0.26.1): the article is about the item, so its image shows the item
+    // (an institution item's image shows the institution: context unless it shows the work, as for depicts).
+    for (const f of leadImages.get(p.id) || []) add(f, 'pageimage', null, inst)
     // The photo that showed the work where the category was found (a Korean root's file): of the work itself.
     for (const f of p.via_files || []) add(f, 'part_category')
     const cats = [...(p.image_categories || [])]
@@ -97,7 +105,7 @@ export async function imageStage(ctx) {
         for (const f of await depictsFiles(client, p.qid, { cache, ttlHours: ttl.commons_depicts ?? 336, limit: IC.depicts_per_project ?? 30 })) add(f, 'depicts', null, inst)
       }
     }
-    const bonus = { p18: 15, night_category: 40, event_category: 20, part_category: 10, depicts: 5, category: 0 }
+    const bonus = { p18: 15, pageimage: 12, night_category: 40, event_category: 20, part_category: 10, depicts: 5, category: 0 }
     // An institution's file that names neither night nor media comes last (it can only be context).
     const ranked = out.map((c) => { const n = nameEvidence(c.file); return { ...c, pre: n.night + n.media + (bonus[c.source] ?? 0) - (c.institution && !n.night && !n.media ? 30 : 0) } }).sort((a, b) => b.pre - a.pre || compareStrings(a.file, b.file))
     stats.candidates += ranked.length
@@ -362,6 +370,27 @@ export async function imageStage(ctx) {
     stats.kept_previous++
   }
 
+  // ---------------------------------------------------------------- lead images of the items' articles (v0.26.1)
+  // For projects without P18 and without images in the previous dataset: the free lead image of each article of the
+  // item (the wikis config/pipeline.json sitelink_wikis names), one request per 50 titles per wiki, cached two weeks.
+  const leadImages = new Map()
+  let leadRequests = 0
+  if (IC.pageimages !== false) {
+    const wikis = new Set((P.sitelink_wikis || []).map((w) => w.replace(/wiki$/, '')))
+    const need = order.filter((p) => !(p.p18 || []).length && !hadImages(p) && (p.wiki_titles || []).length)
+    const byLang = new Map()
+    for (const p of need) for (const t of p.wiki_titles) if (!wikis.size || wikis.has(t.lang)) byLang.set(t.lang, [...(byLang.get(t.lang) || []), { p, title: t.title }])
+    for (const [lang, list] of byLang) {
+      if (client.clock() >= client.deadline) break
+      try {
+        const files = await pageImages(client, lang, list.map((x) => x.title), { cache, ttlHours: ttl.wiki_pageimages ?? 336 })
+        leadRequests += Math.ceil(list.length / 50)
+        for (const { p, title } of list) { const f = files.get(title); if (f) leadImages.set(p.id, uniq([...(leadImages.get(p.id) || []), f])) }
+      } catch (x) { if (isBudget(x)) break; err('images_pageimages', x, { lang }) }
+    }
+  }
+  stats.pageimage_projects = leadImages.size
+
   // ---------------------------------------------------------------- the stage
   const groups = chunk(order, 6)
   for (let gi = 0; gi < groups.length; gi++) {
@@ -394,5 +423,5 @@ export async function imageStage(ctx) {
     }
   }
   for (const p of published) if (!imageResults.has(p.id)) keepPrevImages(p)
-  return { imageResults, imageReview, tiles, heroOutcome, providerLog, imageCandidates, keptDrops, stats: { ...stats, thumbnails_fetched: thumbsFetched, quality_fetched: qualityFetched, depicts_searches: depictsAsked, provider_new_requests: used, openverse_rate_limit: openverseLimits } }
+  return { imageResults, imageReview, tiles, heroOutcome, providerLog, imageCandidates, keptDrops, stats: { ...stats, thumbnails_fetched: thumbsFetched, quality_fetched: qualityFetched, depicts_searches: depictsAsked, pageimage_requests: leadRequests, provider_new_requests: used, openverse_rate_limit: openverseLimits } }
 }

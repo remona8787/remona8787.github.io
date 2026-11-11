@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "budget_minutes": 25,
+  "budget_minutes": 35,
   "stage_shares": {
     "sources": 0.36,
     "enrich": 0.14,
@@ -60,7 +60,8 @@
     "commons_file_depicts": 720,
     "commons_parents": 720,
     "commons_geotags": 720,
-    "labels": 168
+    "labels": 168,
+    "wiki_pageimages": 336
   },
   "wikipedia": {
     "about": "Media-facade discovery: phrase searches of the local terms in each Wikipedia; each hit is mapped to its Wikidata item and accepted only by the rules in lib/wikipedia.mjs (score and reasons in review/wikipedia.json).",
@@ -433,7 +434,7 @@
     "members_per_category": 200,
     "files_per_subcategory": 40,
     "depicts": true,
-    "depicts_max_per_run": 80,
+    "depicts_max_per_run": 300,
     "depicts_per_project": 30,
     "about": "thumb_width: the Commons thumbnail read for visual scoring (330 px, a standard step); score_width: the size measured (320 px). Widths of the original by role (v0.18): hero >= hero_min_width (hero_fallback_min_width when the project has nothing larger, flagged below_target), featured >= featured_min_width, card >= card_min_width (a smaller card only when nothing larger exists, flagged), tier 1 needs tier1_min_width. quality: sharpness (0-100, Laplacian variance at 1024 px) and blockiness (0-100, 8x8 block-edge energy) gates for hero and featured, measured on a ~1024 px rendition of at most quality_per_project candidates per project and max_quality_per_run downloads per run, cached a year. near_duplicate_hamming: dHash distance under which two images are one (the larger and sharper stays). A home image needs mean luminance <= home_max_mean_luminance, saturated bright share >= home_min_saturated_bright and colourfulness >= home_min_colourfulness. depicts: P180 searches, at most depicts_max_per_run new ones per run, cached two weeks. kto_photo.default_license_when_missing stays null: gallery photos without a copyright field in the answer are review candidates only.",
     "hero_fallback_min_width": 1920,

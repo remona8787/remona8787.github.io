@@ -36,16 +36,22 @@ export async function sparql(client, query, { cache = null, stage = 'wikidata' }
  *   class (default)  instances of the class and its subclasses (P31/P279*);
  *   material         works of art (P31/P279* Q838948) made from the entry (P186: LEDs, fluorescent lamps, neon, light);
  *   genre            items whose genre (P136) is the entry (light art);
- *   movement         items whose movement (P135) is the entry.
+ *   movement         items whose movement (P135) is the entry;
+ *   creator          works of art by the entry (P170: an artist who works in light), never drawings, prints, paintings or
+ *                    photographs (FLAT_WORKS).
  * A route only finds candidates: every item still goes through the same entity rules, blocklist and eligibility.
  */
 export const WORK_OF_ART = 'Q838948'
-export const ROUTES = new Set(['class', 'material', 'genre', 'movement'])
+export const ROUTES = new Set(['class', 'material', 'genre', 'movement', 'creator'])
+// Flat works (drawing, print, painting, photograph: verified on wikidata.org, Property talk:P6243) are never light works,
+// even by a light artist: the creator route leaves them out.
+export const FLAT_WORKS = ['Q93184', 'Q11060274', 'Q3305213', 'Q125191']
 export function routePattern(qid, route = 'class') {
   switch (route || 'class') {
     case 'material': return `?item wdt:P186 wd:${qid} . ?item wdt:P31/wdt:P279* wd:${WORK_OF_ART} .`
     case 'genre': return `?item wdt:P136 wd:${qid} .`
     case 'movement': return `?item wdt:P135 wd:${qid} .`
+    case 'creator': return `?item wdt:P170 wd:${qid} . ?item wdt:P31/wdt:P279* wd:${WORK_OF_ART} . FILTER NOT EXISTS { ?item wdt:P31/wdt:P279* ?flat . VALUES ?flat { ${FLAT_WORKS.map((q) => 'wd:' + q).join(' ')} } }`
     case 'class': return `?item wdt:P31/wdt:P279* wd:${qid} .`
     default: throw Error('unknown route ' + route)
   }

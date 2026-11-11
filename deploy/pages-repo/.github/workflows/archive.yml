@@ -39,7 +39,7 @@ on:
       budget_minutes:
         description: Time budget of the collect run, in minutes
         type: number
-        default: 25
+        default: 35
   push:
     branches: [source]
 
@@ -100,7 +100,7 @@ jobs:
         if: steps.gate.outputs.run == 'true'
         id: run
         env:
-          BUDGET_MINUTES: ${{ inputs.budget_minutes || 25 }}
+          BUDGET_MINUTES: ${{ inputs.budget_minutes || 35 }}
           TOURAPI_SERVICE_KEY: ${{ secrets.TOURAPI_SERVICE_KEY }}
           SEOUL_OPEN_DATA_KEY: ${{ secrets.SEOUL_OPEN_DATA_KEY }}
           FLICKR_API_KEY: ${{ secrets.FLICKR_API_KEY }}

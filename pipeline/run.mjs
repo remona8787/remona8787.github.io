@@ -844,7 +844,17 @@ export async function runPipeline(o) {
   for (const d of placeOut.decisions.filter((x) => x.outcome === 'duplicate_of_project')) dupes.push({ rule: 'duplicate_of_project', qids: [d.qid].filter(Boolean), detail: { name: d.name, category: d.category ?? null, kept_out: d.id }, projects: [d.id, d.duplicate_of] })
   const quality = {
     schema: 1, build_id: buildId, generated_at: startedAt,
-    missing_images: records.filter((r) => !r.images.length).map((r) => ({ id: r.id, name: r.name_en || r.name_ko, project_type: r.project_type, country_iso2: r.country_iso2 })),
+    // v0.26.1: why each project still has no image: what was searched this run (or that it kept the previous result),
+    // how many candidates were found and why they were refused. The next run searches these first (image-stage order).
+    missing_images: records.filter((r) => !r.images.length).map((r) => {
+      const rv = imageReview.find((x) => x.project === r.id)
+      const cands = rv?.candidates || []
+      const reasons = {}
+      for (const c of cands) for (const x of c.reasons || []) reasons[x] = (reasons[x] || 0) + 1
+      const p = published.find((x) => x.id === r.id)
+      const searched = rv ? uniq(['commons_p18', p?.wiki_titles?.length && 'wikipedia_lead_image', (p?.image_categories || []).length && 'commons_category', p?.qid && 'commons_depicts', ...((rv.providers || []).map((x) => x.provider))].filter(Boolean)) : []
+      return { id: r.id, name: r.name_en || r.name_ko, project_type: r.project_type, country_iso2: r.country_iso2, searched_this_run: !!rv, searched, candidates: cands.length, refused: reasons, has_wikidata: !!r.wikidata, articles: p?.wiki_titles?.length ?? 0 }
+    }),
     no_home_image: records.filter((r) => !picks.get(r.id)?.home && r.images.length).map((r) => ({ id: r.id, best_tier: Math.min(...r.images.map((i) => i.tier)) })),
     broken_links: linkRows.filter((l) => l.state === 'broken').map((l) => ({ project: l.project, field: l.field, url: l.url, http_status: l.http_status, reason: l.reason, consecutive_failures: l.consecutive_failures, checked_at: l.checked_at })),
     robots_disallowed: linkRows.filter((l) => l.state === 'robots_disallowed').map((l) => ({ project: l.project, url: l.url })),

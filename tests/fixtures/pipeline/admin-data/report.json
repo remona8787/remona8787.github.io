@@ -1,7 +1,7 @@
 {
  "cache": {
   "hits": 6,
-  "misses": 1523,
+  "misses": 1547,
   "sizes": {
    "commons-category": 53,
    "commons-category-item": 8,
@@ -17,21 +17,22 @@
    "entities-aux": 82,
    "flickr": 80,
    "kto-photo": 60,
-   "labels": 78,
+   "labels": 90,
    "links": 100,
    "openverse": 120,
    "overpass": 26,
    "quality": 38,
-   "sparql": 55,
+   "sparql": 67,
    "tourapi": 123,
    "visual": 38,
+   "wiki-pageimages": 12,
    "wiki-pages": 14,
    "wiki-search": 51,
    "wikidata-articles": 2,
    "wikidata-search": 2
   },
   "stale": 0,
-  "writes": 1234
+  "writes": 1270
  },
  "changes": {
   "carried_over": [],
@@ -434,7 +435,7 @@
    "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 220600,
+   "ms": 220480,
    "not_modified": 0,
    "ok": 235,
    "requests": 235,
@@ -456,16 +457,16 @@
    }
   },
   "en.wikipedia.org": {
-   "bytes": 3999,
+   "bytes": 4616,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 4040,
+   "ms": 4080,
    "not_modified": 0,
-   "ok": 5,
-   "requests": 5,
+   "ok": 6,
+   "requests": 6,
    "statuses": {
-    "200": 5
+    "200": 6
    }
   },
   "es.wikipedia.org": {
@@ -482,16 +483,16 @@
    }
   },
   "fr.wikipedia.org": {
-   "bytes": 219,
+   "bytes": 315,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 2040,
+   "ms": 2080,
    "not_modified": 0,
-   "ok": 3,
-   "requests": 3,
+   "ok": 4,
+   "requests": 4,
    "statuses": {
-    "200": 3
+    "200": 4
    }
   },
   "it.wikipedia.org": {
@@ -521,16 +522,16 @@
    }
   },
   "ko.wikipedia.org": {
-   "bytes": 5774,
+   "bytes": 6821,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 27960,
+   "ms": 28000,
    "not_modified": 0,
-   "ok": 25,
-   "requests": 25,
+   "ok": 26,
+   "requests": 26,
    "statuses": {
-    "200": 25
+    "200": 26
    }
   },
   "live.staticflickr.com": {
@@ -625,16 +626,16 @@
    }
   },
   "query.wikidata.org": {
-   "bytes": 40342,
+   "bytes": 43558,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 55240,
+   "ms": 67240,
    "not_modified": 0,
-   "ok": 61,
-   "requests": 61,
+   "ok": 73,
+   "requests": 73,
    "statuses": {
-    "200": 61
+    "200": 73
    }
   },
   "ru.wikipedia.org": {
@@ -690,7 +691,7 @@
    }
   },
   "www.wikidata.org": {
-   "bytes": 105096,
+   "bytes": 105588,
    "cached": 0,
    "errors": 0,
    "last_error": null,
@@ -785,6 +786,8 @@
   "openverse_rate_limit": {
    "x-ratelimit-available-anon_burst": 19
   },
+  "pageimage_projects": 0,
+  "pageimage_requests": 3,
   "portraits": 1,
   "processed": 82,
   "provider_errors": {},
@@ -919,7 +922,7 @@
   "hero_candidates": 12
  },
  "run": {
-  "budget_minutes": 25,
+  "budget_minutes": 35,
   "build_id": "20261020T061700Z-feef149c",
   "drop_guard": null,
   "duration_ms": 792460,
@@ -1198,7 +1201,7 @@
   },
   "wikidata": {
    "consecutive_failures": 0,
-   "duration_ms": 58120,
+   "duration_ms": 70120,
    "errors": [],
    "items": 19,
    "korea_items": 3,

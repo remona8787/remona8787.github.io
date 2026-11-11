@@ -107,6 +107,39 @@ export async function pageDetails(client, lang, titles, { cache, ttlHours = 168 
   return out
 }
 
+/**
+ * The free lead image of articles (v0.26.1): prop=pageimages with pilicense=free gives the article's own free image
+ * (page_image_free), never a fair-use file. 50 titles per request, cached (ns wiki-pageimages). Returns Map(title → file
+ * name without "File:"), only for articles that have one. A file kept locally on a Wikipedia (not on Commons) is later
+ * found missing by the Commons file query and dropped there.
+ */
+export async function pageImages(client, lang, titles, { cache, ttlHours = 336, stage = 'images' } = {}) {
+  const out = new Map(), want = []
+  for (const t of uniq(titles)) {
+    const hit = cache?.fresh('wiki-pageimages', `${lang}:${t}`)
+    if (hit !== undefined) { if (hit) out.set(t, hit) } else want.push(t)
+  }
+  for (const group of chunk(want, 50)) {
+    const json = await client.json(wikiApi(lang, { action: 'query', prop: 'pageimages', piprop: 'name', pilicense: 'free', pilimit: '50', titles: group.join('|'), redirects: '1' }), { stage })
+    const back = new Map()
+    for (const n of [...(json?.query?.normalized || []), ...(json?.query?.redirects || [])]) back.set(n.to, n.from)
+    const found = new Map()
+    for (const pg of json?.query?.pages || []) {
+      let from = pg.title
+      const seen = new Set()
+      while (back.has(from) && !seen.has(from)) { seen.add(from); from = back.get(from) }
+      const file = typeof pg.pageimage === 'string' && pg.pageimage ? pg.pageimage.replace(/_/g, ' ') : null
+      for (const t of new Set([pg.title, from])) found.set(t, file)
+    }
+    for (const t of group) {
+      const f = found.get(t) ?? null
+      if (f) out.set(t, f)
+      cache?.set('wiki-pageimages', `${lang}:${t}`, f || '', { ttlMs: ttlHours * HOUR })
+    }
+  }
+  return out
+}
+
 export const articleUrl = (lang, title) => `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(String(title).replace(/ /g, '_'))}`
 
 /**

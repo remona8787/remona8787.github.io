@@ -99,6 +99,11 @@ export function validateRecord(r, { types }) {
   if (r.confidence === 'A') need(official >= 1, 'confidence A needs an official or public-agency source')
   if (r.confidence === 'B') need(hosts.size >= 2, 'confidence B needs two independent sources')
   need(r.official_url == null || https(r.official_url), 'official_url https or null')
+  // A Wikidata item (v0.26.1) brings the item's P18, Commons category and depicts photos; "host" when the item is the
+  // building or institution the work is on or in (its photos are context unless they show the work).
+  need(r.wikidata == null || /^Q\d+$/.test(r.wikidata), 'wikidata QID')
+  need(r.wikidata == null || r.wikidata_verified_by === 'https://www.wikidata.org/wiki/' + r.wikidata, 'wikidata_verified_by the item page')
+  need(r.wikidata_match == null || (r.wikidata && r.wikidata_match === 'host'), 'wikidata_match host')
   for (const k of ['lat', 'lng']) need(r[k] == null || (typeof r[k] === 'number' && Number.isFinite(r[k])), k)
   need((r.lat == null) === (r.lng == null), 'lat and lng together')
   need(!r.timezone || (() => { try { new Intl.DateTimeFormat('en', { timeZone: r.timezone }); return true } catch { return false } })(), 'timezone (IANA)')
@@ -178,7 +183,7 @@ export function registryObservations(records, { now = Date.now() } = {}) {
       registry: true,
       curated_id: r.id,
       qid: /^Q\d+$/.test(r.wikidata || '') ? r.wikidata : null,
-      qid_match: /^Q\d+$/.test(r.wikidata || '') ? 'exact' : null,
+      qid_match: /^Q\d+$/.test(r.wikidata || '') ? (r.wikidata_match === 'host' ? 'host' : 'exact') : null,
       category: null,
       name: { ko: r.name_ko || null, en: r.name_en || null, original: r.name_original || r.name_ko || r.name_en || null, original_lang: r.name_original_lang || (r.country_iso2 === 'KR' ? 'ko' : null) },
       country_iso2: r.country_iso2,

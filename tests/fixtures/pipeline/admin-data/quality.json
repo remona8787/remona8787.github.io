@@ -241,364 +241,868 @@
  ],
  "missing_images": [
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "NL",
+   "has_wikidata": false,
    "id": "ED-fixture-light-pavilion",
    "name": "Fixture Light Pavilion",
-   "project_type": "light_art"
+   "project_type": "light_art",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "KTO-2900006",
    "name": "픽스처 루미나리에 축제",
-   "project_type": "festival_program"
+   "project_type": "festival_program",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "KTO-2900007",
    "name": "픽스처 남강 유등축제",
-   "project_type": "festival_program"
+   "project_type": "festival_program",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 1,
    "country_iso2": "DE",
+   "has_wikidata": true,
    "id": "Q127587129",
    "name": "Light Column",
-   "project_type": "light_art"
+   "project_type": "light_art",
+   "refused": {
+    "subject:object_or_animal:löwe": 1
+   },
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 2,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": true,
    "id": "Q99000101",
    "name": "Galleria Centercity",
-   "project_type": "media_facade"
+   "project_type": "media_facade",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "wikipedia_lead_image",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 1,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": true,
    "id": "Q99000502",
    "name": "Fixture Gangneung Light Festival",
-   "project_type": "festival_program"
+   "project_type": "festival_program",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "wikipedia_lead_image",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": true,
    "id": "Q99000503",
    "name": "Fixture Jeju Light Field",
-   "project_type": "light_art"
+   "project_type": "light_art",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 1,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": true,
    "id": "Q99000506",
    "name": "Fixture Gyeongpo Lantern Festival",
-   "project_type": "festival_program"
+   "project_type": "festival_program",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "wikipedia_lead_image",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": true,
    "id": "Q99000508",
    "name": "Fixture Hangang Light Festival",
-   "project_type": "festival_program"
+   "project_type": "festival_program",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "GB",
+   "has_wikidata": true,
    "id": "Q99000702",
    "name": "Fixture Digital Lights Festival",
-   "project_type": "festival_program"
+   "project_type": "festival_program",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "NL",
+   "has_wikidata": true,
    "id": "Q99000704",
    "name": "Fixture Lichtkunst Amsterdam",
-   "project_type": "light_art"
+   "project_type": "light_art",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "FI",
+   "has_wikidata": true,
    "id": "Q99000706",
    "name": "Fixture Valo Oulu",
-   "project_type": "light_art"
+   "project_type": "light_art",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "AT",
+   "has_wikidata": true,
    "id": "Q99000721",
    "name": "Fixture Uniqa Light Nights 2025",
-   "project_type": "festival_program"
+   "project_type": "festival_program",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "AT",
+   "has_wikidata": true,
    "id": "Q99000722",
    "name": "Fixture Uniqa Light Nights",
-   "project_type": "festival_program"
+   "project_type": "festival_program",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "REG-KR-9001",
    "name": "픽스처 남강 빛축제",
-   "project_type": "festival_program"
+   "project_type": "festival_program",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "REG-KR-9002",
    "name": "픽스처 미디어아트 전시관",
-   "project_type": "media_architecture"
+   "project_type": "media_architecture",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL002",
    "name": "Atelier Gwanghwa",
-   "project_type": "media_facade"
+   "project_type": "media_facade",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL003",
    "name": "Haechi Madang Media Wall",
-   "project_type": "media_wall"
+   "project_type": "media_wall",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL004",
    "name": "Ogansugyo Media Facade",
-   "project_type": "media_facade"
+   "project_type": "media_facade",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL005",
    "name": "Seoullo Media Canvas",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL007",
    "name": "COEX K-POP Square WAVE",
-   "project_type": "media_facade"
+   "project_type": "media_facade",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL008",
    "name": "Shinsegae Square",
-   "project_type": "media_facade"
+   "project_type": "media_facade",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL009",
    "name": "Galleria Luxury Hall WEST Media Facade",
-   "project_type": "media_facade"
+   "project_type": "media_facade",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL010",
    "name": "Seoul Square Media Canvas",
-   "project_type": "media_facade"
+   "project_type": "media_facade",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL011",
    "name": "KT Square Digital Display",
-   "project_type": "media_facade"
+   "project_type": "media_facade",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL012",
    "name": "K-Vision at Koreana Hotel",
-   "project_type": "media_facade"
+   "project_type": "media_facade",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL013",
    "name": "LUMI Media at Sekwang Building",
-   "project_type": "media_facade"
+   "project_type": "media_facade",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL014",
    "name": "LUUX at Dong-A Ilbo",
-   "project_type": "media_facade"
+   "project_type": "media_facade",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL015",
    "name": "Ilmin Museum Outdoor Media Display",
-   "project_type": "media_facade"
+   "project_type": "media_facade",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL016",
    "name": "Seoul Robot & AI Museum Media Facade",
-   "project_type": "media_facade"
+   "project_type": "media_facade",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL017",
    "name": "Magok LEWEST Media Facade",
-   "project_type": "media_facade"
+   "project_type": "media_facade",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL019",
    "name": "Lotte Town Light",
-   "project_type": "media_facade"
+   "project_type": "media_facade",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL020",
    "name": "HiKR Ground",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL021",
    "name": "Cheonggye Soul Ocean",
-   "project_type": "media_architecture"
+   "project_type": "media_architecture",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL023",
    "name": "Lightroom Seoul",
-   "project_type": "media_architecture"
+   "project_type": "media_architecture",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL024",
    "name": "Seo-Seoul Museum of Art",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": true,
    "id": "SEOUL025",
    "name": "MMCA Seoul",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL026",
    "name": "Art Center Nabi",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": true,
    "id": "SEOUL027",
    "name": "Leeum Museum of Art",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL028",
    "name": "D MUSEUM",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL029",
    "name": "Platform-L Contemporary Art Center",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL030",
    "name": "Space K Seoul",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL031",
    "name": "Culture Station Seoul 284",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL032",
    "name": "Seoul Hall of Urbanism & Architecture",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": true,
    "id": "SEOUL033",
    "name": "Oil Tank Culture Park T4/T5",
-   "project_type": "media_architecture"
+   "project_type": "media_architecture",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL034",
    "name": "Photography Seoul Museum of Art",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": true,
    "id": "SEOUL035",
    "name": "SeMA Seosomun Main Building",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL036",
    "name": "Buk-Seoul Museum of Art",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL037",
    "name": "Nam June Paik Memorial House",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL038",
    "name": "Seoul City Hall Seoul-Lim Media Wall",
-   "project_type": "media_wall"
+   "project_type": "media_wall",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL039",
    "name": "Piknic",
-   "project_type": "other"
+   "project_type": "other",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL040",
    "name": "The Hyundai Seoul ALT.1",
-   "project_type": "media_architecture"
+   "project_type": "media_architecture",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL041",
    "name": "Ground Seesaw East",
-   "project_type": "media_architecture"
+   "project_type": "media_architecture",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": true,
    "id": "SEOUL044",
    "name": "Some Sevit",
-   "project_type": "light_art"
+   "project_type": "light_art",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": true,
    "id": "SEOUL045",
    "name": "Banpo Bridge Moonlight Rainbow Fountain",
-   "project_type": "light_art"
+   "project_type": "light_art",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": true,
    "id": "SEOUL046",
    "name": "Seoullo 7017 Night Lighting",
-   "project_type": "light_art"
+   "project_type": "light_art",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL047",
    "name": "Hongje Yuyeon",
-   "project_type": "light_art"
+   "project_type": "light_art",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": true,
    "id": "SEOUL048",
    "name": "Starfield Library",
-   "project_type": "media_architecture"
+   "project_type": "media_architecture",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL049",
    "name": "Seoul Wave Art Center",
-   "project_type": "media_architecture"
+   "project_type": "media_architecture",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   },
   {
+   "articles": 0,
+   "candidates": 0,
    "country_iso2": "KR",
+   "has_wikidata": false,
    "id": "SEOUL050",
    "name": "Nowon Light Garden",
-   "project_type": "light_art"
+   "project_type": "light_art",
+   "refused": {},
+   "searched": [
+    "commons_p18"
+   ],
+   "searched_this_run": true
   }
  ],
  "no_home_image": [

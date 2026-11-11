@@ -19,6 +19,10 @@ wd:Q90000003 wdt:P31 wd:Q838948 ; wdt:P136 wd:Q1421557 ; wdt:P195 wd:Q90000009 .
 wd:Q90000004 wdt:P31 wd:Q838948 ; wdt:P135 wd:Q1421557 .
 wd:Q90000005 wdt:P31 wd:Q1823448 ; wdt:P17 wd:Q884 .
 wd:Q90000009 wdt:P31 wd:Q207694 ; wdt:P17 wd:Q884 .
+wd:Q93184 wdt:P279 wd:Q838948 .
+wd:Q90000011 wdt:P31 wd:Q20437094 ; wdt:P170 wd:Q504395 .
+wd:Q90000012 wdt:P31 wd:Q93184 ; wdt:P170 wd:Q504395 .
+wd:Q90000013 wdt:P31 wd:Q2424752 ; wdt:P170 wd:Q504395 .
 `
 const store = new oxigraph.Store()
 store.load(graph, { format: 'text/turtle' })
@@ -46,6 +50,10 @@ test('routes: genre and movement, and the class route is unchanged', () => {
   assert.deepEqual(items(classInstancesQuery('Q1421557', 50, 'genre')), ['Q90000003'])
   assert.deepEqual(items(classInstancesQuery('Q1421557', 50, 'movement')), ['Q90000004'])
   assert.deepEqual(items(classInstancesQuery('Q1823448', 50)), ['Q90000005'])
+})
+
+test('routes: a light artist\'s works of art, never their drawings (or a product they designed)', () => {
+  assert.deepEqual(items(classInstancesQuery('Q504395', 50, 'creator')), ['Q90000011'])
 })
 
 test('routes: the country query reaches a work through its collection (P195)', () => {
@@ -83,4 +91,24 @@ test('routes: a collection (P195) leads to its city through its own administrati
   assert.deepEqual(findCity({ claims: { P195: [{ item: 'Q900' }] } }, aux, city), { qid: 'Q901', rule: 'p131_city_class', depth: 0 })
   assert.equal(findCity({ claims: { P195: [{ item: 'Q910' }] } }, aux, city), null, 'a collection without a place gives no city')
   assert.deepEqual(findCity({ claims: { P131: [{ item: 'Q901' }], P195: [{ item: 'Q910' }] } }, aux, city), { qid: 'Q901', rule: 'p131_city_class', depth: 0 }, 'an own P131 wins')
+})
+
+test('page images (v0.26.1): the free lead image of each article, 50 titles per request, redirects followed, cached', async () => {
+  const { pageImages } = await import('../pipeline/lib/wikipedia.mjs')
+  const calls = []
+  const client = { json: async (url) => {
+    calls.push(url)
+    const u = new URL(url)
+    assert.equal(u.searchParams.get('prop'), 'pageimages')
+    assert.equal(u.searchParams.get('pilicense'), 'free', 'never a fair-use file')
+    return { query: { redirects: [{ from: 'Old Title', to: 'The Bay Lights' }], pages: [{ title: 'The Bay Lights', pageimage: 'Bay_Lights_2013.jpg' }, { title: 'No Image Work' }] } }
+  } }
+  const store = new Map()
+  const cache = { fresh: (ns, k) => (store.has(ns + k) ? store.get(ns + k) : undefined), set: (ns, k, v) => store.set(ns + k, v) }
+  const out = await pageImages(client, 'en', ['Old Title', 'No Image Work'], { cache })
+  assert.deepEqual([...out], [['Old Title', 'Bay Lights 2013.jpg']])
+  assert.equal(calls.length, 1)
+  const again = await pageImages(client, 'en', ['Old Title', 'No Image Work'], { cache })
+  assert.deepEqual([...again], [['Old Title', 'Bay Lights 2013.jpg']])
+  assert.equal(calls.length, 1, 'answers (with and without an image) come from the cache')
 })
