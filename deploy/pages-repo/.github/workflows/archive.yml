@@ -26,10 +26,11 @@ name: archive
 
 on:
   schedule:
-    # Every six hours (UTC). GitHub starts schedules late or skips them when busy, so a catch-up schedule two and a
-    # half hours later runs the collector only when no collect ran in the last five hours (pipeline/ci/gate.mjs).
+    # Every six hours (UTC). GitHub starts schedules late or skips them when busy (on 2026-11-11 the 00:17 and 12:17
+    # slots never ran), so an hourly catch-up runs the collector only when no collect ran in the last 6.5 hours
+    # (pipeline/ci/gate.mjs); a catch-up the gate skips also skips deploy and verify-live and ends in about a minute.
     - cron: '17 */6 * * *'
-    - cron: '47 2-23/6 * * *'
+    - cron: '47 * * * *'
   workflow_dispatch:
     inputs:
       collect:
@@ -68,6 +69,7 @@ jobs:
     outputs:
       build_id: ${{ steps.run.outputs.build_id }}
       status: ${{ steps.run.outputs.status }}
+      ran: ${{ steps.gate.outputs.run }}
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -82,11 +84,11 @@ jobs:
           fetch-depth: 1
       - name: Switch to the data branch (created empty on the first run)
         run: bash source/pipeline/ci/use-branch.sh data data
-      - name: Gate (the catch-up schedule runs only when no collect ran in the last 5 hours)
+      - name: Gate (the hourly catch-up runs only when no collect ran in the last 6.5 hours)
         id: gate
         env:
           SCHEDULE: ${{ github.event.schedule }}
-        run: node source/pipeline/ci/gate.mjs --data=data --schedule="$SCHEDULE" --catch-up='47 2-23/6 * * *' --min-hours=5
+        run: node source/pipeline/ci/gate.mjs --data=data --schedule="$SCHEDULE" --catch-up='47 * * * *' --min-hours=6.5
       - uses: actions/setup-node@v4
         if: steps.gate.outputs.run == 'true'
         with:
@@ -120,8 +122,9 @@ jobs:
 
   deploy:
     needs: collect
-    # After collect whatever its result (a failed collect left the data branch as it was), or alone when it was skipped.
-    if: ${{ !cancelled() && github.event.deleted != true }}
+    # After collect whatever its result (a failed collect left the data branch as it was), or alone when it was skipped;
+    # not after a catch-up the gate skipped (nothing new to publish or check).
+    if: ${{ !cancelled() && github.event.deleted != true && needs.collect.outputs.ran != 'false' }}
     concurrency:
       group: archive-deploy
       cancel-in-progress: false
@@ -240,7 +243,8 @@ jobs:
     # After every run, whatever happened: one issue tells the operator when collection failed, stopped, kept the previous
     # dataset or has not changed the data for a week, and is closed when all is well again. Data is never changed here.
     needs: [collect, deploy, verify-live]
-    if: ${{ always() }}
+    # Not after a catch-up the gate skipped: nothing ran to assess, and an hourly comment on an open issue would be noise.
+    if: ${{ always() && needs.collect.outputs.ran != 'false' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

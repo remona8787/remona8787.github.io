@@ -42,6 +42,7 @@ sources, Korean first ─ South Korea's first-level divisions (live) · Korean c
 | how | what runs |
 |---|---|
 | Schedule: `17 */6 * * *` (UTC: 00:17, 06:17, 12:17, 18:17; KST 09:17, 15:17, 21:17, 03:17) | collect → deploy → verify-live |
+| Hourly catch-up: `47 * * * *` (v0.26.4) | collect → deploy → verify-live only when no collect ran in the last 6.5 hours (`pipeline/ci/gate.mjs`; GitHub skips or delays schedules, e.g. the 00:17 and 12:17 slots on 2026-11-11); otherwise the run ends after the gate |
 | Actions → **archive** → Run workflow | the same. Turn off "collect" to only build, deploy and verify; "budget_minutes" sets the collect budget. |
 | Push to `source` | deploy → verify-live. Collect runs too when the head commit message contains `[collect]`. |
 

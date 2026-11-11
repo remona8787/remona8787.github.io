@@ -43,7 +43,7 @@ test('archive.yml: the copy at the source branch root is identical to the canoni
 test('archive.yml: triggers, concurrency, permissions, environment', needYaml, () => {
   const wf = YAML.parse(text)
   assert.equal(wf.name, 'archive')
-  assert.deepEqual(wf.on.schedule, [{ cron: '17 */6 * * *' }, { cron: '47 2-23/6 * * *' }], 'every six hours, plus the gated catch-up')
+  assert.deepEqual(wf.on.schedule, [{ cron: '17 */6 * * *' }, { cron: '47 * * * *' }], 'every six hours, plus the gated hourly catch-up')
   assert.ok('workflow_dispatch' in wf.on)
   assert.equal(wf.on.workflow_dispatch.inputs.collect.type, 'boolean')
   assert.deepEqual(wf.on.push, { branches: ['source'] })
@@ -61,18 +61,29 @@ test('archive.yml (v0.26): the catch-up schedule is gated; the health job always
   const steps = wf.jobs.collect.steps
   const gate = steps.find((s) => s.id === 'gate')
   assert.ok(gate, 'a gate step')
-  assert.ok(gate.run.includes("--catch-up='47 2-23/6 * * *'"), 'the gate knows the catch-up cron')
+  assert.ok(gate.run.includes("--catch-up='47 * * * *' --min-hours=6.5"), 'the gate knows the catch-up cron and its threshold')
+  // A catch-up the gate skipped publishes and checks nothing: deploy (and so verify-live) wait for a collect that ran
+  // or for no collect job at all (a push without [collect]: the output is empty, not 'false').
+  assert.equal(wf.jobs.collect.outputs.ran, '${{ steps.gate.outputs.run }}')
+  assert.match(wf.jobs.deploy.if, /needs\.collect\.outputs\.ran != 'false'/)
+  assert.match(wf.jobs['verify-live'].if, /needs\.deploy\.result == 'success'/)
   const after = steps.slice(steps.indexOf(gate) + 1).filter((s) => s.name !== 'Commit to the data branch')
   for (const s of after) assert.equal(s.if, "steps.gate.outputs.run == 'true'", (s.name || s.uses) + ' waits for the gate')
   const h = wf.jobs.health
   assert.deepEqual(h.needs, ['collect', 'deploy', 'verify-live'])
-  assert.equal(h.if, '${{ always() }}')
+  assert.equal(h.if, "${{ always() && needs.collect.outputs.ran != 'false' }}", 'always, except after a catch-up the gate skipped')
   assert.ok(!JSON.stringify(h).includes('commit-push'), 'the health job never commits')
   const { decide } = await import('../pipeline/ci/gate.mjs')
-  const cu = '47 2-23/6 * * *', now = Date.parse('2026-11-11T02:47:00Z')
+  const cu = '47 * * * *', now = Date.parse('2026-11-11T02:47:00Z')
   assert.equal(decide({ schedule: '17 */6 * * *', catchUp: cu, lastRunAt: '2026-11-11T02:00:00Z', now }).run, true, 'the regular schedule always runs')
   assert.equal(decide({ schedule: cu, catchUp: cu, lastRunAt: '2026-11-11T00:30:00Z', now }).run, false, 'the 00:17 run happened: skip')
   assert.equal(decide({ schedule: cu, catchUp: cu, lastRunAt: '2026-11-10T19:46:00Z', now }).run, true, 'the 00:17 slot was skipped by GitHub: catch up')
+  // 6.5 hours: the catch-up 30 minutes after a slot runs only when that slot and its predecessor's lateness are covered.
+  const at = (iso) => Date.parse(iso)
+  assert.equal(decide({ schedule: cu, catchUp: cu, lastRunAt: '2026-11-11T06:17:00Z', now: at('2026-11-11T12:47:00Z') }).run, true, '12:17 never ran (2026-11-11): the 12:47 catch-up collects')
+  assert.equal(decide({ schedule: cu, catchUp: cu, lastRunAt: '2026-11-11T06:40:00Z', now: at('2026-11-11T12:47:00Z') }).run, false, 'a late 06:17 run: wait one more hour for 12:17')
+  assert.equal(decide({ schedule: cu, catchUp: cu, lastRunAt: '2026-11-11T06:40:00Z', now: at('2026-11-11T13:47:00Z') }).run, true, '... and catch up at 13:47 if it still has not run')
+  assert.equal(decide({ schedule: cu, catchUp: cu, lastRunAt: '2026-11-11T12:20:00Z', now: at('2026-11-11T12:47:00Z') }).run, false, 'the 12:17 run happened: the hourly catch-ups skip')
   assert.equal(decide({ schedule: cu, catchUp: cu, lastRunAt: null, now }).run, true)
   assert.equal(decide({ schedule: '', catchUp: cu, lastRunAt: '2026-11-11T02:46:00Z', now }).run, true, 'a push or a dispatch always runs')
   const { assess } = await import('../pipeline/ci/health.mjs')
