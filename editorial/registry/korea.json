@@ -1717,6 +1717,106 @@
      "checked_at": "2026-11-11"
     }
    ]
+  },
+  {
+   "id": "REG-KR-0049",
+   "kind": "facility",
+   "project_type": "urban_screen",
+   "name_ko": "영화의전당 빅루프 LED",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "busan",
+   "city": "Busan",
+   "city_ko": "부산광역시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.busan.go.kr/news/totalnews01/view?dataNo=49119&gugun=Prev",
+     "kind": "official",
+     "publisher": "부산광역시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "영화의전당 '빅루프 영상' 더 화려하게"
+    },
+    {
+     "url": "https://www.dureraum.org/bcc/contents/contentsView.do?rbsIdx=137",
+     "kind": "official",
+     "publisher": "영화의전당",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "시설소개"
+    }
+   ],
+   "summary_ko": "영화의전당 빅루프의 물결 모양 지붕 아랫면이 초대형 LED 스크린 역할을 하며, 매일 일몰부터 영상과 조명을 상영한다."
+  },
+  {
+   "id": "REG-KR-0050",
+   "kind": "festival",
+   "project_type": "projection_mapping",
+   "name_ko": "공산성 미디어아트",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "chungnam",
+   "city": "Gongju",
+   "city_ko": "공주시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.gongju.go.kr/prog/saeolNews/sub04_02_01/view.do?newsEpctNo=20035",
+     "kind": "official",
+     "publisher": "공주시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "공주시, '2025 공산성 미디어아트' 10월 2~18일 개최"
+    },
+    {
+     "url": "https://www.gongju.go.kr/prog/saeolNews/sub04_02_01/view.do?newsEpctNo=14680",
+     "kind": "official",
+     "publisher": "공주시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "세계유산 공주 공산성, 미디어아트로 물든다!"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "세계유산 공주 공산성 일원에서 미디어 융복합 공연과 금서루 외벽 미디어파사드를 선보이는 야간 행사다.",
+   "editions": [
+    {
+     "id": "2025",
+     "start": "2025-10-02",
+     "end": "2025-10-18",
+     "hours": "19:30–22:00",
+     "source": "https://www.gongju.go.kr/prog/saeolNews/sub04_02_01/view.do?newsEpctNo=20035",
+     "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "id": "REG-KR-0051",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "김해가야테마파크 빛 축제",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "gyeongnam",
+   "city": "Gimhae",
+   "city_ko": "김해시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.gimhae.go.kr/03360/00023/00025.web?gcode=1172&idx=2583048&amode=view",
+     "kind": "official",
+     "publisher": "김해시",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "보도자료"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "김해가야테마파크의 야간 빛 축제로, 김해시 보도자료가 경남 대표 야간축제로 소개한다. 회차 날짜는 연도를 확인하지 못해 싣지 않았다."
   }
  ]
 }
