@@ -78,7 +78,12 @@ export async function imageStage(ctx) {
     for (const f of p.p18 || []) add(f, 'p18')
     // The free lead image of the item's articles (v0.26.1): the article is about the item, so its image shows the item
     // (an institution item's image shows the institution: context unless it shows the work, as for depicts).
-    for (const f of leadImages.get(p.id) || []) add(f, 'pageimage', null, inst)
+    // A festival's article image is often its venue or headquarters (SXSW → the SXSW Center building): for a festival
+    // it is a candidate only when its file name says it shows the lights, a night view or the festival itself.
+    for (const f of leadImages.get(p.id) || []) {
+      if (p.project_type === 'festival_program') { const n = nameEvidence(f); if (n.night + n.media < 30 && !/festival|festiv|fest\b|lights?|illumin|lumi|licht|빛|축제/i.test(f)) continue }
+      add(f, 'pageimage', null, inst)
+    }
     // The photo that showed the work where the category was found (a Korean root's file): of the work itself.
     for (const f of p.via_files || []) add(f, 'part_category')
     const cats = [...(p.image_categories || [])]
