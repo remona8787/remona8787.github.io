@@ -37,7 +37,8 @@ import { webRules, collectWeb, mergeCandidates } from './lib/web.mjs'
 import { checkCoordinates } from './lib/overpass.mjs'
 import { checkLinks } from './lib/links.mjs'
 import { loadSeed, seedObservations } from './lib/seed.mjs'
-import { clusterObservations, mergeByNameAndUrl, buildProject, eligibility, newId, neverProject } from './lib/entities.mjs'
+import { loadRegistry, registryObservations, buildEvents, divisionOfText, KR_DIVISIONS } from './lib/registry.mjs'
+import { clusterObservations, mergeByNameAndUrl, buildProject, eligibility, newId, neverProject, PROJECT_TYPES } from './lib/entities.mjs'
 import { imageStage } from './lib/image-stage.mjs'
 import { writeContactSheets, SHEET_ABOUT } from './lib/contact-sheet.mjs'
 import { imageAudit, auditSummary } from './lib/image-audit.mjs'
@@ -134,6 +135,7 @@ export async function runPipeline(o) {
   const state = await loadState(dirs.state)
   const runNo = (state.runs.runs || 0) + 1
   const prev = await loadPrevious(dirs.site)
+  const prevStatus = (() => { try { return JSON.parse(readFileSync(path.join(dirs.site, 'status.json'), 'utf8')) } catch { return null } })()
   const ttl = P.cache_ttl_hours || {}
   const sourceStatus = {}
   const status = (name, s) => { sourceStatus[name] = { ...s, last_success: s.status === 'ok' ? startedAt : state.failures.sources?.[name]?.last_success ?? prev.manifest?.sources?.[name]?.last_success ?? null } }
@@ -146,7 +148,11 @@ export async function runPipeline(o) {
   const seed = await loadSeed(o.seedFile ?? path.join(PROJECT_ROOT, 'site-public-cleared/assets/seed.js'))
   const today = startedAt.slice(0, 10)
   const observations = seedObservations(seed, { today })
-  status('curated', { status: 'ok', items: observations.length, errors: [] })
+  // The research registry (lib/registry.mjs): editor-researched records with official sources and event editions.
+  const registry = await loadRegistry(o.registryDir ?? (o.editorialDir ? path.join(o.editorialDir, 'registry') : null), { types: PROJECT_TYPES })
+  const registryObs = registryObservations(registry.records, { now: clock() })
+  observations.push(...registryObs)
+  status('curated', { status: registry.problems.length ? 'partial' : 'ok', items: observations.length, errors: registry.problems.slice(0, 50).map((x) => ({ stage: 'registry', file: x.file, id: x.id, message: x.problems.join('; ') })) })
   observations.push(...ed.created)
   if (ed.created.length) status('editorial', { status: 'ok', items: ed.created.length, errors: [] })
 
@@ -537,9 +543,16 @@ export async function runPipeline(o) {
   // Pass 2: Korean regions and 시·군·구, eligibility.
   for (const p of projects) {
     // kr_region (lib/korea.mjs): every rule's outcome is logged in review/korea.json.
-    const kr = krRegionOf(p, krArgs(p))
+    const kr = p.kr_region_registry ? { region: p.kr_region_registry, rule: 'curated_registry' } : krRegionOf(p, krArgs(p))
     p.kr_region = kr.region
-    if (kr.region) p.field_sources = { ...(p.field_sources || {}), kr_region: { editorial: 'editorial', curated_seoul: 'curated', p131: 'wikidata', p131_labels: 'wikidata', tourapi_ldong: 'tourapi', tourapi_areacode: 'tourapi' }[kr.rule] || (String(kr.rule).startsWith('commons_parent') ? 'derived:commons_parent_category' : 'derived:gazetteer') }
+    // The first-level division (17, lib/registry.mjs KR_DIVISIONS): the registry's, else the first word of the address
+    // or of the city; a region of one division (Seoul, Jeju) gives it. Never guessed from a district name alone.
+    if (p.country_iso2 === 'KR') {
+      const one = KR_DIVISIONS.filter((d) => d.region === kr.region)
+      p.kr_division = p.kr_division_registry || divisionOfText(p.address, p.tourapi?.addr1, p.city_ko) || (one.length === 1 ? one[0].key : null)
+      if (p.kr_division && one.length && !one.some((d) => d.key === p.kr_division)) p.kr_division = null
+    }
+    if (kr.region) p.field_sources = { ...(p.field_sources || {}), kr_region: { editorial: 'editorial', curated_seoul: 'curated', curated_registry: 'curated', p131: 'wikidata', p131_labels: 'wikidata', tourapi_ldong: 'tourapi', tourapi_areacode: 'tourapi' }[kr.rule] || (String(kr.rule).startsWith('commons_parent') ? 'derived:commons_parent_category' : 'derived:gazetteer') }
     if (p.country_iso2 === 'KR') {
       krDecisions.push({ id: p.id, qid: p.qid || null, name: p.name_ko || p.name_en || p.name_original, ...kr })
       // 시·군·구 for the drill-down: the administrative chain's Korean labels, else the address; never guessed.
@@ -744,14 +757,18 @@ export async function runPipeline(o) {
     picks.set(r.id, { hero, featured, home: ir?.home ?? featured ?? hero ?? null, score: ir?.score ?? (hero ? 80 : 0) })
   }
   const sourcesManifest = Object.fromEntries(['wikidata', 'commons', 'wikipedia', 'tourapi', 'seoul_events', 'curated', 'web'].filter((k) => sourceStatus[k]).map((k) => [k, { status: sourceStatus[k].status, last_success: sourceStatus[k].last_success, items: sourceStatus[k].items ?? null }]))
-  const hashParts = { records }
+  // Events (lib/registry.mjs): the registry's series and editions, each edition's status in its own time zone. Part of
+  // the content hash, so a run publishes when an edition opens or closes.
+  const events = buildEvents(registry.records, { now: clock(), published: new Set(records.map((r) => r.id)), generatedAt: startedAt, buildId: null })
+  const hashParts = { records, events: events.series }
   const hash = contentHash(hashParts)
   const unchanged = state.runs.last_good?.content_hash === hash && prev.manifest
   const buildId = unchanged ? prev.manifest.build_id : `${compactTime(startedAt).slice(0, 15)}Z-${hash.slice(0, 8)}`
   const generatedAt = unchanged ? prev.manifest.generated_at : startedAt
   const shards = [...new Set(records.map((r) => r.shard))].sort()
   const files = {
-    manifest: buildManifest({ buildId, generatedAt, records, shards, sources: unchanged ? prev.manifest.sources : sourcesManifest }),
+    manifest: buildManifest({ buildId, generatedAt, records, shards, sources: unchanged ? prev.manifest.sources : sourcesManifest, events }),
+    events: { ...events, build_id: buildId, generated_at: generatedAt },
     index: buildIndex(records, { buildId }),
     home: buildHome(records, picks, { buildId, generatedAt, heroMax: P.output?.home_hero_max ?? 6, featuredMax: P.output?.home_featured ?? 12 }),
     stats: buildStats(records, { buildId, generatedAt }),
@@ -780,10 +797,25 @@ export async function runPipeline(o) {
     await writeJSON(path.join(staging, 'index.json'), files.index)
     await writeJSON(path.join(staging, 'home.json'), files.home)
     await writeJSON(path.join(staging, 'stats.json'), files.stats)
+    await writeJSON(path.join(staging, 'events.json'), files.events)
     for (const [s, v] of Object.entries(files.shards)) await writeJSON(path.join(staging, 'projects', s + '.json'), v)
     await swapDir(staging, dirs.site)
   }
   const published_ = publishStatus === 'published' || publishStatus === 'unchanged'
+  // status.json (every run, also when the previous dataset is kept): when the archive last checked its sources and
+  // when its data last changed, so the site never shows a run that found nothing new as an update.
+  if (existsSync(path.join(dirs.site, 'manifest.json'))) {
+    const live = published_ ? { build_id: buildId, generated_at: generatedAt } : { build_id: prev.manifest?.build_id ?? null, generated_at: prev.manifest?.generated_at ?? null }
+    await writeJSON(path.join(dirs.site, 'status.json'), {
+      schema: 1,
+      about: 'last_check_at: when the collector last ran (its outcome in last_check); data_changed_at: when the published data last changed (the build it belongs to). A run that changed nothing moves only last_check_at.',
+      last_check_at: startedAt,
+      last_check: { outcome: publishStatus, status: anyPartial ? 'partial' : 'ok', new: published_ && !unchanged ? newIds.length : 0, changed: published_ && !unchanged ? changed.length : 0, removed: published_ && !unchanged ? track.removed.length : 0 },
+      data_changed_at: live.generated_at,
+      build_id: live.build_id,
+      recent: published_ && !unchanged ? { new: newIds.slice(0, 50), changed: changed.slice(0, 50) } : (prevStatus?.recent ?? { new: [], changed: [] }),
+    }, { pretty: true })
+  }
   say(`[pipeline] output: ${publishStatus}, ${records.length} projects (${newIds.length} new, ${changed.length} changed, ${track.removed.length} removed, ${track.carried.length} carried over), build ${buildId}`)
 
   // ---------------------------------------------------------------- admin-data, review, state

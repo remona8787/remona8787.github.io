@@ -263,10 +263,16 @@ export function buildProject(obs, facts, ctx = {}) {
   for (const k of ['year_installed', 'year_completed', 'year_operating_since', 'year_ended']) if (p[k] != null) fs[k] = 'wikidata'
   // Kind, dates and status (facility | program | festival | exhibition), only from sourced facts.
   Object.assign(p, scheduleOf({ tour, facts: host ? null : f, projectType: p.project_type, today: ctx.today }))
+  // A registry record (lib/registry.mjs): its kind and its current edition's dates and status, from its sources.
+  if (curated?.schedule) {
+    Object.assign(p, curated.schedule)
+    for (const k of ['start_date', 'end_date']) if (p[k]) fs[k] = 'curated'
+  }
+  if (curated?.registry) { p.kr_region_registry = curated.kr_region || null; p.kr_division_registry = curated.kr_division || null; p.registry = true }
   if (p.status_source) fs.status = p.status_source
   // The dates' own source (TourAPI edition dates, else Wikidata P580/P582/P585), also when they give no status.
   const dateSource = tour?.tourapi?.eventstartdate || tour?.tourapi?.eventenddate ? 'tourapi' : 'wikidata'
-  for (const k of ['start_date', 'end_date']) if (p[k]) fs[k] = dateSource
+  for (const k of ['start_date', 'end_date']) if (p[k] && !fs[k]) fs[k] = dateSource
   p.operating_status = curated?.visit?.status && curated.visit.status !== 'unknown' ? curated.visit.status : p.year_ended && p.year_ended <= (ctx.year ?? 9999) ? 'ended' : null
   if (p.operating_status) fs.operating_status = curated?.visit?.status ? 'curated' : 'wikidata'
 

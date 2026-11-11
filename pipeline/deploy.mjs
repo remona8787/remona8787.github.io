@@ -60,6 +60,9 @@ export async function loadDataset(dir) {
   if (manifest && !shardFiles.length) errors.push('manifest.json: no shards')
   if (shardFiles.some((f) => typeof f !== 'string' || !/^projects\/[A-Za-z0-9_-]{1,40}\.json$/.test(f))) errors.push('manifest.json: invalid shard path')
   const index = await get('index.json'), home = await get('home.json'), stats = await get('stats.json')
+  // v0.26: events.json when the manifest names it; status.json (the collector's last check) when present.
+  const events = manifest?.files?.events === 'events.json' ? await get('events.json') : null
+  if (existsSync(path.join(dir, 'status.json'))) { const st = await readJSONFile(path.join(dir, 'status.json')); if (st.ok && st.value?.schema === 1) files.set('status.json', await readFile(path.join(dir, 'status.json'))) }
   const shards = {}
   for (const f of shardFiles.filter((x) => typeof x === 'string' && /^projects\/[A-Za-z0-9_-]{1,40}\.json$/.test(x))) {
     const s = await get(f)
@@ -68,7 +71,7 @@ export async function loadDataset(dir) {
   // Checked as this pipeline version reads it: a dataset published by the previous version (without the fields added
   // since, such as kind and status) is upgraded for the check, and deployed byte for byte.
   const upgraded = Object.fromEntries(Object.entries(shards).map(([k, v]) => [k, { ...v, projects: Array.isArray(v?.projects) ? v.projects.map(upgradeRecord) : v?.projects }]))
-  if (!errors.length) errors.push(...checkDataset({ manifest, index, home, stats, shards: upgraded }))
+  if (!errors.length) errors.push(...checkDataset({ manifest, index, home, stats, shards: upgraded, events }))
   return { ok: errors.length === 0, buildId: typeof manifest?.build_id === 'string' ? manifest.build_id : null, files: errors.length ? new Map() : files, errors }
 }
 

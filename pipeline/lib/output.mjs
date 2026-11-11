@@ -2,6 +2,7 @@
 // of the id, a compact index for list/search/map, the home picks, statistics and the manifest.
 // Field names follow docs/ARCHIVE_SPEC.md §6 (client fields) plus images[], sources[] and visit; a fact without a
 // source is null. docs/PIPELINE.md documents every field.
+import { KR_DIVISION_KEYS } from './registry.mjs'
 import T from '../../site-public-cleared/archive-taxonomy.js'
 import ART from '../../site-public-cleared/art-photo-policy.js'
 import { fnv1a, round, compareStrings, sha256, stableStringify } from './util.mjs'
@@ -9,7 +10,10 @@ import { stableImageId, cleanMediaUrl, THUMB_STEPS, kindOfTier, rightsUse } from
 
 export const DATA_SCHEMA = 1
 // The v0.17 fields first (readers find columns by name), then v0.18: kr_region, and the thumbnail's size.
-export const INDEX_FIELDS = ['id', 'name_ko', 'name_en', 'name_original', 'country_iso2', 'city', 'lat', 'lng', 'project_type', 'year', 'thumb', 'visual_rank', 'shard', 'added_at', 'kr_region', 'thumb_w', 'thumb_h', 'city_ko', 'district']
+// v0.26: kr_division (the 17 first-level divisions). A reader of an older index (without it) treats it as null; the
+// calendar reads festivals and exhibitions from events.json, so the index stays under 1 MB at 5,000 projects.
+export const INDEX_FIELDS_V018 = ['id', 'name_ko', 'name_en', 'name_original', 'country_iso2', 'city', 'lat', 'lng', 'project_type', 'year', 'thumb', 'visual_rank', 'shard', 'added_at', 'kr_region', 'thumb_w', 'thumb_h', 'city_ko', 'district']
+export const INDEX_FIELDS = [...INDEX_FIELDS_V018, 'kr_division']
 export const SHARD_TARGET = 200
 
 /** Number of shards: a power of two, so ids move between shards only when the archive doubles. */
@@ -154,6 +158,7 @@ export function publicRecord(p, { shard, addedAt }) {
     country_iso2: p.country_iso2 ?? null,
     region: p.region ?? null,
     kr_region: p.country_iso2 === 'KR' ? p.kr_region ?? null : null,
+    kr_division: p.country_iso2 === 'KR' ? p.kr_division ?? null : null,
     city: p.city ?? null,
     city_ko: p.city_ko ?? null,
     district: p.district ?? null,
@@ -254,7 +259,7 @@ export function buildIndex(records, { compactAboveBytes = 512 * 1024, buildId = 
     const [tw, th] = thumbSize(card)
     return [r.id, r.name_ko, r.name_en, r.name_original && r.name_original !== r.name_en && r.name_original !== r.name_ko ? r.name_original : null,
       r.country_iso2, r.city, r.lat === null ? null : round(r.lat, 4), r.lng === null ? null : round(r.lng, 4), r.project_type, yearOf(r),
-      card?.thumb ?? null, card?.tier ?? null, r.shard, r.added_at ? r.added_at.slice(0, 10) : null, r.kr_region ?? null, card ? tw : null, card ? th : null, r.city_ko ?? null, r.district ?? null]
+      card?.thumb ?? null, card?.tier ?? null, r.shard, r.added_at ? r.added_at.slice(0, 10) : null, r.kr_region ?? null, card ? tw : null, card ? th : null, r.city_ko ?? null, r.district ?? null, r.kr_division ?? null]
   })
   const meta = { ...(buildId ? { build_id: buildId } : {}), representative_policy: 'artwork_only', thumb_kind_default: 'project_media', ...(installation.length ? { thumb_installation_rows: installation } : {}), ...(Object.keys(precision).length ? { location_precision: precision } : {}) }
   const full = { schema: DATA_SCHEMA, ...meta, fields: INDEX_FIELDS, rows }
@@ -361,6 +366,7 @@ export function buildHome(records, picks, { buildId, generatedAt, heroMax = 6, f
       projects: records.length, countries: countries.size, with_images: records.filter((r) => r.images.length).length, with_art_representative: withArt(records),
       korea: korea.length, korea_with_images: korea.filter((r) => r.images.length).length, world: records.length - korea.length, world_countries: new Set(records.filter((r) => !kr(r)).map((r) => r.country_iso2)).size,
       by_kr_region: Object.fromEntries(T.keys('kr_region').map((k) => [k, records.filter((r) => r.kr_region === k).length])),
+      by_kr_division: Object.fromEntries(KR_DIVISION_KEYS.map((k) => [k, records.filter((r) => r.kr_division === k).length])),
     },
     hero, kr_regions: krRegions, kr_featured: krFeatured, kr_programs: krPrograms,
     world: { highlights: worldHighlights, count: records.length - korea.length, countries: new Set(records.filter((r) => !kr(r)).map((r) => r.country_iso2)).size },
@@ -392,6 +398,9 @@ export function buildStats(records, { buildId, generatedAt }) {
     by_type: tally(records, (r) => r.project_type),
     by_region: tally(records, (r) => r.region),
     by_kr_region: tally(records, (r) => r.kr_region),
+    by_kr_division: Object.fromEntries(KR_DIVISION_KEYS.map((k) => [k, records.filter((r) => r.kr_division === k).length])),
+    by_kind: tally(records, (r) => r.kind),
+    by_status: tally(records, (r) => r.status),
     by_country: tally(records, (r) => r.country_iso2),
     by_decade: tally(records, (r) => { const y = yearOf(r); return y ? String(Math.floor(y / 10) * 10) + 's' : null }),
     by_year: tally(records, (r) => yearOf(r)),
@@ -405,7 +414,7 @@ export function buildStats(records, { buildId, generatedAt }) {
 /** The data part of the build id: a hash of everything published except the timestamps. */
 export const contentHash = (parts) => sha256(stableStringify(parts)).slice(0, 12)
 
-export function buildManifest({ buildId, generatedAt, records, shards, sources }) {
+export function buildManifest({ buildId, generatedAt, records, shards, sources, events = null }) {
   return {
     schema: DATA_SCHEMA, build_id: buildId, generated_at: generatedAt,
     counts: {
@@ -417,10 +426,12 @@ export function buildManifest({ buildId, generatedAt, records, shards, sources }
       by_region: tally(records, (r) => r.region),
       by_country: tally(records, (r) => r.country_iso2),
       by_kr_region: tally(records, (r) => r.kr_region),
+      by_kr_division: Object.fromEntries(KR_DIVISION_KEYS.map((k) => [k, records.filter((r) => r.kr_division === k).length])),
       korea: records.filter((r) => r.country_iso2 === 'KR').length,
       world: records.filter((r) => r.country_iso2 !== 'KR').length,
+      ...(events ? { events: events.counts } : {}),
     },
-    files: { index: 'index.json', home: 'home.json', stats: 'stats.json', shards: shards.map((s) => `projects/${s}.json`) },
+    files: { index: 'index.json', home: 'home.json', stats: 'stats.json', shards: shards.map((s) => `projects/${s}.json`), ...(events ? { events: 'events.json' } : {}), status: 'status.json' },
     sources,
     credits: {
       data: 'Wikidata (CC0 1.0), Wikipedia (CC BY-SA 4.0, article links), Wikimedia Commons (each image carries its own licence and author), curated records of the archive.',

@@ -2,7 +2,7 @@
 // invalid dataset is never published: the previous site-data stays and report.json says why), and the tests run the
 // same checks on the fixture output. Each validator returns a list of "path: problem" strings (empty = valid).
 import T from '../../site-public-cleared/archive-taxonomy.js'
-import { INDEX_FIELDS, THUMB_TEMPLATE, expandThumb, FIELD_CONFIDENCE_KEYS, CONFIDENCE_STATES, RELATION_TYPES } from './output.mjs'
+import { INDEX_FIELDS, INDEX_FIELDS_V018, THUMB_TEMPLATE, expandThumb, FIELD_CONFIDENCE_KEYS, CONFIDENCE_STATES, RELATION_TYPES } from './output.mjs'
 
 const ID = /^[A-Za-z0-9][A-Za-z0-9._-]{0,156}$/
 const SHARD = /^[A-Za-z0-9_-]{1,40}$/
@@ -83,7 +83,10 @@ export function checkManifest(m) {
 export function checkIndex(ix) {
   const { errors, need } = make()
   if (!need(ix && Array.isArray(ix.fields) && Array.isArray(ix.rows), 'index', 'needs fields and rows')) return errors
-  need(INDEX_FIELDS.every((f, i) => ix.fields[i] === f), 'index.fields', 'must start with ' + INDEX_FIELDS.join(','))
+  // The v0.18 fields first; a field added since (kr_division, v0.26) is optional, in its place when present, so a
+  // dataset of the previous version still deploys until the next collect.
+  const extra = INDEX_FIELDS.slice(INDEX_FIELDS_V018.length)
+  need(INDEX_FIELDS_V018.every((f, i) => ix.fields[i] === f) && extra.every((f, i) => ix.fields[INDEX_FIELDS_V018.length + i] === undefined || ix.fields[INDEX_FIELDS_V018.length + i] === f), 'index.fields', 'must start with ' + INDEX_FIELDS.join(','))
   need(ix.thumb_template === undefined || ix.thumb_template === THUMB_TEMPLATE, 'index.thumb_template', 'unknown template')
   const at = Object.fromEntries(ix.fields.map((f, i) => [f, i]))
   const seen = new Set()
@@ -254,8 +257,35 @@ export function checkCandidates(c) {
 }
 
 /** Cross-file checks of a whole site-data directory's parsed files. */
-export function checkDataset({ manifest, index, home, stats, shards }) {
+/** events.json (v0.26, lib/registry.mjs buildEvents): series with dated editions and their statuses. */
+export function checkEvents(ev, { published = null } = {}) {
+  const errors = []
+  const need = (ok, at, what) => { if (!ok) errors.push(`${at}: ${what}`) }
+  need(ev?.schema === 1, 'events.schema', '1')
+  need(Array.isArray(ev?.series), 'events.series', 'array')
+  const DAY = /^\d{4}-\d{2}-\d{2}$/
+  const STATES = ['upcoming', 'ongoing', 'ended', 'cancelled', 'postponed', 'unconfirmed']
+  ;(ev?.series || []).forEach((x, i) => {
+    const at = `events.series[${i}]`
+    need(/^REG-[A-Z]{2}-\d{4}$/.test(x?.id || ''), at + '.id', 'REG id')
+    need(x?.project_id === null || (published ? published.has(x.project_id) : typeof x.project_id === 'string'), at + '.project_id', 'a published project or null')
+    need(!!(x?.name_ko || x?.name_en || x?.name_original), at, 'a name')
+    need(/^[A-Z]{2}$/.test(x?.country_iso2 || ''), at + '.country_iso2', 'ISO code')
+    need(Array.isArray(x?.editions) && x.editions.length > 0, at + '.editions', 'non-empty')
+    ;(x?.editions || []).forEach((e, j) => {
+      const et = `${at}.editions[${j}]`
+      need(STATES.includes(e?.status), et + '.status', STATES.join('|'))
+      for (const k of ['start', 'end']) need(e?.[k] === null || DAY.test(e?.[k] || ''), `${et}.${k}`, 'YYYY-MM-DD or null')
+      need(e?.status !== 'unconfirmed' || !(e?.start && e?.end) || e?.state, et, 'a dated edition has a computed status')
+      need(/^https:\/\//.test(e?.source || ''), et + '.source', 'https source')
+    })
+  })
+  return errors
+}
+
+export function checkDataset({ manifest, index, home, stats, shards, events = null }) {
   const errors = [...checkManifest(manifest), ...checkIndex(index), ...checkHome(home), ...checkStats(stats)]
+  if (manifest?.files?.events) errors.push(...(events ? checkEvents(events) : ['events.json: named by the manifest but missing']))
   const inShards = new Map()
   for (const [name, s] of Object.entries(shards)) {
     errors.push(...checkShard(s, name))
@@ -272,6 +302,7 @@ export function checkDataset({ manifest, index, home, stats, shards }) {
   for (const name of listed) if (!(name in shards)) errors.push(`manifest lists missing shard ${name}`)
   for (const id of Object.keys(home?.projects || {})) if (!inShards.has(id)) errors.push(`home names ${id}, which is not published`)
   for (const s of Object.values(shards)) for (const r of s?.projects || []) for (const x of r.relations || []) if (!inShards.has(x?.target)) errors.push(`${r.id}: relation ${x?.type} to ${x?.target}, which is not published`)
-  for (const x of [manifest, home, stats, ...Object.values(shards)]) if (x?.build_id !== manifest?.build_id) { errors.push('files carry different build_ids'); break }
+  for (const x of [manifest, home, stats, ...(events ? [events] : []), ...Object.values(shards)]) if (x?.build_id !== manifest?.build_id) { errors.push('files carry different build_ids'); break }
+  if (events) for (const x of events.series || []) if (x.project_id && !inShards.has(x.project_id)) errors.push(`events ${x.id}: project ${x.project_id} is not published`)
   return errors
 }

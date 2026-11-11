@@ -1,7 +1,7 @@
 {
  "broken_links": [
   {
-   "checked_at": "2026-10-20T06:28:26.840Z",
+   "checked_at": "2026-10-20T06:28:32.140Z",
    "consecutive_failures": 1,
    "field": "official_url",
    "http_status": 404,
@@ -10,7 +10,7 @@
    "url": "https://centercity.example/"
   }
  ],
- "build_id": "20261020T061700Z-9f41c980",
+ "build_id": "20261020T061700Z-feef149c",
  "coordinate_checks": [
   {
    "distance_m": 6135,
@@ -323,6 +323,18 @@
    "id": "Q99000722",
    "name": "Fixture Uniqa Light Nights",
    "project_type": "festival_program"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "REG-KR-9001",
+   "name": "픽스처 남강 빛축제",
+   "project_type": "festival_program"
+  },
+  {
+   "country_iso2": "KR",
+   "id": "REG-KR-9002",
+   "name": "픽스처 미디어아트 전시관",
+   "project_type": "media_architecture"
   },
   {
    "country_iso2": "KR",

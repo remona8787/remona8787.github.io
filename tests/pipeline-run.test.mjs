@@ -34,7 +34,8 @@ async function site(dataDir) {
   const shards = {}
   for (const f of manifest.files.shards) shards[f.replace(/^projects\/|\.json$/g, '')] = await readJSON(path.join(d, f))
   const records = new Map(Object.values(shards).flatMap((s) => s.projects).map((r) => [r.id, r]))
-  return { manifest, index: await readJSON(path.join(d, 'index.json')), home: await readJSON(path.join(d, 'home.json')), stats: await readJSON(path.join(d, 'stats.json')), shards, records }
+  const events = manifest.files.events ? await readJSON(path.join(d, manifest.files.events)) : null
+  return { manifest, index: await readJSON(path.join(d, 'index.json')), home: await readJSON(path.join(d, 'home.json')), stats: await readJSON(path.join(d, 'stats.json')), shards, records, events }
 }
 const tmp = () => mkdtemp(path.join(tmpdir(), 'aol-pipeline-'))
 
@@ -615,4 +616,33 @@ test('without sharp or any image file the run still publishes, with no home imag
 
 test('fixtures generator and site-data writer exist and are documented', async () => {
   for (const f of ['README.md', 'make-fixtures.mjs', 'make-site-data.mjs', 'fake-fetch.mjs']) assert.ok(existsSync(path.join(FIX, f)), f)
+})
+
+test('registry (v0.26): A records publish with their division and current edition; C stays out; events.json and status.json', needSharp, async () => {
+  const { dir, data } = await firstRun()
+  const fest = data.records.get('REG-KR-9001')
+  assert.ok(fest, 'the A festival is published')
+  assert.equal(fest.kind, 'festival')
+  assert.equal(fest.kr_division, 'gyeongnam')
+  assert.equal(fest.kr_region, 'busan_ulsan_gyeongnam')
+  assert.equal(fest.status, 'running', '2026-10-20 15:17 in Seoul is the last day of the 2026 edition')
+  assert.equal(fest.start_date, '2026-10-03')
+  assert.equal(fest.record_origin, 'curated')
+  assert.ok(fest.sources.some((s) => s.kind === 'public_agency' && s.url.includes('visitkorea')))
+  assert.equal(data.records.get('REG-KR-9002')?.kr_division, 'jeju')
+  assert.ok(!data.records.has('REG-KR-9003'), 'a C record waits for review')
+  assert.equal(data.events.series.length, 1, 'only records with editions are events')
+  const s = data.events.series[0]
+  assert.equal(s.project_id, 'REG-KR-9001')
+  assert.deepEqual(Object.fromEntries(s.editions.map((e) => [e.id, e.status])), { 2025: 'ended', 2026: 'ongoing', 2027: 'unconfirmed' })
+  assert.deepEqual(data.manifest.counts.events, { series: 1, editions: 3, ongoing: 1, upcoming: 0, ended: 1, cancelled: 0, postponed: 0, unconfirmed: 1 })
+  assert.ok(data.manifest.counts.by_kr_division.gyeongnam >= 1)
+  assert.equal(Object.keys(data.manifest.counts.by_kr_division).length, 17, 'all 17 divisions are counted, zeros included')
+  const at = Object.fromEntries(data.index.fields.map((f, i) => [f, i]))
+  assert.equal(data.index.rows.find((r) => r[at.id] === 'REG-KR-9001')[at.kr_division], 'gyeongnam')
+  const status = JSON.parse(await readFile(path.join(dir, 'site-data/status.json'), 'utf8'))
+  assert.equal(status.last_check_at, new Date(START).toISOString())
+  assert.equal(status.build_id, data.manifest.build_id)
+  assert.equal(status.data_changed_at, data.manifest.generated_at)
+  assert.ok(status.recent.new.includes('REG-KR-9001'))
 })

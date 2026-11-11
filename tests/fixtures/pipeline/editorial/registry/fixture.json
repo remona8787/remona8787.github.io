@@ -1,0 +1,52 @@
+{
+  "schema": 1,
+  "about": "Fixture registry (tests): a festival series with three editions around the fixture clock (2026-10-20 06:17 UTC, 15:17 in Seoul), a facility without editions, and a C record that must stay in review.",
+  "records": [
+    {
+      "id": "REG-KR-9001",
+      "kind": "festival",
+      "project_type": "festival_program",
+      "name_ko": "픽스처 남강 빛축제",
+      "name_en": null,
+      "country_iso2": "KR",
+      "kr_division": "gyeongnam",
+      "city": "Jinju",
+      "city_ko": "진주시",
+      "address": "경상남도 진주시 남강로 626",
+      "timezone": "Asia/Seoul",
+      "recurrence": "annual",
+      "admission": "paid",
+      "confidence": "A",
+      "sources": [{ "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=fixture-9001", "kind": "public_agency", "publisher": "한국관광공사 대한민국 구석구석", "checked_at": "2026-10-19" }],
+      "summary_ko": "픽스처 축제다.",
+      "editions": [
+        { "id": "2025", "start": "2025-10-03", "end": "2025-10-19", "source": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=fixture-9001", "checked_at": "2026-10-19" },
+        { "id": "2026", "start": "2026-10-03", "end": "2026-10-20", "source": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=fixture-9001", "checked_at": "2026-10-19" },
+        { "id": "2027", "start": null, "end": null, "source": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=fixture-9001", "checked_at": "2026-10-19" }
+      ]
+    },
+    {
+      "id": "REG-KR-9002",
+      "kind": "facility",
+      "project_type": "media_architecture",
+      "name_ko": "픽스처 미디어아트 전시관",
+      "country_iso2": "KR",
+      "kr_division": "jeju",
+      "city": "Jeju",
+      "city_ko": "제주시",
+      "confidence": "A",
+      "sources": [{ "url": "https://example.go.kr/fixture-9002", "kind": "official", "publisher": "픽스처시", "checked_at": "2026-10-19" }]
+    },
+    {
+      "id": "REG-KR-9003",
+      "kind": "festival",
+      "project_type": "festival_program",
+      "name_ko": "픽스처 미확인 축제",
+      "country_iso2": "KR",
+      "kr_division": "busan",
+      "city": "Busan",
+      "confidence": "C",
+      "sources": [{ "url": "https://news.example.com/fixture-9003", "kind": "news", "publisher": "픽스처일보", "checked_at": "2026-10-19" }]
+    }
+  ]
+}
