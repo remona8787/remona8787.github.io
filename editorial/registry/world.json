@@ -1038,6 +1038,91 @@
    ],
    "address": "Level 2, The Dubai Mall, Downtown Dubai",
    "summary_en": "Immersive media art museum in The Dubai Mall, open year-round."
+  },
+  {
+   "id": "REG-SG-0003",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "Light to Night Singapore",
+   "name_original": "Light to Night Singapore",
+   "country_iso2": "SG",
+   "city": "Singapore",
+   "timezone": "Asia/Singapore",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.nationalgallery.sg/sg/en/festivals/light-to-night-2027.html",
+     "kind": "public_agency",
+     "publisher": "National Gallery Singapore",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "Light to Night Singapore 2027"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_en": "Festival of light and art in the National Gallery Singapore and the Civic District.",
+   "editions": [
+    {
+     "id": "2027",
+     "title": "11th edition · Pop. Power. Play",
+     "start": "2027-01-15",
+     "end": "2027-01-31",
+     "venue": "National Gallery Singapore and the Civic District",
+     "source": "https://www.nationalgallery.sg/sg/en/festivals/light-to-night-2027.html",
+     "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "id": "REG-MX-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": null,
+   "name_en": "FILUX International Festival of Lights",
+   "name_original": "Festival Internacional de las Luces (FILUX)",
+   "name_original_lang": "es",
+   "country_iso2": "MX",
+   "city": "Mexico City",
+   "timezone": "America/Mexico_City",
+   "confidence": "B",
+   "sources": [
+    {
+     "url": "https://www.chilango.com/que-hacer/festival-de-luces-filux-cdmx-fechas-y-mapa-2026/",
+     "kind": "news",
+     "publisher": "Chilango",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    },
+    {
+     "url": "https://www.excelsior.com.mx/estilo-de-vida/festival-luces-paseo-reforma-cdmx-fechas",
+     "kind": "news",
+     "publisher": "Excélsior",
+     "checked_at": "2026-11-11",
+     "method": "web_search"
+    }
+   ],
+   "admission": "free",
+   "summary_en": "Free exhibition of light art along Paseo de la Reforma in Mexico City, also shown in Mérida.",
+   "editions": [
+    {
+     "id": "2025-autumn",
+     "start": "2025-10-17",
+     "end": "2025-10-29",
+     "source": "https://www.chilango.com/que-hacer/filux-2025-festival-de-luces-cdmx-fechas-sedes-mapa/",
+     "checked_at": "2026-11-11"
+    },
+    {
+     "id": "2026-spring",
+     "title": "Solo la luz · Primavera",
+     "start": "2026-03-20",
+     "end": "2026-03-29",
+     "hours": "19:00–23:00",
+     "venue": "Paseo de la Reforma",
+     "source": "https://www.chilango.com/que-hacer/festival-de-luces-filux-cdmx-fechas-y-mapa-2026/",
+     "checked_at": "2026-11-11"
+    }
+   ]
   }
  ]
 }
