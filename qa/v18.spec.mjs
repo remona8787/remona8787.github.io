@@ -229,7 +229,8 @@ test.describe('Korean and world sections',()=>{
   await page.locator('[data-world-country="AT"]').click();
   await expect(page.locator('#worldList .result-meta')).toHaveAttribute('data-count',String(world.filter(r=>r.country_iso2==='AT').length));
   await page.locator('.world-map .wm-stage').click();
-  await expect(page).toHaveURL(/#map\/world$/);
+  // The map page writes its (empty) filter state back to the hash, so the URL settles on #map/world? (search-state.js).
+  await expect(page).toHaveURL(/#map\/world(\?.*)?$/);
   await expect(page.locator('#view h1')).toHaveText('세계 지도');
  });
 });
