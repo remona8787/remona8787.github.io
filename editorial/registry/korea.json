@@ -1047,9 +1047,17 @@
      "checked_at": "2026-11-11",
      "method": "web_search",
      "title": "엑스포과학공원 - 시설 안내"
+    },
+    {
+     "url": "https://www.djto.kr/kor/page.do?menuIdx=652",
+     "kind": "public_agency",
+     "publisher": "대전관광공사",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "엑스포과학공원 - 시설 안내 - 주요 시설"
     }
    ],
-   "summary_ko": "한빛탑 외벽에 상영되는 미디어파사드다. 대전관광공사 공지에 2026년 7월 29일부터의 상영 중단 안내가 있어 현재 운영 여부는 확인이 필요하다."
+   "summary_ko": "한빛탑 외벽에 상영되는 미디어파사드다. 대전관광공사 공지에 2026년 7월 29일부터의 상영 중단 안내가 있어 현재 운영 여부는 확인이 필요하다. 대전관광공사 시설 안내에는 미디어파사드를 현재 운영하지 않으며 재개 시 공지한다고 적혀 있다(게시일 미확인)."
   },
   {
    "id": "REG-KR-0028",
@@ -5781,6 +5789,161 @@
     }
    ],
    "summary_ko": "서귀포 표선 제주민속촌의 야간 테마파크로, 제주 창조신화를 바탕으로 한 7개 빛의 테마존과 대형 스크린 멀티미디어 쇼로 구성된다."
+  },
+  {
+   "id": "REG-KR-0190",
+   "kind": "work",
+   "project_type": "media_facade",
+   "name_ko": "새섬 빛의 연주",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "jeju",
+   "city": "Seogwipo",
+   "city_ko": "서귀포시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_300000000013863",
+     "kind": "public_agency",
+     "publisher": "비짓제주(제주관광공사)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "일몰과 함께 시작되는 새섬 빛의 연주"
+    }
+   ],
+   "summary_ko": "서귀포 새섬공원의 야간 테마 조명과 미디어파사드로, 서귀포시가 2025년 7월부터 일몰 후 22시까지 운영한다."
+  },
+  {
+   "id": "REG-KR-0191",
+   "kind": "program",
+   "project_type": "other",
+   "name_ko": "새연교 음악분수",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "jeju",
+   "city": "Seogwipo",
+   "city_ko": "서귀포시",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://visitjeju.net/kr/festival/view?contentsid=CNTS_300000000014201",
+     "kind": "public_agency",
+     "publisher": "비짓제주(제주관광공사)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "2026년 새연교 음악분수"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_ko": "서귀포 새연교의 음악분수 공연으로, 레이저쇼와 미디어글라스 연출을 함께 한다.",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-04-25",
+     "end": "2026-10-31",
+     "source": "https://visitjeju.net/kr/festival/view?contentsid=CNTS_300000000014201",
+     "checked_at": "2026-11-11"
+    }
+   ]
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kind": "facility",
+   "project_type": "interactive_installation",
+   "id": "REG-KR-0192",
+   "name_ko": "벨섬",
+   "kr_division": "jeju",
+   "city": "Seogwipo",
+   "city_ko": "서귀포시",
+   "sources": [
+    {
+     "url": "https://www.visitjeju.net/kr/detail/view?contentsid=CNTS_300000000013164",
+     "kind": "public_agency",
+     "publisher": "비짓제주(제주관광공사)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "반짝이는 제주를 만나는 시간 <제주 야간 명소>"
+    }
+   ],
+   "summary_ko": "제주민속촌 안의 도깨비를 주제로 한 야간 미디어아트 공간이다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "id": "REG-KR-0193",
+   "name_ko": "본다빈치뮤지엄 시화",
+   "kr_division": "gyeonggi",
+   "city": "Siheung",
+   "city_ko": "시흥시",
+   "sources": [
+    {
+     "url": "https://ggtour.or.kr/gmice/?p=26&page=2&reqIdx=202407171525360623&viewMode=view",
+     "kind": "public_agency",
+     "publisher": "경기관광공사 경기 MICE",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "[마이스쥐 뉴스레터 2024 Vol.3] 올해 새로 선정된 경기도 …"
+    }
+   ],
+   "summary_ko": "시흥 거북섬의 미디어아트 상설 전시관이다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "id": "REG-KR-0194",
+   "name_ko": "MOEI 모에이",
+   "kr_division": "busan",
+   "city": "Busan",
+   "city_ko": "부산광역시",
+   "address": "부산 영도구 태종로836번길 55",
+   "sources": [
+    {
+     "url": "https://www.visitbusan.net/index.busan?menuCd=DOM_000000202008001000&uc_seq=2110&lang_cd=ko",
+     "kind": "public_agency",
+     "publisher": "비짓부산(부산관광공사)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "자연이 주는 아름다움과 휴식을 만끽할 수 있는, 태종대 …"
+    }
+   ],
+   "summary_ko": "영도 태종대 오션플라잉 테마파크의 미디어아트 전시관으로, 벽면과 바닥의 LED 화면에 사계절과 동물 영상을 보여 준다."
+  },
+  {
+   "country_iso2": "KR",
+   "timezone": "Asia/Seoul",
+   "confidence": "A",
+   "name_en": null,
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "id": "REG-KR-0195",
+   "name_ko": "까사데룩",
+   "kr_division": "busan",
+   "city": "Busan",
+   "city_ko": "부산광역시",
+   "sources": [
+    {
+     "url": "https://visitbusan.net/index.do?lang_cd=ko&menuCd=DOM_000000202003001000&uc_seq=2087",
+     "kind": "public_agency",
+     "publisher": "비짓부산(부산관광공사)",
+     "checked_at": "2026-11-11",
+     "method": "web_search",
+     "title": "눈과 입이 동시에 즐거운, 부산 최초의 미디어아트 카페 '까사 …"
+    }
+   ],
+   "summary_ko": "부산 최초의 몰입형 미디어아트 갤러리카페로 소개된 곳으로, 반 고흐 작품을 중심으로 영상을 바꿔 상영한다."
   }
  ]
 }
