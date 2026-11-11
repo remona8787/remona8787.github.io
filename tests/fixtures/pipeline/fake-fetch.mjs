@@ -46,7 +46,9 @@ const TEMPLATE_PAGE = 12 // templates per response (the real API: 500); small so
 
 function sparql(body) {
   const query = new URLSearchParams(body).get('query') || ''
-  const kind = /#aol:([a-z-]+)(?: (Q\d+))?/.exec(query)
+  // v0.26: a route other than class follows the QID ("#aol:class-instances Q1421557 genre"); its answers are separate
+  // fixture files (…-Q1421557-genre.json), empty when absent.
+  const kind = /#aol:([a-z-]+)(?: (Q\d+))?(?: (material|genre|movement|creator))?/.exec(query)
   if (!kind) return jsonRes({ head: { vars: [] }, results: { bindings: [] } }, { type: 'application/sparql-results+json' })
   const [, k, q] = kind
   if (k === 'kr-divisions') return jsonRes(read('wikidata/sparql/kr-divisions.json'), { type: 'application/sparql-results+json' })
@@ -61,7 +63,7 @@ function sparql(body) {
     return jsonRes({ head: { vars: ['item', 'class'] }, results: { bindings } }, { type: 'application/sparql-results+json' })
   }
   if (k === 'class-count' || k === 'class-instances' || k === 'kr-class-instances') {
-    const f = `wikidata/sparql/${k}-${q}.json`
+    const f = `wikidata/sparql/${k}-${q}${kind[3] ? '-' + kind[3] : ''}.json`
     if (existsSync(path.join(DIR, f))) return jsonRes(read(f), { type: 'application/sparql-results+json' })
     return jsonRes(k === 'class-count' ? { head: { vars: ['instances', 'with_coords'] }, results: { bindings: [{ instances: { datatype: 'http://www.w3.org/2001/XMLSchema#integer', type: 'literal', value: '0' }, with_coords: { datatype: 'http://www.w3.org/2001/XMLSchema#integer', type: 'literal', value: '0' } }] } } : { head: { vars: ['item'] }, results: { bindings: [] } }, { type: 'application/sparql-results+json' })
   }

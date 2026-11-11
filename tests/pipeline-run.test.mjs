@@ -21,9 +21,9 @@ const HOUR = 3600e3
 const SHARP = await loadSharp().then(() => true, () => false)
 const needSharp = SHARP ? {} : { skip: 'sharp is not installed (npm ci --prefix pipeline)' }
 
-async function run(dataDir, { start = START, fail = null, pipeline = {}, keys = FIXTURE_ENV } = {}) {
+async function run(dataDir, { start = START, fail = null, pipeline = {}, categories = null, keys = FIXTURE_ENV } = {}) {
   const env = fixtureEnvironment({ start, fail })
-  const overrides = { ...FIXTURE_OVERRIDES, pipeline: { ...FIXTURE_OVERRIDES.pipeline, ...pipeline } }
+  const overrides = { ...FIXTURE_OVERRIDES, pipeline: { ...FIXTURE_OVERRIDES.pipeline, ...pipeline }, ...(categories ? { categories: { ...(FIXTURE_OVERRIDES.categories || {}), ...categories } } : {}) }
   const r = await runPipeline({ dataDir, editorialDir: EDITORIAL, fetch: env.fetch, clock: env.clock, sleep: env.sleep, overrides, env: keys, log: () => {} })
   return { ...r, env }
 }
@@ -487,7 +487,12 @@ test('a project that disappears from complete sources is stale for two runs, the
     return null
   }
   const runs = []
-  for (let i = 1; i <= 3; i++) runs.push(await run(copy, { start: START + i * 80 * HOUR, fail: without }))
+  // The staleness rule, not the walk: runs 200 h apart (Commons category answers are cached a week plus jitter, v0.26.1; an
+  // answer keeps the lifetime it was written with), and the roots keep the first run's depth, so the category is
+  // reached only from Light art.
+  const C = JSON.parse(await readFile(path.join(import.meta.dirname, '../pipeline/config/categories.json'), 'utf8'))
+  const roots = (FIXTURE_OVERRIDES.categories?.roots || C.roots).map((r) => ({ ...r, depth: Math.min(r.depth ?? 2, 2) }))
+  for (let i = 1; i <= 3; i++) runs.push(await run(copy, { start: START + i * 200 * HOUR, fail: without, categories: { roots } }))
   const q = await readJSON(path.join(copy, 'admin-data/quality.json'))
   assert.deepEqual(runs.map((r) => r.report.changes.carried_over.find((c) => c.id === 'Q2001578')?.missing_runs ?? null), [1, 2, null])
   assert.ok(runs[2].report.changes.removed.some((x) => x.id === 'Q2001578' && x.reason === 'not_seen_in_3_runs'))

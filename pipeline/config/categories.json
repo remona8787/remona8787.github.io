@@ -142,35 +142,35 @@
    "title": "Category:Projection mapping",
    "qid": "Q776483",
    "mode": "candidates",
-   "depth": 3,
+   "depth": 4,
    "project_type": "projection_mapping"
   },
   {
    "title": "Category:Light art",
    "qid": "Q8590079",
    "mode": "candidates",
-   "depth": 2,
+   "depth": 4,
    "project_type": "light_art"
   },
   {
    "title": "Category:Light installations",
    "qid": null,
    "mode": "candidates",
-   "depth": 2,
+   "depth": 4,
    "project_type": "light_art"
   },
   {
    "title": "Category:Festivals of lights",
    "qid": "Q53170938",
    "mode": "candidates",
-   "depth": 2,
+   "depth": 3,
    "project_type": "festival_program"
   },
   {
    "title": "Category:Light festivals",
    "qid": null,
    "mode": "candidates",
-   "depth": 2,
+   "depth": 3,
    "project_type": "festival_program"
   },
   {
@@ -191,7 +191,7 @@
    "title": "Category:Media Facade",
    "qid": null,
    "mode": "candidates",
-   "depth": 2,
+   "depth": 3,
    "project_type": "media_facade"
   },
   {
@@ -215,8 +215,8 @@
   }
  ],
  "walk": {
-  "max_categories": 2500,
-  "max_per_root": 600,
+  "max_categories": 4500,
+  "max_per_root": 1500,
   "members_per_category": 200
  },
  "aggregate_patterns": [
@@ -319,7 +319,7 @@
    "reason": "edition_named"
   }
  ],
- "about_roots": "Roots are walked in this order (candidate roots first, evidence roots last, so a short time budget spends itself on project discovery). Category:Media Facade was empty on 2026-10-19; it stays so new files are found.",
+ "about_roots": "Roots are walked in this order (candidate roots first, evidence roots last, so a short time budget spends itself on project discovery). Category:Media Facade was empty on 2026-10-19; it stays so new files are found. v0.26.1: the light art, light installation and projection mapping roots are walked four levels deep (root, by country, in a country, in a city, the works), the light festival roots three, up to 1,500 categories per root; category answers are cached a week, so a walk that the time budget cuts continues in the next run.",
  "korea_search": [
   {
    "terms": [
