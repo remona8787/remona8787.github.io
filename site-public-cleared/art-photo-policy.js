@@ -36,11 +36,16 @@
   const ok=explicit||(linked&&reviewed)||(linked&&score!==null&&score>=40&&reasons.some(x=>VISUAL_REASON.test(x)));
   return{ok,explicit,linked,reviewed,score,reasons};
  }
+ // v0.26.2: a photo whose identity the collector proved (it comes from the work's own record: its P18, article lead
+ // image, Commons category, part category or depicts statement, never an institution's file) and that the collector
+ // classed as the work (tier 1-3: the work with its light or media named or measured; tier 4: the installation in
+ // its own category) is the work's photo even when its frame scores below 40 (a lit work by day, a dim interior).
  function visualEvidence(image){
-  const kind=kindOf(image),identity=identityEvidence(image),score=identity.score;
+  const kind=kindOf(image),identity=identityEvidence(image),score=identity.score,tier=number(image?.tier);
   const visualVerified=image?.visual_verified===true||image?.approved===true;
-  const ok=REPRESENTATIVE_KINDS.has(kind)&&identity.ok&&(visualVerified||(score!==null&&score>=40));
-  return{ok,kind,visual_verified:visualVerified,score,reasons:identity.reasons};
+  const collector=identity.explicit&&tier!==null&&tier>=1&&tier<=(kind==='project_installation'?4:3);
+  const ok=REPRESENTATIVE_KINDS.has(kind)&&identity.ok&&(visualVerified||(score!==null&&score>=40)||collector);
+  return{ok,kind,visual_verified:visualVerified,collector_verified:collector,score,reasons:identity.reasons};
  }
  function classify(image){
   if(!image||typeof image!=='object')return{representative:false,reason:'missing'};

@@ -457,8 +457,22 @@ export function chooseImages(project, scored, { heroAllow, blocked, galleryMax =
 }
 
 /**
+ * The identity of a Commons image (v0.26.2): how the file is tied to the work. Every Commons candidate comes from the
+ * item itself (its P18, the lead image of its articles, its own Commons category or a subcategory of it, the part
+ * category where it was found, or a depicts statement naming it), so it shows the work, unless the item is an
+ * institution, building or host and the file shows that place (an institution file: never proof of the work, even
+ * when rescued as a night view; the site then needs its visual evidence, art-photo-policy.js).
+ */
+export function commonsIdentity(s) {
+  const ev = s.a?.evidence || []
+  if (s.a?.portrait) return { ok: false, method: 'commons_portrait' }
+  if (s.cand?.institution === true || ev.includes('host_building_only') || ev.some((e) => String(e).startsWith('institution_file:'))) return { ok: false, method: 'commons_institution_file' }
+  return { ok: true, method: 'commons_' + String(s.source || 'item').replace(/[^a-z0-9_]/gi, '').slice(0, 30) }
+}
+/**
  * The public image object (docs/STATIC_ARCHIVE.md v0.18 "Data fields"), plus thumb and attribution, which the v0.17
- * app reads, and identity for every provider other than Commons (the proof that it shows the project).
+ * app reads, and identity (the proof that it shows the project): required for every provider other than Commons; for
+ * Commons, how the file is tied to the item (commonsIdentity).
  */
 export function imageObject(s, role, { project, checkedAt = null, th = {} } = {}) {
   const c = s.cand
@@ -480,7 +494,7 @@ export function imageObject(s, role, { project, checkedAt = null, th = {} } = {}
     quality: s.q ? { sharpness: s.q.sharpness, blockiness: s.q.blockiness, score: qualityScore(s.q, width) } : null,
     media_active: mediaActive(s.a, s.m), tier: s.t.tier, role, kind: s.kind ?? kindOf(s, project.project_type),
     title: imageTitle(c), description: c.provider === 'commons' ? snippet(s.info?.description) : snippet(c.description),
-    ...(c.provider !== 'commons' ? { identity: s.identity } : {}),
+    identity: c.provider !== 'commons' ? s.identity : commonsIdentity(s),
     ...(role === 'hero' && width && width < (th.hero_min_width ?? 2400) ? { below_target: true } : {}),
     ...(role === 'card' && width && width < (th.card_min_width ?? 1200) ? { below_target: true } : {}),
     checked_at: checkedAt, approved: s.approved ?? null,

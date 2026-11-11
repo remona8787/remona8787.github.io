@@ -36,6 +36,20 @@ test('art photo policy: a photo represents the work only with rights, size, iden
   assert.equal(ART.representativeOf({ images: [ctx] }), null)
 })
 
+test('art photo policy (v0.26.2): a photo the collector tied to the work and classed as the work needs no score of 40', () => {
+  const low = { media_active: { score: 12, reasons: ['visual:20', 'media_terms:lichtkunst'] } }
+  assert.equal(ART.classify(photo({ ...low, tier: 3 })).reason, 'identity', 'without the collector\'s identity a low score is not enough')
+  const tied = photo({ ...low, tier: 3, identity: { ok: true, method: 'commons_category' } })
+  assert.equal(ART.isRepresentative(tied), true)
+  assert.equal(ART.classify(tied).visual.collector_verified, true)
+  assert.equal(ART.isRepresentative(photo({ ...low, kind: 'project_installation', tier: 4, identity: { ok: true, method: 'commons_category' } })), true, 'the installation in its own category')
+  assert.equal(ART.classify(photo({ ...low, kind: 'architecture_context', tier: 5, identity: { ok: true, method: 'commons_p18' } })).reason, 'visual', 'the building stays context')
+  assert.equal(ART.classify(photo({ ...low, tier: 3, identity: { ok: false, method: 'commons_institution_file' } })).reason, 'identity', 'an institution file is no proof of the work')
+  assert.equal(ART.classify(photo({ ...low, tier: 3, identity: { ok: true, method: 'commons_category' }, width: 800 })).reason, 'quality', 'size still applies')
+  assert.equal(ART.classify(photo({ ...low, tier: 3, identity: { ok: true, method: 'commons_category' }, license: 'CC BY-NC 2.0' })).reason, 'rights', 'rights still apply')
+  assert.equal(ART.classify(photo({ ...low, tier: 3, identity: { ok: true, method: 'commons_category' }, media_active: { score: 72, reasons: ['visual:72', 'institution_file:museum'] } })).reason, 'institution_context')
+})
+
 test('search state: filters, scope and view round-trip through the address; anything else is dropped', () => {
   const hash = Q.write('explore', { filters: { q: ' 서울 ', project_type: ['media_facade', 'BAD TYPE'], has_photo: true, year_from: '2010', sort: 'newest', category: '전체' }, scope: 'korea', view: 'rows' })
   assert.equal(hash, '#explore?q=%EC%84%9C%EC%9A%B8&project_type=media_facade&has_photo=1&year_from=2010&sort=newest&scope=korea&view=rows')

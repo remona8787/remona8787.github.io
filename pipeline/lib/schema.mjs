@@ -56,6 +56,8 @@ export function checkImage(img, path, need, { maxTier = 5 } = {}) {
   need(str(img.title) && img.title.length <= 200, path + '.title', 'the source title (≤ 200 characters)')
   need(img.description === null || img.description === undefined || (typeof img.description === 'string' && img.description.length <= 240), path + '.description', 'a snippet of ≤ 240 characters or null')
   if (img.provider && img.provider !== 'commons') need(img.identity?.ok === true && str(img.identity.method), path + '.identity', 'an identity proof is required outside Commons')
+  // A Commons image (v0.26.2) says how it is tied to the item, when it says: {ok, method commons_*}.
+  else if (img.identity !== undefined) need(img.identity && typeof img.identity.ok === 'boolean' && /^commons_[a-z0-9_]{1,30}$/.test(String(img.identity.method)), path + '.identity', '{ok, method: commons_*}')
 }
 
 export function checkManifest(m) {
