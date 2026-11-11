@@ -21,6 +21,7 @@
     "web": {
       "enabled": true,
       "gdelt": true,
+      "gdelt_per_run": 2,
       "rss": true
     },
     "overpass": {

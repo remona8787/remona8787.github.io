@@ -421,7 +421,7 @@ test('dry run: polite to every source (User-Agent, maxlag, per-host rate limits)
   const { requests } = first ? first.result.env : (await firstRun()).result.env
   assert.ok(requests.length > 50)
   for (const q of requests) assert.equal(q.ua, USER_AGENT, q.url)
-  for (const q of requests.filter((x) => /\/w\/api\.php/.test(x.url))) assert.match(q.url, /[?&]maxlag=5(&|$)/, q.url)
+  for (const q of requests.filter((x) => /\/w\/api\.php/.test(x.url))) assert.match(q.url, /[?&]maxlag=30(&|$)/, q.url)
   const byHost = {}
   for (const q of requests) (byHost[q.host] ||= []).push(q.at)
   const minGap = (host) => { const t = byHost[host] || []; let m = Infinity; for (let i = 1; i < t.length; i++) m = Math.min(m, t[i] - t[i - 1]); return m }

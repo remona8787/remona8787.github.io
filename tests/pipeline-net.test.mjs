@@ -21,7 +21,7 @@ function virtual(handler) {
 }
 const json = (v, init = {}) => new Response(JSON.stringify(v), { status: 200, headers: { 'content-type': 'application/json' }, ...init })
 
-test('every request carries the pipeline User-Agent; MediaWiki APIs get maxlag=5, other hosts do not', async () => {
+test('every request carries the pipeline User-Agent; MediaWiki APIs get maxlag=30 (reads only), other hosts do not', async () => {
   const v = virtual(() => json({ ok: 1 }))
   const c = createClient({ fetch: v.fetch, clock: v.env.clock, sleep: v.env.sleep })
   await c.json('https://commons.wikimedia.org/w/api.php?action=query&format=json')
@@ -30,8 +30,8 @@ test('every request carries the pipeline User-Agent; MediaWiki APIs get maxlag=5
   await c.json('https://api.gdeltproject.org/api/v2/doc/doc?query=x')
   assert.ok(v.calls.every((x) => x.ua === USER_AGENT))
   assert.equal(USER_AGENT, 'LightArchitectureArchive/0.18 (+https://remona8787.github.io/; remona56@hanmail.net)')
-  assert.match(v.calls[0].url, /maxlag=5/)
-  assert.match(v.calls[1].url, /maxlag=5/)
+  assert.match(v.calls[0].url, /maxlag=30/)
+  assert.match(v.calls[1].url, /maxlag=30/)
   assert.doesNotMatch(v.calls[2].url, /maxlag/)
   assert.doesNotMatch(v.calls[3].url, /maxlag/)
 })

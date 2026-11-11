@@ -6,7 +6,7 @@
 //  - the item is a building, structure or place with coordinates or a country, and not a person, company, product,
 //    technology, class or area (checked on the item's P31 labels in the pipeline: acceptEntity below).
 // The article URL is kept as the source that states the media facade. Every hit, its score and its reasons go to
-// review/wikipedia.json. At most 1 request per second per wiki (the client's per-host limiter), maxlag=5.
+// review/wikipedia.json. At most 1 request per second per wiki (the client's per-host limiter), maxlag=30.
 import { chunk, stripTags, uniq, isQid } from './util.mjs'
 import { HOUR } from './cache.mjs'
 

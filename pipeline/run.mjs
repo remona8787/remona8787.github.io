@@ -282,10 +282,18 @@ export async function runPipeline(o) {
       if (S.web?.enabled === false) { status('web', { status: 'disabled', items: 0, errors: [] }); return }
       const t = clock()
       try {
-        const rules = S.web?.rules || webRules({ gdelt: S.web?.gdelt !== false, rss: S.web?.rss !== false, getEnv: (k) => env[k] })
+        const all = S.web?.rules || webRules({ gdelt: S.web?.gdelt !== false, rss: S.web?.rss !== false, getEnv: (k) => env[k] })
+        // GDELT answers 429 after one or two queries in a row (11-10, 11-11: 10 of 11 refused, then the host paused).
+        // A few GDELT queries per run, rotated by run number, so every language comes up within a day or two (v0.26).
+        const gdelt = all.filter((r) => r.kind === 'gdelt').sort((a, b) => compareStrings(a.name, b.name))
+        const perRun = Math.max(1, S.web?.gdelt_per_run ?? 2)
+        const pick = new Set(gdelt.length <= perRun ? gdelt : Array.from({ length: perRun }, (_, i) => gdelt[(runNo * perRun + i) % gdelt.length]))
+        const rules = all.filter((r) => r.kind !== 'gdelt' || pick.has(r))
+        const rotated = gdelt.filter((r) => !pick.has(r)).map((r) => ({ key: `${r.kind}:${r.name}`, status: 'skipped', reason: 'rotation' }))
         const known = observations.filter((x) => x.origin === 'curated').map((x) => ({ id: x.curated_id, names: [x.name?.ko, x.name?.en].filter(Boolean), wikidata_qid: x.qid }))
         for (const r of prev.records.values()) known.push({ id: r.id, names: [r.name_ko, r.name_en, r.name_original].filter(Boolean), wikidata_qid: r.wikidata })
         webOut = await collectWeb({ client: foreign, rules, ruleState: state.webRules, projects: known, getEnv: (k) => env[k], deadline: foreign.deadline })
+        webOut.results.push(...rotated)
         const ok = webOut.results.filter((r) => r.status === 'success' || r.status === 'partial').length
         const failed = webOut.results.filter((r) => r.status === 'error').length
         status('web', { status: failed && !ok ? 'error' : failed || webOut.results.some((r) => r.reason === 'time_budget') ? 'partial' : 'ok', items: webOut.items.length, errors: webOut.errors.slice(0, 50), rules: webOut.results, duration_ms: clock() - t })

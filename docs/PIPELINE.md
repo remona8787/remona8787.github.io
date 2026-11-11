@@ -134,7 +134,7 @@ banner and region tiles.
 ## 3. What a run guarantees
 
 - **Polite.** Every request carries `User-Agent: LightArchitectureArchive/0.18 (+https://remona8787.github.io/; remona56@hanmail.net)`.
-  - Every MediaWiki API call has `maxlag=5` and waits and retries on a maxlag answer.
+  - Every MediaWiki API call has `maxlag=30` (reads only; v0.26, was 5) and waits and retries on a maxlag answer.
   - 429 and 5xx answers are retried with backoff, honouring `Retry-After`.
   - Per-host spacing is strict (table in §4).
   - Answers are cached with TTLs and ETags, so a run asks only for what is new or expired.
@@ -172,10 +172,10 @@ banner and region tiles.
 | source | used for | limit in the pipeline | terms |
 |---|---|---|---|
 | Wikidata Query Service `query.wikidata.org/sparql` | class counts and instances (`?item wdt:P31/wdt:P279* wd:<class>`, LIMIT 5000), auxiliary labels, ISO codes, P131 chains | 1 request/s, cached 24 h (counts, instances) and 30 days (aux) | data CC0; WDQS user-agent policy and 60 s query limit |
-| Wikidata API `www.wikidata.org/w/api.php` | `wbgetentities`, 25 items per request: labels (ko, en, original language), P17, P131, P625, P571, P580, P582, P84, P170, P137, P856, P373, P18, P301, sitelinks | 1 request/s, `maxlag=5`, cached 72 h | CC0 |
-| Wikimedia Commons API | category search (namespace 14), file search (namespace 6) for "media facade" terms, P180 depicts search, category walk, members, `imageinfo` + `extmetadata`, templates (deletion, NoFoP, Korean FoP) | 1 request/s, `maxlag=5`; categories 72 h, depicts and file metadata 14 days | each file's own licence; attribution is always published with the image |
+| Wikidata API `www.wikidata.org/w/api.php` | `wbgetentities`, 25 items per request: labels (ko, en, original language), P17, P131, P625, P571, P580, P582, P84, P170, P137, P856, P373, P18, P301, sitelinks | 1 request/s, `maxlag=30`, cached 72 h | CC0 |
+| Wikimedia Commons API | category search (namespace 14), file search (namespace 6) for "media facade" terms, P180 depicts search, category walk, members, `imageinfo` + `extmetadata`, templates (deletion, NoFoP, Korean FoP) | 1 request/s, `maxlag=30`; categories 72 h, depicts and file metadata 14 days | each file's own licence; attribution is always published with the image |
 | `upload.wikimedia.org`, `thumb.wikimedia.org` | 330 px thumbnails for visual scoring, ~1024 px (960 px step) renditions for quality, contact-sheet tiles | 5 requests/s per host, ≤ 1,800 visual and ≤ 600 quality downloads per run, standard thumbnail widths only (120, 250, 330, 500, 960, 1280, 1920, 3840: the CDN refuses other widths since the 2025/2026 standardisation), measurements cached a year by file and sha1 | as above; files are measured, never re-hosted. Wikimedia now names `thumb.wikimedia.org` for thumbnails and adds `utm_*` parameters to API thumbnail URLs (`$wgTrackMediaRequestProvenance`): the pipeline strips them from every stored URL |
-| Wikipedia APIs (14 wikis: en de ko ja zh fr es it nl pl ru pt tr ar) | `list=search` phrase queries, `pageprops` (wikibase_item), lead extracts, coordinates | 1 request/s per wiki (the wikis in parallel), `maxlag=5`; search 72 h, pages 7 days | CC BY-SA 4.0: only the article URL is published, as a source; snippets stay in `review/` |
+| Wikipedia APIs (14 wikis: en de ko ja zh fr es it nl pl ru pt tr ar) | `list=search` phrase queries, `pageprops` (wikibase_item), lead extracts, coordinates | 1 request/s per wiki (the wikis in parallel), `maxlag=30`; search 72 h, pages 7 days | CC BY-SA 4.0: only the article URL is published, as a source; snippets stay in `review/` |
 | GDELT DOC 2.0 | news candidates | 1 request per 5 s | free; candidates only |
 | RSS/Atom feeds (seed rules of `edge-functions/_shared/archive/seed-rules.mjs`) | news candidates | conditional GET (ETag / Last-Modified), 1 request/s per host, per-rule backoff | each publisher's terms; titles and links only, candidates only |
 | NAVER, Brave search | web candidates, only with keys | as in the collector | API terms; candidates only |

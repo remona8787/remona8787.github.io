@@ -4,7 +4,7 @@
 //  - the pipeline User-Agent with a contact address (Wikimedia's User-Agent policy);
 //  - a per-host rate limiter: at most 1 request per second per wiki and for the query service, GDELT 1 per 5 s,
 //    Overpass 1 per 10 s, thumbnails 5 per second;
-//  - maxlag=5 on every MediaWiki API call, with a wait and retry when the API answers with a maxlag error;
+//  - maxlag=30 on every MediaWiki API call (the collector only reads), with a wait and retry on a maxlag answer;
 //  - the run's time budget: no request starts after the deadline (BudgetError); a view of the client may have an earlier
 //    deadline of its own (client.view), which is how the foreign sources stop before the Korean ones (Korea first);
 //  - optional caching with a TTL and ETag revalidation (state/cache/);
@@ -40,7 +40,11 @@ export function createStrictLimiter({ clock = Date.now, sleep = defaultSleep, de
 }
 
 export const USER_AGENT = 'LightArchitectureArchive/0.18 (+https://remona8787.github.io/; remona56@hanmail.net)'
-export const MAXLAG = 5
+// 30 s, not the editing bots' 5 s (v0.26): since 2019 Wikidata's lag includes the query service's replication lag,
+// which stayed at 8–16 s for days in November 2026, so maxlag=5 refused every read of a whole run (11-11 02:45,
+// wikidata status error, 201 records carried over). A collector that only reads still backs off when the cluster is
+// badly lagged (over 30 s), and keeps its one request per second per host.
+export const MAXLAG = 30
 export const HOST_INTERVALS = {
   'query.wikidata.org': 1000,
   'www.wikidata.org': 1000,
