@@ -78,6 +78,9 @@ export function validateRecord(r, { types }) {
   const bad = []
   const need = (ok, what) => { if (!ok) bad.push(what) }
   need(/^REG-[A-Z]{2}-\d{4}$/.test(r.id || ''), 'id REG-<CC>-<4 digits>')
+  // attach_to: the record only adds editions (events.json) to a project the archive already has, so its id stays.
+  need(r.attach_to == null || /^(Q\d+|SEOUL\d{3}|CAT-[0-9A-Z]{7}|REG-[A-Z]{2}-\d{4})$/.test(r.attach_to), 'attach_to an archive id')
+  if (r.attach_to) need(Array.isArray(r.editions) && r.editions.length > 0, 'attach_to needs editions')
   need(RECORD_KINDS.includes(r.kind), 'kind ' + RECORD_KINDS.join('|'))
   need(types.includes(r.project_type), 'project_type')
   need(!!(r.name_ko || r.name_en || r.name_original), 'a name')
@@ -163,7 +166,7 @@ export function recordStatus(r, ed) {
 export function registryObservations(records, { now = Date.now() } = {}) {
   const out = []
   for (const r of records) {
-    if (!['A', 'B'].includes(r.confidence)) continue
+    if (!['A', 'B'].includes(r.confidence) || r.attach_to) continue
     const tz = r.timezone || (r.country_iso2 === 'KR' ? 'Asia/Seoul' : 'UTC')
     const today = localDay(now, tz)
     const ed = currentEdition(r, today)
@@ -220,7 +223,7 @@ export function buildEvents(records, { now = Date.now(), published = new Set(), 
     const today = localDay(now, tz)
     series.push({
       id: r.id,
-      project_id: published.has(r.id) ? r.id : null,
+      project_id: r.attach_to ? (published.has(r.attach_to) ? r.attach_to : null) : published.has(r.id) ? r.id : null,
       kind: r.kind,
       project_type: r.project_type,
       name_ko: r.name_ko || null,
