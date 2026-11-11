@@ -17,6 +17,7 @@ const cfg = window.AOL_CONFIG || {}
 const publicURL = String(cfg.PUBLIC_URL || '')
 const base = new URL('data/', document.baseURI)
 const TIMEOUT_MS = 20000
+let events = null, eventsRun = null, runStatus = null, runStatusRun = null
 let buildId = null, home = null, indexState = 'idle', indexRun = null, manifest = null, manifestRun = null, indexRetryAt = 0
 /** @type {Map<string, any>} compact places by app id (home cards, index rows) */
 const compact = new Map()
@@ -54,7 +55,7 @@ function publish(status) {
     if (f?.media.length) media.push(...f.media)
     else { const c = cards.get(p.place_id); if (c) media.push(c) }
   }
-  window.AOL_DATASET = { status, buildId, generatedAt: manifest?.generated_at || home?.generated_at || null, home, projects, media, index: indexState, count: projects.length, version: ++version }
+  window.AOL_DATASET = { status, buildId, generatedAt: manifest?.generated_at || home?.generated_at || null, home, projects, media, index: indexState, count: projects.length, version: ++version, events, runStatus }
   window.AOL_DATASET_MEDIA = media
   const app = window.AOLApp
   ;(app?.softRender || app?.render)?.()
@@ -138,6 +139,22 @@ export async function ensureRecord(placeId) {
   return ok && full.has(id)
 }
 
+// Events (v0.26, events.json: festival and exhibition series with dated editions) and the collector's status
+// (status.json: when it last checked its sources and when the data last changed). Both are read only by the screens
+// that show them; a missing file leaves them null and the screens say nothing about them.
+export function ensureEvents() {
+  if (status !== 'ok') return Promise.resolve(false)
+  if (!eventsRun) eventsRun = get('events.json').then(j => { events = j && Array.isArray(j.series) ? j : null; publish(status); return !!events }, () => { events = null; publish(status); return false })
+  return eventsRun
+}
+export function ensureRunStatus() {
+  if (status !== 'ok') return Promise.resolve(false)
+  if (!runStatusRun) runStatusRun = fetch(new URL('status.json', base), { credentials: 'omit', cache: 'no-cache', signal: AbortSignal.timeout(TIMEOUT_MS) })
+    .then(r => r.ok && /json/i.test(r.headers.get('content-type') || 'json') ? r.json() : null)
+    .then(j => { runStatus = j && j.schema === 1 ? j : null; publish(status); return !!runStatus }, () => { runStatus = null; return false })
+  return runStatusRun
+}
+
 export const record = placeId => full.get(placeId) || null
 export const videos = placeId => full.get(placeId)?.videos || []
 export const loading = placeId => { const p = compact.get(placeId); return !!p?.shard && shards.has(p.shard) && !full.has(placeId) }
@@ -148,6 +165,8 @@ function need() {
   let page = 'home', id = ''
   // A search address carries its filters after "?" (site-public-cleared/search-state.js): "#explore?q=…".
   try { [page = 'home', id = ''] = decodeURIComponent((location.hash.slice(1) || 'home').split('?')[0]).split('/') } catch {}
+  if (page === 'home') ensureRunStatus()
+  if (page === 'calendar') ensureEvents()
   if (page === 'home' && !home) loadHome().then(() => publish(status), () => {})
   else if (['explore', 'map', 'data', 'korea', 'programs', 'world'].includes(page)) ensureIndex()
   else if (page === 'place' && id) ensureRecord(id)
@@ -166,7 +185,7 @@ export const ready = (async () => {
   return status === 'ok'
 })()
 
-window.AOLDataset = { ready, ensureIndex, ensureRecord, record, videos, loading, get status() { return status } }
+window.AOLDataset = { ready, ensureIndex, ensureRecord, ensureEvents, ensureRunStatus, record, videos, loading, get status() { return status } }
 window.AOL_DATASET = { status: 'probing', buildId: null, home: null, projects: [], media: [], index: 'idle', count: 0, version: 0 }
 window.AOL_DATASET_MEDIA = []
 addEventListener('hashchange', need)

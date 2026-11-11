@@ -1124,6 +1124,8 @@ a.plate-credit:hover{text-decoration:underline;text-underline-offset:2px}
 .explore-intro .page-sub{max-width:56ch}
 .search-context{display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);flex-wrap:wrap;margin-top:var(--s-4);min-height:36px}
 .dataset-freshness{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:0;color:var(--text-muted);font-size:var(--fs-micro);line-height:var(--lh-micro)}
+.dataset-freshness .freshness-check{color:var(--text-muted)}
+.dataset-freshness .freshness-check::before{content:'·';margin-right:6px}
 .dataset-freshness a{display:inline-flex;align-items:center;justify-content:center;min-width:28px;min-height:28px;color:var(--text-muted);border-radius:50%}
 .search-share{min-height:36px;padding:0 14px;font-size:var(--fs-micro);margin-left:auto}
 .search-share-input{width:100%;padding:12px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface);color:var(--text)}
@@ -1735,6 +1737,19 @@ a.stat:hover{background:var(--panel)}
 .fab:active{transform:scale(.97)}
 .head-action{display:none}
 @media (min-width:768px){.fab{display:none}.head-action{display:inline-flex}}
+/* 17 divisions on the Korea page (v0.26): a compact count list, two columns on phones, a single row of six to nine
+   on wider screens; a division without records stays listed, muted. */
+.kr-divisions{margin:var(--s-6) 0 var(--s-5)}
+.kr-divisions .section-head small{display:block;color:var(--text-muted);font-size:var(--fs-micro)}
+.div-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 var(--s-4);margin:var(--s-3) 0 0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.div-item a{display:flex;align-items:baseline;justify-content:space-between;gap:var(--s-2);min-height:44px;padding:var(--s-2) 0;border-bottom:1px solid var(--line);color:var(--text);text-decoration:none}
+.div-item a:hover .div-name{text-decoration:underline;text-underline-offset:3px}
+.div-name{font-weight:600;word-break:keep-all}
+.div-count{color:var(--text-muted)}
+.div-item.is-empty .div-name,.div-item.is-empty .div-count{color:var(--text-muted);font-weight:400}
+@media (min-width:600px){.div-list{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1024px){.div-list{grid-template-columns:repeat(6,minmax(0,1fr))}}
+.event-row .pill-row{gap:6px}
 .calendar-row{display:flex;align-items:center;gap:var(--s-4);min-height:76px;padding:var(--s-3) 0;border-bottom:1px solid var(--line);color:var(--text)}
 a.calendar-row:hover h3{text-decoration:underline;text-underline-offset:3px}
 .date-block{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:none;width:52px;height:60px;border-radius:var(--r-md);background:var(--chip-on-bg);color:var(--chip-on-ink);font-variant-numeric:tabular-nums}

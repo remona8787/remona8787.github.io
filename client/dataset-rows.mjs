@@ -60,6 +60,8 @@ const CURATED = /^[A-Z]{2,12}\d{1,6}$/
 // derived from the city or address only when a dataset has no such field at all (before v0.18).
 const KR_KEYS = new Set((T.krRegions || []).map((/** @type {any} */ x) => x[0]))
 /** @param {any} v */
+// The 17 first-level divisions (v0.26, pipeline/lib/registry.mjs KR_DIVISIONS); an unknown value is null.
+export const KR_DIVISIONS = new Set(['seoul', 'busan', 'daegu', 'incheon', 'gwangju', 'daejeon', 'ulsan', 'sejong', 'gyeonggi', 'gangwon', 'chungbuk', 'chungnam', 'jeonbuk', 'jeonnam', 'gyeongbuk', 'gyeongnam', 'jeju'])
 export const krKey = v => typeof v === 'string' && (KR_KEYS.has(v) || T.valid('kr_region', v)) ? v : null
 const shardName = (/** @type {any} */ v) => { const s = typeof v === 'number' ? String(v).padStart(3, '0') : v; return typeof s === 'string' && /^[A-Za-z0-9_-]{1,40}$/.test(s) ? s : null }
 
@@ -207,7 +209,7 @@ export function toPlace(r, { publicURL = '' } = {}) {
     name_kr: name, name_en: en || '', name_ko: ko, name_original: orig, name_original_lang: text(r.name_original_lang, 20),
     aliases: [], short_description: '', summary_ko: null, summary_en: null,
     primary_category: type ? CATEGORY_OF_TYPE[/** @type {keyof typeof CATEGORY_OF_TYPE} */ (type)] || null : null, project_type: type,
-    region: T.regionOf(iso), kr_region: kr, country_iso2: iso, country: iso ? T.countryName(iso, 'ko') : '', city: text(r.city, 120) || '', city_ko: text(r.city_ko, 60), district: text(r.district, 120) || '', address: '',
+    region: T.regionOf(iso), kr_region: kr, kr_division: iso === 'KR' && typeof r.kr_division === 'string' && KR_DIVISIONS.has(r.kr_division) ? r.kr_division : null, country_iso2: iso, country: iso ? T.countryName(iso, 'ko') : '', city: text(r.city, 120) || '', city_ko: text(r.city_ko, 60), district: text(r.district, 120) || '', address: '',
     latitude: located ? lat : null, longitude: located ? lng : null,
     coordinate_review_status: located && precise ? 'source' : null, coordinate_source: located ? 'dataset' : null, coordinate_source_url: located ? coordURL : null, location_precision: located ? precision : 'unknown',
     year_installed: year(r.year ?? r.year_installed), year_completed: year(r.year_completed),
