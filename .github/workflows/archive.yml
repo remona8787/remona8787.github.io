@@ -1,0 +1,283 @@
+# Light Architecture archive: collect → deploy → verify-live.
+# Contract: docs/STATIC_ARCHIVE.md; operations: docs/PIPELINE.md (both on the source branch).
+# Canonical copy: deploy/pages-repo/.github/workflows/archive.yml on the source branch. The same file also lives at
+# .github/workflows/archive.yml on the source branch (so a push to source starts this workflow: GitHub reads a push's
+# workflow from the pushed commit) and on main (schedules run from the default branch). The tests keep the source
+# copies identical; copy the file to main by hand: a GITHUB_TOKEN push may not change workflow files, so the deploy job
+# only warns when main's copy differs.
+#
+# Branches of remona8787/remona8787.github.io:
+#   main    the built site served by GitHub Pages (Settings → Pages → Deploy from a branch → main, / (root)), plus this
+#           workflow, README.md and .nojekyll. Written only by the deploy job.
+#   source  the light-architecture project at the branch root, plus editorial/. Humans and Claude push here.
+#   data    pipeline output: site-data/ (published at /data/), admin-data/ (internal: never published), review/
+#           (contact sheets, query logs, live checks) and state/ (caches, ETags, failure counters). Written only by
+#           this workflow.
+#
+# Pushes made with GITHUB_TOKEN do not start other workflows, so collect, deploy and verify are jobs of this one.
+# One concurrency group for the whole workflow (never cancelled in progress: a waiting run starts when the running one
+# ends), and one more for the deploy job, so no deploy is ever cancelled or runs next to another.
+# API keys come only from repository secrets, passed to the collect step's environment (docs/PIPELINE.md lists them);
+# without a key the source or image provider is skipped and the report says so.
+# Every commit is made as github-actions[bot]. Every step is idempotent and no job deletes data: a failed collect
+# commits nothing, so deploy publishes the last good dataset; deploy never replaces a valid deployed dataset with an
+# invalid one; an unchanged deploy commits nothing.
+name: archive
+
+on:
+  schedule:
+    # Every six hours (UTC). GitHub starts schedules late or skips them when busy (on 2026-11-11 the 00:17 and 12:17
+    # slots never ran), so an hourly catch-up runs the collector only when no collect ran in the last 6.5 hours
+    # (pipeline/ci/gate.mjs); a catch-up the gate skips also skips deploy and verify-live and ends in about a minute.
+    - cron: '17 */6 * * *'
+    - cron: '47 * * * *'
+  workflow_dispatch:
+    inputs:
+      collect:
+        description: Run the collect job (off = build, deploy and verify only)
+        type: boolean
+        default: true
+      budget_minutes:
+        description: Time budget of the collect run, in minutes
+        type: number
+        default: 35
+  push:
+    branches: [source]
+
+concurrency:
+  group: archive
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  # The health job opens, updates and closes one issue when collection needs the operator (pipeline/ci/health.mjs).
+  issues: write
+
+env:
+  NODE_VERSION: '22'
+  SITE_URL: https://remona8787.github.io
+
+jobs:
+  collect:
+    # Every schedule; on demand unless switched off; on a push to source only when its commit message contains [collect].
+    if: >-
+      github.event_name == 'schedule' ||
+      (github.event_name == 'workflow_dispatch' && inputs.collect) ||
+      (github.event_name == 'push' && contains(github.event.head_commit.message, '[collect]'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    outputs:
+      build_id: ${{ steps.run.outputs.build_id }}
+      status: ${{ steps.run.outputs.status }}
+      ran: ${{ steps.gate.outputs.run }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          ref: source
+          path: source
+      - name: Check out the repository for the data branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: data
+          fetch-depth: 1
+      - name: Switch to the data branch (created empty on the first run)
+        run: bash source/pipeline/ci/use-branch.sh data data
+      - name: Gate (the hourly catch-up runs only when no collect ran in the last 6.5 hours)
+        id: gate
+        env:
+          SCHEDULE: ${{ github.event.schedule }}
+        run: node source/pipeline/ci/gate.mjs --data=data --schedule="$SCHEDULE" --catch-up='47 * * * *' --min-hours=6.5
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.run == 'true'
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: source/pipeline/package-lock.json
+      - name: Install the pipeline dependencies (sharp)
+        if: steps.gate.outputs.run == 'true'
+        run: npm ci --prefix source/pipeline --no-audit --no-fund
+      - name: Collect
+        if: steps.gate.outputs.run == 'true'
+        id: run
+        env:
+          BUDGET_MINUTES: ${{ inputs.budget_minutes || 35 }}
+          TOURAPI_SERVICE_KEY: ${{ secrets.TOURAPI_SERVICE_KEY }}
+          SEOUL_OPEN_DATA_KEY: ${{ secrets.SEOUL_OPEN_DATA_KEY }}
+          FLICKR_API_KEY: ${{ secrets.FLICKR_API_KEY }}
+          OPENVERSE_CLIENT_ID: ${{ secrets.OPENVERSE_CLIENT_ID }}
+          OPENVERSE_CLIENT_SECRET: ${{ secrets.OPENVERSE_CLIENT_SECRET }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          NAVER_API_KEY_ID: ${{ secrets.NAVER_API_KEY_ID }}
+          NAVER_API_KEY: ${{ secrets.NAVER_API_KEY }}
+          BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}
+        run: node source/pipeline/run.mjs --data=data --budget="$BUDGET_MINUTES"
+      - name: Commit to the data branch
+        if: steps.run.outcome == 'success'
+        env:
+          MESSAGE: "Collect ${{ steps.run.outputs.build_id }}: ${{ steps.run.outputs.status }}, ${{ steps.run.outputs.publish }} (run ${{ github.run_id }})"
+        run: bash source/pipeline/ci/commit-push.sh data data "$MESSAGE" 120
+
+  deploy:
+    needs: collect
+    # After collect whatever its result (a failed collect left the data branch as it was), or alone when it was skipped;
+    # not after a catch-up the gate skipped (nothing new to publish or check).
+    if: ${{ !cancelled() && github.event.deleted != true && needs.collect.outputs.ran != 'false' }}
+    concurrency:
+      group: archive-deploy
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    outputs:
+      deploy_id: ${{ steps.assemble.outputs.deploy_id }}
+      build_id: ${{ steps.assemble.outputs.build_id }}
+      changed: ${{ steps.assemble.outputs.changed }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          ref: source
+          path: source
+      - name: Check out main (the Pages branch)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: site
+          fetch-depth: 1
+      - name: Check out the repository for the data branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: data
+          fetch-depth: 1
+      - name: Switch to the data branch
+        run: bash source/pipeline/ci/use-branch.sh data data
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: source/package-lock.json
+      - name: Build the site (SITE_URL=https://remona8787.github.io)
+        working-directory: source
+        run: |
+          npm ci --no-audit --no-fund
+          npm run build
+      - name: Assemble main (site and data/; .github, README.md and .nojekyll kept; admin data never published)
+        id: assemble
+        run: >-
+          node source/pipeline/deploy.mjs --dist=source/dist --data=data --site=site
+          --source-sha="$(git -C source rev-parse HEAD)" --data-sha="$(git -C data rev-parse -q --verify HEAD || true)"
+      - name: Compare this workflow with its canonical copy
+        run: |
+          if ! cmp -s source/deploy/pages-repo/.github/workflows/archive.yml site/.github/workflows/archive.yml; then
+            echo "::warning title=archive.yml differs from its canonical copy::Copy deploy/pages-repo/.github/workflows/archive.yml of the source branch to .github/workflows/archive.yml on main."
+          fi
+          if ! cmp -s source/deploy/pages-repo/.github/workflows/archive.yml source/.github/workflows/archive.yml; then
+            echo "::warning title=archive.yml of the source branch differs::.github/workflows/archive.yml on source must equal deploy/pages-repo/.github/workflows/archive.yml."
+          fi
+      - name: Commit and push main
+        if: steps.assemble.outputs.changed == 'true'
+        env:
+          DEPLOY_ID: ${{ steps.assemble.outputs.deploy_id }}
+          BUILD_ID: ${{ steps.assemble.outputs.build_id }}
+        run: |
+          bash source/pipeline/ci/commit-push.sh site main "Deploy $DEPLOY_ID: data ${BUILD_ID:-none}, source $(git -C source rev-parse --short HEAD)" 120
+
+  verify-live:
+    needs: deploy
+    if: ${{ !cancelled() && needs.deploy.result == 'success' }}
+    # A pinned image, not ubuntu-latest: Playwright installs Chromium only on the Ubuntu releases it supports, and when
+    # ubuntu-latest moved to 26.04 (Oct 2026) "playwright install --with-deps chromium" failed there and no live check
+    # ran. Move this forward together with the Playwright version in package.json.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          ref: source
+          path: source
+      - name: Check out the repository for the data branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: data
+          fetch-depth: 1
+      - name: Switch to the data branch
+        run: bash source/pipeline/ci/use-branch.sh data data
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: source/package-lock.json
+      - name: Install Playwright and Chromium
+        working-directory: source
+        # The system packages come from the Ubuntu mirrors. On 2026-11-11 the runner could not resolve
+        # azure.archive.ubuntu.com twice in a row, the install failed after 10 minutes and no live check ran. Two tries of
+        # six minutes each, then Chromium without the system packages (the runner image already carries a browser's
+        # libraries); if that fails too, the step fails and the health job reports it.
+        run: |
+          npm ci --no-audit --no-fund
+          for i in 1 2; do
+            if timeout 360 npx playwright install --with-deps chromium; then exit 0; fi
+            echo "playwright install --with-deps chromium failed (try $i)"
+            sleep 20
+          done
+          npx playwright install chromium
+      - name: Wait for the deploy, then check the live site at 390×844 and 1440×900
+        id: verify
+        working-directory: source
+        env:
+          BUILD_ID: ${{ needs.deploy.outputs.build_id }}
+          DEPLOY_ID: ${{ needs.deploy.outputs.deploy_id }}
+        run: node pipeline/verify-live.mjs --site="$SITE_URL/" --out=../data/review/live --build-id="$BUILD_ID" --deploy-id="$DEPLOY_ID" --wait-minutes=20
+      - name: Commit review/live to the data branch
+        if: ${{ !cancelled() && steps.verify.outcome != 'skipped' }}
+        env:
+          MESSAGE: "Verify live ${{ needs.deploy.outputs.deploy_id }}: ${{ steps.verify.outcome }} (run ${{ github.run_id }})"
+        run: bash source/pipeline/ci/commit-push.sh data data "$MESSAGE" 120
+
+  health:
+    # After every run, whatever happened: one issue tells the operator when collection failed, stopped, kept the previous
+    # dataset or has not changed the data for a week, and is closed when all is well again. Data is never changed here.
+    needs: [collect, deploy, verify-live]
+    # Not after a catch-up the gate skipped: nothing ran to assess, and an hourly comment on an open issue would be noise.
+    if: ${{ always() && needs.collect.outputs.ran != 'false' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          ref: source
+          path: source
+      - name: Check out the repository for the data branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: data
+          fetch-depth: 1
+      - name: Switch to the data branch
+        run: bash source/pipeline/ci/use-branch.sh data data
+      - name: Assess
+        id: health
+        run: >-
+          node source/pipeline/ci/health.mjs --data=data --body=health.md
+          --collect="${{ needs.collect.result }}" --deploy="${{ needs.deploy.result }}" --verify="${{ needs.verify-live.result }}"
+          --run-url="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      - name: Open, update or close the health issue
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          ALERT: ${{ steps.health.outputs.alert }}
+        run: |
+          title="archive: collection needs attention"
+          open=$(gh issue list --state open --search "\"$title\" in:title" --json number --jq '.[0].number' || true)
+          if [ "$ALERT" = "true" ]; then
+            if [ -n "$open" ]; then gh issue comment "$open" --body-file health.md; else gh issue create --title "$title" --body-file health.md; fi
+          elif [ -n "$open" ]; then
+            gh issue close "$open" --comment "All checks are fine again: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          fi
