@@ -1,10 +1,22 @@
 {
  "about": "Image provider requests of this run: TourAPI name matches, caps reached, errors (keys never appear).",
- "at": "2026-11-12T01:46:56.196Z",
+ "at": "2026-11-12T02:04:37.304Z",
  "log": [
   {
    "key": "ilmin museum outdoor media display",
    "message": "HTTP 403",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
+   "key": "starlight garden space",
+   "message": "HTTP 504",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
+   "key": "moves international festival of movement on screen",
+   "message": "HTTP 504",
    "provider": "openverse",
    "status": "error"
   }
@@ -12,24 +24,21 @@
  "schema": 1,
  "stats": {
   "errors": {
-   "openverse": 1
+   "openverse": 3
   },
   "new_requests": {
-   "openverse": 6
+   "openverse": 3
   },
-  "openverse_rate_limit": {
-   "x-ratelimit-available-anon_burst": 19,
-   "x-ratelimit-available-anon_sustained": 199
-  },
+  "openverse_rate_limit": {},
   "rejected": {
-   "openverse:identity_unproven": 4361,
+   "openverse:identity_unproven": 4359,
    "openverse:interior_unrelated_to_work": 34,
    "openverse:name": 43,
    "openverse:rights": 37,
    "openverse:subject": 619
   },
   "requests": {
-   "openverse": 804
+   "openverse": 805
   }
  }
 }

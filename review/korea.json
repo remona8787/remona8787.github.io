@@ -1,6 +1,6 @@
 {
  "about": "Korea first: the live first-level divisions of South Korea (wd:Q884 p:P150 with ISO 3166-2 codes) and the region each maps to, the configured expectations compared with them, the Korean class instances per class, and the kr_region decision of every Korean project with the rule that made it.",
- "at": "2026-11-12T01:46:56.196Z",
+ "at": "2026-11-12T02:04:37.304Z",
  "class_instances": {
   "Q110409771": 0,
   "Q1136999": 0,
@@ -1073,7 +1073,7 @@
   {
    "id": "REG-KR-0137",
    "name": "별빛정원우주",
-   "qid": null,
+   "qid": "Q137534503",
    "region": "gyeonggi_incheon",
    "rule": "curated_registry"
   },
@@ -1731,7 +1731,7 @@
   {
    "id": "REG-KR-0231",
    "name": "스페이스워크",
-   "qid": null,
+   "qid": "Q124021455",
    "region": "daegu_gyeongbuk",
    "rule": "curated_registry"
   },
@@ -2500,7 +2500,9 @@
   {
    "configured_classes": [],
    "en": "Pohang Space Walk",
-   "found_by": [],
+   "found_by": [
+    "published"
+   ],
    "ko": "포항 스페이스워크",
    "located_kr": true,
    "p131": [

@@ -1,21 +1,56 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 1,
+  "count": 8,
   "examples": [
    {
-    "id": "img-e5f7eaf2a354",
-    "project": "REG-KR-0124",
-    "title": "대전 스카이로드 야간 — 입구 아치 아래 LED 캐노피 스크린이 거리 위로 영상을 상영 중이다 (Wikimedia Commons, 2019-05-04)."
+    "id": "img-f7f53516a37b",
+    "project": "REG-KR-0231",
+    "title": "SpaceWalk (walkable sculpture, Pohang 2021) Mutter Genth 01"
+   },
+   {
+    "id": "img-1ec77d9b1953",
+    "project": "REG-KR-0231",
+    "title": "포항 스페이스워크 이름 표시"
+   },
+   {
+    "id": "img-2caafae80407",
+    "project": "REG-KR-0231",
+    "title": "SpaceWalk (walkable sculpture, Pohang 2021) Mutter Genth 02"
+   },
+   {
+    "id": "img-d3f835b8f5fb",
+    "project": "REG-KR-0231",
+    "title": "SpaceWalk (walkable sculpture, Pohang 2021) Mutter Genth 03"
+   },
+   {
+    "id": "img-8b14a668b59b",
+    "project": "REG-KR-0231",
+    "title": "포항 스페이스워크 및 환호공원 입구 표시석"
+   },
+   {
+    "id": "img-86615aab6135",
+    "project": "REG-KR-0231",
+    "title": "포항 스페이스워크를 옆에서 올려다 본 모습"
+   },
+   {
+    "id": "img-403c3c93712a",
+    "project": "REG-KR-0231",
+    "title": "포항 스페이스워크를 저녁에 아래에서 올려다 본 모습"
+   },
+   {
+    "id": "img-9c53b6faea0b",
+    "project": "REG-KR-0231",
+    "title": "포항 스페이스워크를 흐린 날 아래에서 올려다 본 모습"
    }
   ]
  },
- "at": "2026-11-12T01:46:56.196Z",
+ "at": "2026-11-12T02:04:37.304Z",
  "cards": {
   "all": {
    "projects": 1008,
-   "rate_pct": 36.5,
-   "with_valid_card": 368
+   "rate_pct": 36.6,
+   "with_valid_card": 369
   },
   "by_kr_region": {
    "busan_ulsan_gyeongnam": {
@@ -25,8 +60,8 @@
    },
    "daegu_gyeongbuk": {
     "projects": 28,
-    "rate_pct": 0,
-    "with_valid_card": 0
+    "rate_pct": 3.6,
+    "with_valid_card": 1
    },
    "daejeon_sejong_chungcheong": {
     "projects": 36,
@@ -61,8 +96,8 @@
   },
   "korea": {
    "projects": 297,
-   "rate_pct": 6.7,
-   "with_valid_card": 20
+   "rate_pct": 7.1,
+   "with_valid_card": 21
   },
   "world": {
    "projects": 711,
@@ -1718,7 +1753,7 @@
    "kr": true,
    "kr_region": "daejeon_sejong_chungcheong",
    "name": "대전 스카이로드",
-   "previous_images": 1,
+   "previous_images": 2,
    "status": "scored",
    "valid_card": true
   },
@@ -3101,17 +3136,17 @@
    "valid_card": false
   },
   {
-   "card_kind": null,
-   "card_tier": null,
-   "card_title": null,
+   "card_kind": "project_installation",
+   "card_tier": 4,
+   "card_title": "SpaceWalk (walkable sculpture, Pohang 2021) Mutter Genth 01",
    "id": "REG-KR-0231",
-   "images": 0,
+   "images": 8,
    "kr": true,
    "kr_region": "daegu_gyeongbuk",
    "name": "스페이스워크",
    "previous_images": 0,
    "status": "scored",
-   "valid_card": false
+   "valid_card": true
   },
   {
    "card_kind": null,
@@ -13177,7 +13212,7 @@
   }
  ],
  "rejected": {
-  "identity": 4175,
+  "identity": 4173,
   "low_res": 83,
   "mislinked": 69,
   "person": 709,
@@ -14688,13 +14723,13 @@
   "cards": {
    "all": {
     "projects": 1008,
-    "rate_pct": 36.5,
-    "with_valid_card": 368
+    "rate_pct": 36.6,
+    "with_valid_card": 369
    },
    "korea": {
     "projects": 297,
-    "rate_pct": 6.7,
-    "with_valid_card": 20
+    "rate_pct": 7.1,
+    "with_valid_card": 21
    },
    "world": {
     "projects": 711,
@@ -14704,34 +14739,34 @@
   },
   "duplicates_removed": 0,
   "duplicates_this_run": 13,
-  "images": 2726,
+  "images": 2734,
   "low_res_rejected": 83,
   "mislinked_rejected": 69,
   "mislinked_removed": 0,
-  "newly_added_valid": 1,
+  "newly_added_valid": 8,
   "person_rejected": 709,
   "person_removed": 0,
   "portraits": 3,
-  "previous_images": 2725,
+  "previous_images": 2726,
   "rechecked_kept": 0,
-  "relevance_verified": 2726,
+  "relevance_verified": 2734,
   "removed_total": 0
  },
  "totals": {
   "by_kind": {
-   "architecture_context": 443,
+   "architecture_context": 450,
    "event_documentation": 14,
-   "project_installation": 43,
+   "project_installation": 44,
    "project_media": 2220,
    "technical_documentation": 6
   },
   "by_provider": {
-   "commons": 2723,
+   "commons": 2731,
    "editor": 3
   },
   "by_role": {
-   "card": 188,
-   "context": 390,
+   "card": 189,
+   "context": 397,
    "featured": 191,
    "gallery": 1947,
    "hero": 10
@@ -14740,10 +14775,10 @@
    "1": 62,
    "2": 397,
    "3": 1777,
-   "4": 45,
-   "5": 445
+   "4": 46,
+   "5": 452
   },
-  "images": 2726,
+  "images": 2734,
   "portraits": 3
  }
 }
