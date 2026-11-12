@@ -1,0 +1,974 @@
+{
+ "schema": 1,
+ "site": "https://remona8787.github.io/",
+ "started_at": "2026-11-12T01:52:25.504Z",
+ "finished_at": "2026-11-12T01:53:14.482Z",
+ "expected": {
+  "build_id": "20261112T014656Z-556630e6",
+  "deploy_id": "6230cdd29e42"
+ },
+ "wait": {
+  "ok": true,
+  "waited_ms": 272,
+  "attempts": 1,
+  "live": {
+   "deploy_id": "6230cdd29e42",
+   "deployed_at": "2026-11-12T01:51:42.683Z",
+   "source": "67c27d574fd984743bf3fb747bae03d41bc32dee",
+   "dataset": "data_branch",
+   "build_id": "20261112T014656Z-556630e6",
+   "generated_at": "2026-11-12T01:46:56.196Z",
+   "counts": {
+    "projects": 1008,
+    "with_images": 369,
+    "with_hero": 10
+   }
+  }
+ },
+ "detail_project": "CAT-0AEBIPR",
+ "viewports": [
+  {
+   "name": "mobile",
+   "width": 390,
+   "height": 844,
+   "device_scale_factor": 2
+  },
+  {
+   "name": "desktop",
+   "width": 1440,
+   "height": 900,
+   "device_scale_factor": 1
+  }
+ ],
+ "summary": {
+  "pages": 14,
+  "loaded": 14,
+  "console_errors": 0,
+  "failed_requests": 0,
+  "http_errors": 0,
+  "broken_images": 0,
+  "internal_terms": [],
+  "max_lcp_ms": 2400,
+  "lcp_ms": {
+   "mobile-home": 1808,
+   "mobile-explore": 1136,
+   "mobile-map": 468,
+   "mobile-detail": 780,
+   "mobile-place-SEOUL006": 2160,
+   "mobile-data": 520,
+   "mobile-admin": 440,
+   "desktop-home": 520,
+   "desktop-explore": 928,
+   "desktop-map": 476,
+   "desktop-detail": 632,
+   "desktop-place-SEOUL006": 2400,
+   "desktop-data": 348,
+   "desktop-admin": 196
+  },
+  "transfer_bytes": {
+   "mobile-home": 6208831,
+   "mobile-explore": 9375916,
+   "mobile-map": 1214212,
+   "mobile-detail": 1634532,
+   "mobile-place-SEOUL006": 1149301,
+   "mobile-data": 722295,
+   "mobile-admin": 278811,
+   "desktop-home": 7082994,
+   "desktop-explore": 9059834,
+   "desktop-map": 1264122,
+   "desktop-detail": 2122541,
+   "desktop-place-SEOUL006": 1215577,
+   "desktop-data": 722330,
+   "desktop-admin": 278683
+  },
+  "home_loads_index": false,
+  "home_lcp_image_px": {
+   "mobile": 960
+  },
+  "galleries": {
+   "mobile-detail": {
+    "project": "CAT-0AEBIPR",
+    "shown": 12,
+    "providers": {
+     "commons": 12
+    },
+    "kinds": {
+     "project_media": 12
+    },
+    "main_gallery": {
+     "shown": 12,
+     "matched": 12,
+     "kinds": {
+      "project_media": 12
+     }
+    },
+    "creator_portraits": {
+     "shown": 0,
+     "matched": 0
+    }
+   },
+   "mobile-place-SEOUL006": {
+    "project": "SEOUL006",
+    "shown": 12,
+    "providers": {
+     "commons": 12
+    },
+    "kinds": {
+     "project_media": 3,
+     "architecture_context": 9
+    },
+    "main_gallery": {
+     "shown": 3,
+     "matched": 3,
+     "kinds": {
+      "project_media": 3
+     }
+    },
+    "creator_portraits": {
+     "shown": 0,
+     "matched": 0
+    }
+   },
+   "desktop-detail": {
+    "project": "CAT-0AEBIPR",
+    "shown": 12,
+    "providers": {
+     "commons": 12
+    },
+    "kinds": {
+     "project_media": 12
+    },
+    "main_gallery": {
+     "shown": 12,
+     "matched": 12,
+     "kinds": {
+      "project_media": 12
+     }
+    },
+    "creator_portraits": {
+     "shown": 0,
+     "matched": 0
+    }
+   },
+   "desktop-place-SEOUL006": {
+    "project": "SEOUL006",
+    "shown": 12,
+    "providers": {
+     "commons": 12
+    },
+    "kinds": {
+     "project_media": 3,
+     "architecture_context": 9
+    },
+    "main_gallery": {
+     "shown": 3,
+     "matched": 3,
+     "kinds": {
+      "project_media": 3
+     }
+    },
+    "creator_portraits": {
+     "shown": 0,
+     "matched": 0
+    }
+   }
+  },
+  "gallery_forbidden": 0,
+  "admin_data_public": false,
+  "ok": true
+ },
+ "pages": [
+  {
+   "page": "home",
+   "viewport": "mobile",
+   "url": "https://remona8787.github.io/",
+   "status": 200,
+   "ok": true,
+   "title": "빛이 바꾸는 공간 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 1808,
+    "size": 236992,
+    "element": "img.hero-img",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/%EB%B3%B4%EC%84%B1%EC%B0%A8%EB%B0%AD_%EB%B9%9B_%EC%B6%95%EC%A0%9C_%2811%29.jpg/960px-%EB%B3%B4%EC%84%B1%EC%B0%A8%EB%B0%AD_%EB%B9%9B_%EC%B6%95%EC%A0%9C_%2811%29.jpg"
+   },
+   "timings": {
+    "ttfb_ms": 942,
+    "dom_content_loaded_ms": 1417,
+    "load_ms": 1824
+   },
+   "transfer": {
+    "total_bytes": 6208831,
+    "requests": 50,
+    "by_type": {
+     "document": 17350,
+     "image": 5555159,
+     "stylesheet": 44858,
+     "script": 233465,
+     "font": 336858,
+     "fetch": 21141
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/home.json",
+     "bytes": 20659
+    },
+    {
+     "path": "data/status.json",
+     "bytes": 482
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "mobile-home.jpg",
+   "error": null
+  },
+  {
+   "page": "explore",
+   "viewport": "mobile",
+   "url": "https://remona8787.github.io/#explore",
+   "status": 200,
+   "ok": true,
+   "title": "아카이브 검색 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 1136,
+    "size": 21399,
+    "element": "img",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Busan_Cinema_Center_at_BIFF_2020_-_05.jpg/500px-Busan_Cinema_Center_at_BIFF_2020_-_05.jpg"
+   },
+   "timings": {
+    "ttfb_ms": 42,
+    "dom_content_loaded_ms": 584,
+    "load_ms": 663
+   },
+   "transfer": {
+    "total_bytes": 9375916,
+    "requests": 52,
+    "by_type": {
+     "document": 17348,
+     "stylesheet": 44838,
+     "image": 8729441,
+     "script": 232990,
+     "font": 291245,
+     "fetch": 60054
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 58414
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1640
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "mobile-explore.jpg",
+   "error": null
+  },
+  {
+   "page": "map",
+   "viewport": "mobile",
+   "url": "https://remona8787.github.io/#map",
+   "status": 200,
+   "ok": true,
+   "title": "국내 지도 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 468,
+    "size": 10792,
+    "element": "p",
+    "url": null
+   },
+   "timings": {
+    "ttfb_ms": 34,
+    "dom_content_loaded_ms": 509,
+    "load_ms": 510
+   },
+   "transfer": {
+    "total_bytes": 1214212,
+    "requests": 61,
+    "by_type": {
+     "document": 17347,
+     "image": 493828,
+     "stylesheet": 48663,
+     "script": 276424,
+     "font": 317898,
+     "fetch": 60052
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 58414
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1638
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "mobile-map.jpg",
+   "error": null
+  },
+  {
+   "page": "detail",
+   "viewport": "mobile",
+   "url": "https://remona8787.github.io/#place/CAT-0AEBIPR",
+   "status": 200,
+   "ok": true,
+   "title": "보성차밭 빛축제 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 780,
+    "size": 114075,
+    "element": "div.card-art.detail-art",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/%EB%B3%B4%EC%84%B1%EC%B0%A8%EB%B0%AD_%EB%B9%9B_%EC%B6%95%EC%A0%9C_%2811%29.jpg/960px-%EB%B3%B4%EC%84%B1%EC%B0%A8%EB%B0%AD_%EB%B9%9B_%EC%B6%95%EC%A0%9C_%2811%29.jpg"
+   },
+   "timings": {
+    "ttfb_ms": 126,
+    "dom_content_loaded_ms": 444,
+    "load_ms": 444
+   },
+   "transfer": {
+    "total_bytes": 1634532,
+    "requests": 47,
+    "by_type": {
+     "document": 17349,
+     "stylesheet": 44856,
+     "image": 854280,
+     "script": 233211,
+     "font": 342811,
+     "fetch": 142025
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 58416
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1641
+    },
+    {
+     "path": "data/projects/003.json",
+     "bytes": 81968
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "mobile-detail.jpg",
+   "error": null,
+   "gallery": {
+    "project": "CAT-0AEBIPR",
+    "record_images": 12,
+    "shown": 12,
+    "providers": {
+     "commons": 12
+    },
+    "kinds": {
+     "project_media": 12
+    },
+    "main_gallery": {
+     "shown": 12,
+     "matched": 12,
+     "kinds": {
+      "project_media": 12
+     }
+    },
+    "creator_portraits": {
+     "shown": 0,
+     "matched": 0
+    },
+    "artist_portrait_visible": [],
+    "unverified_visible": [],
+    "not_in_record": []
+   }
+  },
+  {
+   "page": "place-SEOUL006",
+   "viewport": "mobile",
+   "url": "https://remona8787.github.io/#place/SEOUL006",
+   "status": 200,
+   "ok": true,
+   "title": "동대문디자인플라자(DDP) / 서울라이트 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 2160,
+    "size": 114075,
+    "element": "div.card-art.detail-art",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Dongdaemun_Design_Plaza_at_night%2C_Seoul%2C_Korea.jpg/960px-Dongdaemun_Design_Plaza_at_night%2C_Seoul%2C_Korea.jpg"
+   },
+   "timings": {
+    "ttfb_ms": 154,
+    "dom_content_loaded_ms": 1722,
+    "load_ms": 1722
+   },
+   "transfer": {
+    "total_bytes": 1149301,
+    "requests": 44,
+    "by_type": {
+     "document": 17345,
+     "image": 394225,
+     "stylesheet": 44872,
+     "script": 233380,
+     "font": 317458,
+     "fetch": 142021
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 58440
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1651
+    },
+    {
+     "path": "data/projects/003.json",
+     "bytes": 81930
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "mobile-place-SEOUL006.jpg",
+   "error": null,
+   "gallery": {
+    "project": "SEOUL006",
+    "record_images": 12,
+    "shown": 12,
+    "providers": {
+     "commons": 12
+    },
+    "kinds": {
+     "project_media": 3,
+     "architecture_context": 9
+    },
+    "main_gallery": {
+     "shown": 3,
+     "matched": 3,
+     "kinds": {
+      "project_media": 3
+     }
+    },
+    "creator_portraits": {
+     "shown": 0,
+     "matched": 0
+    },
+    "artist_portrait_visible": [],
+    "unverified_visible": [],
+    "not_in_record": []
+   }
+  },
+  {
+   "page": "data",
+   "viewport": "mobile",
+   "url": "https://remona8787.github.io/#data",
+   "status": 200,
+   "ok": true,
+   "title": "연구 데이터 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 520,
+    "size": 10783,
+    "element": "p.page-sub",
+    "url": null
+   },
+   "timings": {
+    "ttfb_ms": 41,
+    "dom_content_loaded_ms": 557,
+    "load_ms": 610
+   },
+   "transfer": {
+    "total_bytes": 722295,
+    "requests": 43,
+    "by_type": {
+     "document": 17349,
+     "stylesheet": 44837,
+     "image": 3193,
+     "script": 233420,
+     "font": 362062,
+     "fetch": 61434
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 58414
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1639
+    },
+    {
+     "path": "data/research/latest.json",
+     "bytes": 1381
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "mobile-data.jpg",
+   "error": null
+  },
+  {
+   "page": "admin",
+   "viewport": "mobile",
+   "url": "https://remona8787.github.io/admin/",
+   "status": 200,
+   "ok": true,
+   "title": "운영 콘솔 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 440,
+    "size": 24288,
+    "element": "div.notice.error",
+    "url": null
+   },
+   "timings": {
+    "ttfb_ms": 136,
+    "dom_content_loaded_ms": 433,
+    "load_ms": 433
+   },
+   "transfer": {
+    "total_bytes": 278811,
+    "requests": 16,
+    "by_type": {
+     "document": 5645,
+     "image": 2487,
+     "stylesheet": 19758,
+     "script": 42814,
+     "font": 208107
+    }
+   },
+   "data_files": [],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "mobile-admin.jpg",
+   "error": null
+  },
+  {
+   "page": "home",
+   "viewport": "desktop",
+   "url": "https://remona8787.github.io/",
+   "status": 200,
+   "ok": true,
+   "title": "빛이 바꾸는 공간 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 520,
+    "size": 33394,
+    "element": "h1.hero-title",
+    "url": null
+   },
+   "timings": {
+    "ttfb_ms": 39,
+    "dom_content_loaded_ms": 561,
+    "load_ms": 561
+   },
+   "transfer": {
+    "total_bytes": 7082994,
+    "requests": 50,
+    "by_type": {
+     "document": 17348,
+     "image": 6429300,
+     "stylesheet": 45064,
+     "script": 233224,
+     "font": 336918,
+     "fetch": 21140
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/home.json",
+     "bytes": 20659
+    },
+    {
+     "path": "data/status.json",
+     "bytes": 481
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "desktop-home.jpg",
+   "error": null
+  },
+  {
+   "page": "explore",
+   "viewport": "desktop",
+   "url": "https://remona8787.github.io/#explore",
+   "status": 200,
+   "ok": true,
+   "title": "아카이브 검색 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 928,
+    "size": 45085,
+    "element": "img",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Banpo_Bridge_Moonlight_Rainbow_Fountain_at_night_-_2023-08-14.jpg/330px-Banpo_Bridge_Moonlight_Rainbow_Fountain_at_night_-_2023-08-14.jpg"
+   },
+   "timings": {
+    "ttfb_ms": 124,
+    "dom_content_loaded_ms": 618,
+    "load_ms": 618
+   },
+   "transfer": {
+    "total_bytes": 9059834,
+    "requests": 52,
+    "by_type": {
+     "document": 17350,
+     "stylesheet": 44859,
+     "image": 8413423,
+     "script": 233022,
+     "font": 291083,
+     "fetch": 60097
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 58457
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1640
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "desktop-explore.jpg",
+   "error": null
+  },
+  {
+   "page": "map",
+   "viewport": "desktop",
+   "url": "https://remona8787.github.io/#map",
+   "status": 200,
+   "ok": true,
+   "title": "국내 지도 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 476,
+    "size": 10830,
+    "element": "p",
+    "url": null
+   },
+   "timings": {
+    "ttfb_ms": 42,
+    "dom_content_loaded_ms": 500,
+    "load_ms": 501
+   },
+   "transfer": {
+    "total_bytes": 1264122,
+    "requests": 69,
+    "by_type": {
+     "document": 17350,
+     "stylesheet": 48677,
+     "image": 543800,
+     "script": 276399,
+     "font": 317802,
+     "fetch": 60094
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 58454
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1640
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "desktop-map.jpg",
+   "error": null
+  },
+  {
+   "page": "detail",
+   "viewport": "desktop",
+   "url": "https://remona8787.github.io/#place/CAT-0AEBIPR",
+   "status": 200,
+   "ok": true,
+   "title": "보성차밭 빛축제 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 632,
+    "size": 332195,
+    "element": "div.card-art.detail-art",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/%EB%B3%B4%EC%84%B1%EC%B0%A8%EB%B0%AD_%EB%B9%9B_%EC%B6%95%EC%A0%9C_%2811%29.jpg/960px-%EB%B3%B4%EC%84%B1%EC%B0%A8%EB%B0%AD_%EB%B9%9B_%EC%B6%95%EC%A0%9C_%2811%29.jpg"
+   },
+   "timings": {
+    "ttfb_ms": 14,
+    "dom_content_loaded_ms": 299,
+    "load_ms": 299
+   },
+   "transfer": {
+    "total_bytes": 2122541,
+    "requests": 58,
+    "by_type": {
+     "document": 17343,
+     "stylesheet": 44858,
+     "image": 1342299,
+     "script": 233046,
+     "font": 343000,
+     "fetch": 141995
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 58416
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1650
+    },
+    {
+     "path": "data/projects/003.json",
+     "bytes": 81929
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "desktop-detail.jpg",
+   "error": null,
+   "gallery": {
+    "project": "CAT-0AEBIPR",
+    "record_images": 12,
+    "shown": 12,
+    "providers": {
+     "commons": 12
+    },
+    "kinds": {
+     "project_media": 12
+    },
+    "main_gallery": {
+     "shown": 12,
+     "matched": 12,
+     "kinds": {
+      "project_media": 12
+     }
+    },
+    "creator_portraits": {
+     "shown": 0,
+     "matched": 0
+    },
+    "artist_portrait_visible": [],
+    "unverified_visible": [],
+    "not_in_record": []
+   }
+  },
+  {
+   "page": "place-SEOUL006",
+   "viewport": "desktop",
+   "url": "https://remona8787.github.io/#place/SEOUL006",
+   "status": 200,
+   "ok": true,
+   "title": "동대문디자인플라자(DDP) / 서울라이트 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 2400,
+    "size": 260780,
+    "element": null,
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8f/Dongdaemun_Design_Plaza_at_night%2C_Seoul%2C_Korea.jpg/960px-Dongdaemun_Design_Plaza_at_night%2C_Seoul%2C_Korea.jpg"
+   },
+   "timings": {
+    "ttfb_ms": 106,
+    "dom_content_loaded_ms": 2013,
+    "load_ms": 2019
+   },
+   "transfer": {
+    "total_bytes": 1215577,
+    "requests": 47,
+    "by_type": {
+     "document": 17348,
+     "image": 460435,
+     "stylesheet": 45063,
+     "script": 233294,
+     "font": 317412,
+     "fetch": 142025
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 58413
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1638
+    },
+    {
+     "path": "data/projects/003.json",
+     "bytes": 81974
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "desktop-place-SEOUL006.jpg",
+   "error": null,
+   "gallery": {
+    "project": "SEOUL006",
+    "record_images": 12,
+    "shown": 12,
+    "providers": {
+     "commons": 12
+    },
+    "kinds": {
+     "project_media": 3,
+     "architecture_context": 9
+    },
+    "main_gallery": {
+     "shown": 3,
+     "matched": 3,
+     "kinds": {
+      "project_media": 3
+     }
+    },
+    "creator_portraits": {
+     "shown": 0,
+     "matched": 0
+    },
+    "artist_portrait_visible": [],
+    "unverified_visible": [],
+    "not_in_record": []
+   }
+  },
+  {
+   "page": "data",
+   "viewport": "desktop",
+   "url": "https://remona8787.github.io/#data",
+   "status": 200,
+   "ok": true,
+   "title": "연구 데이터 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 348,
+    "size": 16348,
+    "element": "h1.large-title",
+    "url": null
+   },
+   "timings": {
+    "ttfb_ms": 12,
+    "dom_content_loaded_ms": 381,
+    "load_ms": 483
+   },
+   "transfer": {
+    "total_bytes": 722330,
+    "requests": 43,
+    "by_type": {
+     "document": 17342,
+     "stylesheet": 44860,
+     "image": 3406,
+     "script": 233256,
+     "font": 361846,
+     "fetch": 61620
+    }
+   },
+   "data_files": [
+    {
+     "path": "data/index.json",
+     "bytes": 58415
+    },
+    {
+     "path": "data/manifest.json",
+     "bytes": 1649
+    },
+    {
+     "path": "data/research/latest.json",
+     "bytes": 1556
+    }
+   ],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "desktop-data.jpg",
+   "error": null
+  },
+  {
+   "page": "admin",
+   "viewport": "desktop",
+   "url": "https://remona8787.github.io/admin/",
+   "status": 200,
+   "ok": true,
+   "title": "운영 콘솔 · 빛의 건축",
+   "console_errors": [],
+   "page_errors": [],
+   "failed_requests": [],
+   "http_errors": [],
+   "lcp": {
+    "ms": 196,
+    "size": 21440,
+    "element": "div.notice.error",
+    "url": null
+   },
+   "timings": {
+    "ttfb_ms": 36,
+    "dom_content_loaded_ms": 191,
+    "load_ms": 191
+   },
+   "transfer": {
+    "total_bytes": 278683,
+    "requests": 16,
+    "by_type": {
+     "document": 5644,
+     "image": 2356,
+     "stylesheet": 19761,
+     "script": 42868,
+     "font": 208054
+    }
+   },
+   "data_files": [],
+   "broken_images": 0,
+   "internal_terms": [],
+   "screenshot": "desktop-admin.jpg",
+   "error": null
+  }
+ ]
+}

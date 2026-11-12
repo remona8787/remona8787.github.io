@@ -1,0 +1,185 @@
+{
+ "build_id": "20261112T014656Z-556630e6",
+ "counts": {
+  "by_country": {
+   "AE": 6,
+   "AT": 15,
+   "AU": 7,
+   "BA": 1,
+   "BE": 22,
+   "BR": 2,
+   "CA": 37,
+   "CH": 15,
+   "CN": 3,
+   "CO": 1,
+   "CZ": 8,
+   "DE": 169,
+   "DK": 3,
+   "EC": 1,
+   "EE": 1,
+   "EG": 2,
+   "ES": 8,
+   "FI": 34,
+   "FR": 28,
+   "GB": 67,
+   "GR": 1,
+   "HK": 2,
+   "HR": 2,
+   "IL": 2,
+   "IN": 2,
+   "IS": 1,
+   "IT": 5,
+   "JP": 22,
+   "KR": 297,
+   "LT": 1,
+   "LV": 1,
+   "MO": 1,
+   "MX": 4,
+   "NL": 98,
+   "NZ": 8,
+   "PH": 1,
+   "PL": 6,
+   "PT": 1,
+   "QA": 1,
+   "RO": 2,
+   "RU": 4,
+   "SA": 4,
+   "SE": 4,
+   "SG": 5,
+   "SI": 1,
+   "TH": 4,
+   "TN": 1,
+   "TR": 2,
+   "TW": 4,
+   "US": 90,
+   "ZA": 1
+  },
+  "by_kr_division": {
+   "busan": 26,
+   "chungbuk": 9,
+   "chungnam": 17,
+   "daegu": 9,
+   "daejeon": 6,
+   "gangwon": 16,
+   "gwangju": 10,
+   "gyeongbuk": 19,
+   "gyeonggi": 28,
+   "gyeongnam": 14,
+   "incheon": 14,
+   "jeju": 13,
+   "jeonbuk": 11,
+   "jeonnam": 16,
+   "sejong": 4,
+   "seoul": 76,
+   "ulsan": 9
+  },
+  "by_kr_region": {
+   "busan_ulsan_gyeongnam": 49,
+   "daegu_gyeongbuk": 28,
+   "daejeon_sejong_chungcheong": 36,
+   "gangwon": 16,
+   "gwangju_jeolla": 37,
+   "gyeonggi_incheon": 42,
+   "jeju": 13,
+   "seoul": 76
+  },
+  "by_region": {
+   "africa": 4,
+   "east_asia": 329,
+   "europe": 498,
+   "latin_america": 8,
+   "middle_east": 15,
+   "north_america": 127,
+   "oceania": 15,
+   "south_asia": 2,
+   "southeast_asia": 10
+  },
+  "by_type": {
+   "festival_program": 219,
+   "interactive_installation": 21,
+   "light_art": 508,
+   "media_architecture": 80,
+   "media_facade": 59,
+   "media_wall": 16,
+   "other": 37,
+   "projection_mapping": 65,
+   "urban_screen": 3
+  },
+  "events": {
+   "cancelled": 0,
+   "editions": 124,
+   "ended": 88,
+   "ongoing": 9,
+   "postponed": 0,
+   "series": 104,
+   "unconfirmed": 14,
+   "upcoming": 13
+  },
+  "korea": 297,
+  "projects": 1008,
+  "with_art_representative": 310,
+  "with_hero": 10,
+  "with_images": 369,
+  "world": 711
+ },
+ "credits": {
+  "data": "Wikidata (CC0 1.0), Wikipedia (CC BY-SA 4.0, article links), Wikimedia Commons (each image carries its own licence and author), curated records of the archive.",
+  "images": "Every image object names its licence and author; keep them with the image."
+ },
+ "files": {
+  "events": "events.json",
+  "home": "home.json",
+  "index": "index.json",
+  "shards": [
+   "projects/000.json",
+   "projects/001.json",
+   "projects/002.json",
+   "projects/003.json",
+   "projects/004.json",
+   "projects/005.json",
+   "projects/006.json",
+   "projects/007.json"
+  ],
+  "stats": "stats.json",
+  "status": "status.json"
+ },
+ "generated_at": "2026-11-12T01:46:56.196Z",
+ "schema": 1,
+ "sources": {
+  "commons": {
+   "items": 372,
+   "last_success": "2026-11-12T01:46:56.196Z",
+   "status": "ok"
+  },
+  "curated": {
+   "items": 370,
+   "last_success": "2026-11-12T01:46:56.196Z",
+   "status": "ok"
+  },
+  "seoul_events": {
+   "items": 0,
+   "last_success": null,
+   "status": "skipped"
+  },
+  "tourapi": {
+   "items": 0,
+   "last_success": null,
+   "status": "skipped"
+  },
+  "web": {
+   "items": 0,
+   "last_success": "2026-11-12T00:29:56.222Z",
+   "status": "error"
+  },
+  "wikidata": {
+   "items": 930,
+   "last_success": "2026-11-12T01:46:56.196Z",
+   "status": "ok"
+  },
+  "wikipedia": {
+   "items": 283,
+   "last_success": "2026-11-12T01:46:56.196Z",
+   "status": "ok"
+  }
+ }
+}

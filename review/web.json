@@ -1,0 +1,154 @@
+{
+ "at": "2026-11-12T01:46:56.196Z",
+ "errors": [
+  {
+   "http_status": 429,
+   "message": "HTTP 429",
+   "rule": "gdelt:GDELT nl · media facade",
+   "stage": "web_fetch",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Adutch&mode=ArtList&format=json&maxrecords=250&timespan=10h&sort=DateDesc"
+  },
+  {
+   "http_status": 429,
+   "message": "HTTP 429",
+   "rule": "gdelt:GDELT pl · media facade",
+   "stage": "web_fetch",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Apolish&mode=ArtList&format=json&maxrecords=250&timespan=10h&sort=DateDesc"
+  }
+ ],
+ "rules": [
+  {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
+   "key": "gdelt:GDELT nl · media facade",
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
+  },
+  {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
+   "key": "gdelt:GDELT pl · media facade",
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
+  },
+  {
+   "key": "rss:Dezeen",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-11-13T07:09:17.463Z"
+  },
+  {
+   "key": "rss:designboom",
+   "next_run_at": "2026-11-12T05:24:28.055Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "rss:ArchDaily",
+   "next_run_at": "2026-11-12T05:24:28.223Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "rss:Archinect",
+   "next_run_at": "2026-11-12T05:24:28.577Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "rss:Creative Applications Network",
+   "next_run_at": "2026-11-12T05:24:28.710Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "rss:Media Architecture Institute",
+   "next_run_at": "2026-11-12T05:24:29.779Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "rss:Designboom Korea",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-11-12T19:53:26.359Z"
+  },
+  {
+   "key": "gdelt:GDELT ar · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT de · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT en · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT es · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT fr · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT it · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT ja · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT ko · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT pt · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT ru · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT tr · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT zh · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  }
+ ],
+ "schema": 1
+}

@@ -1,0 +1,2765 @@
+{
+ "about": "Korea first: the live first-level divisions of South Korea (wd:Q884 p:P150 with ISO 3166-2 codes) and the region each maps to, the configured expectations compared with them, the Korean class instances per class, and the kr_region decision of every Korean project with the rule that made it.",
+ "at": "2026-11-12T01:46:56.196Z",
+ "class_instances": {
+  "Q110409771": 0,
+  "Q1136999": 0,
+  "Q11454138:creator": 0,
+  "Q115452528": 0,
+  "Q12177156:material": 0,
+  "Q124414048": 0,
+  "Q126682939": 0,
+  "Q126682969": 0,
+  "Q1363354:creator": 0,
+  "Q1421557": 0,
+  "Q1421557:genre": 0,
+  "Q1421557:movement": 0,
+  "Q15429571:creator": 0,
+  "Q17158007": 0,
+  "Q1798004": 0,
+  "Q1823448": 0,
+  "Q182925:material": 0,
+  "Q1872461:creator": 0,
+  "Q1938618:creator": 0,
+  "Q2005487": 0,
+  "Q25504:material": 0,
+  "Q29885984": 0,
+  "Q327520:creator": 0,
+  "Q378604": 0,
+  "Q38867:material": 0,
+  "Q4287692": 0,
+  "Q47616:material": 0,
+  "Q504395:creator": 0,
+  "Q550484": 0,
+  "Q6006:material": 0,
+  "Q63442021": 0,
+  "Q6524309:creator": 0,
+  "Q740966:creator": 0,
+  "Q776483": 0,
+  "Q9128:material": 0,
+  "Q916421:creator": 0,
+  "Q926949": 0
+ },
+ "class_query_example": "#aol:kr-class-instances Q17158007\nSELECT DISTINCT ?item WHERE {\n  ?item wdt:P31/wdt:P279* wd:Q17158007 .\n  { ?item wdt:P17 wd:Q884 . } UNION { ?item wdt:P131/wdt:P17 wd:Q884 . } UNION { ?item wdt:P131/wdt:P131/wdt:P17 wd:Q884 . } UNION { ?item wdt:P276/wdt:P17 wd:Q884 . } UNION { ?item wdt:P195/wdt:P17 wd:Q884 . }\n} LIMIT 2000",
+ "country": {
+  "expected": "South Korea",
+  "live_label": "South Korea",
+  "ok": true,
+  "purpose": "korea_country",
+  "qid": "Q884"
+ },
+ "decisions": [
+  {
+   "id": "CAT-080XNRV",
+   "matches": [
+    {
+     "region": "seoul",
+     "token": "seoul"
+    }
+   ],
+   "name": "연등회",
+   "qid": null,
+   "region": "seoul",
+   "rule": "city_gazetteer_division"
+  },
+  {
+   "id": "CAT-0AEBIPR",
+   "matches": [
+    {
+     "region": "gwangju_jeolla",
+     "token": "boseong"
+    },
+    {
+     "region": "gwangju_jeolla",
+     "token": "boseong"
+    }
+   ],
+   "name": "보성차밭 빛축제",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "commons_parent_gazetteer_place"
+  },
+  {
+   "id": "Q12618343",
+   "name": "진주남강유등축제",
+   "qid": "Q12618343",
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "p131",
+   "via": "Q41151"
+  },
+  {
+   "id": "Q12859650",
+   "matches": [
+    {
+     "region": "seoul",
+     "token": "seoul"
+    }
+   ],
+   "name": "서울빛초롱축제",
+   "qid": "Q12859650",
+   "region": "seoul",
+   "rule": "city_gazetteer_division"
+  },
+  {
+   "id": "Q15076316",
+   "name": "Tower Infinity",
+   "qid": "Q15076316",
+   "region": "gyeonggi_incheon",
+   "rule": "p131",
+   "via": "Q20934"
+  },
+  {
+   "id": "Q3247002",
+   "matches": [
+    {
+     "region": "seoul",
+     "token": "seoul"
+    },
+    {
+     "region": "seoul",
+     "token": "seoul"
+    }
+   ],
+   "name": "정월 대보름",
+   "qid": "Q3247002",
+   "region": "seoul",
+   "rule": "commons_parent_gazetteer_division"
+  },
+  {
+   "id": "Q625724",
+   "name": "연등회",
+   "qid": "Q625724",
+   "region": null,
+   "rule": "unknown"
+  },
+  {
+   "id": "REG-KR-0001",
+   "name": "해운대 빛축제",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0002",
+   "name": "온천천 빛 축제",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0003",
+   "name": "수성빛예술제",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0004",
+   "name": "만석거 새빛축제",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0005",
+   "name": "광명동굴 빛 축제",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0006",
+   "name": "강남 미디어 윈터페스타",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0007",
+   "name": "국가유산 미디어아트 부여 정림사지",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0008",
+   "name": "포항국제불빛축제",
+   "qid": "Q17504430",
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0009",
+   "name": "경주엑스포대공원 천마의 궁전 「찬란한 빛의 신라」",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0010",
+   "name": "아르떼뮤지엄 여수",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0011",
+   "name": "익산 미륵사지 미디어아트 페스타",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0012",
+   "name": "함평 겨울빛축제",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0013",
+   "name": "광복로 겨울빛 트리축제",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0014",
+   "name": "겨울, 청계천의 빛",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0015",
+   "name": "서울라이트 한강 빛섬축제",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0016",
+   "name": "도모헌 미디어파사드",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0017",
+   "name": "루프 랩 부산",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0018",
+   "name": "광주미디어아트플랫폼 G.MAP",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0019",
+   "name": "국립아시아문화전당(ACC) 미디어월",
+   "qid": "Q12585739",
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0020",
+   "name": "국립춘천박물관 실감 미디어아트",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0021",
+   "name": "하슬라강릉 이머시브아트쇼",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0022",
+   "name": "아르떼뮤지엄 강릉",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0023",
+   "name": "아르떼뮤지엄 부산",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0024",
+   "name": "아르떼뮤지엄 제주",
+   "qid": null,
+   "region": "jeju",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0025",
+   "name": "빛의 벙커",
+   "qid": null,
+   "region": "jeju",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0026",
+   "name": "디피랑",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0027",
+   "name": "엑스포과학공원 한빛탑 미디어파사드",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0028",
+   "name": "수원화성 미디어아트",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0029",
+   "name": "서울라이트 광화문",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0030",
+   "name": "세종시 빛 축제",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0031",
+   "name": "도동서원 디지털아트 「도동연화」",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0032",
+   "name": "국가유산 미디어아트 진주성",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0033",
+   "name": "국가유산 미디어아트 경주 대릉원",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0034",
+   "name": "국가유산 미디어아트 여수",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0035",
+   "name": "국가유산 미디어아트 군산",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0036",
+   "name": "국가유산 미디어아트 청주",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0037",
+   "name": "인천공항 K-컬처 뮤지엄 미디어파사드",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0038",
+   "name": "인천공항 전통문화 LED 미디어월",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0039",
+   "name": "르 스페이스(인스파이어 리조트)",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0040",
+   "name": "인천시청사 미디어파사드",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0041",
+   "name": "울산시립미술관 XR랩",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0042",
+   "name": "수원시미디어센터 미디어아트 「DREAM LIGHT」",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0043",
+   "name": "뮤지엄헤이",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0044",
+   "name": "백남준아트센터",
+   "qid": "Q12597738",
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0045",
+   "name": "제천 의림지 미디어파사드",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0046",
+   "name": "단양 수양개빛터널",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0047",
+   "name": "단양 팝스월드",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0049",
+   "name": "영화의전당 빅루프 LED",
+   "qid": "Q14020347",
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0050",
+   "name": "공산성 미디어아트",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0051",
+   "name": "김해가야테마파크 빛 축제",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0052",
+   "name": "국가유산 미디어아트 고령 지산동 고분군",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0053",
+   "name": "국가유산 미디어아트 제주목 관아",
+   "qid": null,
+   "region": "jeju",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0054",
+   "name": "국가유산 미디어아트 철원 노동당사",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0055",
+   "name": "국가유산 미디어아트 통영 삼도수군통제영",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0056",
+   "name": "국가유산 미디어아트 양산 통도사",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0057",
+   "name": "국립중앙박물관 디지털 실감 영상관",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0058",
+   "name": "국립경주박물관 디지털영상관 「성덕대왕신종」",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0059",
+   "name": "청도 프로방스 빛축제",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0060",
+   "name": "아침고요수목원 오색별빛정원전",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0061",
+   "name": "관악별빛산책",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0062",
+   "name": "어울림정원 빛축제",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0063",
+   "name": "공공미술 빛조각축제 「노원 달빛산책」",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0064",
+   "name": "부산연등회",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0065",
+   "name": "LIGHT ON 세종",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0066",
+   "name": "첨성대 미디어파사드",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0067",
+   "name": "뮤지엄 딥다이브",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0068",
+   "name": "한탄강 가든 나이트 투어 미디어파사드",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0069",
+   "name": "광복 80년 기념 빛 축제",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0070",
+   "name": "허브아일랜드 불빛축제",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0071",
+   "name": "구미산단 페스티벌",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0072",
+   "name": "오월드 나이트 유니버스",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0073",
+   "name": "수성못 아나몰픽 미디어아트 「MOTII」",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0074",
+   "name": "앞산빨래터 미디어파사드",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0075",
+   "name": "구암서원 미디어파사드",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0076",
+   "name": "전동성당 미디어파사드 공연",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0077",
+   "name": "광주비엔날레 미디어파사드 특별전",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0078",
+   "name": "이월드 별빛축제",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0079",
+   "name": "딜라이트 담양",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0080",
+   "name": "이이남스튜디오",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0081",
+   "name": "창경궁 물빛연화",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0082",
+   "name": "탑정호 출렁다리 미디어파사드",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0083",
+   "name": "태안빛축제",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0084",
+   "name": "충주라이트월드",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0085",
+   "name": "남동국가산업단지 미디어파사드",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0086",
+   "name": "빛의 시어터",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0087",
+   "name": "노형수퍼마켙",
+   "qid": null,
+   "region": "jeju",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0088",
+   "name": "루나폴",
+   "qid": null,
+   "region": "jeju",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0089",
+   "name": "울산대교 전망대 미디어파사드",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0090",
+   "name": "화암동굴 미디어아트",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0091",
+   "name": "테라판타지아",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0092",
+   "name": "구룡포 피어라계단 미디어아트",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0093",
+   "name": "부산시청 들락날락 미디어아트전시관",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0094",
+   "name": "인천송도불빛축제",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0095",
+   "name": "빛의 정원, 송도",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0096",
+   "name": "느랭이골 LED 야간 불빛축제",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0097",
+   "name": "국립부여박물관 디지털 실감 영상관",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0098",
+   "name": "국립전주박물관 실감영상",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0099",
+   "name": "국립공주박물관 디지털 실감 영상관",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0100",
+   "name": "국립중앙박물관 열린마당 실감 전광판",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0101",
+   "name": "레노부르크뮤지엄",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0102",
+   "name": "정글미디어파크",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0103",
+   "name": "파주 프로방스 빛축제",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0104",
+   "name": "퍼스트가든 별빛정원",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0105",
+   "name": "원주 고니골빛축제",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0106",
+   "name": "화천 산천어축제 선등거리",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0107",
+   "name": "서면 빛 축제",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0108",
+   "name": "광안리 M 드론라이트쇼",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0109",
+   "name": "국가유산 미디어아트 아산",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0110",
+   "name": "국가유산 미디어아트 강화 고려궁지",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0111",
+   "name": "이순신관광체험센터 미디어월",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0112",
+   "name": "청도 유등연지 유등 축제",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0113",
+   "name": "삼광사 연등축제",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0114",
+   "name": "피오리움",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0115",
+   "name": "플래시백 : 계림",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0116",
+   "name": "동궁원 라원 인터랙티브 미디어아트 체험관",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0117",
+   "name": "송대말등대 빛 체험전시관",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0118",
+   "name": "신산 도채비 빛 축제",
+   "qid": null,
+   "region": "jeju",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0119",
+   "name": "뮤지엄엑스",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0120",
+   "name": "제주허브동산 별빛놀이·미디어파사드",
+   "qid": null,
+   "region": "jeju",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0121",
+   "name": "안동민속박물관 미디어파사드",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0123",
+   "name": "통영 강구안 미디어아트 디지털 사이니지",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0124",
+   "name": "대전 스카이로드",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0125",
+   "name": "충북도청 미디어아트 판타지아",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0126",
+   "name": "광주미디어아트페스티벌",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0127",
+   "name": "목포해상 W쇼",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0128",
+   "name": "목포 춤추는 바다분수",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0129",
+   "name": "김해 국가유산야행",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0130",
+   "name": "웨일즈 판타지움",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0131",
+   "name": "태화강 국가정원 십리대숲 은하수길",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0132",
+   "name": "소양2교 미디어파사드",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0133",
+   "name": "춘천 호수별빛나라 축제",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0134",
+   "name": "벨포레 미디어아트센터",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0135",
+   "name": "광양 와인동굴 미디어파사드·빛의 터널",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0136",
+   "name": "사직 빛의 숲",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0137",
+   "name": "별빛정원우주",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0138",
+   "name": "명선도 야간 경관 「태양이 잠든 섬, 명선도」",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0139",
+   "name": "여수 밤디불거리",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0140",
+   "name": "연화정도서관 미디어파사드",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0141",
+   "name": "강남스퀘어 미디어폴 G-LIGHT",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0142",
+   "name": "경포달빛아트쇼 「나의 달」",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0143",
+   "name": "광안대교 경관조명",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0144",
+   "name": "인천문화예술회관 광장 미디어월",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0145",
+   "name": "공주 국가유산야행",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0146",
+   "name": "대구 국가유산야행",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0147",
+   "name": "숲속애 빛의 정원",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0148",
+   "name": "삽교호 드론 라이트쇼",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0149",
+   "name": "호수의 가을과 겨울 그리고 루미나리에 (석촌호수 루미나리에)",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0150",
+   "name": "목감미디어아트홀",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0151",
+   "name": "화성 루나빛축제",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0152",
+   "name": "김제 꽃빛드리 축제",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0153",
+   "name": "밀락루체페스타",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0154",
+   "name": "빛가람 빛정원 페스타",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0155",
+   "name": "용산어린이정원 겨울빛 전시 「빛과 함께 걷는 기억의 길」",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0156",
+   "name": "국립제주박물관 실감영상실",
+   "qid": null,
+   "region": "jeju",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0157",
+   "name": "국립나주박물관 실감콘텐츠 체험관",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0158",
+   "name": "국립대구박물관 디지털아트존",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0159",
+   "name": "몽환",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0160",
+   "name": "양재천 벚꽃 등(燈) 축제",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0161",
+   "name": "광화원 (광화시대 실감형 콘텐츠)",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0162",
+   "name": "청와대 사랑채 미디어아트실",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0163",
+   "name": "범어사 연등",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0164",
+   "name": "K-컬처 스크린 「더 키네틱」 (대한민국역사박물관 외벽)",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0165",
+   "name": "감사의 정원 「감사의빛 23」",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0166",
+   "name": "대전오색빛축제",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0167",
+   "name": "울산대공원 빛 축제",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0168",
+   "name": "간절곶 빛축제",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0169",
+   "name": "태백 빛의 광산",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0170",
+   "name": "무주 남대천 한풍루 미디어아트",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0171",
+   "name": "순창 강천산 미디어쇼",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0172",
+   "name": "경주 프로방스빛축제",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0173",
+   "name": "여수 빅오쇼",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0174",
+   "name": "울산 빛의 공원 미디어아트",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0175",
+   "name": "인터렉티브아트뮤지엄",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0176",
+   "name": "DMZ 생생누리",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0177",
+   "name": "밀양시립박물관 미디어아트 큐브",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0178",
+   "name": "소망진산 유등테마공원",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0179",
+   "name": "물초울공원 반응형 미디어아트",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0180",
+   "name": "소금산 미디어아트센터",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0181",
+   "name": "인천시립박물관 실감영상실",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0182",
+   "name": "아트팩토리 참기름",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0183",
+   "name": "뮤지엄엘",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0184",
+   "name": "뮤지엄 원",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0185",
+   "name": "부산역 유라시아플랫폼 미디어월",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0186",
+   "name": "부산시청 미디어월",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0187",
+   "name": "국립광주과학관 필사이언스 아트월",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0188",
+   "name": "제주 불빛정원",
+   "qid": null,
+   "region": "jeju",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0189",
+   "name": "빛의 섬 루미버스",
+   "qid": null,
+   "region": "jeju",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0190",
+   "name": "새섬 빛의 연주",
+   "qid": null,
+   "region": "jeju",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0191",
+   "name": "새연교 음악분수",
+   "qid": null,
+   "region": "jeju",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0192",
+   "name": "벨섬",
+   "qid": null,
+   "region": "jeju",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0193",
+   "name": "본다빈치뮤지엄 시화",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0194",
+   "name": "MOEI 모에이",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0195",
+   "name": "까사데룩",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0196",
+   "name": "독립기념관 겨레의탑 미디어파사드",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0197",
+   "name": "선비세상 한복아트관·한옥문화관 미디어아트",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0198",
+   "name": "서산해미읍성축제 야간 미디어파사드",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0199",
+   "name": "고창읍성 맹종죽림 아트쇼",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0200",
+   "name": "간현관광지 나오라쇼",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0201",
+   "name": "운정호수공원 불빛정원",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0202",
+   "name": "성성호수공원 방문자센터 미디어아트 영상관",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0203",
+   "name": "창원국가산단 「빛의 대로」 미디어파사드",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0204",
+   "name": "광양 국제미디어아트 페스티벌",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0205",
+   "name": "빛의 바다 속초",
+   "qid": null,
+   "region": "gangwon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0206",
+   "name": "우이천 빛나다 (우이천 빛 조형물 전시)",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0207",
+   "name": "우이천 등(燈)축제 「강북 꿈꾸는 물고기」",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0208",
+   "name": "양천 비체나라 페스티벌",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0209",
+   "name": "성남물빛정원 미디어파사드·미디어터널",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0210",
+   "name": "행주가 예술이야",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0211",
+   "name": "세종시 빛트리 축제",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0212",
+   "name": "대전 0시 축제 미디어파사드 쇼",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0213",
+   "name": "사운드 월 (ACC 미디어아트 랩 미디어파사드)",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0214",
+   "name": "광주 국가유산야행",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0215",
+   "name": "밤빛 품은 수원천 (수원 국가유산 야행)",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0216",
+   "name": "피란수도부산 국가유산야행",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0217",
+   "name": "K-문화 스테이션 (서울광장 지하)",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0218",
+   "name": "국립현대미술관 청주 「미디어 캔버스」",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0219",
+   "name": "국립해양박물관 미디어 전시실",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0220",
+   "name": "낙강교 미디어파사드",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0221",
+   "name": "남한강출렁다리 미디어파사드",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0222",
+   "name": "예당호 출렁다리·음악분수 야간 연출",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0223",
+   "name": "남당항 해양분수공원 음악분수 레이저쇼",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0224",
+   "name": "구로구청 미디어캔버스",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0225",
+   "name": "뮤지엄 다",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0226",
+   "name": "안산별빛마을 애니멀&하트빌리지 빛축제",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0227",
+   "name": "서울랜드 불빛축제 루나파크",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0228",
+   "name": "인천개항장 국가유산야행",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0229",
+   "name": "다대포 꿈의 낙조분수",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0230",
+   "name": "다대포 꿈의 낙조분수 겨울 빛 축제",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0231",
+   "name": "스페이스워크",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0232",
+   "name": "국제미디어파사드전 《백남준: Post-Fluxus Sense》",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0233",
+   "name": "칠암항 방파제 미디어파사드",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0234",
+   "name": "목척교 야간경관 빛 연출",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0235",
+   "name": "전주 첫마중길 빛의 거리",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0236",
+   "name": "목포 빛의 거리",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0237",
+   "name": "남양주 빛터널공원",
+   "qid": null,
+   "region": "gyeonggi_incheon",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0238",
+   "name": "밀양 트윈터널",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0239",
+   "name": "창원 빛의 거리",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0240",
+   "name": "장생포 라이트 (저유탱크 미디어파사드)",
+   "qid": null,
+   "region": "busan_ulsan_gyeongnam",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0241",
+   "name": "청주 서문교 미디어파사드",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0242",
+   "name": "이월드 83타워 글로우 사파리",
+   "qid": null,
+   "region": "daegu_gyeongbuk",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0243",
+   "name": "정부세종청사 미디어파사드 (2016 문화의 달)",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0244",
+   "name": "순천만국가정원 스페이스 브릿지",
+   "qid": null,
+   "region": "gwangju_jeolla",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "REG-KR-0245",
+   "name": "천안라이트 in ARARIO",
+   "qid": null,
+   "region": "daejeon_sejong_chungcheong",
+   "rule": "curated_registry"
+  },
+  {
+   "id": "SEOUL001",
+   "name": "아뜰리에 노들",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL002",
+   "name": "아뜰리에 광화",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL003",
+   "name": "해치마당 미디어월",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL004",
+   "name": "오간수교 미디어파사드",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL005",
+   "name": "서울로미디어캔버스",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL006",
+   "name": "동대문디자인플라자(DDP) / 서울라이트",
+   "qid": "Q5295847",
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL007",
+   "name": "코엑스 K-POP 스퀘어 WAVE",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL008",
+   "name": "신세계스퀘어",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL009",
+   "name": "갤러리아 명품관 WEST 미디어파사드",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL010",
+   "name": "서울스퀘어 미디어 캔버스",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL011",
+   "name": "KT스퀘어 옥외전광판",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL012",
+   "name": "K-비전(코리아나호텔)",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL013",
+   "name": "루미 미디어(세광빌딩)",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL014",
+   "name": "LUUX(동아일보)",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL015",
+   "name": "일민미술관 옥외전광판",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL016",
+   "name": "서울로봇인공지능과학관 미디어파사드",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL017",
+   "name": "마곡 르웨스트 미디어파사드",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL018",
+   "name": "롯데월드타워 미디어파사드",
+   "qid": "Q494895",
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL019",
+   "name": "롯데타운 라이트(영플라자)",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL020",
+   "name": "하이커 그라운드",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL021",
+   "name": "청계 소울 오션",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL022",
+   "name": "국립중앙박물관 디지털 실감 영상관",
+   "qid": "Q494407",
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL023",
+   "name": "라이트룸 서울",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL024",
+   "name": "서울시립 서서울미술관",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL025",
+   "name": "국립현대미술관 서울",
+   "qid": "Q27207690",
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL026",
+   "name": "아트센터 나비",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL027",
+   "name": "리움미술관",
+   "qid": "Q487498",
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL028",
+   "name": "디뮤지엄",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL029",
+   "name": "플랫폼엘 컨템포러리 아트센터",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL030",
+   "name": "스페이스K 서울",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL031",
+   "name": "문화역서울284",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL032",
+   "name": "서울도시건축전시관",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL033",
+   "name": "문화비축기지 T4·T5",
+   "qid": "Q65248886",
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL034",
+   "name": "서울시립 사진미술관",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL035",
+   "name": "서울시립미술관 서소문본관",
+   "qid": "Q7451676",
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL036",
+   "name": "서울시립 북서울미술관",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL037",
+   "name": "서울시립 백남준을 기억하는 집",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL038",
+   "name": "서울시청 서울림(林) 미디어월",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL039",
+   "name": "피크닉",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL040",
+   "name": "더현대 서울 ALT.1",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL041",
+   "name": "그라운드시소 이스트",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL043",
+   "name": "N서울타워",
+   "qid": "Q69134",
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL044",
+   "name": "세빛섬",
+   "qid": "Q7451660",
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL045",
+   "name": "반포대교 달빛무지개분수",
+   "qid": "Q255506",
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL046",
+   "name": "서울로7017 야간조명",
+   "qid": "Q30275918",
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL047",
+   "name": "홍제유연",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL048",
+   "name": "별마당도서관",
+   "qid": "Q71829204",
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL049",
+   "name": "서울웨이브 아트센터",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  },
+  {
+   "id": "SEOUL050",
+   "name": "노원 불빛정원(화랑대 철도공원)",
+   "qid": null,
+   "region": "seoul",
+   "rule": "curated_seoul"
+  }
+ ],
+ "divisions": {
+  "errors": [],
+  "expected": [
+   {
+    "expected_qid": "Q8684",
+    "live": "confirmed",
+    "name": "Seoul",
+    "region": "seoul",
+    "verified_by": "https://conceptnet.io/c/en/seoul (DBpedia-Wikidata resource Q8684)"
+   },
+   {
+    "expected_qid": "Q20937",
+    "live": "confirmed",
+    "name": "Gyeonggi",
+    "region": "gyeonggi_incheon",
+    "verified_by": "https://commons.wikimedia.org/wiki/Category:Gyeonggi-do (authority file Q20937)"
+   },
+   {
+    "expected_qid": "Q20934",
+    "live": "confirmed",
+    "name": "Incheon",
+    "region": "gyeonggi_incheon",
+    "verified_by": "https://www.wikidata.org/wiki/Q20934"
+   },
+   {
+    "expected_qid": "Q41071",
+    "live": "confirmed",
+    "name": "Gangwon",
+    "region": "gangwon",
+    "verified_by": "https://openhistoricalmap.org/relation/2741610/history (wikidata=Q41071, 강원도)"
+   },
+   {
+    "expected_qid": "Q20921",
+    "live": "confirmed",
+    "name": "Daejeon",
+    "region": "daejeon_sejong_chungcheong",
+    "verified_by": "https://commons.wikimedia.org/wiki/%EB%8C%80%EC%A0%84%EA%B4%91%EC%97%AD%EC%8B%9C (Wikidata Q20921)"
+   },
+   {
+    "expected_qid": "Q41066",
+    "live": "confirmed",
+    "name": "North Chungcheong",
+    "region": "daejeon_sejong_chungcheong",
+    "verified_by": "https://www.wikidata.org/wiki/Q41066"
+   },
+   {
+    "expected_qid": "Q41283",
+    "live": "confirmed",
+    "name": "Gwangju Metropolitan City",
+    "region": "gwangju_jeolla",
+    "verified_by": "https://www.wikidata.org/wiki/Q41283"
+   },
+   {
+    "expected_qid": "Q20927",
+    "live": "confirmed",
+    "name": "Daegu",
+    "region": "daegu_gyeongbuk",
+    "verified_by": "https://www.wikidata.org/wiki/Q20927"
+   },
+   {
+    "expected_qid": "Q41154",
+    "live": "confirmed",
+    "name": "North Gyeongsang",
+    "region": "daegu_gyeongbuk",
+    "verified_by": "https://www.wisski.uni-bayreuth.de/wisski/navigate/43593/view (http://www.wikidata.org/entity/Q41154)"
+   },
+   {
+    "expected_qid": "Q16520",
+    "live": "confirmed",
+    "name": "Busan",
+    "region": "busan_ulsan_gyeongnam",
+    "verified_by": "https://gateway.okhistory.org/explore/locations/p13513/ (Wikidata Q16520)"
+   },
+   {
+    "expected_qid": "Q41164",
+    "live": "confirmed",
+    "name": "Jeju",
+    "region": "jeju",
+    "verified_by": "https://www.wikidata.org/wiki/Q41164"
+   }
+  ],
+  "from": "live",
+  "list": [
+   {
+    "en": "Seoul",
+    "end": null,
+    "iso": "KR-11",
+    "ko": "서울특별시",
+    "qid": "Q8684",
+    "reason": "iso_3166_2",
+    "region": "seoul"
+   },
+   {
+    "en": "Busan",
+    "end": null,
+    "iso": "KR-26",
+    "ko": "부산광역시",
+    "qid": "Q16520",
+    "reason": "iso_3166_2",
+    "region": "busan_ulsan_gyeongnam"
+   },
+   {
+    "en": "Daegu",
+    "end": null,
+    "iso": "KR-27",
+    "ko": "대구광역시",
+    "qid": "Q20927",
+    "reason": "iso_3166_2",
+    "region": "daegu_gyeongbuk"
+   },
+   {
+    "en": "Incheon",
+    "end": null,
+    "iso": "KR-28",
+    "ko": "인천광역시",
+    "qid": "Q20934",
+    "reason": "iso_3166_2",
+    "region": "gyeonggi_incheon"
+   },
+   {
+    "en": "Gwangju",
+    "end": null,
+    "iso": "KR-29",
+    "ko": "광주광역시",
+    "qid": "Q41283",
+    "reason": "iso_3166_2",
+    "region": "gwangju_jeolla"
+   },
+   {
+    "en": "Daejeon",
+    "end": null,
+    "iso": "KR-30",
+    "ko": "대전광역시",
+    "qid": "Q20921",
+    "reason": "iso_3166_2",
+    "region": "daejeon_sejong_chungcheong"
+   },
+   {
+    "en": "Ulsan",
+    "end": null,
+    "iso": "KR-31",
+    "ko": "울산광역시",
+    "qid": "Q41278",
+    "reason": "iso_3166_2",
+    "region": "busan_ulsan_gyeongnam"
+   },
+   {
+    "en": "Gyeonggi Province",
+    "end": null,
+    "iso": "KR-41",
+    "ko": "경기도",
+    "qid": "Q20937",
+    "reason": "iso_3166_2",
+    "region": "gyeonggi_incheon"
+   },
+   {
+    "en": "Gangwon Province",
+    "end": null,
+    "iso": "KR-42",
+    "ko": "강원특별자치도",
+    "qid": "Q41071",
+    "reason": "iso_3166_2",
+    "region": "gangwon"
+   },
+   {
+    "en": "North Chungcheong",
+    "end": null,
+    "iso": "KR-43",
+    "ko": "충청북도",
+    "qid": "Q41066",
+    "reason": "iso_3166_2",
+    "region": "daejeon_sejong_chungcheong"
+   },
+   {
+    "en": "South Chungcheong",
+    "end": null,
+    "iso": "KR-44",
+    "ko": "충청남도",
+    "qid": "Q41070",
+    "reason": "iso_3166_2",
+    "region": "daejeon_sejong_chungcheong"
+   },
+   {
+    "en": "North Jeolla",
+    "end": null,
+    "iso": "KR-45",
+    "ko": "전북특별자치도",
+    "qid": "Q41157",
+    "reason": "iso_3166_2",
+    "region": "gwangju_jeolla"
+   },
+   {
+    "en": "South Jeolla",
+    "end": null,
+    "iso": "KR-46",
+    "ko": "전라남도",
+    "qid": "Q41161",
+    "reason": "iso_3166_2",
+    "region": "gwangju_jeolla"
+   },
+   {
+    "en": "North Gyeongsang",
+    "end": null,
+    "iso": "KR-47",
+    "ko": "경상북도",
+    "qid": "Q41154",
+    "reason": "iso_3166_2",
+    "region": "daegu_gyeongbuk"
+   },
+   {
+    "en": "South Gyeongsang",
+    "end": null,
+    "iso": "KR-48",
+    "ko": "경상남도",
+    "qid": "Q41151",
+    "reason": "iso_3166_2",
+    "region": "busan_ulsan_gyeongnam"
+   },
+   {
+    "en": "Jeju Province",
+    "end": null,
+    "iso": "KR-49",
+    "ko": "제주특별자치도",
+    "qid": "Q41164",
+    "reason": "iso_3166_2",
+    "region": "jeju"
+   },
+   {
+    "en": "Sejong",
+    "end": null,
+    "iso": "KR-50",
+    "ko": "세종특별자치시",
+    "qid": "Q20929",
+    "reason": "iso_3166_2",
+    "region": "daejeon_sejong_chungcheong"
+   }
+  ]
+ },
+ "probes": [
+  {
+   "configured_classes": [],
+   "en": "Seoul Lantern Festival",
+   "found_by": [
+    "wikidata_search",
+    "published"
+   ],
+   "ko": "서울빛초롱축제",
+   "located_kr": true,
+   "p131": [],
+   "p17": [
+    "Q884"
+   ],
+   "p31": [
+    "Q132241"
+   ],
+   "qid": "Q12859650",
+   "title": "서울빛초롱축제"
+  },
+  {
+   "configured_classes": [],
+   "en": "Jinju Namgang Yudeung Festival",
+   "found_by": [
+    "wikidata_search",
+    "kowiki_search",
+    "published"
+   ],
+   "ko": "진주남강유등축제",
+   "located_kr": true,
+   "p131": [],
+   "p17": [
+    "Q884"
+   ],
+   "p31": [
+    "Q132241"
+   ],
+   "qid": "Q12618343",
+   "title": "진주남강유등축제"
+  },
+  {
+   "found_by": [],
+   "missing": true,
+   "qid": null,
+   "title": "보성차밭빛축제"
+  },
+  {
+   "found_by": [],
+   "missing": true,
+   "qid": null,
+   "title": "빛의 벙커"
+  },
+  {
+   "found_by": [],
+   "missing": true,
+   "qid": null,
+   "title": "아르떼뮤지엄"
+  },
+  {
+   "configured_classes": [],
+   "en": "Asian Culture Center",
+   "found_by": [
+    "published"
+   ],
+   "ko": "국립아시아문화전당",
+   "located_kr": true,
+   "p131": [
+    "Q50375"
+   ],
+   "p17": [
+    "Q884"
+   ],
+   "p31": [
+    "Q2659904",
+    "Q33506",
+    "Q207694",
+    "Q24354",
+    "Q117531692"
+   ],
+   "qid": "Q12585739",
+   "title": "국립아시아문화전당"
+  },
+  {
+   "configured_classes": [],
+   "en": "Pohang Space Walk",
+   "found_by": [],
+   "ko": "포항 스페이스워크",
+   "located_kr": true,
+   "p131": [
+    "Q42157"
+   ],
+   "p17": [
+    "Q884"
+   ],
+   "p31": [
+    "Q811979"
+   ],
+   "qid": "Q124021455",
+   "title": "포항 스페이스워크"
+  }
+ ],
+ "regions": {
+  "busan_ulsan_gyeongnam": 49,
+  "daegu_gyeongbuk": 28,
+  "daejeon_sejong_chungcheong": 36,
+  "gangwon": 16,
+  "gwangju_jeolla": 37,
+  "gyeonggi_incheon": 42,
+  "jeju": 13,
+  "seoul": 77
+ },
+ "schema": 1,
+ "search": {
+  "decisions": [
+   {
+    "accepted": false,
+    "name": "유등로",
+    "p31_labels": [
+     "road"
+    ],
+    "qid": "Q117431666",
+    "reasons": [
+     "not_a_place",
+     "no_place_event_or_work_class",
+     "label_match_not_work_or_event"
+    ],
+    "terms": [
+     "label:유등"
+    ]
+   },
+   {
+    "accepted": false,
+    "name": "유등면",
+    "p31_labels": [
+     "myeon"
+    ],
+    "qid": "Q12609732",
+    "reasons": [
+     "no_place_event_or_work_class",
+     "label_match_not_work_or_event"
+    ],
+    "terms": [
+     "label:유등"
+    ]
+   },
+   {
+    "accepted": true,
+    "name": "진주남강유등축제",
+    "p31_labels": [
+     "festival"
+    ],
+    "qid": "Q12618343",
+    "reasons": [],
+    "terms": [
+     "lantern festival",
+     "label:유등",
+     "label:등축제"
+    ]
+   },
+   {
+    "accepted": true,
+    "name": "서울빛초롱축제",
+    "p31_labels": [
+     "festival"
+    ],
+    "qid": "Q12859650",
+    "reasons": [],
+    "terms": [
+     "lantern festival",
+     "label:빛초롱"
+    ]
+   },
+   {
+    "accepted": false,
+    "name": "벨벳톡",
+    "p31_labels": [
+     "website"
+    ],
+    "qid": "Q140384772",
+    "reasons": [
+     "excluded_class:website",
+     "not_a_place",
+     "no_place_event_or_work_class"
+    ],
+    "terms": [
+     "몰입형"
+    ]
+   },
+   {
+    "accepted": false,
+    "name": "여수 연등동 벅수",
+    "p31_labels": [
+     "cultural heritage"
+    ],
+    "qid": "Q19349631",
+    "reasons": [
+     "not_a_place",
+     "no_place_event_or_work_class",
+     "label_match_not_work_or_event"
+    ],
+    "terms": [
+     "label:연등"
+    ]
+   },
+   {
+    "accepted": false,
+    "name": "유등초등학교",
+    "p31_labels": [
+     "primary school"
+    ],
+    "qid": "Q19657389",
+    "reasons": [
+     "no_place_event_or_work_class",
+     "label_match_not_work_or_event"
+    ],
+    "terms": [
+     "label:유등"
+    ]
+   },
+   {
+    "accepted": false,
+    "name": "송도달빛축제공원역",
+    "p31_labels": [
+     "metro station",
+     "terminus",
+     "underground station"
+    ],
+    "qid": "Q31178299",
+    "reasons": [
+     "label_match_not_work_or_event"
+    ],
+    "terms": [
+     "label:빛축제"
+    ]
+   },
+   {
+    "accepted": false,
+    "name": "부산 연등사 영산회상도",
+    "p31_labels": [
+     "cultural heritage"
+    ],
+    "qid": "Q55730415",
+    "reasons": [
+     "not_a_place",
+     "no_place_event_or_work_class",
+     "label_match_not_work_or_event"
+    ],
+    "terms": [
+     "label:연등"
+    ]
+   },
+   {
+    "accepted": false,
+    "name": "부산 연등사 석조지장보살좌상",
+    "p31_labels": [
+     "cultural heritage"
+    ],
+    "qid": "Q61093278",
+    "reasons": [
+     "not_a_place",
+     "no_place_event_or_work_class",
+     "label_match_not_work_or_event"
+    ],
+    "terms": [
+     "label:연등"
+    ]
+   },
+   {
+    "accepted": true,
+    "name": "연등회",
+    "p31_labels": [
+     "festival"
+    ],
+    "qid": "Q625724",
+    "reasons": [],
+    "terms": [
+     "lantern festival",
+     "label:연등"
+    ]
+   },
+   {
+    "accepted": false,
+    "name": "부산 연등사 석가영산회상도",
+    "p31_labels": [
+     "cultural heritage"
+    ],
+    "qid": "Q65255554",
+    "reasons": [
+     "not_a_place",
+     "no_place_event_or_work_class",
+     "label_match_not_work_or_event"
+    ],
+    "terms": [
+     "label:연등"
+    ]
+   }
+  ],
+  "errors": [],
+  "items": 12,
+  "label_scan": {
+   "by_term": {
+    "등축제": 1,
+    "라이트쇼": 0,
+    "루미나리에": 0,
+    "미디어 아트": 0,
+    "미디어 파사드": 0,
+    "미디어아트": 0,
+    "미디어파사드": 0,
+    "불빛축제": 0,
+    "빛 축제": 0,
+    "빛의 벙커": 0,
+    "빛초롱": 1,
+    "빛축제": 1,
+    "아르떼뮤지엄": 0,
+    "연등": 5,
+    "유등": 4,
+    "프로젝션 매핑": 0,
+    "프로젝션매핑": 0
+   },
+   "limit": 500,
+   "new_items": 8,
+   "rows": 11,
+   "truncated": false
+  },
+  "terms": {
+   "lantern festival": 3,
+   "light festival": 0,
+   "media art": 0,
+   "media facade": 0,
+   "라이트쇼": 0,
+   "루미나리에": 0,
+   "몰입형": 1,
+   "미디어 아트": 0,
+   "미디어 파사드": 0,
+   "미디어아트": 0,
+   "미디어파사드": 0,
+   "불빛축제": 0,
+   "빛 축제": 0,
+   "빛의 벙커": 0,
+   "빛초롱": 0,
+   "빛축제": 0,
+   "아르떼뮤지엄": 0,
+   "야간경관": 0,
+   "유등축제": 0,
+   "프로젝션 매핑": 0
+  }
+ }
+}
