@@ -14,6 +14,9 @@ const project = (o = {}) => ({ id: 'Q1', qid: 'Q1', curated_id: null, name_en: '
 test('decision shape: actions, targets, required fields', () => {
   assert.deepEqual(validateDecision({ action: 'hide', target: 'Q1', by, at }), [])
   assert.deepEqual(validateDecision({ action: 'hide', target: 'SEOUL001', by, at }), [])
+  // Registry records (editorial/registry) take decisions too: a reviewed photo, an edit or a takedown.
+  assert.deepEqual(validateDecision({ action: 'set_image', target: 'REG-KR-0124', src: 'https://upload.wikimedia.org/a.jpg', page: 'https://commons.wikimedia.org/wiki/File:A.jpg', author: 'A', license: 'CC BY-SA 4.0', by, at }), [])
+  assert.deepEqual(validateDecision({ action: 'hide', target: 'REG-KR-12', by, at }), ['bad_target'])
   assert.deepEqual(validateDecision({ action: 'destroy', target: 'Q1', by, at }), ['unknown_action'])
   assert.deepEqual(validateDecision({ action: 'hide', target: '../../etc', by, at }), ['bad_target'])
   assert.deepEqual(validateDecision({ action: 'merge', target: 'Q1', into: 'Q1', by, at }), ['bad_into'])

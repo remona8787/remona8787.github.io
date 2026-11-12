@@ -28,7 +28,9 @@ import T from '../../site-public-cleared/archive-taxonomy.js'
 import { bareFile, isQid, validLat, validLng, slugify, fnv1a } from './util.mjs'
 
 export const ACTIONS = ['approve', 'hide', 'unhide', 'merge', 'edit', 'block_image', 'set_hero', 'unset_hero', 'approve_image', 'set_image']
-const ID_RE = /^(?:Q[1-9]\d{0,11}|[A-Z]{2,12}\d{1,6}|CAT-[0-9A-Z]{1,13}|ED-[a-z0-9-]{1,60}|X-[0-9A-Z]{1,13}|KTO-\d{1,12}|cand-[0-9a-z]{1,13}|new:[a-z0-9-]{1,60})$/
+// REG-<CC>-<4 digits>: records of the research registry (editorial/registry), so a reviewed photo, an edit or a
+// takedown can reach them too.
+const ID_RE = /^(?:Q[1-9]\d{0,11}|[A-Z]{2,12}\d{1,6}|CAT-[0-9A-Z]{1,13}|REG-[A-Z]{2}-\d{4}|ED-[a-z0-9-]{1,60}|X-[0-9A-Z]{1,13}|KTO-\d{1,12}|cand-[0-9a-z]{1,13}|new:[a-z0-9-]{1,60})$/
 const EDIT_FIELDS = ['name_ko', 'name_en', 'name_original', 'name_original_lang', 'country_iso2', 'city', 'city_ko', 'lat', 'lng', 'project_type', 'kr_region', 'official_url', 'description_ko', 'description_en', 'visit']
 const VISIT_STATUS = new Set(['operating', 'seasonal', 'event_based', 'ended', 'inactive', 'demolished', 'unknown'])
 

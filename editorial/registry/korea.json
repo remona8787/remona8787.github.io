@@ -7561,6 +7561,81 @@
      "checked_at": "2026-11-12"
     }
    ]
+  },
+  {
+   "id": "REG-KR-0244",
+   "kind": "facility",
+   "project_type": "media_architecture",
+   "name_ko": "순천만국가정원 스페이스 브릿지",
+   "name_en": null,
+   "country_iso2": "KR",
+   "kr_division": "jeonnam",
+   "city": "Suncheon",
+   "city_ko": "순천시",
+   "timezone": "Asia/Seoul",
+   "confidence": "B",
+   "sources": [
+    {
+     "url": "https://www.wikitree.co.kr/articles/942926",
+     "kind": "news",
+     "publisher": "위키트리",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "순천만국가정원 ‘스페이스 브릿지’, 순천 랜드마크로 급부상"
+    },
+    {
+     "url": "https://m.go.seoul.co.kr/news/2024/04/08/20240408014002",
+     "kind": "news",
+     "publisher": "서울신문",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "순천만국가정원에 ‘우주선’이 떴다… 관람객 1000만명 시대 포부"
+    }
+   ],
+   "summary_ko": "순천만국가정원의 175m 다리로, 강익중 작가의 ‘꿈의다리’를 2024년 새로 꾸미며 물·우주·순천만을 주제로 한 미디어 연출을 더했고 야간 경관조명과 함께 운영된다."
+  },
+  {
+   "id": "REG-KR-0245",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "천안라이트 in ARARIO",
+   "name_en": "Cheonan Light in ARARIO",
+   "country_iso2": "KR",
+   "kr_division": "chungnam",
+   "city": "Cheonan",
+   "city_ko": "천안시",
+   "timezone": "Asia/Seoul",
+   "confidence": "B",
+   "sources": [
+    {
+     "url": "https://news.tf.co.kr/read/ogmeta/2137774.htm",
+     "kind": "news",
+     "publisher": "더팩트",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "천안시 첫 야간관광 축제 ‘천안라이트 in ARARIO’ 개최"
+    },
+    {
+     "url": "https://m.go.seoul.co.kr/news/2024/08/22/20240822500171",
+     "kind": "news",
+     "publisher": "서울신문",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "‘아라리오 조각광장’ 빛을 더하다…천안시, 야간경관 활성화"
+    }
+   ],
+   "admission": "free",
+   "summary_ko": "천안시·충남정보문화산업진흥원·아라리오의 야간관광 협약으로 아라리오 조각광장에서 열린 천안 최초의 야간관광 행사로, 조각 작품을 무대로 미디어파사드·조명쇼·홀로그램을 선보였다.",
+   "editions": [
+    {
+     "id": "2024",
+     "start": "2024-10-04",
+     "end": "2024-10-13",
+     "source": "https://news.tf.co.kr/read/ogmeta/2137774.htm",
+     "checked_at": "2026-11-12",
+     "admission": "free"
+    }
+   ]
   }
  ]
 }
