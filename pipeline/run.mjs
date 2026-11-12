@@ -42,6 +42,7 @@ import { clusterObservations, mergeByNameAndUrl, buildProject, eligibility, newI
 import { imageStage } from './lib/image-stage.mjs'
 import { writeContactSheets, SHEET_ABOUT } from './lib/contact-sheet.mjs'
 import { imageAudit, auditSummary } from './lib/image-audit.mjs'
+import { imageInventory } from './lib/image-inventory.mjs'
 import { discoverSeoulEvents, linkEvents, eventOut, DATASET as SEOUL_DATASET } from './lib/seoul-events.mjs'
 import { recoverPlaces, loadCountryCoder, countryAt, sameNameAs } from './lib/places.mjs'
 import { relationsOf } from './lib/relations.mjs'
@@ -938,6 +939,9 @@ export async function runPipeline(o) {
     event_places: eventPlaces,
     tourapi: (tourOut?.accepted || []).filter((t) => excluded.some((x) => x.id === 'KTO-' + t.contentid)).map((t) => ({ id: 'KTO-' + t.contentid, title: t.title, addr1: t.addr1, terms: t.decision.terms, project_type: t.decision.project_type, reasons: excluded.find((x) => x.id === 'KTO-' + t.contentid)?.reasons || [] })),
   }
+  // v2.0: the image inventory (lib/image-inventory.mjs): status, failure reason and next action per project.
+  const inventory = imageInventory({ records, imageReview, missingImages: quality.missing_images, tourApiKey: !!env.TOURAPI_SERVICE_KEY, at: startedAt })
+  report.image_inventory = inventory.json.summary
   const adminErrors = [...checkReport(report), ...checkQuality(quality), ...checkCandidates(candidatesOut)]
   if (adminErrors.length) report.run.admin_validation_errors = adminErrors.slice(0, 50)
   const adminStaging = dirs.admin + '.staging-' + process.pid
@@ -946,6 +950,8 @@ export async function runPipeline(o) {
   await writeJSON(path.join(adminStaging, 'report.json'), report, { pretty: true })
   await writeJSON(path.join(adminStaging, 'quality.json'), quality, { pretty: true })
   await writeJSON(path.join(adminStaging, 'candidates.json'), candidatesOut)
+  await writeJSON(path.join(adminStaging, 'image-inventory.json'), inventory.json, { pretty: true })
+  await writeFileAtomic(path.join(adminStaging, 'image-inventory.csv'), inventory.csv)
   await swapDir(adminStaging, dirs.admin)
 
   // review/: logs of every live query result and decision (not published).

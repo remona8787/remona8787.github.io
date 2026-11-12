@@ -2116,3 +2116,31 @@ a.group-row:hover .row-chev{transform:translateX(3px)}
   .print-only{display:block}
   .muted,small{color:#444444}
 }
+/* v2.0 member platform (platform.js): community, submissions, photo contribution. Member material is set apart from
+   verified archive material by a label and a dashed frame. */
+.pf-notready,.pf-signin,.pf-rules{display:grid;gap:12px}
+.pf-actions{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}
+.pf-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 12px}
+.pf-tabs [aria-selected="true"]{background:var(--accent-soft);color:var(--accent-on-soft)}
+.pf-feed,.pf-comments{display:grid;gap:12px}
+.pf-card,.pf-comment{border:1px dashed var(--line-strong);border-radius:14px;padding:14px 16px;background:var(--panel)}
+.pf-card h3{margin:0 0 4px;font-size:1.05rem}
+.pf-meta{color:var(--text-muted);font-size:.86rem;margin:2px 0}
+.pf-body{margin:8px 0;overflow-wrap:anywhere;white-space:pre-line}
+.pf-full{font-size:1rem;line-height:1.7}
+.pf-note{font-size:.86rem;color:var(--text-muted);border-left:3px solid var(--line-strong);padding-left:10px;margin:8px 0}
+.pf-status{display:inline-block;border-radius:999px;padding:1px 9px;font-size:.8rem;font-weight:600;border:1px solid var(--line);color:var(--text-muted)}
+.pf-approved{background:var(--success-bg);color:var(--success);border-color:transparent}
+.pf-rejected,.pf-removed,.pf-revoked,.pf-needs_info{background:var(--warning-bg);color:var(--warning-ink);border-color:transparent}
+.pf-list{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.pf-row{border-bottom:1px solid var(--line);padding:8px 0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.pf-reason{flex-basis:100%;margin:0;color:var(--text-muted);font-size:.86rem}
+.pf-photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin:8px 0}
+.pf-photo{margin:0;border:1px dashed var(--line-strong);border-radius:12px;overflow:hidden;background:var(--panel)}
+.pf-photo img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;display:block}
+.pf-photo figcaption{font-size:.78rem;padding:6px 8px;color:var(--text-muted)}
+.pf-tag{display:inline-block;border-radius:6px;padding:0 6px;background:var(--accent-soft);color:var(--accent-on-soft);font-weight:600}
+.dp-community{margin:28px 0}
+.dp-contribute{margin:8px 0 0}
+.pf-dialog fieldset,.form-grid fieldset{border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:grid;gap:6px}
+.link-button{background:none;border:0;padding:0;color:var(--accent-ink);text-decoration:underline;cursor:pointer;font:inherit}

@@ -32,7 +32,7 @@ test('without the package or a server: an honest note, the current export, and n
  await page.goto('/#data');
  await expect(page.locator('#researchPublic')).toContainText('공개 데이터 패키지를 준비 중이에요');
  await expect(page.locator('#dataExport [data-export="csv"]')).toBeVisible();
- await expect(page.locator('#researchMember')).toContainText('회원 연구 데이터는 준비 중이에요');
+ await expect(page.locator('#researchMember')).toContainText('연구자 승인 데이터는 준비 중이에요');
  await expect(page.locator('#researchMember button, #researchMember form')).toHaveCount(0);
 });
 

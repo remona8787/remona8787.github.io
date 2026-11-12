@@ -208,7 +208,7 @@ async function enter(session){
  route(false);
 }
 
-const TABS=[['dashboard','대시보드','editor'],['queue','검수 대기열','editor'],['reports','오류 신고','editor'],['quality','데이터 품질','editor'],['projects','프로젝트','editor'],['updates','변경 감지','editor'],['runs','수집 작업','editor'],['rules','수집 규칙·키워드','editor'],['settings','설정','admin'],['members','회원·연구 데이터','admin'],['research','연구자 평가','researcher'],['magazine','매거진','editor'],['places','장소 후보','editor']];
+const TABS=[['dashboard','대시보드','editor'],['queue','검수 대기열','editor'],['reports','오류 신고','editor'],['quality','데이터 품질','editor'],['projects','프로젝트','editor'],['updates','변경 감지','editor'],['runs','수집 작업','editor'],['rules','수집 규칙·키워드','editor'],['settings','설정','admin'],['members','회원·연구 데이터','admin'],['research','연구자 평가','researcher'],['magazine','매거진','editor'],['places','장소 후보','editor'],['platform','회원 활동 검수','editor']];
 function route(focus){
  if(!S.role)return;
  const allowed=TABS.filter(t=>can(t[2])).map(t=>t[0]);
@@ -904,7 +904,61 @@ async function loadMembers(){
 }
 forms['members-filter']=()=>loadMembers();
 
-const LOAD={dashboard:loadDashboard,queue:()=>loadQueue({keep:{id:curCand()?.id}}),projects:()=>{const id=S.p.pendingOpen||S.p.cur?.id;S.p.pendingOpen=null;return loadProjects({open:id})},updates:loadUpdates,runs:loadRuns,rules:loadRules,settings:loadSettings,research:loadResearch,magazine:()=>{},places:loadLegacy,reports:loadReports,quality:loadQuality,members:loadMembers};
+
+// ---- v2.0 member platform (docs/PLATFORM.md): moderation queues, researcher applications, flags, appeals, image
+// permission requests, statistics and the audit log. Every action is a security definer RPC that checks the role and
+// the MFA session in the database; the console only shows what those RPCs return. Member e-mail addresses appear only
+// in the researcher application queue (admin), never in lists of content.
+const PF_STATUS={pending:'자동 검수 대기',needs_review:'사람 검토 필요',approved:'공개',rejected:'반려',removed:'게시 중단',open:'접수',submitted:'제출',in_review:'검토 중',needs_info:'보완 요청'};
+const PF_TYPES=[['post','글'],['comment','댓글'],['photo','사진'],['submission','제보·등록']];
+S.pf={type:'post',status:'needs_review'};
+async function loadPlatform(){
+ const box=$('#platformBox');if(!box)return;put(box,html`<p class="muted">불러오는 중…</p>`);
+ try{
+  const st=await rpc('platform_admin_stats');
+  const q=st.queue||{},pub=st.published||{};
+  const admin=(RANK[S.role]||0)>=RANK.admin;
+  const type=S.pf.type,status=S.pf.status;
+  const items=await rpc('platform_admin_queue',{p_type:type,p_status:status,p_limit:50});
+  const flags=await rpc('platform_admin_queue',{p_type:'flag',p_status:'open',p_limit:50});
+  const appeals=await rpc('platform_admin_queue',{p_type:'appeal',p_status:'open',p_limit:50});
+  const apps=admin?await rpc('platform_admin_queue',{p_type:'application',p_status:'submitted',p_limit:50}):[];
+  const perms=(await sb.from('image_permission_requests').select('*').order('updated_at',{ascending:false}).limit(50)).data||[];
+  const audit=admin?await rpc('platform_audit_recent',{p_limit:30}):[];
+  put(box,html`<div class="tiles">${qtile('검토할 글',q.posts)}${qtile('검토할 댓글',q.comments)}${qtile('검토할 사진',q.photos)}${qtile('검토할 제보',q.submissions)}${qtile('열린 신고',q.flags)}${qtile('이의신청',q.appeals)}${qtile('공개된 글',pub.posts)}${qtile('공개된 사진',pub.photos)}${qtile('활성 연구 권한',st.active_grants)}</div>
+   <h2>콘텐츠 검수</h2>
+   <div class="filters">${PF_TYPES.map(([k,l])=>html`<button class="btn${on(k===type,'primary')}" data-act="pf-type" data-type="${k}">${l}</button>`)} <select data-act-change="pf-status" id="pfStatus" aria-label="검수 상태">${['needs_review','pending','approved','rejected','removed'].map(k=>html`<option value="${k}"${on(k===status,'selected')}>${PF_STATUS[k]}</option>`)}</select><button class="btn" data-act="pf-reload">새로 고침</button></div>
+   <ol class="plist">${rows(items).map(it=>html`<li class="pf-item"><p><b>#${it.id}</b> ${PF_STATUS[it.status]||it.status} · ${it.author_name||''} · ${it.project_id||''} ${it.kind||''}</p>
+     ${it.title?html`<p><b>${it.title}</b></p>`:''}<p class="pre">${it.body||it.caption||it.description||it.name||''}</p>
+     ${it.moderation?html`<details><summary>자동 검수 결과</summary><pre class="small">${JSON.stringify(it.moderation,null,1)}</pre></details>`:''}
+     ${it.checks?html`<details open><summary>중복·링크 확인</summary><pre class="small">${JSON.stringify(it.checks,null,1)}</pre></details>`:''}
+     ${type==='photo'?html`<p class="small muted">${it.width}×${it.height} · ${it.licence} · 공식 후보 제안 ${it.offer_official?'예':'아니요'} · 검수 전 원본은 비공개 버킷에 있어요.</p>`:''}
+     <div class="row">${type==='photo'?html`<button class="btn primary" data-act="pf-publish" data-id="${it.id}">확인 후 공개 (메타데이터 제거)</button>`:type==='submission'?html`<input id="pfProj-${it.id}" placeholder="승인 시 프로젝트 ID (REG-CM-0001)" aria-label="승인 시 프로젝트 ID" size="22"><button class="btn primary" data-act="pf-mod" data-d="approved" data-id="${it.id}">승인</button>`:html`<button class="btn primary" data-act="pf-mod" data-d="approved" data-id="${it.id}">공개</button>`}
+      <button class="btn" data-act="pf-mod" data-d="rejected" data-id="${it.id}">반려</button>${it.status==='approved'?html`<button class="btn danger" data-act="${type==='photo'?'pf-unpublish':'pf-mod'}" data-d="removed" data-id="${it.id}">게시 중단</button>`:''}</div></li>`)}</ol>${rows(items).length?'':html`<p class="muted">없음</p>`}
+   <h2>신고</h2><ol class="plist">${rows(flags).map(f=>html`<li><b>#${f.id}</b> ${f.target_type} ${f.target_id} · ${f.reason} · ${f.created_at?.slice(0,16)}<p class="pre">${f.message||''}</p>${f.contact_email?html`<p class="small">회신: ${f.contact_email} (처리하면 지워져요)</p>`:''}<button class="btn" data-act="pf-flag" data-a="actioned" data-id="${f.id}">조치함</button><button class="btn" data-act="pf-flag" data-a="dismissed" data-id="${f.id}">기각</button></li>`)}</ol>${rows(flags).length?'':html`<p class="muted">없음</p>`}
+   <h2>이의신청</h2><ol class="plist">${rows(appeals).map(a=>html`<li><b>#${a.id}</b> ${a.target_type} ${a.target_id??''}<p class="pre">${a.message}</p><button class="btn" data-act="pf-appeal" data-d="reversed" data-id="${a.id}">재검토 (사람 검토로 돌림)</button><button class="btn" data-act="pf-appeal" data-d="upheld" data-id="${a.id}">원결정 유지</button></li>`)}</ol>${rows(appeals).length?'':html`<p class="muted">없음</p>`}
+   ${admin?html`<h2>연구자 인증 신청</h2><p class="muted small">이메일 인증은 이메일 주소만 확인해요. 소속·신원은 신청서의 공개 링크와 설명으로 판단하고, 판단이 어려우면 보완을 요청하세요.</p><ol class="plist">${rows(apps).map(a=>html`<li><b>#${a.id}</b> ${a.full_name} · ${a.email} · ${a.affiliation||'소속 없음'} · ${a.applicant_type} · ${a.research_field}<p class="pre">${a.purpose}</p><p>${link(a.verification_url)} ${a.verification_note||''}</p><p class="small">요청: ${(a.requested_datasets||[]).join(', ')} · 이용조건 ${a.terms_version}</p><input id="pfReason-${a.id}" placeholder="사유 (보완·반려 시 필수)" aria-label="결정 사유" size="40"> <button class="btn primary" data-act="pf-app" data-d="approved" data-id="${a.id}">승인 (1년)</button><button class="btn" data-act="pf-app" data-d="needs_info" data-id="${a.id}">보완 요청</button><button class="btn" data-act="pf-app" data-d="rejected" data-id="${a.id}">반려</button></li>`)}</ol>${rows(apps).length?'':html`<p class="muted">없음</p>`}`:''}
+   <h2>이미지 사용 허가 요청</h2><p class="muted small">권리자 연락처는 이 표에만 저장돼요. 초안은 직접 읽고 고친 뒤 운영자 메일로 보내고, 보낸 뒤 상태를 '보냄'으로 바꾸세요.</p>
+   <form class="filters" data-form="pf-perm-new"><input name="project_id" placeholder="프로젝트 ID" aria-label="프로젝트 ID" required size="14"><input name="image_ref" placeholder="사진 주소 또는 설명" aria-label="사진 주소 또는 설명" required size="30"><input name="rights_holder" placeholder="권리자" aria-label="권리자" required size="16"><select name="contact_channel" aria-label="연락 방법"><option value="email">이메일</option><option value="web_form">문의 양식</option><option value="other">기타</option></select><input name="contact_value" placeholder="연락처" aria-label="연락처" size="22"><button class="btn" type="submit">요청 추가</button></form>
+   <ol class="plist">${rows(perms).map(r=>html`<li><b>#${r.id}</b> ${r.project_id} · ${r.rights_holder} · ${r.status}${r.valid_until?html` · ~${r.valid_until}`:''}<p class="small">${r.image_ref}</p><div class="row"><button class="btn" data-act="pf-draft" data-id="${r.id}">메일 초안</button>${['sent','replied','approved','denied','withdrawn','revoked'].map(st=>html`<button class="btn small" data-act="pf-perm" data-s="${st}" data-id="${r.id}">${st}</button>`)}</div><pre class="small pre" id="pfDraft-${r.id}" hidden></pre></li>`)}</ol>
+   ${admin?html`<h2>운영 기록</h2><ol class="plist small">${rows(audit).map(l=>html`<li>${l.at?.slice(0,16)} · ${l.action} · ${l.target_type} ${l.target_id||''}</li>`)}</ol>`:''}`);
+ }catch(e){put(box,html`<p class="notice error">${errText(e)}${/mfa_required/.test(String(e?.message))?' — 운영 기능은 2단계 인증(MFA) 세션에서만 쓸 수 있어요.':''}</p>`)}
+}
+acts['pf-type']=el=>{S.pf.type=el.dataset.type;loadPlatform()};
+acts['pf-reload']=()=>{S.pf.status=$('#pfStatus')?.value||S.pf.status;loadPlatform()};
+document.addEventListener('change',e=>{if(e.target?.id==='pfStatus'){S.pf.status=e.target.value;loadPlatform()}});
+const pfReason=(d)=>{if(!['rejected','removed','needs_info'].includes(d))return null;const r=prompt('사유 (이용자에게 보여요)');if(!r)throw new Error('사유가 필요해요');return r};
+acts['pf-mod']=async el=>{const d=el.dataset.d,id=Number(el.dataset.id),reason=pfReason(d),proj=S.pf.type==='submission'&&d==='approved'?($(`#pfProj-${id}`)?.value||'').trim()||null:null;await rpc('platform_moderate',{p_type:S.pf.type,p_id:id,p_decision:d,p_reason:reason,p_project:proj});toast('처리했어요');loadPlatform()};
+const pfFn=async(name,body)=>{const {data:{session}}=await sb.auth.getSession();const r=await fetch(String(cfg.SUPABASE_URL).replace(/\/+$/,'')+'/functions/v1/'+name,{method:'POST',headers:{authorization:'Bearer '+session?.access_token,apikey:cfg.SUPABASE_PUBLISHABLE_KEY,'content-type':'application/json'},body:JSON.stringify(body)});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error+(j.reason?': '+j.reason:''));return j};
+acts['pf-publish']=async el=>{const j=await pfFn('publish-photo',{photo_id:Number(el.dataset.id)});toast('공개했어요 · 제거한 메타데이터: '+(j.removed||[]).join(', '));loadPlatform()};
+acts['pf-unpublish']=async el=>{const reason=pfReason('removed');await pfFn('publish-photo',{photo_id:Number(el.dataset.id),action:'remove',reason});toast('내렸어요 (캐시는 최대 1시간 남을 수 있어요)');loadPlatform()};
+acts['pf-flag']=async el=>{await rpc('flag_handle',{p_id:Number(el.dataset.id),p_action:el.dataset.a,p_note:null});loadPlatform()};
+acts['pf-appeal']=async el=>{const note=prompt('결정 사유 (이용자에게 보여요)');if(!note)return;await rpc('appeal_decide',{p_id:Number(el.dataset.id),p_decision:el.dataset.d,p_note:note});loadPlatform()};
+acts['pf-app']=async el=>{const id=Number(el.dataset.id),d=el.dataset.d,reason=($(`#pfReason-${id}`)?.value||'').trim()||null;if(d!=='approved'&&!reason)throw new Error('사유를 적어 주세요');await rpc('research_application_decide',{p_id:id,p_decision:d,p_reason:reason});toast('처리했어요');loadPlatform()};
+acts['pf-perm']=async el=>{const {error}=await sb.from('image_permission_requests').update({status:el.dataset.s}).eq('id',Number(el.dataset.id));if(error)throw error;loadPlatform()};
+acts['pf-draft']=async el=>{const id=Number(el.dataset.id),{data:r,error}=await sb.from('image_permission_requests').select('*').eq('id',id).single();if(error)throw error;const d=window.AOLPermissionDraft.draft(r,{operatorName:cfg.OPERATOR_NAME||'운영자',operatorEmail:cfg.SUPPORT_EMAIL||''});const pre=$(`#pfDraft-${id}`);pre.hidden=false;pre.textContent=`받는 곳: ${d.to||d.form||'(연락처 확인)'}\n제목: ${d.subject}\n\n${d.body}`};
+forms['pf-perm-new']=async(f,fd)=>{const {error}=await sb.from('image_permission_requests').insert({project_id:fd.get('project_id'),image_ref:fd.get('image_ref'),rights_holder:fd.get('rights_holder'),contact_channel:fd.get('contact_channel'),contact_value:fd.get('contact_value')||null});if(error)throw error;f.reset();loadPlatform()};
+const LOAD={platform:loadPlatform,dashboard:loadDashboard,queue:()=>loadQueue({keep:{id:curCand()?.id}}),projects:()=>{const id=S.p.pendingOpen||S.p.cur?.id;S.p.pendingOpen=null;return loadProjects({open:id})},updates:loadUpdates,runs:loadRuns,rules:loadRules,settings:loadSettings,research:loadResearch,magazine:()=>{},places:loadLegacy,reports:loadReports,quality:loadQuality,members:loadMembers};
 acts['reload']=()=>LOAD[S.tab]?.();
 forms['queue-filter']=()=>loadQueue();
 forms['project-filter']=()=>loadProjects({open:S.p.cur?.id});

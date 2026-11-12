@@ -76,7 +76,7 @@ async function loadCatalog(){
  if(mediaError||postError)throw mediaError||postError;
  state.catalogError='';notify();
 }
-window.AOLCloud={state,sync,catalog,photos:photoAPI(()=>client,()=>state.user),
+window.AOLCloud={client:()=>client,state,sync,catalog,photos:photoAPI(()=>client,()=>state.user),
  async signIn(email,password){const {error}=await client.auth.signInWithPassword({email,password});if(error)throw error},
  async signUp(email,password){const {data,error}=await client.auth.signUp({email,password,options:{emailRedirectTo:cfg.PUBLIC_URL||location.origin}});if(error)throw error;return data},
  async signOut(){if(state.dirty)throw Error('동기화 대기 기록이 있습니다. 백업하거나 충돌을 해결한 뒤 로그아웃하세요.');const {error}=await client.auth.signOut();if(error)throw error},

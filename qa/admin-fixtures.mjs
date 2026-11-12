@@ -112,12 +112,18 @@ export function seed(){
  };
 }
 
-const ADMIN_ONLY=new Set(['archive_admin_upsert_rule','archive_admin_upsert_keyword','archive_admin_delete_keyword','archive_admin_set_settings','research_admin_stats']);
+const ADMIN_ONLY=new Set(['archive_admin_upsert_rule','archive_admin_upsert_keyword','archive_admin_delete_keyword','archive_admin_set_settings','research_admin_stats','platform_audit_recent']);
 const ANY_ROLE=new Set(['archive_role','archive_search','archive_research_add_assessment']);
 const LEGACY=new Set(['admin_candidate_stats','admin_list_candidates','admin_update_candidate','admin_promote_candidate','admin_list_ingestion_jobs']);
 const now=()=>new Date().toISOString();
 const findP=(d,id)=>d.projects.find(p=>p.id===id);
 const RPC={
+ // v2.0 member platform (docs/PLATFORM.md): the console's "회원 활동 검수" tab. Queued content carries the XSS probe.
+ platform_admin_stats:()=>({members:12,restricted:1,applications:{submitted:1},active_grants:2,queue:{posts:1,comments:0,photos:0,submissions:0,flags:1,appeals:0},published:{posts:4,photos:2,submissions:1}}),
+ platform_admin_queue:(d,b,u)=>b.p_type==='post'?[{id:41,kind:'review',project_id:'SEOUL006',author_name:XSS,title:XSS,body:XSS_SCRIPT,status:'needs_review',moderation:{source:'rules',flags:['privacy:phone']},created_at:now()}]
+  :b.p_type==='flag'?[{id:3,target_type:'post',target_id:41,reason:'spam',message:XSS,created_at:now()}]
+  :b.p_type==='application'?(u?.role==='admin'?[{id:7,full_name:XSS,email:'alice@example.org',affiliation:null,applicant_type:'graduate_student',research_field:'미디어 건축',purpose:XSS_SCRIPT,verification_url:'javascript:alert(1)',requested_datasets:['aol-research'],terms_version:'2026-11',created_at:now()}]:(()=>{throw {status:403,body:{code:'42501',message:'staff role required: admin'}}})()):[],
+ platform_audit_recent:()=>[{at:now(),action:'moderate_approved',target_type:'post',target_id:'40'}],
  archive_role:(d,b,u)=>u?.role??null,
  research_admin_stats:(d,b)=>({...d.research.stats,days:b.p_days}),
  archive_admin_dashboard:d=>d.dashboard,
@@ -217,6 +223,7 @@ export async function mockSupabase(page,{fail={},data=seed()}={}){
    if(req.method()==='PATCH'){const rep=data.reports.find(x=>String(x.id)===eq('id'));if(rep)Object.assign(rep,body,{contact_email:body.status!=='open'?null:rep.contact_email});return r.fulfill({status:204,headers:CORS})}
    const st=eq('status');return reply(200,data.reports.filter(x=>!st||x.status===st));
   }
+  if(path==='/rest/v1/image_permission_requests'){calls.push({kind:'rest',name:'image_permission_requests',method:req.method(),body});return req.method()==='GET'?reply(200,[{id:2,project_id:'SEOUL018',image_ref:XSS,rights_holder:'홍보팀',contact_channel:'email',contact_value:'pr@example.org',status:'draft',purpose:'대표 이미지',requested_scope:'display_with_credit'}]):r.fulfill({status:201,headers:CORS,body:''})}
   if(path==='/rest/v1/research_datasets'){calls.push({kind:'rest',name:'research_datasets'});return reply(200,data.research.datasets)}
   if(path==='/rest/v1/research_dataset_versions'){calls.push({kind:'rest',name:'research_dataset_versions'});return reply(200,data.research.versions)}
   if(path==='/rest/v1/archive_articles'){calls.push({kind:'rest',name:'archive_articles',method:req.method(),body});return r.fulfill({status:201,headers:CORS,body:''})}
@@ -240,11 +247,11 @@ export async function signIn(page,role='admin',hash=''){
  await page.getByRole('button',{name:'로그인'}).click();
  await expect(page.locator('#nav')).toBeVisible();
 }
-export const TAB_LABELS={dashboard:'대시보드',queue:'검수 대기열',reports:'오류 신고',quality:'데이터 품질',members:'회원·연구 데이터',projects:'프로젝트',updates:'변경 감지',runs:'수집 작업',rules:'수집 규칙·키워드',settings:'설정',research:'연구자 평가',magazine:'매거진',places:'장소 후보'};
+export const TAB_LABELS={dashboard:'대시보드',queue:'검수 대기열',reports:'오류 신고',quality:'데이터 품질',members:'회원·연구 데이터',projects:'프로젝트',updates:'변경 감지',runs:'수집 작업',rules:'수집 규칙·키워드',settings:'설정',research:'연구자 평가',magazine:'매거진',places:'장소 후보',platform:'회원 활동 검수'};
 // An element that exists once a tab has rendered its data (networkidle does not wait for in-page tab switches).
-export const READY={reports:'#reportList .report',quality:'#qualityBox table',members:'#membersBox .tiles',dashboard:'#dashRuns table',queue:'#queueList .qitem',projects:'#projectList .pitem',updates:'#updateList .update',runs:'#errorList li',rules:'#kwTable table',settings:'#settingsBox form',research:'#researchList .pitem',magazine:'#articleForm',places:'#legacyJobs table'};
+export const READY={platform:'#platformBox .tiles',reports:'#reportList .report',quality:'#qualityBox table',members:'#membersBox .tiles',dashboard:'#dashRuns table',queue:'#queueList .qitem',projects:'#projectList .pitem',updates:'#updateList .update',runs:'#errorList li',rules:'#kwTable table',settings:'#settingsBox form',research:'#researchList .pitem',magazine:'#articleForm',places:'#legacyJobs table'};
 export const TABS_BY_ROLE={
- admin:['dashboard','queue','reports','quality','projects','updates','runs','rules','settings','members','research','magazine','places'],
- editor:['dashboard','queue','reports','quality','projects','updates','runs','rules','research','magazine','places'],
+ admin:['dashboard','queue','reports','quality','projects','updates','runs','rules','settings','members','research','magazine','places','platform'],
+ editor:['dashboard','queue','reports','quality','projects','updates','runs','rules','research','magazine','places','platform'],
  researcher:['research']
 };
