@@ -1,4 +1,8 @@
-// Member research datasets (docs/RESEARCH_DATA.md; migration 20261026000000_research_data.sql).
+// Research datasets (docs/RESEARCH_DATA.md, docs/PLATFORM.md; migrations 20261026000000_research_data.sql and
+// 20261112000000_v2_platform.sql). v2.0: signing in is not enough. The check needs a confirmed e-mail, an active
+// account, an approved researcher application that has not expired, the current research terms, and an unexpired,
+// unrevoked grant for this dataset. A revoked or expired grant refuses the next request at once; a URL already issued
+// stays valid for at most SIGNED_URL_SECONDS (the limit of revocation).
 // POST {"dataset": "<id>", "version": "1.0.0", "format": "csv|json|geojson|xlsx"} with Authorization: Bearer <user JWT>.
 // The user is resolved from their own token; public.research_download_check (service role only) decides: an active
 // 'member' dataset, an existing version and format, and a research profile with both consents. The answer is a signed
@@ -8,7 +12,7 @@
 import { createClient } from "npm:@supabase/supabase-js@2"
 import { getAdminKey } from "../_shared/media.ts"
 
-const SIGNED_URL_SECONDS = 300
+const SIGNED_URL_SECONDS = 120
 const HOURLY_LIMIT = 30
 const FORMATS = new Set(["csv", "json", "geojson", "xlsx"])
 const ID = /^[a-z0-9][a-z0-9-]{2,63}$/
@@ -58,7 +62,8 @@ Deno.serve(async (req) => {
   if (checkError) return json({ error: "temporarily_unavailable" }, 503)
   if (!check?.ok) {
     await log(false, String(check?.error || "not_allowed"))
-    const status = check?.error === "profile_and_consent_required" ? 403 : check?.error === "institution_agreement_required" ? 403 : 404
+    const status = check?.error === "terms_update_required" ? 409
+      : ["profile_and_consent_required", "institution_agreement_required", "account_restricted", "researcher_approval_required", "dataset_not_granted", "access_expired"].includes(check?.error) ? 403 : 404
     return json({ error: check?.error || "not_allowed" }, status)
   }
   const fileName = `${dataset}-${version}.${format}`

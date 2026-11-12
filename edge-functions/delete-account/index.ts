@@ -18,6 +18,16 @@ Deno.serve(async req=>{
   if(storageError)return json({error:'photo_cleanup_failed'},500);
   if(batch===99)return json({error:'photo_cleanup_incomplete_retry'},409);
  }
+ // v2.0 community files: the member's uploads (their folder) and their published photos (public bucket).
+ for(let batch=0;batch<100;batch++){
+  const {data:objects,error:listError}=await admin.storage.from('community-uploads').list(data.user.id,{limit:100});
+  if(listError)return json({error:'photo_cleanup_failed'},500);
+  if(!objects?.length)break;
+  const {error:e}=await admin.storage.from('community-uploads').remove(objects.map(x=>data.user.id+'/'+x.name));
+  if(e)return json({error:'photo_cleanup_failed'},500);
+ }
+ const {data:published}=await admin.from('community_photos').select('public_path').eq('user_id',data.user.id).not('public_path','is',null);
+ if(published?.length){const {error:e}=await admin.storage.from('community-photos').remove(published.map(p=>p.public_path));if(e)return json({error:'photo_cleanup_failed'},500)}
  const {error:signOutError}=await admin.auth.admin.signOut(token,'global');
  if(signOutError)return json({error:'session_revocation_failed'},500);
  const {error:removeError}=await admin.auth.admin.deleteUser(data.user.id);
