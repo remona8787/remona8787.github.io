@@ -442,8 +442,8 @@
    "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=8b644768-b1e4-4071-a78f-9770ac19829d"
   },
   {
-   "checked_at": "2026-11-11T12:08:12.274Z",
-   "consecutive_failures": 1,
+   "checked_at": "2026-11-12T08:32:57.632Z",
+   "consecutive_failures": 2,
    "field": "source:curated:check1",
    "http_status": 503,
    "project": "REG-KR-0148",
@@ -739,7 +739,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261112T022731Z-525efa69",
+ "build_id": "20261112T083003Z-faf649ea",
  "coordinate_checks": [
   {
    "distance_m": 7576,
@@ -8195,7 +8195,7 @@
    ]
   }
  ],
- "generated_at": "2026-11-12T08:22:47.435Z",
+ "generated_at": "2026-11-12T08:30:03.378Z",
  "image_rejections": {
   "extreme_aspect": 25,
   "interior_unrelated_to_work": 4,
@@ -14425,22 +14425,6 @@
    "searched_this_run": true
   },
   {
-   "articles": 1,
-   "candidates": 0,
-   "country_iso2": "KR",
-   "has_wikidata": true,
-   "id": "REG-KR-0008",
-   "name": "포항국제불빛축제",
-   "project_type": "festival_program",
-   "refused": {},
-   "searched": [
-    "commons_p18",
-    "wikipedia_lead_image",
-    "commons_depicts"
-   ],
-   "searched_this_run": true
-  },
-  {
    "articles": 0,
    "candidates": 0,
    "country_iso2": "KR",
@@ -19224,6 +19208,10 @@
   {
    "best_tier": 5,
    "id": "REG-JP-0001"
+  },
+  {
+   "best_tier": 3,
+   "id": "REG-KR-0008"
   },
   {
    "best_tier": 4,

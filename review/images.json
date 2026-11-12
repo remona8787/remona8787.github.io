@@ -1,6 +1,6 @@
 {
  "about": "Per project: every image candidate (Commons and the other providers) with rights, identity, keyword evidence, visual and quality measurements, tier, approval, the hero and featured decisions and the near-duplicates removed.",
- "at": "2026-11-12T08:22:47.435Z",
+ "at": "2026-11-12T08:30:03.378Z",
  "projects": [
   {
    "candidates": [],
@@ -5609,17 +5609,96 @@
    "type": "festival_program"
   },
   {
-   "candidates": [],
-   "card": null,
+   "candidates": [
+    {
+     "approved": true,
+     "evidence": [
+      "editorial_review"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "editorial",
+      "ok": true
+     },
+     "key": "img-6ae7fdc79296",
+     "kind": "project_media",
+     "media": 0,
+     "media_terms": [],
+     "night": 55,
+     "night_terms": [
+      "야경",
+      "빛축제"
+     ],
+     "ok": true,
+     "provider": "editor",
+     "quality": {
+      "blockiness": 2,
+      "decoded": {
+       "bytes": 537147,
+       "format": "jpeg",
+       "height": 662,
+       "width": 1000
+      },
+      "laplacian_var": 2520.2,
+      "measured_width": 1000,
+      "phash": "b0f8f0f0f8585858",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "editor",
+     "tier": 3,
+     "title": "포항국제불빛축제 — 영일대해수욕장 앞바다 위로 국제불꽃쇼의 불꽃이 터지는 야경 (Wikimedia Commons, 2016-07-30).",
+     "visual": {
+      "bright_share": 0.0089,
+      "colourfulness": 28.03,
+      "dark_share": 0.8145,
+      "height": 212,
+      "mean_luminance": 0.1078,
+      "saturated_bright": 0.0131,
+      "visual": 25,
+      "width": 320
+     },
+     "width": 1000
+    }
+   ],
+   "card": "img-6ae7fdc79296",
    "country_iso2": "KR",
    "duplicates": [],
    "featured": null,
-   "featured_decisions": [],
+   "featured_decisions": [
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "img-6ae7fdc79296",
+     "provider": "editor",
+     "reasons": [
+      "not_home_ok",
+      "original_too_small"
+     ]
+    }
+   ],
    "hero": null,
    "hero_decisions": [],
    "name": "포항국제불빛축제",
    "project": "REG-KR-0008",
-   "providers": [],
+   "providers": [
+    {
+     "id": "img-6ae7fdc79296",
+     "identity": {
+      "method": "editorial",
+      "ok": true
+     },
+     "license": "CC BY-SA 3.0",
+     "ok": true,
+     "page": "https://commons.wikimedia.org/wiki/File:Pohang_International_Fireworks_Festival.jpg",
+     "provider": "editor",
+     "reasons": [],
+     "source_id": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Pohang_International_Fireworks_Festival.jpg",
+     "src": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Pohang_International_Fireworks_Festival.jpg",
+     "title": "포항국제불빛축제 — 영일대해수욕장 앞바다 위로 국제불꽃쇼의 불꽃이 터지는 야경 (Wikimedia Commons, 2016-07-30)."
+    }
+   ],
    "type": "festival_program"
   },
   {

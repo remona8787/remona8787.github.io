@@ -1,15 +1,21 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 0,
-  "examples": []
+  "count": 1,
+  "examples": [
+   {
+    "id": "img-6ae7fdc79296",
+    "project": "REG-KR-0008",
+    "title": "포항국제불빛축제 — 영일대해수욕장 앞바다 위로 국제불꽃쇼의 불꽃이 터지는 야경 (Wikimedia Commons, 2016-07-30)."
+   }
+  ]
  },
- "at": "2026-11-12T08:22:47.435Z",
+ "at": "2026-11-12T08:30:03.378Z",
  "cards": {
   "all": {
    "projects": 1008,
-   "rate_pct": 36.6,
-   "with_valid_card": 369
+   "rate_pct": 36.7,
+   "with_valid_card": 370
   },
   "by_kr_region": {
    "busan_ulsan_gyeongnam": {
@@ -19,8 +25,8 @@
    },
    "daegu_gyeongbuk": {
     "projects": 28,
-    "rate_pct": 3.6,
-    "with_valid_card": 1
+    "rate_pct": 7.1,
+    "with_valid_card": 2
    },
    "daejeon_sejong_chungcheong": {
     "projects": 36,
@@ -55,8 +61,8 @@
   },
   "korea": {
    "projects": 297,
-   "rate_pct": 7.1,
-   "with_valid_card": 21
+   "rate_pct": 7.4,
+   "with_valid_card": 22
   },
   "world": {
    "projects": 711,
@@ -222,17 +228,17 @@
    "valid_card": false
   },
   {
-   "card_kind": null,
-   "card_tier": null,
-   "card_title": null,
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "포항국제불빛축제 — 영일대해수욕장 앞바다 위로 국제불꽃쇼의 불꽃이 터지는 야경 (Wikimedia Commons, 2016-07-30).",
    "id": "REG-KR-0008",
-   "images": 0,
+   "images": 1,
    "kr": true,
    "kr_region": "daegu_gyeongbuk",
    "name": "포항국제불빛축제",
    "previous_images": 0,
    "status": "scored",
-   "valid_card": false
+   "valid_card": true
   },
   {
    "card_kind": null,
@@ -14682,13 +14688,13 @@
   "cards": {
    "all": {
     "projects": 1008,
-    "rate_pct": 36.6,
-    "with_valid_card": 369
+    "rate_pct": 36.7,
+    "with_valid_card": 370
    },
    "korea": {
     "projects": 297,
-    "rate_pct": 7.1,
-    "with_valid_card": 21
+    "rate_pct": 7.4,
+    "with_valid_card": 22
    },
    "world": {
     "projects": 711,
@@ -14698,17 +14704,17 @@
   },
   "duplicates_removed": 0,
   "duplicates_this_run": 13,
-  "images": 2734,
+  "images": 2735,
   "low_res_rejected": 83,
   "mislinked_rejected": 69,
   "mislinked_removed": 0,
-  "newly_added_valid": 0,
+  "newly_added_valid": 1,
   "person_rejected": 709,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2734,
   "rechecked_kept": 0,
-  "relevance_verified": 2734,
+  "relevance_verified": 2735,
   "removed_total": 0
  },
  "totals": {
@@ -14716,15 +14722,15 @@
    "architecture_context": 449,
    "event_documentation": 14,
    "project_installation": 44,
-   "project_media": 2221,
+   "project_media": 2222,
    "technical_documentation": 6
   },
   "by_provider": {
    "commons": 2731,
-   "editor": 3
+   "editor": 4
   },
   "by_role": {
-   "card": 189,
+   "card": 190,
    "context": 397,
    "featured": 191,
    "gallery": 1947,
@@ -14733,11 +14739,11 @@
   "by_tier": {
    "1": 62,
    "2": 397,
-   "3": 1778,
+   "3": 1779,
    "4": 46,
    "5": 451
   },
-  "images": 2734,
+  "images": 2735,
   "portraits": 3
  }
 }

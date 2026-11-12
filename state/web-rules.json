@@ -53,12 +53,12 @@
    "websub_self": null
   },
   "gdelt:GDELT fr · media facade": {
-   "backoff_until": "2026-11-12T05:23:56.533Z",
+   "backoff_until": "2026-11-12T16:30:42.543Z",
    "failed": true,
-   "failure_count": 3,
+   "failure_count": 4,
    "last_run_at": "2026-11-10T19:46:51.789Z",
    "last_status": "error",
-   "next_run_at": "2026-11-12T07:23:56.533Z",
+   "next_run_at": "2026-11-12T16:30:42.543Z",
    "not_modified": false,
    "retry_after_seconds": null,
    "skipped_reason": null,
@@ -66,12 +66,12 @@
    "websub_self": null
   },
   "gdelt:GDELT it · media facade": {
-   "backoff_until": null,
-   "failed": false,
-   "failure_count": 0,
+   "backoff_until": "2026-11-12T09:31:17.031Z",
+   "failed": true,
+   "failure_count": 1,
    "last_run_at": "2026-11-12T01:23:23.247Z",
-   "last_status": "success",
-   "next_run_at": "2026-11-12T07:24:10.887Z",
+   "last_status": "error",
+   "next_run_at": "2026-11-12T14:31:17.031Z",
    "not_modified": false,
    "retry_after_seconds": null,
    "skipped_reason": null,
