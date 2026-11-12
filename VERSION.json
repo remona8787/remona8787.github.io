@@ -1,8 +1,8 @@
 {
-  "version": "0.26.0",
-  "date": "2026-11-10",
+  "version": "1.0.0-rc.1",
+  "date": "2026-11-12",
   "primary_app": "site-public-cleared (deploy dist/)",
-  "backend_status": "sql_verified_locally; not applied to production",
+  "backend_status": "not used in production: SUPABASE_URL is empty, so accounts, sync, uploads and server reports are off; the public site is the static archive (guest mode)",
   "data_provenance": "uploaded v0.10; not reverified",
   "seed_count": 49,
   "launch_runbook": "release/launch/LAUNCH.md",
@@ -10,5 +10,6 @@
   "global_places_sync": "server cron 6h (sync-global-places → public_discovered_places) when the backend is connected, photo rights checks every 3h; browser 6h fallback",
   "public_site": "https://remona8787.github.io (GitHub Pages; deployed from the source branch by .github/workflows/archive.yml; service worker network-first since 0.19)",
   "static_archive": "docs/STATIC_ARCHIVE.md: GitHub Actions pipeline + sharded /data/*.json on GitHub Pages; live since 2026-10-20 (verify-live on every deploy)",
-  "media_facade_archive": "v0.16 tracks integrated (schema, collector, admin console, client); fixture- and PGlite-tested only, not applied to a Supabase project"
+  "media_facade_archive": "v0.16 tracks integrated (schema, collector, admin console, client); fixture- and PGlite-tested only, not applied to a Supabase project",
+  "release_candidate": "release/v1.0-rc1 branch; deploys to production only after the operator approves (release/launch/LAUNCH_V1.md)"
 }

@@ -8,7 +8,8 @@ const dir=__dirname+'/../site-public-cleared/';
 const app=fs.readFileSync(dir+'app.js','utf8'),shell=fs.readFileSync(dir+'index.html','utf8');
 // Strings that exist only for English readers (the Korean UI needs no such note).
 const EN_ONLY=new Set(['settings.koreanPages','my.koreanOnly']);
-// Labels written in the language they switch to (the top-bar toggle reads 「한국어로 보기」 in English mode, carrying lang="ko").
+// Labels written in the language they switch to (the top-bar toggle reads 「한국어로 보기」 in English mode, carrying lang="ko"),
+// and starting with the visible text (EN / KO) so that the accessible name contains the label (WCAG 2.5.3, 1.0.0-rc.1).
 const TARGET_LANG=new Set(['shell.langAria']);
 test('every key the app uses exists, in both languages, with the same placeholders',()=>{
  const used=new Set([...app.matchAll(/\bt\('([a-z][a-zA-Z0-9_.]*)'/g),...shell.matchAll(/data-i18n(?:-aria)?="([a-z][a-zA-Z0-9_.]*)"/g)].map(m=>m[1]).filter(k=>!k.endsWith('.')));
@@ -18,7 +19,7 @@ test('every key the app uses exists, in both languages, with the same placeholde
   const vars=v=>[...String(v).matchAll(/\{(\w+)\}/g)].map(m=>m[1]).sort().join();if(!EN_ONLY.has(k))assert.equal(vars(ko),vars(en),'placeholders differ: '+k);
   assert.ok(!/[가-힣]/.test(en)||TARGET_LANG.has(k),'Korean in the English text: '+k);
  }
- assert.equal(L.t('en','shell.langAria'),'한국어로 보기');assert.equal(L.t('ko','shell.langAria'),'Show in English');
+ assert.equal(L.t('en','shell.langAria'),'KO — 한국어로 보기');assert.equal(L.t('ko','shell.langAria'),'EN — Show in English');
  assert.equal(L.t('en','filter.show',{n:3}),'Show 3 results');assert.equal(L.t('ko','filter.show',{n:3}),'3개 결과 보기');assert.equal(L.t('en','nope.key'),'nope.key');
 });
 function boot(){

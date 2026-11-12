@@ -56,8 +56,10 @@ test('SITE_URL goes into config.js PUBLIC_URL, config.example.js, robots.txt, si
   assert.match(index, new RegExp(`<link rel="canonical" href="${SITE}/">`))
   assert.match(index, new RegExp(`<meta property="og:url" content="${SITE}/">`))
   assert.match(index, new RegExp(`<meta property="og:image" content="${SITE}/assets/og-image.png">`))
-  // The previous host is gone from every text file.
-  const old = new URL(config(await read('site-public-cleared/config.js')).PUBLIC_URL).host
+  // The source default is the public site itself (1.0.0-rc.1), and the earlier test host is gone from every built text
+  // file, so a build without SITE_URL can never publish canonical or og: URLs of a host that no longer serves the site.
+  assert.equal(config(await read('site-public-cleared/config.js')).PUBLIC_URL, SITE)
+  const old = 'light-architecture-jihyun.peppydegu2.chatgpt.site'
   for (const f of (await readdir(out, { recursive: true })).filter((f) => /\.(html|js|css|txt|xml|json|webmanifest|md)$/.test(f))) {
     assert.ok(!(await readFile(path.join(out, f), 'utf8')).includes(old), f)
   }
@@ -127,11 +129,25 @@ test('GitHub Pages: .nojekyll; 404.html works at any depth and sw.js at the site
 test('one version number: package.json, package-lock.json, VERSION.json, the shell label and the legal pages', async () => {
   const pkg = JSON.parse(await read('package.json')), lock = JSON.parse(await read('package-lock.json')), version = JSON.parse(await read('VERSION.json'))
   const v = pkg.version
-  assert.equal(v, '0.26.0')
+  assert.equal(v, '1.0.0-rc.1')
   assert.deepEqual([lock.version, lock.packages[''].version, version.version], [v, v, v])
   assert.ok((await read('site-public-cleared/index.html')).includes(`<span class="version" data-i18n="shell.version">빛의 건축 v${v}</span>`))
   for (const page of ['privacy.html', 'terms.html', 'support.html', 'delete-account.html']) assert.match(await read('site-public-cleared/' + page), new RegExp(`버전 ${v.replace(/\./g, '\\.')}\\b`), page)
   // The app reads the label; no other copy of the number.
   assert.doesNotMatch(await read('site-public-cleared/app.js'), /['"]0\.1\d\.\d['"]/)
   assert.match(await read('README.md'), new RegExp(`^# 최신 버전: v${v.replace(/\./g, '\\.')}$`, 'm'))
+})
+
+test('the operator and contact of config.js are written into the static pages, so they show without JavaScript', async () => {
+  const src = config(await read('site-public-cleared/config.js'))
+  for (const page of ['privacy.html', 'terms.html', 'support.html', 'delete-account.html', 'about.html']) {
+    const html = await readFile(path.join(out, page), 'utf8')
+    assert.doesNotMatch(html, /<span data-config="[A-Z_]+"><\/span>/, page + ': no empty placeholder left')
+    if (src.OPERATOR_NAME) assert.ok(html.includes(`<span data-config="OPERATOR_NAME">${src.OPERATOR_NAME}</span>`), page)
+    if (src.SUPPORT_EMAIL) assert.ok(html.includes(`<a href="mailto:${src.SUPPORT_EMAIL}">${src.SUPPORT_EMAIL}</a>`), page)
+  }
+  // The guest-mode policy names no server feature the public site does not run.
+  const privacy = await readFile(path.join(out, 'privacy.html'), 'utf8')
+  assert.doesNotMatch(privacy, /Supabase|60초 유효 링크|연구 데이터 회원\(선택/)
+  assert.match(privacy, /GitHub 이슈/)
 })

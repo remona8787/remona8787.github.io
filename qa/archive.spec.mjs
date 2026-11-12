@@ -14,7 +14,7 @@ const X=require('../site-public-cleared/catalog.js');
 const SUPABASE='https://aoltest.supabase.co',KEY='sb_publishable_test',VIEW=SUPABASE+'/rest/v1/public_archive_projects';
 const PNG=readFileSync(new URL('../site-public-cleared/assets/icon-512.png',import.meta.url));
 const cors={'access-control-allow-origin':'*','access-control-expose-headers':'Content-Range','content-type':'application/json'};
-const {projects}=fromArchiveRows(ARCHIVE_ROWS,{publicURL:'https://light-architecture-jihyun.peppydegu2.chatgpt.site'});
+const {projects}=fromArchiveRows(ARCHIVE_ROWS,{publicURL:'https://remona8787.github.io'});
 const listed=projects.filter(p=>!LINKED_TO_CURATED[p.archive_slug]);
 const H=3600e3;
 
@@ -280,7 +280,7 @@ test('archive detail: facts by group, sources, assessments, citation, similar pr
  // Citation with the record URL and today's access date; the copy button copies exactly that text.
  const cite=page.locator('#citationText');
  const today=await page.evaluate(()=>AOLCore.today());
- await expect(cite).toHaveText(`빛의 건축 아카이브, 「아르스 일렉트로니카 센터」, https://light-architecture-jihyun.peppydegu2.chatgpt.site/#place/AR-ars-electronica-center (${today} 접속).`);
+ await expect(cite).toHaveText(`빛의 건축 아카이브, 「아르스 일렉트로니카 센터」, https://remona8787.github.io/#place/AR-ars-electronica-center (${today} 접속).`);
  await page.getByRole('tab',{name:'자료·출처'}).click();
  await page.getByRole('button',{name:'인용문 복사'}).click();
  await expect(page.locator('#toast')).toContainText('인용문을 복사했어요');
@@ -352,7 +352,7 @@ test('research data page: statistics of the filtered set; CSV and JSON exports c
  expect([ars[col('project_type')],ars[col('project_type_label')],ars[col('region')],ars[col('country_iso2')],ars[col('coordinate_source')],ars[col('data_origin')],ars[col('review_status')]]).toEqual(['media_facade','미디어파사드','europe','AT','verified','editor_verified','researcher_assessed']);
  expect(ars[col('field_states')]).toContain('latitude=editor_verified');
  expect(ars[col('source_urls')]).toContain('https://ars.electronica.art/center/');
- expect(ars[col('record_url')]).toBe('https://light-architecture-jihyun.peppydegu2.chatgpt.site/#place/AR-ars-electronica-center');
+ expect(ars[col('record_url')]).toBe('https://remona8787.github.io/#place/AR-ars-electronica-center');
  const fete=rows.find(r=>r[0]==='AR-fete-des-lumieres');
  expect([fete[col('latitude')],fete[col('coordinate_source')]]).toEqual(['','']);
  // JSON: meta with the time, the filters, the dictionary, licence notes per source and the warning.
@@ -388,11 +388,11 @@ test('KO/EN: the top-bar switch and the settings choice change the interface, <h
  await page.goto('/#explore');await expect.poll(()=>status(page)).toBe('ok');
  const html=page.locator('html'),toggle=page.locator('#langToggle'),total=await curatedCount(page)+listed.length;
  await expect(html).toHaveAttribute('lang','ko');
- await expect(toggle).toHaveText('EN');await expect(toggle).toHaveAttribute('aria-label','Show in English');await expect(toggle).toHaveAttribute('lang','en');
+ await expect(toggle).toHaveText('EN');await expect(toggle).toHaveAttribute('aria-label','EN — Show in English');await expect(toggle).toHaveAttribute('lang','en');
  await toggle.click();
  await expect(html).toHaveAttribute('lang','en');
  // The switch names the other language, in that language.
- await expect(toggle).toHaveText('KO');await expect(toggle).toHaveAttribute('aria-label','한국어로 보기');await expect(toggle).toHaveAttribute('lang','ko');
+ await expect(toggle).toHaveText('KO');await expect(toggle).toHaveAttribute('aria-label','KO — 한국어로 보기');await expect(toggle).toHaveAttribute('lang','ko');
  // Explore: title, navigation, search, count, filters, the link to the data page; the results are unchanged.
  await expect(page.locator('#view h1')).toHaveText('Archive search');
  await expect(page).toHaveTitle('Archive search · Architecture of Light');

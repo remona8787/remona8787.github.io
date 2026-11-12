@@ -653,7 +653,7 @@ test.describe('place page (SEOUL006 regression)',()=>{
   const dlg=page.locator('#modal');
   await expect(dlg).toContainText('사진 신고');
   await expect(dlg.locator('input[name=reason]')).toHaveCount(6);
-  await expect(dlg).toContainText('편집팀이 검토한 뒤 반영해요');
+  await expect(dlg).toContainText('운영자가 검토한 뒤 반영해요');
   await dlg.getByText('인물 사진이 잘못 연결됨').click();
   await dlg.locator('textarea').fill('사람 사진이에요');
   const issue=new URL(await dlg.locator('#reportIssue').getAttribute('href'));
