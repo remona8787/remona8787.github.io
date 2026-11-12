@@ -105,7 +105,7 @@ function imgOnly(m,alt,o={}){const all=slotSizes(m,o),f=m.focal,base=o.base||500
 // Attribution on every photo: author and licence (and the provider, quietly), or (an index thumbnail whose record is
 // not loaded yet) one tap away.
 const PROVIDER_NAMES={commons:'Wikimedia Commons',openverse:'Openverse',flickr:'Flickr',tourapi:'한국관광공사',kto_photo:'한국관광공사',unsplash:'Unsplash',pexels:'Pexels',official:'',editor:''};
-function providerName(m){const k=m.image_provider||(/wikimedia\.org\//.test(m.source_url||m.display_url||'')?'commons':'');return k==='tourapi'||k==='kto_photo'?t('provider.kto'):PROVIDER_NAMES[k]||''}
+function providerName(m){const k=/^https:\/\/commons\.wikimedia\.org\//.test(m.source_url||'')?'commons':m.image_provider||(/wikimedia\.org\//.test(m.source_url||m.display_url||'')?'commons':'');return k==='tourapi'||k==='kto_photo'?t('provider.kto'):PROVIDER_NAMES[k]||''}
 function creditText(m){return m.credit_pending?t('photo.creditOpen'):`© ${m.creator||t('photo.unknownAuthor')} · ${m.license_code||''}`}
 // The credit as HTML: the licence code is one unbreakable unit, so "CC BY-SA 2.0" never splits at its hyphen.
 function lic(code){return `<span class="credit-lic">${E(code||'')}</span>`}
