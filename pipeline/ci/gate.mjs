@@ -8,19 +8,22 @@
 import { readFileSync, appendFileSync } from 'node:fs'
 import path from 'node:path'
 
-export function decide({ schedule = '', catchUp = '', lastRunAt = null, now = Date.now(), minHours = 6.5 }) {
-  if (!schedule || schedule !== catchUp) return { run: true, reason: schedule ? 'regular_schedule' : 'not_a_schedule' }
+// gated (v1.0.1): a run the keeper dispatched (keeper.yml) collects only when no collect ran in the last minHours, the
+// same rule as the catch-up, checked here under the archive concurrency lock so overlapping triggers collect once.
+export function decide({ schedule = '', catchUp = '', gated = false, lastRunAt = null, now = Date.now(), minHours = 6.5 }) {
+  if (!gated && (!schedule || schedule !== catchUp)) return { run: true, reason: schedule ? 'regular_schedule' : 'not_a_schedule' }
+  const kind = gated ? 'keeper' : 'catch_up'
   const t = Date.parse(lastRunAt || '')
-  if (!Number.isFinite(t)) return { run: true, reason: 'catch_up_no_previous_run' }
+  if (!Number.isFinite(t)) return { run: true, reason: `${kind}_no_previous_run` }
   const hours = (now - t) / 3600e3
-  return hours >= minHours ? { run: true, reason: `catch_up_last_run_${hours.toFixed(1)}h_ago` } : { run: false, reason: `catch_up_skipped_last_run_${hours.toFixed(1)}h_ago` }
+  return hours >= minHours ? { run: true, reason: `${kind}_last_run_${hours.toFixed(1)}h_ago` } : { run: false, reason: `${kind}_skipped_last_run_${hours.toFixed(1)}h_ago` }
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const arg = (k, d = '') => (process.argv.find((a) => a.startsWith(`--${k}=`)) || '').slice(k.length + 3) || d
   let lastRunAt = null
   try { lastRunAt = JSON.parse(readFileSync(path.join(arg('data', 'data'), 'state/runs.json'), 'utf8'))?.last_run?.at ?? null } catch {}
-  const d = decide({ schedule: arg('schedule'), catchUp: arg('catch-up'), lastRunAt, minHours: Number(arg('min-hours', '6.5')) })
+  const d = decide({ schedule: arg('schedule'), catchUp: arg('catch-up'), gated: arg('gated') === 'true', lastRunAt, minHours: Number(arg('min-hours', '6.5')) })
   console.log(`[gate] ${d.run ? 'run' : 'skip'}: ${d.reason} (last run ${lastRunAt || 'none'})`)
   if (process.env.GITHUB_OUTPUT) appendFileSync(process.env.GITHUB_OUTPUT, `run=${d.run}\nreason=${d.reason}\n`)
 }

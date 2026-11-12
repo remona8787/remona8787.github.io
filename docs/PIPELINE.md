@@ -45,6 +45,7 @@ sources, Korean first ─ South Korea's first-level divisions (live) · Korean c
 | Hourly catch-up: `47 * * * *` (v0.26.4) | collect → deploy → verify-live only when no collect ran in the last 6.5 hours (`pipeline/ci/gate.mjs`; GitHub skips or delays schedules, e.g. the 00:17 and 12:17 slots on 2026-11-11); otherwise the run ends after the gate |
 | Actions → **archive** → Run workflow | the same. Turn off "collect" to only build, deploy and verify; "budget_minutes" sets the collect budget. |
 | Push to `source` | deploy → verify-live. Collect runs too when the head commit message contains `[collect]`. |
+| Keeper (v1.0.1, `.github/workflows/keeper.yml`) | dispatches the run above with `gated=true` when no collect ran in the last 6 hours; the gate collects only if that still holds when the run starts. See "Keeper" below. |
 
 All jobs share the concurrency group `archive` (`cancel-in-progress: false`): one run at a time, never two pushers,
 and a running run is never cancelled; a run that arrives while another is going waits for it. The deploy job also has
@@ -56,6 +57,54 @@ pushed commit, so this copy is what starts a run on a push to `source`), and `.g
 (schedules and manual runs use the default branch). `tests/pipeline-workflow.test.mjs` fails when the two copies of
 the source tree differ; the deploy job warns when main's copy differs (a GITHUB_TOKEN push may not change workflow
 files: copy it by hand).
+
+### Keeper (v1.0.1)
+
+GitHub starts scheduled runs late or not at all: from 2026-11-11 19:47 to 11-12 06:20 UTC only one of about eleven
+`archive` schedule slots (six-hourly plus hourly catch-up) started. The keeper is a second path that does not wait for
+GitHub's scheduler. It is still GitHub Actions: if Actions itself is down or disabled for the repository, this path
+stops too (see "External trigger" below for a path from outside).
+
+- **Chain.** Each `keeper` run (a link, `pipeline/ci/keeper.mjs`) looks at `state/runs.json` `last_run.at` on `data`
+  (the gate's clock), and when that is 6 hours or more old, no `archive` run is queued, waiting or running, and the
+  keeper did not dispatch one in the last 2 hours, dispatches `archive.yml` on `main` with `collect=true`,
+  `gated=true`, `min_hours=6`. At the end of the link it dispatches the next link with the run's own `GITHUB_TOKEN`
+  (a `workflow_dispatch` made with it starts a run; other events do not).
+- **No duplicates.** The `archive` gate re-checks the time under the `archive` concurrency lock: when a schedule, a
+  push with `[collect]`, a manual run and the keeper land together, the first collects and the rest end after the
+  gate (`keeper_skipped_last_run_…`). The `keeper` group keeps one link running and at most one pending.
+- **No retry storm.** A collect that fails before it records itself is retried every 2 hours (`--retry-hours`), not
+  on every look. Failures after that point keep the previous dataset (section 3) and raise the alert issue.
+- **Restarts.** The chain needs no schedule, but a link can fail or be cancelled. The `keeper` schedule
+  (`29 */4 * * *`) and the `keeper` job of every non-keeper `archive` run start a link when none is queued, waiting
+  or running.
+- **Alerts.** One issue, `archive: collection needs attention`. The `archive` health job ("Alerts", section 9) opens it,
+  comments on it and closes it after each run that collects. When no collect ran for 13 hours the keeper opens the
+  same issue, or comments on it at most once a day while the stall lasts, so a stall shows even when no `archive` run
+  happens at all; the health job of the next run that collects closes it when all is well.
+- **Waiting.** Without further setup a link sleeps on its runner between looks for up to `budget_minutes` (300),
+  then chains: one runner is busy around the clock (free for a public repository, but it holds a machine for mostly
+  sleeping). With a **wait timer** on the `keeper-wait` environment GitHub holds each link that long without a runner
+  and the link looks once (about a minute) and chains: Settings → Environments → `keeper-wait` (it appears after the
+  first keeper run) → Wait timer → 60 → Save protection rules. Leave "Required reviewers" off, or every link waits
+  for an approval.
+- **Token.** Only the run's own `GITHUB_TOKEN`, with `actions: write` (dispatch), `issues: write` (alert issue),
+  `contents: read`. No repository secret, no personal token, no external service. A 401 or 403 stops the chain with an
+  error on the run page and is not worked around: check Settings → Actions → General → Workflow permissions, and that
+  keeper.yml's `permissions` were not narrowed.
+- **Files.** `keeper.yml` lives on `main` (dispatches and schedules read the default branch); its canonical copy is
+  `deploy/pages-repo/.github/workflows/keeper.yml` on `source` (`.github/workflows/keeper.yml` there too). The deploy
+  job warns when main's copy differs. `tests/pipeline-keeper.test.mjs` and `tests/pipeline-workflow.test.mjs` cover the
+  decisions, the duplicate rule, the alert issue and the workflow; whether the chain keeps running for days is only
+  shown by watching the Actions tab.
+
+**External trigger (optional, operator).** A path that survives a broken chain and GitHub's scheduler both: an
+outside scheduler that calls `POST https://api.github.com/repos/<owner>/<repo>/actions/workflows/keeper.yml/dispatches`
+with body `{"ref":"main"}` every few hours (a keeper link that finds a link already queued or running just joins the
+concurrency group). It needs a token stored at that service: a **fine-grained** personal access token for this one
+repository with only **Actions: Read and write** (no Contents, no other repository), an expiry date, and a calendar
+note to renew it. Check the service's free limits and how it stores secrets before you give it a token; never put the
+token in this repository. This is not set up.
 
 Every collect run writes a step summary on the run page (`$GITHUB_STEP_SUMMARY`): projects collected, eligible and
 published, Korean and foreign (and Korean with a region), changes, images by provider, hero images on the home page,
@@ -670,6 +719,24 @@ failed requests or internal vocabulary.
 
 The deploy job warns when `.github/workflows/archive.yml` on main, or the copy at the root of `source`, differs from
 `deploy/pages-repo/` on source. Workflow files must be copied to main by hand: a GITHUB_TOKEN push may not change them.
+
+### Alerts
+
+The `health` job of every `archive` run that collected (`pipeline/ci/health.mjs`) opens one issue,
+`archive: collection needs attention`, comments on it while problems last and closes it when all is fine. It reads
+`state/runs.json`, `state/failures.json`, `site-data/status.json`, `review/live/report.json` and the run's job results:
+
+| problem | from |
+|---|---|
+| collect, deploy or verify-live failed in this run | job results |
+| no collect for more than 14 hours | `last_run.at` (the keeper raises the same issue after 13 hours, also when no `archive` run happens) |
+| the run kept the previous dataset: invalid output (schema), a sharp drop (drop guard), incomplete enrichment | `last_check.outcome` |
+| the last live check was not ok | `review/live/report.json` |
+| a source's key or login was refused (HTTP 401/403, a data.go.kr key error) | `state/failures.json` `last_error`, at the first failure |
+| a source failed 4 runs in a row (about a day) | `state/failures.json` `consecutive_failures` |
+| the published data has not changed for 7 days (a note, not a failure) | `data_changed_at` |
+
+A source skipped for a missing key (TourAPI, Seoul open data) is not a failure; the run summary lists it as skipped.
 
 The verify-live job runs on a pinned image (`ubuntu-24.04`), not `ubuntu-latest`. Playwright installs Chromium only
 on the Ubuntu releases it supports. When `ubuntu-latest` became 26.04 (late October 2026), every run from #67 to #70

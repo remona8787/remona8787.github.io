@@ -69,3 +69,27 @@ test('home: data change and last collection check are two different times',async
  await expect(f.locator('time').first()).toHaveAttribute('datetime','2026-10-20T06:17:00Z');
  await expect(f.locator('.freshness-check time')).toHaveAttribute('datetime','2026-10-20T12:20:00Z');
 });
+
+// v1.0.1: the collection status says when collection is late or has stopped, from the last check's age, and never
+// shows a run as healthy without a status file.
+for(const [hoursAgo,label,warn] of [[2,'정상',false],[9,'수집 지연',true],[30,'수집 중단 의심',true]]){
+ test(`collection status: last check ${hoursAgo} h ago reads ${label}`,async({page})=>{
+  const at=new Date(Date.now()-hoursAgo*3600e3).toISOString();
+  const status={schema:1,last_check_at:at,data_changed_at:'2026-10-20T06:17:00Z',build_id:FIXTURE['manifest.json'].build_id,last_check:{outcome:'unchanged',status:'ok'}};
+  await serveDataset(page,{...FIXTURE,'home.json':{...FIXTURE['home.json'],status_file:'status.json'},'status.json':status});
+  await page.goto('/#home');
+  await expect(page.locator('.dataset-freshness').first()).toBeVisible();
+  await expect(page.locator('.dataset-freshness .freshness-warn')).toHaveCount(warn?1:0);
+  await page.goto('/#data');
+  await expect(page.locator('#collectionStatus .cs-state b')).toHaveText(label);
+  await expect(page.locator('#collectionStatus .cs-list')).toContainText(FIXTURE['manifest.json'].build_id);
+ });
+}
+test('collection status: a run that kept the previous data needs a check; no status file is never shown as on schedule',async({page})=>{
+ const status={schema:1,last_check_at:new Date(Date.now()-3600e3).toISOString(),data_changed_at:'2026-10-20T06:17:00Z',build_id:FIXTURE['manifest.json'].build_id,last_check:{outcome:'kept_previous_drop_guard',status:'ok'}};
+ await serveDataset(page,{...FIXTURE,'home.json':{...FIXTURE['home.json'],status_file:'status.json'},'status.json':status});
+ await page.goto('/#data');
+ await expect(page.locator('#collectionStatus .cs-state b')).toHaveText('이전 자료 유지 중 — 확인 필요');
+ await serveDataset(page,FIXTURE);await page.goto('/#home');await page.goto('/#data');await page.reload();
+ await expect(page.locator('#collectionStatus .cs-state b')).toHaveText('상태 확인 불가');
+});

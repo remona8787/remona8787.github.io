@@ -53,7 +53,10 @@ test('archive.yml: triggers, concurrency, permissions, environment', needYaml, (
   assert.deepEqual(wf.permissions, { contents: 'write', issues: 'write' })
   assert.equal(wf.env.NODE_VERSION, '22')
   assert.equal(wf.env.SITE_URL, 'https://remona8787.github.io')
-  assert.deepEqual(Object.keys(wf.jobs), ['collect', 'deploy', 'verify-live', 'health'])
+  assert.deepEqual(Object.keys(wf.jobs), ['collect', 'deploy', 'verify-live', 'health', 'keeper'])
+  assert.equal(wf.on.workflow_dispatch.inputs.gated.type, 'boolean')
+  assert.equal(wf.on.workflow_dispatch.inputs.gated.default, false, 'a manual run collects unless told otherwise')
+  assert.equal(wf.on.workflow_dispatch.inputs.min_hours.default, 6)
 })
 
 test('archive.yml (v0.26): the catch-up schedule is gated; the health job always runs and never writes data', needYaml, async () => {
@@ -61,7 +64,10 @@ test('archive.yml (v0.26): the catch-up schedule is gated; the health job always
   const steps = wf.jobs.collect.steps
   const gate = steps.find((s) => s.id === 'gate')
   assert.ok(gate, 'a gate step')
-  assert.ok(gate.run.includes("--catch-up='47 * * * *' --min-hours=6.5"), 'the gate knows the catch-up cron and its threshold')
+  assert.ok(gate.run.includes(`--catch-up='47 * * * *' --gated="$GATED" --min-hours="$MIN_HOURS"`), 'the gate knows the catch-up cron, the keeper flag and the threshold')
+  // Only a dispatch with gated=true is gated; every other event gets gated=false and the catch-up threshold 6.5.
+  assert.equal(gate.env.GATED, "${{ github.event_name == 'workflow_dispatch' && inputs.gated }}")
+  assert.equal(gate.env.MIN_HOURS, "${{ github.event_name == 'workflow_dispatch' && inputs.gated && inputs.min_hours || 6.5 }}")
   // A catch-up the gate skipped publishes and checks nothing: deploy (and so verify-live) wait for a collect that ran
   // or for no collect job at all (a push without [collect]: the output is empty, not 'false').
   assert.equal(wf.jobs.collect.outputs.ran, '${{ steps.gate.outputs.run }}')
@@ -86,6 +92,11 @@ test('archive.yml (v0.26): the catch-up schedule is gated; the health job always
   assert.equal(decide({ schedule: cu, catchUp: cu, lastRunAt: '2026-11-11T12:20:00Z', now: at('2026-11-11T12:47:00Z') }).run, false, 'the 12:17 run happened: the hourly catch-ups skip')
   assert.equal(decide({ schedule: cu, catchUp: cu, lastRunAt: null, now }).run, true)
   assert.equal(decide({ schedule: '', catchUp: cu, lastRunAt: '2026-11-11T02:46:00Z', now }).run, true, 'a push or a dispatch always runs')
+  // v1.0.1: a keeper dispatch (gated) collects only when the last collect is min-hours old, whatever triggered that one.
+  assert.deepEqual(decide({ gated: true, lastRunAt: '2026-11-10T21:00:00Z', now, minHours: 6 }), { run: false, reason: 'keeper_skipped_last_run_5.8h_ago' })
+  assert.deepEqual(decide({ gated: true, lastRunAt: '2026-11-10T20:30:00Z', now, minHours: 6 }), { run: true, reason: 'keeper_last_run_6.3h_ago' })
+  assert.deepEqual(decide({ gated: true, lastRunAt: null, now, minHours: 6 }), { run: true, reason: 'keeper_no_previous_run' })
+  assert.equal(decide({ schedule: '17 */6 * * *', catchUp: cu, gated: false, lastRunAt: '2026-11-11T02:46:00Z', now }).run, true, 'gated=false changes nothing')
   const { assess } = await import('../pipeline/ci/health.mjs')
   const fine = assess({ runs: { last_run: { at: '2026-11-11T00:30:00Z' }, last_good: { at: '2026-11-10T19:46:50Z' } }, status: { last_check: { outcome: 'unchanged' }, data_changed_at: '2026-11-10T19:46:50Z' }, live: { ok: true }, jobs: { collect: 'success', deploy: 'success', verify: 'success' }, now })
   assert.equal(fine.alert, false)
@@ -97,6 +108,17 @@ test('archive.yml (v0.26): the catch-up schedule is gated; the health job always
   const quiet = assess({ runs: { last_run: { at: '2026-11-11T00:30:00Z' } }, status: { last_check: { outcome: 'unchanged' }, data_changed_at: '2026-11-01T00:00:00Z' }, now })
   assert.equal(quiet.alert, true)
   assert.equal(quiet.problems.length, 0, 'unchanged data is a note, not a failure')
+  // v1.0.1: sources. A refused key at once; other failures after four runs in a row; a skipped source never.
+  const src = (sources) => assess({ runs: { last_run: { at: '2026-11-11T00:30:00Z' } }, status: { last_check: { outcome: 'unchanged' }, data_changed_at: '2026-11-10T19:46:50Z' }, failures: { sources }, now })
+  assert.equal(src({ tourapi: { consecutive_failures: 0, last_error: null, last_success: null } }).alert, false, 'skipped for a missing key: no alert')
+  const refused = src({ tourapi: { consecutive_failures: 1, last_error: 'SERVICE_KEY_IS_NOT_REGISTERED_ERROR', last_success: null } })
+  assert.equal(refused.alert, true)
+  assert.match(refused.problems[0], /^source tourapi: access refused .*Settings → Secrets and variables → Actions/)
+  assert.match(src({ wikidata: { consecutive_failures: 1, last_error: 'HTTP 403 from query.wikidata.org', last_success: '2026-11-10T19:46:50Z' } }).problems[0], /access refused/)
+  assert.equal(src({ overpass: { consecutive_failures: 3, last_error: 'timeout', last_success: '2026-11-10T07:00:00Z' } }).alert, false, 'three timeouts in a row: not yet')
+  assert.match(src({ overpass: { consecutive_failures: 4, last_error: 'timeout', last_success: '2026-11-10T07:00:00Z' } }).problems[0], /^source overpass: failed 4 runs in a row \(last success 2026-11-10T07:00:00Z\): timeout$/)
+  const { ISSUE_TITLE } = await import('../pipeline/ci/health.mjs')
+  assert.ok(text.includes(`title="${ISSUE_TITLE}"`), 'the health job and the keeper share one issue title')
 })
 
 test('archive.yml: collect → deploy → verify-live with the right conditions', needYaml, () => {
@@ -260,4 +282,36 @@ test('commit-push.sh: history over the limit is compacted into one snapshot comm
     assert.equal(await git(o.bare, 'log', '-1', '--format=%an|%s', 'data'), 'github-actions[bot]|Collect 4')
     assert.equal(await git(o.bare, 'rev-list', '--count', 'main'), '1', 'other branches untouched')
   } finally { await rm(o.dir, { recursive: true, force: true }) }
+})
+
+test('keeper.yml (v1.0.1): a dispatch chain with its own restart schedule; archive runs restart it; least privilege', needYaml, async () => {
+  const keeperFile = path.join(pages, '.github/workflows/keeper.yml')
+  const ktext = await readFile(keeperFile, 'utf8')
+  assert.equal(await readFile(path.join(root, '.github/workflows/keeper.yml'), 'utf8'), ktext, 'cp deploy/pages-repo/.github/workflows/keeper.yml .github/workflows/keeper.yml')
+  const k = YAML.parse(ktext)
+  assert.equal(k.name, 'keeper')
+  assert.deepEqual(Object.keys(k.on).sort(), ['schedule', 'workflow_dispatch'], 'no push or pull_request trigger')
+  assert.deepEqual(k.on.schedule, [{ cron: '29 */4 * * *' }], 'a restart schedule off the archive minutes')
+  assert.deepEqual(k.concurrency, { group: 'keeper', 'cancel-in-progress': false }, 'one link at a time, one pending')
+  assert.deepEqual(k.permissions, { actions: 'write', contents: 'read', issues: 'write' }, 'dispatch runs and open issues; never write code or data')
+  assert.deepEqual(Object.keys(k.jobs), ['keep'])
+  const keep = k.jobs.keep
+  assert.equal(keep.environment, 'keeper-wait', 'the operator can add a wait timer there')
+  assert.ok(keep['timeout-minutes'] <= 340 && keep['timeout-minutes'] > 300, 'the budget plus setup, under the six-hour job limit')
+  assert.ok(steps(keep).some((s) => /^actions\/checkout@/.test(s.uses || '') && s.with?.ref === 'source' && s.with?.['sparse-checkout'] === 'pipeline/ci'))
+  const step = steps(keep).find((s) => /keeper\.mjs/.test(s.run || ''))
+  assert.match(step.run, /^node pipeline\/ci\/keeper\.mjs --repo="\$\{\{ github\.repository \}\}" --hours="\$HOURS" --stall-hours=13 --retry-hours=2 --budget-minutes="\$BUDGET"$/)
+  assert.equal(step.env.GITHUB_TOKEN, '${{ github.token }}', 'the run\'s own token, nothing else')
+  assert.doesNotMatch(ktext, /secrets\./, 'no repository secret')
+  // archive.yml: every run but the keeper's own (gated) starts a keeper when none is active; its token may only dispatch.
+  const a = YAML.parse(text).jobs.keeper
+  assert.equal(a.if, "${{ !(github.event_name == 'workflow_dispatch' && inputs.gated) }}")
+  assert.deepEqual(a.permissions, { actions: 'write', contents: 'read' })
+  assert.match(runs(a), /actions\/workflows\/keeper\.yml\/runs/)
+  assert.match(runs(a), /gh workflow run keeper\.yml --repo "\$REPO" --ref main/)
+  for (const st of ['queued', 'in_progress', 'waiting', 'pending', 'requested']) assert.ok(runs(a).includes(`"${st}"`), st)
+  const tokens = Object.entries(YAML.parse(text).jobs).filter(([, j]) => JSON.stringify(j).includes('github.token')).map(([n]) => n)
+  assert.deepEqual(tokens, ['health', 'keeper'], 'only the health (issues) and keeper (dispatch) jobs hand their token to gh')
+  // The deploy job warns when main's keeper.yml drifts from the canonical copy.
+  assert.match(runs(YAML.parse(text).jobs.deploy), /cmp -s source\/deploy\/pages-repo\/\.github\/workflows\/keeper\.yml site\/\.github\/workflows\/keeper\.yml/)
 })

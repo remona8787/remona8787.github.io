@@ -1,0 +1,57 @@
+# The collect keeper (v1.0.1, docs/PIPELINE.md "Keeper"): a second path to the six-hourly collection that does not
+# wait for GitHub's scheduler, which starts scheduled runs late or skips them (2026-11-11 19:47 to 11-12 06:20 UTC: one
+# of about eleven schedule slots ran). Each run (pipeline/ci/keeper.mjs, from the source branch) looks at when the
+# collector last ran, dispatches archive.yml with gated=true when a collect is due (the archive gate checks again under
+# its concurrency lock, so a schedule, a push and the keeper that land together collect once), opens or comments on
+# the archive alert issue when no collect ran for 13 hours, and at its end starts the next run with the run's own GITHUB_TOKEN (a workflow_dispatch
+# made with it starts a new run). With a wait timer on the keeper-wait environment (Settings → Environments, an
+# operator setting) GitHub holds each run that long without a runner and the run looks once; without one the run
+# sleeps on its runner between looks for up to budget_minutes. Its own schedule below, and the keeper job of every
+# archive run, start a keeper when none is queued, waiting or running: the chain needs neither, but they restart it
+# after a cancelled or failed link. Still GitHub Actions: an outage of Actions itself stops this path too. No secret,
+# no external service. This file lives on main (the default branch, where dispatches and schedules read it);
+# deploy/pages-repo/.github/workflows/keeper.yml on source is its canonical copy.
+name: keeper
+
+on:
+  workflow_dispatch:
+    inputs:
+      budget_minutes:
+        description: Without a wait timer, how long this run looks on its runner before it starts the next one, in minutes
+        type: number
+        default: 300
+      hours:
+        description: Hours since the last collect after which a collect is due
+        type: number
+        default: 6
+  schedule:
+    - cron: '29 */4 * * *'
+
+concurrency:
+  group: keeper
+  cancel-in-progress: false
+
+permissions:
+  actions: write
+  contents: read
+  issues: write
+
+jobs:
+  keep:
+    runs-on: ubuntu-latest
+    environment: keeper-wait
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: source
+          sparse-checkout: pipeline/ci
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Keep the six-hourly collection running
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          BUDGET: ${{ inputs.budget_minutes || 300 }}
+          HOURS: ${{ inputs.hours || 6 }}
+        run: node pipeline/ci/keeper.mjs --repo="${{ github.repository }}" --hours="$HOURS" --stall-hours=13 --retry-hours=2 --budget-minutes="$BUDGET"

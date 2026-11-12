@@ -1125,6 +1125,18 @@ a.plate-credit:hover{text-decoration:underline;text-underline-offset:2px}
 .search-context{display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);flex-wrap:wrap;margin-top:var(--s-4);min-height:36px}
 .dataset-freshness{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:0;color:var(--text-muted);font-size:var(--fs-micro);line-height:var(--lh-micro)}
 .dataset-freshness .freshness-check{color:var(--text-muted)}
+/* Collection health (v1.0.1): a late or stopped collection is said in words, never only by colour. */
+.dataset-freshness .freshness-warn{color:var(--warning-ink);background:var(--warning-bg);border-radius:999px;padding:0 8px;text-decoration:none}
+.collection-status .cs-state{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;margin:0}
+.collection-status .cs-state b{border-radius:999px;padding:2px 10px;font-weight:600}
+.collection-status .cs-ok b{background:var(--success-bg);color:var(--success)}
+.collection-status .cs-late b,.collection-status .cs-stalled b,.collection-status .cs-kept b{background:var(--warning-bg);color:var(--warning-ink)}
+.collection-status .cs-unknown b{border:1px solid var(--line);color:var(--text-muted)}
+.collection-status .cs-state span{color:var(--text-muted)}
+.collection-status .cs-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px 16px;margin:12px 0 0}
+.collection-status .cs-list div{min-width:0}
+.collection-status .cs-list dt{color:var(--text-muted);font-size:var(--fs-micro)}
+.collection-status .cs-list dd{margin:0;overflow-wrap:anywhere}
 .dataset-freshness .freshness-check::before{content:'·';margin-right:6px}
 .dataset-freshness a{display:inline-flex;align-items:center;justify-content:center;min-width:28px;min-height:28px;color:var(--text-muted);border-radius:50%}
 .search-share{min-height:36px;padding:0 14px;font-size:var(--fs-micro);margin-left:auto}

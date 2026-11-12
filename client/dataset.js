@@ -172,6 +172,8 @@ function need() {
   try { [page = 'home', id = ''] = decodeURIComponent((location.hash.slice(1) || 'home').split('?')[0]).split('/') } catch {}
   if (page === 'calendar') ensureEvents()
   if (page === 'home' && home && homeStatusFile) ensureRunStatus()
+  // The data page shows the collection status (v1.0.1): the same file, asked for only when home.json names it.
+  if (page === 'data') (home ? Promise.resolve() : loadHome().then(() => publish(status))).then(() => { if (homeStatusFile) ensureRunStatus() }, () => {})
   if (page === 'home' && !home) loadHome().then(() => { publish(status); if (homeStatusFile) ensureRunStatus() }, () => {})
   else if (['explore', 'map', 'data', 'korea', 'programs', 'world'].includes(page)) ensureIndex()
   else if (page === 'place' && id) ensureRecord(id)

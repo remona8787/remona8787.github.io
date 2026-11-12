@@ -6,9 +6,14 @@
 import { readFileSync, writeFileSync, appendFileSync } from 'node:fs'
 import path from 'node:path'
 
-export const LIMITS = { last_run_hours: 14, last_publish_hours: 30, data_unchanged_days: 7 }
+export const LIMITS = { last_run_hours: 14, last_publish_hours: 30, data_unchanged_days: 7, source_failures: 4 }
+// The one alert issue: this job opens, comments on and closes it; the collect keeper (keeper.mjs) opens or comments on
+// it when no collect ran for its stall_hours, also when no archive run happens at all.
+export const ISSUE_TITLE = 'archive: collection needs attention'
+// A refused key or login in a source's last error (an HTTP 401/403, a data.go.kr gateway key error).
+const AUTH_RE = /\bHTTP (401|403)\b|\b(401|403) (unauthori[sz]ed|forbidden)|unauthori[sz]ed|SERVICE_KEY_IS_NOT_REGISTERED|SERVICE ?KEY|invalid[ _-]?(api[ _-]?)?key|API key/i
 
-export function assess({ runs = null, status = null, live = null, jobs = {}, now = Date.now(), limits = LIMITS }) {
+export function assess({ runs = null, status = null, live = null, failures = null, jobs = {}, now = Date.now(), limits = LIMITS }) {
   const problems = [], notes = []
   const age = (iso) => { const t = Date.parse(iso || ''); return Number.isFinite(t) ? (now - t) / 3600e3 : null }
   if (jobs.collect === 'failure') problems.push('collect: the job failed in this run (the previous dataset stays published)')
@@ -22,6 +27,16 @@ export function assess({ runs = null, status = null, live = null, jobs = {}, now
   const changed = age(status?.data_changed_at ?? runs?.last_good?.at)
   if (changed !== null && changed > limits.data_unchanged_days * 24) notes.push(`the published data has not changed for ${(changed / 24).toFixed(1)} days (runs found nothing new; check the sources)`)
   if (live && live.ok === false) problems.push('the last live check was not ok (review/live/report.json)')
+  // Sources (state/failures.json): a refused key or login at once; any other failure once it lasted source_failures
+  // runs in a row (about a day). A source skipped for a missing key is not a failure (docs/PIPELINE.md "Keys").
+  for (const [name, f] of Object.entries(failures?.sources || {})) {
+    const n = f?.consecutive_failures || 0
+    if (!n) continue
+    const since = f.last_success ? `last success ${f.last_success}` : 'no success recorded'
+    const err = String(f.last_error || '').replace(/\s+/g, ' ').slice(0, 160)
+    if (AUTH_RE.test(err)) problems.push(`source ${name}: access refused (${err}); check its key under Settings → Secrets and variables → Actions, ${since}`)
+    else if (n >= limits.source_failures) problems.push(`source ${name}: failed ${n} runs in a row (${since}): ${err || 'no message'}`)
+  }
   const alert = problems.length > 0 || notes.length > 0
   return { alert, problems, notes, last_run_hours: lastRun, data_changed_hours: changed }
 }
@@ -39,7 +54,7 @@ export function markdown(a, { runUrl = '' } = {}) {
 if (import.meta.url === `file://${process.argv[1]}`) {
   const arg = (k, d = '') => (process.argv.find((a) => a.startsWith(`--${k}=`)) || '').slice(k.length + 3) || d
   const read = (f) => { try { return JSON.parse(readFileSync(path.join(arg('data', 'data'), f), 'utf8')) } catch { return null } }
-  const a = assess({ runs: read('state/runs.json'), status: read('site-data/status.json'), live: read('review/live/report.json'), jobs: { collect: arg('collect'), deploy: arg('deploy'), verify: arg('verify') } })
+  const a = assess({ runs: read('state/runs.json'), status: read('site-data/status.json'), live: read('review/live/report.json'), failures: read('state/failures.json'), jobs: { collect: arg('collect'), deploy: arg('deploy'), verify: arg('verify') } })
   const md = markdown(a, { runUrl: arg('run-url') })
   console.log(md)
   writeFileSync(arg('body', 'health.md'), md)
