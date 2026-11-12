@@ -41,6 +41,14 @@ on:
         description: Time budget of the collect run, in minutes
         type: number
         default: 35
+      gated:
+        description: Collect only when no collect ran in the last min_hours (the keeper's runs, keeper.yml)
+        type: boolean
+        default: false
+      min_hours:
+        description: With gated, the hours since the last collect a run needs
+        type: number
+        default: 6
   push:
     branches: [source]
 
@@ -84,11 +92,13 @@ jobs:
           fetch-depth: 1
       - name: Switch to the data branch (created empty on the first run)
         run: bash source/pipeline/ci/use-branch.sh data data
-      - name: Gate (the hourly catch-up runs only when no collect ran in the last 6.5 hours)
+      - name: Gate (the hourly catch-up and the keeper's runs collect only when no collect ran recently)
         id: gate
         env:
           SCHEDULE: ${{ github.event.schedule }}
-        run: node source/pipeline/ci/gate.mjs --data=data --schedule="$SCHEDULE" --catch-up='47 * * * *' --min-hours=6.5
+          GATED: ${{ github.event_name == 'workflow_dispatch' && inputs.gated }}
+          MIN_HOURS: ${{ github.event_name == 'workflow_dispatch' && inputs.gated && inputs.min_hours || 6.5 }}
+        run: node source/pipeline/ci/gate.mjs --data=data --schedule="$SCHEDULE" --catch-up='47 * * * *' --gated="$GATED" --min-hours="$MIN_HOURS"
       - uses: actions/setup-node@v4
         if: steps.gate.outputs.run == 'true'
         with:
@@ -176,6 +186,9 @@ jobs:
           fi
           if ! cmp -s source/deploy/pages-repo/.github/workflows/archive.yml source/.github/workflows/archive.yml; then
             echo "::warning title=archive.yml of the source branch differs::.github/workflows/archive.yml on source must equal deploy/pages-repo/.github/workflows/archive.yml."
+          fi
+          if ! cmp -s source/deploy/pages-repo/.github/workflows/keeper.yml site/.github/workflows/keeper.yml; then
+            echo "::warning title=keeper.yml differs from its canonical copy::Copy deploy/pages-repo/.github/workflows/keeper.yml of the source branch to .github/workflows/keeper.yml on main."
           fi
       - name: Commit and push main
         if: steps.assemble.outputs.changed == 'true'
@@ -280,4 +293,30 @@ jobs:
             if [ -n "$open" ]; then gh issue comment "$open" --body-file health.md; else gh issue create --title "$title" --body-file health.md; fi
           elif [ -n "$open" ]; then
             gh issue close "$open" --comment "All checks are fine again: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          fi
+
+  # The collect keeper (keeper.yml, docs/PIPELINE.md "Keeper") is the second path to the six-hourly collection that does
+  # not wait for GitHub's scheduler. Every archive run that is not the keeper's own starts a keeper when none is queued
+  # or running, so the keeper's chain recovers from a cancelled or failed link.
+  keeper:
+    if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.gated) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - name: Start the keeper when none is queued or running
+        # A keeper that cannot be started is an error annotation on the run, not a failed collection.
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          active=$(gh api "repos/$REPO/actions/workflows/keeper.yml/runs?per_page=20" --jq '[.workflow_runs[] | select(.status == "queued" or .status == "in_progress" or .status == "waiting" or .status == "pending" or .status == "requested")] | length') || { echo "::warning::could not list keeper runs"; exit 0; }
+          if [ "$active" = "0" ]; then
+            gh workflow run keeper.yml --repo "$REPO" --ref main || { echo "::error title=keeper not started::Could not start keeper.yml on main (docs/PIPELINE.md \"Keeper\")."; exit 1; }
+            echo "started the keeper"
+          else
+            echo "a keeper run is already queued or running ($active)"
           fi
