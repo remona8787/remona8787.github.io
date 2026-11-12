@@ -102,6 +102,32 @@ const htmlPages=async(dir=out)=>(await readdir(dir,{recursive:true})).filter(f=>
  console.log('Operator details written into',n,'static placeholder(s)');
 }
 
+// Search engines (docs/SEARCH_ENGINES.md). The ownership tokens of Google Search Console, Naver Search Advisor and
+// Bing Webmaster Tools are public by design (they sit in the page head for anyone to read), so they live in config.js
+// (GOOGLE_SITE_VERIFICATION, NAVER_SITE_VERIFICATION, BING_SITE_VERIFICATION) or in the environment of the same name
+// (a GitHub Actions variable), never behind JavaScript: the build writes each set one as a <meta> into the head of
+// index.html, where the verifiers read the served HTML. index.html also gets the site's WebSite JSON-LD.
+{
+ const config=await readFile(path.join(out,'config.js'),'utf8');
+ const value=key=>((process.env[key]||'').trim()||(config.match(new RegExp(`^\\s*${key}:\\s*'([^'\\\\]*)'`,'m'))?.[1]||'').trim());
+ const tags=[['GOOGLE_SITE_VERIFICATION','google-site-verification'],['NAVER_SITE_VERIFICATION','naver-site-verification'],['BING_SITE_VERIFICATION','msvalidate.01']].flatMap(([key,name])=>{
+  const v=value(key);if(!v)return [];
+  if(!/^[A-Za-z0-9_\-=.]{6,128}$/.test(v))throw Error(`${key} is not a verification token (letters, digits, _ - = . only): ${v}`);
+  return [`<meta name="${name}" content="${v}">`];
+ });
+ const file=path.join(out,'index.html');let html=await readFile(file,'utf8');
+ const site=(/<link rel="canonical" href="(https:\/\/[^"]+)"/.exec(html)||[])[1];
+ const desc=(/<meta name="description" content="([^"]*)"/.exec(html)||[])[1];
+ if(!site||!desc)throw Error('index.html needs a canonical link and a meta description');
+ const unesc=t=>t.replace(/&quot;/g,'"').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
+ const ld={'@context':'https://schema.org','@type':'WebSite','@id':site+'#website',url:site,name:'빛의 건축',alternateName:'Architecture of Light',inLanguage:['ko','en'],description:unesc(desc)};
+ const json=JSON.stringify(ld).replace(/</g,'\\u003c').replace(/>/g,'\\u003e').replace(/&/g,'\\u0026');
+ if(html.includes('application/ld+json'))throw Error('index.html already has JSON-LD');
+ html=html.replace('</head>',tags.join('')+`<script type="application/ld+json">${json}</script></head>`);
+ await writeFile(file,html);
+ console.log('Search engine verification tags:',tags.length?tags.map(t=>/name="([^"]+)"/.exec(t)[1]).join(', '):'none set','· WebSite JSON-LD in index.html');
+}
+
 // Hosts without custom headers (GitHub Pages) still get the security policy: every page carries the _headers
 // Content-Security-Policy as a meta tag right after <meta charset>, without frame-ancestors (ignored in a meta
 // element; X-Frame-Options and frame-ancestors need real headers). tests/deploy.test.mjs keeps the two equal.
@@ -116,6 +142,8 @@ const htmlPages=async(dir=out)=>(await readdir(dir,{recursive:true})).filter(f=>
  for(const file of await htmlPages()){
   const html=await readFile(file,'utf8');
   if(/http-equiv="Content-Security-Policy"/i.test(html))throw Error(path.relative(out,file)+' already has a CSP meta tag');
+  // Ownership files of Google (google<hex>.html) and Naver (naver<hex>.html) are one line, served as they are.
+  if(/^(google[0-9a-f]{8,}|naver[0-9a-f]{8,})\.html$/.test(path.basename(file))&&!/<html/i.test(html))continue;
   const charset=html.match(/<meta charset="utf-8">/i);
   if(!charset)throw Error(path.relative(out,file)+' has no <meta charset="utf-8">');
   await writeFile(file,html.slice(0,charset.index+charset[0].length)+tag+html.slice(charset.index+charset[0].length));n++;

@@ -7,6 +7,10 @@ window.AOL_CONFIG = {
  SUPPORT_EMAIL: 'remona56@hanmail.net',
  OPERATOR_NAME: '김지현 (JIHYUN KIM)',
  PRIVACY_OFFICER: '김지현 (JIHYUN KIM)',
+ // 검색엔진 소유 확인 값(공개 값, docs/SEARCH_ENGINES.md). 빌드가 index.html <head>에 meta로 넣는다. 비워 두면 넣지 않음.
+ GOOGLE_SITE_VERIFICATION: '',
+ NAVER_SITE_VERIFICATION: '',
+ BING_SITE_VERIFICATION: '',
  MEDIA_MODE: 'hybrid',
  // 장소 사진·정보 6시간 자동 동기화(Wikidata/Commons). false로 끄기.
  MEDIA_LIVE_SYNC: true,

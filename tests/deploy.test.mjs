@@ -92,8 +92,9 @@ test('every built page carries the _headers Content-Security-Policy (minus frame
     assert.equal(metas[0][1], expected, f)
     assert.ok(html.includes(`<meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="${expected}">`), f + ': right after <meta charset>')
     assert.ok(html.indexOf('http-equiv="Content-Security-Policy"') < Math.min(...['<script', '<link', '<style'].map((t) => html.indexOf(t)).filter((i) => i >= 0)), f + ': before any resource')
-    // A meta policy cannot allow what the page needs inline: no inline scripts or handlers.
-    assert.doesNotMatch(html, /<script(?![^>]*\bsrc=)[^>]*>/i, f + ': inline script')
+    // A meta policy cannot allow what the page needs inline: no inline scripts or handlers. A JSON-LD data block
+    // (type="application/ld+json") is never executed and needs no script-src, so it is allowed.
+    assert.doesNotMatch(html, /<script(?![^>]*\bsrc=)(?![^>]*\btype="application\/ld\+json")[^>]*>/i, f + ': inline script')
     assert.doesNotMatch(html, /\son[a-z]+="/i, f + ': inline event handler')
   }
   // The other host configuration says the same.
@@ -129,7 +130,7 @@ test('GitHub Pages: .nojekyll; 404.html works at any depth and sw.js at the site
 test('one version number: package.json, package-lock.json, VERSION.json, the shell label and the legal pages', async () => {
   const pkg = JSON.parse(await read('package.json')), lock = JSON.parse(await read('package-lock.json')), version = JSON.parse(await read('VERSION.json'))
   const v = pkg.version
-  assert.equal(v, '1.0.0-rc.1')
+  assert.equal(v, '1.0.0')
   assert.deepEqual([lock.version, lock.packages[''].version, version.version], [v, v, v])
   assert.ok((await read('site-public-cleared/index.html')).includes(`<span class="version" data-i18n="shell.version">빛의 건축 v${v}</span>`))
   for (const page of ['privacy.html', 'terms.html', 'support.html', 'delete-account.html']) assert.match(await read('site-public-cleared/' + page), new RegExp(`버전 ${v.replace(/\./g, '\\.')}\\b`), page)
@@ -150,4 +151,22 @@ test('the operator and contact of config.js are written into the static pages, s
   const privacy = await readFile(path.join(out, 'privacy.html'), 'utf8')
   assert.doesNotMatch(privacy, /Supabase|60초 유효 링크|연구 데이터 회원\(선택/)
   assert.match(privacy, /GitHub 이슈/)
+})
+
+test('search engines: verification tokens become <meta> in the served index.html head; the home page carries WebSite JSON-LD', async () => {
+  const html = await readFile(path.join(out, 'index.html'), 'utf8')
+  const head = html.slice(0, html.indexOf('</head>'))
+  // config.js ships without tokens, so the default build writes none.
+  assert.doesNotMatch(head, /google-site-verification|naver-site-verification|msvalidate\.01/)
+  const ld = JSON.parse(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(head)[1])
+  assert.deepEqual([ld['@type'], ld.url, ld.name, ld.alternateName], ['WebSite', SITE + '/', '빛의 건축', 'Architecture of Light'])
+  assert.ok(ld.description.length > 20)
+  // The footer links the about page in plain HTML (the project list is added by the deploy's prerender with p/).
+  assert.match(html, /<nav class="footer-links"[^>]*>[\s\S]*?href="\.\/about\.html"/)
+  const set = await build({ SITE_URL: SITE, GOOGLE_SITE_VERIFICATION: 'abcDEF123_-xyz', NAVER_SITE_VERIFICATION: '0123456789abcdef0123456789abcdef01234567', BING_SITE_VERIFICATION: 'ABCDEF0123456789ABCDEF0123456789' })
+  const head2 = (await readFile(path.join(set, 'index.html'), 'utf8')).split('</head>')[0]
+  assert.ok(head2.includes('<meta name="google-site-verification" content="abcDEF123_-xyz">'))
+  assert.ok(head2.includes('<meta name="naver-site-verification" content="0123456789abcdef0123456789abcdef01234567">'))
+  assert.ok(head2.includes('<meta name="msvalidate.01" content="ABCDEF0123456789ABCDEF0123456789">'))
+  await assert.rejects(build({ SITE_URL: SITE, GOOGLE_SITE_VERIFICATION: '"><script>' }), /verification token/)
 })

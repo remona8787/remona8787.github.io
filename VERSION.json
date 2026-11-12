@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0",
   "date": "2026-11-12",
   "primary_app": "site-public-cleared (deploy dist/)",
   "backend_status": "not used in production: SUPABASE_URL is empty, so accounts, sync, uploads and server reports are off; the public site is the static archive (guest mode)",
@@ -11,5 +11,5 @@
   "public_site": "https://remona8787.github.io (GitHub Pages; deployed from the source branch by .github/workflows/archive.yml; service worker network-first since 0.19)",
   "static_archive": "docs/STATIC_ARCHIVE.md: GitHub Actions pipeline + sharded /data/*.json on GitHub Pages; live since 2026-10-20 (verify-live on every deploy)",
   "media_facade_archive": "v0.16 tracks integrated (schema, collector, admin console, client); fixture- and PGlite-tested only, not applied to a Supabase project",
-  "release_candidate": "release/v1.0-rc1 branch; deploys to production only after the operator approves (release/launch/LAUNCH_V1.md)"
+  "release": "v1.0 launched 2026-11-12 (PR #3 merged by the operator); search-engine verification tags via config.js (docs/SEARCH_ENGINES.md)"
 }

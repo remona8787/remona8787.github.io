@@ -1,4 +1,10 @@
-# 최신 버전: v1.0.0-rc.1
+# 최신 버전: v1.0.0
+
+- v1.0.0 (2026-11-12, 정식 출시 — 운영자가 PR #3으로 rc.1을 병합): 검색엔진 준비(docs/SEARCH_ENGINES.md). config.js의
+  GOOGLE_SITE_VERIFICATION·NAVER_SITE_VERIFICATION·BING_SITE_VERIFICATION 값을 빌드가 index.html <head>에 meta로
+  넣고(스크립트 없이 읽힘), google<hex>.html·naver<hex>.html 확인 파일은 그대로 배포합니다. 첫 화면에 WebSite JSON-LD,
+  바닥글에 서비스 소개와(배포 시) 프로젝트 목록 링크. 작가가 밝혀진 작품의 정적 페이지는 VisualArtwork(artform)로,
+  만든 이는 Wikidata 링크로 표시합니다.
 
 - v1.0.0-rc.1 (2026-11-12, 출시 후보 — 운영자 승인 전에는 배포하지 않음): 법적 고지를 실제 운영 방식(회원가입 없는
   공개 정적 아카이브, Supabase 미연결)에 맞게 다시 썼습니다. 개인정보 처리방침에서 운영하지 않는 계정·동기화·사진

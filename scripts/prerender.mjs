@@ -63,10 +63,14 @@ function groupOf(p) {
 }
 /** The description: the record's own summary, else a plain statement of what the record holds (never invented facts). @param {any} p @param {number} photos */
 function description(p, photos) {
-  const own = p.summary_ko || p.summary_en
-  if (own) return clip(own, 160)
+  const own = (p.summary_ko || p.summary_en || '').trim(), name = p.name_ko || p.name_en || p.name_original || ''
+  // Distinct works can share a Wikidata description ("public artwork by … in Rotterdam"): the name leads unless the
+  // summary already says it, so no two project pages carry the same description.
+  if (own.length >= 40) return clip(!name || own.includes(name) ? own : `${name}: ${own}`, 160)
+  // A summary shorter than a sentence (a bare Wikidata label such as "skyspace") leads a composed one.
   const what = [typeLabel(p) || '빛의 건축 프로젝트', yearOf(p) ? yearOf(p) + '년' : ''].filter(Boolean).join(' · ')
-  return clip(`${placeLine(p)}의 ${what}. ${photos ? '저작자와 라이선스를 밝힌 사진, ' : ''}위치와 출처를 빛의 건축 아카이브에 기록했어요.`, 160)
+  const lead = own && name && !own.includes(name) ? `${name}: ${own}` : own || name
+  return clip(`${lead ? lead + ' — ' : ''}${placeLine(p)}의 ${what}. ${photos ? '저작자와 라이선스를 밝힌 사진, ' : ''}위치와 출처를 빛의 건축 아카이브에 기록했어요.`, 160)
 }
 /** A rendition near the wanted width (the smallest at least that wide, else the largest). @param {any} m @param {number} want */
 function near(m, want) {
@@ -141,14 +145,18 @@ function projectPage(p, media, related, site, names = new Map()) {
   const status = p.event_status_source ? L(p.event_status === 'running' ? 'state.ongoing' : p.event_status === 'upcoming' ? 'state.upcoming' : p.event_status === 'seasonal' ? 'visit.seasonal' : 'visit.ended') : p.operating_status && p.operating_status !== 'unknown' ? T.label('operating_status', p.operating_status, 'ko') : ''
   const years = [['year_installed', 'dp.y.installed'], ['year_completed', 'dp.y.completed'], ['year_operating_since', 'dp.y.since'], ['year_ended', 'dp.y.ended']].filter(([k]) => p[k]).map(([k, l]) => L(l, { y: p[k] })).join(' · ')
   const x = (/** @type {any} */ v) => v ? E(v) : ''
+  const artwork = p.kind !== 'festival' && credits.some((/** @type {any} */ c) => c.role === 'media_artist')
   const ld = {
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': 'CreativeWork', '@id': url + '#project', url, name, inLanguage: 'ko',
+        // A work with a credited media artist is a VisualArtwork (artform: its type); festivals, venues and anything
+        // without a named artist stay CreativeWork. A creator is a Person or an Organization, which the dataset does
+        // not say, so it carries no @type: its name and, when known, its Wikidata item.
+        '@type': artwork ? 'VisualArtwork' : 'CreativeWork', '@id': url + '#project', url, name, inLanguage: 'ko',
         ...(others.length ? { alternateName: others } : {}), description: desc,
-        ...(type ? { genre: type } : {}), ...(year ? { dateCreated: String(year) } : {}),
-        ...(credits.length ? { creator: credits.slice(0, 8).map((/** @type {any} */ c) => ({ '@type': 'Thing', name: c.name })) } : {}),
+        ...(type ? (artwork ? { artform: type } : { genre: type }) : {}), ...(year ? { dateCreated: String(year) } : {}),
+        ...(credits.length ? { creator: credits.slice(0, 8).map((/** @type {any} */ c) => ({ name: c.name, ...(/^Q\d+$/.test(c.wikidata_qid || '') ? { sameAs: 'https://www.wikidata.org/wiki/' + c.wikidata_qid } : {}) })) } : {}),
         contentLocation: {
           '@type': 'Place', '@id': url + '#place', name: p.building_name || line || name,
           address: { '@type': 'PostalAddress', addressCountry: p.country_iso2 || undefined, addressLocality: cityOf(p) || undefined, streetAddress: p.address || undefined },
@@ -283,7 +291,14 @@ export function sitemapWith(existing, entries) {
 
 export const MARKER = '<meta name="aol-static-pages" content="p/">'
 /** index.html with the marker that lets the app link to p/<id>/. @param {string} html */
-export const withMarker = html => html.includes(MARKER) ? html : html.replace('</head>', MARKER + '</head>')
+// With the pages deployed, the shell's footer also links the project list in plain HTML, so a crawler that does not
+// run the app reaches every project page from the home page (the app's own links are #fragments).
+export const LIST_LINK = '<a href="./p/" data-i18n="footer.projects">프로젝트 목록</a>'
+export const withMarker = html => {
+  let out = html.includes(MARKER) ? html : html.replace('</head>', MARKER + '</head>')
+  if (!out.includes(LIST_LINK)) out = out.replace(/(<nav class="footer-links"[^>]*>)/, '$1' + LIST_LINK)
+  return out
+}
 
 const SHARD = /^projects\/[A-Za-z0-9_-]{1,40}\.json$/
 const str = (/** @type {any} */ v) => v == null ? '' : typeof v === 'string' ? v : new TextDecoder().decode(v)

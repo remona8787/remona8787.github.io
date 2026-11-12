@@ -10,7 +10,7 @@ const S={
  'shell.search':['장소 검색','Search places'],'shell.searchText':['장소, 도시, 작가 검색','Search places, cities, artists'],'shell.my':['마이 아카이브','My archive'],'shell.support':['지원','Support'],'shell.footerNav':['안내','About'],'shell.version':['빛의 건축 v{v}','Architecture of Light v{v}'],
  'shell.langShort':['EN','KO'],'shell.langAria':['EN — Show in English','KO — 한국어로 보기'],
  'nav.home':['홈','Home'],'nav.explore':['아카이브 검색','Archive search'],'nav.map':['지도','Map'],'nav.saved':['내 컬렉션','My collection'],'nav.my':['마이','My'],'nav.data':['연구 데이터','Research data'],'nav.settings':['설정 · 데이터','Settings and data'],
- 'footer.data':['연구 데이터','Research data'],'footer.settings':['데이터 안내','About the data'],
+ 'footer.data':['연구 데이터','Research data'],'footer.projects':['프로젝트 목록','All projects'],'footer.about':['서비스 소개','About'],'footer.settings':['데이터 안내','About the data'],
  'footer.note':["세계의 빛 건축과 미디어아트 아카이브. 사진별 저작자·라이선스와 자료 출처를 제공합니다.", "An archive of light architecture and media art worldwide, with photo credits, licences and sources."],
  'title.place':['장소 정보','Place'],'title.route':['답사 코스','Course'],'title.routes':['나의 답사 코스','My courses'],'title.curation':['에디토리얼 코스','Editorial course'],'title.calendar':['일정','Calendar'],'title.journal':['현장 기록','Field notes'],'title.account':['계정','Account'],'title.settings':['설정','Settings'],'title.magazine':['빛의 건축 읽기','Reading'],'title.article':['빛의 건축 읽기','Reading'],'title.data':['연구 데이터','Research data'],
  'scope.label':['보기 범위','Scope'],'scope.all':['전체','All'],'scope.seoul':['서울 큐레이션','Seoul, curated'],'scope.korea':['전국','Korea'],'scope.world':['세계','World'],
