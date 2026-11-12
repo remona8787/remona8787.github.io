@@ -1,12 +1,12 @@
 {
- "at": "2026-11-12T14:40:27.052Z",
+ "at": "2026-11-12T19:57:43.697Z",
  "errors": [
   {
-   "http_status": null,
-   "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
-   "rule": "gdelt:GDELT ko · media facade",
+   "http_status": 404,
+   "message": "HTTP 404",
+   "rule": "rss:Designboom Korea",
    "stage": "web_fetch",
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Akorean&mode=ArtList&format=json&maxrecords=250&timespan=45h&sort=DateDesc"
+   "url": "https://www.designboom.com/tag/korea/feed/"
   }
  ],
  "rules": [
@@ -16,14 +16,14 @@
     "invalid": 0,
     "prefilter": 0
    },
-   "errors": 1,
+   "errors": 0,
    "fetched": 0,
    "kept": 0,
-   "key": "gdelt:GDELT ko · media facade",
+   "key": "gdelt:GDELT nl · media facade",
    "kind": "gdelt",
    "not_modified": false,
    "reason": null,
-   "status": "error"
+   "status": "success"
   },
   {
    "dropped": {
@@ -34,7 +34,7 @@
    "errors": 0,
    "fetched": 0,
    "kept": 0,
-   "key": "gdelt:GDELT ja · media facade",
+   "key": "gdelt:GDELT pl · media facade",
    "kind": "gdelt",
    "not_modified": false,
    "reason": null,
@@ -47,85 +47,49 @@
    "until": "2026-11-13T07:09:17.463Z"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 10
-   },
-   "errors": 0,
-   "fetched": 10,
-   "kept": 0,
    "key": "rss:designboom",
-   "kind": "rss",
-   "not_modified": false,
-   "reason": null,
-   "status": "success"
+   "next_run_at": "2026-11-12T20:41:46.169Z",
+   "reason": "not_due",
+   "status": "skipped"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 24
-   },
-   "errors": 0,
-   "fetched": 24,
-   "kept": 0,
    "key": "rss:ArchDaily",
-   "kind": "rss",
-   "not_modified": false,
-   "reason": null,
-   "status": "success"
+   "next_run_at": "2026-11-12T20:41:46.397Z",
+   "reason": "not_due",
+   "status": "skipped"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 30
-   },
-   "errors": 0,
-   "fetched": 30,
-   "kept": 0,
    "key": "rss:Archinect",
-   "kind": "rss",
-   "not_modified": false,
-   "reason": null,
-   "status": "success"
+   "next_run_at": "2026-11-12T20:41:46.789Z",
+   "reason": "not_due",
+   "status": "skipped"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 1
-   },
-   "errors": 0,
-   "fetched": 1,
-   "kept": 0,
    "key": "rss:Creative Applications Network",
-   "kind": "rss",
-   "not_modified": false,
-   "reason": null,
-   "status": "success"
+   "next_run_at": "2026-11-12T20:41:47.042Z",
+   "reason": "not_due",
+   "status": "skipped"
+  },
+  {
+   "key": "rss:Media Architecture Institute",
+   "next_run_at": "2026-11-12T20:41:48.183Z",
+   "reason": "not_due",
+   "status": "skipped"
   },
   {
    "dropped": {
     "duplicate_url": 0,
     "invalid": 0,
-    "prefilter": 3
+    "prefilter": 0
    },
-   "errors": 0,
-   "fetched": 10,
-   "kept": 7,
-   "key": "rss:Media Architecture Institute",
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
+   "key": "rss:Designboom Korea",
    "kind": "rss",
    "not_modified": false,
    "reason": null,
-   "status": "success"
-  },
-  {
-   "key": "rss:Designboom Korea",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-11-12T19:53:26.359Z"
+   "status": "error"
   },
   {
    "key": "gdelt:GDELT ar · media facade",
@@ -158,12 +122,12 @@
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT nl · media facade",
+   "key": "gdelt:GDELT ja · media facade",
    "reason": "rotation",
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT pl · media facade",
+   "key": "gdelt:GDELT ko · media facade",
    "reason": "rotation",
    "status": "skipped"
   },
