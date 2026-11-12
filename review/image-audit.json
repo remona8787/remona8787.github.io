@@ -1,51 +1,10 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 8,
-  "examples": [
-   {
-    "id": "img-f7f53516a37b",
-    "project": "REG-KR-0231",
-    "title": "SpaceWalk (walkable sculpture, Pohang 2021) Mutter Genth 01"
-   },
-   {
-    "id": "img-1ec77d9b1953",
-    "project": "REG-KR-0231",
-    "title": "포항 스페이스워크 이름 표시"
-   },
-   {
-    "id": "img-2caafae80407",
-    "project": "REG-KR-0231",
-    "title": "SpaceWalk (walkable sculpture, Pohang 2021) Mutter Genth 02"
-   },
-   {
-    "id": "img-d3f835b8f5fb",
-    "project": "REG-KR-0231",
-    "title": "SpaceWalk (walkable sculpture, Pohang 2021) Mutter Genth 03"
-   },
-   {
-    "id": "img-8b14a668b59b",
-    "project": "REG-KR-0231",
-    "title": "포항 스페이스워크 및 환호공원 입구 표시석"
-   },
-   {
-    "id": "img-86615aab6135",
-    "project": "REG-KR-0231",
-    "title": "포항 스페이스워크를 옆에서 올려다 본 모습"
-   },
-   {
-    "id": "img-403c3c93712a",
-    "project": "REG-KR-0231",
-    "title": "포항 스페이스워크를 저녁에 아래에서 올려다 본 모습"
-   },
-   {
-    "id": "img-9c53b6faea0b",
-    "project": "REG-KR-0231",
-    "title": "포항 스페이스워크를 흐린 날 아래에서 올려다 본 모습"
-   }
-  ]
+  "count": 0,
+  "examples": []
  },
- "at": "2026-11-12T02:04:37.304Z",
+ "at": "2026-11-12T02:27:31.911Z",
  "cards": {
   "all": {
    "projects": 1008,
@@ -3144,7 +3103,7 @@
    "kr": true,
    "kr_region": "daegu_gyeongbuk",
    "name": "스페이스워크",
-   "previous_images": 0,
+   "previous_images": 8,
    "status": "scored",
    "valid_card": true
   },
@@ -3877,9 +3836,9 @@
    "valid_card": true
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
-   "card_title": "Korea Sevit Island 15 (15540663165)",
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Before Sunset (109036763)",
    "id": "SEOUL044",
    "images": 12,
    "kr": true,
@@ -13212,7 +13171,7 @@
   }
  ],
  "rejected": {
-  "identity": 4173,
+  "identity": 4175,
   "low_res": 83,
   "mislinked": 69,
   "person": 709,
@@ -14146,22 +14105,6 @@
     ]
    },
    {
-    "key": "img-38c826b531bf",
-    "project": "REG-KR-0231",
-    "reasons": [
-     "identity_unproven",
-     "subject:person:friends"
-    ]
-   },
-   {
-    "key": "img-0d7138bca6cc",
-    "project": "REG-KR-0231",
-    "reasons": [
-     "identity_unproven",
-     "subject:person:people"
-    ]
-   },
-   {
     "key": "img-84c90d399585",
     "project": "REG-KR-0086",
     "reasons": [
@@ -14384,6 +14327,22 @@
     "project": "REG-KR-0049",
     "reasons": [
      "subject:people_or_event:ceremonies"
+    ]
+   },
+   {
+    "key": "img-38c826b531bf",
+    "project": "REG-KR-0231",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:friends"
+    ]
+   },
+   {
+    "key": "img-0d7138bca6cc",
+    "project": "REG-KR-0231",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:people"
     ]
    },
    {
@@ -14743,21 +14702,21 @@
   "low_res_rejected": 83,
   "mislinked_rejected": 69,
   "mislinked_removed": 0,
-  "newly_added_valid": 8,
+  "newly_added_valid": 0,
   "person_rejected": 709,
   "person_removed": 0,
   "portraits": 3,
-  "previous_images": 2726,
+  "previous_images": 2734,
   "rechecked_kept": 0,
   "relevance_verified": 2734,
   "removed_total": 0
  },
  "totals": {
   "by_kind": {
-   "architecture_context": 450,
+   "architecture_context": 449,
    "event_documentation": 14,
    "project_installation": 44,
-   "project_media": 2220,
+   "project_media": 2221,
    "technical_documentation": 6
   },
   "by_provider": {
@@ -14774,9 +14733,9 @@
   "by_tier": {
    "1": 62,
    "2": 397,
-   "3": 1777,
+   "3": 1778,
    "4": 46,
-   "5": 452
+   "5": 451
   },
   "images": 2734,
   "portraits": 3

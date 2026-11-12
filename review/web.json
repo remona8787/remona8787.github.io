@@ -1,51 +1,18 @@
 {
- "at": "2026-11-12T02:04:37.304Z",
- "errors": [
-  {
-   "http_status": 429,
-   "message": "HTTP 429",
-   "rule": "gdelt:GDELT pt · media facade",
-   "stage": "web_fetch",
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aportuguese&mode=ArtList&format=json&maxrecords=250&timespan=9h&sort=DateDesc"
-  },
-  {
-   "http_status": 429,
-   "message": "HTTP 429",
-   "rule": "gdelt:GDELT ru · media facade",
-   "stage": "web_fetch",
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Arussian&mode=ArtList&format=json&maxrecords=250&timespan=16h&sort=DateDesc"
-  }
- ],
+ "at": "2026-11-12T02:27:31.911Z",
+ "errors": [],
  "rules": [
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 0
-   },
-   "errors": 1,
-   "fetched": 0,
-   "kept": 0,
-   "key": "gdelt:GDELT pt · media facade",
-   "kind": "gdelt",
-   "not_modified": false,
-   "reason": null,
-   "status": "error"
+   "key": "gdelt:GDELT zh · media facade",
+   "next_run_at": "2026-11-12T05:23:54.411Z",
+   "reason": "not_due",
+   "status": "skipped"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 0
-   },
-   "errors": 1,
-   "fetched": 0,
-   "kept": 0,
-   "key": "gdelt:GDELT ru · media facade",
-   "kind": "gdelt",
-   "not_modified": false,
-   "reason": null,
-   "status": "error"
+   "key": "gdelt:GDELT tr · media facade",
+   "next_run_at": "2026-11-12T05:24:27.150Z",
+   "reason": "not_due",
+   "status": "skipped"
   },
   {
    "key": "rss:Dezeen",
@@ -140,12 +107,12 @@
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT tr · media facade",
+   "key": "gdelt:GDELT pt · media facade",
    "reason": "rotation",
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT zh · media facade",
+   "key": "gdelt:GDELT ru · media facade",
    "reason": "rotation",
    "status": "skipped"
   }
