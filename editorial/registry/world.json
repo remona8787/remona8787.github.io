@@ -2736,6 +2736,468 @@
      "checked_at": "2026-11-12"
     }
    ]
+  },
+  {
+   "id": "REG-CO-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "메데인 크리스마스 빛 장식 (알룸브라도스)",
+   "name_en": "Medellín Christmas Lights (Alumbrados)",
+   "name_original": "Alumbrados navideños de Medellín",
+   "name_original_lang": "es",
+   "country_iso2": "CO",
+   "city": "Medellín",
+   "city_ko": "메데인",
+   "timezone": "America/Bogota",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.medellin.gov.co/es/sala-de-prensa/noticias/los-alumbrados-navidenos-de-medellin-con-su-magia-despiertan-los-deseos-del-corazon/",
+     "kind": "public_agency",
+     "publisher": "Alcaldía de Medellín",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Los alumbrados navideños de Medellín, con su magia, despiertan los deseos del corazón"
+    },
+    {
+     "url": "https://www.medellin.gov.co/es/sala-de-prensa/noticias/alumbrado-navideno-de-medellin-estara-inspirado-en-la-magia-de-encanto-de-walt-disney-animation-studios/",
+     "kind": "public_agency",
+     "publisher": "Alcaldía de Medellín",
+     "checked_at": "2026-11-12",
+     "method": "web_search"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_en": "Christmas light installations that the public utility EPM designs, builds and runs each year for Medellín, centred on a walkable route along the Medellín River and spread across the city.",
+   "summary_ko": "공기업 EPM이 매년 메데인시를 위해 직접 디자인·제작·운영하는 크리스마스 빛 설치로, 메데인강을 따라 걷는 경로를 중심으로 도시 곳곳에 펼쳐진다."
+  },
+  {
+   "id": "REG-NZ-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "웰링턴 럭스 빛 축제",
+   "name_en": "Wellington LUX Light Festival",
+   "name_original": "LUX Light Festival",
+   "name_original_lang": "en",
+   "country_iso2": "NZ",
+   "city": "Wellington",
+   "city_ko": "웰링턴",
+   "timezone": "Pacific/Auckland",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://wellington.govt.nz/~/media/your-council/meetings/committees/wellington-regional-amenities-fund-joint-committee/2016/02/2016-february-05---agenda-and-papers-for-extraordinary-wraf-joint-committee.pdf",
+     "kind": "public_agency",
+     "publisher": "Wellington City Council (Wellington Regional Amenities Fund Joint Committee)",
+     "checked_at": "2026-11-12",
+     "method": "web_search"
+    },
+    {
+     "url": "https://bestawards.co.nz/public-good-award/public-good-award/wellington-lux-festival-trust/lux-light-festival",
+     "kind": "specialist_media",
+     "publisher": "The Designers Institute of New Zealand (Best Awards)",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Wellington LUX Festival Trust – LUX Light Festival"
+    }
+   ],
+   "admission": "free",
+   "summary_en": "Free public festival of light art on Wellington's waterfront and in its laneways, run by the Wellington LUX Festival Trust with Wellington City Council and Massey University's College of Creative Arts as partners.",
+   "summary_ko": "웰링턴 럭스 페스티벌 트러스트가 웰링턴 시의회·매시대학교 창작예술대학과 함께 여는 무료 빛 예술 축제로, 웰링턴 해안가와 골목에서 열린다."
+  },
+  {
+   "id": "REG-HK-0001",
+   "kind": "program",
+   "project_type": "projection_mapping",
+   "name_ko": "홍콩 펄스 3D 라이트 쇼",
+   "name_en": "Hong Kong Pulse 3D Light Show",
+   "name_original": "Hong Kong Pulse 3D Light Show",
+   "name_original_lang": "en",
+   "country_iso2": "HK",
+   "city": "Hong Kong",
+   "city_ko": "홍콩",
+   "timezone": "Asia/Hong_Kong",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.globenewswire.com/news-release/2016/08/08/1237999/0/en/hong-kong-pulse-3d-light-show-presents-the-ultimate-summer-bash.html",
+     "kind": "official",
+     "publisher": "Hong Kong Tourism Board (press release)",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Hong Kong Pulse 3D Light Show Presents the Ultimate Summer Bash"
+    },
+    {
+     "url": "https://www.globenewswire.com/news-release/2017/08/11/1239190/0/en/The-Brand-New-Hong-Kong-Pulse-Light-Show.html",
+     "kind": "official",
+     "publisher": "Hong Kong Tourism Board (press release)",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "The Brand New Hong Kong Pulse Light Show"
+    }
+   ],
+   "admission": "free",
+   "summary_en": "Free seasonal 3D projection-mapping show by the Hong Kong Tourism Board on the façade of the Hong Kong Cultural Centre and the Clock Tower in Tsim Sha Tsui, staged in several editions from 2014.",
+   "summary_ko": "홍콩관광청이 2014년부터 여러 차례 침사추이의 홍콩 문화센터 외벽과 시계탑에 펼친 무료 시즌 3D 프로젝션 매핑 쇼다.",
+   "editions": [
+    {
+     "id": "2017",
+     "start": "2017-08-11",
+     "end": "2017-09-02",
+     "source": "https://www.globenewswire.com/news-release/2017/08/11/1239190/0/en/The-Brand-New-Hong-Kong-Pulse-Light-Show.html",
+     "checked_at": "2026-11-12"
+    }
+   ]
+  },
+  {
+   "id": "REG-NZ-0002",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "오클랜드 랜턴 페스티벌",
+   "name_en": "Auckland Lantern Festival",
+   "name_original": "BNZ Auckland Lantern Festival",
+   "name_original_lang": "en",
+   "country_iso2": "NZ",
+   "city": "Auckland",
+   "city_ko": "오클랜드",
+   "timezone": "Pacific/Auckland",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://ourauckland.aucklandcouncil.govt.nz/events/2026/02/bnz-auckland-lantern-festival",
+     "kind": "public_agency",
+     "publisher": "Auckland Council (OurAuckland)",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "BNZ Auckland Lantern Festival"
+    },
+    {
+     "url": "https://www.aucklandnz.com/lantern/history",
+     "kind": "public_agency",
+     "publisher": "Tātaki Auckland Unlimited",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Lantern Festival history"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_en": "Lunar New Year lantern festival held in Auckland since 2000 with hundreds of handmade lanterns, delivered for Auckland Council by Tātaki Auckland Unlimited.",
+   "summary_ko": "2000년부터 오클랜드에서 열리는 음력 설 등불 축제로, 수백 점의 수제 등을 선보이며 오클랜드 시의회를 대신해 타타키 오클랜드 언리미티드가 주관한다.",
+   "editions": [
+    {
+     "id": "2026",
+     "start": "2026-02-26",
+     "end": "2026-03-01",
+     "source": "https://ourauckland.aucklandcouncil.govt.nz/events/2026/02/bnz-auckland-lantern-festival",
+     "checked_at": "2026-11-12",
+     "venue": "Manukau Sports Bowl"
+    }
+   ]
+  },
+  {
+   "id": "REG-EC-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "키토 빛 축제 (피에스타 데 라 루스)",
+   "name_en": "Fiesta de la Luz (Quito)",
+   "name_original": "Fiesta de la Luz",
+   "name_original_lang": "es",
+   "country_iso2": "EC",
+   "city": "Quito",
+   "city_ko": "키토",
+   "timezone": "America/Guayaquil",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.quitoinforma.gob.ec/tag/fiesta-de-la-luz-2018",
+     "kind": "public_agency",
+     "publisher": "Municipio de Quito (Quito Informa)",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Fiesta de la Luz 2018"
+    },
+    {
+     "url": "https://www.quito.gob.ec/documents/informe_rendicion_2018.pdf",
+     "kind": "public_agency",
+     "publisher": "Municipio del Distrito Metropolitano de Quito",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Informe de rendición de cuentas 2018"
+    }
+   ],
+   "admission": "free",
+   "summary_en": "Light festival in Quito's historic centre, begun in 2016 with the city of Lyon as the first Fiesta de la Luz in the Americas; held by the municipality in 2016–2018 and later revived as “Quito, Luz de América”.",
+   "summary_ko": "2016년 리옹시와 협력해 미주 최초의 ‘빛의 축제’로 시작한 키토 역사지구 빛 축제로, 2016~2018년 시가 열었고 이후 ‘키토, 아메리카의 빛’으로 다시 열렸다."
+  },
+  {
+   "id": "REG-JP-0009",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "나가사키 랜턴 페스티벌",
+   "name_en": "Nagasaki Lantern Festival",
+   "name_original": "長崎ランタンフェスティバル",
+   "name_original_lang": "ja",
+   "country_iso2": "JP",
+   "city": "Nagasaki",
+   "city_ko": "나가사키",
+   "timezone": "Asia/Tokyo",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.city.nagasaki.lg.jp/uploaded/attachment/27302.pdf",
+     "kind": "public_agency",
+     "publisher": "Nagasaki City",
+     "checked_at": "2026-11-12",
+     "method": "web_search"
+    },
+    {
+     "url": "https://www.city.nagasaki.lg.jp/shimin/190000/192000/p041660_d/fil/04_202401_kairan.pdf",
+     "kind": "public_agency",
+     "publisher": "Nagasaki City",
+     "checked_at": "2026-11-12",
+     "method": "web_search"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_en": "Lunar New Year festival of Chinese lanterns across central Nagasaki (Shinchi Chinatown, Hamamachi and Chuo Park), grown since 1994 from the Chinatown spring festival and run by the city with local business and tourism bodies.",
+   "summary_ko": "나가사키 차이나타운의 춘절 행사에서 1994년부터 커진 음력 설 등불 축제로, 신치 차이나타운·하마노마치·중앙공원 등 도심을 중국 등으로 밝히며 시와 지역 경제·관광 단체가 함께 연다.",
+   "editions": [
+    {
+     "id": "2024",
+     "start": "2024-02-09",
+     "end": "2024-02-25",
+     "source": "https://www.city.nagasaki.lg.jp/uploaded/attachment/27302.pdf",
+     "checked_at": "2026-11-12"
+    }
+   ]
+  },
+  {
+   "id": "REG-JP-0010",
+   "kind": "festival",
+   "project_type": "projection_mapping",
+   "name_ko": "OSAKA 빛의 르네상스",
+   "name_en": "OSAKA Hikari Renaissance",
+   "name_original": "OSAKA光のルネサンス",
+   "name_original_lang": "ja",
+   "country_iso2": "JP",
+   "city": "Osaka",
+   "city_ko": "오사카",
+   "timezone": "Asia/Tokyo",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.city.osaka.lg.jp/hodoshiryo/cmsfiles/contents/0000637/637517/hikarune2024.pdf",
+     "kind": "public_agency",
+     "publisher": "Osaka City",
+     "checked_at": "2026-11-12",
+     "method": "web_search"
+    },
+    {
+     "url": "https://www.city.osaka.lg.jp/keizaisenryaku/cmsfiles/contents/0000664/664217/renaissance.pdf",
+     "kind": "public_agency",
+     "publisher": "Osaka City",
+     "checked_at": "2026-11-12",
+     "method": "web_search"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_en": "Winter light event in Nakanoshima, Osaka, the core programme of the “Festival of the Lights in Osaka”, with projection mapping on the façade of Osaka City Central Public Hall, an Important Cultural Property.",
+   "summary_ko": "오사카 나카노시마에서 열리는 ‘오사카 빛의 향연’의 핵심 행사로, 국가 중요문화재인 오사카시 중앙공회당 외벽에 프로젝션 매핑을 펼친다."
+  },
+  {
+   "id": "REG-SG-0005",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "싱가포르 나이트 페스티벌",
+   "name_en": "Singapore Night Festival",
+   "name_original": "Singapore Night Festival",
+   "name_original_lang": "en",
+   "country_iso2": "SG",
+   "city": "Singapore",
+   "city_ko": "싱가포르",
+   "timezone": "Asia/Singapore",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.heritage.sg/sgnightfest/-/media/snf2025/press-release/media-release-dive-into-island-nights-at-singapore-night-festival-2025-where-stories-of-island-life-come-alive-as-of-23-july.pdf",
+     "kind": "official",
+     "publisher": "HeritageSG (National Heritage Board)",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Singapore Night Festival 2025 media release"
+    },
+    {
+     "url": "https://www.campaignasia.com/gallery/case-study-singapore-night-festival/449780",
+     "kind": "specialist_media",
+     "publisher": "Campaign Asia",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Case study: Singapore Night Festival"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_en": "Annual night festival in Singapore's Bras Basah.Bugis precinct with light installations and projection mapping on heritage buildings such as the National Museum of Singapore, organised by the National Heritage Board (HeritageSG from 2025).",
+   "summary_ko": "싱가포르 브라스바사·부기스 지구에서 매년 열리는 야간 축제로, 국립박물관 등 유산 건물에 빛 설치 작품과 프로젝션 매핑을 선보이며 국가유산위원회(2025년부터 HeritageSG)가 주최한다.",
+   "editions": [
+    {
+     "id": "2025",
+     "start": "2025-08-22",
+     "end": "2025-09-06",
+     "source": "https://www.heritage.sg/sgnightfest/-/media/snf2025/press-release/media-release-dive-into-island-nights-at-singapore-night-festival-2025-where-stories-of-island-life-come-alive-as-of-23-july.pdf",
+     "checked_at": "2026-11-12",
+     "title": "Island Nights"
+    }
+   ]
+  },
+  {
+   "id": "REG-CN-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "쯔궁 국제 공룡 등불 축제",
+   "name_en": "Zigong International Dinosaur Lantern Festival",
+   "name_original": "自贡国际恐龙灯会",
+   "name_original_lang": "zh",
+   "country_iso2": "CN",
+   "city": "Zigong",
+   "city_ko": "쯔궁",
+   "timezone": "Asia/Shanghai",
+   "confidence": "B",
+   "sources": [
+    {
+     "url": "https://govt.chinadaily.com.cn/s/202501/16/WS6788a59d498eec7e1f72d5ea/zigong-lantern-festival-gets-ready-for-year-of-the-snake.html",
+     "kind": "news",
+     "publisher": "China Daily",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Zigong lantern festival gets ready for Year of the Snake"
+    },
+    {
+     "url": "https://news.cgtn.com/news/2026-01-22/Zigong-lights-up-for-the-International-Dinosaur-Lantern-Festival-1K8POGwY7VS/p.html",
+     "kind": "news",
+     "publisher": "CGTN",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Zigong lights up for the International Dinosaur Lantern Festival"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_en": "Lunar New Year festival of large lantern installations at the Chinese Colored Lantern World in Zigong, Sichuan, held since 1987 and hosted by the Zigong city government; the 2026 edition was the 32nd.",
+   "summary_ko": "1987년부터 쓰촨성 쯔궁의 중국 채등 세계에서 열리는 음력 설 대형 등 설치 축제로, 쯔궁시 정부가 주최하며 2026년이 32회째였다."
+  },
+  {
+   "id": "REG-TH-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "어웨이크닝 방콕",
+   "name_en": "Awakening Bangkok",
+   "name_original": "Awakening Bangkok",
+   "name_original_lang": "en",
+   "country_iso2": "TH",
+   "city": "Bangkok",
+   "city_ko": "방콕",
+   "timezone": "Asia/Bangkok",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://tatnews.org/?p=73732",
+     "kind": "public_agency",
+     "publisher": "Tourism Authority of Thailand (TAT News)",
+     "checked_at": "2026-11-12",
+     "method": "web_search"
+    },
+    {
+     "url": "https://www.bangkokpost.com/life/arts-and-entertainment/2285218/light-festival-revives-bangkoks-old-town",
+     "kind": "news",
+     "publisher": "Bangkok Post",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Light festival revives Bangkok’s old town"
+    }
+   ],
+   "admission": "free",
+   "summary_en": "Free light and digital art festival in Bangkok's Charoenkrung and Talad Noi neighbourhoods, first held in 2018 and organised by Time Out Bangkok with the Tourism Authority of Thailand; the 2023 edition moved to the old town (Phra Nakhon).",
+   "summary_ko": "2018년 시작해 방콕 짜런끄룽·딸랏노이 일대에서 무료로 열리는 빛·디지털 아트 축제로, 타임아웃 방콕이 태국관광청과 함께 열며 2023년에는 구시가지(프라나콘)로 옮겨 열렸다."
+  },
+  {
+   "id": "REG-TW-0002",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "타이베이 등불 축제",
+   "name_en": "Taipei Lantern Festival",
+   "name_original": "臺北燈節",
+   "name_original_lang": "zh",
+   "country_iso2": "TW",
+   "city": "Taipei",
+   "city_ko": "타이베이",
+   "timezone": "Asia/Taipei",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://travel.taipei/en/news/details/66917",
+     "kind": "official",
+     "publisher": "Department of Information and Tourism, Taipei City Government",
+     "checked_at": "2026-11-12",
+     "method": "web_search"
+    },
+    {
+     "url": "https://www.taipeitimes.com/News/taiwan/archives/2023/02/07/2003793892",
+     "kind": "news",
+     "publisher": "Taipei Times",
+     "checked_at": "2026-11-12",
+     "method": "web_search"
+    }
+   ],
+   "recurrence": "annual",
+   "summary_en": "Annual Lantern Festival exhibition of light installations in Taipei organised by the Taipei City Government's Department of Information and Tourism; a separate event from the national Taiwan Lantern Festival.",
+   "summary_ko": "타이베이시 정부 정보관광국이 매년 여는 등불 축제로, 타이베이 곳곳에 빛 설치 작품을 선보인다. 전국 단위의 타이완 등불 축제와는 다른 행사다."
+  },
+  {
+   "id": "REG-CA-0003",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "온타리오 플레이스 윈터 라이트 전시 (뤼미에르: 빛의 예술)",
+   "name_en": "Winter Light Exhibition at Ontario Place (Lumière: The Art of Light)",
+   "name_original": "Winter Light Exhibition",
+   "name_original_lang": "en",
+   "country_iso2": "CA",
+   "city": "Toronto",
+   "city_ko": "토론토",
+   "timezone": "America/Toronto",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.globenewswire.com/news-release/2020/02/04/1979552/0/en/Winter-Light-Exhibition-Returning-to-Ontario-Place.html",
+     "kind": "official",
+     "publisher": "Ontario Place (press release)",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Winter Light Exhibition Returning to Ontario Place"
+    },
+    {
+     "url": "https://dailyhive.com/toronto/winter-light-exhibition-ontario-place-2018",
+     "kind": "news",
+     "publisher": "Daily Hive",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Stunning winter light exhibition returns to Ontario Place November 23"
+    }
+   ],
+   "admission": "free",
+   "summary_en": "Free outdoor exhibition of illuminated artworks at Ontario Place on Toronto's waterfront, first held in 2017 and renamed “Lumière: The Art of Light” in 2023, when it moved to Trillium Park.",
+   "summary_ko": "2017년 시작한 토론토 호숫가 온타리오 플레이스의 무료 야외 빛 작품 전시로, 2023년 ‘뤼미에르: 빛의 예술’로 이름을 바꾸고 트릴리엄 공원으로 옮겼다.",
+   "editions": [
+    {
+     "id": "2020",
+     "start": "2020-02-08",
+     "end": "2020-03-29",
+     "source": "https://www.globenewswire.com/news-release/2020/02/04/1979552/0/en/Winter-Light-Exhibition-Returning-to-Ontario-Place.html",
+     "checked_at": "2026-11-12",
+     "venue": "West Island, Ontario Place"
+    }
+   ]
   }
  ]
 }
