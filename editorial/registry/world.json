@@ -2504,6 +2504,238 @@
    "admission": "free",
    "summary_en": "Route of permanent light artworks in Utrecht's inner city, first called Trajectum Lumen and now Utrecht Lumen, run by the municipality and Utrecht Marketing; the works light up after dark.",
    "summary_ko": "위트레흐트 도심의 상설 빛 예술 작품을 잇는 경로로, 처음에는 트라젝툼 루멘, 지금은 위트레흐트 루멘이라 불리며 시와 위트레흐트 마케팅이 운영한다."
+  },
+  {
+   "id": "REG-US-0008",
+   "kind": "program",
+   "project_type": "festival_program",
+   "name_ko": "라이트스케이프 (브루클린 식물원)",
+   "name_en": "Lightscape (Brooklyn Botanic Garden)",
+   "name_original": "Lightscape",
+   "name_original_lang": "en",
+   "country_iso2": "US",
+   "city": "New York City",
+   "city_ko": "뉴욕",
+   "timezone": "America/New_York",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://bbg.org/lightscape",
+     "kind": "official",
+     "publisher": "Brooklyn Botanic Garden",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Lightscape"
+    },
+    {
+     "url": "https://bbg.org/lightscape_2023",
+     "kind": "official",
+     "publisher": "Brooklyn Botanic Garden",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Lightscape (2023-24)"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "paid",
+   "summary_en": "Ticketed after-dark illuminated trail of about a mile through Brooklyn Botanic Garden each winter, with light installations created by Culture Creative.",
+   "summary_ko": "매년 겨울 브루클린 식물원에서 열리는 약 1마일의 유료 야간 빛 산책로로, 컬처 크리에이티브가 만든 빛 설치 작품들로 이루어진다."
+  },
+  {
+   "id": "REG-US-0009",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "포틀랜드 윈터 라이트 페스티벌",
+   "name_en": "Portland Winter Light Festival",
+   "name_original": "Portland Winter Light Festival",
+   "name_original_lang": "en",
+   "country_iso2": "US",
+   "city": "Portland",
+   "city_ko": "포틀랜드",
+   "timezone": "America/Los_Angeles",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://pdxwlf.com/about/",
+     "kind": "official",
+     "publisher": "Willamette Light Brigade (Portland Winter Light Festival)",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "About"
+    },
+    {
+     "url": "https://www.travelportland.com/events/portland-winter-light-festival",
+     "kind": "public_agency",
+     "publisher": "Travel Portland",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Portland Winter Light Festival"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_en": "Free annual festival of light art across Portland, Oregon, on both sides of the Willamette River each February, hosted by the non-profit Willamette Light Brigade.",
+   "summary_ko": "비영리 단체 윌러밋 라이트 브리게이드가 매년 2월 오리건주 포틀랜드의 윌러밋강 양쪽에서 무료로 여는 빛 예술 축제다."
+  },
+  {
+   "id": "REG-DK-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "코펜하겐 빛 축제",
+   "name_en": "Copenhagen Light Festival",
+   "name_original": "Copenhagen Light Festival",
+   "name_original_lang": "en",
+   "country_iso2": "DK",
+   "city": "Copenhagen",
+   "city_ko": "코펜하겐",
+   "timezone": "Europe/Copenhagen",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.visitcopenhagen.com/copenhagen/planning/copenhagen-light-festival-gdk1098085",
+     "kind": "public_agency",
+     "publisher": "Wonderful Copenhagen (Visit Copenhagen)",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Copenhagen Light Festival"
+    },
+    {
+     "url": "https://copenhagenlightfestival.org/?p=109",
+     "kind": "official",
+     "publisher": "Copenhagen Light Festival",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "About Copenhagen Light Festival"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_en": "Non-profit winter light festival in Copenhagen each January–February, with light installations across the city, mostly free to visit, and guided tours led by its curators.",
+   "summary_ko": "매년 1~2월 코펜하겐 곳곳에 빛 설치 작품을 선보이는 비영리 겨울 빛 축제로, 대부분 무료이며 큐레이터가 이끄는 투어도 있다."
+  },
+  {
+   "id": "REG-EE-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "방랑하는 빛 축제 (탈린)",
+   "name_en": "Wandering Lights Festival (Tallinn)",
+   "name_original": "Valgus Kõnnib",
+   "name_original_lang": "et",
+   "country_iso2": "EE",
+   "city": "Tallinn",
+   "city_ko": "탈린",
+   "timezone": "Europe/Tallinn",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://icg.tallinn.ee/en/valguskonnib",
+     "kind": "public_agency",
+     "publisher": "Tallinn City Government",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Valgus Kõnnib"
+    },
+    {
+     "url": "https://news.err.ee/1609466823/gallery-wandering-lights-festival-2024",
+     "kind": "news",
+     "publisher": "ERR News (Estonian Public Broadcasting)",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Gallery: Wandering Lights Festival 2024"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "free",
+   "summary_en": "Free autumn light festival in Tallinn, centred on Kadriorg Park, with light displays, installations and music; the 2025 edition was the 18th.",
+   "summary_ko": "탈린 카드리오르그 공원을 중심으로 매년 가을 빛 연출·설치 작품·음악을 무료로 선보이는 빛 축제로, 2025년이 18회째였다."
+  },
+  {
+   "id": "REG-GB-0007",
+   "kind": "program",
+   "project_type": "projection_mapping",
+   "name_ko": "캐슬 오브 라이트 (에든버러성)",
+   "name_en": "Castle of Light (Edinburgh Castle)",
+   "name_original": "Castle of Light",
+   "name_original_lang": "en",
+   "country_iso2": "GB",
+   "city": "Edinburgh",
+   "city_ko": "에든버러",
+   "timezone": "Europe/London",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.historicenvironment.scot/about-us/news/castle-of-light-spectacular-returns-to-edinburgh-castle/",
+     "kind": "official",
+     "publisher": "Historic Environment Scotland",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Castle of Light spectacular returns to Edinburgh Castle"
+    },
+    {
+     "url": "https://historicenvironment.scot/about-us/news/edinburgh-castle-to-transform-into-castle-of-light",
+     "kind": "official",
+     "publisher": "Historic Environment Scotland",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Edinburgh Castle to transform into Castle of Light"
+    }
+   ],
+   "recurrence": "annual",
+   "admission": "paid",
+   "summary_en": "Ticketed after-dark trail of projections and light at Edinburgh Castle, run each winter since 2019 by Historic Environment Scotland.",
+   "summary_ko": "2019년부터 매년 겨울 스코틀랜드 역사환경청이 에든버러성에서 여는 유료 야간 프로젝션·빛 산책로다.",
+   "editions": [
+    {
+     "id": "2025",
+     "start": "2025-11-21",
+     "end": "2026-01-04",
+     "source": "https://edinburgh.org/event/castle-of-light/",
+     "checked_at": "2026-11-12",
+     "title": "Magic and Mystery"
+    }
+   ]
+  },
+  {
+   "id": "REG-PT-0001",
+   "kind": "festival",
+   "project_type": "festival_program",
+   "name_ko": "루미나 빛 축제 (카스카이스)",
+   "name_en": "Lumina – Festival of Light (Cascais)",
+   "name_original": "LUMINA – Festival da Luz",
+   "name_original_lang": "pt",
+   "country_iso2": "PT",
+   "city": "Cascais",
+   "city_ko": "카스카이스",
+   "timezone": "Europe/Lisbon",
+   "confidence": "A",
+   "sources": [
+    {
+     "url": "https://www.visitlisboa.com/pt-pt/eventos/lumina-festival-da-luz",
+     "kind": "public_agency",
+     "publisher": "Turismo de Lisboa (Visit Lisboa)",
+     "checked_at": "2026-11-12",
+     "method": "web_search",
+     "title": "Lumina – Festival da Luz"
+    },
+    {
+     "url": "https://www.cascais.pt/sites/default/files/anexos/gerais/new/destacavel_lumina_peq.pdf",
+     "kind": "public_agency",
+     "publisher": "Câmara Municipal de Cascais",
+     "checked_at": "2026-11-12",
+     "method": "web_search"
+    }
+   ],
+   "summary_en": "Light festival in Cascais created by the Lisbon studio OCUBO and co-produced by the Cascais city council; it paused after 2019 and returned in 2025.",
+   "summary_ko": "리스본 스튜디오 오쿠보가 만들고 카스카이스 시가 공동 제작하는 카스카이스 빛 축제로, 2019년 이후 중단됐다가 2025년 다시 열렸다.",
+   "editions": [
+    {
+     "id": "2025",
+     "start": "2025-09-12",
+     "end": "2025-09-14",
+     "source": "https://www.visitlisboa.com/pt-pt/eventos/lumina-festival-da-luz",
+     "checked_at": "2026-11-12"
+    }
+   ]
   }
  ]
 }
