@@ -21,7 +21,10 @@
     revoked: ['승인 취소', 'Approval revoked'], expired: ['만료', 'Expired'], withdrawn: ['철회', 'Withdrawn'], open: ['접수', 'Open'], upheld: ['원결정 유지', 'Decision upheld'], reversed: ['재검토 결정', 'Reversed'],
   }
   const badge = (s) => `<span class="pf-status pf-${E(s)}">${E(L(...(STATUS[s] || [s, s])))}</span>`
-  const placeName = (id) => { const p = window.AOLApp?.lookup?.(id); return p ? (en() ? p.name_en || p.name_ko : p.name_ko || p.name_en) || id : id }
+  // Archive places carry the app id AR-<archive id>; everything a member submits uses the archive id (the public
+  // record's id, /p/<id>/), so it matches the official records and the database checks.
+  const pidOf = (p) => String(p?.id || p?.place_id || '').replace(/^AR-/, '')
+  const placeName = (id) => { const p = window.AOLApp?.lookup?.(id) || window.AOLApp?.lookup?.('AR-' + id); return p ? (en() ? p.name_en || p.name_ko : p.name_ko || p.name_en) || id : id }
   const when = (iso) => { const d = new Date(iso); return isNaN(d) ? '' : d.toLocaleDateString(en() ? 'en-GB' : 'ko-KR', { year: 'numeric', month: 'short', day: 'numeric' }) }
   const head = (title, sub) => `<header class="page-head"><h1 class="large-title">${E(title)}</h1>${sub ? `<p class="page-sub">${E(sub)}</p>` : ''}</header>`
   const notReady = (title) => `${head(title)}<section class="panel pf-notready" data-platform="not-configured"><p>${E(L('회원 기능은 준비 중이에요. 서버와 보안 점검이 끝나면 이곳에서 후기와 사진을 나누고 새 사례를 제보할 수 있어요. 지금은 로그인 없이 아카이브를 그대로 이용할 수 있어요.', 'Member features are not open yet. Once the server and its security review are done you can share reviews and photos and submit new cases here. The archive itself needs no account.'))}</p><p><a class="button subtle" href="./support.html">${I('lifebuoy')}${E(L('지원 · 문의', 'Support'))}</a></p></section>`
@@ -76,7 +79,7 @@
 
   function writePage(projectId) {
     if (!api().user()) return head(L('글쓰기', 'Write')) + signInFirst()
-    const pid = ID.test(projectId || '') ? projectId : ''
+    const pid = ID.test(projectId || '') ? String(projectId).replace(/^AR-/, '') : ''
     return `${head(L('후기·질문 쓰기', 'Write a post'), L('검수 후 공개돼요. 광고, 다른 사람의 개인정보, 비방은 올릴 수 없어요.', 'Published after review. No ads, other people\'s personal data or attacks.'))}
       <form id="pfWrite" class="form-grid">
        <label class="field">${E(L('종류', 'Type'))}<select name="kind"><option value="review">${E(L('방문 후기', 'Visit review'))}</option><option value="question">${E(L('질문', 'Question'))}</option><option value="info">${E(L('전시·축제 소식', 'News or tip'))}</option></select></label>
@@ -92,6 +95,9 @@
   // ---- photos ------------------------------------------------------------------------------------------------------
   // The photo is re-encoded to JPEG in the browser (canvas): EXIF including GPS is not carried over; the server
   // checks the file again before anything is published.
+  // The app re-renders the current view when background data arrives; a file input cannot be restored, so the chosen
+  // file is kept here (per project) until it is uploaded or another one is chosen.
+  let chosen = null
   async function reencode(file, maxSide = 3000) {
     const bmp = await createImageBitmap(file)
     const scale = Math.min(1, maxSide / Math.max(bmp.width, bmp.height))
@@ -102,13 +108,14 @@
     return { blob, width: w, height: h }
   }
   function photoPage(projectId) {
+    projectId = String(projectId || '').replace(/^AR-/, '')
     if (!api().user()) return head(L('사진 공유', 'Share a photo')) + signInFirst()
     if (!ID.test(projectId || '')) return head(L('사진 공유', 'Share a photo')) + `<p class="muted">${E(L('작품 상세 페이지의 "사진 제공하기"에서 시작해 주세요.', 'Start from "Contribute a photo" on a project page.'))}</p>`
     return `${head(L('사진 공유', 'Share a photo'), placeName(projectId))}
       <section class="panel pf-rules"><p>${E(L('직접 찍은 작품 사진만 올려 주세요. 운영자가 사진을 보고 작품과 일치하는지, 권리 문제가 없는지 확인한 뒤 "이용자 사진"으로 공개해요. 공식 대표 이미지로 쓰는 것은 별도로 다시 검토해요.', 'Only photos you took of the work. Staff check that it shows the work and has no rights problem, then publish it as a member photo. Use as an official image is a separate review.'))}</p>
        <p class="muted">${E(L('직접 찍은 사진이라도 사진 속 작품(영상·조명 연출)에는 작가의 저작권이 따로 있을 수 있어요. 그래서 공개 범위는 이 사이트에서 저작자 표시와 함께 보여 주는 것으로 시작해요.', 'Even your own photo can show a work with its own copyright (the video or light design), so publication starts with display on this site with your credit.'))}</p></section>
       <form id="pfPhoto" class="form-grid" data-project="${E(projectId)}">
-       <label class="field">${E(L('사진 (JPEG·PNG·WebP, 긴 변 900px 이상 권장)', 'Photo (JPEG, PNG or WebP; long side 900 px or more)'))}<input name="file" type="file" accept="image/jpeg,image/png,image/webp" required></label>
+       <label class="field">${E(L('사진 (JPEG·PNG·WebP, 긴 변 900px 이상 권장)', 'Photo (JPEG, PNG or WebP; long side 900 px or more)'))}<input name="file" type="file" accept="image/jpeg,image/png,image/webp"><span class="muted" id="pfChosen">${chosen?.project === projectId ? E(L('선택한 파일: ', 'Selected: ') + chosen.file.name) : ''}</span></label>
        <label class="field">${E(L('설명 (선택)', 'Caption (optional)'))}<input name="caption" maxlength="300"></label>
        <label class="field">${E(L('촬영일 (선택)', 'Date taken (optional)'))}<input name="taken_on" type="date"></label>
        <fieldset class="field"><legend>${E(L('이용 허락 범위', 'Licence'))}</legend>
@@ -236,7 +243,7 @@
 
   // ---- photo contribution guide (works without a server) ----------------------------------------------------------------
   function contributePage(projectId) {
-    const pid = ID.test(projectId || '') ? projectId : ''
+    const pid = ID.test(projectId || '') ? String(projectId).replace(/^AR-/, '') : ''
     if (enabled() && api().user() && pid) return photoPage(pid)
     const name = pid ? placeName(pid) : ''
     const mail = cfg().SUPPORT_EMAIL || ''
@@ -252,7 +259,7 @@
   // ---- detail page section (only with a server) ---------------------------------------------------------------------
   function detailSection(p) {
     if (!enabled()) return ''
-    const id = E(p.id || p.place_id)
+    const id = E(pidOf(p))
     return `<section class="dp-community" id="dpCommunity" data-project="${id}" aria-labelledby="dpCommunityTitle"><h2 id="dpCommunityTitle" class="section-title">${E(L('이용자 기록', 'Member contributions'))}</h2><p class="pf-note">${E(L('이용자가 올린 후기와 사진이에요. 공식 검증 자료와 다르며 운영자 검수 후 공개돼요.', 'Reviews and photos by members: not verified archive material, published after review.'))}</p><div id="dpCommunityPhotos" class="pf-photos"></div><div id="dpCommunityPosts"></div><div class="actions"><a class="button subtle small" href="#community/write/${id}">${I('note-pencil')}${E(L('후기 쓰기', 'Write a review'))}</a><a class="button subtle small" href="#contribute/${id}">${I('camera')}${E(L('사진 공유', 'Share a photo'))}</a><a class="button ghost small" href="#community/submit/correction:${id}">${I('pencil-simple')}${E(L('정보 정정 제보', 'Suggest a correction'))}</a></div></section>`
   }
   async function loadDetail() {
@@ -265,7 +272,7 @@
       if (ph) ph.innerHTML = photos.map((f) => `<figure class="pf-photo"><img src="${E(f.url)}" alt="${E(f.caption || placeName(pid))}" width="${E(f.width)}" height="${E(f.height)}" loading="lazy" decoding="async"><figcaption><span class="pf-tag">${E(L('이용자 사진', 'Member photo'))}</span> ${E(f.author_name || '')} · ${E(f.licence === 'display' ? L('이 사이트 게시 허락', 'shown with permission') : f.licence.toUpperCase())} <button class="link-button" data-pf-report="photo:${E(f.id)}">${E(L('신고', 'Report'))}</button></figcaption></figure>`).join('')
     } catch (_e) { /* the archive page stays as it is */ }
   }
-  const contributeLink = (p) => `<p class="dp-contribute"><a class="button subtle small" href="#contribute/${E(p.id || p.place_id)}">${I('camera')}${E(L('사진 제공하기', 'Contribute a photo'))}</a></p>`
+  const contributeLink = (p) => `<p class="dp-contribute"><a class="button subtle small" href="#contribute/${E(pidOf(p))}">${I('camera')}${E(L('사진 제공하기', 'Contribute a photo'))}</a></p>`
 
   // ---- routing and binding --------------------------------------------------------------------------------------------
   function page(name, id, path = []) {
@@ -295,8 +302,10 @@
     const s = document.getElementById('pfSubmit')
     if (s) s.onsubmit = async (ev) => { ev.preventDefault(); try { const r = await api().saveSubmission({ ...readSubmission(s), status: ev.submitter?.value === 'draft' ? 'draft' : 'pending', id: s.dataset.id ? Number(s.dataset.id) : null }); if (r?.id) s.dataset.id = r.id; say(ev.submitter?.value === 'draft' ? L('임시 저장했어요.', 'Draft saved.') : L('제출했어요. 중복·출처 확인 뒤 운영자가 검토해요.', 'Submitted. Duplicates and sources are checked, then staff review it.')) } catch (e) { say(errText(e)) } }
     const ph = document.getElementById('pfPhoto')
+    if (ph) ph.elements.file.onchange = () => { const f = ph.elements.file.files?.[0]; chosen = f ? { project: ph.dataset.project, file: f } : null; const c = document.getElementById('pfChosen'); if (c) c.textContent = f ? L('선택한 파일: ', 'Selected: ') + f.name : '' }
     if (ph) ph.onsubmit = async (ev) => {
-      ev.preventDefault(); const fd = new FormData(ph), file = fd.get('file')
+      ev.preventDefault(); const fd = new FormData(ph), picked = fd.get('file')
+      const file = picked instanceof Blob && picked.size ? picked : chosen?.project === ph.dataset.project ? chosen.file : null
       if (!(file instanceof Blob) || !file.size) return say(L('사진을 골라 주세요.', 'Choose a photo.'))
       if (!/^image\/(jpeg|png|webp)$/.test(file.type)) return say(L('JPEG, PNG, WebP만 올릴 수 있어요.', 'JPEG, PNG or WebP only.'))
       if (file.size > 25 * 1024 * 1024) return say(L('파일이 너무 커요 (25MB까지).', 'The file is too large (25 MB max).'))
@@ -305,7 +314,7 @@
         const { blob, width, height } = await reencode(file)
         if (width < 600 || height < 400) return say(L('사진이 너무 작아요 (최소 600×400px).', 'The photo is too small (600×400 px minimum).'))
         await api().uploadPhoto({ blob, width, height, project_id: ph.dataset.project, caption: fd.get('caption') || null, taken_on: fd.get('taken_on') || null, licence: fd.get('licence'), offer_official: fd.get('offer_official') === 'on', own_photo: fd.get('own_photo') === 'on', can_license: fd.get('can_license') === 'on', people_ok: fd.get('people_ok') === 'on', artwork_rights_notice: fd.get('artwork_rights_notice') === 'on' })
-        ph.reset(); say(L('올렸어요. 운영자가 확인한 뒤 공개돼요.', 'Uploaded. It is published after review.'))
+        ph.reset(); chosen = null; const c = document.getElementById('pfChosen'); if (c) c.textContent = ''; say(L('올렸어요. 운영자가 확인한 뒤 공개돼요.', 'Uploaded. It is published after review.'))
       } catch (e) { say(errText(e)) }
     }
     const pf = document.getElementById('pfProfile')
