@@ -1,6 +1,6 @@
 {
  "about": "Seoul cultural events (OA-15486 culturalEventInfo): without SEOUL_OPEN_DATA_KEY one probe with the sample key (reachability and the live field names; never published). Every event with its relevance decision; the relevant ones linked to a project (name within 300 m) or listed as place candidates. Keys never appear.",
- "at": "2026-11-12T08:30:03.378Z",
+ "at": "2026-11-12T14:40:27.052Z",
  "counts": {
   "merged": 0,
   "new_candidates": 0,
@@ -120,6 +120,38 @@
    "url": "https://www.seochocf.or.kr/site/main/seocho/show/view?show_idx=1020"
   },
   {
+   "category": "국악",
+   "coords_swapped": false,
+   "date_text": "2026-12-19~2026-12-19",
+   "decision": {
+    "reasons": [
+     "no_media_term"
+    ],
+    "relevant": false,
+    "terms": []
+   },
+   "district": "강동구",
+   "end": "2026-12-19",
+   "fee": "R석 60,000원 / S석 50,000원 / A석 40,000원",
+   "id": "SEV-1T7QUJ3",
+   "is_free": false,
+   "kind": "event",
+   "lat": 37.5512204558342,
+   "lng": 127.157342546961,
+   "org": "강동문화재단",
+   "place": "강동아트센터 대극장 한강",
+   "player": null,
+   "probe": true,
+   "program": null,
+   "start": "2026-12-19",
+   "status": "upcoming",
+   "target": "8세 이상 관람가 (2019년생 이상)",
+   "theme": "기타",
+   "time_text": "17:00",
+   "title": "[강동문화재단] 이자람 판소리 갈라 시리즈 [바탕]",
+   "url": "https://www.gdfac.or.kr/product/ko/performance/258496"
+  },
+  {
    "category": "축제-관광/체육",
    "coords_swapped": false,
    "date_text": "2026-12-18~2027-02-09",
@@ -150,38 +182,6 @@
    "time_text": "10:00~21:30 (금,토 ~24:30)",
    "title": "[서울시청] 서울광장 스케이트장",
    "url": "https://culture.seoul.go.kr/culture/culture/cultureEvent/view.do?cultcode=159961&menuNo=200010"
-  },
-  {
-   "category": "연극",
-   "coords_swapped": false,
-   "date_text": "2026-12-16~2026-12-27",
-   "decision": {
-    "reasons": [
-     "no_media_term"
-    ],
-    "relevant": false,
-    "terms": []
-   },
-   "district": "종로구",
-   "end": "2026-12-27",
-   "fee": "전석 50,000원",
-   "id": "SEV-034VW7U",
-   "is_free": false,
-   "kind": "event",
-   "lat": 37.5836990003446,
-   "lng": 127.00371665858,
-   "org": "서울문화재단",
-   "place": "서울문화재단 대학로극장 쿼드",
-   "player": "김현진 권겸민 문성복 민대식 박수진 윤진성",
-   "probe": true,
-   "program": null,
-   "start": "2026-12-16",
-   "status": "upcoming",
-   "target": "누구나 (만 13세(중학생)이상)",
-   "theme": "기타",
-   "time_text": "평일 19:30, 주말 15:00 (월 공연 없음)",
-   "title": "[쿼드, 연극의 질문들] 서안화차",
-   "url": "https://www.quad.or.kr/product/performance/1279"
   }
  ],
  "fields": [
@@ -216,11 +216,11 @@
   "code": "INFO-000",
   "message": "정상 처리되었습니다",
   "rows": 5,
-  "total": 19754
+  "total": 19761
  },
  "schema": 1,
  "status": {
-  "duration_ms": 1437,
+  "duration_ms": 714,
   "errors": [],
   "items": 0,
   "last_success": null,

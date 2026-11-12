@@ -1,16 +1,10 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 1,
-  "examples": [
-   {
-    "id": "img-6ae7fdc79296",
-    "project": "REG-KR-0008",
-    "title": "포항국제불빛축제 — 영일대해수욕장 앞바다 위로 국제불꽃쇼의 불꽃이 터지는 야경 (Wikimedia Commons, 2016-07-30)."
-   }
-  ]
+  "count": 0,
+  "examples": []
  },
- "at": "2026-11-12T08:30:03.378Z",
+ "at": "2026-11-12T14:40:27.052Z",
  "cards": {
   "all": {
    "projects": 1008,
@@ -236,7 +230,7 @@
    "kr": true,
    "kr_region": "daegu_gyeongbuk",
    "name": "포항국제불빛축제",
-   "previous_images": 0,
+   "previous_images": 1,
    "status": "scored",
    "valid_card": true
   },
@@ -14708,11 +14702,11 @@
   "low_res_rejected": 83,
   "mislinked_rejected": 69,
   "mislinked_removed": 0,
-  "newly_added_valid": 1,
+  "newly_added_valid": 0,
   "person_rejected": 709,
   "person_removed": 0,
   "portraits": 3,
-  "previous_images": 2734,
+  "previous_images": 2735,
   "rechecked_kept": 0,
   "relevance_verified": 2735,
   "removed_total": 0
