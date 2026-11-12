@@ -80,7 +80,9 @@ function near(m, want) {
 /** @param {any} m */
 const credit = m => [m.creator || m.attribution, m.license_code].filter(Boolean).join(' · ')
 /** @param {any} m */
-const providerName = m => ({ commons: 'Wikimedia Commons', openverse: 'Openverse', flickr: 'Flickr', tourapi: '한국관광공사 TourAPI', kto_photo: '한국관광공사 포토코리아', unsplash: 'Unsplash', pexels: 'Pexels', official: '공식 자료', editor: '편집팀' })[m.image_provider] || ''
+// The photo's own source names it: an editor-reviewed photo from a Commons file page is credited to Wikimedia Commons,
+// never to the archive itself.
+const providerName = m => /^https:\/\/commons\.wikimedia\.org\//.test(m.source_url || '') ? 'Wikimedia Commons' : ({ commons: 'Wikimedia Commons', openverse: 'Openverse', flickr: 'Flickr', tourapi: '한국관광공사 TourAPI', kto_photo: '한국관광공사 포토코리아', unsplash: 'Unsplash', pexels: 'Pexels', official: '공식 자료' })[m.image_provider] || ''
 
 /** One photo: srcset of its renditions, never shown wider than its largest one. @param {any} m @param {string} alt @param {string} sizes @param {boolean} first */
 function img(m, alt, sizes, first) {
