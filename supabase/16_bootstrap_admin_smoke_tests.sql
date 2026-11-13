@@ -16,7 +16,7 @@ select
 from public.cities c
 left join public.external_candidates ec on ec.city_id=c.id
 where c.city_code in ('SEOUL','TOKYO','NEWYORK')
-group by c.city_code
+group by c.city_code, c.discovery_priority
 order by c.discovery_priority;
 
 select
