@@ -1,15 +1,41 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 0,
-  "examples": []
+  "count": 5,
+  "examples": [
+   {
+    "id": "img-734f5a3920b2",
+    "project": "REG-JP-0006",
+    "title": "Sapporo White Illumination 2"
+   },
+   {
+    "id": "img-be2713339469",
+    "project": "REG-JP-0009",
+    "title": "Nagasaki Lantern Festival"
+   },
+   {
+    "id": "img-7f521f73d5fb",
+    "project": "REG-NZ-0002",
+    "title": "Auckland Lantern Festival"
+   },
+   {
+    "id": "img-a5127861dc65",
+    "project": "SEOUL043",
+    "title": "N Seoul Tower"
+   },
+   {
+    "id": "img-c4e1b178c6d3",
+    "project": "SEOUL043",
+    "title": "N Seoul Tower on Mt. Namsan"
+   }
+  ]
  },
- "at": "2026-11-13T04:46:57.593Z",
+ "at": "2026-11-13T04:56:19.578Z",
  "cards": {
   "all": {
    "projects": 1009,
-   "rate_pct": 36.9,
-   "with_valid_card": 372
+   "rate_pct": 37.2,
+   "with_valid_card": 375
   },
   "by_kr_region": {
    "busan_ulsan_gyeongnam": {
@@ -60,8 +86,8 @@
   },
   "world": {
    "projects": 712,
-   "rate_pct": 48.9,
-   "with_valid_card": 348
+   "rate_pct": 49.3,
+   "with_valid_card": 351
   }
  },
  "projects": [
@@ -3827,7 +3853,7 @@
    "card_tier": 5,
    "card_title": "Panoramic view of Seoul, South Korea",
    "id": "SEOUL043",
-   "images": 8,
+   "images": 10,
    "kr": true,
    "kr_region": "seoul",
    "name": "N서울타워",
@@ -12702,17 +12728,17 @@
    "valid_card": false
   },
   {
-   "card_kind": null,
-   "card_tier": null,
-   "card_title": null,
+   "card_kind": "project_media",
+   "card_tier": 3,
+   "card_title": "Sapporo White Illumination 2",
    "id": "REG-JP-0006",
-   "images": 0,
+   "images": 1,
    "kr": false,
    "kr_region": null,
    "name": "삿포로 화이트 일루미네이션",
    "previous_images": 0,
    "status": "scored",
-   "valid_card": false
+   "valid_card": true
   },
   {
    "card_kind": null,
@@ -12741,17 +12767,17 @@
    "valid_card": false
   },
   {
-   "card_kind": null,
-   "card_tier": null,
-   "card_title": null,
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Nagasaki Lantern Festival",
    "id": "REG-JP-0009",
-   "images": 0,
+   "images": 1,
    "kr": false,
    "kr_region": null,
    "name": "나가사키 랜턴 페스티벌",
    "previous_images": 0,
    "status": "scored",
-   "valid_card": false
+   "valid_card": true
   },
   {
    "card_kind": null,
@@ -12871,17 +12897,17 @@
    "valid_card": false
   },
   {
-   "card_kind": null,
-   "card_tier": null,
-   "card_title": null,
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Auckland Lantern Festival",
    "id": "REG-NZ-0002",
-   "images": 0,
+   "images": 1,
    "kr": false,
    "kr_region": null,
    "name": "오클랜드 랜턴 페스티벌",
    "previous_images": 0,
    "status": "scored",
-   "valid_card": false
+   "valid_card": true
   },
   {
    "card_kind": null,
@@ -13184,7 +13210,7 @@
   }
  ],
  "rejected": {
-  "identity": 4180,
+  "identity": 4175,
   "low_res": 82,
   "mislinked": 70,
   "person": 682,
@@ -14700,8 +14726,8 @@
   "cards": {
    "all": {
     "projects": 1009,
-    "rate_pct": 36.9,
-    "with_valid_card": 372
+    "rate_pct": 37.2,
+    "with_valid_card": 375
    },
    "korea": {
     "projects": 297,
@@ -14710,23 +14736,23 @@
    },
    "world": {
     "projects": 712,
-    "rate_pct": 48.9,
-    "with_valid_card": 348
+    "rate_pct": 49.3,
+    "with_valid_card": 351
    }
   },
   "duplicates_removed": 0,
   "duplicates_this_run": 13,
-  "images": 2742,
+  "images": 2747,
   "low_res_rejected": 82,
   "mislinked_rejected": 70,
   "mislinked_removed": 0,
-  "newly_added_valid": 0,
+  "newly_added_valid": 5,
   "person_rejected": 682,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2742,
   "rechecked_kept": 0,
-  "relevance_verified": 2742,
+  "relevance_verified": 2747,
   "removed_total": 0
  },
  "totals": {
@@ -14734,29 +14760,29 @@
    "architecture_context": 448,
    "event_documentation": 14,
    "project_installation": 59,
-   "project_media": 2215,
+   "project_media": 2220,
    "technical_documentation": 6
   },
   "by_provider": {
    "commons": 2733,
    "editor": 4,
-   "openverse": 5
+   "openverse": 10
   },
   "by_role": {
-   "card": 191,
+   "card": 194,
    "context": 412,
    "featured": 191,
-   "gallery": 1938,
+   "gallery": 1940,
    "hero": 10
   },
   "by_tier": {
    "1": 62,
-   "2": 399,
-   "3": 1784,
+   "2": 401,
+   "3": 1787,
    "4": 47,
    "5": 450
   },
-  "images": 2742,
+  "images": 2747,
   "portraits": 3
  }
 }

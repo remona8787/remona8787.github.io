@@ -1,19 +1,12 @@
 {
- "at": "2026-11-13T04:46:57.593Z",
+ "at": "2026-11-13T04:56:19.578Z",
  "errors": [
   {
-   "http_status": 429,
-   "message": "HTTP 429",
-   "rule": "gdelt:GDELT fr · media facade",
+   "http_status": null,
+   "message": "no answer within 20000 ms",
+   "rule": "gdelt:GDELT ko · media facade",
    "stage": "web_fetch",
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Afrench&mode=ArtList&format=json&maxrecords=250&timespan=60h&sort=DateDesc"
-  },
-  {
-   "http_status": 429,
-   "message": "HTTP 429",
-   "rule": "gdelt:GDELT it · media facade",
-   "stage": "web_fetch",
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aitalian&mode=ArtList&format=json&maxrecords=250&timespan=30h&sort=DateDesc"
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Akorean&mode=ArtList&format=json&maxrecords=250&timespan=60h&sort=DateDesc"
   }
  ],
  "rules": [
@@ -26,7 +19,7 @@
    "errors": 1,
    "fetched": 0,
    "kept": 0,
-   "key": "gdelt:GDELT fr · media facade",
+   "key": "gdelt:GDELT ko · media facade",
    "kind": "gdelt",
    "not_modified": false,
    "reason": null,
@@ -38,14 +31,14 @@
     "invalid": 0,
     "prefilter": 0
    },
-   "errors": 1,
+   "errors": 0,
    "fetched": 0,
    "kept": 0,
-   "key": "gdelt:GDELT it · media facade",
+   "key": "gdelt:GDELT ja · media facade",
    "kind": "gdelt",
    "not_modified": false,
    "reason": null,
-   "status": "error"
+   "status": "success"
   },
   {
    "key": "rss:Dezeen",
@@ -110,12 +103,12 @@
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT ja · media facade",
+   "key": "gdelt:GDELT fr · media facade",
    "reason": "rotation",
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT ko · media facade",
+   "key": "gdelt:GDELT it · media facade",
    "reason": "rotation",
    "status": "skipped"
   },

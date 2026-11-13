@@ -1,6 +1,6 @@
 {
  "about": "Per project: every image candidate (Commons and the other providers) with rights, identity, keyword evidence, visual and quality measurements, tier, approval, the hero and featured decisions and the near-duplicates removed.",
- "at": "2026-11-13T04:46:57.593Z",
+ "at": "2026-11-13T04:56:19.578Z",
  "projects": [
   {
    "candidates": [],
@@ -9077,13 +9077,130 @@
      "title": "Haebangchon (55192249973) · Haebangchon (55192249973) · Haebangchon April 6, 2026 Haebangchon, Seoul Ministry of culture, sports and Tourism Official Photograph",
      "visual": null,
      "width": 5384
+    },
+    {
+     "approved": true,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "matched_location": "seoul",
+      "matched_name": "n seoul tower",
+      "method": "name_location",
+      "ok": true
+     },
+     "key": "img-c4e1b178c6d3",
+     "kind": "project_media",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "openverse",
+     "quality": {
+      "blockiness": 4,
+      "decoded": {
+       "bytes": 169965,
+       "format": "jpeg",
+       "height": 1023,
+       "width": 680
+      },
+      "laplacian_var": 2566.9,
+      "measured_width": 680,
+      "phash": "70cccccc68307070",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "openverse",
+     "tier": 3,
+     "title": "N Seoul Tower on Mt. Namsan",
+     "visual": {
+      "bright_share": 0.0917,
+      "colourfulness": 51.49,
+      "dark_share": 0.1932,
+      "height": 481,
+      "mean_luminance": 0.4533,
+      "saturated_bright": 0.1171,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 680
+    },
+    {
+     "approved": true,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "matched_location": "seoul",
+      "matched_name": "n서울타워",
+      "method": "name_location",
+      "ok": true
+     },
+     "key": "img-a5127861dc65",
+     "kind": "project_media",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "openverse",
+     "quality": {
+      "blockiness": 4,
+      "decoded": {
+       "bytes": 371832,
+       "format": "jpeg",
+       "height": 1023,
+       "width": 683
+      },
+      "laplacian_var": 5702.2,
+      "measured_width": 683,
+      "phash": "3614b0f33485cbe1",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "openverse",
+     "tier": 3,
+     "title": "N Seoul Tower",
+     "visual": {
+      "bright_share": 0.0134,
+      "colourfulness": 58.53,
+      "dark_share": 0.5099,
+      "height": 479,
+      "mean_luminance": 0.2041,
+      "saturated_bright": 0.0648,
+      "visual": 60,
+      "width": 320
+     },
+     "width": 683
     }
    ],
    "card": "Panoramic view of Seoul, South Korea.jpg",
    "country_iso2": "KR",
    "duplicates": [],
    "featured": null,
-   "featured_decisions": [],
+   "featured_decisions": [
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "img-a5127861dc65",
+     "provider": "openverse",
+     "reasons": [
+      "not_home_ok",
+      "original_too_small"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "img-c4e1b178c6d3",
+     "provider": "openverse",
+     "reasons": [
+      "not_home_ok",
+      "original_too_small"
+     ]
+    }
+   ],
    "hero": null,
    "hero_decisions": [],
    "name": "N Seoul Tower",
@@ -9155,12 +9272,10 @@
       "ok": true
      },
      "license": "CC BY 2.0",
-     "ok": false,
+     "ok": true,
      "page": "https://www.flickr.com/photos/76771463@N02/7202606772",
      "provider": "openverse",
-     "reasons": [
-      "awaiting_review"
-     ],
+     "reasons": [],
      "source_id": "b15397fe-606d-4aec-9565-b01e64ddf77e",
      "src": "https://live.staticflickr.com/5120/7202606772_90ac7089e7_b.jpg",
      "title": "N Seoul Tower on Mt. Namsan"
@@ -9307,12 +9422,10 @@
       "ok": true
      },
      "license": "CC BY-SA 2.0",
-     "ok": false,
+     "ok": true,
      "page": "https://www.flickr.com/photos/99958070@N02/11523435496",
      "provider": "openverse",
-     "reasons": [
-      "awaiting_review"
-     ],
+     "reasons": [],
      "source_id": "95c2b72a-c28e-45e3-b10a-65e8a08d1556",
      "src": "https://live.staticflickr.com/5476/11523435496_6af90c593b_b.jpg",
      "title": "N Seoul Tower"
@@ -36178,12 +36291,75 @@
    "type": "festival_program"
   },
   {
-   "candidates": [],
-   "card": null,
+   "candidates": [
+    {
+     "approved": true,
+     "evidence": [],
+     "home_ok": true,
+     "identity": {
+      "matched_location": "sapporo",
+      "matched_name": "sapporo white illumination",
+      "method": "name_location",
+      "ok": true
+     },
+     "key": "img-734f5a3920b2",
+     "kind": "project_media",
+     "media": 0,
+     "media_terms": [],
+     "night": 45,
+     "night_terms": [
+      "evening",
+      "dusk",
+      "illumination"
+     ],
+     "ok": true,
+     "provider": "openverse",
+     "quality": {
+      "blockiness": 0,
+      "decoded": {
+       "bytes": 620895,
+       "format": "jpeg",
+       "height": 684,
+       "width": 1024
+      },
+      "laplacian_var": 3376.8,
+      "measured_width": 1024,
+      "phash": "101033373737b1bb",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "openverse",
+     "tier": 3,
+     "title": "Sapporo White Illumination 2",
+     "visual": {
+      "bright_share": 0.0239,
+      "colourfulness": 44.98,
+      "dark_share": 0.7623,
+      "height": 214,
+      "mean_luminance": 0.1413,
+      "saturated_bright": 0.0409,
+      "visual": 51,
+      "width": 320
+     },
+     "width": 1024
+    }
+   ],
+   "card": "img-734f5a3920b2",
    "country_iso2": "JP",
    "duplicates": [],
    "featured": null,
-   "featured_decisions": [],
+   "featured_decisions": [
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "img-734f5a3920b2",
+     "provider": "openverse",
+     "reasons": [
+      "original_too_small"
+     ]
+    }
+   ],
    "hero": null,
    "hero_decisions": [],
    "name": "Sapporo White Illumination",
@@ -36217,12 +36393,10 @@
       "ok": true
      },
      "license": "CC BY 2.0",
-     "ok": false,
+     "ok": true,
      "page": "https://www.flickr.com/photos/30948989@N02/3092225783",
      "provider": "openverse",
-     "reasons": [
-      "awaiting_review"
-     ],
+     "reasons": [],
      "source_id": "e9ae3809-4c6f-43e1-9df6-f27db818c377",
      "src": "https://live.staticflickr.com/3093/3092225783_383eed8f96_b.jpg",
      "title": "Sapporo White Illumination 2"
@@ -36678,14 +36852,87 @@
    "type": "festival_program"
   },
   {
-   "candidates": [],
-   "card": null,
+   "candidates": [
+    {
+     "approved": true,
+     "evidence": [],
+     "home_ok": true,
+     "identity": {
+      "matched_location": "nagasaki",
+      "matched_name": "nagasaki lantern festival",
+      "method": "name_location",
+      "ok": true
+     },
+     "key": "img-be2713339469",
+     "kind": "project_media",
+     "media": 30,
+     "media_terms": [
+      "festival"
+     ],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "openverse",
+     "quality": {
+      "blockiness": 20,
+      "decoded": {
+       "bytes": 183853,
+       "format": "jpeg",
+       "height": 681,
+       "width": 1024
+      },
+      "laplacian_var": 249.8,
+      "measured_width": 1024,
+      "phash": "0dbc74b88fa6e7cf",
+      "sharpness": 76
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "openverse",
+     "tier": 2,
+     "title": "Nagasaki Lantern Festival",
+     "visual": {
+      "bright_share": 0.0377,
+      "colourfulness": 153.01,
+      "dark_share": 0.6575,
+      "height": 213,
+      "mean_luminance": 0.1735,
+      "saturated_bright": 0.4503,
+      "visual": 92,
+      "width": 320
+     },
+     "width": 1024
+    }
+   ],
+   "card": "img-be2713339469",
    "country_iso2": "JP",
    "duplicates": [],
    "featured": null,
-   "featured_decisions": [],
+   "featured_decisions": [
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "img-be2713339469",
+     "provider": "openverse",
+     "reasons": [
+      "original_too_small"
+     ]
+    }
+   ],
    "hero": null,
-   "hero_decisions": [],
+   "hero_decisions": [
+    {
+     "allowlisted": true,
+     "below_target": false,
+     "file": null,
+     "hero_candidate": false,
+     "key": "img-be2713339469",
+     "provider": "openverse",
+     "reasons": [
+      "original_too_small"
+     ]
+    }
+   ],
    "name": "Nagasaki Lantern Festival",
    "project": "REG-JP-0009",
    "providers": [
@@ -36736,12 +36983,10 @@
       "ok": true
      },
      "license": "CC BY-SA 2.0",
-     "ok": false,
+     "ok": true,
      "page": "https://www.flickr.com/photos/8819274@N04/2631770266",
      "provider": "openverse",
-     "reasons": [
-      "awaiting_review"
-     ],
+     "reasons": [],
      "source_id": "9277ed5b-e148-4587-b7c8-4edb15ecc3c1",
      "src": "https://live.staticflickr.com/3060/2631770266_61fb91e902_b.jpg",
      "title": "Nagasaki Lantern Festival"
@@ -37516,14 +37761,91 @@
    "type": "festival_program"
   },
   {
-   "candidates": [],
-   "card": null,
+   "candidates": [
+    {
+     "approved": true,
+     "evidence": [
+      "people_in_frame"
+     ],
+     "home_ok": true,
+     "identity": {
+      "matched_location": "auckland",
+      "matched_name": "auckland lantern festival",
+      "method": "name_location",
+      "ok": true
+     },
+     "key": "img-7f521f73d5fb",
+     "kind": "project_media",
+     "media": 30,
+     "media_terms": [
+      "festival"
+     ],
+     "night": 30,
+     "night_terms": [
+      "night"
+     ],
+     "ok": true,
+     "provider": "openverse",
+     "quality": {
+      "blockiness": 11,
+      "decoded": {
+       "bytes": 163667,
+       "format": "jpeg",
+       "height": 561,
+       "width": 1024
+      },
+      "laplacian_var": 688.9,
+      "measured_width": 1024,
+      "phash": "749858c8abb3b0b8",
+      "sharpness": 89
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "openverse",
+     "tier": 2,
+     "title": "Auckland Lantern Festival",
+     "visual": {
+      "bright_share": 0.0165,
+      "colourfulness": 48.37,
+      "dark_share": 0.7368,
+      "height": 175,
+      "mean_luminance": 0.1749,
+      "saturated_bright": 0.0544,
+      "visual": 56,
+      "width": 320
+     },
+     "width": 1024
+    }
+   ],
+   "card": "img-7f521f73d5fb",
    "country_iso2": "NZ",
    "duplicates": [],
    "featured": null,
-   "featured_decisions": [],
+   "featured_decisions": [
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "img-7f521f73d5fb",
+     "provider": "openverse",
+     "reasons": [
+      "original_too_small"
+     ]
+    }
+   ],
    "hero": null,
-   "hero_decisions": [],
+   "hero_decisions": [
+    {
+     "allowlisted": true,
+     "below_target": false,
+     "file": null,
+     "hero_candidate": false,
+     "key": "img-7f521f73d5fb",
+     "provider": "openverse",
+     "reasons": [
+      "original_too_small"
+     ]
+    }
+   ],
    "name": "Auckland Lantern Festival",
    "project": "REG-NZ-0002",
    "providers": [
@@ -37726,12 +38048,10 @@
       "ok": true
      },
      "license": "CC BY-SA 2.0",
-     "ok": false,
+     "ok": true,
      "page": "https://www.flickr.com/photos/41902998@N07/4392110356",
      "provider": "openverse",
-     "reasons": [
-      "awaiting_review"
-     ],
+     "reasons": [],
      "source_id": "0db0ba91-137b-473a-b5bd-afce511ea328",
      "src": "https://live.staticflickr.com/2687/4392110356_b368aa02fe_b.jpg",
      "title": "Auckland Lantern Festival"
