@@ -708,6 +708,55 @@ test('data quality reads the collection report from the data branch and shows it
  expect(m.calls.filter(c=>c.kind==='raw').map(c=>new URL(c.url).pathname).sort()).toEqual(['/remona8787/remona8787.github.io/data/admin-data/report.json','/remona8787/remona8787.github.io/data/review/image-audit.json']);
 });
 
+test('image status (v2.0): numerator, denominator and definition; nine categories; a permission draft without a server',async({page})=>{
+ const m=await mockSupabase(page);
+ await signIn(page,'editor','#images');
+ const box=page.locator('#imagesBox');
+ await expect(box.locator('#imgRows table')).toBeVisible();
+ await expect(box).toContainText('C등급 맥락 사진은 세지 않아요');
+ await expect(box.locator('.tile',{hasText:'대표 이미지 확보'})).toContainText('332 / 1,009');
+ await expect(box.locator('.tile',{hasText:'국내'}).first()).toContainText('17 / 297');
+ await expect(box.locator('.tile',{hasText:'C등급 맥락 이미지'})).toContainText('500');
+ await expect(box.locator('.tile',{hasText:'사용허가 요청 진행'})).toBeVisible();
+ await expect(box.locator('.tile',{hasText:'이번 수집에서 새로 생긴 대표 이미지'})).toContainText('2');
+ for(const t of ['사진 후보 없음 (1)','작품 일치 미확인 (2)','권리 확인 필요 (3)','권리는 있으나 품질 미달 (4)','B등급으로 사용 중 (5)','건물·장소 맥락 사진만 (6)','공식기관 사용허가 요청 필요 (7)','API 인증·접근 필요 (8)','일시 오류, 다음 수집에서 재시도 (9)'])await expect(box.locator('table').first()).toContainText(t);
+ // Only projects without a representative photo by default; the XSS name stays text.
+ await expect(box.locator('#imgRows tbody tr')).toHaveCount(2);
+ await expect(box.locator('#imgRows')).toContainText(XSS);
+ expect(await box.locator('#imgRows img').count()).toBe(0);
+ await box.getByRole('button',{name:'메일 초안'}).click();
+ const draft=box.locator('#imgDraft-SEOUL033');
+ await expect(draft).toBeVisible();
+ await expect(draft).toContainText('https://parks.seoul.go.kr/culturetank');
+ await expect(draft).toContainText('독점권이나 양도를 요청하지 않습니다');
+ await expect(draft).toContainText('직접 보내세요');
+ await box.getByLabel('분류',{exact:true}).selectOption('6_context_only');
+ await box.getByRole('button',{name:'보기'}).click();
+ await expect(box.locator('#imgRows tbody tr')).toHaveCount(1);
+ await expect(box.locator('#imgRows')).toContainText('Lichtzeitpegel');
+ expect(m.calls.filter(c=>c.kind==='raw').map(c=>new URL(c.url).pathname)).toContain('/remona8787/remona8787.github.io/data/admin-data/image-inventory.json');
+ expect(m.calls.filter(c=>/functions\/v1/.test(c.url||''))).toHaveLength(0);
+});
+
+test('member photos (v2.0): publishing needs the staff grade, which goes to the publish function',async({page})=>{
+ await mockSupabase(page);
+ const sent=[];
+ await page.route('**/functions/v1/publish-photo',r=>{if(r.request().method()==='OPTIONS')return r.fulfill({status:204,headers:{'access-control-allow-origin':'*','access-control-allow-headers':'*'}});sent.push(r.request().postDataJSON());return r.fulfill({status:200,contentType:'application/json',headers:{'access-control-allow-origin':'*'},body:JSON.stringify({ok:true,grade:'B',removed:['exif']})})});
+ await signIn(page,'admin','#platform');
+ const box=page.locator('#platformBox');
+ await box.getByRole('button',{name:'사진',exact:true}).click();
+ const publish=box.getByRole('button',{name:'확인 후 공개 (메타데이터 제거)'});
+ await expect(publish).toBeVisible();
+ await publish.click();
+ await expect(page.locator('#toast')).toContainText('공개 등급을 고르세요');
+ expect(sent).toHaveLength(0);
+ await box.getByLabel('공개 등급 (A 프리미엄 · B 일반 · C 맥락)').selectOption('B');
+ await publish.click();
+ await expect.poll(()=>sent.length).toBe(1);
+ expect(sent[0]).toEqual({photo_id:51,grade:'B'});
+ await expect(page.locator('#toast')).toContainText('B등급');
+});
+
 test('members and research data: admins only, aggregates only',async({page})=>{
  const m=await mockSupabase(page);
  await signIn(page,'admin','#members');

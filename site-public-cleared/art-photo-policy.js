@@ -21,11 +21,28 @@
   const ok=!!license&&!!author&&!!source&&!!url&&commercial!==false&&!NC.test(license);
   return{ok,license,author,source,url,commercial_use:commercial??null};
  }
+ // Quality grades (v2.0 image brief, docs/IMAGE_GRADES.md). Rights and identity are the same for every grade; only
+ // size and measured quality differ by use:
+ //   A premium: the home banner, the large home feature, featured picks, a full-width detail lead;
+ //   B general: cards, search and region lists, the detail page (a smaller original is shown at its own size, matted)
+ //     and the work's gallery. The blockiness bar is wider than A's because the 8x8 metric reads dark noise, film
+ //     grain, smooth skies and overlay text as blocking (calibrated on viewed samples: 34-54 showed no visible
+ //     blocking at card size or 1:1; blur is caught by sharpness, which keeps A's bar);
+ //   C context: a building, place or event photo, or a work photo below B; shown apart, never counted as the work's
+ //     photo.
+ // An editor who viewed the photo at its display sizes may grade it (editor_grade, from an approve_image decision):
+ // the grade replaces the measured bars but never the width floor, and C keeps the photo out of the work's photos.
+ const BARS={A:{width:1600,sharpness:25,blockiness:30},B:{width:640,sharpness:25,blockiness:60}};
  function qualityEvidence(image){
   const width=number(image?.width??image?.maxw),sharpness=number(image?.quality?.sharpness),blockiness=number(image?.quality?.blockiness);
   const measured=sharpness!==null||blockiness!==null;
-  const ok=width!==null&&width>=900&&(!measured||(sharpness!==null&&sharpness>=25&&blockiness!==null&&blockiness<=30));
-  return{ok,width,sharpness,blockiness,measured};
+  const passes=bar=>width!==null&&width>=bar.width&&(!measured||(sharpness!==null&&sharpness>=bar.sharpness&&blockiness!==null&&blockiness<=bar.blockiness));
+  const editor=['A','B','C'].includes(image?.editor_grade)?image.editor_grade:null;
+  const floor=bar=>width!==null&&width>=bar.width;
+  let grade=passes(BARS.A)?'A':passes(BARS.B)?'B':null;
+  if(editor==='A'||editor==='B')grade=editor==='A'&&floor(BARS.A)?'A':floor(BARS.B)?'B':null;
+  if(editor==='C')grade=null;
+  return{ok:grade==='A'||grade==='B',grade,width,sharpness,blockiness,measured,editor};
  }
  function identityEvidence(image){
   const explicit=image?.identity?.ok===true||image?.identity_verified===true;
@@ -48,23 +65,28 @@
   return{ok,kind,visual_verified:visualVerified,collector_verified:collector,score,reasons:identity.reasons};
  }
  function classify(image){
-  if(!image||typeof image!=='object')return{representative:false,reason:'missing'};
-  if(image.approved===false||image.review_required===true||(image.clearance_status&&image.clearance_status!=='cleared'))return{representative:false,reason:'not_cleared'};
-  if(image.art_representative===false)return{representative:false,reason:'source_rejected'};
-  if(image.art_representative===true&&!AUXILIARY_KINDS.has(kindOf(image)))return{representative:true,reason:null,carried:true};
+  if(!image||typeof image!=='object')return{representative:false,reason:'missing',grade:null};
+  if(image.approved===false||image.review_required===true||(image.clearance_status&&image.clearance_status!=='cleared'))return{representative:false,reason:'not_cleared',grade:null};
+  if(image.art_representative===false)return{representative:false,reason:'source_rejected',grade:['C'].includes(image.art_grade)?'C':null};
+  if(image.art_representative===true&&!AUXILIARY_KINDS.has(kindOf(image)))return{representative:true,reason:null,carried:true,grade:image.art_grade==='A'?'A':'B'};
   const rights=rightsEvidence(image),quality=qualityEvidence(image),identity=identityEvidence(image),visual=visualEvidence(image);
+  const context=rights.ok?'C':null;
+  if(quality.editor==='C')return{representative:false,reason:'editor_context',grade:context,rights,quality,identity,visual};
   const institutional=kindOf(image)==='project_media'&&identity.reasons.some(r=>r.startsWith('institution_file:'))&&image.approved!==true;
-  if(institutional&&!(identity.reasons.includes('dark_frame')&&identity.reasons.includes('saturated_light')))return{representative:false,reason:'institution_context',rights,quality,identity,visual};
+  if(institutional&&!(identity.reasons.includes('dark_frame')&&identity.reasons.includes('saturated_light')))return{representative:false,reason:'institution_context',grade:context,rights,quality,identity,visual};
   const representative=rights.ok&&quality.ok&&identity.ok&&visual.ok;
   const reason=!rights.ok?'rights':!quality.ok?'quality':!identity.ok?'identity':!visual.ok?'visual':null;
-  return{representative,reason,rights,quality,identity,visual};
+  return{representative,reason,grade:representative?quality.grade:context,rights,quality,identity,visual};
  }
  const isRepresentative=image=>classify(image).representative;
+ const gradeOf=image=>classify(image).grade;
+ // A premium photo: the home banner and large home feature take only these.
+ const isPremium=image=>gradeOf(image)==='A';
  const isAuxiliary=image=>AUXILIARY_KINDS.has(kindOf(image))||!isRepresentative(image);
  function representativeOf(record){
   const usable=(Array.isArray(record?.images)?record.images:[]).filter(isRepresentative);
   return usable.find(i=>str(i.role)==='card')||usable.find(i=>str(i.role)==='featured')||usable.find(i=>str(i.role)==='hero')||usable[0]||null;
  }
  const isArtwork=isRepresentative;const representative=images=>representativeOf({images});
- return{classify,isRepresentative,isArtwork,representative,isAuxiliary,kindOf,rightsEvidence,qualityEvidence,identityEvidence,visualEvidence,representativeOf};
+ return{classify,isRepresentative,isArtwork,representative,isAuxiliary,kindOf,rightsEvidence,qualityEvidence,identityEvidence,visualEvidence,representativeOf,gradeOf,isPremium,BARS};
 });

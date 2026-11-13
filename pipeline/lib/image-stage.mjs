@@ -24,6 +24,7 @@ import { HOUR } from './cache.mjs'
 import { imageBlocked } from './editorial.mjs'
 import { upgradeImage } from './output.mjs'
 import { chunk, uniq, compareStrings, bareFile, haversine, validLat, redactKeys } from './util.mjs'
+import ART from '../../site-public-cleared/art-photo-policy.js'
 
 const isBudget = (e) => e?.code === 'budget'
 const msg = (e) => redactKeys(String(e?.message || e)).slice(0, 300)
@@ -53,6 +54,7 @@ export async function imageStage(ctx) {
   const { client, cache, P, env, ed, heroAllow, prev, state, published, evidenceByKey, catRules, startedAt, err } = ctx
   const IC = P.images || {}, PV = IC.providers || {}, ttl = P.cache_ttl_hours || {}
   const imageResults = new Map(), imageReview = [], tiles = [], heroOutcome = new Map(), providerLog = [], imageCandidates = []
+  const waitingTiles = [], reviewTiles = []
   // Images of the previous dataset dropped by the recheck of kept images: {project, id, title, reason} (lib/image-audit.mjs).
   const keptDrops = []
   const stats = { processed: 0, kept_previous: 0, none: 0, candidates: 0, rejected: {}, measured: 0, measure_errors: 0, quality_measured: 0, duplicates: 0, by_provider: {}, provider_requests: {}, provider_errors: {}, provider_rejected: {}, identity_rejected: 0, portraits: 0, depicts_errors: 0, provider_unverified: 0, kept_dropped_unverified: 0, institution_context: 0, kept_dropped_irrelevant: 0, kept_dropped_person: 0, kept_demoted_context: 0, below_threshold: 0, awaiting_review: 0 }
@@ -71,7 +73,9 @@ export async function imageStage(ctx) {
   // the per-run caps (depicts searches, provider requests, the time budget) go to the ones that need a photo; a project
   // the budget does not reach keeps its previous images.
   const hadImages = (p) => !!(prev.records.get(p.id)?.images?.length)
-  const order = [...published].sort((a, b) => (b.country_iso2 === 'KR' ? 1 : 0) - (a.country_iso2 === 'KR' ? 1 : 0) || (hadImages(a) ? 1 : 0) - (hadImages(b) ? 1 : 0) || (b.curated_id ? 1 : 0) - (a.curated_id ? 1 : 0) || typeOrder.indexOf(a.project_type) - typeOrder.indexOf(b.project_type) || (b.p18.length ? 1 : 0) - (a.p18.length ? 1 : 0) || compareStrings(a.id, b.id))
+  // v2.0: then a project whose previous images include no representative photo (context only) before one that has it.
+  const hadRep = (p) => { const r = prev.records.get(p.id); return !!(r && ART.representativeOf(r)) }
+  const order = [...published].sort((a, b) => (b.country_iso2 === 'KR' ? 1 : 0) - (a.country_iso2 === 'KR' ? 1 : 0) || (hadImages(a) ? 1 : 0) - (hadImages(b) ? 1 : 0) || (hadRep(a) ? 1 : 0) - (hadRep(b) ? 1 : 0) || (b.curated_id ? 1 : 0) - (a.curated_id ? 1 : 0) || typeOrder.indexOf(a.project_type) - typeOrder.indexOf(b.project_type) || (b.p18.length ? 1 : 0) - (a.p18.length ? 1 : 0) || compareStrings(a.id, b.id))
   const editorialImages = ed.setImages || new Map()
 
   // ---------------------------------------------------------------- Commons candidates of one project
@@ -241,6 +245,7 @@ export async function imageStage(ctx) {
 
   // ---------------------------------------------------------------- one project
   async function scoreProject(p, commons, info, providers, depictsHuman = () => false) {
+    waitingTiles.length = 0 // a project that failed half-way leaves nothing to the next one
     const assessed = []
     const ownNames = [p.name_ko, p.name_en, p.name_original, p.building_name, ...(p.aliases || [])].filter(Boolean)
     const ownWorkNames = workNames(p)
@@ -275,6 +280,8 @@ export async function imageStage(ctx) {
         const review = providerReview[providerReview.length - 1]
         review.ok = false
         review.reasons = [...review.reasons, 'awaiting_review']
+        // v2.0: an editor's look is the only way such a photo becomes the work's photo, so it goes on a review sheet.
+        waitingTiles.push({ kind: 'review', project: p.id, korean: p.country_iso2 === 'KR', name: p.name_en || p.name_ko || p.name_original || p.id, name_ko: p.name_ko, key, id: key, provider: c.provider, file: null, width: c.width ?? null, height: c.height ?? null, sharpness: null, blockiness: null, tier: null, visual: null, buffer: null, thumb: c.measure_url || c.thumb || c.review_thumb || null, page: c.page || null, license: c.license || null, author: c.author || null, title: c.title || null, awaiting_review: true })
         continue
       }
       assessed.push({ key, file: null, source: c.provider, cand: c, a: { ...a, ok: true }, width: c.width, height: c.height, approved, identity })
@@ -298,6 +305,8 @@ export async function imageStage(ctx) {
       }
     }
     for (const s of usable) { s.m = s.m ?? null; s.t = tierOf(s.a, s.m, IC, { project_type: p.project_type, width: s.width }) }
+    // Editor edits (approve_image grade, kind, focal; v2.0): the editor viewed the photo, so the kind they gave stands.
+    for (const s of usable) applyEdit(s, editOf(p, s.key, s.cand.source_id))
     // Quality of the strongest Commons candidates for hero, featured and card (~1024 px renditions).
     const forQuality = [...commonsUsable].filter((s) => (s.width || 0) >= (IC.min_width ?? 640)).sort((x, y) => x.t.tier - y.t.tier || (y.m?.visual ?? -1) - (x.m?.visual ?? -1) || (y.width || 0) - (x.width || 0) || compareStrings(x.key, y.key)).slice(0, IC.quality_per_project ?? 3)
     for (const s of forQuality) s.q = await qualityOf(s)
@@ -339,10 +348,37 @@ export async function imageStage(ctx) {
       }
     }
     if (choice.card && choice.card.t.tier <= 3) tiles.push(tile('cards', p, choice.card, {}))
+    // Review tiles of this project's waiting provider photos; projects without a card first (see below).
+    for (const t of waitingTiles.splice(0)) reviewTiles.push({ ...t, has_card: !!choice.card })
   }
   const qualityScoreOf = (s) => (s.q ? qualityScore(s.q, s.width) : 0)
   function tile(kind, p, s, flags) {
     return { kind, project: p.id, korean: p.country_iso2 === 'KR', name: p.name_en || p.name_ko || p.name_original || p.id, name_ko: p.name_ko, key: s.key, id: stableImageId(s.cand.provider, s.cand.source_id), provider: s.cand.provider, file: s.file || null, width: s.width ?? null, height: s.height ?? null, sharpness: s.q?.sharpness ?? null, blockiness: s.q?.blockiness ?? null, tier: s.t?.tier ?? null, visual: s.m?.visual ?? null, buffer: s.buffer || null, thumb: s.cand.visual_url || s.cand.measure_url || null, ...flags }
+  }
+  function editOf(p, key, sourceId) {
+    return ed.imageEdits?.get(p.id + '|' + key) ?? ed.imageEdits?.get(p.id + '|' + sourceId) ?? null
+  }
+  // A work kind makes the photo a gallery photo (tier 3 at most) whose identity is the editor's review; a context kind
+  // makes it context (tier 5). The grade and focal point travel on the image object (imageObject).
+  function applyEdit(s, e) {
+    if (!e) return
+    s.edit = e
+    if (e.kind) { s.kind = e.kind; s.t = { ...s.t, tier: e.kind === 'architecture_context' ? 5 : Math.min(s.t.tier, 3) } }
+  }
+  // The same edit on an image kept from the previous dataset (its project was not processed this run).
+  function editKept(p, i, file) {
+    const a = approvalOf(p, file || i.id, i.provider, i.id), e = editOf(p, file || i.id, i.id)
+    if (a !== true && !e) return i
+    const out = { ...i, approved: true }
+    if (!e) return out
+    if (e.kind) {
+      const work = e.kind !== 'architecture_context'
+      Object.assign(out, { kind: e.kind, tier: work ? Math.min(i.tier, 3) : 5, role: work ? (i.role === 'context' ? 'gallery' : i.role) : 'context' })
+      if (work && i.provider === 'commons') out.identity = { ok: true, method: 'commons_editorial_review' }
+    }
+    if (e.grade) out.editor_grade = e.grade
+    if (e.focal) out.focal = e.focal
+    return out
   }
   function approvalOf(p, key, provider, sourceId) {
     const a = ed.imageApprovals?.get(p.id + '|' + key) ?? ed.imageApprovals?.get(p.id + '|' + sourceId) ?? ed.imageApprovals?.get('*|' + key)
@@ -380,7 +416,7 @@ export async function imageStage(ctx) {
       stats.kept_demoted_context++
       return { ...i, role: 'context', tier: 5, kind: 'architecture_context' }
     }
-    const images = (old?.images || []).map((i) => upgradeImage(i, p.id)).filter((i) => !imageBlocked(ed, p.id, fileOf(i)) && !imageBlocked(ed, p.id, i.id)).map(recheck).filter(Boolean)
+    const images = (old?.images || []).map((i) => upgradeImage(i, p.id)).filter((i) => !imageBlocked(ed, p.id, fileOf(i)) && !imageBlocked(ed, p.id, i.id)).map((i) => editKept(p, i, fileOf(i))).map(recheck).filter(Boolean)
     const pick = state.imagePicks?.[p.id] || (old && state.imagePicks?.[old.id]) || null
     const home = pick?.home ? images.find((i) => (i.page === pick.home || i.id === pick.home) && i.tier <= 3) || null : null
     const portraits = (old?.credits || []).map((c) => c.portrait && { ...c.portrait, creator: c.portrait.creator || c.name }).filter(Boolean)
@@ -442,5 +478,12 @@ export async function imageStage(ctx) {
     }
   }
   for (const p of published) if (!imageResults.has(p.id)) keepPrevImages(p)
+  // The review sheet (v2.0): provider photos awaiting an editor's look, projects without a representative photo first,
+  // Korean projects first, at most review_sheet_max per run (the rest wait for a later run).
+  const reviewOrder = (t) => (t.has_card ? 2 : 0) + (t.korean ? 0 : 1)
+  const review = reviewTiles.filter((t) => t.thumb).sort((a, b) => reviewOrder(a) - reviewOrder(b) || compareStrings(a.project, b.project) || compareStrings(a.key, b.key)).slice(0, IC.review_sheet_max ?? 120)
+  tiles.push(...review)
+  stats.review_tiles = review.length
+  stats.review_waiting = reviewTiles.length
   return { imageResults, imageReview, tiles, heroOutcome, providerLog, imageCandidates, keptDrops, stats: { ...stats, thumbnails_fetched: thumbsFetched, quality_fetched: qualityFetched, depicts_searches: depictsAsked, pageimage_requests: leadRequests, provider_new_requests: used, openverse_rate_limit: openverseLimits } }
 }

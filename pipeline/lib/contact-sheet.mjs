@@ -144,11 +144,25 @@ export async function writeContactSheets(dir, tiles, { err = () => {}, fetchByte
   const out = []
   let fetched = 0
   const per = REVIEW.columns * REVIEW.rows
-  const kinds = ['hero', 'featured', 'cards']
-  const sorted = [...tiles].sort((a, b) => kinds.indexOf(a.kind) - kinds.indexOf(b.kind) || (b.korean ? 1 : 0) - (a.korean ? 1 : 0) || (a.project < b.project ? -1 : a.project > b.project ? 1 : 0) || (a.key < b.key ? -1 : 1))
+  const kinds = ['hero', 'featured', 'cards', 'review']
+  // Review tiles keep the image stage's order (projects without a representative photo first, Korean first).
+  const sorted = [...tiles].sort((a, b) => kinds.indexOf(a.kind) - kinds.indexOf(b.kind) || (a.kind === 'review' ? 0 : (b.korean ? 1 : 0) - (a.korean ? 1 : 0) || (a.project < b.project ? -1 : a.project > b.project ? 1 : 0) || (a.key < b.key ? -1 : 1)))
   const groups = new Map()
   for (const t of sorted) { const g = t.kind === 'cards' ? 'cards' : `${t.kind}-${t.provider}`; if (!groups.has(g)) groups.set(g, []); groups.get(g).push(t) }
-  for (const [g, list] of groups) {
+  for (const [g, all] of groups) {
+    let list = all
+    // A review tile is only useful with its picture: fetch first and leave out what could not be fetched (it stays in
+    // the queue for a later run).
+    if (g.startsWith('review-')) {
+      for (const t of all) {
+        if (t.buffer || !t.thumb || !fetchBytes || fetched >= maxFetch) continue
+        try { t.buffer = (await fetchBytes(t.thumb)).bytes; fetched++ } catch (e) { if (e?.code === 'budget') break }
+      }
+      const sharp = await loadSharp().catch(() => null)
+      const decodes = async (b) => { if (!b || !sharp) return false; try { const m = await sharp(b).metadata(); return !!(m.width && m.height) } catch { return false } }
+      list = []
+      for (const t of all) if (await decodes(t.buffer)) list.push(t)
+    }
     for (let s = 0; s * per < list.length; s++) {
       const part = list.slice(s * per, (s + 1) * per)
       const name = `${g}-${String(s + 1).padStart(2, '0')}.jpg`
@@ -173,7 +187,7 @@ export async function writeContactSheets(dir, tiles, { err = () => {}, fetchByte
         // Read back from the written JPEG: the index says how many tiles really show a picture.
         let greyTiles = 0
         for (let i = 0; i < part.length; i++) if (!tileShowsPicture(await tilePixels(jpg, i, opts))) greyTiles++
-        out.push({ sheet: name, kind: t0(part).kind, provider: t0(part).kind === 'cards' ? null : t0(part).provider, grey_tiles: greyTiles, tiles: part.map((t, i) => ({ n: s * per + i + 1, project: t.project, image: t.id, provider: t.provider, file: t.file || null, thumb: t.thumb || null, width: t.width ?? null, height: t.height ?? null, sharpness: t.sharpness ?? null, blockiness: t.blockiness ?? null, tier: t.tier ?? null, visual: t.visual ?? null, korean: !!t.korean, hero_candidate: !!t.hero_candidate, allowlisted: !!t.allowlisted, awaiting_review: !!t.awaiting_review, image_in_sheet: !!drawn[i].drawn })) })
+        out.push({ sheet: name, kind: t0(part).kind, provider: t0(part).kind === 'cards' ? null : t0(part).provider, grey_tiles: greyTiles, tiles: part.map((t, i) => ({ n: s * per + i + 1, project: t.project, image: t.id, provider: t.provider, file: t.file || null, thumb: t.thumb || null, width: t.width ?? null, height: t.height ?? null, sharpness: t.sharpness ?? null, blockiness: t.blockiness ?? null, tier: t.tier ?? null, visual: t.visual ?? null, korean: !!t.korean, hero_candidate: !!t.hero_candidate, allowlisted: !!t.allowlisted, awaiting_review: !!t.awaiting_review, image_in_sheet: !!drawn[i].drawn, ...(t.kind === 'review' ? { page: t.page || null, license: t.license || null, author: t.author || null, title: t.title || null, has_card: !!t.has_card } : {}) })) })
       } catch (x) { err('contact_sheets', x, { sheet: name }) }
     }
   }

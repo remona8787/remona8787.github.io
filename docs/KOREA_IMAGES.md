@@ -88,6 +88,36 @@ Lichtskulptur Gelmeroda(사진가 허락은 있으나 1998년 일시 설치 작�
 "검토 대기 승인"이 아니라 Commons 재검색 또는 사용 허가 요청으로 표시하게 했습니다. 다음 빌드부터 반영됩니다(그 전 집계는 위 08:30 기준).
 라인 타워 야경 사진은 이번 세션에서 Commons API 요청 제한에 걸려 확인하지 못했습니다(우회하지 않음).
 
+### 2026-11-13 이미지 등급 도입 후 재검토와 반영
+
+[이미지 등급](IMAGE_GRADES.md)(A 프리미엄, B 일반, C 맥락)을 도입하고, 대표 사진이 없는 사례 56건이 가진 사진 174장(권리 확인된 맥락·
+미확인 사진 전부)을 대조표 11장으로 다시 봤습니다. 결정 파일 40개(`editorial/decisions/2026-11-13T04-30-*`).
+
+- 등급만으로 대표 사진이 된 사례 2건: Fibonacci-Reihe(압축 34, 눈으로 보아 문제 없음), Bluebox(폭 800px, B 기준 640px 이상).
+- 편집자 판정으로 대표 사진이 될 사례 16건(다음 수집에서 적용):
+  - 불이 켜진 작품: 롯데월드타워 미디어파사드(SEOUL018, 위 정정), 1989(편집자 B, 카드 초점을 네온 숫자에), 반 고흐 자전거길(작가
+    Daan Roosegaarde 본인 사진, Commons VRT 허락 확인).
+  - 낮에 찍은 상설 공공 작품(B등급, 배너에는 쓰지 않음): 독일 4건(Uecker 광주(光柱), van Munster Brainwaves, Kuball LES FLEURS DU MAL,
+    Troisdorf 시문), 네덜란드 9건(Liefdesbrief, Ron Caspers 2건, Titia Ex 2건, Mullican 세계지도, van Goethem, van Munster Brainwave,
+    De Vlam van Tivoli). 모두 그 항목의 대표 사진(P18)이고, 독일·네덜란드 파노라마의 자유가 상설 공공 작품에 적용됩니다.
+- 맥락(C)으로 판정: Lichtzeitpegel(설명 숫자를 그려 넣은 사진), 국립현대미술관 서울 건물 정면.
+- 관련 없는 사진 22장 차단(맥락으로도 표시하지 않음): Etopia 페이지의 소프트웨어 학회 사진 12장(식별 가능한 인물), 도로 공사 사진 4장,
+  국제우주정거장에서 본 지구, 플라밍고, 오렌지 나무, 책상 앞 인물, 다른 공원 조형물 2장.
+- 권리 때문에 쓰지 않은 사진: 미국 작품(Meow Wolf, Urban Light, Times Square 사운드 설치: 미국은 미술 작품에 파노라마의 자유가 없음),
+  teamLab Planets(일본, 실내), 일시 설치(Lesbian Simulator, Geneva Lux 2024의 Song Bird·Nausicaa, 국립현대미술관 전시 Epiphyte Chamber·
+  Malleable Bodies: 촬영자가 작가가 아님), Luminator Bernocchi(이탈리아, 파노라마의 자유 없음), Objet Mathématique(Le Corbusier,
+  저작권 존속·대여 전시), L'Automne(사진 분류가 다른 분수 작품을 가리켜 작품 일치 불확실), Gelmeroda 빛 조형(1998년 일시 설치).
+- 기대 효과(현재 데이터에 결정을 적용해 계산): 대표 사진 314 → 332건(31.1% → 32.9%), 국내 16 → 17건. 실제 수치는 다음 수집 뒤
+  전수 조사(admin-data/image-status.md)로 확인합니다.
+
+### Openverse 검토 대기 사진
+
+Openverse(주로 Flickr CC 사진)는 이미 수집기에서 쓰고 있고, 이름과 위치로만 연결되는 사진 501장(국내 165장)이 편집자 확인을
+기다립니다(작품 일치를 자동으로 증명할 수 없어서). 이 세션의 네트워크는 Openverse와 Flickr를 허용하지 않아 직접 볼 수 없었습니다.
+그래서 수집기가 매번 이런 사진을 `review/contact-sheets/review-<provider>-NN.jpg` 대조표로 그리게 했습니다(대표 사진이 없는 사례 먼저,
+국내 먼저, 회당 최대 120장, Flickr 원본으로 그려 Openverse API 할당량을 쓰지 않음). 대조표의 이미지 ID로 `approve_image` 결정을
+만들면 채택됩니다. 사진 라이선스와 별도로 작품 자체의 권리(상설·옥외 여부, 나라별 파노라마의 자유)를 위 기준대로 확인해야 합니다.
+
 ## 이번에 한 일
 
 - 편집 결정이 레지스트리 기록(REG-…)에도 적용되도록 고쳤다(`pipeline/lib/editorial.mjs`). 전에는 사진 지정·수정·삭제 결정이
@@ -97,15 +127,26 @@ Lichtskulptur Gelmeroda(사진가 허락은 있으나 1998년 일시 설치 작�
   - 대전 스카이로드: Daejeon Skyroad 3·2 (Alexey82kr, CC BY-SA 4.0)
   - 여수 빅오쇼: The Big-O Show (Jeongyeol Park, CC BY 3.0)
   - 서울로7017 야간조명: Night View in Seoullo 7017 01·02 (분당선M, CC BY-SA 3.0)
-  - 롯데월드타워 미디어파사드: Seoul Skyline Night 2018 (CC0)
+  - 롯데월드타워 미디어파사드: Seoul Skyline Night 2018 (CC0) — **정정: 2026-11-12에는 실제로 반영되지 않았다.** 이 항목의 파일은
+    모두 "건물(호스트) 사진"으로 분류되는데, 승인만으로는 종류가 바뀌지 않아 맥락 사진으로 남았다. 2026-11-13에 편집자 종류 지정
+    (`approve_image`의 `kind`, docs/IMAGE_GRADES.md)을 더해 다시 결정했다.
   - 보고 뺀 사진: 서울로에서 내려다본 도시 야경, N서울타워에서 찍은 시내 야경(타워가 없음), 국립중앙박물관 외관 야경(작품은
     실내 실감영상관), 스카이로드 아래 무대 행사.
 
 ## 대표 사진을 늘리는 방법 (우선순위)
 
-1. **TourAPI 인증키** (운영자, 무료): 공공데이터포털에서 “한국관광공사_국문 관광정보 서비스” 활용 신청 → 저장소 Settings →
-   Secrets and variables → Actions → `TOURAPI_SERVICE_KEY`. 수집기는 이름과 300m 이내 위치가 모두 맞는 항목의 사진만 후보로
-   삼고, 사진마다 표시된 공공누리 유형(cpyrhtDivCd)이 제1유형 또는 제3유형인 것만 공개한다(제3유형은 변경 없이). 키 등록만으로 사진 사용권이 생기지는 않는다.
+1. **TourAPI 인증키** (운영자, 무료):
+   1. 공공데이터포털(data.go.kr)에 로그인하고 “한국관광공사_국문 관광정보 서비스_GW”(KorService2)와 “한국관광공사_관광사진 정보_GW”
+      (PhotoGalleryService1)를 각각 활용 신청합니다(개발계정은 보통 바로 승인).
+   2. 마이페이지 → 개발계정에서 “일반 인증키(Decoding)”를 복사합니다(Encoding 키도 수집기가 받아들임).
+   3. 저장소 Settings → Secrets and variables → Actions → New repository secret → 이름 `TOURAPI_SERVICE_KEY`, 값에 붙여 넣기.
+      키는 채팅·소스·로그에 넣지 않습니다(수집기는 기록에서 키를 지움).
+   4. 다음 수집의 보고서(`admin-data/report.json` → `sources.tourapi`)에서 상태가 `skipped`(키 없음)에서 `ok`로 바뀌는지 봅니다.
+      키가 거절되면(401·403, 등록되지 않은 키) 수집기가 알림 이슈를 엽니다.
+   수집기는 이름과 300m 이내 위치가 모두 맞는 항목의 사진만 후보로 삼고, 사진마다 표시된 공공누리 유형(cpyrhtDivCd)이 제1유형
+   또는 제3유형인 것만 공개합니다(제3유형은 변경 없이). **키를 등록한다고 국내 273건에 사진이 생기는 것은 아닙니다.** 273건은
+   "아직 TourAPI로 찾아보지 못한" 사례이고, 실제로 몇 건이 맞는 사진을 얻는지는 등록 후 전수 조사의 국내 확보율로 따로 측정합니다.
+   관광 사진은 작품이 아닌 일반 풍경일 수 있어 작품 일치 검사를 똑같이 거칩니다.
 2. **서울 열린데이터광장 인증키** → `SEOUL_OPEN_DATA_KEY`.
 3. **주최 기관 사진 이용 허락**: 지자체·재단에 사진 사용 허락(저작자 표시 조건)을 받으면 `set_image`(provider `official`,
    `permission_note`)로 넣는다. 허락 내용은 결정 파일에 남긴다.

@@ -10,7 +10,7 @@ import {PGlite} from '@electric-sql/pglite';
 import {pg_trgm} from '@electric-sql/pglite/contrib/pg_trgm';
 const root=new URL('../',import.meta.url);
 const sql=async f=>(await readFile(new URL(f,root),'utf8')).replace(/create extension if not exists "?pgcrypto"?[^;]*;/gi,'');
-const MIGRATIONS=['supabase/migrations/20261018000000_media_facade_archive.sql','supabase/migrations/20261026000000_research_data.sql','supabase/migrations/20261112000000_v2_platform.sql'];
+const MIGRATIONS=['supabase/migrations/20261018000000_media_facade_archive.sql','supabase/migrations/20261026000000_research_data.sql','supabase/migrations/20261112000000_v2_platform.sql','supabase/migrations/20261113000000_v2_photo_grades.sql'];
 const DEFAULT_GRANTS=`alter default privileges in schema public grant all on tables to anon,authenticated,service_role;
 alter default privileges in schema public grant all on functions to anon,authenticated,service_role;
 alter default privileges in schema public grant all on sequences to anon,authenticated,service_role;`;
@@ -31,7 +31,7 @@ test.before(async()=>{
  // Supabase grants these on storage.objects (RLS decides); the stub schema does not.
  await db.exec(`grant select,insert,update,delete on storage.objects to anon,authenticated,service_role; grant select on storage.buckets to anon,authenticated,service_role;`);
  for(const f of MIGRATIONS)await db.exec(await sql(f));
- await db.exec(await sql(MIGRATIONS[2]));
+ for(const f of MIGRATIONS.slice(2))await db.exec(await sql(f)); // the v2.0 migrations are safe to run again, in order
  [ADMIN,EDITOR,ALICE,BOB,CAROL]=(await db.query(`insert into auth.users(email,email_confirmed_at) values('admin@t',now()),('editor@t',now()),('alice@t',now()),('bob@t',now()),('carol@t',now()) returning id`)).rows.map(r=>r.id);
  UNCONFIRMED=(await db.query(`insert into auth.users(email) values('new@t') returning id`)).rows[0].id;
  await db.query(`insert into public.app_admins(user_id,role) values($1,'admin'),($2,'editor')`,[ADMIN,EDITOR]);
@@ -198,11 +198,22 @@ test('photos: own folder, required statements, approval only through publish, of
  const ph=await one(row(BOB,`${BOB}/ddp-night.jpg`));
  assert.deepEqual([ph.status,ph.official_review,ph.public_path],['pending','pending',null]);
  assert.match(await err(mfa(db,EDITOR,`select public.platform_moderate('photo',$1,'approved')`,[ph.id])),/photo_not_published_use_publish_photo/);
- assert.match(await err(svc(db,`select public.platform_photo_published($1,'community/x.jpg',$2)`,[ph.id,BOB])),/staff role required/);
- await svc(db,`select public.platform_photo_published($1,'SEOUL006/1.jpg',$2)`,[ph.id,EDITOR]);
+ const H1='a'.repeat(64),H2='b'.repeat(64);
+ assert.match(await err(svc(db,`select public.platform_photo_published($1,'community/x.jpg',$2,'B',$3)`,[ph.id,BOB,H1])),/staff role required/);
+ assert.match(await err(svc(db,`select public.platform_photo_published($1,'SEOUL006/1.jpg',$2,null,$3)`,[ph.id,EDITOR,H1])),/grade_required/,'publishing needs the staff grade');
+ assert.match(await err(svc(db,`select public.platform_photo_published($1,'SEOUL006/1.jpg',$2,'B','x')`,[ph.id,EDITOR])),/hash_required/);
+ // v2.0: the member sets the credit line only; a grade or hash they send is dropped.
+ await user(db,BOB,`update public.community_photos set credit_name='김사진',grade='A',sha256=$2 where id=$1`,[ph.id,H2]);
+ assert.deepEqual(Object.values((await svc(db,`select credit_name,grade,sha256 from public.community_photos where id=$1`,[ph.id]))[0]),['김사진',null,null]);
+ assert.match(await err(user(db,BOB,`update public.community_photos set credit_name='https://spam.example' where id=$1`,[ph.id])),/check constraint/,'no links in the credit line');
+ await svc(db,`select public.platform_photo_published($1,'SEOUL006/1.jpg',$2,'B',$3)`,[ph.id,EDITOR,H1]);
  const pub=await anon(db,`select * from public.community_public_photos`);
  assert.equal(pub.length,1);
  assert.equal(pub[0].public_path,'SEOUL006/1.jpg');
+ assert.deepEqual([pub[0].credit,pub[0].grade],['김사진','B']);
+ // The same file (same SHA-256) is never published twice.
+ const dup=await one(row(BOB,`${BOB}/ddp-night-copy.jpg`));
+ assert.match(await err(svc(db,`select public.platform_photo_published($1,'SEOUL006/2.jpg',$2,'B',$3)`,[dup.id,EDITOR,H1])),/duplicate_photo/);
  assert.ok(!('user_id' in pub[0]) && !('upload_path' in pub[0]));
  await mfa(db,EDITOR,`select public.platform_photo_official($1,'accepted','작품 일치 확인')`,[ph.id]);
  assert.equal((await svc(db,`select official_review from public.community_photos where id=$1`,[ph.id]))[0].official_review,'accepted');

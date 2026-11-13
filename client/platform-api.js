@@ -35,7 +35,7 @@ window.AOLPlatformAPI = {
   uploadPhoto: async (f) => {
     const name = `${uid()}/${f.project_id}-${Date.now().toString(36)}.jpg`
     must(await client().storage.from('community-uploads').upload(name, f.blob, { contentType: 'image/jpeg', upsert: false }))
-    const row = { project_id: f.project_id, upload_path: name, mime: 'image/jpeg', bytes: f.blob.size, width: f.width, height: f.height, caption: f.caption, taken_on: f.taken_on, licence: f.licence, offer_official: f.offer_official, own_photo: f.own_photo, can_license: f.can_license, people_ok: f.people_ok, artwork_rights_notice: f.artwork_rights_notice }
+    const row = { project_id: f.project_id, upload_path: name, mime: 'image/jpeg', bytes: f.blob.size, width: f.width, height: f.height, caption: f.caption, credit_name: f.credit_name || null, taken_on: f.taken_on, licence: f.licence, offer_official: f.offer_official, own_photo: f.own_photo, can_license: f.can_license, people_ok: f.people_ok, artwork_rights_notice: f.artwork_rights_notice }
     const r = await client().from('community_photos').insert(row).select('id,status').single()
     if (r.error) { await client().storage.from('community-uploads').remove([name]); throw r.error }
     return r.data

@@ -579,7 +579,9 @@ create or replace view public.community_public_posts with (security_barrier) as
 create or replace view public.community_public_comments with (security_barrier) as
  select c.id,c.post_id,c.author_name,c.body,c.published_at from public.community_comments c
  where c.status='approved' and exists(select 1 from public.community_posts p where p.id=c.post_id and p.status='approved');
-create or replace view public.community_public_photos with (security_barrier) as
+-- Dropped first: a later migration (20261113000000_v2_photo_grades.sql) adds columns, and a re-run must not fail.
+drop view if exists public.community_public_photos;
+create view public.community_public_photos with (security_barrier) as
  select f.id,f.project_id,f.author_name,f.caption,f.taken_on,f.public_path,f.width,f.height,f.licence,f.published_at
  from public.community_photos f where f.status='approved' and f.public_path is not null;
 revoke all on public.community_public_posts,public.community_public_comments,public.community_public_photos from public,anon,authenticated;

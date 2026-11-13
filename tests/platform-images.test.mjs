@@ -3,7 +3,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { createRequire } from 'node:module'
-import { imageInventory, COLUMNS } from '../pipeline/lib/image-inventory.mjs'
+import { imageInventory, inventoryMarkdown, COLUMNS } from '../pipeline/lib/image-inventory.mjs'
 const require = createRequire(import.meta.url)
 const { draft } = require('../site-public-cleared/admin/permission-draft.js')
 
@@ -21,7 +21,7 @@ const records = [
 ]
 const imageReview = [
   { project: 'P6', candidates: [{ kind: 'project_media', ok: true, approved: null, width: 1600, quality: { sharpness: 70, blockiness: 12 } }, { kind: 'project_media', ok: true, approved: false, width: 2000 }] },
-  { project: 'P8', candidates: [{ kind: 'project_media', ok: true, approved: null, width: 1195, quality: { sharpness: 52, blockiness: 72 } }, { kind: 'project_media', ok: true, approved: null, width: 800 }] },
+  { project: 'P8', candidates: [{ kind: 'project_media', ok: true, approved: null, width: 1195, quality: { sharpness: 52, blockiness: 72 } }, { kind: 'project_media', ok: true, approved: null, width: 600 }] },
 ]
 const missingImages = [{ id: 'P7', candidates: 3, refused: { 'rights:license_not_allowed': 3 } }, { id: 'P8', candidates: 3, refused: { 'rights:license_not_allowed': 1 } }]
 
@@ -43,6 +43,46 @@ test('inventory: status, failure reason and next action per project; summaries b
   const lines = csv.slice(1).trim().split('\r\n')
   assert.equal(lines[0], COLUMNS.join(','))
   assert.equal(lines.length, records.length + 1)
+})
+
+test('inventory (v2.0): grades, the nine categories, follow-up history and what the run changed', () => {
+  const at1 = '2026-11-13T02:00:00Z', at2 = '2026-11-13T08:00:00Z'
+  const bImage = { ...repImage, width: 1200 }
+  const recs = [
+    { id: 'A1', country_iso2: 'FR', images: [repImage] },
+    { id: 'B1', country_iso2: 'DE', images: [bImage, ctxImage] },
+    { id: 'C1', country_iso2: 'NL', images: [ctxImage] },
+    { id: 'K1', country_iso2: 'KR', images: [] },
+    { id: 'E1', country_iso2: 'ES', images: [], wikidata: 'Q9' },
+    { id: 'O1', country_iso2: 'US', images: [], official_url: 'https://example.org' },
+  ]
+  const first = imageInventory({ records: recs, at: at1, imageReview: [{ project: 'E1', candidates: [{ key: 'E1.jpg', kind: 'project_media', ok: true, approved: null, width: 2000 }] }], imageErrors: [{ stage: 'images_quality', file: 'E1.jpg' }] }).json
+  const by = Object.fromEntries(first.rows.map((r) => [r.project_id, r]))
+  assert.deepEqual([by.A1.category, by.A1.best_grade, by.A1.a_images], ['rep_a', 'A', 1])
+  assert.deepEqual([by.B1.category, by.B1.best_grade, by.B1.b_images, by.B1.c_images], ['5_b_usable', 'B', 1, 1])
+  assert.deepEqual([by.C1.category, by.C1.best_grade, by.C1.c_images, by.C1.representative], ['6_context_only', 'C', 1, false], 'a context photo is never the work\'s photo')
+  assert.deepEqual([by.K1.category, by.K1.next_action], ['8_access_needed', 'add_tourapi_key'])
+  assert.deepEqual([by.E1.category, by.E1.next_action], ['9_temporary_error', 'retry'], 'a failed request is retried, not given up')
+  assert.deepEqual([by.O1.category, by.O1.next_action], ['7_permission_needed', 'request_permission'])
+  assert.deepEqual([by.C1.missing_since, by.C1.checks, by.A1.missing_since], [at1, 1, null])
+  const all = first.summary.all
+  assert.deepEqual([all.representative, all.rep_grade_a, all.rep_grade_b, all.images, all.without_images], [2, 1, 1, { A: 1, B: 1, C: 2 }, 3])
+  assert.equal(first.summary.changes.gained, null, 'no previous inventory: no change counted')
+  // Next run: C1 got a photo of the work, A1 lost its photo; K1 is still missing (two checks, same start).
+  const recs2 = recs.map((r) => r.id === 'C1' ? { ...r, images: [repImage] } : r.id === 'A1' ? { ...r, images: [] } : r)
+  const second = imageInventory({ records: recs2, at: at2, previous: first, decisions: [{ action: 'approve_image', status: 'applied', file: 'x.json' }, { action: 'edit', status: 'applied', file: 'y.json' }] }).json
+  const by2 = Object.fromEntries(second.rows.map((r) => [r.project_id, r]))
+  assert.deepEqual([by2.K1.missing_since, by2.K1.checks, by2.K1.last_checked], [at1, 2, at2])
+  assert.deepEqual([by2.A1.missing_since, by2.A1.checks], [at2, 1])
+  assert.deepEqual([second.summary.changes.gained, second.summary.changes.lost, second.summary.changes.net, second.summary.changes.image_decisions_applied], [['C1'], ['A1'], 0, 1])
+  assert.deepEqual([second.summary.changes.new_image_decisions, second.summary.changes.new_image_approvals], [1, 1], 'the first run listed no decision files, so x.json is new')
+  const third = imageInventory({ records: recs2, at: '2026-11-13T14:00:00Z', previous: second, decisions: [{ action: 'approve_image', status: 'applied', file: 'x.json' }, { action: 'approve_image', status: 'applied', file: 'z.json' }, { action: 'block_image', status: 'applied', file: 'w.json' }] }).json
+  assert.deepEqual([third.summary.changes.new_image_decisions, third.summary.changes.new_image_approvals, third.summary.changes.image_decisions_applied], [2, 1, 3], 'only decisions the previous run did not list are new')
+  assert.match(second.summary.definition, /grade A or B/)
+  const md = inventoryMarkdown(second)
+  assert.match(md, /\| 대표 이미지 확보 \| 2 \(33\.3%\) \|/)
+  assert.match(md, /9\. 일시 오류/)
+  assert.match(md, /새 대표 이미지 1건, 잃은 사례 1건, 새로 들어온 이미지 결정 1건\(승인·지정 1건\), 적용 중인 이미지 결정 전체 1건/)
 })
 
 test('permission drafts: both languages, the scope asked, no transfer, revocable, nothing sent', () => {

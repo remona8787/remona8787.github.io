@@ -147,6 +147,8 @@ export function image(m) {
     // Whether the photo shows the work itself with its rights, size, identity and visual evidence
     // (site-public-cleared/art-photo-policy.js); only such photos represent a project on cards, the banner and tiles.
     art_representative: ART.isRepresentative(m),
+    // Its grade (A premium, B general, C context; art-photo-policy.js): the home banner and large feature take only A.
+    art_grade: ART.gradeOf(m),
     thumb, src: src || thumb, page: https(m.page) || https(m.page_url), license, license_url: https(m.license_url), author, attribution,
     role: text(m.role, 40), tier, width, height,
     focal: fx !== null && fy !== null && fx >= 0 && fy >= 0 ? { x: fx, y: fy } : null, caption: i18n(m.caption, 300), taken: text(m.date || m.taken, 40),
@@ -310,7 +312,7 @@ export function mediaRow(/** @type {string} */ placeId, /** @type {ReturnType<ty
     clearance_status: 'cleared', review_required: false, creator: m.author || m.attribution || '', attribution: m.attribution, license_code: m.license, license_url: m.license_url || '',
     source_url: m.page || m.src, caption: '', caption_i18n: m.caption, captured_at: m.taken || '', tier: m.tier, home_ok: m.home_ok, role: m.role, width: m.width, height: m.height, focal: m.focal, order: i,
     image_provider: m.provider, rights_holder: m.rights_holder, usage: m.usage, approved: m.approved, context: m.context, sizes: m.sizes, maxw: m.maxw,
-    art_representative: m.art_representative, media_evidence: m.media_evidence,
+    art_representative: m.art_representative, art_grade: m.art_grade, media_evidence: m.media_evidence,
     kind: m.kind, raw_tier: m.raw_tier, media_active: m.media_active, subject: m.subject,
     title: m.title, description: m.description, commercial_use: m.commercial_use, kogl_type: m.kogl_type, no_derivatives: m.no_derivatives,
   }

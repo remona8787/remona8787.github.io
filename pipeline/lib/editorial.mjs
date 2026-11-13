@@ -28,6 +28,8 @@ import T from '../../site-public-cleared/archive-taxonomy.js'
 import { bareFile, isQid, validLat, validLng, slugify, fnv1a } from './util.mjs'
 
 export const ACTIONS = ['approve', 'hide', 'unhide', 'merge', 'edit', 'block_image', 'set_hero', 'unset_hero', 'approve_image', 'set_image']
+/** The kinds an editor may give a photo after viewing it (approve_image kind). */
+export const EDITOR_KINDS = ['project_media', 'project_installation', 'architecture_context']
 // REG-<CC>-<4 digits>: records of the research registry (editorial/registry), so a reviewed photo, an edit or a
 // takedown can reach them too.
 const ID_RE = /^(?:Q[1-9]\d{0,11}|[A-Z]{2,12}\d{1,6}|CAT-[0-9A-Z]{1,13}|REG-[A-Z]{2}-\d{4}|ED-[a-z0-9-]{1,60}|X-[0-9A-Z]{1,13}|KTO-\d{1,12}|cand-[0-9a-z]{1,13}|new:[a-z0-9-]{1,60})$/
@@ -84,6 +86,12 @@ export function validateDecision(d) {
     if (d.license_url !== undefined && d.license_url !== null && !https(d.license_url) && !/^http:\/\//.test(String(d.license_url))) problems.push('bad_license_url')
     if (d.provider !== undefined && !['official', 'editor'].includes(d.provider)) problems.push('provider_must_be_official_or_editor')
   }
+  if (d.action === 'approve_image') {
+    // What the editor saw (v2.0 image grades): grade A|B|C at display size, the kind the photo shows, its focal point.
+    if (d.grade !== undefined && !['A', 'B', 'C'].includes(d.grade)) problems.push('grade_must_be_A_B_or_C')
+    if (d.kind !== undefined && !EDITOR_KINDS.includes(d.kind)) problems.push('kind_must_be_' + EDITOR_KINDS.join('_or_'))
+    if (d.focal !== undefined && !(d.focal && [d.focal.x, d.focal.y].every((v) => typeof v === 'number' && v >= 0 && v <= 1))) problems.push('focal_must_be_x_y_0_to_1')
+  }
   if (d.action === 'edit' && (!d.fields || typeof d.fields !== 'object')) problems.push('fields_required')
   if (d.action === 'approve' && /^(cand-|new:)/.test(String(d.target || '')) && (!d.fields || typeof d.fields !== 'object')) problems.push('fields_required')
   if (!text(d.by, 120)) problems.push('by_required')
@@ -122,7 +130,7 @@ export async function loadEditorial(dir) {
 export function compileEditorial(loaded, { candidates = {} } = {}) {
   const log = []
   const approvals = new Map(), hidden = new Map(), edits = new Map(), merges = [], created = []
-  const blockedImages = new Set(), heroAllow = new Map(), imageApprovals = new Map(), setImages = new Map()
+  const blockedImages = new Set(), heroAllow = new Map(), imageApprovals = new Map(), setImages = new Map(), imageEdits = new Map()
   for (const { file, content, error } of loaded.decisions) {
     const entry = { file, action: content?.action ?? null, target: content?.target ?? null, by: text(content?.by, 120), at: content?.at ?? null, note: text(content?.note, 300), status: 'pending', reasons: [] }
     log.push(entry)
@@ -170,7 +178,13 @@ export function compileEditorial(loaded, { candidates = {} } = {}) {
         break
       }
       case 'block_image': blockedImages.add(d.target + '|' + bareFile(d.image)); imageApprovals.set(d.target + '|' + bareFile(d.image), false); entry.status = 'applied'; break
-      case 'approve_image': imageApprovals.set(d.target + '|' + bareFile(d.image), true); entry.status = 'applied'; break
+      case 'approve_image': {
+        const key = d.target + '|' + bareFile(d.image)
+        imageApprovals.set(key, true)
+        if (d.grade || d.kind || d.focal) { supersede(imageEdits, key); imageEdits.set(key, { grade: d.grade ?? null, kind: d.kind ?? null, focal: d.focal ? { x: d.focal.x, y: d.focal.y } : null, entry }) }
+        entry.status = 'applied'
+        break
+      }
       case 'set_image': {
         const list = setImages.get(d.target) || []
         list.push({ src: d.src, page: d.page, author: text(d.author, 200), license: text(d.license, 120), license_url: d.license_url || null, permission_note: text(d.permission_note, 500), provider: d.provider || 'official', no_derivatives: d.no_derivatives === true, width: Number.isInteger(d.width) ? d.width : null, height: Number.isInteger(d.height) ? d.height : null, note: entry.note, entry })
@@ -196,7 +210,7 @@ export function compileEditorial(loaded, { candidates = {} } = {}) {
     heroList.push({ project, image: bareFile(image), note: text(h.note, 300) })
   }
   for (const h of heroList) if (!imageApprovals.has(h.project + '|' + h.image)) imageApprovals.set(h.project + '|' + h.image, true)
-  return { log, approvals, hidden, edits, merges, created, blockedImages, heroAllow, heroList, imageApprovals, setImages }
+  return { log, approvals, hidden, edits, merges, created, blockedImages, heroAllow, heroList, imageApprovals, setImages, imageEdits }
 }
 
 /** The effective hero allowlist: hero.json plus set_hero, minus unset_hero. Set of "project|file". */

@@ -207,6 +207,12 @@ test('image objects: Commons URLs at standard widths without analytics parameter
   assert.deepEqual(imageObject({ ...s, a: { ...s.a, portrait: 'Leo Villareal' } }, 'context', { project: { id: 'Q1' } }).identity, { ok: false, method: 'commons_portrait' })
   assert.deepEqual(imageObject({ ...s, source: 'p18' }, 'card', { project: { id: 'Q1' } }).identity, { ok: true, method: 'commons_p18' })
   assert.ok(o.display.every(([w]) => w <= o.width))
+  // v2.0: an editor who viewed a photo (approve_image grade, kind, focal) ties it to the work; the grade and focal
+  // point travel on the object, and a context kind is no proof of the work.
+  const viewed = imageObject({ ...s, a: { ...s.a, evidence: ['host_building_only'] }, kind: 'project_media', edit: { grade: 'B', kind: 'project_media', focal: { x: 0.5, y: 0.1 } } }, 'gallery', { project: { id: 'Q1' } })
+  assert.deepEqual([viewed.identity, viewed.kind, viewed.editor_grade, viewed.focal], [{ ok: true, method: 'commons_editorial_review' }, 'project_media', 'B', { x: 0.5, y: 0.1 }])
+  assert.deepEqual(imageObject({ ...s, a: { ...s.a, evidence: ['host_building_only'] }, edit: { grade: 'C', kind: 'architecture_context' } }, 'context', { project: { id: 'Q1' } }).identity, { ok: false, method: 'commons_institution_file' })
+  assert.equal(o.editor_grade, undefined, 'no grade without an editor')
   const ov = imageObject({ ...cand('ov-1', M.night, 55, 45, { provider: 'openverse', width: 2048 }), cand: { provider: 'openverse', source_id: 'ov-1', src: 'https://live.staticflickr.com/1_k.jpg', page: 'https://www.flickr.com/photos/a/1/', sizes: [[2048, 'https://live.staticflickr.com/1_k.jpg'], [4096, 'https://too.big/x.jpg']], license: 'CC BY 2.0', author: 'A', usage: 'hotlink' } }, 'gallery', { project: { id: 'Q1' } })
   assert.deepEqual(ov.display, [[2048, 'https://live.staticflickr.com/1_k.jpg']], 'never wider than the original')
   assert.equal(ov.identity.method, 'name_location')

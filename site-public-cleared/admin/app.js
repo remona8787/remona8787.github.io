@@ -208,7 +208,7 @@ async function enter(session){
  route(false);
 }
 
-const TABS=[['dashboard','대시보드','editor'],['queue','검수 대기열','editor'],['reports','오류 신고','editor'],['quality','데이터 품질','editor'],['projects','프로젝트','editor'],['updates','변경 감지','editor'],['runs','수집 작업','editor'],['rules','수집 규칙·키워드','editor'],['settings','설정','admin'],['members','회원·연구 데이터','admin'],['research','연구자 평가','researcher'],['magazine','매거진','editor'],['places','장소 후보','editor'],['platform','회원 활동 검수','editor']];
+const TABS=[['dashboard','대시보드','editor'],['queue','검수 대기열','editor'],['reports','오류 신고','editor'],['quality','데이터 품질','editor'],['images','이미지 현황','editor'],['projects','프로젝트','editor'],['updates','변경 감지','editor'],['runs','수집 작업','editor'],['rules','수집 규칙·키워드','editor'],['settings','설정','admin'],['members','회원·연구 데이터','admin'],['research','연구자 평가','researcher'],['magazine','매거진','editor'],['places','장소 후보','editor'],['platform','회원 활동 검수','editor']];
 function route(focus){
  if(!S.role)return;
  const allowed=TABS.filter(t=>can(t[2])).map(t=>t[0]);
@@ -887,6 +887,39 @@ async function loadQuality(){
  }catch(e){put(box,errBox(e,'수집 보고서를 불러오지 못했어요.'))}
 }
 
+// ---- 이미지 현황 (v2.0 image brief: admin-data/image-inventory.json on the data branch; docs/IMAGE_GRADES.md) ----
+const IMG_CAT=[['rep_a','A등급 대표 이미지 있음'],['5_b_usable','B등급으로 사용 중 (5)'],['1_no_candidate','사진 후보 없음 (1)'],['2_identity_unverified','작품 일치 미확인 (2)'],['3_rights_review','권리 확인 필요 (3)'],['4_quality_below','권리는 있으나 품질 미달 (4)'],['6_context_only','건물·장소 맥락 사진만 (6)'],['7_permission_needed','공식기관 사용허가 요청 필요 (7)'],['8_access_needed','API 인증·접근 필요 (8)'],['9_temporary_error','일시 오류, 다음 수집에서 재시도 (9)']];
+const IMG_NEXT={none:'—',approve_review:'검토 대기 승인',search_commons:'Commons 재검색',request_permission:'사용허가 요청',add_tourapi_key:'TourAPI 키 등록',retry:'다음 수집에서 재시도'};
+S.img={cat:'',rows:[]};
+const pct=(n,d)=>d?`${(Math.round(1000*n/d)/10).toLocaleString('ko-KR')}%`:'—';
+async function loadImages(){
+ const box=$('#imagesBox');put(box,html`<p class="muted">불러오는 중…</p>`);
+ try{
+  const inv=await dataFile('admin-data/image-inventory.json');
+  if(!inv){put(box,html`<p class="muted">이미지 전수 조사가 아직 없어요. 다음 자동 수집 뒤에 생겨요.</p>`);return}
+  const s=inv.summary||{},a=s.all||{},kr=s.korea||{},w=s.world||{},ch=s.changes||{};
+  let perms=null;try{const r=await sb.from('image_permission_requests').select('status');if(!r.error)perms=r.data||[]}catch{}
+  const inProgress=perms?perms.filter(p=>['sent','replied'].includes(p.status)).length:null;
+  S.img.rows=rows(inv.rows);
+  put(box,html`<p class="small">판정 기준: ${s.definition||''}. 확보율 = 대표 이미지(A 또는 B)가 있는 사례 ÷ 공개 사례. C등급 맥락 사진은 세지 않아요. 기준 시각 ${when(inv.at)} · ${link(`https://github.com/${DATA_REPO()}/blob/data/admin-data/image-inventory.csv`,'전체 표(CSV)')}</p>
+  <div class="tiles">${qtile('공개 사례',a.projects)}${qtile('대표 이미지 확보',a.representative,`${num(a.representative)} / ${num(a.projects)} · ${pct(a.representative,a.projects)}`)}${qtile('국내',kr.representative,`${num(kr.representative)} / ${num(kr.projects)} · ${pct(kr.representative,kr.projects)}`)}${qtile('해외',w.representative,`${num(w.representative)} / ${num(w.projects)} · ${pct(w.representative,w.projects)}`)}</div>
+  <div class="tiles">${qtile('A등급 대표 사례',a.rep_grade_a)}${qtile('B등급만 있는 사례',a.rep_grade_b)}${qtile('A등급 이미지',a.images?.A)}${qtile('B등급 이미지',a.images?.B)}${qtile('C등급 맥락 이미지',a.images?.C,'작품 사진 실적에 넣지 않음')}${qtile('이미지 없는 사례',a.without_images)}</div>
+  <div class="tiles">${qtile('저작권 검토 대기',a.rights_review)}${qtile('작품 일치 검토 대기',a.identity_review)}${qtile('사용허가 요청 대상',a.permission_targets)}${qtile('사용허가 요청 진행',inProgress,perms?'보냄·회신 대기':'서버 연결 후 표시')}${qtile('이번 수집에서 새로 승인된 이미지',ch.new_image_approvals,ch.new_image_decisions!=null?`새 결정 ${num(ch.new_image_decisions)}건 · 적용 중 ${num(ch.image_decisions_applied)}건`:'이전 조사와 비교 전')}${qtile('이번 수집에서 새로 생긴 대표 이미지',ch.gained?ch.gained.length:null,ch.lost?`잃은 사례 ${ch.lost.length}`:'이전 조사와 비교 전')}</div>
+  <h2 class="h3">분류</h2><div class="table-scroll" tabindex="0" role="region" aria-label="이미지 분류 표"><table><thead><tr><th scope="col">분류</th><th scope="col">전체</th><th scope="col">국내</th><th scope="col">해외</th></tr></thead><tbody>${IMG_CAT.map(([k,l])=>html`<tr><th scope="row">${l}</th><td>${num(a.by_category?.[k]??0)}</td><td>${num(kr.by_category?.[k]??0)}</td><td>${num(w.by_category?.[k]??0)}</td></tr>`)}</tbody></table></div>
+  <h2 class="h3">사례별</h2><form data-form="img-filter" class="filters" role="search"><label class="field">분류 <select name="cat" aria-label="분류">${[['','대표 이미지가 없는 사례 전체'],...IMG_CAT].map(([k,l])=>html`<option value="${k}"${on(k===S.img.cat,'selected')}>${l}</option>`)}</select></label><button class="btn" type="submit">보기</button></form>
+  <div id="imgRows"></div>`);
+  renderImgRows();
+ }catch(e){put(box,errBox(e,'이미지 전수 조사를 불러오지 못했어요.'))}
+}
+function renderImgRows(){
+ const list=S.img.rows.filter(r=>S.img.cat?r.category===S.img.cat:!r.representative).slice(0,200);
+ put($('#imgRows'),html`<p class="muted small">${num(list.length)}건${list.length===200?' (앞 200건)':''}</p><div class="table-scroll" tabindex="0" role="region" aria-label="사례별 이미지 상태"><table><thead><tr><th scope="col">사례</th><th scope="col">국가</th><th scope="col">유형</th><th scope="col">등급</th><th scope="col">분류</th><th scope="col">다음 작업</th><th scope="col">누락 시작·확인</th></tr></thead><tbody>${list.map(r=>html`<tr><th scope="row">${link(`https://remona8787.github.io/p/${encodeURIComponent(r.project_id)}/`,r.name_ko||r.name_en||r.name_original||r.project_id)}<br><code class="small">${r.project_id}</code></th><td>${r.country_iso2||''}</td><td>${r.project_type||''}</td><td>${r.best_grade||'—'}</td><td>${(IMG_CAT.find(([k])=>k===r.category)||[,r.category])[1]}</td><td>${IMG_NEXT[r.next_action]||r.next_action}${r.next_action==='request_permission'&&r.official_url?html`<br><button type="button" class="btn ghost" data-act="img-draft" data-id="${r.project_id}">메일 초안</button><pre class="small" id="imgDraft-${r.project_id}" hidden></pre>`:''}</td><td class="small">${when(r.missing_since)}<br>${num(r.checks)}회</td></tr>`)}</tbody></table></div>`);
+}
+forms['img-filter']=f=>{S.img.cat=new FormData(f).get('cat')||'';renderImgRows()};
+// A permission request draft from the inventory row alone (no server needed): the official site is the contact until
+// the operator finds the rights holder. Nothing is sent.
+acts['img-draft']=el=>{const r=S.img.rows.find(x=>x.project_id===el.dataset.id);if(!r)return;const d=window.AOLPermissionDraft.draft({project_id:r.project_id,image_ref:'공식 사이트의 작품 사진 (운영자가 고를 사진)',rights_holder:'담당자',contact_channel:'web_form',contact_value:r.official_url,purpose:'작품 상세 페이지 대표 이미지(저작자 표시)',requested_scope:'display_and_thumbnail'},{projectName:r.name_ko||r.name_en||r.name_original||r.project_id,operatorName:cfg.OPERATOR_NAME||'운영자',operatorEmail:cfg.SUPPORT_EMAIL||''});const pre=$(`#imgDraft-${r.project_id}`);pre.hidden=false;pre.textContent=`받는 곳: ${d.to||d.form||'(공식 사이트에서 연락처 확인)'}\n제목: ${d.subject}\n\n${d.body}\n\n※ 보내기 전에 운영자가 읽고 고친 뒤 직접 보내세요. 회신 전에는 사진을 게시하지 않아요.`};
+
 // ---- 회원·연구 데이터 (aggregates only: research_admin_stats) ----
 async function loadMembers(){
  const box=$('#membersBox');put(box,html`<p class="muted">불러오는 중…</p>`);
@@ -933,7 +966,7 @@ async function loadPlatform(){
      ${it.moderation?html`<details><summary>자동 검수 결과</summary><pre class="small">${JSON.stringify(it.moderation,null,1)}</pre></details>`:''}
      ${it.checks?html`<details open><summary>중복·링크 확인</summary><pre class="small">${JSON.stringify(it.checks,null,1)}</pre></details>`:''}
      ${type==='photo'?html`<p class="small muted">${it.width}×${it.height} · ${it.licence} · 공식 후보 제안 ${it.offer_official?'예':'아니요'} · 검수 전 원본은 비공개 버킷에 있어요.</p>`:''}
-     <div class="row">${type==='photo'?html`<button class="btn primary" data-act="pf-publish" data-id="${it.id}">확인 후 공개 (메타데이터 제거)</button>`:type==='submission'?html`<input id="pfProj-${it.id}" placeholder="승인 시 프로젝트 ID (REG-CM-0001)" aria-label="승인 시 프로젝트 ID" size="22"><button class="btn primary" data-act="pf-mod" data-d="approved" data-id="${it.id}">승인</button>`:html`<button class="btn primary" data-act="pf-mod" data-d="approved" data-id="${it.id}">공개</button>`}
+     <div class="row">${type==='photo'?html`<select id="pfGrade-${it.id}" aria-label="공개 등급 (A 프리미엄 · B 일반 · C 맥락)"><option value="">등급 선택</option><option value="A">A 프리미엄 (배너 가능)</option><option value="B">B 일반 (카드·상세)</option><option value="C">C 맥락 (장소·현장 사진)</option></select><button class="btn primary" data-act="pf-publish" data-id="${it.id}">확인 후 공개 (메타데이터 제거)</button>`:type==='submission'?html`<input id="pfProj-${it.id}" placeholder="승인 시 프로젝트 ID (REG-CM-0001)" aria-label="승인 시 프로젝트 ID" size="22"><button class="btn primary" data-act="pf-mod" data-d="approved" data-id="${it.id}">승인</button>`:html`<button class="btn primary" data-act="pf-mod" data-d="approved" data-id="${it.id}">공개</button>`}
       <button class="btn" data-act="pf-mod" data-d="rejected" data-id="${it.id}">반려</button>${it.status==='approved'?html`<button class="btn danger" data-act="${type==='photo'?'pf-unpublish':'pf-mod'}" data-d="removed" data-id="${it.id}">게시 중단</button>`:''}</div></li>`)}</ol>${rows(items).length?'':html`<p class="muted">없음</p>`}
    <h2>신고</h2><ol class="plist">${rows(flags).map(f=>html`<li><b>#${f.id}</b> ${f.target_type} ${f.target_id} · ${f.reason} · ${f.created_at?.slice(0,16)}<p class="pre">${f.message||''}</p>${f.contact_email?html`<p class="small">회신: ${f.contact_email} (처리하면 지워져요)</p>`:''}<button class="btn" data-act="pf-flag" data-a="actioned" data-id="${f.id}">조치함</button><button class="btn" data-act="pf-flag" data-a="dismissed" data-id="${f.id}">기각</button></li>`)}</ol>${rows(flags).length?'':html`<p class="muted">없음</p>`}
    <h2>이의신청</h2><ol class="plist">${rows(appeals).map(a=>html`<li><b>#${a.id}</b> ${a.target_type} ${a.target_id??''}<p class="pre">${a.message}</p><button class="btn" data-act="pf-appeal" data-d="reversed" data-id="${a.id}">재검토 (사람 검토로 돌림)</button><button class="btn" data-act="pf-appeal" data-d="upheld" data-id="${a.id}">원결정 유지</button></li>`)}</ol>${rows(appeals).length?'':html`<p class="muted">없음</p>`}
@@ -950,7 +983,7 @@ document.addEventListener('change',e=>{if(e.target?.id==='pfStatus'){S.pf.status
 const pfReason=(d)=>{if(!['rejected','removed','needs_info'].includes(d))return null;const r=prompt('사유 (이용자에게 보여요)');if(!r)throw new Error('사유가 필요해요');return r};
 acts['pf-mod']=async el=>{const d=el.dataset.d,id=Number(el.dataset.id),reason=pfReason(d),proj=S.pf.type==='submission'&&d==='approved'?($(`#pfProj-${id}`)?.value||'').trim()||null:null;await rpc('platform_moderate',{p_type:S.pf.type,p_id:id,p_decision:d,p_reason:reason,p_project:proj});toast('처리했어요');loadPlatform()};
 const pfFn=async(name,body)=>{const {data:{session}}=await sb.auth.getSession();const r=await fetch(String(cfg.SUPABASE_URL).replace(/\/+$/,'')+'/functions/v1/'+name,{method:'POST',headers:{authorization:'Bearer '+session?.access_token,apikey:cfg.SUPABASE_PUBLISHABLE_KEY,'content-type':'application/json'},body:JSON.stringify(body)});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error(j.error+(j.reason?': '+j.reason:''));return j};
-acts['pf-publish']=async el=>{const j=await pfFn('publish-photo',{photo_id:Number(el.dataset.id)});toast('공개했어요 · 제거한 메타데이터: '+(j.removed||[]).join(', '));loadPlatform()};
+acts['pf-publish']=async el=>{const grade=$(`#pfGrade-${el.dataset.id}`)?.value;if(!grade)throw Error('공개 등급을 고르세요: A는 배너에 쓸 만한 고화질, B는 카드·상세용, C는 장소·현장 맥락 사진이에요.');const j=await pfFn('publish-photo',{photo_id:Number(el.dataset.id),grade});toast(`공개했어요 (${j.grade}등급) · 제거한 메타데이터: `+(j.removed||[]).join(', '));loadPlatform()};
 acts['pf-unpublish']=async el=>{const reason=pfReason('removed');await pfFn('publish-photo',{photo_id:Number(el.dataset.id),action:'remove',reason});toast('내렸어요 (캐시는 최대 1시간 남을 수 있어요)');loadPlatform()};
 acts['pf-flag']=async el=>{await rpc('flag_handle',{p_id:Number(el.dataset.id),p_action:el.dataset.a,p_note:null});loadPlatform()};
 acts['pf-appeal']=async el=>{const note=prompt('결정 사유 (이용자에게 보여요)');if(!note)return;await rpc('appeal_decide',{p_id:Number(el.dataset.id),p_decision:el.dataset.d,p_note:note});loadPlatform()};
@@ -958,7 +991,7 @@ acts['pf-app']=async el=>{const id=Number(el.dataset.id),d=el.dataset.d,reason=(
 acts['pf-perm']=async el=>{const {error}=await sb.from('image_permission_requests').update({status:el.dataset.s}).eq('id',Number(el.dataset.id));if(error)throw error;loadPlatform()};
 acts['pf-draft']=async el=>{const id=Number(el.dataset.id),{data:r,error}=await sb.from('image_permission_requests').select('*').eq('id',id).single();if(error)throw error;const d=window.AOLPermissionDraft.draft(r,{operatorName:cfg.OPERATOR_NAME||'운영자',operatorEmail:cfg.SUPPORT_EMAIL||''});const pre=$(`#pfDraft-${id}`);pre.hidden=false;pre.textContent=`받는 곳: ${d.to||d.form||'(연락처 확인)'}\n제목: ${d.subject}\n\n${d.body}`};
 forms['pf-perm-new']=async(f,fd)=>{const {error}=await sb.from('image_permission_requests').insert({project_id:fd.get('project_id'),image_ref:fd.get('image_ref'),rights_holder:fd.get('rights_holder'),contact_channel:fd.get('contact_channel'),contact_value:fd.get('contact_value')||null});if(error)throw error;f.reset();loadPlatform()};
-const LOAD={platform:loadPlatform,dashboard:loadDashboard,queue:()=>loadQueue({keep:{id:curCand()?.id}}),projects:()=>{const id=S.p.pendingOpen||S.p.cur?.id;S.p.pendingOpen=null;return loadProjects({open:id})},updates:loadUpdates,runs:loadRuns,rules:loadRules,settings:loadSettings,research:loadResearch,magazine:()=>{},places:loadLegacy,reports:loadReports,quality:loadQuality,members:loadMembers};
+const LOAD={platform:loadPlatform,dashboard:loadDashboard,queue:()=>loadQueue({keep:{id:curCand()?.id}}),projects:()=>{const id=S.p.pendingOpen||S.p.cur?.id;S.p.pendingOpen=null;return loadProjects({open:id})},updates:loadUpdates,runs:loadRuns,rules:loadRules,settings:loadSettings,research:loadResearch,magazine:()=>{},places:loadLegacy,reports:loadReports,quality:loadQuality,images:loadImages,members:loadMembers};
 acts['reload']=()=>LOAD[S.tab]?.();
 forms['queue-filter']=()=>loadQueue();
 forms['project-filter']=()=>loadProjects({open:S.p.cur?.id});

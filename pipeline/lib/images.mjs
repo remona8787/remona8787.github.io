@@ -466,6 +466,8 @@ export function chooseImages(project, scored, { heroAllow, blocked, galleryMax =
 export function commonsIdentity(s) {
   const ev = s.a?.evidence || []
   if (s.a?.portrait) return { ok: false, method: 'commons_portrait' }
+  // An editor who viewed the photo and gave it a work kind (approve_image kind) has tied it to the work.
+  if (s.edit?.kind && s.edit.kind !== 'architecture_context') return { ok: true, method: 'commons_editorial_review' }
   if (s.cand?.institution === true || ev.includes('host_building_only') || ev.some((e) => String(e).startsWith('institution_file:'))) return { ok: false, method: 'commons_institution_file' }
   return { ok: true, method: 'commons_' + String(s.source || 'item').replace(/[^a-z0-9_]/gi, '').slice(0, 30) }
 }
@@ -495,6 +497,7 @@ export function imageObject(s, role, { project, checkedAt = null, th = {} } = {}
     media_active: mediaActive(s.a, s.m), tier: s.t.tier, role, kind: s.kind ?? kindOf(s, project.project_type),
     title: imageTitle(c), description: c.provider === 'commons' ? snippet(s.info?.description) : snippet(c.description),
     identity: c.provider !== 'commons' ? s.identity : commonsIdentity(s),
+    ...(s.edit?.grade ? { editor_grade: s.edit.grade } : {}), ...(s.edit?.focal ? { focal: s.edit.focal } : {}),
     ...(role === 'hero' && width && width < (th.hero_min_width ?? 2400) ? { below_target: true } : {}),
     ...(role === 'card' && width && width < (th.card_min_width ?? 1200) ? { below_target: true } : {}),
     checked_at: checkedAt, approved: s.approved ?? null,

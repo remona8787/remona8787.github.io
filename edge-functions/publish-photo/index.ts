@@ -1,5 +1,7 @@
 // Publishes a member photo after a person approved it (v2.0, docs/PLATFORM.md "Photos").
-// POST {"photo_id": 123} with the staff member's own session token (admin or editor, MFA session).
+// POST {"photo_id": 123, "grade": "A"|"B"|"C"} with the staff member's own session token (admin or editor, MFA
+// session). The grade is the staff member's (docs/IMAGE_GRADES.md); the SHA-256 of the cleaned file is recorded and a
+// file already published is refused (duplicate_photo).
 // POST {"photo_id": 123, "action": "remove", "reason": "..."} takes a published photo down (a copyright notice, a
 // moderation decision): the status becomes removed and the public file is deleted. Browsers and CDNs may keep a cached
 // copy for up to the cache lifetime (1 hour) after removal. Reads the upload
@@ -19,7 +21,7 @@ Deno.serve(async (req) => {
   const admin = createClient(Deno.env.get("SUPABASE_URL")!, getAdminKey(), { auth: { persistSession: false } })
   const staff = await requireStaff(admin, (req.headers.get("authorization") || "").replace(/^Bearer\s+/i, ""))
   if (!staff.ok) return json({ error: staff.error }, staff.status)
-  let body: { photo_id?: unknown; action?: unknown; reason?: unknown }
+  let body: { photo_id?: unknown; action?: unknown; reason?: unknown; grade?: unknown }
   try { body = await req.json() } catch { return json({ error: "invalid_json" }, 400) }
   const id = Number(body.photo_id)
   if (!Number.isSafeInteger(id) || id <= 0) return json({ error: "invalid_request" }, 400)
@@ -36,6 +38,8 @@ Deno.serve(async (req) => {
     await admin.storage.from("community-uploads").remove([p.upload_path])
     return json({ ok: true, removed: true })
   }
+  const grade = typeof body.grade === "string" && ["A", "B", "C"].includes(body.grade) ? body.grade : null
+  if (!grade) return json({ error: "grade_required" }, 400)
   const { data: photo } = await admin.from("community_photos").select("id,project_id,upload_path,mime,status").eq("id", id).single()
   if (!photo || !["pending", "needs_review"].includes(photo.status)) return json({ error: "not_reviewable" }, 409)
   const { data: file, error: dlError } = await admin.storage.from("community-uploads").download(photo.upload_path)
@@ -44,12 +48,13 @@ Deno.serve(async (req) => {
   if (!checked.ok) return json({ error: "image_rejected", reason: checked.error }, 422)
   if (checked.mime === "image/png") return json({ error: "image_rejected", reason: "png_must_be_reencoded" }, 422)
   if (checked.mime === "image/jpeg" && hasExif(checked.bytes)) return json({ error: "image_rejected", reason: "metadata_left" }, 422)
+  const sha256 = [...new Uint8Array(await crypto.subtle.digest("SHA-256", checked.bytes))].map((b) => b.toString(16).padStart(2, "0")).join("")
   const ext = checked.mime === "image/webp" ? "webp" : "jpg"
   const path = `${photo.project_id}/${photo.id}.${ext}`
   const { error: upError } = await admin.storage.from("community-photos").upload(path, checked.bytes, { contentType: checked.mime, upsert: true, cacheControl: "3600" })
   if (upError) return json({ error: "publish_failed" }, 503)
-  const { error: recError } = await admin.rpc("platform_photo_published", { p_id: id, p_public_path: path, p_actor: staff.user })
-  if (recError) { await admin.storage.from("community-photos").remove([path]); return json({ error: "record_failed" }, 409) }
+  const { error: recError } = await admin.rpc("platform_photo_published", { p_id: id, p_public_path: path, p_actor: staff.user, p_grade: grade, p_sha256: sha256 })
+  if (recError) { await admin.storage.from("community-photos").remove([path]); return json({ error: /duplicate_photo/.test(recError.message || "") ? "duplicate_photo" : "record_failed" }, 409) }
   await admin.storage.from("community-uploads").remove([photo.upload_path])
-  return json({ ok: true, public_path: path, removed: checked.removed, width: checked.width, height: checked.height })
+  return json({ ok: true, public_path: path, grade, sha256, removed: checked.removed, width: checked.width, height: checked.height })
 })

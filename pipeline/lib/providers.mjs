@@ -67,6 +67,9 @@ export function openverseCandidate(r) {
     measure_url: src, author: r.creator ? stripTags(r.creator) : null, author_url: https(r.creator_url), rights_holder: r.creator ? stripTags(r.creator) : null,
     license: lic?.license ?? null, license_url: lic?.license_url ?? null, usage: flickr ? 'hotlink' : 'cache', no_derivatives: false,
     title: r.title ? stripTags(r.title) : null, tags: (r.tags || []).map((t) => t?.name).filter(Boolean).slice(0, 40), description: null, geo: null, location: null,
+    // Openverse's own small rendition (an API call, so it counts against the anonymous quota): a last resort for the
+    // review contact sheet, never the public image.
+    review_thumb: https(r.thumbnail),
     rights: { ok: reasons.length === 0, reasons },
   }
 }

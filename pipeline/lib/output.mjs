@@ -42,6 +42,7 @@ export function imageOut(img) {
     quality: img.quality ?? null, media_active: img.media_active ?? null, tier: img.tier, role: img.role,
     kind: img.kind ?? kindOfTier(img.tier), title: img.title ?? pageTitle(img.page) ?? `${img.provider} ${img.id}`, description: img.description ?? null,
     ...(img.identity ? { identity: img.identity } : {}), ...(img.below_target ? { below_target: true } : {}),
+    ...(img.editor_grade ? { editor_grade: img.editor_grade } : {}), ...(img.focal ? { focal: img.focal } : {}),
     checked_at: img.checked_at ?? null, approved: img.approved ?? null,
   }
 }

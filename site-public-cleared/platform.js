@@ -116,6 +116,7 @@
        <p class="muted">${E(L('직접 찍은 사진이라도 사진 속 작품(영상·조명 연출)에는 작가의 저작권이 따로 있을 수 있어요. 그래서 공개 범위는 이 사이트에서 저작자 표시와 함께 보여 주는 것으로 시작해요.', 'Even your own photo can show a work with its own copyright (the video or light design), so publication starts with display on this site with your credit.'))}</p></section>
       <form id="pfPhoto" class="form-grid" data-project="${E(projectId)}">
        <label class="field">${E(L('사진 (JPEG·PNG·WebP, 긴 변 900px 이상 권장)', 'Photo (JPEG, PNG or WebP; long side 900 px or more)'))}<input name="file" type="file" accept="image/jpeg,image/png,image/webp"><span class="muted" id="pfChosen">${chosen?.project === projectId ? E(L('선택한 파일: ', 'Selected: ') + chosen.file.name) : ''}</span></label>
+       <label class="field">${E(L('촬영자 이름 (사진에 표시, 선택 · 비우면 표시 이름)', 'Photographer credit (shown with the photo, optional · blank uses your display name)'))}<input name="credit_name" maxlength="80" autocomplete="name"></label>
        <label class="field">${E(L('설명 (선택)', 'Caption (optional)'))}<input name="caption" maxlength="300"></label>
        <label class="field">${E(L('촬영일 (선택)', 'Date taken (optional)'))}<input name="taken_on" type="date"></label>
        <fieldset class="field"><legend>${E(L('이용 허락 범위', 'Licence'))}</legend>
@@ -269,7 +270,7 @@
       const [posts, photos] = await Promise.all([api().posts({ project: pid, kind: 'review', limit: 3 }), api().photos(pid)])
       const pb = document.getElementById('dpCommunityPosts'), ph = document.getElementById('dpCommunityPhotos')
       if (pb) pb.innerHTML = posts.length ? posts.map(postCard).join('') : `<p class="muted">${E(L('아직 공개된 후기가 없어요.', 'No published reviews yet.'))}</p>`
-      if (ph) ph.innerHTML = photos.map((f) => `<figure class="pf-photo"><img src="${E(f.url)}" alt="${E(f.caption || placeName(pid))}" width="${E(f.width)}" height="${E(f.height)}" loading="lazy" decoding="async"><figcaption><span class="pf-tag">${E(L('이용자 사진', 'Member photo'))}</span> ${E(f.author_name || '')} · ${E(f.licence === 'display' ? L('이 사이트 게시 허락', 'shown with permission') : f.licence.toUpperCase())} <button class="link-button" data-pf-report="photo:${E(f.id)}">${E(L('신고', 'Report'))}</button></figcaption></figure>`).join('')
+      if (ph) ph.innerHTML = photos.map((f) => `<figure class="pf-photo"><img src="${E(f.url)}" alt="${E(f.caption || placeName(pid))}" width="${E(f.width)}" height="${E(f.height)}" loading="lazy" decoding="async"><figcaption><span class="pf-tag">${E(L('이용자 사진', 'Member photo'))}</span>${f.grade === 'C' ? ` <span class="pf-tag">${E(L('현장·장소 사진', 'Place view'))}</span>` : ''} ${E(f.credit || f.author_name || '')} · ${E(f.licence === 'display' ? L('이 사이트 게시 허락', 'shown with permission') : f.licence.toUpperCase())} <button class="link-button" data-pf-report="photo:${E(f.id)}">${E(L('신고', 'Report'))}</button></figcaption></figure>`).join('')
     } catch (_e) { /* the archive page stays as it is */ }
   }
   const contributeLink = (p) => `<p class="dp-contribute"><a class="button subtle small" href="#contribute/${E(pidOf(p))}">${I('camera')}${E(L('사진 제공하기', 'Contribute a photo'))}</a></p>`
@@ -313,7 +314,7 @@
         say(L('위치 정보를 지우고 올리는 중…', 'Removing location data and uploading…'))
         const { blob, width, height } = await reencode(file)
         if (width < 600 || height < 400) return say(L('사진이 너무 작아요 (최소 600×400px).', 'The photo is too small (600×400 px minimum).'))
-        await api().uploadPhoto({ blob, width, height, project_id: ph.dataset.project, caption: fd.get('caption') || null, taken_on: fd.get('taken_on') || null, licence: fd.get('licence'), offer_official: fd.get('offer_official') === 'on', own_photo: fd.get('own_photo') === 'on', can_license: fd.get('can_license') === 'on', people_ok: fd.get('people_ok') === 'on', artwork_rights_notice: fd.get('artwork_rights_notice') === 'on' })
+        await api().uploadPhoto({ blob, width, height, project_id: ph.dataset.project, credit_name: String(fd.get('credit_name') || '').trim() || null, caption: fd.get('caption') || null, taken_on: fd.get('taken_on') || null, licence: fd.get('licence'), offer_official: fd.get('offer_official') === 'on', own_photo: fd.get('own_photo') === 'on', can_license: fd.get('can_license') === 'on', people_ok: fd.get('people_ok') === 'on', artwork_rights_notice: fd.get('artwork_rights_notice') === 'on' })
         ph.reset(); chosen = null; const c = document.getElementById('pfChosen'); if (c) c.textContent = ''; say(L('올렸어요. 운영자가 확인한 뒤 공개돼요.', 'Uploaded. It is published after review.'))
       } catch (e) { say(errText(e)) }
     }

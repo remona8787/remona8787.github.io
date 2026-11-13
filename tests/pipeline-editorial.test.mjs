@@ -77,6 +77,24 @@ test('approve: a project id lifts the source gates; new:/candidate ids create ed
   assert.ok(log[2].reasons.includes('approve_needs_name_country_and_type'))
 })
 
+test('approve_image (v2.0): an editor may record the grade, the kind and the focal point of a photo they viewed', () => {
+  const base = { action: 'approve_image', target: 'SEOUL018', image: 'Seoul_Skyline_Night_2018.jpg', by: 'editor', at: '2026-11-13T00:00:00Z' }
+  assert.deepEqual(validateDecision({ ...base, grade: 'B', kind: 'project_media', focal: { x: 0.5, y: 0.2 } }), [])
+  assert.deepEqual(validateDecision({ ...base, grade: 'D' }), ['grade_must_be_A_B_or_C'])
+  assert.deepEqual(validateDecision({ ...base, kind: 'artist_portrait' }), ['kind_must_be_project_media_or_project_installation_or_architecture_context'])
+  assert.deepEqual(validateDecision({ ...base, focal: { x: 2, y: 0 } }), ['focal_must_be_x_y_0_to_1'])
+  const ed = compileEditorial({ decisions: [
+    { file: '1.json', content: { ...base, grade: 'C' } },
+    { file: '2.json', content: { ...base, grade: 'B', kind: 'project_media', focal: { x: 0.5, y: 0.2 } } },
+    { file: '3.json', content: { ...base, image: 'Other.jpg' } },
+  ], hero: [] })
+  assert.equal(ed.imageApprovals.get('SEOUL018|Seoul Skyline Night 2018.jpg'), true)
+  assert.deepEqual({ ...ed.imageEdits.get('SEOUL018|Seoul Skyline Night 2018.jpg'), entry: undefined }, { grade: 'B', kind: 'project_media', focal: { x: 0.5, y: 0.2 }, entry: undefined })
+  assert.equal(ed.log[0].status, 'superseded', 'the later edit of the same photo wins')
+  assert.equal(ed.imageEdits.has('SEOUL018|Other.jpg'), false, 'a plain approval records no edit')
+  assert.equal(ed.imageApprovals.get('SEOUL018|Other.jpg'), true)
+})
+
 test('block_image for one project or everywhere', () => {
   const ed = compileEditorial(loaded([{ action: 'block_image', target: 'Q1', image: 'File:A_b.jpg', by, at }, { action: 'block_image', target: '*', image: 'C.jpg', by, at }]))
   assert.ok(imageBlocked(ed, 'Q1', 'A b.jpg'))

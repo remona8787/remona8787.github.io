@@ -51,6 +51,9 @@ export function checkImage(img, path, need, { maxTier = 5 } = {}) {
   need(img.quality === null || img.quality === undefined || (pct(img.quality.sharpness) && pct(img.quality.blockiness) && pct(img.quality.score)), path + '.quality', '{sharpness, blockiness, score} 0..100')
   need(img.media_active && pct(img.media_active.score) && Array.isArray(img.media_active.reasons), path + '.media_active', '{score 0..100, reasons[]}')
   need(img.approved === true || img.approved === false || img.approved === null, path + '.approved', 'true, false or null')
+  // v2.0 image grades: an editor's grade after viewing (approve_image grade) and the crop's focal point.
+  need(img.editor_grade === undefined || ['A', 'B', 'C'].includes(img.editor_grade), path + '.editor_grade', 'A, B or C')
+  need(img.focal === undefined || (img.focal && [img.focal.x, img.focal.y].every((v) => typeof v === 'number' && v >= 0 && v <= 1)), path + '.focal', '{x, y} within 0..1')
   // Image kinds (fifth brief): every published image says what it shows; 'unverified' is never published.
   need(PUBLISHED_KINDS.has(img.kind), path + '.kind', 'unknown or unpublishable kind ' + img.kind)
   need(str(img.title) && img.title.length <= 200, path + '.title', 'the source title (≤ 200 characters)')

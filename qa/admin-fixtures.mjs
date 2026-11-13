@@ -101,6 +101,14 @@ export function seed(){
   research:{stats:{days:30,members:12,new_members:3,active_downloaders:4,downloads:9,download_errors:1,by_dataset:{'kr-media-facades':9},user_types:{researcher:5,student:4,not_given:3},open_reports:2},
    datasets:[{id:'kr-media-facades',title_ko:'국내 미디어파사드 검수 데이터셋',tier:'member',licence:'CC BY 4.0 (편집 부분)',active:true}],
    versions:[{dataset_id:'kr-media-facades',version:'1.0.0',data_as_of:'2026-10-25',record_count:52,formats:['csv','json']}]},
+  // The image inventory (admin-data/image-inventory.json, pipeline/lib/image-inventory.mjs schema 2).
+  inventory:{schema:2,at:ago(15),summary:{definition:'representative = a project with at least one photo of grade A or B',
+   all:{projects:1009,representative:332,rate_pct:32.9,rep_grade_a:305,rep_grade_b:27,images:{A:1942,B:281,C:500},without_images:637,rights_review:6,identity_review:1,permission_targets:65,by_category:{rep_a:305,'5_b_usable':27,'1_no_candidate':300,'6_context_only':30,'7_permission_needed':60,'8_access_needed':273,'3_rights_review':6,'4_quality_below':7,'2_identity_unverified':1}},
+   korea:{projects:297,representative:17,by_category:{rep_a:16,'5_b_usable':1,'8_access_needed':273}},world:{projects:712,representative:315,by_category:{rep_a:289,'5_b_usable':26}},
+   changes:{gained:['SEOUL018','Q101435284'],lost:[],net:2,image_decisions_applied:198,new_image_decisions:40,new_image_approvals:18}},
+   rows:[{project_id:'SEOUL033',name_ko:XSS,country_iso2:'KR',project_type:'media_architecture',representative:false,best_grade:'C',category:'7_permission_needed',next_action:'request_permission',official_url:'https://parks.seoul.go.kr/culturetank',missing_since:ago(600),checks:3},
+    {project_id:'Q1823573',name_en:'Lichtzeitpegel',country_iso2:'DE',project_type:'light_art',representative:false,best_grade:'C',category:'6_context_only',next_action:'search_commons',official_url:null,missing_since:ago(600),checks:3},
+    {project_id:'SEOUL018',name_ko:'롯데월드타워 미디어파사드',country_iso2:'KR',project_type:'media_facade',representative:true,best_grade:'A',category:'rep_a',next_action:'none',missing_since:null,checks:0}]},
   quality:{report:{run:{status:'ok',build_id:'20261026T001508Z-efb33e6a',finished_at:ago(20)},counts:{collected:966,eligible:279,published:279,kr:52,foreign:227,with_images:145,with_hero:7,candidates_awaiting_review:11,hero_candidates_awaiting_review:82},
    images:{provider_unverified:150,identity_rejected:1478,institution_context:73,below_threshold:4,duplicates:4},
    sources:{commons:{status:'ok',items:295,last_success:ago(20),consecutive_failures:0},tourapi:{status:'skipped',items:0,last_success:null,consecutive_failures:0},[XSS]:{status:XSS,items:1}},errors:[]},
@@ -121,6 +129,7 @@ const RPC={
  // v2.0 member platform (docs/PLATFORM.md): the console's "회원 활동 검수" tab. Queued content carries the XSS probe.
  platform_admin_stats:()=>({members:12,restricted:1,applications:{submitted:1},active_grants:2,queue:{posts:1,comments:0,photos:0,submissions:0,flags:1,appeals:0},published:{posts:4,photos:2,submissions:1}}),
  platform_admin_queue:(d,b,u)=>b.p_type==='post'?[{id:41,kind:'review',project_id:'SEOUL006',author_name:XSS,title:XSS,body:XSS_SCRIPT,status:'needs_review',moderation:{source:'rules',flags:['privacy:phone']},created_at:now()}]
+  :b.p_type==='photo'?[{id:51,project_id:'SEOUL006',author_name:'김사진',caption:XSS,width:3000,height:2000,licence:'cc-by-4.0',offer_official:true,status:'needs_review',created_at:now()}]
   :b.p_type==='flag'?[{id:3,target_type:'post',target_id:41,reason:'spam',message:XSS,created_at:now()}]
   :b.p_type==='application'?(u?.role==='admin'?[{id:7,full_name:XSS,email:'alice@example.org',affiliation:null,applicant_type:'graduate_student',research_field:'미디어 건축',purpose:XSS_SCRIPT,verification_url:'javascript:alert(1)',requested_datasets:['aol-research'],terms_version:'2026-11',created_at:now()}]:(()=>{throw {status:403,body:{code:'42501',message:'staff role required: admin'}}})()):[],
  platform_audit_recent:()=>[{at:now(),action:'moderate_approved',target_type:'post',target_id:'40'}],
@@ -233,7 +242,7 @@ export async function mockSupabase(page,{fail={},data=seed()}={}){
  await page.route('https://raw.githubusercontent.com/**',r=>{
   const u=r.request().url();calls.push({kind:'raw',url:u});
   if(fail.raw)return r.fulfill({status:fail.raw.status||500,body:'boom'});
-  const body=u.endsWith('/admin-data/report.json')?data.quality.report:u.endsWith('/review/image-audit.json')?data.quality.audit:null;
+  const body=u.endsWith('/admin-data/report.json')?data.quality.report:u.endsWith('/review/image-audit.json')?data.quality.audit:u.endsWith('/admin-data/image-inventory.json')?data.inventory:null;
   return body?r.fulfill({status:200,contentType:'application/json',headers:{'access-control-allow-origin':'*'},body:JSON.stringify(body)}):r.fulfill({status:404,body:'not found'});
  });
  const rpcs=name=>calls.filter(c=>c.kind==='rpc'&&c.name===name);
@@ -247,11 +256,11 @@ export async function signIn(page,role='admin',hash=''){
  await page.getByRole('button',{name:'로그인'}).click();
  await expect(page.locator('#nav')).toBeVisible();
 }
-export const TAB_LABELS={dashboard:'대시보드',queue:'검수 대기열',reports:'오류 신고',quality:'데이터 품질',members:'회원·연구 데이터',projects:'프로젝트',updates:'변경 감지',runs:'수집 작업',rules:'수집 규칙·키워드',settings:'설정',research:'연구자 평가',magazine:'매거진',places:'장소 후보',platform:'회원 활동 검수'};
+export const TAB_LABELS={dashboard:'대시보드',queue:'검수 대기열',reports:'오류 신고',quality:'데이터 품질',images:'이미지 현황',members:'회원·연구 데이터',projects:'프로젝트',updates:'변경 감지',runs:'수집 작업',rules:'수집 규칙·키워드',settings:'설정',research:'연구자 평가',magazine:'매거진',places:'장소 후보',platform:'회원 활동 검수'};
 // An element that exists once a tab has rendered its data (networkidle does not wait for in-page tab switches).
-export const READY={platform:'#platformBox .tiles',reports:'#reportList .report',quality:'#qualityBox table',members:'#membersBox .tiles',dashboard:'#dashRuns table',queue:'#queueList .qitem',projects:'#projectList .pitem',updates:'#updateList .update',runs:'#errorList li',rules:'#kwTable table',settings:'#settingsBox form',research:'#researchList .pitem',magazine:'#articleForm',places:'#legacyJobs table'};
+export const READY={platform:'#platformBox .tiles',reports:'#reportList .report',quality:'#qualityBox table',images:'#imgRows table',members:'#membersBox .tiles',dashboard:'#dashRuns table',queue:'#queueList .qitem',projects:'#projectList .pitem',updates:'#updateList .update',runs:'#errorList li',rules:'#kwTable table',settings:'#settingsBox form',research:'#researchList .pitem',magazine:'#articleForm',places:'#legacyJobs table'};
 export const TABS_BY_ROLE={
- admin:['dashboard','queue','reports','quality','projects','updates','runs','rules','settings','members','research','magazine','places','platform'],
- editor:['dashboard','queue','reports','quality','projects','updates','runs','rules','research','magazine','places','platform'],
+ admin:['dashboard','queue','reports','quality','images','projects','updates','runs','rules','settings','members','research','magazine','places','platform'],
+ editor:['dashboard','queue','reports','quality','images','projects','updates','runs','rules','research','magazine','places','platform'],
  researcher:['research']
 };

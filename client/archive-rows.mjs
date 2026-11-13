@@ -154,7 +154,7 @@ export function archiveMedia(placeId, list) {
       approved: typeof m?.approved === 'boolean' ? m.approved : null, width: Number.isFinite(m?.width) ? m.width : null, height: Number.isFinite(m?.height) ? m.height : null,
       quality: m?.quality, media_active: m?.media_active,
     }
-    out.push({ ...row, art_representative: ART.isRepresentative(row) })
+    out.push({ ...row, art_representative: ART.isRepresentative(row), art_grade: ART.gradeOf(row) })
   }
   return out
 }

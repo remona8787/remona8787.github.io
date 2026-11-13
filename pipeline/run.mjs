@@ -42,7 +42,7 @@ import { clusterObservations, mergeByNameAndUrl, buildProject, eligibility, newI
 import { imageStage } from './lib/image-stage.mjs'
 import { writeContactSheets, SHEET_ABOUT } from './lib/contact-sheet.mjs'
 import { imageAudit, auditSummary } from './lib/image-audit.mjs'
-import { imageInventory } from './lib/image-inventory.mjs'
+import { imageInventory, inventoryMarkdown } from './lib/image-inventory.mjs'
 import { discoverSeoulEvents, linkEvents, eventOut, DATASET as SEOUL_DATASET } from './lib/seoul-events.mjs'
 import { recoverPlaces, loadCountryCoder, countryAt, sameNameAs } from './lib/places.mjs'
 import { relationsOf } from './lib/relations.mjs'
@@ -665,7 +665,7 @@ export async function runPipeline(o) {
     await mkdir(dir, { recursive: true })
     // Tiles measured in an earlier run have no image in memory: their small rendition is fetched (a few minutes at most).
     client.setDeadline(Math.min(runDeadline, clock() + (P.images?.contact_sheet_minutes ?? 3) * 60e3))
-    sheets.push(...await writeContactSheets(dir, sheetTiles, { err, fetchBytes: (u) => client.bytes(u, { stage: 'contact_sheets' }), maxFetch: P.images?.contact_sheet_fetch_max ?? 300 }))
+    sheets.push(...await writeContactSheets(dir, sheetTiles, { err, fetchBytes: (u) => client.bytes(u, { stage: 'contact_sheets', maxBytes: P.images?.max_measure_bytes ?? 12e6 }), maxFetch: P.images?.contact_sheet_fetch_max ?? 300 }))
     await writeJSON(path.join(dir, 'index.json'), { schema: 2, generated_at: startedAt, about: SHEET_ABOUT, sheets }, { pretty: true })
   })
 
@@ -940,7 +940,9 @@ export async function runPipeline(o) {
     tourapi: (tourOut?.accepted || []).filter((t) => excluded.some((x) => x.id === 'KTO-' + t.contentid)).map((t) => ({ id: 'KTO-' + t.contentid, title: t.title, addr1: t.addr1, terms: t.decision.terms, project_type: t.decision.project_type, reasons: excluded.find((x) => x.id === 'KTO-' + t.contentid)?.reasons || [] })),
   }
   // v2.0: the image inventory (lib/image-inventory.mjs): status, failure reason and next action per project.
-  const inventory = imageInventory({ records, imageReview, missingImages: quality.missing_images, tourApiKey: !!env.TOURAPI_SERVICE_KEY, at: startedAt })
+  // The previous inventory gives each missing photo its history and this run's gains and losses.
+  const previousInventory = await readJSON(path.join(dirs.admin, 'image-inventory.json'), null)
+  const inventory = imageInventory({ records, imageReview, missingImages: quality.missing_images, tourApiKey: !!env.TOURAPI_SERVICE_KEY, at: startedAt, previous: previousInventory, imageErrors: errors.filter((e) => String(e.stage || '').startsWith('images')), decisions })
   report.image_inventory = inventory.json.summary
   const adminErrors = [...checkReport(report), ...checkQuality(quality), ...checkCandidates(candidatesOut)]
   if (adminErrors.length) report.run.admin_validation_errors = adminErrors.slice(0, 50)
@@ -952,6 +954,7 @@ export async function runPipeline(o) {
   await writeJSON(path.join(adminStaging, 'candidates.json'), candidatesOut)
   await writeJSON(path.join(adminStaging, 'image-inventory.json'), inventory.json, { pretty: true })
   await writeFileAtomic(path.join(adminStaging, 'image-inventory.csv'), inventory.csv)
+  await writeFileAtomic(path.join(adminStaging, 'image-status.md'), inventoryMarkdown(inventory.json))
   await swapDir(adminStaging, dirs.admin)
 
   // review/: logs of every live query result and decision (not published).
