@@ -316,3 +316,9 @@ fieldset.field>.field-meta{margin-bottom:4px}
 .kv dd{margin:0;min-width:0;overflow-wrap:anywhere}
 .prewrap{white-space:pre-wrap}
 #qualityBox .tiles,#membersBox .tiles{margin-bottom:16px}
+
+/* Permission ledger (v2.0 P1): a status beside the request, and its edit areas */
+.badge{display:inline-block;padding:1px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent-on-soft);font-size:.82em;font-weight:600}
+.badge.warn{background:var(--warning-bg);color:var(--warning-ink)}
+.pf-perm textarea{display:block;width:100%;max-width:100%;box-sizing:border-box;margin:6px 0;font:inherit}
+.pf-perm details{margin:6px 0}
