@@ -17,9 +17,13 @@ const records = [
   { id: 'P5', country_iso2: 'DE', images: [] },
   { id: 'P6', country_iso2: 'JP', images: [] },
   { id: 'P7', country_iso2: 'US', images: [], official_url: 'https://example.com' },
+  { id: 'P8', country_iso2: 'NL', images: [] },
 ]
-const imageReview = [{ project: 'P6', candidates: [{ kind: 'project_media', ok: true, approved: false }] }]
-const missingImages = [{ id: 'P7', candidates: 3, refused: { 'rights:license_not_allowed': 3 } }]
+const imageReview = [
+  { project: 'P6', candidates: [{ kind: 'project_media', ok: true, approved: null, width: 1600, quality: { sharpness: 70, blockiness: 12 } }, { kind: 'project_media', ok: true, approved: false, width: 2000 }] },
+  { project: 'P8', candidates: [{ kind: 'project_media', ok: true, approved: null, width: 1195, quality: { sharpness: 52, blockiness: 72 } }, { kind: 'project_media', ok: true, approved: null, width: 800 }] },
+]
+const missingImages = [{ id: 'P7', candidates: 3, refused: { 'rights:license_not_allowed': 3 } }, { id: 'P8', candidates: 3, refused: { 'rights:license_not_allowed': 1 } }]
 
 test('inventory: status, failure reason and next action per project; summaries by country group', () => {
   const { json, csv } = imageInventory({ records, imageReview, missingImages, tourApiKey: false, at: '2026-11-12T00:00:00Z' })
@@ -31,6 +35,7 @@ test('inventory: status, failure reason and next action per project; summaries b
   assert.deepEqual([by.P5.failure_reason, by.P5.next_action], ['no_source_link', 'search_commons'])
   assert.deepEqual([by.P6.failure_reason, by.P6.next_action, by.P6.pending_review], ['pending_review', 'approve_review', 1])
   assert.deepEqual([by.P7.failure_reason, by.P7.next_action, by.P7.refused], ['rights_unclear', 'request_permission', 'rights:license_not_allowed'])
+  assert.deepEqual([by.P8.failure_reason, by.P8.next_action, by.P8.pending_review], ['quality_low', 'search_commons', 0], 'blocky or narrow candidates of the work are not sent to approval (approving would not clear the quality bar), and they outrank an unrelated refused file')
   assert.equal(json.summary.all.representative, 1)
   assert.equal(json.summary.korea.projects, 1)
   assert.equal(json.summary.all.by_reason.no_candidate, 1)

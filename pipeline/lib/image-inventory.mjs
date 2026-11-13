@@ -4,7 +4,10 @@
 // never published), so the image work repeats itself and shows its progress. Pure.
 //
 // failure_reason (first that applies):
-//   pending_review    candidates that show the work wait for an editor (review/images.json)
+//   pending_review    candidates that show the work, and would clear the quality bar, wait for an editor
+//                     (review/images.json)
+//   quality_low       candidates that show the work wait for an editor but fall below the quality bar (under 900 px
+//                     wide, blurred, or blocky compression): approval would not make them representative
 //   rights_unclear    candidates were refused for their licence or freedom of panorama
 //   resolution_low    candidates were refused as too small
 //   identity_unclear  candidates were refused as people, events, objects, or not the work
@@ -32,7 +35,11 @@ export function imageInventory({ records, imageReview = [], missingImages = [], 
     const kinds = imgs.map((i) => ART.kindOf(i))
     const rv = review.get(p.id), mi = missing.get(p.id)
     const cands = rv?.candidates || []
-    const pending = cands.filter((c) => c.approved !== true && c.ok !== false && ARTWORK.has(c.kind)).length
+    // A waiting candidate is worth an editor's approval only if it would clear the quality bar once approved (approval
+    // vouches for identity, not for size, blur or compression); the rest are counted as below the bar.
+    const waiting = cands.filter((c) => c.approved == null && c.ok !== false && ARTWORK.has(c.kind))
+    const pending = waiting.filter((c) => ART.qualityEvidence({ width: c.width, quality: c.quality }).ok).length
+    const belowBar = waiting.length - pending
     const refused = {}
     for (const c of cands) if (c.ok === false) for (const r of c.reasons || []) { const k = String(r).split(':').slice(0, 2).join(':'); refused[k] = (refused[k] || 0) + 1 }
     for (const [k, v] of Object.entries(mi?.refused || {})) refused[k] = Math.max(refused[k] || 0, v)
@@ -44,6 +51,7 @@ export function imageInventory({ records, imageReview = [], missingImages = [], 
     let reason = null
     if (!rep) {
       if (pending) reason = 'pending_review'
+      else if (belowBar) reason = 'quality_low'
       else if (top.some((k) => k.startsWith('rights:'))) reason = 'rights_unclear'
       else if (top.includes('too_small')) reason = 'resolution_low'
       else if (top.some((k) => /^(subject|identity|mislinked|interior)/.test(k))) reason = 'identity_unclear'
@@ -54,7 +62,7 @@ export function imageInventory({ records, imageReview = [], missingImages = [], 
     }
     const next = rep ? 'none' : pending ? 'approve_review'
       : reason === 'api_key_missing' ? 'add_tourapi_key'
-      : p.official_url && ['rights_unclear', 'no_candidate', 'no_source_link', 'context_only', 'resolution_low'].includes(reason) ? 'request_permission'
+      : p.official_url && ['rights_unclear', 'no_candidate', 'no_source_link', 'context_only', 'resolution_low', 'quality_low'].includes(reason) ? 'request_permission'
       : 'search_commons'
     return {
       project_id: p.id, name_ko: p.name_ko ?? null, name_en: p.name_en ?? null, name_original: p.name_original ?? null,
