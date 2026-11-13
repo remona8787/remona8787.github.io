@@ -43,8 +43,18 @@ async function fn(name, body, token, { secret = null } = {}) {
   let j = null; try { j = await r.json() } catch {}
   return { status: r.status, body: j }
 }
+// With the mail catcher the members sign up through Auth and get the real confirmation e-mail. On a real project no
+// e-mail is sent: the test addresses (example.com) cannot receive mail, and bounced test mail can get a project's
+// sending restricted. There the members are created unconfirmed with the service key, and the report says that the
+// sign-up endpoint and e-mail delivery were not checked.
 async function member(who) {
   const c = createClient(URL_, PUB, opts)
+  if (!MAILPIT) {
+    const { data, error } = await service.auth.admin.createUser({ email: mail(who), password: PASSWORD, email_confirm: false })
+    if (error) throw Error(`create ${who}: ${error.message}`)
+    created.users.push(data.user.id)
+    return { c, id: data.user.id, email: mail(who), signedUpWithoutSession: null }
+  }
   const { data, error } = await c.auth.signUp({ email: mail(who), password: PASSWORD })
   if (error) throw Error(`sign-up ${who}: ${error.message}`)
   created.users.push(data.user.id)
@@ -81,7 +91,8 @@ const tinyJpeg = async (seed) => {
 async function main() {
   // ---- 1. Sign-up, e-mail confirmation, sign-in --------------------------------------------------------------------
   const a = await member('alice'), b = await member('bob')
-  check('sign-up creates the account without a session (e-mail confirmation required)', a.signedUpWithoutSession && b.signedUpWithoutSession)
+  if (MAILPIT) check('sign-up creates the account without a session (e-mail confirmation required)', a.signedUpWithoutSession && b.signedUpWithoutSession)
+  else note('sign-up endpoint', 'not called on a real project (it would e-mail a test address): sign up once with a real address (docs/PLATFORM.md)')
   const early = await a.c.auth.signInWithPassword({ email: a.email, password: PASSWORD })
   check('sign-in is refused before the e-mail is confirmed', !!early.error, early.error?.message)
   for (const m of [a, b]) { const r = await confirm(m); check(`e-mail confirmation (${m === a ? 'alice' : 'bob'})`, r.ok, r.how) }
@@ -95,12 +106,22 @@ async function main() {
   const stale = await fn('research-download', { dataset: 'x-none', version: '1.0.0', format: 'csv' }, (await (async () => { const o = createClient(URL_, PUB, opts); const s = await o.auth.signInWithPassword({ email: b.email, password: PASSWORD }); const t = s.data.session.access_token; await o.auth.signOut(); return t })()))
   check('a signed-out token is refused by the server functions', stale.status === 401, JSON.stringify(stale.body))
   await signIn(b)
-  const reset = await anon.auth.resetPasswordForEmail(a.email, { redirectTo: ORIGIN })
-  check('password reset e-mail can be requested', !reset.error, reset.error?.message)
+  if (MAILPIT) {
+    const reset = await anon.auth.resetPasswordForEmail(a.email, { redirectTo: ORIGIN })
+    check('password reset e-mail can be requested', !reset.error, reset.error?.message)
+  } else {
+    // A recovery link issued with the service key: the flow is configured, and no e-mail is sent.
+    const reset = await service.auth.admin.generateLink({ type: 'recovery', email: a.email, options: { redirectTo: ORIGIN } })
+    check('password reset link can be issued (no e-mail sent)', !reset.error && !!reset.data?.properties?.action_link, reset.error?.message)
+  }
 
   // ---- 2. Profile, and no way to raise one's own role --------------------------------------------------------------
   const up = await a.c.from('member_profiles').upsert({ user_id: a.id, display_name: 'E2E 앨리스', bio: '테스트 계정' })
   check('member edits their profile', !up.error, up.error?.message)
+  const fake = await a.c.from('member_profiles').upsert({ user_id: a.id, display_name: '빛의건축 운영자' })
+  check('a profile name that reads as staff is refused', /profile_name_reserved/.test(fake.error?.message || ''), fake.error?.message)
+  const contact = await a.c.from('member_profiles').upsert({ user_id: a.id, display_name: 'E2E 앨리스', bio: '연락 주세요 010-1234-5678' })
+  check('a phone number in the profile text is refused', /profile_bio_rules/.test(contact.error?.message || ''), contact.error?.message)
   const mine = await a.c.rpc('my_account')
   check('my_account answers for the member', !mine.error && mine.data, mine.error?.message)
   const selfAdmin = await a.c.from('app_admins').insert({ user_id: a.id, role: 'admin' })
@@ -153,6 +174,11 @@ async function main() {
   check('a member likes a review', !lk.error, lk.error?.message)
   const lk2 = await b.c.from('community_likes').insert({ post_id: post.data.id, user_id: a.id })
   check('a member cannot like in someone else\'s name', !!lk2.error, lk2.error?.message)
+  const cmOther = await a.c.from('community_comments').delete().eq('id', cm.data?.id).select('id')
+  check('a member cannot delete someone else\'s comment', !cmOther.error && cmOther.data.length === 0, cmOther.error?.message)
+  const cm2 = await b.c.from('community_comments').insert({ post_id: post.data.id, body: '지울 댓글입니다. 시험용이에요.' }).select('id').single()
+  const cmDel = await b.c.from('community_comments').delete().eq('id', cm2.data?.id).select('id')
+  check('a member deletes their own comment', !cmDel.error && cmDel.data.length === 1, cmDel.error?.message)
 
   // ---- 6. Own content: edit and delete -----------------------------------------------------------------------------
   const own = await a.c.from('community_posts').insert({ kind: 'question', title: `${RUN} 질문`, body: '주차는 어디에 하면 되나요? 대중교통이 더 나을까요?', status: 'pending' }).select('id').single()
@@ -194,6 +220,12 @@ async function main() {
   const dup = await fn('publish-photo', { photo_id: photo2.data?.id, grade: 'B' }, st.token)
   check('the same file is never published twice', dup.status === 409 && dup.body?.error === 'duplicate_photo', JSON.stringify(dup.body))
   created.files.push(['community-uploads', upPath2])
+  const steal = await fn('publish-photo', { photo_id: photo2.data?.id, action: 'withdraw' }, b.token)
+  check('a member cannot withdraw someone else\'s photo', steal.status === 404, JSON.stringify(steal.body))
+  const wd = await fn('publish-photo', { photo_id: photo2.data?.id, action: 'withdraw' }, a.token)
+  const wdRow = await service.from('community_photos').select('id').eq('id', photo2.data?.id)
+  const wdFile = await service.storage.from('community-uploads').download(upPath2)
+  check('a member withdraws their own photo (record and upload removed)', wd.status === 200 && wdRow.data?.length === 0 && !!wdFile.error, `${wd.status} ${JSON.stringify(wd.body)}`)
   const takedown = await fn('publish-photo', { photo_id: photo.data?.id, action: 'remove', reason: 'e2e: 저작권 신고 확인' }, st.token)
   const afterTake = pub.body?.public_path ? await fetch(`${URL_}/storage/v1/object/public/community-photos/${pub.body.public_path}?t=${Date.now()}`) : null
   check('a copyright takedown removes the public file', takedown.status === 200 && afterTake && afterTake.status >= 400, `${takedown.status} ${afterTake?.status}`)
@@ -253,6 +285,14 @@ async function main() {
   check('the private research bucket cannot be read directly', !!direct.error)
   const hist = await a.c.from('research_downloads').select('ok,dataset_id').eq('dataset_id', ds)
   check('the researcher sees their download history', !hist.error && hist.data.some((h) => h.ok), hist.error?.message || JSON.stringify(hist.data))
+  // The operator's lists (admin with the second factor); filtered to this run's accounts, and only counts are reported.
+  const list = await st.c.rpc('platform_member_list', { p_query: RUN, p_limit: 20 })
+  check('the admin lists members (this run\'s accounts, with state and activity)', !list.error && list.data?.some((m) => m.email === a.email && m.researcher === 'approved'), list.error?.message || `${list.data?.length} rows`)
+  const audit = await service.from('platform_audit_log').select('id').eq('action', 'member_list_viewed').eq('actor', st.id).contains('detail', { query: RUN })
+  check('viewing the member list is written to the audit log', !audit.error && audit.data.length >= 1, audit.error?.message)
+  check('a member cannot list members', !!(await rpcErr(b.c, 'platform_member_list', { p_query: RUN, p_limit: 5 })))
+  const grants = await st.c.rpc('platform_research_grants', { p_limit: 50 }), dls = await st.c.rpc('platform_research_downloads', { p_limit: 50 })
+  check('the admin sees research grants and the download log', !grants.error && grants.data.some((g) => g.dataset_id === ds && g.active) && !dls.error && dls.data.some((x) => x.dataset_id === ds && x.ok), grants.error?.message || dls.error?.message)
   const grant = await service.from('research_grants').select('id').eq('user_id', a.id).eq('dataset_id', ds).single()
   check('staff revokes the grant', !(await rpcErr(st.c, 'research_grant_revoke', { p_grant: grant.data?.id, p_reason: 'e2e' })))
   const afterRevoke = await fn('research-download', { dataset: ds, version: '1.0.0', format: 'csv' }, a.token)

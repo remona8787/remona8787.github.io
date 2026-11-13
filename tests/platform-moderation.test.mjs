@@ -93,3 +93,19 @@ test('the hard rules agree with the database\'s platform_text_rules', async () =
     assert.equal(sqlr.links, js.links.length, i.id + ' links')
   }
 })
+
+test('classifier request: current-API shape; refusal fallbacks only for models that have them', async () => {
+  const { request, classify, DEFAULT_MODEL } = await import('../edge-functions/_shared/platform/classify.mjs')
+  const opus = request({ type: 'post', text: '외벽 영상이 좋았어요' })
+  assert.equal(opus.model, DEFAULT_MODEL)
+  assert.equal(opus.fallbacks, 'default'); assert.deepEqual(opus.betas, ['server-side-fallback-2026-07-01'])
+  // Thinking stays adaptive (omitted), no sampling parameters, no forced tool: each of these is refused by current models.
+  for (const k of ['thinking', 'temperature', 'top_p', 'top_k', 'tool_choice', 'tools']) assert.equal(k in opus, false, k)
+  assert.equal(opus.output_config.effort, 'low'); assert.equal(opus.output_config.format.type, 'json_schema')
+  for (const m of ['claude-sonnet-5-5', 'claude-fable-5-2', 'claude-opus-5']) assert.equal(request({ model: m, type: 'post', text: 'x' }).fallbacks, 'default', m)
+  const haiku = request({ model: 'claude-haiku-5-5', type: 'post', text: 'x' })
+  assert.equal('fallbacks' in haiku, false); assert.equal('betas' in haiku, false)
+  // A refusal is reported as one (decide() holds the item for a person).
+  const client = { beta: { messages: { create: async () => ({ stop_reason: 'refusal', stop_details: { category: 'general_harms' }, model: 'claude-haiku-5-5', content: [] }) } } }
+  assert.deepEqual(await classify(client, { model: 'claude-haiku-5-5', type: 'post', text: 'x' }), { refusal: true, category: 'general_harms', model: 'claude-haiku-5-5' })
+})

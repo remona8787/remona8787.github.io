@@ -18,6 +18,14 @@
 코드:
 
 - `supabase/migrations/20261112000000_v2_platform.sql` — 표, RLS, 상태 전이, 관리자 함수 전부
+- `supabase/migrations/20261113000000_v2_photo_grades.sql` — 사진 등급·촬영자 표시·중복 방지
+- `supabase/migrations/20261113010000_v2_admin_members.sql` — 회원 목록·연구 권한·다운로드 기록(운영자), 공개 프로필
+- `release/launch/platform-v2.sql` — 위 v2 마이그레이션(연구데이터 `20261026000000` 포함) 묶음, 한 트랜잭션, 다시 실행해도 안전
+  (`npm run platform:bundle-sql`로 만듦, 손으로 고치지 않음)
+- `release/launch/install-platform-cron.sql` — 자동 검수(5분마다)와 만료 처리(매일) 예약
+- `scripts/platform-deploy.mjs`, `.github/workflows/platform.yml` — 운영 프로젝트 점검·설치·실제 점검(6절)
+- `scripts/platform-e2e.mjs` — 실제 서버 종단 점검(가입·인증·글·사진·연구자·계정 삭제·운영자 목록, 78개 항목),
+  `qa/real-backend.spec.mjs` — 같은 흐름을 휴대전화·데스크톱 브라우저로
 - `edge-functions/{moderate-queue,publish-photo,research-download,delete-account}/index.ts`
 - `edge-functions/_shared/platform/` — 검수 규칙·판단(`moderation.mjs`), 분류 요청(`classify.mjs`), 사진 검사(`image-check.mjs`),
   중복·링크 검사(`submissions.mjs`), 관리자 확인(`staff.ts`)
@@ -38,6 +46,12 @@
 - 공개 화면은 공개 승인된 것만, 회원 ID 없이 보여 주는 뷰(`community_public_posts`, `community_public_comments`,
   `community_public_photos`)만 읽습니다.
 - 이메일 인증을 마치지 않은 계정, 정지·차단된 계정은 쓰기가 막힙니다.
+- 운영 콘솔(`/admin/`)은 회원 사이트와 같은 주소에 있지만 **세션을 따로** 둡니다(저장 키 `aol-console-auth`). 콘솔에 들어가도 사이트의
+  로그인은 그대로이고, 콘솔에서 로그아웃하면 그 콘솔 세션만 끝납니다. admin·editor는 처음 들어올 때 인증 앱(TOTP)을 한 번 등록하고,
+  그다음부터 로그인할 때마다 6자리 코드를 넣습니다. 연구자 역할은 2단계 인증이 필요 없습니다.
+- 운영 콘솔 "회원" 탭(admin): 회원 목록(이메일, 가입·최근 로그인, 이메일 인증, 상태, 역할, 글·사진·제보 수, 연구자 신청 상태)과
+  검색, 정지·차단·해제, 역할 지정, 연구 권한 목록과 취소, 다운로드 기록. 회원 목록은 이메일을 보여 주므로 볼 때마다 감사 로그에
+  남습니다(`member_list_viewed`). 권한 확인은 모두 서버(`platform_require`)에서 합니다. 화면을 고쳐도 우회되지 않습니다.
 
 ## 3. 연구자 인증과 연구데이터
 
@@ -84,6 +98,12 @@ node scripts/researcher-package.mjs --data=<data 브랜치 체크아웃> --out=/
   촬영자가 사진을 찍었다는 것만으로 사진 속 작품(영상·조명·조형물)의 권리가 생기지는 않는다고 양식에 안내합니다.
 - 이용자 사진은 상세 페이지에서 "이용자 사진" 표시와 점선 테두리로 공식 자료와 구분됩니다. 공식 대표 이미지 채택은 별도 결정
   (`platform_photo_official`, CC 라이선스로 제안된 공개 사진만)이며, 채택된 사진은 편집 결정(`set_image`)으로 수집기에 넣습니다.
+- 회원은 자기 글·댓글을 고치거나 지울 수 있고(공개된 글을 고치면 다시 검수 대기), 자기 사진을 거둘 수 있습니다(`publish-photo`
+  `withdraw`: 공개 파일과 원본을 지우고 기록을 없앰). 화면: "내 활동"(`#community/mine`).
+- 공개 프로필(`#community/member/<공개 ID>`): 회원 ID가 아니라 무작위 공개 ID로만 보이고, 표시 이름·소개·가입일·공개 글 수와 공개 글
+  목록만 나옵니다. 회원이 "프로필 공개"를 끄면 글에 이름만 남고 프로필 링크가 사라집니다. 표시 이름에는 링크·이메일·전화번호와
+  운영자처럼 보이는 이름(운영자·관리자·admin·staff 등)을 쓸 수 없고, 소개는 글과 같은 규칙(링크 2개 이상, 단축 URL, 연락처 등)을
+  데이터베이스가 막습니다. 정지·차단된 회원의 프로필은 보이지 않습니다.
 - 제보·등록 신청: 제보(이름+링크), 새 프로젝트, 작가·제작사 본인 작품, 기존 사례 정정, 행사 일정. 임시 저장 가능, 제출할 때 종류별
   필수 항목을 데이터베이스가 확인합니다. 자동 검수 함수가 공개 색인과 이름을 비교해 중복 후보를, 링크 정책(사설 IP·자격증명 URL·
   이상한 포트 거부)을 `checks`에 남깁니다. 승인되기 전에는 공식 목록·검색엔진에 나오지 않습니다.
@@ -117,26 +137,64 @@ node scripts/researcher-package.mjs --data=<data 브랜치 체크아웃> --out=/
 
 ## 6. 켜기 전에 (운영자)
 
-1. Supabase 프로젝트 만들기(지역: 서울 `ap-northeast-2` 권장). 무료 플랜은 7일 동안 활동이 없으면 일시 중지되므로
-   실제 운영은 Pro 플랜을 권장합니다(7절 비용).
-2. SQL 편집기에서 `supabase/migrations/`의 파일을 날짜 순서대로 실행(20261010 → 20261013 → 20261018 → 20261026 → 20261112).
-3. Authentication → Providers → Email: "Confirm email" 켜기, 비밀번호 최소 길이 12, 유출 비밀번호 차단(가능하면).
-   Authentication → SMTP: 자체 SMTP 연결(Supabase 기본 발송은 운영용이 아님). 링크 추적은 꺼야 인증 링크가 깨지지 않습니다.
-   자체 도메인이 있어야 발송 신뢰도가 확보되는 경우가 많습니다(도메인 구매는 운영자 결정).
-4. Authentication → MFA: TOTP 켜기. 운영자 계정에 MFA 등록 후 `app_admins`에 admin으로 등록(SQL, 아래).
-5. Edge Functions 배포(`research-download`, `publish-photo`, `moderate-queue`, `delete-account`)와 비밀값 설정:
-   `MODERATION_CRON_SECRET`(긴 무작위 값), 선택 `ANTHROPIC_API_KEY`, `MODERATION_MODEL`, `ALLOWED_ORIGINS=https://remona8787.github.io`.
-   비밀값은 Supabase의 함수 비밀값(Secrets)에만 둡니다. 저장소·`config.js`에 넣지 않습니다.
-6. pg_cron: 5분마다 `moderate-queue` 호출(헤더 `x-aol-cron-secret`), 하루 한 번 `select public.platform_expire()`.
-7. 법적 문서(8절) 검토와 게시. 개인정보 처리방침에 국외 이전(Supabase·이메일 발송·검수 API) 항목을 넣어야 합니다.
-8. 보안 점검: Supabase Advisors(보안·성능) 확인, 이 저장소의 `tests/platform-sql.test.mjs` 시나리오를 실제 프로젝트에서 다시 확인,
-   운영자 MFA 없이 관리 함수가 막히는지 확인.
-9. 마지막으로 `site-public-cleared/config.js`에 `SUPABASE_URL`과 공개용 `SUPABASE_PUBLISHABLE_KEY`(서비스 키 아님)를 넣고 배포.
+운영 프로젝트: `refwrdfxbhcsguweicle`(서울, `release/launch/public-config.js`). v0.15에서 일부만 적용된 상태입니다
+(`release/launch/STATE.md`). 아래 순서는 이 저장소의 로컬 Supabase(Postgres 17, Auth·Storage·Edge Functions)에서 같은 상태를 만들어
+끝까지 돌려 확인했습니다(9절). **이전 판의 "migrations만 날짜순 실행"은 틀렸습니다**: 번호 붙은 기본 SQL 없이 마이그레이션만 실행하면
+`places`가 없어 멈춥니다.
+
+설치 순서(SQL):
+
+1. 기본 스키마가 없을 때만: `supabase/01, 02, 03, 05, 08, 10` (v0.15가 적용한 것과 같은 묶음)
+2. `release/launch/complete-backend.sql` (나머지 기본 SQL과 아카이브·전국 장소, 한 트랜잭션, 다시 실행해도 안전)
+3. `release/launch/platform-v2.sql` (연구데이터·v2 플랫폼·사진 등급·회원 관리, 한 트랜잭션, 다시 실행해도 안전)
+4. Vault 비밀 `project_url`, `publishable_key`, `moderation_cron_secret` 뒤 `release/launch/install-platform-cron.sql`
+
+### 6-1. GitHub Actions로 (권장)
+
+운영자가 할 일(값은 채팅이나 저장소에 붙여 넣지 않습니다):
+
+1. GitHub 저장소 Settings → Secrets and variables → Actions → New repository secret:
+   - `SUPABASE_ACCESS_TOKEN`: Supabase 대시보드 → Account → Access Tokens에서 만든 개인 토큰(점검·설치용).
+     이 토큰은 계정의 모든 프로젝트를 바꿀 수 있으니, 설치가 끝나면 지우거나 다시 만들 때까지 보관만 하세요.
+   - `MODERATION_CRON_SECRET`: 긴 무작위 값(영문·숫자 32자 이상). 예: 터미널에서 `openssl rand -hex 32`.
+   - `SUPABASE_SECRET_KEY`: 대시보드 → Project Settings → API Keys의 secret 키(실제 점검용 시험 계정을 만들고 지움).
+   - 선택 `ANTHROPIC_API_KEY`: 문맥 분류기(유료, 7절). 넣지 않으면 모든 글이 사람 검토로 갑니다.
+2. Actions 탭 → **platform** → Run workflow:
+   - `inspect`(기본, 읽기 전용): 설치된 것과 빠진 것을 표로 보여 줍니다. 무엇도 바꾸지 않습니다.
+   - `apply`: confirm 칸에 `refwrdfxbhcsguweicle`을 적어야 실행됩니다. 위 SQL 순서, Vault 비밀, 함수 4개(`research-download`,
+     `publish-photo`, `moderate-queue`, `delete-account`)와 함수 비밀값(`MODERATION_CRON_SECRET`, `ALLOWED_ORIGINS`,
+     `PUBLIC_SITE_URL`, 있을 때만 `ANTHROPIC_API_KEY`·`MODERATION_MODEL`), 예약, Auth 설정(이메일 인증 필수, 비밀번호 12자 이상,
+     TOTP 등록·확인 켜기, 사이트 주소·리디렉트 허용 목록에 `https://remona8787.github.io`)을 적용합니다. 이미 더 엄격한 값은 그대로
+     둡니다. **운영 데이터베이스를 바꾸는 작업입니다**: 실행 전에 Supabase 대시보드 → Database → Backups에서 백업이 있는지
+     확인하세요(무료 플랜은 자동 백업이 없습니다).
+   - `verify`: 실제 프로젝트에서 종단 점검(`scripts/platform-e2e.mjs`)을 돌립니다. 시험 계정 `e2e-…@example.com`은 서비스 키로
+     만들고 끝에 지웁니다. **이메일을 보내지 않습니다**(받을 수 없는 시험 주소로 보낸 메일이 반송되면 발송이 제한될 수 있어서).
+3. 이메일: Authentication → SMTP에서 자체 SMTP를 연결합니다(Supabase 기본 발송은 시험용이라 팀원 주소로만 갑니다). 링크 추적은
+   꺼야 인증 링크가 깨지지 않습니다. 연결 뒤 본인 실제 주소로 사이트에서 한 번 가입해 인증 메일의 링크로 확인하세요(verify가
+   대신하지 못하는 유일한 단계).
+4. 본인 계정을 admin으로(사이트에서 가입·인증 후 SQL 편집기, 아래). 그 뒤 `/admin/`에 로그인해 인증 앱을 등록합니다.
+5. 연구용 패키지 업로드(3절)와 `research_datasets` 등록.
+6. 법적 문서(8절) 검토와 게시. 개인정보 처리방침에 국외 이전(Supabase·이메일 발송·검수 API) 항목을 넣어야 합니다.
+7. 보안 점검: Supabase Advisors(보안·성능), `inspect`가 모두 ✅인지, `verify` 통과.
+8. 마지막으로 `site-public-cleared/config.js`에 `SUPABASE_URL`과 공개용 `SUPABASE_PUBLISHABLE_KEY`(`release/launch/public-config.js`의
+   값, 서비스 키 아님)를 넣고 배포하면 공개 사이트에 회원 기능이 켜집니다. 이 단계는 운영자가 결정합니다.
 
 ```sql
--- 운영자 계정(Authentication에서 가입·MFA 등록 후) 지정
+-- 운영자 계정(사이트에서 가입·이메일 인증 후) 지정
 insert into public.app_admins(user_id,role) select id,'admin' from auth.users where email='<운영자 이메일>' on conflict(user_id) do update set role='admin';
 ```
+
+### 6-2. 직접(SQL 편집기와 CLI)
+
+SQL 편집기에서 위 1~3을 순서대로, 함수는 `npx supabase functions deploy <이름> --project-ref refwrdfxbhcsguweicle --use-api
+--no-verify-jwt`(네 함수 모두 `verify_jwt` 끔: 각 함수가 사용자 토큰이나 예약 비밀값을 직접 확인하고, 새 `sb_publishable_` 키는 JWT가
+아님), 비밀값은 `npx supabase secrets set`, 예약은 Vault 비밀을 만든 뒤 `install-platform-cron.sql`. Auth 설정은 대시보드에서
+6-1의 2번과 같게.
+
+로컬에서 실제 서버로 시험하기(개발자): `supabase start` 뒤 위 SQL을 적용하고 함수를 `supabase functions serve`로 띄운 다음
+`scripts/platform-e2e.mjs`(환경 변수는 파일 머리말)와 `AOL_REAL_*`를 준 `qa/real-backend.spec.mjs`. 로컬 백엔드는 다른 포트의
+루프백 주소라 Chromium의 Local Network Access 검사를 끄는 실행 옵션이 필요하고(시험 파일에 있음), 사이트의 CSP는
+`https://*.supabase.co`만 허용하므로 시험이 자기 페이지에서만 넓힙니다(빌드는 그대로).
 
 ## 7. 비용과 유지관리 (추정, 공식 가격표로 확인 필요)
 
@@ -144,9 +202,16 @@ insert into public.app_admins(user_id,role) select id,'admin' from auth.users wh
 |---|---|---|
 | Supabase | Free(500MB DB, 월 5만 MAU, 7일 무활동 시 일시 중지) / Pro(월 $25, 8GB DB, 월 10만 MAU) | $0 / 약 $25 |
 | 인증 메일 SMTP | 예: Resend 무료(월 3,000통, 하루 100통) / 유료 약 $20 | $0~$20 |
-| 문맥 검수(선택) | Claude Opus 5.5($4/$20 per 1M 토큰) 항목당 약 $0.01~0.02 · Claude Haiku 5.5($0.10/$0.50) 항목당 약 $0.0005 | 월 1,000건 기준 약 $10~20 / 약 $0.5 |
+| 문맥 검수(선택) | 기본 `claude-opus-5-5`($4/$20 per 1M 토큰) 항목당 약 $0.01~0.02 · `claude-sonnet-5-5`($2/$10) 약 절반 · `claude-haiku-5-5`($0.10/$0.50, 10만 토큰 이하 요청) 항목당 약 $0.0005 | 월 1,000건 기준 약 $10~20 / $5~10 / 약 $0.5 |
 | GitHub Pages·Actions | 공개 저장소 | $0 |
 | 도메인(선택) | 인증 메일 발신 도메인 | 연 1~2만 원대(운영자 결정) |
+
+가격은 Anthropic 공개 가격표(2026-11-03 기준 사본)로 확인했습니다. 항목당 비용은 시스템 지시문(약 1,500토큰)과 글, 짧은 JSON 답을
+가정한 추정이며 실제 요금은 콘솔의 사용량으로 확인하세요. 모델은 함수 비밀값 `MODERATION_MODEL`로 바꿉니다. Opus·Sonnet은 거절 시
+서버 측 대체 모델(fallbacks)을 쓰고, Haiku에는 그 기능이 없어 거절된 항목은 사람 검토로 갑니다. 검수 API로 보내는 것은 글의 종류·
+제목·본문과 장소 이름뿐이며 회원 ID·이메일은 보내지 않습니다. 보관 기간과 학습 사용 여부는 Anthropic 상업 이용약관과 운영자 조직의
+데이터 보관 설정을 따르므로 **키를 만들기 전에 운영자가 약관에서 확인**해야 합니다(이 저장소에서 확인하지 못함). API 키와 유료 사용은
+운영자 승인 뒤에만 연결합니다. 키가 없어도 규칙 검사와 사람 검토로 모든 기능이 동작합니다.
 
 유지관리: 검수 대기열(사진은 전부 사람), 연구자 신청 검토, 신고·이의신청 처리, 월 1회 감사 로그 확인, 분기 1회 보안 점검과
 백업 복원 시험(Pro 플랜은 매일 백업), 이용조건 바뀔 때 `research_terms_version` 올리기.
@@ -158,11 +223,24 @@ insert into public.app_admins(user_id,role) select id,'admin' from auth.users wh
 
 ## 9. 검증 상태
 
+로컬 실제 스택: 이 컨테이너의 Supabase CLI 2.122.1 로컬 스택(Postgres 17, GoTrue Auth와 메일 수신기, PostgREST, Storage, Edge Runtime).
+**운영 프로젝트(`refwrdfxbhcsguweicle`)에는 아직 적용하지 않았습니다**: 이 개발 환경은 `*.supabase.co`와 `api.supabase.com`에 접속할 수
+없어서, 적용과 실제 점검은 6-1의 workflow를 운영자가 실행해야 합니다.
+
 | 항목 | 상태 |
 |---|---|
-| 권한·상태 전이·RLS·관리자 함수 | 테스트 완료 (PGlite, `tests/platform-sql.test.mjs` 12개 시나리오) · 실제 Supabase에서는 미검증 |
-| 사진 검사·메타데이터 제거 | 테스트 완료 (실제 JPEG·PNG·WebP, `tests/platform-functions.test.mjs`) · Edge Function 실행은 미검증 |
-| 자동 검수 규칙 | 테스트 완료 (평가 세트) · 문맥 분류기 미검증 (API 키 필요) |
-| 연구용 패키지 | 테스트 완료 (4개 형식, openpyxl 읽기, 체크섬, 결정성) · 비공개 버킷 업로드 운영자 설정 필요 |
-| 화면 | 테스트 완료 (Playwright, 서버 없음/가짜 서버 두 경우, `qa/v2-platform.spec.mjs`) · 실제 서버 연결 미검증 |
-| 가입·인증 메일·MFA·서명 URL·계정 삭제 | 운영자 설정 필요 (Supabase 프로젝트 없음) · 미검증 |
+| SQL 설치 순서(v0.15 일부 적용 상태 → complete-backend → platform-v2, 두 번씩) | 검증 완료(로컬 실제 스택) · 운영 프로젝트 미적용 |
+| 가입·인증 메일 링크·로그인·로그아웃·비밀번호 재설정 | 검증 완료(로컬, 실제 메일 수신기의 인증 메일 링크) · 운영 프로젝트는 SMTP 연결 필요 |
+| 권한·RLS·역할 위조 거부·운영자 2단계 인증(TOTP)·프로필 문구 규칙 | 검증 완료(로컬 실제 Auth·PostgREST, `scripts/platform-e2e.mjs`) · 마지막 admin 보호는 SQL 시험(PGlite)만: 실제 프로젝트에서는 운영자 계정에 닿을 수 있어 돌리지 않음 |
+| 후기·댓글·좋아요·자기 글·댓글 수정·삭제·신고·이의신청·자동 검수(규칙)·운영자 승인·공개 보기 | 검증 완료(로컬) |
+| 사진 비공개 업로드·EXIF 제거·등급 필수·중복 거부·게시 중단·회원의 사진 거두기 | 검증 완료(로컬 실제 Storage와 함수) |
+| 연구자 신청·승인 전 거절·승인 후 120초 서명 URL·다른 회원 거절·비공개 버킷·권한 취소 즉시 거절·기록 | 검증 완료(로컬) |
+| 계정 삭제(글·사진 함께 삭제) | 검증 완료(로컬) |
+| 운영자 회원 목록(감사 로그 기록)·연구 권한 목록·다운로드 기록, 회원에게는 거절 | 검증 완료(로컬) |
+| 휴대전화(390px)·데스크톱(1440px) 브라우저 통합(가입→인증 메일→로그인→후기→자동 검수→콘솔 TOTP 등록→승인→공개) | 검증 완료(로컬, `qa/real-backend.spec.mjs`, 5회 연속 통과) |
+| 예약 작업(pg_cron → Vault 비밀 → moderate-queue) | 검증 완료(로컬, 예약 명령을 직접 실행해 200 응답) · 실제 5분 주기 관찰은 운영 프로젝트에서 |
+| 화면(서버 없음·가짜 서버) | 테스트 완료(Playwright, `qa/v2-platform.spec.mjs`, `qa/admin.spec.mjs`) |
+| 문맥 분류기(Claude API) | 미검증(API 키 없음, 운영자 승인 필요) · 요청 형식은 현재 API 규칙으로 단위 테스트 |
+| 운영 프로젝트 설치·점검 workflow | 구현 완료·검증 필요(Management API 호출은 대체 서버로 단위 테스트, SQL 경로는 로컬 실제 스택. 첫 `inspect` 실행이 실제 확인) |
+| 실제 이메일 발송(SMTP) | 운영 환경 설정 필요 |
+| 장기 안정성(예약 실행, 대기열, 비용) | 운영 후 일정 기간 관찰 필요(시험만으로 검증 완료라 하지 않음) |
