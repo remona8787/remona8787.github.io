@@ -1,6 +1,6 @@
 {
  "dataset": "light-architecture-archive",
- "version": "20261113T020804Z-f21dca2a-p2",
+ "version": "20261113T041628Z-45465d2c-p2",
  "data_as_of": "2026-11-13",
  "projects": [
   {
@@ -3268,8 +3268,8 @@
    "record_origin": "auto_collected",
    "added_at": "2026-10-26T11:41:35.773Z",
    "source_count": 1,
-   "image_count": 4,
-   "has_valid_image": true,
+   "image_count": 0,
+   "has_valid_image": false,
    "field_sources": {
     "country_iso2": "derived:commons_file_geotags",
     "lat": "derived:commons_file_geotags",
@@ -7835,8 +7835,8 @@
    "record_origin": "auto_collected",
    "added_at": "2026-10-20T11:45:17.714Z",
    "source_count": 1,
-   "image_count": 1,
-   "has_valid_image": true,
+   "image_count": 0,
+   "has_valid_image": false,
    "field_sources": {
     "city": "wikidata",
     "country_iso2": "wikidata",
@@ -7895,8 +7895,8 @@
    "record_origin": "auto_collected",
    "added_at": "2026-11-11T03:11:01.387Z",
    "source_count": 1,
-   "image_count": 1,
-   "has_valid_image": true,
+   "image_count": 0,
+   "has_valid_image": false,
    "field_sources": {
     "city": "wikidata",
     "country_iso2": "wikidata",
@@ -8737,7 +8737,7 @@
    "record_origin": "auto_collected",
    "added_at": "2026-10-26T11:41:35.773Z",
    "source_count": 2,
-   "image_count": 4,
+   "image_count": 3,
    "has_valid_image": true,
    "field_sources": {
     "city": "wikidata",
@@ -33682,7 +33682,7 @@
    "record_origin": "auto_collected",
    "added_at": "2026-10-20T11:45:17.714Z",
    "source_count": 4,
-   "image_count": 9,
+   "image_count": 8,
    "has_valid_image": true,
    "field_sources": {
     "city": "wikidata",
@@ -35176,7 +35176,7 @@
    "record_origin": "auto_collected",
    "added_at": "2026-10-20T11:45:17.714Z",
    "source_count": 4,
-   "image_count": 6,
+   "image_count": 4,
    "has_valid_image": true,
    "field_sources": {
     "city": "wikidata",
@@ -36898,7 +36898,7 @@
    "record_origin": "auto_collected",
    "added_at": "2026-10-20T11:45:17.714Z",
    "source_count": 5,
-   "image_count": 12,
+   "image_count": 4,
    "has_valid_image": true,
    "field_sources": {
     "city": "wikidata",
