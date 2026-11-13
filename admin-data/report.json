@@ -1,6 +1,6 @@
 {
  "cache": {
-  "hits": 19554,
+  "hits": 20133,
   "misses": 2,
   "sizes": {
    "commons-category": 300,
@@ -28,8 +28,8 @@
    "wikidata-articles": 1,
    "wikidata-search": 20
   },
-  "stale": 614,
-  "writes": 696
+  "stale": 35,
+  "writes": 125
  },
  "changes": {
   "carried_over": [],
@@ -5783,7 +5783,7 @@
    "cached": 806,
    "errors": 1,
    "last_error": "HTTP 403",
-   "ms": 128,
+   "ms": 79,
    "not_modified": 0,
    "ok": 0,
    "requests": 1,
@@ -5803,82 +5803,72 @@
    "statuses": {}
   },
   "commons.wikimedia.org": {
-   "bytes": 365057,
-   "cached": 819,
+   "bytes": 1385,
+   "cached": 834,
    "errors": 0,
    "last_error": null,
-   "ms": 174675,
+   "ms": 2815,
    "not_modified": 0,
-   "ok": 179,
-   "requests": 179,
+   "ok": 5,
+   "requests": 5,
    "statuses": {
-    "200": 179
+    "200": 5
    }
   },
   "de.wikipedia.org": {
-   "bytes": 11354,
-   "cached": 1,
-   "errors": 0,
-   "last_error": null,
-   "ms": 5406,
-   "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
-   "statuses": {
-    "200": 2
-   }
-  },
-  "en.wikipedia.org": {
-   "bytes": 6249,
-   "cached": 3,
-   "errors": 0,
-   "last_error": null,
-   "ms": 1097,
-   "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
-   "statuses": {
-    "200": 2
-   }
-  },
-  "es.wikipedia.org": {
-   "bytes": 73,
+   "bytes": 0,
    "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 4624,
+   "ms": 0,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "en.wikipedia.org": {
+   "bytes": 0,
+   "cached": 4,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "es.wikipedia.org": {
+   "bytes": 0,
+   "cached": 3,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   },
   "fr.wikipedia.org": {
-   "bytes": 452,
-   "cached": 1,
+   "bytes": 0,
+   "cached": 3,
    "errors": 0,
    "last_error": null,
-   "ms": 5423,
+   "ms": 0,
    "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
-   "statuses": {
-    "200": 2
-   }
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   },
   "it.wikipedia.org": {
-   "bytes": 73,
-   "cached": 1,
+   "bytes": 0,
+   "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 4636,
+   "ms": 0,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   },
   "ja.wikipedia.org": {
    "bytes": 0,
@@ -5892,24 +5882,22 @@
    "statuses": {}
   },
   "ko.wikipedia.org": {
-   "bytes": 5248,
-   "cached": 20,
+   "bytes": 0,
+   "cached": 23,
    "errors": 0,
    "last_error": null,
-   "ms": 4223,
+   "ms": 0,
    "not_modified": 0,
-   "ok": 6,
-   "requests": 6,
-   "statuses": {
-    "200": 6
-   }
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   },
   "live.staticflickr.com": {
    "bytes": 21379526,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 4468,
+   "ms": 788,
    "not_modified": 0,
    "ok": 122,
    "requests": 122,
@@ -5933,20 +5921,7 @@
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 1405,
-   "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
-  },
-  "overpass-api.de": {
-   "bytes": 830,
-   "cached": 0,
-   "errors": 0,
-   "last_error": null,
-   "ms": 40017,
+   "ms": 653,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -5955,17 +5930,15 @@
    }
   },
   "pl.wikipedia.org": {
-   "bytes": 146,
-   "cached": 0,
+   "bytes": 0,
+   "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 5426,
+   "ms": 0,
    "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
-   "statuses": {
-    "200": 2
-   }
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   },
   "pt.wikipedia.org": {
    "bytes": 0,
@@ -5979,37 +5952,35 @@
    "statuses": {}
   },
   "query.wikidata.org": {
-   "bytes": 37726,
-   "cached": 104,
+   "bytes": 1743,
+   "cached": 128,
    "errors": 0,
    "last_error": null,
-   "ms": 93857,
+   "ms": 2059,
    "not_modified": 0,
-   "ok": 27,
-   "requests": 27,
+   "ok": 3,
+   "requests": 3,
    "statuses": {
-    "200": 27
+    "200": 3
    }
   },
   "ru.wikipedia.org": {
-   "bytes": 1011,
+   "bytes": 0,
    "cached": 1,
    "errors": 0,
    "last_error": null,
-   "ms": 383,
+   "ms": 0,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   },
   "thumb.wikimedia.org": {
-   "bytes": 12885163,
+   "bytes": 12890622,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 17981,
+   "ms": 19891,
    "not_modified": 0,
    "ok": 417,
    "requests": 417,
@@ -6018,11 +5989,11 @@
    }
   },
   "tr.wikipedia.org": {
-   "bytes": 8282,
+   "bytes": 1594,
    "cached": 3,
    "errors": 0,
    "last_error": null,
-   "ms": 388,
+   "ms": 364,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -6035,7 +6006,7 @@
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 305,
+   "ms": 322,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -6044,16 +6015,16 @@
    }
   },
   "www.wikidata.org": {
-   "bytes": 2390043,
-   "cached": 20,
+   "bytes": 194700,
+   "cached": 21,
    "errors": 0,
    "last_error": null,
-   "ms": 15871,
+   "ms": 4048,
    "not_modified": 0,
-   "ok": 14,
-   "requests": 14,
+   "ok": 3,
+   "requests": 3,
    "statuses": {
-    "200": 14
+    "200": 3
    }
   },
   "zh.wikipedia.org": {
@@ -6598,7 +6569,7 @@
    "net": 0,
    "new_image_approvals": 0,
    "new_image_decisions": 0,
-   "previous_at": "2026-11-13T13:00:33.670Z",
+   "previous_at": "2026-11-13T19:10:57.491Z",
    "previous_representative": 338
   },
   "definition": "representative = a project with at least one photo of grade A or B (rights, identity and quality per art-photo-policy.js); rate = representative / published projects; grade C context photos never count",
@@ -6734,7 +6705,7 @@
    "review-openverse-03.jpg"
   ],
   "depicts_errors": 0,
-  "depicts_searches": 8,
+  "depicts_searches": 0,
   "duplicates": 13,
   "hero": 4,
   "identity_rejected": 4371,
@@ -6837,7 +6808,6 @@
   "live.staticflickr.com": "reachable",
   "nl.wikipedia.org": "reachable",
   "openapi.seoul.go.kr:8088": "reachable",
-  "overpass-api.de": "reachable",
   "pl.wikipedia.org": "reachable",
   "pt.wikipedia.org": "reachable",
   "query.wikidata.org": "reachable",
@@ -6894,12 +6864,12 @@
   "budget_minutes": 35,
   "build_id": "20261113T130033Z-fa24a91e",
   "drop_guard": null,
-  "duration_ms": 586471,
-  "finished_at": "2026-11-13T19:20:43.962Z",
-  "number": 132,
+  "duration_ms": 148034,
+  "finished_at": "2026-11-13T19:48:14.764Z",
+  "number": 133,
   "publish": "unchanged",
-  "started_at": "2026-11-13T19:10:57.491Z",
-  "status": "partial",
+  "started_at": "2026-11-13T19:45:46.730Z",
+  "status": "ok",
   "user_agent": "LightArchitectureArchive/0.18 (+https://remona8787.github.io/; remona56@hanmail.net)",
   "validation_errors": []
  },
@@ -6907,11 +6877,11 @@
  "sources": {
   "commons": {
    "consecutive_failures": 0,
-   "duration_ms": 72522,
+   "duration_ms": 4607,
    "errors": [],
    "items": 372,
    "korea_items": 4,
-   "last_success": "2026-11-13T19:10:57.491Z",
+   "last_success": "2026-11-13T19:45:46.730Z",
    "status": "ok",
    "warnings": [
     {
@@ -7050,36 +7020,36 @@
    "consecutive_failures": 0,
    "errors": [],
    "items": 370,
-   "last_success": "2026-11-13T19:10:57.491Z",
+   "last_success": "2026-11-13T19:45:46.730Z",
    "status": "ok"
   },
   "enrich": {
    "consecutive_failures": 0,
-   "duration_ms": 13022,
+   "duration_ms": 2304,
    "errors": [],
    "items": 1093,
-   "last_success": "2026-11-13T19:10:57.491Z",
+   "last_success": "2026-11-13T19:45:46.730Z",
    "status": "ok"
   },
   "links": {
    "consecutive_failures": 0,
    "errors": [],
-   "from_cache": 616,
-   "items": 33,
-   "last_success": "2026-11-13T19:10:57.491Z",
+   "from_cache": 648,
+   "items": 1,
+   "last_success": "2026-11-13T19:45:46.730Z",
    "status": "ok",
    "unchecked": 0
   },
   "overpass": {
    "consecutive_failures": 0,
    "errors": [],
-   "items": 2,
-   "last_success": "2026-11-13T19:10:57.491Z",
+   "items": 0,
+   "last_success": "2026-11-13T19:45:46.730Z",
    "status": "ok"
   },
   "seoul_events": {
    "consecutive_failures": 0,
-   "duration_ms": 1407,
+   "duration_ms": 655,
    "errors": [],
    "items": 0,
    "last_success": null,
@@ -7097,49 +7067,23 @@
    "status": "skipped"
   },
   "web": {
-   "consecutive_failures": 4,
-   "duration_ms": 56078,
-   "errors": [
-    {
-     "http_status": 429,
-     "message": "HTTP 429",
-     "rule": "gdelt:GDELT zh · media facade",
-     "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Achinese&mode=ArtList&format=json&maxrecords=250&timespan=46h&sort=DateDesc"
-    }
-   ],
-   "items": 7,
-   "last_success": "2026-11-12T07:16:20.150Z",
+   "consecutive_failures": 0,
+   "duration_ms": 2484,
+   "errors": [],
+   "items": 0,
+   "last_success": "2026-11-13T19:45:46.730Z",
    "rules": [
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 0
-     },
-     "errors": 1,
-     "fetched": 0,
-     "kept": 0,
-     "key": "gdelt:GDELT zh · media facade",
-     "kind": "gdelt",
-     "not_modified": false,
-     "reason": null,
-     "status": "error"
+     "key": "gdelt:GDELT de · media facade",
+     "reason": "backoff",
+     "status": "skipped",
+     "until": "2026-11-15T04:26:17.966Z"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 0
-     },
-     "errors": 0,
-     "fetched": 0,
-     "kept": 0,
-     "key": "gdelt:GDELT tr · media facade",
-     "kind": "gdelt",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "key": "gdelt:GDELT ar · media facade",
+     "reason": "backoff",
+     "status": "skipped",
+     "until": "2026-11-15T04:26:53.048Z"
     },
     {
      "key": "rss:Dezeen",
@@ -7148,95 +7092,40 @@
      "until": "2026-11-15T13:01:45.769Z"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 10
-     },
-     "errors": 0,
-     "fetched": 10,
-     "kept": 0,
      "key": "rss:designboom",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-14T01:11:52.114Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 24
-     },
-     "errors": 0,
-     "fetched": 24,
-     "kept": 0,
      "key": "rss:ArchDaily",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-14T01:11:52.387Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 30
-     },
-     "errors": 0,
-     "fetched": 30,
-     "kept": 0,
      "key": "rss:Archinect",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-14T01:11:52.635Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 1
-     },
-     "errors": 0,
-     "fetched": 1,
-     "kept": 0,
      "key": "rss:Creative Applications Network",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-14T01:11:52.924Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 3
-     },
-     "errors": 0,
-     "fetched": 10,
-     "kept": 7,
      "key": "rss:Media Architecture Institute",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-14T01:11:53.927Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
      "key": "rss:Designboom Korea",
      "reason": "backoff",
      "status": "skipped",
      "until": "2026-11-14T19:58:50.013Z"
-    },
-    {
-     "key": "gdelt:GDELT ar · media facade",
-     "reason": "rotation",
-     "status": "skipped"
-    },
-    {
-     "key": "gdelt:GDELT de · media facade",
-     "reason": "rotation",
-     "status": "skipped"
     },
     {
      "key": "gdelt:GDELT en · media facade",
@@ -7287,61 +7176,71 @@
      "key": "gdelt:GDELT ru · media facade",
      "reason": "rotation",
      "status": "skipped"
+    },
+    {
+     "key": "gdelt:GDELT tr · media facade",
+     "reason": "rotation",
+     "status": "skipped"
+    },
+    {
+     "key": "gdelt:GDELT zh · media facade",
+     "reason": "rotation",
+     "status": "skipped"
     }
    ],
-   "status": "partial"
+   "status": "ok"
   },
   "wikidata": {
    "consecutive_failures": 0,
-   "duration_ms": 97003,
+   "duration_ms": 3862,
    "errors": [],
    "items": 931,
    "korea_items": 0,
    "korea_search_items": 12,
-   "last_success": "2026-11-13T19:10:57.491Z",
+   "last_success": "2026-11-13T19:45:46.730Z",
    "status": "ok"
   },
   "wikipedia": {
    "consecutive_failures": 0,
-   "duration_ms": 8486,
+   "duration_ms": 2899,
    "errors": [],
    "items": 283,
    "korea_items": 87,
-   "last_success": "2026-11-13T19:10:57.491Z",
+   "last_success": "2026-11-13T19:45:46.730Z",
    "status": "ok"
   }
  },
  "stages": {
   "contact_sheets": {
-   "duration_ms": 147018,
+   "duration_ms": 135357,
    "status": "ok"
   },
   "enrich": {
-   "duration_ms": 13023,
+   "duration_ms": 2304,
    "status": "ok"
   },
   "images": {
-   "duration_ms": 109626,
+   "duration_ms": 2521,
    "status": "ok"
   },
   "links": {
-   "duration_ms": 176092,
+   "duration_ms": 1109,
    "status": "ok"
   },
   "overpass": {
-   "duration_ms": 40019,
+   "duration_ms": 2,
    "status": "ok"
   },
   "places": {
-   "duration_ms": 1375,
+   "duration_ms": 745,
    "status": "ok"
   },
   "resolve": {
-   "duration_ms": 198,
+   "duration_ms": 96,
    "status": "ok"
   },
   "sources": {
-   "duration_ms": 97004,
+   "duration_ms": 4609,
    "status": "ok"
   }
  },

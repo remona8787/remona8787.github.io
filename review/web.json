@@ -1,44 +1,18 @@
 {
- "at": "2026-11-13T19:10:57.491Z",
- "errors": [
-  {
-   "http_status": 429,
-   "message": "HTTP 429",
-   "rule": "gdelt:GDELT zh · media facade",
-   "stage": "web_fetch",
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Achinese&mode=ArtList&format=json&maxrecords=250&timespan=46h&sort=DateDesc"
-  }
- ],
+ "at": "2026-11-13T19:45:46.730Z",
+ "errors": [],
  "rules": [
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 0
-   },
-   "errors": 1,
-   "fetched": 0,
-   "kept": 0,
-   "key": "gdelt:GDELT zh · media facade",
-   "kind": "gdelt",
-   "not_modified": false,
-   "reason": null,
-   "status": "error"
+   "key": "gdelt:GDELT de · media facade",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-11-15T04:26:17.966Z"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 0
-   },
-   "errors": 0,
-   "fetched": 0,
-   "kept": 0,
-   "key": "gdelt:GDELT tr · media facade",
-   "kind": "gdelt",
-   "not_modified": false,
-   "reason": null,
-   "status": "success"
+   "key": "gdelt:GDELT ar · media facade",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-11-15T04:26:53.048Z"
   },
   {
    "key": "rss:Dezeen",
@@ -47,95 +21,40 @@
    "until": "2026-11-15T13:01:45.769Z"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 10
-   },
-   "errors": 0,
-   "fetched": 10,
-   "kept": 0,
    "key": "rss:designboom",
-   "kind": "rss",
-   "not_modified": false,
-   "reason": null,
-   "status": "success"
+   "next_run_at": "2026-11-14T01:11:52.114Z",
+   "reason": "not_due",
+   "status": "skipped"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 24
-   },
-   "errors": 0,
-   "fetched": 24,
-   "kept": 0,
    "key": "rss:ArchDaily",
-   "kind": "rss",
-   "not_modified": false,
-   "reason": null,
-   "status": "success"
+   "next_run_at": "2026-11-14T01:11:52.387Z",
+   "reason": "not_due",
+   "status": "skipped"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 30
-   },
-   "errors": 0,
-   "fetched": 30,
-   "kept": 0,
    "key": "rss:Archinect",
-   "kind": "rss",
-   "not_modified": false,
-   "reason": null,
-   "status": "success"
+   "next_run_at": "2026-11-14T01:11:52.635Z",
+   "reason": "not_due",
+   "status": "skipped"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 1
-   },
-   "errors": 0,
-   "fetched": 1,
-   "kept": 0,
    "key": "rss:Creative Applications Network",
-   "kind": "rss",
-   "not_modified": false,
-   "reason": null,
-   "status": "success"
+   "next_run_at": "2026-11-14T01:11:52.924Z",
+   "reason": "not_due",
+   "status": "skipped"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 3
-   },
-   "errors": 0,
-   "fetched": 10,
-   "kept": 7,
    "key": "rss:Media Architecture Institute",
-   "kind": "rss",
-   "not_modified": false,
-   "reason": null,
-   "status": "success"
+   "next_run_at": "2026-11-14T01:11:53.927Z",
+   "reason": "not_due",
+   "status": "skipped"
   },
   {
    "key": "rss:Designboom Korea",
    "reason": "backoff",
    "status": "skipped",
    "until": "2026-11-14T19:58:50.013Z"
-  },
-  {
-   "key": "gdelt:GDELT ar · media facade",
-   "reason": "rotation",
-   "status": "skipped"
-  },
-  {
-   "key": "gdelt:GDELT de · media facade",
-   "reason": "rotation",
-   "status": "skipped"
   },
   {
    "key": "gdelt:GDELT en · media facade",
@@ -184,6 +103,16 @@
   },
   {
    "key": "gdelt:GDELT ru · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT tr · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT zh · media facade",
    "reason": "rotation",
    "status": "skipped"
   }
