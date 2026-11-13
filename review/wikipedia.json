@@ -1,6 +1,6 @@
 {
  "accept_score": 50,
- "at": "2026-11-13T13:00:33.670Z",
+ "at": "2026-11-13T19:10:57.491Z",
  "entity_decisions": [
   {
    "accepted": true,
@@ -500,6 +500,22 @@
   },
   {
    "lang": "en",
+   "lead": "Kraków, officially the Royal Capital City of Kraków, is the second-largest and one of the oldest cities in Poland. Situated on the Vistula River in Lesser Poland Voivodeship, the city has a population of 816,614 (2025), with 1,428,363 people living in the Kraków metropolitan area. Kraków was the off",
+   "min_score": 50,
+   "qid": "Q31487",
+   "reasons": [
+    "term_in_snippet",
+    "building_context",
+    "page_has_coordinates"
+   ],
+   "score": 45,
+   "snippet": "number of spectators being 22,000. The Arena boasts Poland's largest LED media façade , with a total surface of 5,200 m2 of LED strip lighting, wrapping around",
+   "term": "media facade",
+   "title": "Kraków",
+   "url": "https://en.wikipedia.org/wiki/Krak%C3%B3w"
+  },
+  {
+   "lang": "en",
    "lead": "The Kunsthaus Graz, Grazer Kunsthaus, or Graz Art Museum was built as part of the European Capital of Culture celebrations in 2003 and has since become an architectural landmark in Graz, Austria. Its exhibition program specializes in contemporary art from the 1960s onwards. The museum does not trans",
    "min_score": 50,
    "qid": "Q597137",
@@ -669,21 +685,6 @@
    "term": "LED facade",
    "title": "Emaar Properties",
    "url": "https://en.wikipedia.org/wiki/Emaar_Properties"
-  },
-  {
-   "lang": "en",
-   "lead": "Kraków, officially the Royal Capital City of Kraków, is the second-largest and one of the oldest cities in Poland. Situated on the Vistula River in Lesser Poland Voivodeship, the city has a population of 816,614 (2025), with 1,428,363 people living in the Kraków metropolitan area. Kraków was the off",
-   "min_score": 50,
-   "qid": "Q31487",
-   "reasons": [
-    "term_in_snippet",
-    "building_context"
-   ],
-   "score": 35,
-   "snippet": "number of spectators being 22,000. The Arena boasts Poland's largest LED media façade , with a total surface of 5,200 m2 of LED strip lighting, wrapping around",
-   "term": "media facade",
-   "title": "Kraków",
-   "url": "https://en.wikipedia.org/wiki/Krak%C3%B3w"
   },
   {
    "lang": "en",
