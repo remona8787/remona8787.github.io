@@ -1,26 +1,36 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 2,
+  "count": 4,
   "examples": [
    {
-    "id": "img-8fd5883ede1d",
-    "project": "Q142132856",
-    "title": "Cumulus Gate Pavilion for Richard Pearse PA02"
+    "id": "img-1374f577673c",
+    "project": "Q96055560",
+    "title": "EsLibre 2023 13"
    },
    {
-    "id": "img-08594d1b55a4",
-    "project": "Q142132856",
-    "title": "Cumulus Gate Pavilion for Richard Pearse PA01"
+    "id": "img-8a6fde5a8bf0",
+    "project": "Q96055560",
+    "title": "EsLibre 2023 05"
+   },
+   {
+    "id": "img-60c30c89c8a7",
+    "project": "Q96055560",
+    "title": "EsLibre 2023 06"
+   },
+   {
+    "id": "img-08aa6c97d5e0",
+    "project": "Q96055560",
+    "title": "EsLibre 2023 07"
    }
   ]
  },
- "at": "2026-11-13T02:08:04.701Z",
+ "at": "2026-11-13T04:16:28.107Z",
  "cards": {
   "all": {
    "projects": 1009,
-   "rate_pct": 36.8,
-   "with_valid_card": 371
+   "rate_pct": 36.5,
+   "with_valid_card": 368
   },
   "by_kr_region": {
    "busan_ulsan_gyeongnam": {
@@ -71,8 +81,8 @@
   },
   "world": {
    "projects": 712,
-   "rate_pct": 49,
-   "with_valid_card": 349
+   "rate_pct": 48.6,
+   "with_valid_card": 346
   }
  },
  "projects": [
@@ -3522,8 +3532,8 @@
    "valid_card": false
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
+   "card_kind": "project_media",
+   "card_tier": 3,
    "card_title": "Seoul Skyline Night 2018",
    "id": "SEOUL018",
    "images": 9,
@@ -3615,7 +3625,7 @@
   {
    "card_kind": "project_installation",
    "card_tier": 4,
-   "card_title": "MMCA Seoul",
+   "card_title": "National Museum of Modern and Contemporary Art Seoul 1",
    "id": "SEOUL025",
    "images": 8,
    "kr": true,
@@ -4666,17 +4676,17 @@
    "valid_card": true
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
-   "card_title": "Convoy^ - geograph.org.uk - 5265216",
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
    "id": "CAT-10OT2VI",
-   "images": 4,
+   "images": 0,
    "kr": false,
    "kr_region": null,
    "name": "When Red Light Shows Wait Here sign",
    "previous_images": 4,
    "status": "scored",
-   "valid_card": true
+   "valid_card": false
   },
   {
    "card_kind": "project_media",
@@ -5407,8 +5417,8 @@
    "valid_card": true
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
+   "card_kind": "project_media",
+   "card_tier": 3,
    "card_title": "Van Gogh Fietspad",
    "id": "Q101435284",
    "images": 1,
@@ -5706,30 +5716,30 @@
    "valid_card": true
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
-   "card_title": "ISS053-E-93966 - View of Earth",
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
    "id": "Q105621899",
-   "images": 1,
+   "images": 0,
    "kr": false,
    "kr_region": null,
    "name": "Night Sky",
    "previous_images": 1,
    "status": "scored",
-   "valid_card": true
+   "valid_card": false
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
-   "card_title": "ΔΕΛΤΑ ΤΟΥ ΕΒΡΟΥ 17",
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
    "id": "Q105621912",
-   "images": 1,
+   "images": 0,
    "kr": false,
    "kr_region": null,
    "name": "Flamigos",
    "previous_images": 1,
    "status": "scored",
-   "valid_card": true
+   "valid_card": false
   },
   {
    "card_kind": "architecture_context",
@@ -5888,8 +5898,8 @@
    "valid_card": true
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
+   "card_kind": "project_installation",
+   "card_tier": 3,
    "card_title": "Delft kunstwerk liefdesbrief",
    "id": "Q110044129",
    "images": 1,
@@ -5903,9 +5913,9 @@
   {
    "card_kind": "architecture_context",
    "card_tier": 5,
-   "card_title": "Ove Lucas, 2018 (2)",
+   "card_title": "1987 Pand Centrum Beeldende Kunst aan de Nieuwe Binnenweg, Rotterdam",
    "id": "Q110169084",
-   "images": 4,
+   "images": 3,
    "kr": false,
    "kr_region": null,
    "name": "Centrum Beeldende Kunst Rotterdam",
@@ -6356,8 +6366,8 @@
    "valid_card": false
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
+   "card_kind": "project_installation",
+   "card_tier": 3,
    "card_title": "2022 Reinwardtstraat, Asd-Jan van Goethem (1)",
    "id": "Q116207399",
    "images": 1,
@@ -7396,8 +7406,8 @@
    "valid_card": true
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
+   "card_kind": "project_installation",
+   "card_tier": 3,
    "card_title": "Gorinchem kunstwerk brainwave",
    "id": "Q127413446",
    "images": 1,
@@ -7513,8 +7523,8 @@
    "valid_card": false
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
+   "card_kind": "project_installation",
+   "card_tier": 3,
    "card_title": "Kuball Les Fleurs du Mal, Marl",
    "id": "Q127587058",
    "images": 1,
@@ -7552,8 +7562,8 @@
    "valid_card": false
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
+   "card_kind": "project_installation",
+   "card_tier": 3,
    "card_title": "Lichtsäule (Günther Uecker), Juni 2023",
    "id": "Q127587129",
    "images": 1,
@@ -7825,8 +7835,8 @@
    "valid_card": false
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
+   "card_kind": "project_installation",
+   "card_tier": 3,
    "card_title": "Jan van Munster Brainwaves Marl",
    "id": "Q127587792",
    "images": 1,
@@ -8163,8 +8173,8 @@
    "valid_card": false
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
+   "card_kind": "project_installation",
+   "card_tier": 3,
    "card_title": "Troisdorf Stadttor",
    "id": "Q127588175",
    "images": 1,
@@ -8293,8 +8303,8 @@
    "valid_card": true
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
+   "card_kind": "project_installation",
+   "card_tier": 3,
    "card_title": "Kunstwerk Hornstraat Groningen",
    "id": "Q130070134",
    "images": 1,
@@ -8436,8 +8446,8 @@
    "valid_card": false
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
+   "card_kind": "project_installation",
+   "card_tier": 3,
    "card_title": "Kunstwerk Aquamarijnflat",
    "id": "Q130070760",
    "images": 1,
@@ -9515,8 +9525,8 @@
    "valid_card": false
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
+   "card_kind": "project_installation",
+   "card_tier": 3,
    "card_title": "Eindhoven De Vlam van Tivoli Marjolijn Mandersloot",
    "id": "Q138024906",
    "images": 1,
@@ -9541,8 +9551,8 @@
    "valid_card": true
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
+   "card_kind": "project_installation",
+   "card_tier": 3,
    "card_title": "Loom Light (2024)",
    "id": "Q138025051",
    "images": 2,
@@ -9554,8 +9564,8 @@
    "valid_card": true
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
+   "card_kind": "project_installation",
+   "card_tier": 3,
    "card_title": "Wereldkaart neonsculptuur Matt Mulican Eindhoven (2)",
    "id": "Q138025082",
    "images": 2,
@@ -9900,7 +9910,7 @@
    "kr": false,
    "kr_region": null,
    "name": "Cumulus Gate Pavilion for Richard Pearse",
-   "previous_images": 0,
+   "previous_images": 2,
    "status": "scored",
    "valid_card": true
   },
@@ -10997,8 +11007,8 @@
    "valid_card": true
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
+   "card_kind": "project_installation",
+   "card_tier": 3,
    "card_title": "Juicy light (1)",
    "id": "Q41980149",
    "images": 4,
@@ -11313,7 +11323,7 @@
    "card_tier": 5,
    "card_title": "C3A Córdoba",
    "id": "Q5839725",
-   "images": 9,
+   "images": 8,
    "kr": false,
    "kr_region": null,
    "name": "Centro de Creación Contemporánea de Andalucía - C3A",
@@ -11638,7 +11648,7 @@
    "card_tier": 5,
    "card_title": "Sarajevo Tram-268 Line-6 2013-10-25",
    "id": "Q7422981",
-   "images": 6,
+   "images": 4,
    "kr": false,
    "kr_region": null,
    "name": "Sarajevo City Center",
@@ -12013,9 +12023,9 @@
   {
    "card_kind": "architecture_context",
    "card_tier": 5,
-   "card_title": "EsLibre 2023 03",
+   "card_title": "EsLibre 2023 13",
    "id": "Q96055560",
-   "images": 12,
+   "images": 4,
    "kr": false,
    "kr_region": null,
    "name": "Etopia Centre for Arts & Technology",
@@ -13501,6 +13511,27 @@
     ]
    },
    {
+    "key": "N Seoul Tower Panorama Night (cropped).jpg",
+    "project": "SEOUL043",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "N Seoul Tower Panorama Night.jpg",
+    "project": "SEOUL043",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "Height comparison tower infinity.jpg",
+    "project": "Q15076316",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
     "key": "A performance combining elements of traditional Indian and Korean dance at the Asian Culture Complex in Gwangju, South Korea.jpg",
     "project": "REG-KR-0019",
     "reasons": [
@@ -13522,29 +13553,8 @@
     ]
    },
    {
-    "key": "N Seoul Tower Panorama Night (cropped).jpg",
-    "project": "SEOUL043",
-    "reasons": [
-     "extreme_aspect"
-    ]
-   },
-   {
-    "key": "N Seoul Tower Panorama Night.jpg",
-    "project": "SEOUL043",
-    "reasons": [
-     "extreme_aspect"
-    ]
-   },
-   {
     "key": "Seoullo 7017 (2).jpg",
     "project": "SEOUL046",
-    "reasons": [
-     "too_small"
-    ]
-   },
-   {
-    "key": "Height comparison tower infinity.jpg",
-    "project": "Q15076316",
     "reasons": [
      "too_small"
     ]
@@ -13585,15 +13595,57 @@
     ]
    },
    {
-    "key": "Taiwan Lantern Festival.JPG",
-    "project": "REG-TW-0001",
+    "key": "V2 Institute for the Unstable Media facade.jpg",
+    "project": "Q110169084",
     "reasons": [
      "too_small"
     ]
    },
    {
-    "key": "V2 Institute for the Unstable Media facade.jpg",
-    "project": "Q110169084",
+    "key": "Haerle Hubacher Architekten BSA, Oerlikerpark Zürich, 2001.jpg",
+    "project": "Q127587463",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "WLANL - PjotrP - NIMK - Annja Krautgasser (1).jpg",
+    "project": "Q2920487",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "WLANL - PjotrP - NIMK - MARK NAPIER (1).jpg",
+    "project": "Q2920487",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "WLANL - PjotrP - NIMK - MARK NAPIER.jpg",
+    "project": "Q2920487",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "WLANL - PjotrP - NIMK - Walter Langelaar (1).jpg",
+    "project": "Q2920487",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "WLANL - PjotrP - NIMK - Walter Langelaar.jpg",
+    "project": "Q2920487",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Taiwan Lantern Festival.JPG",
+    "project": "REG-TW-0001",
     "reasons": [
      "too_small"
     ]
@@ -13724,67 +13776,9 @@
     "reasons": [
      "too_small"
     ]
-   },
-   {
-    "key": "Denkzeichen Georg Elser Berlin 09.jpg",
-    "project": "Q1188708",
-    "reasons": [
-     "extreme_aspect"
-    ]
-   },
-   {
-    "key": "Hp laser gruen.jpg",
-    "project": "Q1806570",
-    "reasons": [
-     "rights:license_not_allowed",
-     "too_small"
-    ]
-   },
-   {
-    "key": "Finkbräu Pils 500ml.jpg",
-    "project": "Q191212",
-    "reasons": [
-     "too_small"
-    ]
-   },
-   {
-    "key": "Finkbräu Pils.jpg",
-    "project": "Q191212",
-    "reasons": [
-     "too_small"
-    ]
-   },
-   {
-    "key": "Grafenwalder Hefe Weissbier.jpg",
-    "project": "Q191212",
-    "reasons": [
-     "too_small"
-    ]
-   },
-   {
-    "key": "Grafenwalder Pils.jpg",
-    "project": "Q191212",
-    "reasons": [
-     "too_small"
-    ]
    }
   ],
   "mislinked": [
-   {
-    "key": "DDP - Garden of withe roses.jpg",
-    "project": "SEOUL006",
-    "reasons": [
-     "interior_unrelated_to_work"
-    ]
-   },
-   {
-    "key": "Lady bird transformation.jpg",
-    "project": "REG-KR-0049",
-    "reasons": [
-     "subject:object_or_animal:bird",
-     "too_small"
-    ]
-   },
    {
     "key": "Goong Teddy Bears.JPG",
     "project": "SEOUL043",
@@ -13806,6 +13800,21 @@
     "reasons": [
      "identity_unproven",
      "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "DDP - Garden of withe roses.jpg",
+    "project": "SEOUL006",
+    "reasons": [
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "Lady bird transformation.jpg",
+    "project": "REG-KR-0049",
+    "reasons": [
+     "subject:object_or_animal:bird",
+     "too_small"
     ]
    },
    {
@@ -14249,127 +14258,6 @@
     ]
    },
    {
-    "key": "Korea President Park Kansong Culture Exhibition 01 (14324130250).jpg",
-    "project": "SEOUL006",
-    "reasons": [
-     "subject:people_or_event:president"
-    ]
-   },
-   {
-    "key": "7TH Asia-Europe Culture Minister’s Meeting 27869172815 5d625ae04b o.jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "ASEM Culture Minister Meeting Opening 24.jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 01 (15369683978).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 02 (15553139071).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 03 (15369677898).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 04 (15556650202).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 05 (15369674778).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 06 (15369795547).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 07 (15369792747).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 08 (14935042194).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 09 (14935038144).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 10 (15369172169).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "BIFF 2023 opening night.jpg",
-    "project": "REG-KR-0049",
-    "reasons": [
-     "subject:people_or_event:ceremonies"
-    ]
-   },
-   {
-    "key": "Busan Cinema Center BIFF 2023.jpg",
-    "project": "REG-KR-0049",
-    "reasons": [
-     "subject:people_or_event:ceremonies"
-    ]
-   },
-   {
-    "key": "img-38c826b531bf",
-    "project": "REG-KR-0231",
-    "reasons": [
-     "identity_unproven",
-     "subject:person:friends"
-    ]
-   },
-   {
-    "key": "img-0d7138bca6cc",
-    "project": "REG-KR-0231",
-    "reasons": [
-     "identity_unproven",
-     "subject:person:people"
-    ]
-   },
-   {
     "key": "2010.11.11 G20 서울 정상회의 (7445962682).jpg",
     "project": "SEOUL022",
     "reasons": [
@@ -14389,6 +14277,128 @@
     "project": "SEOUL022",
     "reasons": [
      "subject:people_or_event:g-20"
+    ]
+   },
+   {
+    "key": "G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (02).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:g-20"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195536).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195870).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812196376).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812196692).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812197384).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812197824).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812198336).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812199496).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812199944).jpg",
+    "project": "SEOUL022",
+    "reasons": [
+     "subject:people_or_event:reenactment"
+    ]
+   },
+   {
+    "key": "img-e9b9acd2bcad",
+    "project": "SEOUL022",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:portrait"
+    ]
+   },
+   {
+    "key": "KOCIS Korea President Park MMCA 01 (10862970136).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "subject:people_or_event:president"
+    ]
+   },
+   {
+    "key": "KOCIS Korea President Park MMCA 02 (10863073124).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "subject:people_or_event:president"
+    ]
+   },
+   {
+    "key": "KOCIS Korea President Park MMCA 03 (10863072674).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "subject:people_or_event:president"
+    ]
+   },
+   {
+    "key": "KOCIS Korea President Park MMCA 04 (10862922525).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "subject:people_or_event:president"
+    ]
+   },
+   {
+    "key": "Minister of Culture, Sports and Tourism Yu In-chon and Jeju Mayor Oh Young-hun at the National Museum of Modern and Contemporary Art in Seoul 20240611 (01).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "rights:license_not_allowed",
+     "subject:people_or_event:minister"
+    ]
+   },
+   {
+    "key": "Minister of Culture, Sports and Tourism Yu In-chon and Jeju Mayor Oh Young-hun at the National Museum of Modern and Contemporary Art in Seoul 20240611 (02).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "rights:license_not_allowed",
+     "subject:people_or_event:minister"
     ]
    }
   ],
@@ -14699,15 +14709,130 @@
    }
   ]
  },
- "removed": {},
- "removed_examples": {},
+ "removed": {
+  "not_selected": 22
+ },
+ "removed_examples": {
+  "not_selected": [
+   {
+    "id": "img-542675d7b576",
+    "project": "Q105621899",
+    "title": "ISS053-E-93966 - View of Earth"
+   },
+   {
+    "id": "img-9c86449b8265",
+    "project": "Q5839725",
+    "title": "Centro de Creación Contemporánea de Andalucía (52018036092)"
+   },
+   {
+    "id": "img-2ce10ab24972",
+    "project": "Q110169084",
+    "title": "Ove Lucas, 2018 (2)"
+   },
+   {
+    "id": "img-d5a108c3813e",
+    "project": "Q96055560",
+    "title": "EsLibre 2023 03"
+   },
+   {
+    "id": "img-147837bc4d7f",
+    "project": "Q96055560",
+    "title": "EsLibre 2023 02"
+   },
+   {
+    "id": "img-328d0b2adf89",
+    "project": "Q96055560",
+    "title": "Carmen Díez SanMartín a esLibre 2023"
+   },
+   {
+    "id": "img-2d2cc78a586a",
+    "project": "Q96055560",
+    "title": "David Abián a esLibre 2023"
+   },
+   {
+    "id": "img-5b0c27395f22",
+    "project": "Q96055560",
+    "title": "EsLibre 2023 01"
+   },
+   {
+    "id": "img-7f8caff844de",
+    "project": "Q96055560",
+    "title": "Atari XEGS rear showing ports"
+   },
+   {
+    "id": "img-1740104c2be8",
+    "project": "Q96055560",
+    "title": "EsLibre 2023 04"
+   },
+   {
+    "id": "img-c1b89632116e",
+    "project": "Q96055560",
+    "title": "EsLibre 2023 08"
+   },
+   {
+    "id": "img-77b74992e7db",
+    "project": "Q96055560",
+    "title": "EsLibre 2023 09"
+   },
+   {
+    "id": "img-8e4554b348e6",
+    "project": "Q96055560",
+    "title": "EsLibre 2023 10"
+   },
+   {
+    "id": "img-8e0b3e694c83",
+    "project": "Q96055560",
+    "title": "EsLibre 2023 11"
+   },
+   {
+    "id": "img-532c8eae9577",
+    "project": "Q96055560",
+    "title": "EsLibre 2023 12"
+   },
+   {
+    "id": "img-7c3b92ec3db8",
+    "project": "Q105621912",
+    "title": "ΔΕΛΤΑ ΤΟΥ ΕΒΡΟΥ 17"
+   },
+   {
+    "id": "img-780efefac736",
+    "project": "Q7422981",
+    "title": "Hastahana Park in Sarajevo, 2023.01.29 2"
+   },
+   {
+    "id": "img-512caf4765cf",
+    "project": "Q7422981",
+    "title": "Hastahana Park in Sarajevo, 2023.01.29 5"
+   },
+   {
+    "id": "img-5dff3d67b436",
+    "project": "CAT-10OT2VI",
+    "title": "Convoy^ - geograph.org.uk - 5265216"
+   },
+   {
+    "id": "img-9b408596b08f",
+    "project": "CAT-10OT2VI",
+    "title": "A87 resurfacing work at Cluanie (17315855451)"
+   },
+   {
+    "id": "img-bbe104ad8ce3",
+    "project": "CAT-10OT2VI",
+    "title": "A87 resurfacing work at Cluanie (17290348976)"
+   },
+   {
+    "id": "img-badc949dfe88",
+    "project": "CAT-10OT2VI",
+    "title": "Traffic lights on the A40 - geograph.org.uk - 1226620"
+   }
+  ]
+ },
  "schema": 1,
  "summary": {
   "cards": {
    "all": {
     "projects": 1009,
-    "rate_pct": 36.8,
-    "with_valid_card": 371
+    "rate_pct": 36.5,
+    "with_valid_card": 368
    },
    "korea": {
     "projects": 297,
@@ -14716,52 +14841,52 @@
    },
    "world": {
     "projects": 712,
-    "rate_pct": 49,
-    "with_valid_card": 349
+    "rate_pct": 48.6,
+    "with_valid_card": 346
    }
   },
   "duplicates_removed": 0,
   "duplicates_this_run": 13,
-  "images": 2737,
+  "images": 2719,
   "low_res_rejected": 83,
   "mislinked_rejected": 69,
   "mislinked_removed": 0,
-  "newly_added_valid": 2,
+  "newly_added_valid": 4,
   "person_rejected": 709,
   "person_removed": 0,
   "portraits": 3,
-  "previous_images": 2735,
+  "previous_images": 2737,
   "rechecked_kept": 0,
-  "relevance_verified": 2737,
-  "removed_total": 0
+  "relevance_verified": 2719,
+  "removed_total": 22
  },
  "totals": {
   "by_kind": {
-   "architecture_context": 449,
+   "architecture_context": 417,
    "event_documentation": 14,
-   "project_installation": 46,
-   "project_media": 2222,
+   "project_installation": 58,
+   "project_media": 2224,
    "technical_documentation": 6
   },
   "by_provider": {
-   "commons": 2733,
+   "commons": 2715,
    "editor": 4
   },
   "by_role": {
-   "card": 191,
-   "context": 397,
+   "card": 188,
+   "context": 383,
    "featured": 191,
-   "gallery": 1948,
+   "gallery": 1947,
    "hero": 10
   },
   "by_tier": {
    "1": 62,
    "2": 397,
-   "3": 1779,
-   "4": 48,
-   "5": 451
+   "3": 1794,
+   "4": 47,
+   "5": 419
   },
-  "images": 2737,
+  "images": 2719,
   "portraits": 3
  }
 }

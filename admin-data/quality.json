@@ -46,8 +46,8 @@
    "url": "http://www.avfestival.co.uk/"
   },
   {
-   "checked_at": "2026-11-11T23:36:03.854Z",
-   "consecutive_failures": 13,
+   "checked_at": "2026-11-13T04:20:03.558Z",
+   "consecutive_failures": 14,
    "field": "official_url",
    "http_status": null,
    "project": "Q131338420",
@@ -91,8 +91,8 @@
    "url": "https://disneyworld.disney.go.com/entertainment/hollywood-studios/star-wars-galactic-spectacular/"
   },
   {
-   "checked_at": "2026-11-12T07:26:39.709Z",
-   "consecutive_failures": 2,
+   "checked_at": "2026-11-13T04:20:29.770Z",
+   "consecutive_failures": 3,
    "field": "official_url",
    "http_status": null,
    "project": "Q3070027",
@@ -127,8 +127,8 @@
    "url": "https://www.lightinjerusalem.com/"
   },
   {
-   "checked_at": "2026-11-11T23:36:23.856Z",
-   "consecutive_failures": 18,
+   "checked_at": "2026-11-13T04:20:23.559Z",
+   "consecutive_failures": 19,
    "field": "official_url",
    "http_status": null,
    "project": "Q5057595",
@@ -217,8 +217,8 @@
    "url": "https://lichtrouten.de/en/open-call-sponsoring/"
   },
   {
-   "checked_at": "2026-11-11T23:33:17.281Z",
-   "consecutive_failures": 1,
+   "checked_at": "2026-11-13T04:19:45.130Z",
+   "consecutive_failures": 2,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "REG-FI-0001",
@@ -226,8 +226,8 @@
    "url": "https://hel.fi/en/news/lux-helsinki-will-showcase-the-diverse-forms-of-light-art-in-january"
   },
   {
-   "checked_at": "2026-11-11T23:33:50.129Z",
-   "consecutive_failures": 1,
+   "checked_at": "2026-11-13T04:19:46.452Z",
+   "consecutive_failures": 2,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-FI-0001",
@@ -280,8 +280,8 @@
    "url": "https://explore.visitmie-japan.travel/en/report/detail_157.html"
   },
   {
-   "checked_at": "2026-11-12T01:28:51.649Z",
-   "consecutive_failures": 1,
+   "checked_at": "2026-11-13T04:20:26.393Z",
+   "consecutive_failures": 2,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-JP-0009",
@@ -361,8 +361,8 @@
    "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=4a5e4431-b885-4ed7-9108-5eb7b3006ca9"
   },
   {
-   "checked_at": "2026-11-12T07:26:52.591Z",
-   "consecutive_failures": 2,
+   "checked_at": "2026-11-13T04:20:30.915Z",
+   "consecutive_failures": 3,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "REG-KR-0069",
@@ -460,8 +460,8 @@
    "url": "https://www.songpa.go.kr/culture/detailInfo.do?key=3796&resrceCd=CT0155-1030773"
   },
   {
-   "checked_at": "2026-11-12T08:27:13.614Z",
-   "consecutive_failures": 2,
+   "checked_at": "2026-11-13T04:20:50.916Z",
+   "consecutive_failures": 3,
    "field": "source:curated:source",
    "http_status": null,
    "project": "REG-KR-0150",
@@ -559,8 +559,8 @@
    "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=387cfe24-b54f-464d-a06d-c1599d7eba59"
   },
   {
-   "checked_at": "2026-11-12T02:08:25.463Z",
-   "consecutive_failures": 1,
+   "checked_at": "2026-11-13T04:20:27.695Z",
+   "consecutive_failures": 2,
    "field": "official_url",
    "http_status": null,
    "project": "REG-KR-0231",
@@ -730,7 +730,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261113T020804Z-f21dca2a",
+ "build_id": "20261113T041628Z-45465d2c",
  "coordinate_checks": [
   {
    "distance_m": 7576,
@@ -8186,7 +8186,7 @@
    ]
   }
  ],
- "generated_at": "2026-11-13T02:08:04.701Z",
+ "generated_at": "2026-11-13T04:16:28.107Z",
  "image_rejections": {
   "extreme_aspect": 25,
   "interior_unrelated_to_work": 4,
@@ -9176,6 +9176,21 @@
   },
   {
    "articles": 0,
+   "candidates": 4,
+   "country_iso2": "GB",
+   "has_wikidata": false,
+   "id": "CAT-10OT2VI",
+   "name": "When Red Light Shows Wait Here sign",
+   "project_type": "festival_program",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_category"
+   ],
+   "searched_this_run": true
+  },
+  {
+   "articles": 0,
    "candidates": 0,
    "country_iso2": "US",
    "has_wikidata": true,
@@ -9281,6 +9296,38 @@
    "searched": [
     "commons_p18",
     "commons_depicts"
+   ],
+   "searched_this_run": true
+  },
+  {
+   "articles": 0,
+   "candidates": 1,
+   "country_iso2": "FI",
+   "has_wikidata": true,
+   "id": "Q105621899",
+   "name": "Night Sky",
+   "project_type": "light_art",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
+  },
+  {
+   "articles": 0,
+   "candidates": 1,
+   "country_iso2": "FI",
+   "has_wikidata": true,
+   "id": "Q105621912",
+   "name": "Flamigos",
+   "project_type": "light_art",
+   "refused": {},
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
    ],
    "searched_this_run": true
   },
@@ -18641,10 +18688,6 @@
    "id": "CAT-08BN77L"
   },
   {
-   "best_tier": 5,
-   "id": "CAT-10OT2VI"
-  },
-  {
    "best_tier": 3,
    "id": "CAT-17J02NB"
   },
@@ -18669,7 +18712,7 @@
    "id": "Q100510647"
   },
   {
-   "best_tier": 5,
+   "best_tier": 3,
    "id": "Q101435284"
   },
   {
@@ -18734,14 +18777,6 @@
   },
   {
    "best_tier": 5,
-   "id": "Q105621899"
-  },
-  {
-   "best_tier": 5,
-   "id": "Q105621912"
-  },
-  {
-   "best_tier": 5,
    "id": "Q105623405"
   },
   {
@@ -18769,7 +18804,7 @@
    "id": "Q109369046"
   },
   {
-   "best_tier": 5,
+   "best_tier": 3,
    "id": "Q110044129"
   },
   {
@@ -18805,7 +18840,7 @@
    "id": "Q11524427"
   },
   {
-   "best_tier": 5,
+   "best_tier": 3,
    "id": "Q116207399"
   },
   {
@@ -18865,15 +18900,15 @@
    "id": "Q126899330"
   },
   {
-   "best_tier": 5,
+   "best_tier": 3,
    "id": "Q127413446"
   },
   {
-   "best_tier": 5,
+   "best_tier": 3,
    "id": "Q127587058"
   },
   {
-   "best_tier": 5,
+   "best_tier": 3,
    "id": "Q127587129"
   },
   {
@@ -18881,7 +18916,7 @@
    "id": "Q127587463"
   },
   {
-   "best_tier": 5,
+   "best_tier": 3,
    "id": "Q127587792"
   },
   {
@@ -18893,7 +18928,7 @@
    "id": "Q127588061"
   },
   {
-   "best_tier": 5,
+   "best_tier": 3,
    "id": "Q127588175"
   },
   {
@@ -18909,11 +18944,11 @@
    "id": "Q130070125"
   },
   {
-   "best_tier": 5,
+   "best_tier": 3,
    "id": "Q130070134"
   },
   {
-   "best_tier": 5,
+   "best_tier": 3,
    "id": "Q130070760"
   },
   {
@@ -18945,7 +18980,7 @@
    "id": "Q13668707"
   },
   {
-   "best_tier": 5,
+   "best_tier": 3,
    "id": "Q138024906"
   },
   {
@@ -18953,11 +18988,11 @@
    "id": "Q138025044"
   },
   {
-   "best_tier": 5,
+   "best_tier": 3,
    "id": "Q138025051"
   },
   {
-   "best_tier": 5,
+   "best_tier": 3,
    "id": "Q138025082"
   },
   {
@@ -19073,7 +19108,7 @@
    "id": "Q4167"
   },
   {
-   "best_tier": 5,
+   "best_tier": 3,
    "id": "Q41980149"
   },
   {
@@ -19217,7 +19252,7 @@
    "id": "SEOUL006"
   },
   {
-   "best_tier": 5,
+   "best_tier": 3,
    "id": "SEOUL018"
   },
   {

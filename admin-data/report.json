@@ -1,7 +1,7 @@
 {
  "cache": {
-  "hits": 20025,
-  "misses": 25,
+  "hits": 20139,
+  "misses": 12,
   "sizes": {
    "commons-category": 300,
    "commons-category-item": 1127,
@@ -19,232 +19,55 @@
    "links": 670,
    "openverse": 836,
    "overpass": 376,
-   "quality": 1300,
+   "quality": 1305,
    "sparql": 221,
-   "visual": 2171,
+   "visual": 2176,
    "wiki-pageimages": 33,
    "wiki-pages": 587,
    "wiki-search": 76,
    "wikidata-articles": 1,
    "wikidata-search": 20
   },
-  "stale": 166,
-  "writes": 274
+  "stale": 55,
+  "writes": 155
  },
  "changes": {
   "carried_over": [],
   "changed": [
-   "CAT-006W654",
-   "CAT-006YK0N",
-   "CAT-01N4LGF",
-   "CAT-01WE6KC",
-   "CAT-01ZBA4K",
-   "CAT-02UFF78",
-   "CAT-0336B9D",
-   "CAT-03OOV2I",
-   "CAT-03ULN0L",
-   "CAT-05VF7HL",
-   "CAT-060SMQ9",
-   "CAT-0666LZC",
-   "CAT-06MTGIV",
-   "CAT-06RUPY4",
-   "CAT-06VLQHR",
-   "CAT-07MN9XB",
-   "CAT-080XNRV",
-   "CAT-087XY0Y",
-   "CAT-08BN77L",
-   "CAT-09ZDYWO",
-   "CAT-09ZYAFP",
-   "CAT-0AEBIPR",
-   "CAT-0B6IDQU",
-   "CAT-0B9ZNFX",
-   "CAT-0BLB3MO",
-   "CAT-0CWOTJI",
-   "CAT-0E8G1MU",
-   "CAT-0EAYBY6",
-   "CAT-0GL7X3U",
-   "CAT-0H4BEQU",
-   "CAT-0J1KTII",
-   "CAT-0JXFXA2",
-   "CAT-0JYY9CE",
-   "CAT-0LLELAR",
-   "CAT-0M0QV3O",
-   "CAT-0MDTSAX",
-   "CAT-0NIEF25",
-   "CAT-0PSGJ9K",
-   "CAT-0QAASWL",
-   "CAT-0QH0T0A",
-   "CAT-0QJFC3C",
-   "CAT-0RRRVOK",
-   "CAT-0SLUD1S",
-   "CAT-0T9MVFP",
-   "CAT-0TBVQ3P",
-   "CAT-0UUDID6",
-   "CAT-0V5ZFBN",
-   "CAT-0X5OH68",
-   "CAT-0X8IWCG",
-   "CAT-0XKXRFR",
-   "CAT-0YNL8BM",
-   "CAT-0ZF9M7G",
-   "CAT-0ZY9NJG",
    "CAT-10OT2VI",
-   "CAT-13KGH9X",
-   "CAT-14IPYSX",
-   "CAT-14L575Y",
-   "CAT-15K694A",
-   "CAT-15KFS5O",
-   "CAT-15Q3ETO",
-   "CAT-15VOYUE",
-   "CAT-179IC4O",
-   "CAT-17Q294E",
-   "CAT-18MPLNM",
-   "CAT-18PSLHE",
-   "CAT-194EIQ6",
-   "CAT-19UI5Z0",
-   "CAT-19WSIOC",
-   "CAT-19YNNHA",
-   "CAT-1AXKR8E",
-   "CAT-1BGZX8T",
-   "CAT-1BSJHZ3",
-   "CAT-1CFHLL4",
-   "CAT-1CT46DX",
-   "CAT-1CXE5YL",
-   "CAT-1DGGGK7",
-   "CAT-1DPSBSO",
-   "CAT-1EQT3UH",
-   "CAT-1FUKQNM",
-   "CAT-1FV2MEP",
-   "CAT-1GBA2KD",
-   "CAT-1GGUXSH",
-   "CAT-1HI6B5P",
-   "CAT-1KCQL6I",
-   "CAT-1LEO0H0",
-   "CAT-1M413NK",
-   "CAT-1MB7I90",
-   "CAT-1MIYU2V",
-   "CAT-1NNE06W",
-   "CAT-1OC4PEX",
-   "CAT-1OKTAW1",
-   "CAT-1OXNCQS",
-   "CAT-1Q1RXR2",
-   "CAT-1QMMVV2",
-   "CAT-1QV2IWZ",
-   "CAT-1QWNNSV",
-   "CAT-1SSQIKM",
-   "CAT-1TQLHFI",
-   "CAT-1TTC7RH",
-   "CAT-1VRT7O9",
-   "CAT-1W4W4BP",
-   "CAT-1XKXSVP",
-   "CAT-1Y8FLLA",
-   "CAT-1YTY28W",
-   "Q100510647",
-   "Q101623588",
-   "Q101623614",
-   "Q102079626",
-   "Q102079673",
-   "Q10224945",
-   "Q104042899",
-   "Q10457263",
-   "Q105658382",
-   "Q105765811",
-   "Q105817457",
-   "Q1068874",
-   "Q107265489",
-   "Q108139453",
-   "Q108865330",
+   "Q101435284",
+   "Q105621899",
+   "Q105621912",
+   "Q110044129",
    "Q110169084",
-   "Q110820897",
-   "Q111023439",
-   "Q111305324",
-   "Q11242901",
-   "Q113509569",
-   "Q113527000",
-   "Q114669123",
-   "Q116278022",
-   "Q116484",
-   "Q116823022",
-   "Q117225588",
-   "Q117248257",
-   "Q11756714",
-   "Q11783870",
-   "Q11825476",
-   "Q1188708",
-   "Q120508549",
-   "Q120798485",
-   "Q122172761",
-   "Q122440749",
-   "Q122944544",
-   "Q124362637",
-   "Q124539982",
-   "Q124838702",
-   "Q125715",
-   "Q12618343",
-   "Q12640281",
-   "Q126924742",
-   "Q127586812",
-   "Q128211807",
-   "Q12859650",
-   "Q131314431",
-   "Q132797212",
-   "Q133137484",
-   "Q134006872",
-   "Q134126751",
-   "Q135276616",
-   "Q136085207",
-   "Q136219703",
-   "Q13668707",
-   "Q136702043",
-   "Q137796942",
-   "Q140069746",
-   "Q140937471",
-   "Q15014400",
-   "Q15107562",
-   "Q15140473",
-   "Q16034471",
-   "Q1636567",
-   "Q17051597",
-   "Q1710238",
-   "Q1800283",
-   "Q1806570",
-   "Q18219743",
-   "Q1823431",
-   "Q18302297",
-   "Q184921",
-   "Q18536617",
-   "Q18694056",
-   "Q191212",
-   "Q2001578",
-   "Q20103498",
-   "Q20888385",
-   "Q20888882",
-   "Q22912864",
-   "Q24190312",
-   "Q2494975",
-   "Q26156861",
-   "Q265292",
-   "Q270746",
-   "Q28648698",
-   "Q28873401",
-   "Q2920487",
-   "Q2961245",
-   "Q3070027",
-   "Q3148738",
-   "Q3207426",
-   "Q3267304",
-   "Q327650",
-   "Q328491"
+   "Q116207399",
+   "Q127413446",
+   "Q127587058",
+   "Q127587129",
+   "Q127587792",
+   "Q127588175",
+   "Q130070134",
+   "Q130070760",
+   "Q138024906",
+   "Q138025051",
+   "Q138025082",
+   "Q1823573",
+   "Q20888386",
+   "Q41980149",
+   "Q5839725",
+   "Q7422981",
+   "Q96055560",
+   "SEOUL018",
+   "SEOUL025"
   ],
   "merges": [],
-  "new": [
-   "Q142132856"
-  ],
+  "new": [],
   "removed": []
  },
  "counts": {
   "candidates_awaiting_review": 11,
   "carried_over": 0,
-  "changed": 269,
+  "changed": 25,
   "collected": 1644,
   "eligible": 1009,
   "excluded": 635,
@@ -253,7 +76,7 @@
   "kr": 297,
   "kr_with_region": 297,
   "merged": 0,
-  "new": 1,
+  "new": 0,
   "observations": 1700,
   "observations_kept": 1686,
   "projects_built": 1644,
@@ -261,7 +84,7 @@
   "removed": 0,
   "stale": 0,
   "with_hero": 10,
-  "with_images": 372
+  "with_images": 369
  },
  "decisions": [
   {
@@ -1917,6 +1740,406 @@
    "reasons": [],
    "status": "applied",
    "target": "REG-KR-0008"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-001-approve_image.json",
+   "note": "Viewed: Lotte World Tower at night across the Han River, its LED facade lines lit, the tower centred. CC0 (mauveine.kim via Flickr). Commons marks NoFoP-South Korea; shown under the archive's Korean rule (Copyright Act art. 35(2): a building in an open place, no sale of copies). The 2026-11-12 appro",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL018"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-002-approve_image.json",
+   "note": "Viewed: the green neon digits \"1989\" (John Körmeling) lit on the Hillekop tower at night. Compression score 72 from dark-sky noise; the digits are sharp at card size, so B with the crop kept on the digits. Public domain (Wikifrits, own work); Dutch freedom of panorama for a permanent public work.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q20888386"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-003-approve_image.json",
+   "note": "Viewed: the Van Gogh-Roosegaarde cycle path glowing at night, the artist standing beside it. Photo by Daan Roosegaarde himself, permission confirmed by the Commons VRT, CC BY-SA 3.0.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q101435284"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-004-approve_image.json",
+   "note": "Viewed: Günther Uecker's Lichtsäule (Düsseldorf) by day, the work itself filling the frame (not lit). permanent public sculpture, German freedom of panorama; CC0, Kürschner, own work, 2023. Grade B: a daytime photo is a card and detail photo, not a banner.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q127587129"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-005-approve_image.json",
+   "note": "Viewed: Jan van Munster's Brainwaves neon line on a facade in Marl-Hüls by day, the work itself filling the frame (not lit). permanent public work (Sculptures in Hüls), German freedom of panorama; CC BY-SA 4.0, Cfbolz, own work. Grade B: a daytime photo is a card and detail photo, not a banner.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q127587792"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-006-approve_image.json",
+   "note": "Viewed: Mischa Kuball's LES FLEURS DU MAL letters over the Skulpturenmuseum Glaskasten entrance, Marl by day, the work itself filling the frame (not lit). permanent work on the museum facade seen from the street, German freedom of panorama; CC BY 4.0, Cfbolz, own work. Grade B: a daytime photo is a ",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q127587058"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-007-approve_image.json",
+   "note": "Viewed: the Troisdorf Stadttor (Victor Bonato, Joachim Bandau) on Ursulaplatz by day, the work itself filling the frame (not lit). permanent public sculpture, German freedom of panorama; CC BY-SA 2.0, Jpetersen, own work. Grade B: a daytime photo is a card and detail photo, not a banner.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q127588175"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-008-approve_image.json",
+   "note": "Viewed: Margot Berkman's De Liefdesbrief (Delft, Oostpoortweg) by day, the work itself filling the frame (not lit). permanent public work, Dutch freedom of panorama (FoP-Netherlands on the file); CC BY-SA 3.0, Wikifrits, own work. Grade B: a daytime photo is a card and detail photo, not a banner.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q110044129"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-009-approve_image.json",
+   "note": "Viewed: Ron Caspers's untitled work on the Hornstraat, Groningen by day, the work itself filling the frame (not lit). permanent public sculpture, Dutch freedom of panorama; CC BY-SA 3.0, ZanderZ, own work. Grade B: a daytime photo is a card and detail photo, not a banner.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q130070134"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-010-approve_image.json",
+   "note": "Viewed: Ron Caspers's untitled work at the Aquamarijnflat, Groningen by day, the work itself filling the frame (not lit). permanent public sculpture, Dutch freedom of panorama; CC BY-SA 3.0, ZanderZ, own work. Grade B: a daytime photo is a card and detail photo, not a banner.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q130070760"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-011-approve_image.json",
+   "note": "Viewed: Titia Ex's Loom Light (Eindhoven) by day, the work itself filling the frame (not lit). permanent public light work, Dutch freedom of panorama; CC BY-SA 4.0, S. Perquin, own work, 2024. Grade B: a daytime photo is a card and detail photo, not a banner.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q138025051"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-012-approve_image.json",
+   "note": "Viewed: Matt Mullican's Wereldkaart neon sculpture on a facade in Eindhoven (Kunstroute De Rode Loper) by day, the work itself filling the frame (not lit). permanent public work, Dutch freedom of panorama; CC BY-SA 3.0, Rosemoon, own work. Grade B: a daytime photo is a card and detail photo, not a b",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q138025082"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-013-approve_image.json",
+   "note": "Viewed: Jan van Goethem's geometric work on the Reinwardtstraat, Amsterdam by day, the work itself filling the frame (not lit). permanent public work, Dutch freedom of panorama; CC BY-SA 4.0, Ceescamel, own work. Grade B: a daytime photo is a card and detail photo, not a banner.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q116207399"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-014-approve_image.json",
+   "note": "Viewed: Jan van Munster's Brainwave in the Duivelsgracht, Gorinchem by day, the work itself filling the frame (not lit). permanent public work, Dutch freedom of panorama (FoP-Netherlands on the file); CC BY-SA 3.0, Wikifrits, own work. Grade B: a daytime photo is a card and detail photo, not a banne",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q127413446"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-015-approve_image.json",
+   "note": "Viewed: Titia Ex's Juicy Light hanging over the Ten Katestraat, Amsterdam by day, the work itself filling the frame (not lit). permanent public light installation, Dutch freedom of panorama; CC BY-SA 4.0, Ceescamel, own work. Grade B: a daytime photo is a card and detail photo, not a banner.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q41980149"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-016-approve_image.json",
+   "note": "Viewed: Marjolijn Mandersloot's De Vlam van Tivoli (Eindhoven) by day, the work itself filling the frame (not lit). permanent public sculpture, Dutch freedom of panorama; CC BY-SA 4.0, WoodenSpoon, own work. Grade B: a daytime photo is a card and detail photo, not a banner.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q138024906"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-017-approve_image.json",
+   "note": "Viewed: the Rheinturm at dusk with the light clock lit, but with numbers and a time drawn over the photo: an explanatory image, kept as context. A clean night photo is still needed.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q1823573"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-018-approve_image.json",
+   "note": "Viewed: the MMCA Seoul building front by day (February 2020). The project is the museum's digital and media exhibitions, so this is context, not the work.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL025"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-019-block_image.json",
+   "note": "Viewed: a NASA view of the Earth from the ISS, not the Finnish light work. Unrelated to the project, so not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q105621899"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-020-block_image.json",
+   "note": "Viewed: an orange tree outside the building. Unrelated to the project, so not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q5839725"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-021-block_image.json",
+   "note": "Viewed: a portrait of a person at a desk. Unrelated to the project, so not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q110169084"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-022-block_image.json",
+   "note": "Viewed: flamingos in the Evros delta, not the work. Unrelated to the project, so not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q105621912"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-023-block_image.json",
+   "note": "Viewed: another artwork in Hastahana Park. Unrelated to the project, so not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q7422981"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-024-block_image.json",
+   "note": "Viewed: a snowy square in Hastahana Park. Unrelated to the project, so not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q7422981"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-025-block_image.json",
+   "note": "Viewed: road works on a Scottish road (mislinked). Unrelated to the project, so not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-10OT2VI"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-026-block_image.json",
+   "note": "Viewed: road resurfacing (mislinked). Unrelated to the project, so not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-10OT2VI"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-027-block_image.json",
+   "note": "Viewed: road resurfacing (mislinked). Unrelated to the project, so not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-10OT2VI"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-028-block_image.json",
+   "note": "Viewed: traffic lights on a road (mislinked). Unrelated to the project, so not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "CAT-10OT2VI"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-029-block_image.json",
+   "note": "Viewed: a photo from the esLibre 2023 software conference held at Etopia (speakers, attendees, equipment): not the media facade, and it shows identifiable people. Not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q96055560"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-030-block_image.json",
+   "note": "Viewed: a photo from the esLibre 2023 software conference held at Etopia (speakers, attendees, equipment): not the media facade, and it shows identifiable people. Not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q96055560"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-031-block_image.json",
+   "note": "Viewed: a photo from the esLibre 2023 software conference held at Etopia (speakers, attendees, equipment): not the media facade, and it shows identifiable people. Not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q96055560"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-032-block_image.json",
+   "note": "Viewed: a photo from the esLibre 2023 software conference held at Etopia (speakers, attendees, equipment): not the media facade, and it shows identifiable people. Not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q96055560"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-033-block_image.json",
+   "note": "Viewed: a photo from the esLibre 2023 software conference held at Etopia (speakers, attendees, equipment): not the media facade, and it shows identifiable people. Not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q96055560"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-034-block_image.json",
+   "note": "Viewed: a photo from the esLibre 2023 software conference held at Etopia (speakers, attendees, equipment): not the media facade, and it shows identifiable people. Not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q96055560"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-035-block_image.json",
+   "note": "Viewed: a photo from the esLibre 2023 software conference held at Etopia (speakers, attendees, equipment): not the media facade, and it shows identifiable people. Not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q96055560"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-036-block_image.json",
+   "note": "Viewed: a photo from the esLibre 2023 software conference held at Etopia (speakers, attendees, equipment): not the media facade, and it shows identifiable people. Not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q96055560"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-037-block_image.json",
+   "note": "Viewed: a photo from the esLibre 2023 software conference held at Etopia (speakers, attendees, equipment): not the media facade, and it shows identifiable people. Not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q96055560"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-038-block_image.json",
+   "note": "Viewed: a photo from the esLibre 2023 software conference held at Etopia (speakers, attendees, equipment): not the media facade, and it shows identifiable people. Not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q96055560"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-039-block_image.json",
+   "note": "Viewed: a photo from the esLibre 2023 software conference held at Etopia (speakers, attendees, equipment): not the media facade, and it shows identifiable people. Not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q96055560"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:30:00Z",
+   "by": "claude (2026-11-13 image brief: each photo viewed at card size; licence, author and description read on its Commons file",
+   "file": "2026-11-13T04-30-040-block_image.json",
+   "note": "Viewed: a photo from the esLibre 2023 software conference held at Etopia (speakers, attendees, equipment): not the media facade, and it shows identifiable people. Not shown even as context.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q96055560"
   }
  ],
  "errors": [],
@@ -2012,20 +2235,45 @@
  ],
  "http": {
   "api.openverse.org": {
-   "bytes": 6244,
-   "cached": 804,
+   "bytes": 6174,
+   "cached": 805,
    "errors": 1,
    "last_error": "HTTP 403",
-   "ms": 3368,
+   "ms": 92,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 2,
+   "ok": 0,
+   "requests": 1,
    "statuses": {
-    "200": 1,
     "403": 1
    }
   },
   "ar.wikipedia.org": {
+   "bytes": 2400,
+   "cached": 1,
+   "errors": 0,
+   "last_error": null,
+   "ms": 4892,
+   "not_modified": 0,
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
+  },
+  "commons.wikimedia.org": {
+   "bytes": 59127,
+   "cached": 835,
+   "errors": 0,
+   "last_error": null,
+   "ms": 18167,
+   "not_modified": 0,
+   "ok": 22,
+   "requests": 22,
+   "statuses": {
+    "200": 22
+   }
+  },
+  "de.wikipedia.org": {
    "bytes": 0,
    "cached": 2,
    "errors": 0,
@@ -2036,70 +2284,38 @@
    "requests": 0,
    "statuses": {}
   },
-  "commons.wikimedia.org": {
-   "bytes": 207637,
-   "cached": 827,
-   "errors": 0,
-   "last_error": null,
-   "ms": 46794,
-   "not_modified": 0,
-   "ok": 51,
-   "requests": 51,
-   "statuses": {
-    "200": 51
-   }
-  },
-  "de.wikipedia.org": {
-   "bytes": 3085,
-   "cached": 2,
-   "errors": 0,
-   "last_error": null,
-   "ms": 1091,
-   "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
-   "statuses": {
-    "200": 2
-   }
-  },
   "en.wikipedia.org": {
-   "bytes": 4127,
+   "bytes": 0,
    "cached": 4,
    "errors": 0,
    "last_error": null,
-   "ms": 1099,
+   "ms": 0,
    "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
-   "statuses": {
-    "200": 2
-   }
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   },
   "es.wikipedia.org": {
-   "bytes": 1073,
-   "cached": 2,
-   "errors": 0,
-   "last_error": null,
-   "ms": 543,
-   "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
-  },
-  "fr.wikipedia.org": {
-   "bytes": 338,
+   "bytes": 0,
    "cached": 3,
    "errors": 0,
    "last_error": null,
-   "ms": 586,
+   "ms": 0,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "fr.wikipedia.org": {
+   "bytes": 0,
+   "cached": 3,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   },
   "it.wikipedia.org": {
    "bytes": 0,
@@ -2124,16 +2340,16 @@
    "statuses": {}
   },
   "ko.wikipedia.org": {
-   "bytes": 974,
+   "bytes": 1560,
    "cached": 22,
    "errors": 0,
    "last_error": null,
-   "ms": 934,
+   "ms": 532,
    "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
+   "ok": 1,
+   "requests": 1,
    "statuses": {
-    "200": 2
+    "200": 1
    }
   },
   "nl.wikipedia.org": {
@@ -2152,20 +2368,7 @@
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 1372,
-   "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
-  },
-  "overpass-api.de": {
-   "bytes": 287,
-   "cached": 0,
-   "errors": 0,
-   "last_error": null,
-   "ms": 43323,
+   "ms": 2015,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -2185,116 +2388,108 @@
    "statuses": {}
   },
   "pt.wikipedia.org": {
-   "bytes": 73,
-   "cached": 2,
-   "errors": 0,
-   "last_error": null,
-   "ms": 685,
-   "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
-  },
-  "query.wikidata.org": {
-   "bytes": 21730,
-   "cached": 101,
-   "errors": 0,
-   "last_error": null,
-   "ms": 155933,
-   "not_modified": 0,
-   "ok": 29,
-   "requests": 29,
-   "statuses": {
-    "200": 29
-   }
-  },
-  "ru.wikipedia.org": {
-   "bytes": 15344,
-   "cached": 0,
-   "errors": 0,
-   "last_error": null,
-   "ms": 6389,
-   "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
-   "statuses": {
-    "200": 2
-   }
-  },
-  "thumb.wikimedia.org": {
-   "bytes": 10102426,
-   "cached": 0,
-   "errors": 0,
-   "last_error": null,
-   "ms": 8453,
-   "not_modified": 0,
-   "ok": 304,
-   "requests": 304,
-   "statuses": {
-    "200": 304
-   }
-  },
-  "tr.wikipedia.org": {
-   "bytes": 6169,
+   "bytes": 0,
    "cached": 3,
    "errors": 0,
    "last_error": null,
-   "ms": 723,
+   "ms": 0,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "query.wikidata.org": {
+   "bytes": 276,
+   "cached": 125,
+   "errors": 0,
+   "last_error": null,
+   "ms": 2696,
+   "not_modified": 0,
+   "ok": 3,
+   "requests": 3,
    "statuses": {
-    "200": 1
+    "200": 3
    }
   },
-  "upload.wikimedia.org": {
+  "ru.wikipedia.org": {
    "bytes": 0,
+   "cached": 1,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "thumb.wikimedia.org": {
+   "bytes": 14044780,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 85,
+   "ms": 36702,
+   "not_modified": 0,
+   "ok": 429,
+   "requests": 429,
+   "statuses": {
+    "200": 429
+   }
+  },
+  "tr.wikipedia.org": {
+   "bytes": 0,
+   "cached": 3,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
    "not_modified": 0,
    "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "upload.wikimedia.org": {
+   "bytes": 4385656,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 342,
+   "not_modified": 0,
+   "ok": 1,
    "requests": 1,
    "statuses": {
     "200": 1
    }
   },
   "www.wikidata.org": {
-   "bytes": 43808,
-   "cached": 18,
+   "bytes": 36097,
+   "cached": 21,
    "errors": 0,
    "last_error": null,
-   "ms": 6998,
-   "not_modified": 0,
-   "ok": 6,
-   "requests": 6,
-   "statuses": {
-    "200": 6
-   }
-  },
-  "zh.wikipedia.org": {
-   "bytes": 2775,
-   "cached": 1,
-   "errors": 0,
-   "last_error": null,
-   "ms": 4279,
+   "ms": 5676,
    "not_modified": 0,
    "ok": 2,
    "requests": 2,
    "statuses": {
     "200": 2
    }
+  },
+  "zh.wikipedia.org": {
+   "bytes": 0,
+   "cached": 3,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   }
  },
  "image_audit": {
   "cards": {
    "all": {
     "projects": 1009,
-    "rate_pct": 36.8,
-    "with_valid_card": 371
+    "rate_pct": 36.5,
+    "with_valid_card": 368
    },
    "korea": {
     "projects": 297,
@@ -2303,60 +2498,202 @@
    },
    "world": {
     "projects": 712,
-    "rate_pct": 49,
-    "with_valid_card": 349
+    "rate_pct": 48.6,
+    "with_valid_card": 346
    }
   },
   "duplicates_removed": 0,
   "duplicates_this_run": 13,
-  "images": 2737,
+  "images": 2719,
   "low_res_rejected": 83,
   "mislinked_rejected": 69,
   "mislinked_removed": 0,
-  "newly_added_valid": 2,
+  "newly_added_valid": 4,
   "person_rejected": 709,
   "person_removed": 0,
   "portraits": 3,
-  "previous_images": 2735,
+  "previous_images": 2737,
   "rechecked_kept": 0,
-  "relevance_verified": 2737,
-  "removed_total": 0
+  "relevance_verified": 2719,
+  "removed_total": 22
  },
  "image_inventory": {
   "all": {
+   "by_category": {
+    "1_no_candidate": 307,
+    "2_identity_unverified": 4,
+    "3_rights_review": 5,
+    "4_quality_below": 8,
+    "5_b_usable": 27,
+    "6_context_only": 27,
+    "7_permission_needed": 53,
+    "8_access_needed": 273,
+    "rep_a": 305
+   },
    "by_next_action": {
     "add_tourapi_key": 273,
     "approve_review": 1,
-    "request_permission": 65,
-    "search_commons": 356
+    "request_permission": 64,
+    "search_commons": 339
    },
    "by_reason": {
     "api_key_missing": 273,
-    "context_only": 44,
+    "context_only": 27,
     "identity_unclear": 3,
-    "no_candidate": 288,
+    "no_candidate": 291,
     "no_source_link": 69,
     "pending_review": 1,
-    "quality_low": 3,
     "resolution_low": 8,
-    "rights_unclear": 6
+    "rights_unclear": 5
    },
    "by_status": {
-    "artwork_below_bar": 3,
-    "context_only": 53,
-    "none": 637,
+    "context_only": 35,
+    "none": 640,
     "other_only": 2,
-    "representative": 314
+    "representative": 332
    },
+   "identity_review": 1,
+   "images": {
+    "A": 1942,
+    "B": 279,
+    "C": 498
+   },
+   "permission_targets": 64,
    "projects": 1009,
-   "rate_pct": 31.1,
-   "representative": 314
+   "rate_pct": 32.9,
+   "rep_grade_a": 305,
+   "rep_grade_b": 27,
+   "representative": 332,
+   "rights_review": 15,
+   "without_images": 640
   },
+  "changes": {
+   "gained": [
+    "Q101435284",
+    "Q110044129",
+    "Q116207399",
+    "Q127413446",
+    "Q127587058",
+    "Q127587129",
+    "Q127587792",
+    "Q127588061",
+    "Q127588175",
+    "Q130070134",
+    "Q130070760",
+    "Q138024906",
+    "Q138025051",
+    "Q138025082",
+    "Q20888386",
+    "Q41980149",
+    "Q885975",
+    "SEOUL018"
+   ],
+   "image_decision_files": [
+    "2026-10-25T14-30-000-block_image.json",
+    "2026-10-25T14-30-001-block_image.json",
+    "2026-10-25T14-30-003-block_image.json",
+    "2026-10-25T14-30-004-block_image.json",
+    "2026-10-25T19-20-000-block_image.json",
+    "2026-10-25T19-20-001-block_image.json",
+    "2026-10-25T19-20-002-block_image.json",
+    "2026-10-25T19-20-003-block_image.json",
+    "2026-10-25T19-20-004-block_image.json",
+    "2026-10-25T19-20-005-block_image.json",
+    "2026-10-25T19-20-006-block_image.json",
+    "2026-10-25T19-20-007-block_image.json",
+    "2026-10-25T19-20-008-block_image.json",
+    "2026-10-25T19-20-009-block_image.json",
+    "2026-10-25T19-20-010-block_image.json",
+    "2026-10-25T19-20-011-block_image.json",
+    "2026-10-25T19-20-012-block_image.json",
+    "2026-10-25T19-20-013-block_image.json",
+    "2026-10-25T19-20-014-block_image.json",
+    "2026-10-25T19-20-015-block_image.json",
+    "2026-10-25T19-20-016-block_image.json",
+    "2026-10-25T19-20-017-block_image.json",
+    "2026-10-25T19-20-018-block_image.json",
+    "2026-10-25T19-20-019-block_image.json",
+    "2026-10-25T19-20-020-block_image.json",
+    "2026-10-25T19-20-021-block_image.json",
+    "2026-10-25T19-20-022-block_image.json",
+    "2026-10-25T19-20-023-block_image.json",
+    "2026-10-25T19-20-024-block_image.json",
+    "2026-10-25T19-20-025-block_image.json",
+    "2026-10-25T19-20-026-block_image.json",
+    "2026-10-25T19-20-027-block_image.json",
+    "2026-11-12T01-40-001-approve_image.json",
+    "2026-11-12T01-40-002-approve_image.json",
+    "2026-11-12T01-40-003-approve_image.json",
+    "2026-11-12T01-50-001-set_image.json",
+    "2026-11-12T01-50-002-set_image.json",
+    "2026-11-12T01-50-003-set_image.json",
+    "2026-11-12T02-30-001-approve_image.json",
+    "2026-11-12T02-30-002-approve_image.json",
+    "2026-11-12T08-30-001-set_image.json",
+    "2026-11-13T04-30-001-approve_image.json",
+    "2026-11-13T04-30-002-approve_image.json",
+    "2026-11-13T04-30-003-approve_image.json",
+    "2026-11-13T04-30-004-approve_image.json",
+    "2026-11-13T04-30-005-approve_image.json",
+    "2026-11-13T04-30-006-approve_image.json",
+    "2026-11-13T04-30-007-approve_image.json",
+    "2026-11-13T04-30-008-approve_image.json",
+    "2026-11-13T04-30-009-approve_image.json",
+    "2026-11-13T04-30-010-approve_image.json",
+    "2026-11-13T04-30-011-approve_image.json",
+    "2026-11-13T04-30-012-approve_image.json",
+    "2026-11-13T04-30-013-approve_image.json",
+    "2026-11-13T04-30-014-approve_image.json",
+    "2026-11-13T04-30-015-approve_image.json",
+    "2026-11-13T04-30-016-approve_image.json",
+    "2026-11-13T04-30-017-approve_image.json",
+    "2026-11-13T04-30-018-approve_image.json",
+    "2026-11-13T04-30-019-block_image.json",
+    "2026-11-13T04-30-020-block_image.json",
+    "2026-11-13T04-30-021-block_image.json",
+    "2026-11-13T04-30-022-block_image.json",
+    "2026-11-13T04-30-023-block_image.json",
+    "2026-11-13T04-30-024-block_image.json",
+    "2026-11-13T04-30-025-block_image.json",
+    "2026-11-13T04-30-026-block_image.json",
+    "2026-11-13T04-30-027-block_image.json",
+    "2026-11-13T04-30-028-block_image.json",
+    "2026-11-13T04-30-029-block_image.json",
+    "2026-11-13T04-30-030-block_image.json",
+    "2026-11-13T04-30-031-block_image.json",
+    "2026-11-13T04-30-032-block_image.json",
+    "2026-11-13T04-30-033-block_image.json",
+    "2026-11-13T04-30-034-block_image.json",
+    "2026-11-13T04-30-035-block_image.json",
+    "2026-11-13T04-30-036-block_image.json",
+    "2026-11-13T04-30-037-block_image.json",
+    "2026-11-13T04-30-038-block_image.json",
+    "2026-11-13T04-30-039-block_image.json",
+    "2026-11-13T04-30-040-block_image.json"
+   ],
+   "image_decisions_applied": 81,
+   "lost": [],
+   "net": 18,
+   "new_image_approvals": null,
+   "new_image_decisions": null,
+   "previous_at": "2026-11-13T02:08:04.701Z",
+   "previous_representative": 314
+  },
+  "definition": "representative = a project with at least one photo of grade A or B (rights, identity and quality per art-photo-policy.js); rate = representative / published projects; grade C context photos never count",
   "korea": {
+   "by_category": {
+    "2_identity_unverified": 1,
+    "3_rights_review": 1,
+    "4_quality_below": 3,
+    "5_b_usable": 1,
+    "6_context_only": 2,
+    "8_access_needed": 273,
+    "rep_a": 16
+   },
    "by_next_action": {
     "add_tourapi_key": 273,
     "approve_review": 1,
-    "request_permission": 5,
+    "request_permission": 4,
     "search_commons": 2
    },
    "by_reason": {
@@ -2364,50 +2701,80 @@
     "context_only": 2,
     "pending_review": 1,
     "resolution_low": 3,
-    "rights_unclear": 2
+    "rights_unclear": 1
    },
    "by_status": {
-    "context_only": 6,
+    "context_only": 5,
     "none": 274,
     "other_only": 1,
-    "representative": 16
+    "representative": 17
    },
+   "identity_review": 1,
+   "images": {
+    "A": 63,
+    "B": 3,
+    "C": 104
+   },
+   "permission_targets": 4,
    "projects": 297,
-   "rate_pct": 5.4,
-   "representative": 16
+   "rate_pct": 5.7,
+   "rep_grade_a": 16,
+   "rep_grade_b": 1,
+   "representative": 17,
+   "rights_review": 3,
+   "without_images": 274
   },
   "tourapi_key": false,
   "world": {
+   "by_category": {
+    "1_no_candidate": 307,
+    "2_identity_unverified": 3,
+    "3_rights_review": 4,
+    "4_quality_below": 5,
+    "5_b_usable": 26,
+    "6_context_only": 25,
+    "7_permission_needed": 53,
+    "rep_a": 289
+   },
    "by_next_action": {
     "request_permission": 60,
-    "search_commons": 354
+    "search_commons": 337
    },
    "by_reason": {
-    "context_only": 42,
+    "context_only": 25,
     "identity_unclear": 3,
-    "no_candidate": 288,
+    "no_candidate": 291,
     "no_source_link": 69,
-    "quality_low": 3,
     "resolution_low": 5,
     "rights_unclear": 4
    },
    "by_status": {
-    "artwork_below_bar": 3,
-    "context_only": 47,
-    "none": 363,
+    "context_only": 30,
+    "none": 366,
     "other_only": 1,
-    "representative": 298
+    "representative": 315
    },
+   "identity_review": 0,
+   "images": {
+    "A": 1879,
+    "B": 276,
+    "C": 394
+   },
+   "permission_targets": 60,
    "projects": 712,
-   "rate_pct": 41.9,
-   "representative": 298
+   "rate_pct": 44.2,
+   "rep_grade_a": 289,
+   "rep_grade_b": 26,
+   "representative": 315,
+   "rights_review": 12,
+   "without_images": 366
   }
  },
  "images": {
   "awaiting_review": 0,
   "below_threshold": 11,
   "by_provider": {
-   "commons": 2733,
+   "commons": 2715,
    "editor": 4
   },
   "candidates": 7605,
@@ -2438,10 +2805,11 @@
    "cards-05.jpg",
    "cards-06.jpg",
    "cards-07.jpg",
-   "cards-08.jpg"
+   "cards-08.jpg",
+   "cards-09.jpg"
   ],
   "depicts_errors": 0,
-  "depicts_searches": 4,
+  "depicts_searches": 0,
   "duplicates": 13,
   "hero": 4,
   "identity_rejected": 4361,
@@ -2452,12 +2820,9 @@
   "kept_dropped_unverified": 0,
   "kept_previous": 0,
   "measure_errors": 0,
-  "measured": 2,
-  "none": 637,
-  "openverse_rate_limit": {
-   "x-ratelimit-available-anon_burst": 19,
-   "x-ratelimit-available-anon_sustained": 199
-  },
+  "measured": 5,
+  "none": 640,
+  "openverse_rate_limit": {},
   "pageimage_projects": 6,
   "pageimage_requests": 5,
   "portraits": 3,
@@ -2466,7 +2831,7 @@
    "openverse": 1
   },
   "provider_new_requests": {
-   "openverse": 2
+   "openverse": 1
   },
   "provider_rejected": {
    "openverse:identity_unproven": 4361,
@@ -2479,8 +2844,8 @@
    "openverse": 806
   },
   "provider_unverified": 501,
-  "quality_fetched": 2,
-  "quality_measured": 2,
+  "quality_fetched": 5,
+  "quality_measured": 5,
   "rejected": {
    "extreme_aspect": 25,
    "interior_unrelated_to_work": 4,
@@ -2491,7 +2856,9 @@
    "subject:person": 8,
    "too_small": 65
   },
-  "thumbnails_fetched": 2
+  "review_tiles": 120,
+  "review_waiting": 501,
+  "thumbnails_fetched": 5
  },
  "invalid_records": [],
  "places": {
@@ -2544,14 +2911,13 @@
   "ko.wikipedia.org": "reachable",
   "nl.wikipedia.org": "reachable",
   "openapi.seoul.go.kr:8088": "reachable",
-  "overpass-api.de": "reachable",
   "pl.wikipedia.org": "reachable",
   "pt.wikipedia.org": "reachable",
   "query.wikidata.org": "reachable",
   "ru.wikipedia.org": "reachable",
   "thumb.wikimedia.org": "reachable",
   "tr.wikipedia.org": "reachable",
-  "upload.wikimedia.org": "failed",
+  "upload.wikimedia.org": "reachable",
   "www.wikidata.org": "reachable",
   "zh.wikipedia.org": "reachable"
  },
@@ -2599,13 +2965,13 @@
  },
  "run": {
   "budget_minutes": 35,
-  "build_id": "20261113T020804Z-f21dca2a",
+  "build_id": "20261113T041628Z-45465d2c",
   "drop_guard": null,
-  "duration_ms": 507795,
-  "finished_at": "2026-11-13T02:16:32.495Z",
-  "number": 124,
+  "duration_ms": 264504,
+  "finished_at": "2026-11-13T04:20:52.611Z",
+  "number": 125,
   "publish": "published",
-  "started_at": "2026-11-13T02:08:04.701Z",
+  "started_at": "2026-11-13T04:16:28.107Z",
   "status": "partial",
   "user_agent": "LightArchitectureArchive/0.18 (+https://remona8787.github.io/; remona56@hanmail.net)",
   "validation_errors": []
@@ -2614,11 +2980,11 @@
  "sources": {
   "commons": {
    "consecutive_failures": 0,
-   "duration_ms": 22332,
+   "duration_ms": 14658,
    "errors": [],
    "items": 372,
    "korea_items": 4,
-   "last_success": "2026-11-13T02:08:04.701Z",
+   "last_success": "2026-11-13T04:16:28.107Z",
    "status": "ok",
    "warnings": [
     {
@@ -2757,36 +3123,36 @@
    "consecutive_failures": 0,
    "errors": [],
    "items": 370,
-   "last_success": "2026-11-13T02:08:04.701Z",
+   "last_success": "2026-11-13T04:16:28.107Z",
    "status": "ok"
   },
   "enrich": {
    "consecutive_failures": 0,
-   "duration_ms": 9587,
+   "duration_ms": 1743,
    "errors": [],
    "items": 1093,
-   "last_success": "2026-11-13T02:08:04.701Z",
+   "last_success": "2026-11-13T04:16:28.107Z",
    "status": "ok"
   },
   "links": {
    "consecutive_failures": 0,
    "errors": [],
-   "from_cache": 614,
-   "items": 35,
-   "last_success": "2026-11-13T02:08:04.701Z",
+   "from_cache": 640,
+   "items": 9,
+   "last_success": "2026-11-13T04:16:28.107Z",
    "status": "ok",
    "unchecked": 0
   },
   "overpass": {
    "consecutive_failures": 0,
    "errors": [],
-   "items": 1,
-   "last_success": "2026-11-13T02:08:04.701Z",
+   "items": 0,
+   "last_success": "2026-11-13T04:16:28.107Z",
    "status": "ok"
   },
   "seoul_events": {
    "consecutive_failures": 0,
-   "duration_ms": 1374,
+   "duration_ms": 2016,
    "errors": [],
    "items": 0,
    "last_success": null,
@@ -2804,25 +3170,25 @@
    "status": "skipped"
   },
   "web": {
-   "consecutive_failures": 1,
-   "duration_ms": 81984,
+   "consecutive_failures": 2,
+   "duration_ms": 54715,
    "errors": [
+    {
+     "http_status": null,
+     "message": "no answer within 20000 ms",
+     "rule": "gdelt:GDELT zh · media facade",
+     "stage": "web_fetch",
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Achinese&mode=ArtList&format=json&maxrecords=250&timespan=31h&sort=DateDesc"
+    },
     {
      "http_status": 429,
      "message": "HTTP 429",
-     "rule": "gdelt:GDELT pt · media facade",
+     "rule": "gdelt:GDELT tr · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aportuguese&mode=ArtList&format=json&maxrecords=250&timespan=33h&sort=DateDesc"
-    },
-    {
-     "http_status": null,
-     "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
-     "rule": "gdelt:GDELT ru · media facade",
-     "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Arussian&mode=ArtList&format=json&maxrecords=250&timespan=40h&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aturkish&mode=ArtList&format=json&maxrecords=250&timespan=52h&sort=DateDesc"
     }
    ],
-   "items": 7,
+   "items": 0,
    "last_success": "2026-11-12T07:16:20.150Z",
    "rules": [
     {
@@ -2834,7 +3200,7 @@
      "errors": 1,
      "fetched": 0,
      "kept": 0,
-     "key": "gdelt:GDELT pt · media facade",
+     "key": "gdelt:GDELT zh · media facade",
      "kind": "gdelt",
      "not_modified": false,
      "reason": null,
@@ -2849,7 +3215,7 @@
      "errors": 1,
      "fetched": 0,
      "kept": 0,
-     "key": "gdelt:GDELT ru · media facade",
+     "key": "gdelt:GDELT tr · media facade",
      "kind": "gdelt",
      "not_modified": false,
      "reason": null,
@@ -2862,79 +3228,34 @@
      "until": "2026-11-13T07:09:17.463Z"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 10
-     },
-     "errors": 0,
-     "fetched": 10,
-     "kept": 0,
      "key": "rss:designboom",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-13T08:09:25.327Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 24
-     },
-     "errors": 0,
-     "fetched": 24,
-     "kept": 0,
      "key": "rss:ArchDaily",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-13T08:09:25.522Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 30
-     },
-     "errors": 0,
-     "fetched": 30,
-     "kept": 0,
      "key": "rss:Archinect",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-13T08:09:25.837Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 1
-     },
-     "errors": 0,
-     "fetched": 1,
-     "kept": 0,
      "key": "rss:Creative Applications Network",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-13T08:09:25.987Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 3
-     },
-     "errors": 0,
-     "fetched": 10,
-     "kept": 7,
      "key": "rss:Media Architecture Institute",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-13T08:09:26.968Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
      "key": "rss:Designboom Korea",
@@ -2993,69 +3314,69 @@
      "status": "skipped"
     },
     {
-     "key": "gdelt:GDELT tr · media facade",
+     "key": "gdelt:GDELT pt · media facade",
      "reason": "rotation",
      "status": "skipped"
     },
     {
-     "key": "gdelt:GDELT zh · media facade",
+     "key": "gdelt:GDELT ru · media facade",
      "reason": "rotation",
      "status": "skipped"
     }
    ],
-   "status": "partial"
+   "status": "error"
   },
   "wikidata": {
    "consecutive_failures": 0,
-   "duration_ms": 153619,
+   "duration_ms": 6731,
    "errors": [],
    "items": 931,
    "korea_items": 0,
    "korea_search_items": 12,
-   "last_success": "2026-11-13T02:08:04.701Z",
+   "last_success": "2026-11-13T04:16:28.107Z",
    "status": "ok"
   },
   "wikipedia": {
    "consecutive_failures": 0,
-   "duration_ms": 6395,
+   "duration_ms": 5053,
    "errors": [],
    "items": 283,
    "korea_items": 87,
-   "last_success": "2026-11-13T02:08:04.701Z",
+   "last_success": "2026-11-13T04:16:28.107Z",
    "status": "ok"
   }
  },
  "stages": {
   "contact_sheets": {
-   "duration_ms": 83470,
+   "duration_ms": 117185,
    "status": "ok"
   },
   "enrich": {
-   "duration_ms": 9587,
+   "duration_ms": 1743,
    "status": "ok"
   },
   "images": {
-   "duration_ms": 35236,
+   "duration_ms": 18499,
    "status": "ok"
   },
   "links": {
-   "duration_ms": 179785,
+   "duration_ms": 68387,
    "status": "ok"
   },
   "overpass": {
-   "duration_ms": 43326,
+   "duration_ms": 4,
    "status": "ok"
   },
   "places": {
-   "duration_ms": 984,
+   "duration_ms": 1313,
    "status": "ok"
   },
   "resolve": {
-   "duration_ms": 150,
+   "duration_ms": 169,
    "status": "ok"
   },
   "sources": {
-   "duration_ms": 153620,
+   "duration_ms": 54723,
    "status": "ok"
   }
  },

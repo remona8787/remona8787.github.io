@@ -157,12 +157,12 @@
    "websub_self": null
   },
   "gdelt:GDELT tr · media facade": {
-   "backoff_until": "2026-11-12T01:24:27.150Z",
+   "backoff_until": "2026-11-13T08:17:23.524Z",
    "failed": true,
-   "failure_count": 2,
+   "failure_count": 3,
    "last_run_at": "2026-11-11T02:45:25.786Z",
    "last_status": "error",
-   "next_run_at": "2026-11-12T05:24:27.150Z",
+   "next_run_at": "2026-11-13T10:17:23.524Z",
    "not_modified": false,
    "retry_after_seconds": null,
    "skipped_reason": null,
@@ -170,12 +170,12 @@
    "websub_self": null
   },
   "gdelt:GDELT zh · media facade": {
-   "backoff_until": null,
-   "failed": false,
-   "failure_count": 0,
+   "backoff_until": "2026-11-13T05:16:53.300Z",
+   "failed": true,
+   "failure_count": 1,
    "last_run_at": "2026-11-11T23:23:18.317Z",
-   "last_status": "success",
-   "next_run_at": "2026-11-12T05:23:54.411Z",
+   "last_status": "error",
+   "next_run_at": "2026-11-13T10:16:53.300Z",
    "not_modified": false,
    "retry_after_seconds": null,
    "skipped_reason": null,
