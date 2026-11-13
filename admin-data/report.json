@@ -1,14 +1,14 @@
 {
  "cache": {
-  "hits": 20213,
-  "misses": 2,
+  "hits": 20048,
+  "misses": 135,
   "sizes": {
    "commons-category": 300,
    "commons-category-item": 1127,
    "commons-depicts": 580,
    "commons-file-cats": 15,
-   "commons-file-depicts": 3997,
-   "commons-files": 4136,
+   "commons-file-depicts": 4048,
+   "commons-files": 4187,
    "commons-geotags": 328,
    "commons-members": 845,
    "commons-parents": 339,
@@ -17,23 +17,35 @@
    "entities-aux": 3342,
    "labels": 90,
    "links": 670,
-   "openverse": 836,
+   "openverse": 837,
    "overpass": 376,
-   "quality": 1305,
+   "quality": 1318,
    "sparql": 221,
-   "visual": 2176,
+   "visual": 2192,
    "wiki-pageimages": 33,
    "wiki-pages": 587,
    "wiki-search": 76,
    "wikidata-articles": 1,
    "wikidata-search": 20
   },
-  "stale": 1,
-  "writes": 91
+  "stale": 5,
+  "writes": 227
  },
  "changes": {
   "carried_over": [],
-  "changed": [],
+  "changed": [
+   "CAT-1DGGGK7",
+   "Q127586928",
+   "Q16034471",
+   "Q3267304",
+   "Q33993",
+   "Q6731738",
+   "Q96055560",
+   "REG-FR-0003",
+   "REG-KR-0066",
+   "SEOUL022",
+   "SEOUL031"
+  ],
   "merges": [],
   "new": [],
   "removed": []
@@ -41,12 +53,12 @@
  "counts": {
   "candidates_awaiting_review": 11,
   "carried_over": 0,
-  "changed": 0,
+  "changed": 11,
   "collected": 1644,
   "eligible": 1009,
   "excluded": 635,
   "foreign": 712,
-  "hero_candidates_awaiting_review": 202,
+  "hero_candidates_awaiting_review": 203,
   "kr": 297,
   "kr_with_region": 297,
   "merged": 0,
@@ -58,7 +70,7 @@
   "removed": 0,
   "stale": 0,
   "with_hero": 10,
-  "with_images": 369
+  "with_images": 373
  },
  "decisions": [
   {
@@ -2114,6 +2126,1196 @@
    "reasons": [],
    "status": "applied",
    "target": "Q96055560"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-001-approve_image.json",
+   "note": "Viewed: Babak Saed's GEHORCHEKEINEM / OBEYNOBODY letters on a glass facade in Münster, by day (not lit); the work itself. Permanent public work, German freedom of panorama. Grade B (daytime). CC BY 2.0, spinster, https://www.flickr.com/photos/80719942@N00/53927345962",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q127586928"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-002-approve_image.json",
+   "note": "Viewed: the festival's lights in the trees along the Magnificent Mile at night, the festival's own lighting; generic string lights, no separate artwork. Grade B (1024 px). CC BY 2.0, rkramer62, https://www.flickr.com/photos/26503922@N08/5204169626",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-003-approve_image.json",
+   "note": "Viewed: Cheomseongdae by day, the place where the media facade is projected, not the projection: context only. CC BY-SA 2.0, bryan..., https://www.flickr.com/photos/91049143@N00/45749212821",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-KR-0066"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-004-approve_image.json",
+   "note": "Viewed: Cheomseongdae by day: context only (the place, not the projection). CC BY-SA 2.0, michaelseangallagher, https://www.flickr.com/photos/13518023@N03/6906687856",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-KR-0066"
+  },
+  {
+   "action": "approve_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-005-approve_image.json",
+   "note": "Viewed: Old Seoul Station (Culture Station Seoul 284) lit at dusk: the venue, not a work shown there: context only. CC BY-SA 2.0, travel oriented, https://www.flickr.com/photos/99958070@N02/9595140735",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL031"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-006-block_image.json",
+   "note": "Viewed on the review sheet (#1): a toy figure and archery at Hwaseong Fortress by day, not the media art. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-KR-0028"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-007-block_image.json",
+   "note": "Viewed on the review sheet (#2): a toy figure and archery at Hwaseong Fortress by day, not the media art. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-KR-0028"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-008-block_image.json",
+   "note": "Viewed on the review sheet (#3): a toy figure and archery at Hwaseong Fortress by day, not the media art. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-KR-0028"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-009-block_image.json",
+   "note": "Viewed on the review sheet (#4): a toy figure and archery at Hwaseong Fortress by day, not the media art. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-KR-0028"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-010-block_image.json",
+   "note": "Viewed on the review sheet (#5): a toy figure and archery at Hwaseong Fortress by day, not the media art. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-KR-0028"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-011-block_image.json",
+   "note": "Viewed on the review sheet (#6): a toy figure and archery at Hwaseong Fortress by day, not the media art. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-KR-0028"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-012-block_image.json",
+   "note": "Viewed on the review sheet (#7): a toy figure and archery at Hwaseong Fortress by day, not the media art. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-KR-0028"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-013-block_image.json",
+   "note": "Viewed on the review sheet (#8): Cheomseongdae by day or a person nearby; two context photos are kept, these add nothing. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-KR-0066"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-014-block_image.json",
+   "note": "Viewed on the review sheet (#9): Cheomseongdae by day or a person nearby; two context photos are kept, these add nothing. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-KR-0066"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-015-block_image.json",
+   "note": "Viewed on the review sheet (#10): Cheomseongdae by day or a person nearby; two context photos are kept, these add nothing. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-KR-0066"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-016-block_image.json",
+   "note": "Viewed on the review sheet (#11): Cheomseongdae by day or a person nearby; two context photos are kept, these add nothing. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-KR-0066"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-017-block_image.json",
+   "note": "Viewed on the review sheet (#14): Cheomseongdae by day or a person nearby; two context photos are kept, these add nothing. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-KR-0066"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-018-block_image.json",
+   "note": "Viewed on the review sheet (#15): museum exhibits and the building by day, not the immersive digital gallery. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL022"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-019-block_image.json",
+   "note": "Viewed on the review sheet (#16): museum exhibits and the building by day, not the immersive digital gallery. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL022"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-020-block_image.json",
+   "note": "Viewed on the review sheet (#17): museum exhibits and the building by day, not the immersive digital gallery. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL022"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-021-block_image.json",
+   "note": "Viewed on the review sheet (#18): museum exhibits and the building by day, not the immersive digital gallery. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL022"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-022-block_image.json",
+   "note": "Viewed on the review sheet (#19): museum exhibits and the building by day, not the immersive digital gallery. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL022"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-023-block_image.json",
+   "note": "Viewed on the review sheet (#20): museum exhibits and the building by day, not the immersive digital gallery. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL022"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-024-block_image.json",
+   "note": "Viewed on the review sheet (#21): museum exhibits and the building by day, not the immersive digital gallery. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL022"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-025-block_image.json",
+   "note": "Viewed on the review sheet (#22): museum exhibits and the building by day, not the immersive digital gallery. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL022"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-026-block_image.json",
+   "note": "Viewed on the review sheet (#23): museum exhibits and the building by day, not the immersive digital gallery. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL022"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-027-block_image.json",
+   "note": "Viewed on the review sheet (#24): museum exhibits and the building by day, not the immersive digital gallery. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL022"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-028-block_image.json",
+   "note": "Viewed on the review sheet (#25): museum exhibits and the building by day, not the immersive digital gallery. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL022"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-029-block_image.json",
+   "note": "Viewed on the review sheet (#26): museum exhibits and the building by day, not the immersive digital gallery. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL022"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-030-block_image.json",
+   "note": "Viewed on the review sheet (#28): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-031-block_image.json",
+   "note": "Viewed on the review sheet (#29): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-032-block_image.json",
+   "note": "Viewed on the review sheet (#30): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-033-block_image.json",
+   "note": "Viewed on the review sheet (#31): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-034-block_image.json",
+   "note": "Viewed on the review sheet (#32): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-035-block_image.json",
+   "note": "Viewed on the review sheet (#33): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-036-block_image.json",
+   "note": "Viewed on the review sheet (#34): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-037-block_image.json",
+   "note": "Viewed on the review sheet (#35): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-038-block_image.json",
+   "note": "Viewed on the review sheet (#36): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-039-block_image.json",
+   "note": "Viewed on the review sheet (#37): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-040-block_image.json",
+   "note": "Viewed on the review sheet (#38): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-041-block_image.json",
+   "note": "Viewed on the review sheet (#39): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-042-block_image.json",
+   "note": "Viewed on the review sheet (#40): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-043-block_image.json",
+   "note": "Viewed on the review sheet (#41): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-044-block_image.json",
+   "note": "Viewed on the review sheet (#42): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-045-block_image.json",
+   "note": "Viewed on the review sheet (#43): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-046-block_image.json",
+   "note": "Viewed on the review sheet (#44): crowds at an outdoor music festival in a park, mislinked to Piknic. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "SEOUL039"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-047-block_image.json",
+   "note": "Viewed on the review sheet (#46): the bridge too small in an aerial view to show the work. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q127587590"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-048-block_image.json",
+   "note": "Viewed on the review sheet (#47): printed guides, posters and a room: promotional material, not the festival's light or media work. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q131338390"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-049-block_image.json",
+   "note": "Viewed on the review sheet (#48): printed guides, posters and a room: promotional material, not the festival's light or media work. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q131338390"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-050-block_image.json",
+   "note": "Viewed on the review sheet (#49): printed guides, posters and a room: promotional material, not the festival's light or media work. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q131338390"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-051-block_image.json",
+   "note": "Viewed on the review sheet (#50): printed guides, posters and a room: promotional material, not the festival's light or media work. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q131338390"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-052-block_image.json",
+   "note": "Viewed on the review sheet (#51): printed guides, posters and a room: promotional material, not the festival's light or media work. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q131338390"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-053-block_image.json",
+   "note": "Viewed on the review sheet (#52): printed guides, posters and a room: promotional material, not the festival's light or media work. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q131338390"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-054-block_image.json",
+   "note": "Viewed on the review sheet (#53): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-055-block_image.json",
+   "note": "Viewed on the review sheet (#55): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-056-block_image.json",
+   "note": "Viewed on the review sheet (#56): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-057-block_image.json",
+   "note": "Viewed on the review sheet (#57): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-058-block_image.json",
+   "note": "Viewed on the review sheet (#58): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-059-block_image.json",
+   "note": "Viewed on the review sheet (#59): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-060-block_image.json",
+   "note": "Viewed on the review sheet (#60): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-061-block_image.json",
+   "note": "Viewed on the review sheet (#61): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-062-block_image.json",
+   "note": "Viewed on the review sheet (#62): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-063-block_image.json",
+   "note": "Viewed on the review sheet (#63): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-064-block_image.json",
+   "note": "Viewed on the review sheet (#64): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-065-block_image.json",
+   "note": "Viewed on the review sheet (#65): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-066-block_image.json",
+   "note": "Viewed on the review sheet (#66): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-067-block_image.json",
+   "note": "Viewed on the review sheet (#67): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-068-block_image.json",
+   "note": "Viewed on the review sheet (#68): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-069-block_image.json",
+   "note": "Viewed on the review sheet (#69): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-070-block_image.json",
+   "note": "Viewed on the review sheet (#70): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-071-block_image.json",
+   "note": "Viewed on the review sheet (#71): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-072-block_image.json",
+   "note": "Viewed on the review sheet (#72): parade performers, costumed characters and watermarked event photos, not the festival lights. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "Q6731738"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-073-block_image.json",
+   "note": "Viewed on the review sheet (#74): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-074-block_image.json",
+   "note": "Viewed on the review sheet (#75): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-075-block_image.json",
+   "note": "Viewed on the review sheet (#76): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-076-block_image.json",
+   "note": "Viewed on the review sheet (#77): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-077-block_image.json",
+   "note": "Viewed on the review sheet (#78): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-078-block_image.json",
+   "note": "Viewed on the review sheet (#79): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-079-block_image.json",
+   "note": "Viewed on the review sheet (#80): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-080-block_image.json",
+   "note": "Viewed on the review sheet (#81): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-081-block_image.json",
+   "note": "Viewed on the review sheet (#82): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-082-block_image.json",
+   "note": "Viewed on the review sheet (#83): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-083-block_image.json",
+   "note": "Viewed on the review sheet (#84): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-084-block_image.json",
+   "note": "Viewed on the review sheet (#85): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-085-block_image.json",
+   "note": "Viewed on the review sheet (#86): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-086-block_image.json",
+   "note": "Viewed on the review sheet (#87): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-087-block_image.json",
+   "note": "Viewed on the review sheet (#88): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-088-block_image.json",
+   "note": "Viewed on the review sheet (#89): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-089-block_image.json",
+   "note": "Viewed on the review sheet (#90): Burj Khalifa: the United Arab Emirates has no freedom of panorama covering the building, so its photos are not shown. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AE-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-090-block_image.json",
+   "note": "Viewed on the review sheet (#91): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-091-block_image.json",
+   "note": "Viewed on the review sheet (#92): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-092-block_image.json",
+   "note": "Viewed on the review sheet (#93): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-093-block_image.json",
+   "note": "Viewed on the review sheet (#94): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-094-block_image.json",
+   "note": "Viewed on the review sheet (#95): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-095-block_image.json",
+   "note": "Viewed on the review sheet (#96): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-096-block_image.json",
+   "note": "Viewed on the review sheet (#97): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-097-block_image.json",
+   "note": "Viewed on the review sheet (#98): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-098-block_image.json",
+   "note": "Viewed on the review sheet (#99): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-099-block_image.json",
+   "note": "Viewed on the review sheet (#100): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-100-block_image.json",
+   "note": "Viewed on the review sheet (#101): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-101-block_image.json",
+   "note": "Viewed on the review sheet (#102): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-102-block_image.json",
+   "note": "Viewed on the review sheet (#103): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-103-block_image.json",
+   "note": "Viewed on the review sheet (#104): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-104-block_image.json",
+   "note": "Viewed on the review sheet (#105): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-105-block_image.json",
+   "note": "Viewed on the review sheet (#106): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-106-block_image.json",
+   "note": "Viewed on the review sheet (#107): Klanglicht Graz: temporary festival installations photographed by a third party (watermarked), artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AT-0001"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-107-block_image.json",
+   "note": "Viewed on the review sheet (#108): Illuminate Adelaide: temporary installations and light shows, artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AU-0002"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-108-block_image.json",
+   "note": "Viewed on the review sheet (#109): Illuminate Adelaide: temporary installations and light shows, artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AU-0002"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-109-block_image.json",
+   "note": "Viewed on the review sheet (#110): Illuminate Adelaide: temporary installations and light shows, artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AU-0002"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-110-block_image.json",
+   "note": "Viewed on the review sheet (#111): Illuminate Adelaide: temporary installations and light shows, artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AU-0002"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-111-block_image.json",
+   "note": "Viewed on the review sheet (#112): Illuminate Adelaide: temporary installations and light shows, artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AU-0002"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-112-block_image.json",
+   "note": "Viewed on the review sheet (#113): Illuminate Adelaide: temporary installations and light shows, artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AU-0002"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-113-block_image.json",
+   "note": "Viewed on the review sheet (#114): Enlighten Canberra: temporary projections on Old Parliament House, artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AU-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-114-block_image.json",
+   "note": "Viewed on the review sheet (#115): Enlighten Canberra: temporary projections on Old Parliament House, artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AU-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-115-block_image.json",
+   "note": "Viewed on the review sheet (#116): Enlighten Canberra: temporary projections on Old Parliament House, artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AU-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-116-block_image.json",
+   "note": "Viewed on the review sheet (#117): Enlighten Canberra: temporary projections on Old Parliament House, artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AU-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-117-block_image.json",
+   "note": "Viewed on the review sheet (#118): Enlighten Canberra: temporary projections on Old Parliament House, artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AU-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-118-block_image.json",
+   "note": "Viewed on the review sheet (#119): Enlighten Canberra: temporary projections on Old Parliament House, artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AU-0004"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-13T04:40:00Z",
+   "by": "claude (2026-11-13 image brief: Openverse review sheet review-openverse-01..03 of build 20261113T041628Z, each tile view",
+   "file": "2026-11-13T04-40-119-block_image.json",
+   "note": "Viewed on the review sheet (#120): Enlighten Canberra: temporary projections on Old Parliament House, artists' rights not cleared. Not adopted; delete this file to put the photo back in the review queue.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-AU-0004"
   }
  ],
  "errors": [],
@@ -2209,15 +3411,16 @@
  ],
  "http": {
   "api.openverse.org": {
-   "bytes": 6174,
+   "bytes": 40656,
    "cached": 805,
    "errors": 1,
    "last_error": "HTTP 403",
-   "ms": 35,
+   "ms": 3630,
    "not_modified": 0,
-   "ok": 0,
-   "requests": 1,
+   "ok": 1,
+   "requests": 2,
    "statuses": {
+    "200": 1,
     "403": 1
    }
   },
@@ -2233,16 +3436,16 @@
    "statuses": {}
   },
   "commons.wikimedia.org": {
-   "bytes": 475,
-   "cached": 835,
+   "bytes": 445698,
+   "cached": 834,
    "errors": 0,
    "last_error": null,
-   "ms": 87,
+   "ms": 8734,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
+   "ok": 13,
+   "requests": 13,
    "statuses": {
-    "200": 1
+    "200": 13
    }
   },
   "de.wikipedia.org": {
@@ -2312,27 +3515,29 @@
    "statuses": {}
   },
   "ko.wikipedia.org": {
-   "bytes": 0,
+   "bytes": 360,
    "cached": 23,
    "errors": 0,
    "last_error": null,
-   "ms": 0,
+   "ms": 191,
    "not_modified": 0,
-   "ok": 0,
-   "requests": 0,
-   "statuses": {}
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
   },
   "live.staticflickr.com": {
-   "bytes": 21946642,
+   "bytes": 18810655,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 22931,
+   "ms": 28255,
    "not_modified": 0,
-   "ok": 120,
-   "requests": 120,
+   "ok": 124,
+   "requests": 124,
    "statuses": {
-    "200": 120
+    "200": 124
    }
   },
   "nl.wikipedia.org": {
@@ -2351,7 +3556,7 @@
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 1160,
+   "ms": 687,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -2382,15 +3587,17 @@
    "statuses": {}
   },
   "query.wikidata.org": {
-   "bytes": 0,
-   "cached": 128,
+   "bytes": 31932,
+   "cached": 126,
    "errors": 0,
    "last_error": null,
-   "ms": 0,
+   "ms": 1466,
    "not_modified": 0,
-   "ok": 0,
-   "requests": 0,
-   "statuses": {}
+   "ok": 2,
+   "requests": 2,
+   "statuses": {
+    "200": 2
+   }
   },
   "ru.wikipedia.org": {
    "bytes": 0,
@@ -2404,16 +3611,16 @@
    "statuses": {}
   },
   "thumb.wikimedia.org": {
-   "bytes": 12934097,
+   "bytes": 14560788,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 15746,
+   "ms": 22737,
    "not_modified": 0,
-   "ok": 419,
-   "requests": 419,
+   "ok": 443,
+   "requests": 443,
    "statuses": {
-    "200": 419
+    "200": 443
    }
   },
   "tr.wikipedia.org": {
@@ -2428,16 +3635,16 @@
    "statuses": {}
   },
   "upload.wikimedia.org": {
-   "bytes": 4385656,
+   "bytes": 4589549,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 195,
+   "ms": 476,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
+   "ok": 2,
+   "requests": 2,
    "statuses": {
-    "200": 1
+    "200": 2
    }
   },
   "www.wikidata.org": {
@@ -2445,7 +3652,7 @@
    "cached": 21,
    "errors": 0,
    "last_error": null,
-   "ms": 4702,
+   "ms": 3780,
    "not_modified": 0,
    "ok": 2,
    "requests": 2,
@@ -2469,87 +3676,90 @@
   "cards": {
    "all": {
     "projects": 1009,
-    "rate_pct": 36.5,
-    "with_valid_card": 368
+    "rate_pct": 36.9,
+    "with_valid_card": 372
    },
    "korea": {
     "projects": 297,
-    "rate_pct": 7.4,
-    "with_valid_card": 22
+    "rate_pct": 8.1,
+    "with_valid_card": 24
    },
    "world": {
     "projects": 712,
-    "rate_pct": 48.6,
-    "with_valid_card": 346
+    "rate_pct": 48.9,
+    "with_valid_card": 348
    }
   },
   "duplicates_removed": 0,
   "duplicates_this_run": 13,
-  "images": 2719,
-  "low_res_rejected": 83,
-  "mislinked_rejected": 69,
+  "images": 2742,
+  "low_res_rejected": 82,
+  "mislinked_rejected": 70,
   "mislinked_removed": 0,
-  "newly_added_valid": 0,
-  "person_rejected": 709,
+  "newly_added_valid": 53,
+  "person_rejected": 682,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2719,
   "rechecked_kept": 0,
-  "relevance_verified": 2719,
-  "removed_total": 0
+  "relevance_verified": 2742,
+  "removed_total": 30
  },
  "image_inventory": {
   "all": {
    "by_category": {
-    "1_no_candidate": 307,
-    "2_identity_unverified": 4,
+    "1_no_candidate": 306,
+    "2_identity_unverified": 5,
     "3_rights_review": 5,
-    "4_quality_below": 8,
-    "5_b_usable": 27,
-    "6_context_only": 27,
-    "7_permission_needed": 53,
-    "8_access_needed": 273,
+    "4_quality_below": 7,
+    "5_b_usable": 29,
+    "6_context_only": 29,
+    "7_permission_needed": 52,
+    "8_access_needed": 271,
     "rep_a": 305
    },
    "by_next_action": {
-    "add_tourapi_key": 273,
+    "add_tourapi_key": 271,
     "approve_review": 1,
-    "request_permission": 64,
-    "search_commons": 339
+    "request_permission": 63,
+    "search_commons": 340
    },
    "by_reason": {
-    "api_key_missing": 273,
-    "context_only": 27,
-    "identity_unclear": 3,
-    "no_candidate": 291,
+    "api_key_missing": 271,
+    "context_only": 29,
+    "identity_unclear": 4,
+    "no_candidate": 289,
     "no_source_link": 69,
     "pending_review": 1,
-    "resolution_low": 8,
+    "resolution_low": 7,
     "rights_unclear": 5
    },
    "by_status": {
-    "context_only": 35,
-    "none": 640,
+    "context_only": 37,
+    "none": 636,
     "other_only": 2,
-    "representative": 332
+    "representative": 334
    },
    "identity_review": 1,
    "images": {
-    "A": 1942,
-    "B": 279,
-    "C": 498
+    "A": 1938,
+    "B": 275,
+    "C": 529
    },
-   "permission_targets": 64,
+   "permission_targets": 63,
    "projects": 1009,
-   "rate_pct": 32.9,
+   "rate_pct": 33.1,
    "rep_grade_a": 305,
-   "rep_grade_b": 27,
-   "representative": 332,
+   "rep_grade_b": 29,
+   "representative": 334,
    "rights_review": 15,
-   "without_images": 640
+   "without_images": 636
   },
   "changes": {
-   "gained": [],
+   "gained": [
+    "Q127586928",
+    "Q6731738"
+   ],
    "image_decision_files": [
     "2026-10-25T14-30-000-block_image.json",
     "2026-10-25T14-30-001-block_image.json",
@@ -2631,14 +3841,133 @@
     "2026-11-13T04-30-037-block_image.json",
     "2026-11-13T04-30-038-block_image.json",
     "2026-11-13T04-30-039-block_image.json",
-    "2026-11-13T04-30-040-block_image.json"
+    "2026-11-13T04-30-040-block_image.json",
+    "2026-11-13T04-40-001-approve_image.json",
+    "2026-11-13T04-40-002-approve_image.json",
+    "2026-11-13T04-40-003-approve_image.json",
+    "2026-11-13T04-40-004-approve_image.json",
+    "2026-11-13T04-40-005-approve_image.json",
+    "2026-11-13T04-40-006-block_image.json",
+    "2026-11-13T04-40-007-block_image.json",
+    "2026-11-13T04-40-008-block_image.json",
+    "2026-11-13T04-40-009-block_image.json",
+    "2026-11-13T04-40-010-block_image.json",
+    "2026-11-13T04-40-011-block_image.json",
+    "2026-11-13T04-40-012-block_image.json",
+    "2026-11-13T04-40-013-block_image.json",
+    "2026-11-13T04-40-014-block_image.json",
+    "2026-11-13T04-40-015-block_image.json",
+    "2026-11-13T04-40-016-block_image.json",
+    "2026-11-13T04-40-017-block_image.json",
+    "2026-11-13T04-40-018-block_image.json",
+    "2026-11-13T04-40-019-block_image.json",
+    "2026-11-13T04-40-020-block_image.json",
+    "2026-11-13T04-40-021-block_image.json",
+    "2026-11-13T04-40-022-block_image.json",
+    "2026-11-13T04-40-023-block_image.json",
+    "2026-11-13T04-40-024-block_image.json",
+    "2026-11-13T04-40-025-block_image.json",
+    "2026-11-13T04-40-026-block_image.json",
+    "2026-11-13T04-40-027-block_image.json",
+    "2026-11-13T04-40-028-block_image.json",
+    "2026-11-13T04-40-029-block_image.json",
+    "2026-11-13T04-40-030-block_image.json",
+    "2026-11-13T04-40-031-block_image.json",
+    "2026-11-13T04-40-032-block_image.json",
+    "2026-11-13T04-40-033-block_image.json",
+    "2026-11-13T04-40-034-block_image.json",
+    "2026-11-13T04-40-035-block_image.json",
+    "2026-11-13T04-40-036-block_image.json",
+    "2026-11-13T04-40-037-block_image.json",
+    "2026-11-13T04-40-038-block_image.json",
+    "2026-11-13T04-40-039-block_image.json",
+    "2026-11-13T04-40-040-block_image.json",
+    "2026-11-13T04-40-041-block_image.json",
+    "2026-11-13T04-40-042-block_image.json",
+    "2026-11-13T04-40-043-block_image.json",
+    "2026-11-13T04-40-044-block_image.json",
+    "2026-11-13T04-40-045-block_image.json",
+    "2026-11-13T04-40-046-block_image.json",
+    "2026-11-13T04-40-047-block_image.json",
+    "2026-11-13T04-40-048-block_image.json",
+    "2026-11-13T04-40-049-block_image.json",
+    "2026-11-13T04-40-050-block_image.json",
+    "2026-11-13T04-40-051-block_image.json",
+    "2026-11-13T04-40-052-block_image.json",
+    "2026-11-13T04-40-053-block_image.json",
+    "2026-11-13T04-40-054-block_image.json",
+    "2026-11-13T04-40-055-block_image.json",
+    "2026-11-13T04-40-056-block_image.json",
+    "2026-11-13T04-40-057-block_image.json",
+    "2026-11-13T04-40-058-block_image.json",
+    "2026-11-13T04-40-059-block_image.json",
+    "2026-11-13T04-40-060-block_image.json",
+    "2026-11-13T04-40-061-block_image.json",
+    "2026-11-13T04-40-062-block_image.json",
+    "2026-11-13T04-40-063-block_image.json",
+    "2026-11-13T04-40-064-block_image.json",
+    "2026-11-13T04-40-065-block_image.json",
+    "2026-11-13T04-40-066-block_image.json",
+    "2026-11-13T04-40-067-block_image.json",
+    "2026-11-13T04-40-068-block_image.json",
+    "2026-11-13T04-40-069-block_image.json",
+    "2026-11-13T04-40-070-block_image.json",
+    "2026-11-13T04-40-071-block_image.json",
+    "2026-11-13T04-40-072-block_image.json",
+    "2026-11-13T04-40-073-block_image.json",
+    "2026-11-13T04-40-074-block_image.json",
+    "2026-11-13T04-40-075-block_image.json",
+    "2026-11-13T04-40-076-block_image.json",
+    "2026-11-13T04-40-077-block_image.json",
+    "2026-11-13T04-40-078-block_image.json",
+    "2026-11-13T04-40-079-block_image.json",
+    "2026-11-13T04-40-080-block_image.json",
+    "2026-11-13T04-40-081-block_image.json",
+    "2026-11-13T04-40-082-block_image.json",
+    "2026-11-13T04-40-083-block_image.json",
+    "2026-11-13T04-40-084-block_image.json",
+    "2026-11-13T04-40-085-block_image.json",
+    "2026-11-13T04-40-086-block_image.json",
+    "2026-11-13T04-40-087-block_image.json",
+    "2026-11-13T04-40-088-block_image.json",
+    "2026-11-13T04-40-089-block_image.json",
+    "2026-11-13T04-40-090-block_image.json",
+    "2026-11-13T04-40-091-block_image.json",
+    "2026-11-13T04-40-092-block_image.json",
+    "2026-11-13T04-40-093-block_image.json",
+    "2026-11-13T04-40-094-block_image.json",
+    "2026-11-13T04-40-095-block_image.json",
+    "2026-11-13T04-40-096-block_image.json",
+    "2026-11-13T04-40-097-block_image.json",
+    "2026-11-13T04-40-098-block_image.json",
+    "2026-11-13T04-40-099-block_image.json",
+    "2026-11-13T04-40-100-block_image.json",
+    "2026-11-13T04-40-101-block_image.json",
+    "2026-11-13T04-40-102-block_image.json",
+    "2026-11-13T04-40-103-block_image.json",
+    "2026-11-13T04-40-104-block_image.json",
+    "2026-11-13T04-40-105-block_image.json",
+    "2026-11-13T04-40-106-block_image.json",
+    "2026-11-13T04-40-107-block_image.json",
+    "2026-11-13T04-40-108-block_image.json",
+    "2026-11-13T04-40-109-block_image.json",
+    "2026-11-13T04-40-110-block_image.json",
+    "2026-11-13T04-40-111-block_image.json",
+    "2026-11-13T04-40-112-block_image.json",
+    "2026-11-13T04-40-113-block_image.json",
+    "2026-11-13T04-40-114-block_image.json",
+    "2026-11-13T04-40-115-block_image.json",
+    "2026-11-13T04-40-116-block_image.json",
+    "2026-11-13T04-40-117-block_image.json",
+    "2026-11-13T04-40-118-block_image.json",
+    "2026-11-13T04-40-119-block_image.json"
    ],
-   "image_decisions_applied": 81,
+   "image_decisions_applied": 200,
    "lost": [],
-   "net": 0,
-   "new_image_approvals": 0,
-   "new_image_decisions": 0,
-   "previous_at": "2026-11-13T04:16:28.107Z",
+   "net": 2,
+   "new_image_approvals": 5,
+   "new_image_decisions": 119,
+   "previous_at": "2026-11-13T04:25:40.530Z",
    "previous_representative": 332
   },
   "definition": "representative = a project with at least one photo of grade A or B (rights, identity and quality per art-photo-policy.js); rate = representative / published projects; grade C context photos never count",
@@ -2646,28 +3975,28 @@
    "by_category": {
     "2_identity_unverified": 1,
     "3_rights_review": 1,
-    "4_quality_below": 3,
+    "4_quality_below": 2,
     "5_b_usable": 1,
-    "6_context_only": 2,
-    "8_access_needed": 273,
+    "6_context_only": 5,
+    "8_access_needed": 271,
     "rep_a": 16
    },
    "by_next_action": {
-    "add_tourapi_key": 273,
+    "add_tourapi_key": 271,
     "approve_review": 1,
-    "request_permission": 4,
-    "search_commons": 2
+    "request_permission": 5,
+    "search_commons": 3
    },
    "by_reason": {
-    "api_key_missing": 273,
-    "context_only": 2,
+    "api_key_missing": 271,
+    "context_only": 5,
     "pending_review": 1,
-    "resolution_low": 3,
+    "resolution_low": 2,
     "rights_unclear": 1
    },
    "by_status": {
-    "context_only": 5,
-    "none": 274,
+    "context_only": 7,
+    "none": 272,
     "other_only": 1,
     "representative": 17
    },
@@ -2675,71 +4004,72 @@
    "images": {
     "A": 63,
     "B": 3,
-    "C": 104
+    "C": 116
    },
-   "permission_targets": 4,
+   "permission_targets": 5,
    "projects": 297,
    "rate_pct": 5.7,
    "rep_grade_a": 16,
    "rep_grade_b": 1,
    "representative": 17,
    "rights_review": 3,
-   "without_images": 274
+   "without_images": 272
   },
   "tourapi_key": false,
   "world": {
    "by_category": {
-    "1_no_candidate": 307,
-    "2_identity_unverified": 3,
+    "1_no_candidate": 306,
+    "2_identity_unverified": 4,
     "3_rights_review": 4,
     "4_quality_below": 5,
-    "5_b_usable": 26,
-    "6_context_only": 25,
-    "7_permission_needed": 53,
+    "5_b_usable": 28,
+    "6_context_only": 24,
+    "7_permission_needed": 52,
     "rep_a": 289
    },
    "by_next_action": {
-    "request_permission": 60,
+    "request_permission": 58,
     "search_commons": 337
    },
    "by_reason": {
-    "context_only": 25,
-    "identity_unclear": 3,
-    "no_candidate": 291,
+    "context_only": 24,
+    "identity_unclear": 4,
+    "no_candidate": 289,
     "no_source_link": 69,
     "resolution_low": 5,
     "rights_unclear": 4
    },
    "by_status": {
     "context_only": 30,
-    "none": 366,
+    "none": 364,
     "other_only": 1,
-    "representative": 315
+    "representative": 317
    },
    "identity_review": 0,
    "images": {
-    "A": 1879,
-    "B": 276,
-    "C": 394
+    "A": 1875,
+    "B": 272,
+    "C": 413
    },
-   "permission_targets": 60,
+   "permission_targets": 58,
    "projects": 712,
-   "rate_pct": 44.2,
+   "rate_pct": 44.5,
    "rep_grade_a": 289,
-   "rep_grade_b": 26,
-   "representative": 315,
+   "rep_grade_b": 28,
+   "representative": 317,
    "rights_review": 12,
-   "without_images": 366
+   "without_images": 364
   }
  },
  "images": {
   "awaiting_review": 0,
-  "below_threshold": 11,
+  "below_threshold": 15,
   "by_provider": {
-   "commons": 2715,
-   "editor": 4
+   "commons": 2733,
+   "editor": 4,
+   "openverse": 5
   },
-  "candidates": 7605,
+  "candidates": 7348,
   "contact_sheets": [
    "hero-commons-01.jpg",
    "hero-commons-02.jpg",
@@ -2777,17 +4107,20 @@
   "depicts_searches": 0,
   "duplicates": 13,
   "hero": 4,
-  "identity_rejected": 4361,
-  "institution_context": 90,
+  "identity_rejected": 4371,
+  "institution_context": 103,
   "kept_demoted_context": 0,
   "kept_dropped_irrelevant": 0,
   "kept_dropped_person": 0,
   "kept_dropped_unverified": 0,
   "kept_previous": 0,
   "measure_errors": 0,
-  "measured": 0,
-  "none": 640,
-  "openverse_rate_limit": {},
+  "measured": 16,
+  "none": 636,
+  "openverse_rate_limit": {
+   "x-ratelimit-available-anon_burst": 19,
+   "x-ratelimit-available-anon_sustained": 199
+  },
   "pageimage_projects": 6,
   "pageimage_requests": 5,
   "portraits": 3,
@@ -2796,34 +4129,34 @@
    "openverse": 1
   },
   "provider_new_requests": {
-   "openverse": 1
+   "openverse": 2
   },
   "provider_rejected": {
-   "openverse:identity_unproven": 4361,
+   "openverse:identity_unproven": 4371,
    "openverse:interior_unrelated_to_work": 34,
    "openverse:name": 43,
    "openverse:rights": 37,
    "openverse:subject": 619
   },
   "provider_requests": {
-   "openverse": 806
+   "openverse": 807
   },
-  "provider_unverified": 501,
-  "quality_fetched": 0,
-  "quality_measured": 0,
+  "provider_unverified": 496,
+  "quality_fetched": 13,
+  "quality_measured": 13,
   "rejected": {
-   "extreme_aspect": 25,
-   "interior_unrelated_to_work": 4,
+   "extreme_aspect": 26,
+   "interior_unrelated_to_work": 5,
    "rights:foreign_no_freedom_of_panorama": 4,
-   "rights:license_not_allowed": 39,
+   "rights:license_not_allowed": 40,
    "subject:object_or_animal": 17,
-   "subject:people_or_event": 89,
+   "subject:people_or_event": 62,
    "subject:person": 8,
-   "too_small": 65
+   "too_small": 62
   },
   "review_tiles": 120,
-  "review_waiting": 501,
-  "thumbnails_fetched": 0
+  "review_waiting": 382,
+  "thumbnails_fetched": 16
  },
  "invalid_records": [],
  "places": {
@@ -2927,17 +4260,17 @@
  },
  "review_queue": {
   "candidates": 11,
-  "hero_candidates": 202
+  "hero_candidates": 203
  },
  "run": {
   "budget_minutes": 35,
-  "build_id": "20261113T041628Z-45465d2c",
+  "build_id": "20261113T043649Z-2a9549f2",
   "drop_guard": null,
-  "duration_ms": 221231,
-  "finished_at": "2026-11-13T04:29:21.761Z",
-  "number": 126,
-  "publish": "unchanged",
-  "started_at": "2026-11-13T04:25:40.530Z",
+  "duration_ms": 230752,
+  "finished_at": "2026-11-13T04:40:40.662Z",
+  "number": 127,
+  "publish": "published",
+  "started_at": "2026-11-13T04:36:49.910Z",
   "status": "partial",
   "user_agent": "LightArchitectureArchive/0.18 (+https://remona8787.github.io/; remona56@hanmail.net)",
   "validation_errors": []
@@ -2946,11 +4279,11 @@
  "sources": {
   "commons": {
    "consecutive_failures": 0,
-   "duration_ms": 3328,
+   "duration_ms": 2606,
    "errors": [],
    "items": 372,
    "korea_items": 4,
-   "last_success": "2026-11-13T04:25:40.530Z",
+   "last_success": "2026-11-13T04:36:49.910Z",
    "status": "ok",
    "warnings": [
     {
@@ -3089,23 +4422,23 @@
    "consecutive_failures": 0,
    "errors": [],
    "items": 370,
-   "last_success": "2026-11-13T04:25:40.530Z",
+   "last_success": "2026-11-13T04:36:49.910Z",
    "status": "ok"
   },
   "enrich": {
    "consecutive_failures": 0,
-   "duration_ms": 57,
+   "duration_ms": 39,
    "errors": [],
    "items": 1093,
-   "last_success": "2026-11-13T04:25:40.530Z",
+   "last_success": "2026-11-13T04:36:49.910Z",
    "status": "ok"
   },
   "links": {
    "consecutive_failures": 0,
    "errors": [],
-   "from_cache": 649,
-   "items": 0,
-   "last_success": "2026-11-13T04:25:40.530Z",
+   "from_cache": 648,
+   "items": 1,
+   "last_success": "2026-11-13T04:36:49.910Z",
    "status": "ok",
    "unchecked": 0
   },
@@ -3113,12 +4446,12 @@
    "consecutive_failures": 0,
    "errors": [],
    "items": 0,
-   "last_success": "2026-11-13T04:25:40.530Z",
+   "last_success": "2026-11-13T04:36:49.910Z",
    "status": "ok"
   },
   "seoul_events": {
    "consecutive_failures": 0,
-   "duration_ms": 1162,
+   "duration_ms": 688,
    "errors": [],
    "items": 0,
    "last_success": null,
@@ -3137,21 +4470,14 @@
   },
   "web": {
    "consecutive_failures": 3,
-   "duration_ms": 72299,
+   "duration_ms": 66178,
    "errors": [
     {
      "http_status": null,
-     "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
-     "rule": "gdelt:GDELT de · media facade",
+     "message": "no answer within 20000 ms",
+     "rule": "gdelt:GDELT es · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Agerman&mode=ArtList&format=json&maxrecords=250&timespan=5d&sort=DateDesc"
-    },
-    {
-     "http_status": 429,
-     "message": "HTTP 429",
-     "rule": "gdelt:GDELT ar · media facade",
-     "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aarabic&mode=ArtList&format=json&maxrecords=250&timespan=9d&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aspanish&mode=ArtList&format=json&maxrecords=250&timespan=43h&sort=DateDesc"
     }
    ],
    "items": 0,
@@ -3163,14 +4489,14 @@
       "invalid": 0,
       "prefilter": 0
      },
-     "errors": 1,
+     "errors": 0,
      "fetched": 0,
      "kept": 0,
-     "key": "gdelt:GDELT de · media facade",
+     "key": "gdelt:GDELT en · media facade",
      "kind": "gdelt",
      "not_modified": false,
      "reason": null,
-     "status": "error"
+     "status": "success"
     },
     {
      "dropped": {
@@ -3181,7 +4507,7 @@
      "errors": 1,
      "fetched": 0,
      "kept": 0,
-     "key": "gdelt:GDELT ar · media facade",
+     "key": "gdelt:GDELT es · media facade",
      "kind": "gdelt",
      "not_modified": false,
      "reason": null,
@@ -3230,12 +4556,12 @@
      "until": "2026-11-14T19:58:50.013Z"
     },
     {
-     "key": "gdelt:GDELT en · media facade",
+     "key": "gdelt:GDELT ar · media facade",
      "reason": "rotation",
      "status": "skipped"
     },
     {
-     "key": "gdelt:GDELT es · media facade",
+     "key": "gdelt:GDELT de · media facade",
      "reason": "rotation",
      "status": "skipped"
     },
@@ -3290,43 +4616,43 @@
      "status": "skipped"
     }
    ],
-   "status": "error"
+   "status": "partial"
   },
   "wikidata": {
    "consecutive_failures": 0,
-   "duration_ms": 4732,
+   "duration_ms": 5263,
    "errors": [],
    "items": 931,
    "korea_items": 0,
    "korea_search_items": 12,
-   "last_success": "2026-11-13T04:25:40.530Z",
+   "last_success": "2026-11-13T04:36:49.910Z",
    "status": "ok"
   },
   "wikipedia": {
    "consecutive_failures": 0,
-   "duration_ms": 3267,
+   "duration_ms": 2564,
    "errors": [],
    "items": 283,
    "korea_items": 87,
-   "last_success": "2026-11-13T04:25:40.530Z",
+   "last_success": "2026-11-13T04:36:49.910Z",
    "status": "ok"
   }
  },
  "stages": {
   "contact_sheets": {
-   "duration_ms": 143966,
+   "duration_ms": 139087,
    "status": "ok"
   },
   "enrich": {
-   "duration_ms": 57,
+   "duration_ms": 40,
    "status": "ok"
   },
   "images": {
-   "duration_ms": 2162,
+   "duration_ms": 21501,
    "status": "ok"
   },
   "links": {
-   "duration_ms": 6,
+   "duration_ms": 1953,
    "status": "ok"
   },
   "overpass": {
@@ -3334,15 +4660,15 @@
    "status": "ok"
   },
   "places": {
-   "duration_ms": 979,
+   "duration_ms": 701,
    "status": "ok"
   },
   "resolve": {
-   "duration_ms": 142,
+   "duration_ms": 108,
    "status": "ok"
   },
   "sources": {
-   "duration_ms": 72305,
+   "duration_ms": 66185,
    "status": "ok"
   }
  },

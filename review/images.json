@@ -1,6 +1,6 @@
 {
  "about": "Per project: every image candidate (Commons and the other providers) with rights, identity, keyword evidence, visual and quality measurements, tier, approval, the hero and featured decisions and the near-duplicates removed.",
- "at": "2026-11-13T04:25:40.530Z",
+ "at": "2026-11-13T04:36:49.910Z",
  "projects": [
   {
    "candidates": [],
@@ -1569,8 +1569,105 @@
    "type": "projection_mapping"
   },
   {
-   "candidates": [],
-   "card": null,
+   "candidates": [
+    {
+     "approved": true,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "matched_location": "gyeongju",
+      "matched_name": "첨성대",
+      "method": "name_location",
+      "ok": true
+     },
+     "key": "img-ab8dcedd297b",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "openverse",
+     "quality": {
+      "blockiness": 5,
+      "decoded": {
+       "bytes": 262931,
+       "format": "jpeg",
+       "height": 1024,
+       "width": 765
+      },
+      "laplacian_var": 2261.9,
+      "measured_width": 765,
+      "phash": "1a1999879bb93b2f",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "openverse",
+     "tier": 5,
+     "title": "Cheomsongdae (첨성대): Gyeongju (경주), Korea",
+     "visual": {
+      "bright_share": 0.1016,
+      "colourfulness": 95.18,
+      "dark_share": 0.0573,
+      "height": 428,
+      "mean_luminance": 0.4966,
+      "saturated_bright": 0.33,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 765
+    },
+    {
+     "approved": true,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "matched_location": "gyeongju",
+      "matched_name": "첨성대",
+      "method": "name_location",
+      "ok": true
+     },
+     "key": "img-63e25c18f8b6",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "openverse",
+     "quality": {
+      "blockiness": 5,
+      "decoded": {
+       "bytes": 148437,
+       "format": "jpeg",
+       "height": 683,
+       "width": 1024
+      },
+      "laplacian_var": 1624,
+      "measured_width": 1024,
+      "phash": "03030c0cadeceeff",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "openverse",
+     "tier": 5,
+     "title": "瞻星台, 瞻星臺, 慶州, 徐羅伐, 韓國, 南韓, 大韓民國, Chomsongdae, Gyeongju, South Korea, Republic of Korea, ROK, Daehan Minguk, 첨성대, 경주시, 대한민국",
+     "visual": {
+      "bright_share": 0.4874,
+      "colourfulness": 38.14,
+      "dark_share": 0.0245,
+      "height": 213,
+      "mean_luminance": 0.6672,
+      "saturated_bright": 0.0096,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 1024
+    }
+   ],
+   "card": "img-63e25c18f8b6",
    "country_iso2": "KR",
    "duplicates": [],
    "featured": null,
@@ -1628,12 +1725,10 @@
       "ok": true
      },
      "license": "CC BY-SA 2.0",
-     "ok": false,
+     "ok": true,
      "page": "https://www.flickr.com/photos/13518023@N03/6906687856",
      "provider": "openverse",
-     "reasons": [
-      "awaiting_review"
-     ],
+     "reasons": [],
      "source_id": "2b3f73be-e842-42bb-927a-618a0ed269b5",
      "src": "https://live.staticflickr.com/5272/6906687856_5c2c05587a_b.jpg",
      "title": "Cheomsongdae (첨성대): Gyeongju (경주), Korea"
@@ -1764,12 +1859,10 @@
       "ok": true
      },
      "license": "CC BY-SA 2.0",
-     "ok": false,
+     "ok": true,
      "page": "https://www.flickr.com/photos/91049143@N00/45749212821",
      "provider": "openverse",
-     "reasons": [
-      "awaiting_review"
-     ],
+     "reasons": [],
      "source_id": "bc1e8c37-31a4-4422-b5d6-5fc56b2c3d7c",
      "src": "https://live.staticflickr.com/1974/45749212821_1b484cd8e8_b.jpg",
      "title": "瞻星台, 瞻星臺, 慶州, 徐羅伐, 韓國, 南韓, 大韓民國, Chomsongdae, Gyeongju, South Korea, Republic of Korea, ROK, Daehan Minguk, 첨성대, 경주시, 대한민국"
@@ -7364,8 +7457,57 @@
    "type": "other"
   },
   {
-   "candidates": [],
-   "card": null,
+   "candidates": [
+    {
+     "approved": true,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "matched_location": "seoul",
+      "matched_name": "문화역서울284",
+      "method": "name_location",
+      "ok": true
+     },
+     "key": "img-48ad237c5b62",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "openverse",
+     "quality": {
+      "blockiness": 8,
+      "decoded": {
+       "bytes": 201358,
+       "format": "jpeg",
+       "height": 683,
+       "width": 1023
+      },
+      "laplacian_var": 1148.3,
+      "measured_width": 1023,
+      "phash": "c7fe3931b696283c",
+      "sharpness": 96
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "openverse",
+     "tier": 5,
+     "title": "Old Seoul Station",
+     "visual": {
+      "bright_share": 0.1245,
+      "colourfulness": 53.66,
+      "dark_share": 0.0644,
+      "height": 214,
+      "mean_luminance": 0.4473,
+      "saturated_bright": 0.0847,
+      "visual": 1,
+      "width": 320
+     },
+     "width": 1023
+    }
+   ],
+   "card": "img-48ad237c5b62",
    "country_iso2": "KR",
    "duplicates": [],
    "featured": null,
@@ -7744,12 +7886,10 @@
       "ok": true
      },
      "license": "CC BY-SA 2.0",
-     "ok": false,
+     "ok": true,
      "page": "https://www.flickr.com/photos/99958070@N02/9595140735",
      "provider": "openverse",
-     "reasons": [
-      "awaiting_review"
-     ],
+     "reasons": [],
      "source_id": "5f987437-22cf-4142-9c64-124ebbb627a6",
      "src": "https://live.staticflickr.com/3680/9595140735_a49da95b6a_b.jpg",
      "title": "Old Seoul Station"
@@ -10780,19 +10920,7 @@
      ],
      "ok": true,
      "provider": "commons",
-     "quality": {
-      "blockiness": 5,
-      "decoded": {
-       "bytes": 176095,
-       "format": "jpeg",
-       "height": 640,
-       "width": 960
-      },
-      "laplacian_var": 4505.6,
-      "measured_width": 960,
-      "phash": "f0fcf37270f0c2e3",
-      "sharpness": 100
-     },
+     "quality": null,
      "reasons": [],
      "size_mismatch": null,
      "source": "category",
@@ -10830,19 +10958,7 @@
      ],
      "ok": true,
      "provider": "commons",
-     "quality": {
-      "blockiness": 15,
-      "decoded": {
-       "bytes": 101301,
-       "format": "jpeg",
-       "height": 640,
-       "width": 960
-      },
-      "laplacian_var": 815.9,
-      "measured_width": 960,
-      "phash": "f8f8b21b1bf8f8f0",
-      "sharpness": 92
-     },
+     "quality": null,
      "reasons": [],
      "size_mismatch": null,
      "source": "category",
@@ -10861,126 +10977,8 @@
      "width": 5472
     },
     {
-     "approved": false,
-     "evidence": [
-      "scene_terms",
-      "host_building_only"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "2010.11.11 G20 서울 정상회의 (7445962682).jpg",
-     "kind": null,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": false,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [
-      "subject:people_or_event:g20"
-     ],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "2010.11.11 G20 서울 정상회의 (7445962682) · 2010.11.11 G20 서울 정상회의 (7445962682) · 2010 국방화보 Rep. of Korea, Defense Photo Magazine 이명박 대통령이 11월 11일 서울 G20 정상회의 국립중앙박물관",
-     "visual": null,
-     "width": 2953
-    },
-    {
      "approved": null,
      "evidence": [
-      "host_building_only"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Dmitry Medvedev in South Korea 11 November 2010-7.jpeg",
-     "kind": null,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": false,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [
-      "subject:people_or_event:president",
-      "too_small"
-     ],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "Dmitry Medvedev in South Korea 11 November 2010 7 · Dmitry Medvedev in South Korea 11 November 2010-7 · With President of the Republic of Korea Lee Myung-bak an",
-     "visual": null,
-     "width": 372
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "host_building_only"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (01).jpg",
-     "kind": null,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": false,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [
-      "subject:people_or_event:g-20"
-     ],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "G 20 Seoul 2010   Lee Myung bak and Cristina Fernández de Kirchner (01) · G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (01) · La president",
-     "visual": null,
-     "width": 2000
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "host_building_only"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (02).jpg",
-     "kind": null,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": false,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [
-      "subject:people_or_event:g-20"
-     ],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "G 20 Seoul 2010   Lee Myung bak and Cristina Fernández de Kirchner (02) · G-20 Seoul 2010 - Lee Myung-bak and Cristina Fernández de Kirchner (02) · La president",
-     "visual": null,
-     "width": 1400
-    },
-    {
-     "approved": false,
-     "evidence": [
       "scene_terms",
       "host_building_only"
      ],
@@ -10989,204 +10987,43 @@
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195536).jpg",
-     "kind": null,
+     "key": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul - 10.jpg",
+     "kind": "architecture_context",
      "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
-     "ok": false,
+     "ok": true,
      "provider": "commons",
-     "quality": null,
-     "reasons": [
-      "subject:people_or_event:reenactment"
-     ],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195536) · KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195536) · A special performance to s",
-     "visual": null,
-     "width": 3456
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "scene_terms",
-      "host_building_only"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
+     "quality": {
+      "blockiness": 14,
+      "decoded": {
+       "bytes": 84555,
+       "format": "jpeg",
+       "height": 640,
+       "width": 960
+      },
+      "laplacian_var": 762.6,
+      "measured_width": 960,
+      "phash": "4bcacad2929c6498",
+      "sharpness": 91
      },
-     "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195870).jpg",
-     "kind": null,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": false,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [
-      "subject:people_or_event:reenactment"
-     ],
+     "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195870) · KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812195870) · A special performance to s",
-     "visual": null,
-     "width": 3456
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "scene_terms",
-      "host_building_only"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
+     "source": "depicts",
+     "tier": 5,
+     "title": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul   10 · Art of Early Joseon, masterpiece",
+     "visual": {
+      "bright_share": 0.019,
+      "colourfulness": 29.18,
+      "dark_share": 0.7356,
+      "height": 213,
+      "mean_luminance": 0.1421,
+      "saturated_bright": 0.0258,
+      "visual": 33,
+      "width": 320
      },
-     "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812196376).jpg",
-     "kind": null,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": false,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [
-      "subject:people_or_event:reenactment"
-     ],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812196376) · KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812196376) · A special performance to s",
-     "visual": null,
-     "width": 3456
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "scene_terms",
-      "host_building_only"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812196692).jpg",
-     "kind": null,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": false,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [
-      "subject:people_or_event:reenactment"
-     ],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812196692) · KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812196692) · A special performance to s",
-     "visual": null,
-     "width": 3456
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "scene_terms",
-      "host_building_only"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812197384).jpg",
-     "kind": null,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": false,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [
-      "subject:people_or_event:reenactment"
-     ],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812197384) · KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812197384) · A special performance to s",
-     "visual": null,
-     "width": 3456
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "scene_terms",
-      "host_building_only"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812197824).jpg",
-     "kind": null,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": false,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [
-      "subject:people_or_event:reenactment"
-     ],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812197824) · KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812197824) · A special performance to s",
-     "visual": null,
-     "width": 3456
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "scene_terms",
-      "host_building_only"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812198336).jpg",
-     "kind": null,
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": false,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [
-      "subject:people_or_event:reenactment"
-     ],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812198336) · KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812198336) · A special performance to s",
-     "visual": null,
-     "width": 3456
+     "width": 6000
     },
     {
      "approved": null,
@@ -11199,24 +11036,31 @@
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812199496).jpg",
-     "kind": null,
+     "key": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul - 11.jpg",
+     "kind": "architecture_context",
      "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
-     "ok": false,
+     "ok": true,
      "provider": "commons",
      "quality": null,
-     "reasons": [
-      "subject:people_or_event:reenactment"
-     ],
+     "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812199496) · KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812199496) · A special performance to s",
-     "visual": null,
-     "width": 3456
+     "source": "depicts",
+     "tier": 5,
+     "title": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul   11 · Art of Early Joseon, masterpiece",
+     "visual": {
+      "bright_share": 0.239,
+      "colourfulness": 12.25,
+      "dark_share": 0.6459,
+      "height": 220,
+      "mean_luminance": 0.2793,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 3268
     },
     {
      "approved": null,
@@ -11229,24 +11073,323 @@
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812199944).jpg",
-     "kind": null,
+     "key": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul - 12.jpg",
+     "kind": "architecture_context",
      "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
-     "ok": false,
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 12,
+      "decoded": {
+       "bytes": 70672,
+       "format": "jpeg",
+       "height": 678,
+       "width": 960
+      },
+      "laplacian_var": 1022.9,
+      "measured_width": 960,
+      "phash": "2829697858d8f8e8",
+      "sharpness": 95
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "depicts",
+     "tier": 5,
+     "title": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul   12 · Art of Early Joseon, masterpiece",
+     "visual": {
+      "bright_share": 0.0352,
+      "colourfulness": 32.77,
+      "dark_share": 0.8717,
+      "height": 226,
+      "mean_luminance": 0.0997,
+      "saturated_bright": 0.025,
+      "visual": 35,
+      "width": 320
+     },
+     "width": 4549
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "host_building_only"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul - 13.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
      "provider": "commons",
      "quality": null,
-     "reasons": [
-      "subject:people_or_event:reenactment"
-     ],
+     "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812199944) · KOCIS Reenactment of a royal wedding on Mar 5, 2012 (6812199944) · A special performance to s",
+     "source": "depicts",
+     "tier": 5,
+     "title": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul   13 · Art of Early Joseon, masterpiece",
      "visual": null,
-     "width": 3456
+     "width": 5629
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "host_building_only"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul - 14.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "depicts",
+     "tier": 5,
+     "title": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul   14 · Art of Early Joseon, masterpiece",
+     "visual": null,
+     "width": 5878
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "host_building_only"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul - 15.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "depicts",
+     "tier": 5,
+     "title": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul   15 · Art of Early Joseon, masterpiece",
+     "visual": null,
+     "width": 5799
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "host_building_only"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul - 16.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "depicts",
+     "tier": 5,
+     "title": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul   16 · Art of Early Joseon, masterpiece",
+     "visual": null,
+     "width": 5545
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "host_building_only"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul - 19.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "depicts",
+     "tier": 5,
+     "title": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul   19 · Art of Early Joseon, masterpiece",
+     "visual": null,
+     "width": 5640
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "host_building_only"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul - 20.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "depicts",
+     "tier": 5,
+     "title": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul   20 · Art of Early Joseon, masterpiece",
+     "visual": null,
+     "width": 5837
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "host_building_only"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul - 22.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "depicts",
+     "tier": 5,
+     "title": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul   22 · Art of Early Joseon, masterpiece",
+     "visual": null,
+     "width": 5622
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "host_building_only"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul - 23.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "depicts",
+     "tier": 5,
+     "title": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul   23 · Art of Early Joseon, masterpiece",
+     "visual": null,
+     "width": 5505
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "host_building_only"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul - 24.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "depicts",
+     "tier": 5,
+     "title": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul   24 · Art of Early Joseon, masterpiece",
+     "visual": null,
+     "width": 5222
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "host_building_only"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul - 25.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "depicts",
+     "tier": 5,
+     "title": "Art of Early Joseon, masterpieces from the 15th and 16th Century on June 17, 2025 at the National Museum of Korea, Seoul   25 · Art of Early Joseon, masterpiece",
+     "visual": null,
+     "width": 5448
     }
    ],
    "card": null,
@@ -56652,8 +56795,57 @@
    "type": "light_art"
   },
   {
-   "candidates": [],
-   "card": null,
+   "candidates": [
+    {
+     "approved": true,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "matched_location": "munster",
+      "matched_name": "obeynobody",
+      "method": "name_location",
+      "ok": true
+     },
+     "key": "img-6361db84d79b",
+     "kind": "project_installation",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "openverse",
+     "quality": {
+      "blockiness": 6,
+      "decoded": {
+       "bytes": 265286,
+       "format": "jpeg",
+       "height": 768,
+       "width": 1024
+      },
+      "laplacian_var": 2191.5,
+      "measured_width": 1024,
+      "phash": "986cfb5fc3b19fff",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "openverse",
+     "tier": 3,
+     "title": "Münster - Babak Saed - OBEYNOBODY",
+     "visual": {
+      "bright_share": 0.2955,
+      "colourfulness": 58.67,
+      "dark_share": 0.208,
+      "height": 240,
+      "mean_luminance": 0.4827,
+      "saturated_bright": 0.0594,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 1024
+    }
+   ],
+   "card": "img-6361db84d79b",
    "country_iso2": "DE",
    "duplicates": [],
    "featured": null,
@@ -56672,12 +56864,10 @@
       "ok": true
      },
      "license": "CC BY 2.0",
-     "ok": false,
+     "ok": true,
      "page": "https://www.flickr.com/photos/80719942@N00/53927345962",
      "provider": "openverse",
-     "reasons": [
-      "awaiting_review"
-     ],
+     "reasons": [],
      "source_id": "5237c7d3-b296-4599-bd63-91379cf0ec5f",
      "src": "https://live.staticflickr.com/65535/53927345962_6d942c28b4_b.jpg",
      "title": "Münster - Babak Saed - OBEYNOBODY"
@@ -102582,12 +102772,77 @@
    "type": "festival_program"
   },
   {
-   "candidates": [],
-   "card": null,
+   "candidates": [
+    {
+     "approved": true,
+     "evidence": [
+      "people_in_frame"
+     ],
+     "home_ok": true,
+     "identity": {
+      "matched_location": "chicago",
+      "matched_name": "magnificent mile lights festival",
+      "method": "name_location",
+      "ok": true
+     },
+     "key": "img-077b19df864d",
+     "kind": "project_media",
+     "media": 30,
+     "media_terms": [
+      "festival"
+     ],
+     "night": 30,
+     "night_terms": [
+      "evening"
+     ],
+     "ok": true,
+     "provider": "openverse",
+     "quality": {
+      "blockiness": 5,
+      "decoded": {
+       "bytes": 237365,
+       "format": "jpeg",
+       "height": 768,
+       "width": 1024
+      },
+      "laplacian_var": 2161.2,
+      "measured_width": 1024,
+      "phash": "c4c4e061f3f11b8c",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "openverse",
+     "tier": 3,
+     "title": "Magnificent Mile Lights Festival",
+     "visual": {
+      "bright_share": 0.0511,
+      "colourfulness": 39.66,
+      "dark_share": 0.6391,
+      "height": 240,
+      "mean_luminance": 0.2042,
+      "saturated_bright": 0.038,
+      "visual": 38,
+      "width": 320
+     },
+     "width": 1024
+    }
+   ],
+   "card": "img-077b19df864d",
    "country_iso2": "US",
    "duplicates": [],
    "featured": null,
-   "featured_decisions": [],
+   "featured_decisions": [
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "img-077b19df864d",
+     "provider": "openverse",
+     "reasons": [
+      "original_too_small"
+     ]
+    }
+   ],
    "hero": null,
    "hero_decisions": [],
    "name": "Magnificent Mile Lights Festival",
@@ -102621,12 +102876,10 @@
       "ok": true
      },
      "license": "CC BY 2.0",
-     "ok": false,
+     "ok": true,
      "page": "https://www.flickr.com/photos/26503922@N08/5204169626",
      "provider": "openverse",
-     "reasons": [
-      "awaiting_review"
-     ],
+     "reasons": [],
      "source_id": "c6517194-4a76-449e-83bd-c07321707b93",
      "src": "https://live.staticflickr.com/4149/5204169626_90b07a9169_b.jpg",
      "title": "Magnificent Mile Lights Festival"
@@ -104929,303 +105182,75 @@
   {
    "candidates": [
     {
-     "approved": false,
-     "evidence": [
-      "event_subcategory"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Atari XEGS rear showing ports.jpg",
-     "kind": null,
-     "media": 20,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "Atari XEGS rear showing ports · Atari XEGS rear showing ports · Atari XEGS rear showing ports. (Probably the NTSC version due to existence of channel switch at ",
-     "visual": null,
-     "width": 974
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "event_subcategory"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Carmen Díez SanMartín a esLibre 2023.jpg",
-     "kind": null,
-     "media": 20,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "Carmen Díez SanMartín a esLibre 2023 · Carmen Díez SanMartín a esLibre 2023 · Xerrada de Carmen Díez SanMartín a esLibre 2023 sobre «Las calles de la mujeres en",
-     "visual": null,
-     "width": 3664
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "event_subcategory"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "David Abián a esLibre 2023.jpg",
-     "kind": null,
-     "media": 20,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "David Abián a esLibre 2023 · David Abián a esLibre 2023 · Xerrada de David Abián a esLibre 2023 sobre «¿Sesgos del contenido por pares?»",
-     "visual": null,
-     "width": 2968
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "event_subcategory"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "EsLibre 2023 01.jpg",
-     "kind": null,
-     "media": 20,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "EsLibre 2023 01 · EsLibre 2023 01 · EsLibre 2023 en Zaragoza.",
-     "visual": null,
-     "width": 2968
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "event_subcategory"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "EsLibre 2023 02.jpg",
-     "kind": null,
-     "media": 20,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "EsLibre 2023 02 · EsLibre 2023 02 · EsLibre 2023 en Zaragoza.",
-     "visual": null,
-     "width": 4080
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "event_subcategory"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "EsLibre 2023 03.jpg",
-     "kind": null,
-     "media": 20,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "EsLibre 2023 03 · EsLibre 2023 03 · EsLibre 2023 en Zaragoza.",
-     "visual": null,
-     "width": 3072
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "event_subcategory"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "EsLibre 2023 04.jpg",
-     "kind": null,
-     "media": 20,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "EsLibre 2023 04 · EsLibre 2023 04 · EsLibre 2023 en Zaragoza.",
-     "visual": null,
-     "width": 4080
-    },
-    {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "EsLibre 2023 05.jpg",
+     "key": "Zaragoza - Etopia Centro de Arte y Tecnología 11.jpg",
      "kind": "architecture_context",
-     "media": 20,
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
      "ok": true,
      "provider": "commons",
-     "quality": {
-      "blockiness": 6,
-      "decoded": {
-       "bytes": 266966,
-       "format": "jpeg",
-       "height": 1275,
-       "width": 960
-      },
-      "laplacian_var": 3459.7,
-      "measured_width": 960,
-      "phash": "35e2b1f169d8c979",
-      "sharpness": 100
-     },
+     "quality": null,
      "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
+     "source": "p18",
      "tier": 5,
-     "title": "EsLibre 2023 05 · EsLibre 2023 05 · EsLibre 2023 en Zaragoza.",
+     "title": "Zaragoza   Etopia Centro de Arte y Tecnología 11 · Zaragoza - Etopia Centro de Arte y Tecnología 11 · Zaragoza - Etopia Centro de Arte y Tecnología",
      "visual": {
-      "bright_share": 0.2701,
-      "colourfulness": 35.76,
-      "dark_share": 0.1959,
-      "height": 425,
-      "mean_luminance": 0.4978,
-      "saturated_bright": 0.0673,
+      "bright_share": 0.1756,
+      "colourfulness": 60.45,
+      "dark_share": 0.1245,
+      "height": 192,
+      "mean_luminance": 0.4809,
+      "saturated_bright": 0.182,
       "visual": 0,
       "width": 320
      },
-     "width": 3072
+     "width": 2040
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "EsLibre 2023 06.jpg",
+     "key": "Exposición Zaragoza, el fútbol en e volución - IMG 20230512 102823.jpg",
      "kind": "architecture_context",
-     "media": 20,
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
      "ok": true,
      "provider": "commons",
-     "quality": {
-      "blockiness": 4,
-      "decoded": {
-       "bytes": 225680,
-       "format": "jpeg",
-       "height": 1275,
-       "width": 960
-      },
-      "laplacian_var": 3334.8,
-      "measured_width": 960,
-      "phash": "dec4d3c3d3b1b3f3",
-      "sharpness": 100
-     },
+     "quality": null,
      "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
+     "source": "depicts",
      "tier": 5,
-     "title": "EsLibre 2023 06 · EsLibre 2023 06 · EsLibre 2023 en Zaragoza.",
-     "visual": {
-      "bright_share": 0.089,
-      "colourfulness": 41.07,
-      "dark_share": 0.2027,
-      "height": 425,
-      "mean_luminance": 0.4733,
-      "saturated_bright": 0.0723,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 3072
+     "title": "Exposición Zaragoza, el fútbol en e volución   IMG 20230512 102823 · Exposición Zaragoza, el fútbol en e volución - IMG 20230512 102823 · Muestra \"Zaragoza, el ",
+     "visual": null,
+     "width": 3264
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "EsLibre 2023 07.jpg",
+     "key": "Exposición Zaragoza, el fútbol en e volución - IMG 20230512 102850.jpg",
      "kind": "architecture_context",
-     "media": 20,
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
@@ -105234,206 +105259,422 @@
      "quality": null,
      "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
+     "source": "depicts",
      "tier": 5,
-     "title": "EsLibre 2023 07 · EsLibre 2023 07 · EsLibre 2023 en Zaragoza.",
-     "visual": {
-      "bright_share": 0.198,
-      "colourfulness": 32.79,
-      "dark_share": 0.2385,
-      "height": 425,
-      "mean_luminance": 0.486,
-      "saturated_bright": 0.056,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 3072
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "event_subcategory"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "EsLibre 2023 08.jpg",
-     "kind": null,
-     "media": 20,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "EsLibre 2023 08 · EsLibre 2023 08 · EsLibre 2023 en Zaragoza.",
+     "title": "Exposición Zaragoza, el fútbol en e volución   IMG 20230512 102850 · Exposición Zaragoza, el fútbol en e volución - IMG 20230512 102850 · Muestra \"Zaragoza, el ",
      "visual": null,
-     "width": 4080
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "event_subcategory"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "EsLibre 2023 09.jpg",
-     "kind": null,
-     "media": 20,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "EsLibre 2023 09 · EsLibre 2023 09 · EsLibre 2023 en Zaragoza.",
-     "visual": null,
-     "width": 4080
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "event_subcategory"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "EsLibre 2023 10.jpg",
-     "kind": null,
-     "media": 20,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "EsLibre 2023 10 · EsLibre 2023 10 · EsLibre 2023 en Zaragoza.",
-     "visual": null,
-     "width": 4080
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "event_subcategory"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "EsLibre 2023 11.jpg",
-     "kind": null,
-     "media": 20,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "EsLibre 2023 11 · EsLibre 2023 11 · EsLibre 2023 en Zaragoza.",
-     "visual": null,
-     "width": 4080
-    },
-    {
-     "approved": false,
-     "evidence": [
-      "event_subcategory"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "EsLibre 2023 12.jpg",
-     "kind": null,
-     "media": 20,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "EsLibre 2023 12 · EsLibre 2023 12 · EsLibre 2023 en Zaragoza.",
-     "visual": null,
-     "width": 4080
+     "width": 4000
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "EsLibre 2023 13.jpg",
+     "key": "Exposición Zaragoza, el fútbol en e volución - IMG 20230512 102901.jpg",
      "kind": "architecture_context",
-     "media": 20,
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
      "ok": true,
      "provider": "commons",
-     "quality": {
-      "blockiness": 4,
-      "decoded": {
-       "bytes": 164635,
-       "format": "jpeg",
-       "height": 723,
-       "width": 960
-      },
-      "laplacian_var": 14832.8,
-      "measured_width": 960,
-      "phash": "7effd0d2f2b2f2f8",
-      "sharpness": 100
-     },
+     "quality": null,
      "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
+     "source": "depicts",
      "tier": 5,
-     "title": "EsLibre 2023 13 · EsLibre 2023 13 · EsLibre 2023 en Zaragoza.",
+     "title": "Exposición Zaragoza, el fútbol en e volución   IMG 20230512 102901 · Exposición Zaragoza, el fútbol en e volución - IMG 20230512 102901 · Muestra \"Zaragoza, el ",
+     "visual": null,
+     "width": 3264
+    },
+    {
+     "approved": null,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Exposición Zaragoza, el fútbol en e volución - IMG 20230512 114422.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "depicts",
+     "tier": 5,
+     "title": "Exposición Zaragoza, el fútbol en e volución   IMG 20230512 114422 · Exposición Zaragoza, el fútbol en e volución - IMG 20230512 114422 · Muestra \"Zaragoza, el ",
+     "visual": null,
+     "width": 4000
+    },
+    {
+     "approved": null,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "CIEM Milla Digital Zaragoza 5.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "CIEM Milla Digital Zaragoza 5 · CIEM Milla Digital Zaragoza 5 · CIEM en la Milla Digital de Zaragoza .",
      "visual": {
-      "bright_share": 0.2418,
-      "colourfulness": 40.22,
-      "dark_share": 0.2275,
+      "bright_share": 0.4627,
+      "colourfulness": 51,
+      "dark_share": 0.2009,
       "height": 240,
-      "mean_luminance": 0.4626,
-      "saturated_bright": 0.0409,
+      "mean_luminance": 0.5281,
+      "saturated_bright": 0.0233,
       "visual": 0,
       "width": 320
      },
-     "width": 4080
+     "width": 3264
+    },
+    {
+     "approved": null,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "ETOPIA Centro de Arte y Tecnología - IMG 20230512 101225.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 9,
+      "decoded": {
+       "bytes": 151804,
+       "format": "jpeg",
+       "height": 720,
+       "width": 960
+      },
+      "laplacian_var": 3094.7,
+      "measured_width": 960,
+      "phash": "ffbfc63425a398cc",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "ETOPIA Centro de Arte y Tecnología   IMG 20230512 101225 · ETOPIA Centro de Arte y Tecnología - IMG 20230512 101225 · ETOPIA Centro de Arte y Tecnología (Zarago",
+     "visual": {
+      "bright_share": 0.1902,
+      "colourfulness": 66.72,
+      "dark_share": 0.1034,
+      "height": 240,
+      "mean_luminance": 0.5312,
+      "saturated_bright": 0.275,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 4000
+    },
+    {
+     "approved": null,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "ETOPIA Centro de Arte y Tecnología - IMG 20230512 101742.jpg",
+     "kind": null,
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": false,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [
+      "interior_unrelated_to_work"
+     ],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": null,
+     "title": "ETOPIA Centro de Arte y Tecnología   IMG 20230512 101742 · ETOPIA Centro de Arte y Tecnología - IMG 20230512 101742 · Interior de ETOPIA Centro de Arte y Tecnol",
+     "visual": null,
+     "width": 4000
+    },
+    {
+     "approved": null,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Etopia Milla Digital Zaragoza 1.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Etopia Milla Digital Zaragoza 1 · Etopia Milla Digital Zaragoza 1 · Etopia en la Milla Digital de Zaragoza .",
+     "visual": {
+      "bright_share": 0.1006,
+      "colourfulness": 48.08,
+      "dark_share": 0.0435,
+      "height": 240,
+      "mean_luminance": 0.5173,
+      "saturated_bright": 0.1396,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 3264
+    },
+    {
+     "approved": null,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Etopia Milla Digital Zaragoza 10.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 4,
+      "decoded": {
+       "bytes": 171391,
+       "format": "jpeg",
+       "height": 720,
+       "width": 960
+      },
+      "laplacian_var": 8974,
+      "measured_width": 960,
+      "phash": "e0b6767bf9fcf8e3",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Etopia Milla Digital Zaragoza 10 · Etopia Milla Digital Zaragoza 10 · Etopia en la Milla Digital de Zaragoza.",
+     "visual": {
+      "bright_share": 0.0191,
+      "colourfulness": 54.64,
+      "dark_share": 0.1188,
+      "height": 240,
+      "mean_luminance": 0.3856,
+      "saturated_bright": 0.2949,
+      "visual": 19,
+      "width": 320
+     },
+     "width": 3264
+    },
+    {
+     "approved": null,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Etopia Milla Digital Zaragoza 11.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 4,
+      "decoded": {
+       "bytes": 183155,
+       "format": "jpeg",
+       "height": 720,
+       "width": 960
+      },
+      "laplacian_var": 9297.4,
+      "measured_width": 960,
+      "phash": "c6f67b79b9f8f2e6",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Etopia Milla Digital Zaragoza 11 · Etopia Milla Digital Zaragoza 11 · Etopia en la Milla Digital de Zaragoza.",
+     "visual": {
+      "bright_share": 0.0245,
+      "colourfulness": 50.84,
+      "dark_share": 0.1097,
+      "height": 240,
+      "mean_luminance": 0.394,
+      "saturated_bright": 0.2358,
+      "visual": 16,
+      "width": 320
+     },
+     "width": 3264
+    },
+    {
+     "approved": null,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Etopia Milla Digital Zaragoza 12.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Etopia Milla Digital Zaragoza 12 · Etopia Milla Digital Zaragoza 12 · Etopia en la Milla Digital de Zaragoza.",
+     "visual": null,
+     "width": 3264
+    },
+    {
+     "approved": null,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Etopia Milla Digital Zaragoza 13.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Etopia Milla Digital Zaragoza 13 · Etopia Milla Digital Zaragoza 13 · Etopia en la Milla Digital de Zaragoza.",
+     "visual": null,
+     "width": 3264
+    },
+    {
+     "approved": null,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Etopia Milla Digital Zaragoza 14.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Etopia Milla Digital Zaragoza 14 · Etopia Milla Digital Zaragoza 14 · Etopia en la Milla Digital de Zaragoza.",
+     "visual": null,
+     "width": 3264
+    },
+    {
+     "approved": null,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Etopia Milla Digital Zaragoza 15.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Etopia Milla Digital Zaragoza 15 · Etopia Milla Digital Zaragoza 15 · Etopia en la Milla Digital de Zaragoza.",
+     "visual": null,
+     "width": 3264
+    },
+    {
+     "approved": null,
+     "evidence": [],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Etopia Milla Digital Zaragoza 16.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Etopia Milla Digital Zaragoza 16 · Etopia Milla Digital Zaragoza 16 · Etopia en la Milla Digital de Zaragoza.",
+     "visual": null,
+     "width": 3264
     }
    ],
-   "card": "EsLibre 2023 13.jpg",
+   "card": "Etopia Milla Digital Zaragoza 10.jpg",
    "country_iso2": "ES",
    "duplicates": [],
    "featured": null,
@@ -113588,7 +113829,7 @@
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "Carrieres Lumieres 2017 1.jpg",
+     "key": "Carrieres Lumieres 2017 10.jpg",
      "kind": "architecture_context",
      "media": 0,
      "media_terms": [],
@@ -113599,11 +113840,11 @@
      "quality": null,
      "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
+     "source": "category",
      "tier": 5,
-     "title": "Carrieres Lumieres 2017 1 · Carrieres Lumieres 2017 1 · Spectacle de son et lumières aux Carrières de Lumières (été 2017)",
+     "title": "Carrieres Lumieres 2017 10 · Carrieres Lumieres 2017 10 · Visite aux Carrières de Lumières",
      "visual": null,
-     "width": 4896
+     "width": 3672
     },
     {
      "approved": null,
@@ -113615,7 +113856,7 @@
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "Carrieres Lumieres 2017 2.jpg",
+     "key": "Carrières de Lumières (12).jpg",
      "kind": "architecture_context",
      "media": 0,
      "media_terms": [],
@@ -113626,227 +113867,227 @@
      "quality": null,
      "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
+     "source": "category",
      "tier": 5,
-     "title": "Carrieres Lumieres 2017 2 · Carrieres Lumieres 2017 2 · Spectacle de son et lumières aux Carrières de Lumières (été 2017)",
-     "visual": null,
-     "width": 4896
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "institution_file:names_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Carrieres Lumieres 2017 3.jpg",
-     "kind": "architecture_context",
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 5,
-     "title": "Carrieres Lumieres 2017 3 · Carrieres Lumieres 2017 3 · Spectacle de son et lumières aux Carrières de Lumières (été 2017)",
-     "visual": null,
-     "width": 4896
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "institution_file:names_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Carrieres Lumieres 2017 4.jpg",
-     "kind": "architecture_context",
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 5,
-     "title": "Carrieres Lumieres 2017 4 · Carrieres Lumieres 2017 4 · Spectacle de son et lumières aux Carrières de Lumières (été 2017)",
-     "visual": null,
-     "width": 4896
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "institution_file:names_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Carrieres Lumieres 2017 5.jpg",
-     "kind": "architecture_context",
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 5,
-     "title": "Carrieres Lumieres 2017 5 · Carrieres Lumieres 2017 5 · Spectacle de son et lumières aux Carrières de Lumières (été 2017)",
-     "visual": null,
-     "width": 4896
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "institution_file:names_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Carrieres Lumieres 2017 6.jpg",
-     "kind": "architecture_context",
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 5,
-     "title": "Carrieres Lumieres 2017 6 · Carrieres Lumieres 2017 6 · Spectacle de son et lumières aux Carrières de Lumières (été 2017)",
-     "visual": null,
-     "width": 4896
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "institution_file:names_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Carrieres Lumieres 2017 7.jpg",
-     "kind": "architecture_context",
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 5,
-     "title": "Carrieres Lumieres 2017 7 · Carrieres Lumieres 2017 7 · Spectacle de son et lumières aux Carrières de Lumières (été 2017)",
-     "visual": null,
-     "width": 4896
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "institution_file:names_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Carrieres Lumieres 2017 8.jpg",
-     "kind": "architecture_context",
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 5,
-     "title": "Carrieres Lumieres 2017 8 · Carrieres Lumieres 2017 8 · Spectacle de son et lumières aux Carrières de Lumières (été 2017)",
-     "visual": null,
-     "width": 4896
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "institution_file:names_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Carrieres Lumieres 2017 9.jpg",
-     "kind": "architecture_context",
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 5,
-     "title": "Carrieres Lumieres 2017 9 · Carrieres Lumieres 2017 9 · Visite aux Carrières de Lumières",
-     "visual": null,
-     "width": 4896
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "institution_file:names_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Carrières de Lumières (10).jpg",
-     "kind": "architecture_context",
-     "media": 0,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 5,
-     "title": "Carrières de Lumières (10) · Carrières de Lumières (10) · Carrières de Lumières in 2017, France",
+     "title": "Carrières de Lumières (12) · Carrières de Lumières (12) · Carrières de Lumières in 2017, France",
      "visual": null,
      "width": 5472
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "institution_file:names_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Carrières de Lumières (52132654327).jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Carrières de Lumières (52132654327) · Carrières de Lumières (52132654327) · Carrières de Lumières",
+     "visual": null,
+     "width": 4385
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "institution_file:names_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Carrières de Lumières (52132657532).jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Carrières de Lumières (52132657532) · Carrières de Lumières (52132657532) · Carrières de Lumières",
+     "visual": null,
+     "width": 5472
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "institution_file:names_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Carrières de Lumières (52132670557).jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Carrières de Lumières (52132670557) · Carrières de Lumières (52132670557) · Carrières de Lumières",
+     "visual": null,
+     "width": 5472
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "institution_file:names_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Carrières de Lumières (52132671527).jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Carrières de Lumières (52132671527) · Carrières de Lumières (52132671527) · Carrières de Lumières",
+     "visual": null,
+     "width": 5472
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "institution_file:names_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Carrières de Lumières (52133670156).jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Carrières de Lumières (52133670156) · Carrières de Lumières (52133670156) · Carrières de Lumières",
+     "visual": null,
+     "width": 5472
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "institution_file:names_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Carrières de Lumières (52133671471).jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Carrières de Lumières (52133671471) · Carrières de Lumières (52133671471) · Carrières de Lumières",
+     "visual": null,
+     "width": 5472
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "institution_file:names_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Carrières de Lumières (52133674761).jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Carrières de Lumières (52133674761) · Carrières de Lumières (52133674761) · Carrières de Lumières",
+     "visual": null,
+     "width": 5472
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "institution_file:names_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Carrières de Lumières 01 - Baux-de-Provence - 2013-09.jpg",
+     "kind": "architecture_context",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 5,
+     "title": "Carrières de Lumières 01   Baux de Provence   2013 09 · Carrières de Lumières 01 - Baux-de-Provence - 2013-09 · Carrières de Lumières (English: Quarries of Ligh",
+     "visual": null,
+     "width": 2448
     }
    ],
    "card": "Van Gogh - La nuit étoilée.jpg",
@@ -118834,104 +119075,129 @@
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Summer Universiade closing ceremony (2013-07-17) 10.jpg",
-     "kind": null,
-     "media": 20,
+     "key": "Closing of 2013 Summer Universiade 79.jpg",
+     "kind": "architecture_context",
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
-     "ok": false,
+     "ok": true,
      "provider": "commons",
-     "quality": null,
-     "reasons": [
-      "subject:people_or_event:ceremony"
-     ],
+     "quality": {
+      "blockiness": 3,
+      "decoded": {
+       "bytes": 203893,
+       "format": "jpeg",
+       "height": 540,
+       "width": 960
+      },
+      "laplacian_var": 4899,
+      "measured_width": 960,
+      "phash": "ecce33bb92c4f051",
+      "sharpness": 100
+     },
+     "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "2013 Summer Universiade closing ceremony (2013 07 17) 10 · 2013 Summer Universiade closing ceremony (2013-07-17) 10 · Церемония закрытия Универсиады - 2013 в г.",
-     "visual": null,
-     "width": 5616
+     "source": "p18",
+     "tier": 5,
+     "title": "Closing of 2013 Summer Universiade 79 · Closing of 2013 Summer Universiade 79 · Closing of 2013 Summer Universiade",
+     "visual": {
+      "bright_share": 0.0978,
+      "colourfulness": 35.86,
+      "dark_share": 0.3978,
+      "height": 180,
+      "mean_luminance": 0.311,
+      "saturated_bright": 0.0176,
+      "visual": 15,
+      "width": 320
+     },
+     "width": 960
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Summer Universiade closing ceremony (2013-07-17) 11.jpg",
-     "kind": null,
-     "media": 20,
+     "key": "2013 Казань - panoramio.jpg",
+     "kind": "architecture_context",
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
-     "ok": false,
+     "ok": true,
      "provider": "commons",
      "quality": null,
-     "reasons": [
-      "subject:people_or_event:ceremony"
-     ],
+     "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "2013 Summer Universiade closing ceremony (2013 07 17) 11 · 2013 Summer Universiade closing ceremony (2013-07-17) 11 · Церемония закрытия Универсиады - 2013 в г.",
-     "visual": null,
-     "width": 3744
+     "source": "category",
+     "tier": 5,
+     "title": "2013 Казань   panoramio · 2013 Казань - panoramio · 2013 Казань",
+     "visual": {
+      "bright_share": 0.5211,
+      "colourfulness": 18.9,
+      "dark_share": 0.1059,
+      "height": 196,
+      "mean_luminance": 0.6146,
+      "saturated_bright": 0.0004,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 1300
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Summer Universiade closing ceremony (2013-07-17) 13.jpg",
-     "kind": null,
-     "media": 20,
+     "key": "45 000-seat stadium - panoramio.jpg",
+     "kind": "architecture_context",
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
-     "ok": false,
+     "ok": true,
      "provider": "commons",
      "quality": null,
-     "reasons": [
-      "subject:people_or_event:ceremony"
-     ],
+     "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "2013 Summer Universiade closing ceremony (2013 07 17) 13 · 2013 Summer Universiade closing ceremony (2013-07-17) 13 · Церемония закрытия Универсиады - 2013 в г.",
-     "visual": null,
-     "width": 5616
+     "source": "category",
+     "tier": 5,
+     "title": "45 000 seat stadium   panoramio · 45 000-seat stadium - panoramio · 45 000-seat stadium",
+     "visual": {
+      "bright_share": 0.325,
+      "colourfulness": 32.43,
+      "dark_share": 0.1211,
+      "height": 213,
+      "mean_luminance": 0.5424,
+      "saturated_bright": 0.0025,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 4254
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Summer Universiade closing ceremony (2013-07-17) 14.jpg",
+     "key": "FIFA World Cup 2018 - Kazan Arena - soccer player with a ball.jpg",
      "kind": null,
-     "media": 20,
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
@@ -118939,86 +119205,106 @@
      "provider": "commons",
      "quality": null,
      "reasons": [
-      "subject:people_or_event:ceremony"
+      "subject:people_or_event:footballer"
      ],
      "size_mismatch": null,
-     "source": "event_category",
+     "source": "category",
      "tier": null,
-     "title": "2013 Summer Universiade closing ceremony (2013 07 17) 14 · 2013 Summer Universiade closing ceremony (2013-07-17) 14 · Церемония закрытия Универсиады - 2013 в г.",
+     "title": "FIFA World Cup 2018   Kazan Arena   soccer player with a ball · FIFA World Cup 2018 - Kazan Arena - soccer player with a ball · Footballer is training in front ",
      "visual": null,
-     "width": 5616
+     "width": 5184
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Summer Universiade closing ceremony (2013-07-17) 15.jpg",
-     "kind": null,
-     "media": 20,
+     "key": "Footdall world Cup Kazan 2018.jpg",
+     "kind": "architecture_context",
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
-     "ok": false,
+     "ok": true,
      "provider": "commons",
      "quality": null,
-     "reasons": [
-      "subject:people_or_event:ceremony"
-     ],
+     "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "2013 Summer Universiade closing ceremony (2013 07 17) 15 · 2013 Summer Universiade closing ceremony (2013-07-17) 15 · Церемония закрытия Универсиады - 2013 в г.",
-     "visual": null,
-     "width": 5328
+     "source": "category",
+     "tier": 5,
+     "title": "Footdall world Cup Kazan 2018 · Footdall world Cup Kazan 2018 · Football World Cup player trains in front of the Football in Kazan",
+     "visual": {
+      "bright_share": 0.0968,
+      "colourfulness": 50.15,
+      "dark_share": 0.2635,
+      "height": 213,
+      "mean_luminance": 0.3931,
+      "saturated_bright": 0.0268,
+      "visual": 9,
+      "width": 320
+     },
+     "width": 5184
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Summer Universiade closing ceremony (2013-07-17) 16.jpg",
-     "kind": null,
-     "media": 20,
+     "key": "Kazan 2015 - Kazan Arena Panorama Sector 306.JPG",
+     "kind": "architecture_context",
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
-     "ok": false,
+     "ok": true,
      "provider": "commons",
-     "quality": null,
-     "reasons": [
-      "subject:people_or_event:ceremony"
-     ],
+     "quality": {
+      "blockiness": 3,
+      "decoded": {
+       "bytes": 178306,
+       "format": "jpeg",
+       "height": 513,
+       "width": 960
+      },
+      "laplacian_var": 8169.6,
+      "measured_width": 960,
+      "phash": "c860e0b0e9f0f022",
+      "sharpness": 100
+     },
+     "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "2013 Summer Universiade closing ceremony (2013 07 17) 16 · 2013 Summer Universiade closing ceremony (2013-07-17) 16 · Церемония закрытия Универсиады - 2013 в г.",
-     "visual": null,
-     "width": 2703
+     "source": "category",
+     "tier": 5,
+     "title": "Kazan 2015   Kazan Arena Panorama Sector 306 · Kazan 2015 - Kazan Arena Panorama Sector 306 · Панорама Казань Арены с сектора 306",
+     "visual": {
+      "bright_share": 0.1748,
+      "colourfulness": 50.44,
+      "dark_share": 0.4268,
+      "height": 171,
+      "mean_luminance": 0.3436,
+      "saturated_bright": 0.0723,
+      "visual": 26,
+      "width": 320
+     },
+     "width": 5567
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Summer Universiade closing ceremony (2013-07-17) 17.jpg",
+     "key": "Kazan 2015 - Kazan Arena Panorama.JPG",
      "kind": null,
-     "media": 20,
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
@@ -119026,173 +119312,151 @@
      "provider": "commons",
      "quality": null,
      "reasons": [
-      "subject:people_or_event:ceremony"
+      "extreme_aspect"
      ],
      "size_mismatch": null,
-     "source": "event_category",
+     "source": "category",
      "tier": null,
-     "title": "2013 Summer Universiade closing ceremony (2013 07 17) 17 · 2013 Summer Universiade closing ceremony (2013-07-17) 17 · Церемония закрытия Универсиады - 2013 в г.",
+     "title": "Kazan 2015   Kazan Arena Panorama · Kazan 2015 - Kazan Arena Panorama · Panorama view of Kazan Arena during 2015 World Aquatics Championships",
      "visual": null,
-     "width": 5616
+     "width": 8811
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Summer Universiade closing ceremony (2013-07-17) 18.jpg",
-     "kind": null,
-     "media": 20,
+     "key": "Kazan 2015 - WR.JPG",
+     "kind": "architecture_context",
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
-     "ok": false,
+     "ok": true,
      "provider": "commons",
      "quality": null,
-     "reasons": [
-      "subject:people_or_event:ceremony"
-     ],
+     "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "2013 Summer Universiade closing ceremony (2013 07 17) 18 · 2013 Summer Universiade closing ceremony (2013-07-17) 18 · Церемония закрытия Универсиады - 2013 в г.",
+     "source": "category",
+     "tier": 5,
+     "title": "Kazan 2015   WR · Kazan 2015 - WR · World Record flag and its bearer in Kazan 2015",
      "visual": null,
-     "width": 4401
+     "width": 3016
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Summer Universiade closing ceremony (2013-07-17) 19.jpg",
-     "kind": null,
-     "media": 20,
+     "key": "Kazan Arena (Kazan, RUS).jpg",
+     "kind": "architecture_context",
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
-     "ok": false,
+     "ok": true,
      "provider": "commons",
      "quality": null,
-     "reasons": [
-      "subject:people_or_event:ceremony"
-     ],
+     "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "2013 Summer Universiade closing ceremony (2013 07 17) 19 · 2013 Summer Universiade closing ceremony (2013-07-17) 19 · Церемония закрытия Универсиады - 2013 в г.",
+     "source": "category",
+     "tier": 5,
+     "title": "Kazan Arena (Kazan, RUS) · Kazan Arena (Kazan, RUS) · Kazan Arena in Kazan",
      "visual": null,
-     "width": 5616
+     "width": 1057
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Summer Universiade closing ceremony (2013-07-17) 20.jpg",
-     "kind": null,
-     "media": 20,
+     "key": "Kazan Arena 01.jpg",
+     "kind": "architecture_context",
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
-     "ok": false,
+     "ok": true,
      "provider": "commons",
      "quality": null,
-     "reasons": [
-      "subject:people_or_event:ceremony"
-     ],
+     "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "2013 Summer Universiade closing ceremony (2013 07 17) 20 · 2013 Summer Universiade closing ceremony (2013-07-17) 20 · Церемония закрытия Универсиады - 2013 в г.",
+     "source": "category",
+     "tier": 5,
+     "title": "Kazan Arena 01 · Kazan Arena 01 · Kazan Arena",
      "visual": null,
-     "width": 2496
+     "width": 9248
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Summer Universiade closing ceremony (2013-07-17) 21.jpg",
-     "kind": null,
-     "media": 20,
+     "key": "Kazan Arena 02.jpg",
+     "kind": "architecture_context",
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
-     "ok": false,
+     "ok": true,
      "provider": "commons",
      "quality": null,
-     "reasons": [
-      "subject:people_or_event:ceremony"
-     ],
+     "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "2013 Summer Universiade closing ceremony (2013 07 17) 21 · 2013 Summer Universiade closing ceremony (2013-07-17) 21 · Церемония закрытия Универсиады - 2013 в г.",
+     "source": "category",
+     "tier": 5,
+     "title": "Kazan Arena 02 · Kazan Arena 02 · Kazan Arena",
      "visual": null,
-     "width": 5616
+     "width": 9248
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Summer Universiade closing ceremony (2013-07-17) 22.jpg",
-     "kind": null,
-     "media": 20,
+     "key": "Kazan Arena 03.jpg",
+     "kind": "architecture_context",
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
-     "ok": false,
+     "ok": true,
      "provider": "commons",
      "quality": null,
-     "reasons": [
-      "subject:people_or_event:ceremony"
-     ],
+     "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "2013 Summer Universiade closing ceremony (2013 07 17) 22 · 2013 Summer Universiade closing ceremony (2013-07-17) 22 · Церемония закрытия Универсиады - 2013 в г.",
+     "source": "category",
+     "tier": 5,
+     "title": "Kazan Arena 03 · Kazan Arena 03 · Kazan Arena",
      "visual": null,
-     "width": 2496
+     "width": 9248
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Summer Universiade closing ceremony (2013-07-17) 23.jpg",
+     "key": "Kazan Arena 08-2016.jpg",
      "kind": null,
-     "media": 20,
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
@@ -119200,72 +119464,64 @@
      "provider": "commons",
      "quality": null,
      "reasons": [
-      "subject:people_or_event:ceremony"
+      "rights:license_not_allowed"
      ],
      "size_mismatch": null,
-     "source": "event_category",
+     "source": "category",
      "tier": null,
-     "title": "2013 Summer Universiade closing ceremony (2013 07 17) 23 · 2013 Summer Universiade closing ceremony (2013-07-17) 23 · Церемония закрытия Универсиады - 2013 в г.",
+     "title": "Kazan Arena 08 2016 · Kazan Arena 08-2016 · The Kazan Arena in Kazan, Russia",
      "visual": null,
-     "width": 5223
+     "width": 4033
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Summer Universiade closing ceremony (2013-07-17) 24.jpg",
-     "kind": null,
-     "media": 20,
+     "key": "Kazan Arena 2017.png",
+     "kind": "architecture_context",
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
-     "ok": false,
+     "ok": true,
      "provider": "commons",
      "quality": null,
-     "reasons": [
-      "subject:people_or_event:ceremony"
-     ],
+     "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "2013 Summer Universiade closing ceremony (2013 07 17) 24 · 2013 Summer Universiade closing ceremony (2013-07-17) 24 · Церемония закрытия Универсиады - 2013 в г.",
+     "source": "category",
+     "tier": 5,
+     "title": "Kazan Arena 2017 · Kazan Arena 2017 · Стадион \"Казань Арена\" перед матчем.",
      "visual": null,
-     "width": 5616
+     "width": 2080
     },
     {
      "approved": null,
-     "evidence": [
-      "event_subcategory"
-     ],
+     "evidence": [],
      "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Summer Universiade closing ceremony (2013-07-17) 25.jpg",
-     "kind": null,
-     "media": 20,
+     "key": "Kazan Arena and Kazanka River.jpg",
+     "kind": "architecture_context",
+     "media": 0,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
-     "ok": false,
+     "ok": true,
      "provider": "commons",
      "quality": null,
-     "reasons": [
-      "subject:people_or_event:ceremony"
-     ],
+     "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "2013 Summer Universiade closing ceremony (2013 07 17) 25 · 2013 Summer Universiade closing ceremony (2013-07-17) 25 · Церемония закрытия Универсиады - 2013 в г.",
+     "source": "category",
+     "tier": 5,
+     "title": "Kazan Arena and Kazanka River · Kazan Arena and Kazanka River · Kazan Arena vwas completed in July 2013. This stadium will hold some matches of 2018 FIFA World ",
      "visual": null,
-     "width": 5088
+     "width": 4000
     }
    ],
    "card": "Медиафасад Казань Арены.jpg",
@@ -177006,704 +177262,344 @@
     {
      "approved": null,
      "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
+      "scene_terms"
      ],
-     "home_ok": false,
+     "home_ok": true,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "2013 Joni Mitchell (cropped).jpg",
-     "kind": null,
-     "media": 90,
-     "media_terms": [
-      "festival"
-     ],
-     "night": 0,
-     "night_terms": [],
-     "ok": false,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [
-      "too_small"
-     ],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "2013 Joni Mitchell (cropped) · 2013 Joni Mitchell (cropped) · Photograph provided by Jörn Weisbrodt's assistant, Mark Rochford. Taken on 16 June 2013 at the Lum",
-     "visual": null,
-     "width": 424
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "2013 Joni Mitchell.jpg",
-     "kind": null,
-     "media": 90,
-     "media_terms": [
-      "festival"
-     ],
-     "night": 0,
-     "night_terms": [],
-     "ok": false,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [
-      "too_small"
-     ],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": null,
-     "title": "2013 Joni Mitchell · 2013 Joni Mitchell · Photograph provided by Jörn Weisbrodt's assistant, Mark Rochford. Taken on 16 June 2013 at the Luminato Festival. Song",
-     "visual": null,
-     "width": 589
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "2013 TimesTalk Joni Mitchell photo davidleyes-0345.jpg",
+     "key": "LuminatoatHarbourfront.jpg",
      "kind": "project_media",
-     "media": 90,
+     "media": 30,
      "media_terms": [
-      "festival"
+      "installation"
      ],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "2013 TimesTalk Joni Mitchell photo davidleyes 0345 · 2013 TimesTalk Joni Mitchell photo davidleyes-0345 · Photograph provided by Jörn Weisbrodt's assistant, Mar",
-     "visual": {
-      "bright_share": 0.3561,
-      "colourfulness": 27.23,
-      "dark_share": 0.5364,
-      "height": 213,
-      "mean_luminance": 0.4052,
-      "saturated_bright": 0.0053,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 3000
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
+     "night": 30,
+     "night_terms": [
+      "night"
      ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Luminato 2016 (27144998294).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Luminato 2016 (27144998294) · Luminato 2016 (27144998294) · At the Hearn, Toronto",
-     "visual": {
-      "bright_share": 0.1181,
-      "colourfulness": 21.05,
-      "dark_share": 0.6932,
-      "height": 229,
-      "mean_luminance": 0.208,
-      "saturated_bright": 0.0001,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 1512
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Luminato 2016 (27145871494).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
      "ok": true,
      "provider": "commons",
      "quality": {
       "blockiness": 6,
       "decoded": {
-       "bytes": 155841,
+       "bytes": 176356,
        "format": "jpeg",
-       "height": 540,
+       "height": 740,
        "width": 960
       },
-      "laplacian_var": 2867.9,
+      "laplacian_var": 3156.9,
       "measured_width": 960,
-      "phash": "8686ce8d868686c6",
+      "phash": "3c79e9686ae0aea6",
       "sharpness": 100
      },
      "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Luminato 2016 (27145871494) · Luminato 2016 (27145871494) · At the Hearn, Toronto",
+     "source": "p18",
+     "tier": 2,
+     "title": "LuminatoatHarbourfront · LuminatoatHarbourfront · Pulse Front installation at Toronto Harbourfront by Mexican-Canadian artist Rafael Lozano-Hemmer",
      "visual": {
-      "bright_share": 0.0943,
-      "colourfulness": 32.76,
-      "dark_share": 0.3845,
-      "height": 180,
-      "mean_luminance": 0.3088,
-      "saturated_bright": 0.0185,
-      "visual": 15,
+      "bright_share": 0.122,
+      "colourfulness": 76.45,
+      "dark_share": 0.4917,
+      "height": 246,
+      "mean_luminance": 0.289,
+      "saturated_bright": 0.2009,
+      "visual": 54,
       "width": 320
      },
-     "width": 1920
+     "width": 1616
     },
     {
      "approved": null,
      "evidence": [
-      "event_subcategory",
       "own_category_of_light_work"
      ],
-     "home_ok": true,
+     "home_ok": false,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
      },
-     "key": "Luminato 2016 (27145871784).jpg",
+     "key": "Alejandra Ribera - Luminato 2014.jpg",
      "kind": "project_media",
-     "media": 60,
+     "media": 40,
      "media_terms": [],
      "night": 0,
      "night_terms": [],
      "ok": true,
      "provider": "commons",
      "quality": {
-      "blockiness": 12,
+      "blockiness": 23,
       "decoded": {
-       "bytes": 175842,
+       "bytes": 118675,
        "format": "jpeg",
-       "height": 686,
+       "height": 660,
        "width": 960
       },
-      "laplacian_var": 980.2,
+      "laplacian_var": 340.8,
       "measured_width": 960,
-      "phash": "721d3d44dcd8744d",
-      "sharpness": 94
+      "phash": "aa9ab3b272733bb3",
+      "sharpness": 80
      },
      "reasons": [],
      "size_mismatch": null,
-     "source": "event_category",
+     "source": "category",
      "tier": 3,
-     "title": "Luminato 2016 (27145871784) · Luminato 2016 (27145871784) · At the Hearn, Toronto",
+     "title": "Alejandra Ribera   Luminato 2014 · Alejandra Ribera - Luminato 2014 · Photography by 2014 Jazz in Motion Participant Randall Stafford Cook",
      "visual": {
-      "bright_share": 0.0457,
-      "colourfulness": 45.51,
-      "dark_share": 0.3104,
-      "height": 229,
-      "mean_luminance": 0.3365,
-      "saturated_bright": 0.0285,
-      "visual": 17,
+      "bright_share": 0.0994,
+      "colourfulness": 0,
+      "dark_share": 0.4583,
+      "height": 220,
+      "mean_luminance": 0.3118,
+      "saturated_bright": 0,
+      "visual": 0,
       "width": 320
      },
-     "width": 1424
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": true,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Luminato 2016 (27478607720).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Luminato 2016 (27478607720) · Luminato 2016 (27478607720) · At the Hearn, Toronto",
-     "visual": {
-      "bright_share": 0.0618,
-      "colourfulness": 45.88,
-      "dark_share": 0.1054,
-      "height": 229,
-      "mean_luminance": 0.3879,
-      "saturated_bright": 0.0267,
-      "visual": 9,
-      "width": 320
-     },
-     "width": 3226
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": true,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Luminato 2016 (27478608070).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": {
-      "blockiness": 0,
-      "decoded": {
-       "bytes": 261673,
-       "format": "jpeg",
-       "height": 686,
-       "width": 960
-      },
-      "laplacian_var": 6406,
-      "measured_width": 960,
-      "phash": "8a042078686070b6",
-      "sharpness": 100
-     },
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Luminato 2016 (27478608070) · Luminato 2016 (27478608070) · At the Hearn, Toronto",
-     "visual": {
-      "bright_share": 0.1627,
-      "colourfulness": 52.33,
-      "dark_share": 0.1771,
-      "height": 229,
-      "mean_luminance": 0.3997,
-      "saturated_bright": 0.1064,
-      "visual": 15,
-      "width": 320
-     },
-     "width": 3129
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Luminato 2016 (27478608460).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Luminato 2016 (27478608460) · Luminato 2016 (27478608460) · At the Hearn, Toronto",
-     "visual": null,
-     "width": 1502
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Luminato 2016 (27478608820).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Luminato 2016 (27478608820) · Luminato 2016 (27478608820) · At the Hearn, Toronto",
-     "visual": null,
-     "width": 1512
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Luminato 2016 (27479508120).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Luminato 2016 (27479508120) · Luminato 2016 (27479508120) · At the Hearn, Toronto",
-     "visual": null,
-     "width": 1920
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Luminato 2016 (27656594112).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Luminato 2016 (27656594112) · Luminato 2016 (27656594112) · At the Hearn, Toronto",
-     "visual": null,
-     "width": 1512
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Luminato 2016 (27656594262).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Luminato 2016 (27656594262) · Luminato 2016 (27656594262) · At the Hearn, Toronto",
-     "visual": null,
-     "width": 1512
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Luminato 2016 (27656594632).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Luminato 2016 (27656594632) · Luminato 2016 (27656594632) · At the Hearn, Toronto",
-     "visual": null,
-     "width": 3264
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Luminato 2016 (27656595182).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Luminato 2016 (27656595182) · Luminato 2016 (27656595182) · At the Hearn, Toronto",
-     "visual": null,
-     "width": 1517
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Luminato 2016 (27656595772).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Luminato 2016 (27656595772) · Luminato 2016 (27656595772) · At the Hearn, Toronto",
-     "visual": null,
-     "width": 1429
+     "width": 2048
     }
    ],
-   "card": "Luminato 2016 (27145871784).jpg",
+   "card": "LuminatoatHarbourfront.jpg",
    "country_iso2": "CA",
    "duplicates": [],
-   "featured": "Luminato 2016 (27478608070).jpg",
+   "featured": "LuminatoatHarbourfront.jpg",
    "featured_decisions": [
     {
      "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Luminato 2016 (27145871784).jpg",
-     "provider": "commons",
-     "reasons": [
-      "original_too_small"
-     ]
-    },
-    {
-     "awaiting_review": false,
      "featured_candidate": true,
-     "key": "Luminato 2016 (27478608070).jpg",
+     "key": "LuminatoatHarbourfront.jpg",
      "provider": "commons",
      "reasons": []
     },
     {
      "awaiting_review": false,
      "featured_candidate": false,
-     "key": "Luminato 2016 (27145871494).jpg",
+     "key": "Alejandra Ribera - Luminato 2014.jpg",
      "provider": "commons",
      "reasons": [
       "not_home_ok"
      ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Luminato 2016 (27478607720).jpg",
-     "provider": "commons",
-     "reasons": [
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "2013 TimesTalk Joni Mitchell photo davidleyes-0345.jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Luminato 2016 (27144998294).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "original_too_small",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Luminato 2016 (27656594632).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Luminato 2016 (27479508120).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Luminato 2016 (27656595182).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "original_too_small",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Luminato 2016 (27478608820).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "original_too_small",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Luminato 2016 (27656594112).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "original_too_small",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Luminato 2016 (27656594262).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "original_too_small",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Luminato 2016 (27478608460).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "original_too_small",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Luminato 2016 (27656595772).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "original_too_small",
-      "quality_not_measured"
-     ]
     }
    ],
    "hero": null,
-   "hero_decisions": [],
+   "hero_decisions": [
+    {
+     "allowlisted": false,
+     "below_target": false,
+     "file": "LuminatoatHarbourfront.jpg",
+     "hero_candidate": false,
+     "key": "LuminatoatHarbourfront.jpg",
+     "provider": "commons",
+     "reasons": [
+      "original_too_small"
+     ]
+    }
+   ],
    "name": "Luminato Festival Toronto",
    "project": "Q3267304",
-   "providers": [],
+   "providers": [
+    {
+     "id": "img-307acc1fecaa",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "name_not_found",
+       "no_geotag"
+      ]
+     },
+     "license": "CC BY 2.0",
+     "ok": false,
+     "page": "https://www.flickr.com/photos/47643206@N00/2593695373",
+     "provider": "openverse",
+     "reasons": [
+      "identity_unproven"
+     ],
+     "source_id": "9cf1b4da-7a80-4b60-bfaa-dcf29e985a3c",
+     "src": "https://live.staticflickr.com/3143/2593695373_b9a39891f7_b.jpg",
+     "title": "Dancing At Dundas Square"
+    },
+    {
+     "id": "img-cc7f4e83ecac",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "name_not_found",
+       "no_geotag"
+      ]
+     },
+     "license": "CC BY 2.0",
+     "ok": false,
+     "page": "https://www.flickr.com/photos/74547255@N00/3644625612",
+     "provider": "openverse",
+     "reasons": [
+      "identity_unproven"
+     ],
+     "source_id": "3c8491e8-fdc8-4553-81f4-4497900913d0",
+     "src": "https://live.staticflickr.com/3541/3644625612_3cf633359a_b.jpg",
+     "title": "Adam Lamber Galleria, Toronto ON"
+    },
+    {
+     "id": "img-e8c327cce136",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "name_not_found",
+       "no_geotag"
+      ]
+     },
+     "license": "CC BY-SA 2.0",
+     "ok": false,
+     "page": "https://www.flickr.com/photos/49689051@N00/2561063221",
+     "provider": "openverse",
+     "reasons": [
+      "identity_unproven"
+     ],
+     "source_id": "e523f60c-d37a-4459-9115-b0c8aae0a4fc",
+     "src": "https://live.staticflickr.com/3179/2561063221_0a1296ebbc_b.jpg",
+     "title": "balloon more colours"
+    },
+    {
+     "id": "img-fc3d43075669",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "name_not_found",
+       "no_geotag"
+      ]
+     },
+     "license": "CC BY-SA 2.0",
+     "ok": false,
+     "page": "https://www.flickr.com/photos/30624156@N00/4723439762",
+     "provider": "openverse",
+     "reasons": [
+      "identity_unproven"
+     ],
+     "source_id": "7a788550-17a5-456e-9273-9f477f1628f1",
+     "src": "https://live.staticflickr.com/1350/4723439762_8800f9373b_b.jpg",
+     "title": "Grant now my boon"
+    },
+    {
+     "id": "img-66a19c8d58df",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "name_not_found",
+       "no_geotag"
+      ]
+     },
+     "license": "CC BY 2.0",
+     "ok": false,
+     "page": "https://www.flickr.com/photos/49372312@N00/524398083",
+     "provider": "openverse",
+     "reasons": [
+      "identity_unproven"
+     ],
+     "source_id": "54a40921-6d17-4a35-8490-5fe84896104b",
+     "src": "https://live.staticflickr.com/248/524398083_98bc055418_b.jpg",
+     "title": "Lights show over Toronto - luminato"
+    },
+    {
+     "id": "img-e7ba9459f1f3",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "name_not_found",
+       "no_geotag"
+      ]
+     },
+     "license": "CC BY-SA 2.0",
+     "ok": false,
+     "page": "https://www.flickr.com/photos/61338482@N06/5826812487",
+     "provider": "openverse",
+     "reasons": [
+      "identity_unproven"
+     ],
+     "source_id": "c9f49cb3-2a24-4e62-be76-d8ad4ffab5ed",
+     "src": "https://live.staticflickr.com/3111/5826812487_e20031deee_b.jpg",
+     "title": "51:365 Otherworld"
+    },
+    {
+     "id": "img-237fc2fb833b",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "name_not_found",
+       "no_geotag"
+      ]
+     },
+     "license": "CC BY-SA 2.0",
+     "ok": false,
+     "page": "https://www.flickr.com/photos/30624156@N00/5862690176",
+     "provider": "openverse",
+     "reasons": [
+      "identity_unproven"
+     ],
+     "source_id": "08008ae5-1312-46ac-bfe1-3f477b55792e",
+     "src": "https://live.staticflickr.com/5068/5862690176_f6bbe5a6dd_b.jpg",
+     "title": "Best butt"
+    },
+    {
+     "id": "img-12b7e22051f1",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "name_not_found",
+       "no_geotag"
+      ]
+     },
+     "license": "CC BY-SA 2.0",
+     "ok": false,
+     "page": "https://www.flickr.com/photos/30624156@N00/5862665016",
+     "provider": "openverse",
+     "reasons": [
+      "identity_unproven"
+     ],
+     "source_id": "de28d981-c6f7-4093-bc50-863f361ff417",
+     "src": "https://live.staticflickr.com/3064/5862665016_a22692ac4e_b.jpg",
+     "title": "Dish"
+    },
+    {
+     "id": "img-8a9681d76ff8",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "name_not_found",
+       "no_geotag"
+      ]
+     },
+     "license": "CC BY-SA 2.0",
+     "ok": false,
+     "page": "https://www.flickr.com/photos/49689051@N00/2561885302",
+     "provider": "openverse",
+     "reasons": [
+      "identity_unproven"
+     ],
+     "source_id": "c426b4b7-8bc3-441f-a4c3-c8d173dac0e7",
+     "src": "https://live.staticflickr.com/3157/2561885302_39c324b460_b.jpg",
+     "title": "balloon colours"
+    },
+    {
+     "id": "img-0fa730c9d00c",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "name_not_found",
+       "no_geotag"
+      ]
+     },
+     "license": "CC BY-SA 2.0",
+     "ok": false,
+     "page": "https://www.flickr.com/photos/51035624826@N01/539255213",
+     "provider": "openverse",
+     "reasons": [
+      "identity_unproven"
+     ],
+     "source_id": "8d1e08ca-bdcf-462d-81cb-c9bc8a8f2441",
+     "src": "https://live.staticflickr.com/1135/539255213_a91c3b4d21_b.jpg",
+     "title": "Axé Capoeira"
+    }
+   ],
    "type": "light_art"
   },
   {
@@ -215434,151 +215330,6 @@
     {
      "approved": null,
      "evidence": [
-      "scene_terms",
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Different Light Event 2013 (10582857865).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Different Light Event 2013 (10582857865) · Different Light Event 2013 (10582857865) · National Railway Museum Different light event 2013",
-     "visual": null,
-     "width": 3456
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms",
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Different Light Event 2013 (10582872045).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Different Light Event 2013 (10582872045) · Different Light Event 2013 (10582872045) · National Railway Museum Different light event 2013",
-     "visual": null,
-     "width": 4608
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms",
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Different Light Event 2013 (10582921064).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Different Light Event 2013 (10582921064) · Different Light Event 2013 (10582921064) · National Railway Museum Different light event 2013",
-     "visual": null,
-     "width": 4608
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms",
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Different Light Event 2013 (10582957914).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Different Light Event 2013 (10582957914) · Different Light Event 2013 (10582957914) · National Railway Museum different light event 2013",
-     "visual": null,
-     "width": 4608
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "scene_terms",
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Different Light Event 2013 (10582970684).jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 0,
-     "night_terms": [],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Different Light Event 2013 (10582970684) · Different Light Event 2013 (10582970684) · National Railway Museum different light event 2013",
-     "visual": null,
-     "width": 2307
-    },
-    {
-     "approved": null,
-     "evidence": [
       "event_subcategory",
       "own_category_of_light_work"
      ],
@@ -215683,6 +215434,156 @@
       "width": 320
      },
      "width": 2448
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "event_subcategory",
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Glitter balls Shambles, York 03.jpg",
+     "kind": "project_media",
+     "media": 90,
+     "media_terms": [
+      "festival"
+     ],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "event_category",
+     "tier": 3,
+     "title": "Glitter balls Shambles, York 03 · Glitter balls Shambles, York 03 · Glitter balls in Shambles, York, part of the Illuminating York festival in 2015.",
+     "visual": null,
+     "width": 2448
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "event_subcategory",
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Glitter balls Shambles, York 04.jpg",
+     "kind": "project_media",
+     "media": 90,
+     "media_terms": [
+      "festival"
+     ],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "event_category",
+     "tier": 3,
+     "title": "Glitter balls Shambles, York 04 · Glitter balls Shambles, York 04 · Glitter balls in Shambles, York, part of the Illuminating York festival in 2015.",
+     "visual": null,
+     "width": 2448
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "event_subcategory",
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Glitter balls Shambles, York 05.jpg",
+     "kind": "project_media",
+     "media": 90,
+     "media_terms": [
+      "festival"
+     ],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "event_category",
+     "tier": 3,
+     "title": "Glitter balls Shambles, York 05 · Glitter balls Shambles, York 05 · Glitter balls in Shambles, York, part of the Illuminating York festival in 2015.",
+     "visual": null,
+     "width": 2448
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "event_subcategory",
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Glitter balls Shambles, York 06.jpg",
+     "kind": "project_media",
+     "media": 90,
+     "media_terms": [
+      "festival"
+     ],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "event_category",
+     "tier": 3,
+     "title": "Glitter balls Shambles, York 06 · Glitter balls Shambles, York 06 · Glitter balls in Shambles, York, part of the Illuminating York festival in 2015.",
+     "visual": null,
+     "width": 2448
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "event_subcategory",
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Glitter balls Shambles, York 07.jpg",
+     "kind": "project_media",
+     "media": 90,
+     "media_terms": [
+      "festival"
+     ],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "event_category",
+     "tier": 3,
+     "title": "Glitter balls Shambles, York 07 · Glitter balls Shambles, York 07 · Glitter balls in Shambles, York, part of the Illuminating York festival in 2015.",
+     "visual": null,
+     "width": 2448
     }
    ],
    "card": "York Minster Illuminated.JPG",
@@ -215747,6 +215648,56 @@
     {
      "awaiting_review": false,
      "featured_candidate": false,
+     "key": "Glitter balls Shambles, York 03.jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Glitter balls Shambles, York 04.jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Glitter balls Shambles, York 05.jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Glitter balls Shambles, York 06.jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Glitter balls Shambles, York 07.jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
      "key": "Illuminating York 2016 - Illuminated fruit - geograph.org.uk - 5172505.jpg",
      "provider": "commons",
      "reasons": [
@@ -215768,56 +215719,6 @@
      "awaiting_review": false,
      "featured_candidate": false,
      "key": "Illuminating York 2016 - Tree illuminations - geograph.org.uk - 5172504.jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Different Light Event 2013 (10582872045).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Different Light Event 2013 (10582921064).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Different Light Event 2013 (10582957914).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Different Light Event 2013 (10582857865).jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Different Light Event 2013 (10582970684).jpg",
      "provider": "commons",
      "reasons": [
       "not_home_ok",
@@ -226366,132 +226267,6 @@
     {
      "approved": null,
      "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Feux d artifices Montreal en lumiere 01.jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 55,
-     "night_terms": [
-      "la nuit",
-      "nuit",
-      "lumiere",
-      "nuit blanche"
-     ],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Feux d artifices Montreal en lumiere 01 · Feux d artifices Montreal en lumiere 01 · On a présenté des feux d'artifices à la Place des Arts lors de la Nuit blanc",
-     "visual": {
-      "bright_share": 0.0118,
-      "colourfulness": 14.42,
-      "dark_share": 0.6997,
-      "height": 240,
-      "mean_luminance": 0.1817,
-      "saturated_bright": 0,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 4000
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Feux d artifices Montreal en lumiere 02.jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 55,
-     "night_terms": [
-      "la nuit",
-      "nuit",
-      "lumiere",
-      "nuit blanche"
-     ],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Feux d artifices Montreal en lumiere 02 · Feux d artifices Montreal en lumiere 02 · On a présenté des feux d'artifices à la Place des Arts lors de la Nuit blanc",
-     "visual": {
-      "bright_share": 0.0474,
-      "colourfulness": 16.38,
-      "dark_share": 0.5745,
-      "height": 240,
-      "mean_luminance": 0.2423,
-      "saturated_bright": 0.0025,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 4000
-    },
-    {
-     "approved": null,
-     "evidence": [
-      "event_subcategory",
-      "own_category_of_light_work"
-     ],
-     "home_ok": false,
-     "identity": {
-      "method": "commons_category_or_item",
-      "ok": true
-     },
-     "key": "Feux d artifices Montreal en lumiere 03.jpg",
-     "kind": "project_media",
-     "media": 60,
-     "media_terms": [],
-     "night": 55,
-     "night_terms": [
-      "la nuit",
-      "nuit",
-      "lumiere",
-      "nuit blanche"
-     ],
-     "ok": true,
-     "provider": "commons",
-     "quality": null,
-     "reasons": [],
-     "size_mismatch": null,
-     "source": "event_category",
-     "tier": 3,
-     "title": "Feux d artifices Montreal en lumiere 03 · Feux d artifices Montreal en lumiere 03 · On a présenté des feux d'artifices à la Place des Arts lors de la Nuit blanc",
-     "visual": {
-      "bright_share": 0.0299,
-      "colourfulness": 11.94,
-      "dark_share": 0.7115,
-      "height": 240,
-      "mean_luminance": 0.1934,
-      "saturated_bright": 0.001,
-      "visual": 0,
-      "width": 320
-     },
-     "width": 4000
-    },
-    {
-     "approved": null,
-     "evidence": [
       "own_category_of_light_work"
      ],
      "home_ok": false,
@@ -226640,19 +226415,7 @@
      ],
      "ok": true,
      "provider": "commons",
-     "quality": {
-      "blockiness": 23,
-      "decoded": {
-       "bytes": 87361,
-       "format": "jpeg",
-       "height": 640,
-       "width": 960
-      },
-      "laplacian_var": 345.8,
-      "measured_width": 960,
-      "phash": "0028dcc4f3b2b2cc",
-      "sharpness": 80
-     },
+     "quality": null,
      "reasons": [],
      "size_mismatch": null,
      "source": "category",
@@ -226675,7 +226438,7 @@
      "evidence": [
       "own_category_of_light_work"
      ],
-     "home_ok": false,
+     "home_ok": true,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
@@ -226694,13 +226457,34 @@
      ],
      "ok": true,
      "provider": "commons",
-     "quality": null,
+     "quality": {
+      "blockiness": 8,
+      "decoded": {
+       "bytes": 176457,
+       "format": "jpeg",
+       "height": 720,
+       "width": 960
+      },
+      "laplacian_var": 2421.7,
+      "measured_width": 960,
+      "phash": "21929d9838593260",
+      "sharpness": 100
+     },
      "reasons": [],
      "size_mismatch": null,
      "source": "category",
-     "tier": 3,
+     "tier": 2,
      "title": "Nuit.Blanche.Montréal.en.Lumière.2014.QDS.MTL · Nuit.Blanche.Montréal.en.Lumière.2014.QDS.MTL · Nuit Blanche during Montréal en lumière festival in Quartier des",
-     "visual": null,
+     "visual": {
+      "bright_share": 0.0427,
+      "colourfulness": 68.89,
+      "dark_share": 0.7653,
+      "height": 240,
+      "mean_luminance": 0.158,
+      "saturated_bright": 0.1129,
+      "visual": 97,
+      "width": 320
+     },
      "width": 4896
     },
     {
@@ -226908,13 +226692,133 @@
      "title": "Montreal en lumiére grande roue · Montreal en lumiére grande roue · Grande roue du festival Montréal en lumiére",
      "visual": null,
      "width": 3872
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Montréal en lumière.JPG",
+     "kind": "project_media",
+     "media": 40,
+     "media_terms": [],
+     "night": 30,
+     "night_terms": [
+      "lumiere"
+     ],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Montréal en lumière · Montréal en lumière · Centre-ville de Montréal, lors de Montréal en lumière.",
+     "visual": null,
+     "width": 3240
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Daniel Iregui (Iregular), NOR MIND, 2017 (39431050780).jpg",
+     "kind": "project_media",
+     "media": 100,
+     "media_terms": [
+      "light art",
+      "interactive art"
+     ],
+     "night": 30,
+     "night_terms": [
+      "lumiere"
+     ],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Daniel Iregui (Iregular), NOR MIND, 2017 (39431050780) · Daniel Iregui (Iregular), NOR MIND, 2017 (39431050780) · Montréal, Place des Arts NOR MIND est une scul",
+     "visual": {
+      "bright_share": 0.0329,
+      "colourfulness": 7.46,
+      "dark_share": 0.939,
+      "height": 213,
+      "mean_luminance": 0.072,
+      "saturated_bright": 0,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 5894
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms",
+      "own_category_of_light_work"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Daniel Iregui (Iregular), Nor Mind, 2017 (39431045530).jpg",
+     "kind": "project_media",
+     "media": 100,
+     "media_terms": [
+      "light art",
+      "interactive art"
+     ],
+     "night": 30,
+     "night_terms": [
+      "lumiere"
+     ],
+     "ok": true,
+     "provider": "commons",
+     "quality": null,
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "category",
+     "tier": 3,
+     "title": "Daniel Iregui (Iregular), Nor Mind, 2017 (39431045530) · Daniel Iregui (Iregular), Nor Mind, 2017 (39431045530) · Montréal, Place des Arts NOR MIND est une scul",
+     "visual": {
+      "bright_share": 0.0256,
+      "colourfulness": 6.17,
+      "dark_share": 0.9395,
+      "height": 479,
+      "mean_luminance": 0.0908,
+      "saturated_bright": 0.0001,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 3953
     }
    ],
-   "card": "Grande roue du festival montrel en lumiere.jpg",
+   "card": "Nuit.Blanche.Montréal.en.Lumière.2014.QDS.MTL.jpg",
    "country_iso2": "CA",
    "duplicates": [],
-   "featured": "Grande roue du festival montrel en lumiere.jpg",
+   "featured": "Nuit.Blanche.Montréal.en.Lumière.2014.QDS.MTL.jpg",
    "featured_decisions": [
+    {
+     "awaiting_review": false,
+     "featured_candidate": true,
+     "key": "Nuit.Blanche.Montréal.en.Lumière.2014.QDS.MTL.jpg",
+     "provider": "commons",
+     "reasons": []
+    },
     {
      "awaiting_review": false,
      "featured_candidate": true,
@@ -226935,13 +226839,14 @@
      "key": "Lúa - Nuit blanche 2013 (8568966138).jpg",
      "provider": "commons",
      "reasons": [
-      "not_home_ok"
+      "not_home_ok",
+      "quality_not_measured"
      ]
     },
     {
      "awaiting_review": false,
      "featured_candidate": false,
-     "key": "Feux d artifices Montreal en lumiere 01.jpg",
+     "key": "Daniel Iregui (Iregular), NOR MIND, 2017 (39431050780).jpg",
      "provider": "commons",
      "reasons": [
       "not_home_ok",
@@ -226951,27 +226856,7 @@
     {
      "awaiting_review": false,
      "featured_candidate": false,
-     "key": "Feux d artifices Montreal en lumiere 02.jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Feux d artifices Montreal en lumiere 03.jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Nuit.Blanche.Montréal.en.Lumière.2014.QDS.MTL.jpg",
+     "key": "Daniel Iregui (Iregular), Nor Mind, 2017 (39431045530).jpg",
      "provider": "commons",
      "reasons": [
       "not_home_ok",
@@ -227061,6 +226946,16 @@
     {
      "awaiting_review": false,
      "featured_candidate": false,
+     "key": "Montréal en lumière.JPG",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
      "key": "Montreal En Lumiere Zach Zoya.jpg",
      "provider": "commons",
      "reasons": [
@@ -227071,6 +226966,15 @@
    ],
    "hero": null,
    "hero_decisions": [
+    {
+     "allowlisted": false,
+     "below_target": false,
+     "file": "Nuit.Blanche.Montréal.en.Lumière.2014.QDS.MTL.jpg",
+     "hero_candidate": true,
+     "key": "Nuit.Blanche.Montréal.en.Lumière.2014.QDS.MTL.jpg",
+     "provider": "commons",
+     "reasons": []
+    },
     {
      "allowlisted": false,
      "below_target": false,

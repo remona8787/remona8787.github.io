@@ -1,19 +1,12 @@
 {
- "at": "2026-11-13T04:25:40.530Z",
+ "at": "2026-11-13T04:36:49.910Z",
  "errors": [
   {
    "http_status": null,
-   "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
-   "rule": "gdelt:GDELT de · media facade",
+   "message": "no answer within 20000 ms",
+   "rule": "gdelt:GDELT es · media facade",
    "stage": "web_fetch",
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Agerman&mode=ArtList&format=json&maxrecords=250&timespan=5d&sort=DateDesc"
-  },
-  {
-   "http_status": 429,
-   "message": "HTTP 429",
-   "rule": "gdelt:GDELT ar · media facade",
-   "stage": "web_fetch",
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aarabic&mode=ArtList&format=json&maxrecords=250&timespan=9d&sort=DateDesc"
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aspanish&mode=ArtList&format=json&maxrecords=250&timespan=43h&sort=DateDesc"
   }
  ],
  "rules": [
@@ -23,14 +16,14 @@
     "invalid": 0,
     "prefilter": 0
    },
-   "errors": 1,
+   "errors": 0,
    "fetched": 0,
    "kept": 0,
-   "key": "gdelt:GDELT de · media facade",
+   "key": "gdelt:GDELT en · media facade",
    "kind": "gdelt",
    "not_modified": false,
    "reason": null,
-   "status": "error"
+   "status": "success"
   },
   {
    "dropped": {
@@ -41,7 +34,7 @@
    "errors": 1,
    "fetched": 0,
    "kept": 0,
-   "key": "gdelt:GDELT ar · media facade",
+   "key": "gdelt:GDELT es · media facade",
    "kind": "gdelt",
    "not_modified": false,
    "reason": null,
@@ -90,12 +83,12 @@
    "until": "2026-11-14T19:58:50.013Z"
   },
   {
-   "key": "gdelt:GDELT en · media facade",
+   "key": "gdelt:GDELT ar · media facade",
    "reason": "rotation",
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT es · media facade",
+   "key": "gdelt:GDELT de · media facade",
    "reason": "rotation",
    "status": "skipped"
   },
