@@ -113,7 +113,10 @@ export async function imageStage(ctx) {
       const m = await categoryMembers(client, c.title, { cache, ttlHours: ttl.commons_members ?? 72, limit: IC.members_per_category ?? 200 })
       for (const f of m.files) add(f, isNightCategory(c.title, catRules) && c.source === 'category' ? 'night_category' : c.source, c.title, !!c.institution)
       if (c.source !== 'category') continue
-      const subs = m.subcats.filter((s) => isNightCategory(s, catRules) || isEventCategory(s, catRules)).sort((a, b) => (isNightCategory(b, catRules) ? 1 : 0) - (isNightCategory(a, catRules) ? 1 : 0) || compareStrings(b, a))
+      // An event subcategory is an edition of the project only for a festival, or when it carries the project's own
+      // name; under a venue it is another event held there (Etopia: a software conference), never the work.
+      const edition = (s) => p.project_type === 'festival_program' || !!nameIn(s, projectNames(p))
+      const subs = m.subcats.filter((s) => isNightCategory(s, catRules) || (isEventCategory(s, catRules) && edition(s))).sort((a, b) => (isNightCategory(b, catRules) ? 1 : 0) - (isNightCategory(a, catRules) ? 1 : 0) || compareStrings(b, a))
       for (const s of subs) {
         if (subcatBudget-- <= 0 || seenCats.has(s)) break
         seenCats.add(s)
@@ -280,8 +283,9 @@ export async function imageStage(ctx) {
         const review = providerReview[providerReview.length - 1]
         review.ok = false
         review.reasons = [...review.reasons, 'awaiting_review']
-        // v2.0: an editor's look is the only way such a photo becomes the work's photo, so it goes on a review sheet.
-        waitingTiles.push({ kind: 'review', project: p.id, korean: p.country_iso2 === 'KR', name: p.name_en || p.name_ko || p.name_original || p.id, name_ko: p.name_ko, key, id: key, provider: c.provider, file: null, width: c.width ?? null, height: c.height ?? null, sharpness: null, blockiness: null, tier: null, visual: null, buffer: null, thumb: c.measure_url || c.thumb || c.review_thumb || null, page: c.page || null, license: c.license || null, author: c.author || null, title: c.title || null, awaiting_review: true })
+        // v2.0: an editor's look is the only way such a photo becomes the work's photo, so it goes on a review sheet
+        // (unless an editor already looked and blocked it).
+        if (!imageBlocked(ed, p.id, key) && !imageBlocked(ed, p.id, c.source_id)) waitingTiles.push({ kind: 'review', project: p.id, korean: p.country_iso2 === 'KR', name: p.name_en || p.name_ko || p.name_original || p.id, name_ko: p.name_ko, key, id: key, provider: c.provider, file: null, width: c.width ?? null, height: c.height ?? null, sharpness: null, blockiness: null, tier: null, visual: null, buffer: null, thumb: c.measure_url || c.thumb || c.review_thumb || null, page: c.page || null, license: c.license || null, author: c.author || null, title: c.title || null, awaiting_review: true })
         continue
       }
       assessed.push({ key, file: null, source: c.provider, cand: c, a: { ...a, ok: true }, width: c.width, height: c.height, approved, identity })

@@ -238,7 +238,10 @@ test('institution files: a curated place never inherits its museum, tower or dis
   // People, events and objects are rejected outright; the institution's own views are context.
   const review = JSON.parse(await readFile(path.join(dir, 'review/images.json'), 'utf8'))
   const cand = (id, re) => review.projects.find((p) => p.project === id).candidates.find((c) => re.test(c.key))
-  for (const re of [/^2010\.11\.11 G20/, /\(01\)\.jpg$/, /6812195536/]) assert.ok(cand('SEOUL022', re).reasons.some((x) => x.startsWith('subject:people_or_event')), String(re))
+  // v2.0: photos of other events held at a venue (its event subcategories) are not even fetched; an event photo filed
+  // in the venue's own category is still rejected as people or an event.
+  for (const re of [/^2010\.11\.11 G20/, /\(01\)\.jpg$/, /6812195536/]) { const c = cand('SEOUL022', re); assert.ok(!c || c.reasons.some((x) => x.startsWith('subject:people_or_event')), String(re)) }
+  assert.ok(cand('SEOUL022', /^G-20 Seoul 2010/).reasons.some((x) => x.startsWith('subject:people_or_event')))
   assert.ok(cand('SEOUL043', /^Goong Teddy/).reasons.some((x) => x.startsWith('subject:object_or_animal')))
   for (const re of [/^Connect Terrace/, /^Haebangchon/, /대우빌딩/, /Aerial Shot 07/, /^Cable car/]) assert.ok(cand('SEOUL043', re).evidence.includes('host_building_only'), String(re))
   assert.ok(cand('SEOUL022', /야간모습01/).evidence.includes('host_building_only'), 'a night view of the museum is not the immersive gallery inside')
@@ -282,7 +285,7 @@ test('image audit: counted from the records, the previous dataset and the decisi
   assert.equal(audit.summary.portraits, [...data.records.values()].reduce((s, r) => s + r.credits.filter((c) => c.portrait).length, 0))
   assert.equal(audit.summary.newly_added_valid, images, 'a first run adds every image')
   assert.equal(audit.summary.previous_images, 0)
-  assert.ok(audit.summary.person_rejected >= 6 && audit.summary.mislinked_rejected >= 4)
+  assert.ok(audit.summary.person_rejected >= 4 && audit.summary.mislinked_rejected >= 4, 'events held at a venue are no longer fetched (v2.0), so fewer people photos reach the filter')
   const valid = [...data.records.values()].filter((r) => r.images.some((i) => ['card', 'featured', 'hero'].includes(i.role) && ['project_media', 'project_installation', 'architecture_context'].includes(i.kind))).length
   assert.equal(audit.summary.cards.all.with_valid_card, valid)
   assert.equal(audit.projects.length, data.records.size)
@@ -663,6 +666,8 @@ test('editor image edits (v2.0): a viewed institution file graded B becomes the 
   const decision = (name, o) => writeFile(path.join(editorialDir, 'decisions', name), JSON.stringify({ action: 'approve_image', by: 'editor (viewed at card and detail size)', at: '2026-11-13T00:00:00Z', ...o }))
   await decision('2026-11-13T00-00-001-approve_image.json', { target: 'SEOUL022', image: '국립중앙박물관야간모습01.jpg', kind: 'project_media', grade: 'B', focal: { x: 0.5, y: 0.3 } })
   await decision('2026-11-13T00-00-002-approve_image.json', { target: 'SEOUL043', image: 'Seoul_Aerial_Shot_07.jpg', grade: 'C' })
+  // A waiting provider photo an editor looked at and blocked leaves the review sheet.
+  await writeFile(path.join(editorialDir, 'decisions', '2026-11-13T00-00-003-block_image.json'), JSON.stringify({ action: 'block_image', target: 'SEOUL006', image: 'img-2a3915b3e6d3', by: 'editor', at: '2026-11-13T00:00:00Z' }))
   const dir = await tmp()
   const env = fixtureEnvironment({})
   await runPipeline({ dataDir: dir, editorialDir, fetch: env.fetch, clock: env.clock, sleep: env.sleep, overrides: FIXTURE_OVERRIDES, env: FIXTURE_ENV, log: () => {} })
@@ -676,5 +681,7 @@ test('editor image edits (v2.0): a viewed institution file graded B becomes the 
   assert.ok(row[index.fields.indexOf('thumb')], 'and a card in the index')
   const aerial = records.get('SEOUL043').images.find((i) => /Seoul_Aerial_Shot_07/.test(i.page))
   assert.deepEqual([aerial.kind, aerial.editor_grade, ART.gradeOf(aerial)], ['architecture_context', 'C', 'C'])
+  const sheets = JSON.parse(await readFile(path.join(dir, 'review/contact-sheets/index.json'), 'utf8')).sheets
+  assert.ok(!sheets.some((s) => s.kind === 'review' && s.tiles.some((t) => t.image === 'img-2a3915b3e6d3')), 'a blocked photo is not reviewed again')
   assert.deepEqual(checkDataset(await site(dir)).filter((e) => /editor_grade|focal|identity|kind/.test(e)), [], 'the edited images pass the dataset schema')
 })
