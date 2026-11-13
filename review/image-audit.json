@@ -1,31 +1,10 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 4,
-  "examples": [
-   {
-    "id": "img-1374f577673c",
-    "project": "Q96055560",
-    "title": "EsLibre 2023 13"
-   },
-   {
-    "id": "img-8a6fde5a8bf0",
-    "project": "Q96055560",
-    "title": "EsLibre 2023 05"
-   },
-   {
-    "id": "img-60c30c89c8a7",
-    "project": "Q96055560",
-    "title": "EsLibre 2023 06"
-   },
-   {
-    "id": "img-08aa6c97d5e0",
-    "project": "Q96055560",
-    "title": "EsLibre 2023 07"
-   }
-  ]
+  "count": 0,
+  "examples": []
  },
- "at": "2026-11-13T04:16:28.107Z",
+ "at": "2026-11-13T04:25:40.530Z",
  "cards": {
   "all": {
    "projects": 1009,
@@ -4684,7 +4663,7 @@
    "kr": false,
    "kr_region": null,
    "name": "When Red Light Shows Wait Here sign",
-   "previous_images": 4,
+   "previous_images": 0,
    "status": "scored",
    "valid_card": false
   },
@@ -5724,7 +5703,7 @@
    "kr": false,
    "kr_region": null,
    "name": "Night Sky",
-   "previous_images": 1,
+   "previous_images": 0,
    "status": "scored",
    "valid_card": false
   },
@@ -5737,7 +5716,7 @@
    "kr": false,
    "kr_region": null,
    "name": "Flamigos",
-   "previous_images": 1,
+   "previous_images": 0,
    "status": "scored",
    "valid_card": false
   },
@@ -5919,7 +5898,7 @@
    "kr": false,
    "kr_region": null,
    "name": "Centrum Beeldende Kunst Rotterdam",
-   "previous_images": 4,
+   "previous_images": 3,
    "status": "scored",
    "valid_card": true
   },
@@ -11327,7 +11306,7 @@
    "kr": false,
    "kr_region": null,
    "name": "Centro de Creación Contemporánea de Andalucía - C3A",
-   "previous_images": 9,
+   "previous_images": 8,
    "status": "scored",
    "valid_card": true
   },
@@ -11652,7 +11631,7 @@
    "kr": false,
    "kr_region": null,
    "name": "Sarajevo City Center",
-   "previous_images": 6,
+   "previous_images": 4,
    "status": "scored",
    "valid_card": true
   },
@@ -12029,7 +12008,7 @@
    "kr": false,
    "kr_region": null,
    "name": "Etopia Centre for Arts & Technology",
-   "previous_images": 12,
+   "previous_images": 4,
    "status": "scored",
    "valid_card": true
   },
@@ -13503,14 +13482,6 @@
     ]
    },
    {
-    "key": "Lotte World Tower near Cheongdam Bridge crop.jpg",
-    "project": "SEOUL018",
-    "reasons": [
-     "too_small",
-     "extreme_aspect"
-    ]
-   },
-   {
     "key": "N Seoul Tower Panorama Night (cropped).jpg",
     "project": "SEOUL043",
     "reasons": [
@@ -13529,6 +13500,14 @@
     "project": "Q15076316",
     "reasons": [
      "too_small"
+    ]
+   },
+   {
+    "key": "Lotte World Tower near Cheongdam Bridge crop.jpg",
+    "project": "SEOUL018",
+    "reasons": [
+     "too_small",
+     "extreme_aspect"
     ]
    },
    {
@@ -14412,13 +14391,6 @@
     ]
    },
    {
-    "key": "롯대월드타워 - panoramio (3).jpg",
-    "project": "SEOUL018",
-    "reasons": [
-     "rights:foreign_no_freedom_of_panorama"
-    ]
-   },
-   {
     "key": "계동에서 남산을 향해 바라본 도심.jpg",
     "project": "SEOUL043",
     "reasons": [
@@ -14430,6 +14402,13 @@
     "project": "SEOUL043",
     "reasons": [
      "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "롯대월드타워 - panoramio (3).jpg",
+    "project": "SEOUL018",
+    "reasons": [
+     "rights:foreign_no_freedom_of_panorama"
     ]
    },
    {
@@ -14709,123 +14688,8 @@
    }
   ]
  },
- "removed": {
-  "not_selected": 22
- },
- "removed_examples": {
-  "not_selected": [
-   {
-    "id": "img-542675d7b576",
-    "project": "Q105621899",
-    "title": "ISS053-E-93966 - View of Earth"
-   },
-   {
-    "id": "img-9c86449b8265",
-    "project": "Q5839725",
-    "title": "Centro de Creación Contemporánea de Andalucía (52018036092)"
-   },
-   {
-    "id": "img-2ce10ab24972",
-    "project": "Q110169084",
-    "title": "Ove Lucas, 2018 (2)"
-   },
-   {
-    "id": "img-d5a108c3813e",
-    "project": "Q96055560",
-    "title": "EsLibre 2023 03"
-   },
-   {
-    "id": "img-147837bc4d7f",
-    "project": "Q96055560",
-    "title": "EsLibre 2023 02"
-   },
-   {
-    "id": "img-328d0b2adf89",
-    "project": "Q96055560",
-    "title": "Carmen Díez SanMartín a esLibre 2023"
-   },
-   {
-    "id": "img-2d2cc78a586a",
-    "project": "Q96055560",
-    "title": "David Abián a esLibre 2023"
-   },
-   {
-    "id": "img-5b0c27395f22",
-    "project": "Q96055560",
-    "title": "EsLibre 2023 01"
-   },
-   {
-    "id": "img-7f8caff844de",
-    "project": "Q96055560",
-    "title": "Atari XEGS rear showing ports"
-   },
-   {
-    "id": "img-1740104c2be8",
-    "project": "Q96055560",
-    "title": "EsLibre 2023 04"
-   },
-   {
-    "id": "img-c1b89632116e",
-    "project": "Q96055560",
-    "title": "EsLibre 2023 08"
-   },
-   {
-    "id": "img-77b74992e7db",
-    "project": "Q96055560",
-    "title": "EsLibre 2023 09"
-   },
-   {
-    "id": "img-8e4554b348e6",
-    "project": "Q96055560",
-    "title": "EsLibre 2023 10"
-   },
-   {
-    "id": "img-8e0b3e694c83",
-    "project": "Q96055560",
-    "title": "EsLibre 2023 11"
-   },
-   {
-    "id": "img-532c8eae9577",
-    "project": "Q96055560",
-    "title": "EsLibre 2023 12"
-   },
-   {
-    "id": "img-7c3b92ec3db8",
-    "project": "Q105621912",
-    "title": "ΔΕΛΤΑ ΤΟΥ ΕΒΡΟΥ 17"
-   },
-   {
-    "id": "img-780efefac736",
-    "project": "Q7422981",
-    "title": "Hastahana Park in Sarajevo, 2023.01.29 2"
-   },
-   {
-    "id": "img-512caf4765cf",
-    "project": "Q7422981",
-    "title": "Hastahana Park in Sarajevo, 2023.01.29 5"
-   },
-   {
-    "id": "img-5dff3d67b436",
-    "project": "CAT-10OT2VI",
-    "title": "Convoy^ - geograph.org.uk - 5265216"
-   },
-   {
-    "id": "img-9b408596b08f",
-    "project": "CAT-10OT2VI",
-    "title": "A87 resurfacing work at Cluanie (17315855451)"
-   },
-   {
-    "id": "img-bbe104ad8ce3",
-    "project": "CAT-10OT2VI",
-    "title": "A87 resurfacing work at Cluanie (17290348976)"
-   },
-   {
-    "id": "img-badc949dfe88",
-    "project": "CAT-10OT2VI",
-    "title": "Traffic lights on the A40 - geograph.org.uk - 1226620"
-   }
-  ]
- },
+ "removed": {},
+ "removed_examples": {},
  "schema": 1,
  "summary": {
   "cards": {
@@ -14851,14 +14715,14 @@
   "low_res_rejected": 83,
   "mislinked_rejected": 69,
   "mislinked_removed": 0,
-  "newly_added_valid": 4,
+  "newly_added_valid": 0,
   "person_rejected": 709,
   "person_removed": 0,
   "portraits": 3,
-  "previous_images": 2737,
+  "previous_images": 2719,
   "rechecked_kept": 0,
   "relevance_verified": 2719,
-  "removed_total": 22
+  "removed_total": 0
  },
  "totals": {
   "by_kind": {
