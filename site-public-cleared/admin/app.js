@@ -203,6 +203,8 @@ async function mfaReady(){
   // Leftover unverified factors (an enrolment that was not finished) are removed before a new one.
   for(const x of (f?.all||[]).filter(x=>x.factor_type==='totp'&&x.status!=='verified'))await sb.auth.mfa.unenroll({factorId:x.id}).catch(()=>{});
   const {data:en,error:ee}=await sb.auth.mfa.enroll({factorType:'totp',friendlyName:'빛의 건축 운영 콘솔'});
+  // A project with TOTP enrolment switched off cannot let staff in: say which setting, instead of the raw error.
+  if(ee&&/enroll.*(disabled|not.enabled)|totp_enroll_not_enabled/i.test(`${ee.code||''} ${ee.message||''}`))throw Error('이 서버는 인증 앱(TOTP) 등록이 꺼져 있어서 관리자·편집자가 들어올 수 없어요. Supabase 대시보드 Authentication → Multi-Factor에서 TOTP를 켜 주세요.');
   if(ee)throw ee;
   S.mfa.factorId=en.id;$('#mfaEnroll').hidden=false;$('#mfaQr').src=en.totp.qr_code;$('#mfaSecret').textContent=en.totp.secret;
   $('#mfaTitle').textContent='인증 앱 등록';$('#mfaLede').textContent='관리자·편집자 기능을 쓰려면 2단계 인증을 한 번 등록해야 해요.';

@@ -221,6 +221,7 @@ export async function mockSupabase(page,{fail={},data=seed()}={}){
    return !u||body.password!==PASSWORD?reply(400,{code:400,error_code:'invalid_credentials',msg:'Invalid login credentials'}):reply(200,session(u));
   }
   if(path==='/auth/v1/logout'){calls.push({kind:'auth',name:'logout'});return r.fulfill({status:204,headers:CORS})}
+  if(path==='/auth/v1/factors'&&req.method()==='POST'&&fail.mfa_enroll)return reply(fail.mfa_enroll.status,fail.mfa_enroll.body);
   if(path==='/auth/v1/factors'&&req.method()==='POST'){calls.push({kind:'auth',name:'mfa_enroll',body});const f={id:'f-1',factor_type:'totp',friendly_name:body?.friendly_name,status:'unverified'};mfa.factors.push(f);return reply(200,{id:f.id,type:'totp',friendly_name:f.friendly_name,totp:{qr_code:'data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"/>',secret:'JBSWY3DPEHPK3PXP',uri:'otpauth://totp/aol:newstaff?secret=JBSWY3DPEHPK3PXP'}})}
   const fm=path.match(/^\/auth\/v1\/factors\/([^/]+)(?:\/(challenge|verify))?$/);
   if(fm&&req.method()==='DELETE'){mfa.factors=mfa.factors.filter(f=>f.id!==fm[1]);return reply(200,{id:fm[1]})}

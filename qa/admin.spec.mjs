@@ -732,6 +732,17 @@ test('staff second factor (v2.0): a new editor enrols a TOTP app, a wrong code i
  // A researcher needs no second factor.
 });
 
+test('staff second factor (v2.0): a project with TOTP enrolment off says which setting to turn on, and the console stays closed',async({page})=>{
+ await mockSupabase(page,{fail:{mfa_enroll:{status:422,body:{code:422,error_code:'mfa_totp_enroll_not_enabled',msg:'MFA enroll is disabled for TOTP'}}}});
+ await page.goto('/admin/');
+ await page.getByLabel('이메일').fill(USERS.newstaff.email);
+ await page.getByLabel('비밀번호').fill(PASSWORD);
+ await page.getByRole('button',{name:'로그인'}).click();
+ await expect(page.locator('#loginMsg')).toContainText('Authentication → Multi-Factor');
+ await expect(page.locator('#nav')).toBeHidden();
+ await expect(page.locator('#mfaView')).toBeHidden();
+});
+
 test('image status (v2.0): numerator, denominator and definition; nine categories; a permission draft without a server',async({page})=>{
  const m=await mockSupabase(page);
  await signIn(page,'editor','#images');
