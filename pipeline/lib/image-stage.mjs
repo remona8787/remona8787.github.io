@@ -352,8 +352,10 @@ export async function imageStage(ctx) {
       }
     }
     if (choice.card && choice.card.t.tier <= 3) tiles.push(tile('cards', p, choice.card, {}))
-    // Review tiles of this project's waiting provider photos; projects without a card first (see below).
-    for (const t of waitingTiles.splice(0)) reviewTiles.push({ ...t, has_card: !!choice.card })
+    // Review tiles of this project's waiting provider photos; projects without a representative photo first (a card
+    // may be a context photo, so the art photo policy decides, not the card).
+    const represented = !!ART.representativeOf({ images: imageResults.get(p.id)?.images || [] })
+    for (const t of waitingTiles.splice(0)) reviewTiles.push({ ...t, has_card: represented })
   }
   const qualityScoreOf = (s) => (s.q ? qualityScore(s.q, s.width) : 0)
   function tile(kind, p, s, flags) {
