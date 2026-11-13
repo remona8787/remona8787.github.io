@@ -140,9 +140,10 @@ export const SHEET_ABOUT = 'Contact sheets per kind (hero: hero candidates and a
  * file, width, height, sharpness, blockiness, tier, visual, allowlisted, hero_candidate, awaiting_review, buffer, thumb}].
  * Tiles without an image buffer (measured in an earlier run) get one by fetch(url) when given (capped).
  */
-export async function writeContactSheets(dir, tiles, { err = () => {}, fetchBytes = null, maxFetch = 300 } = {}) {
+export async function writeContactSheets(dir, tiles, { err = () => {}, fetchBytes = null, maxFetch = 300, reviewMaxFetch = 120 } = {}) {
   const out = []
-  let fetched = 0
+  // Review tiles have their own fetch budget: the hero, featured and card sheets must not use it up.
+  let fetched = 0, reviewFetched = 0
   const per = REVIEW.columns * REVIEW.rows
   const kinds = ['hero', 'featured', 'cards', 'review']
   // Review tiles keep the image stage's order (projects without a representative photo first, Korean first).
@@ -155,8 +156,8 @@ export async function writeContactSheets(dir, tiles, { err = () => {}, fetchByte
     // the queue for a later run).
     if (g.startsWith('review-')) {
       for (const t of all) {
-        if (t.buffer || !t.thumb || !fetchBytes || fetched >= maxFetch) continue
-        try { t.buffer = (await fetchBytes(t.thumb)).bytes; fetched++ } catch (e) { if (e?.code === 'budget') break }
+        if (t.buffer || !t.thumb || !fetchBytes || reviewFetched >= reviewMaxFetch) continue
+        try { t.buffer = (await fetchBytes(t.thumb)).bytes; reviewFetched++ } catch (e) { if (e?.code === 'budget') break }
       }
       const sharp = await loadSharp().catch(() => null)
       const decodes = async (b) => { if (!b || !sharp) return false; try { const m = await sharp(b).metadata(); return !!(m.width && m.height) } catch { return false } }

@@ -665,7 +665,7 @@ export async function runPipeline(o) {
     await mkdir(dir, { recursive: true })
     // Tiles measured in an earlier run have no image in memory: their small rendition is fetched (a few minutes at most).
     client.setDeadline(Math.min(runDeadline, clock() + (P.images?.contact_sheet_minutes ?? 3) * 60e3))
-    sheets.push(...await writeContactSheets(dir, sheetTiles, { err, fetchBytes: (u) => client.bytes(u, { stage: 'contact_sheets', maxBytes: P.images?.max_measure_bytes ?? 12e6 }), maxFetch: P.images?.contact_sheet_fetch_max ?? 300 }))
+    sheets.push(...await writeContactSheets(dir, sheetTiles, { err, fetchBytes: (u) => client.bytes(u, { stage: 'contact_sheets', maxBytes: P.images?.max_measure_bytes ?? 12e6 }), maxFetch: P.images?.contact_sheet_fetch_max ?? 300, reviewMaxFetch: P.images?.review_sheet_max ?? 120 }))
     await writeJSON(path.join(dir, 'index.json'), { schema: 2, generated_at: startedAt, about: SHEET_ABOUT, sheets }, { pretty: true })
   })
 

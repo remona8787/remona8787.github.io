@@ -9,7 +9,9 @@ import { metricsFromRaw, visualScore, measureImage, loadSharp } from '../pipelin
 import { assessCandidate, tierOf, heroEligible, chooseImages, commonsCandidate, imageObject, nameEvidence, BAD_NAME, thumbAt, cleanMediaUrl, commonsDisplay, mediaActive, stableImageId } from '../pipeline/lib/images.mjs'
 import { workNames } from '../pipeline/lib/identity.mjs'
 import { personEvidence, creatorMention, kindOf, rightsUse, assessText } from '../pipeline/lib/images.mjs'
-import { contactSheet, drawText, tilePixels, tileShowsPicture } from '../pipeline/lib/contact-sheet.mjs'
+import { contactSheet, drawText, tilePixels, tileShowsPicture, writeContactSheets } from '../pipeline/lib/contact-sheet.mjs'
+import { mkdtemp } from 'node:fs/promises'
+import { tmpdir } from 'node:os'
 import { loadConfig } from '../pipeline/run.mjs'
 import { FIXTURES } from './fixtures/pipeline/fake-fetch.mjs'
 import { fileRecord } from '../pipeline/lib/commons.mjs'
@@ -348,4 +350,20 @@ test('image kinds: media, installation, context, technical and event documentati
   assert.ok(!c.ordered.some((o) => ['artist.jpg', 'flickr-1'].includes(o.s.key)), 'portraits and unverified images never reach images[]')
   assert.deepEqual(rightsUse('KOGL Type 3'), { kogl_type: 3, commercial_use: true })
   assert.deepEqual(rightsUse('CC BY-NC-SA 2.0'), { commercial_use: false })
+})
+
+test('review sheets (v2.0) have their own fetch budget and leave out tiles without a picture', needSharp, async () => {
+  const dir = await mkdtemp(path.join(tmpdir(), 'aol-sheets-'))
+  const pic = thumb('colourful_day')
+  const card = (n) => ({ kind: 'cards', project: 'P' + n, key: 'c' + n, id: 'img-' + String(n).padStart(12, '0'), provider: 'commons', thumb: 'https://thumb.example/c' + n + '.jpg', buffer: null })
+  const review = (n, url) => ({ kind: 'review', project: 'R' + n, korean: true, key: 'r' + n, id: 'img-' + String(100 + n).padStart(12, '0'), provider: 'openverse', thumb: url, page: 'https://www.flickr.com/photos/x/' + n, license: 'CC BY 2.0', author: 'A', title: 't', has_card: false, awaiting_review: true, buffer: null })
+  const asked = []
+  const fetchBytes = async (u) => { asked.push(u); if (/broken/.test(u)) return { bytes: Buffer.from('<html>not an image</html>') }; return { bytes: pic } }
+  const sheets = await writeContactSheets(dir, [card(1), card(2), review(1, 'https://live.example/1.jpg'), review(2, 'https://live.example/broken.jpg'), review(3, 'https://live.example/3.jpg')], { fetchBytes, maxFetch: 2, reviewMaxFetch: 3 })
+  const rv = sheets.find((s) => s.kind === 'review')
+  assert.ok(rv, 'the card sheets used up their budget, the review sheet still has its own')
+  assert.deepEqual(rv.tiles.map((t) => t.project), ['R1', 'R3'], 'the tile whose file is not an image is left out')
+  assert.ok(rv.tiles.every((t) => t.image_in_sheet && t.awaiting_review && t.page && t.license))
+  assert.equal(rv.grey_tiles, 0)
+  assert.equal(asked.filter((u) => /live\.example/.test(u)).length, 3)
 })
