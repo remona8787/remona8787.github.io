@@ -1,6 +1,6 @@
 {
  "about": "Per project: every image candidate (Commons and the other providers) with rights, identity, keyword evidence, visual and quality measurements, tier, approval, the hero and featured decisions and the near-duplicates removed.",
- "at": "2026-11-12T19:57:43.697Z",
+ "at": "2026-11-13T02:08:04.701Z",
  "projects": [
   {
    "candidates": [],
@@ -43480,6 +43480,117 @@
    "hero_decisions": [],
    "name": "Hive (Bleecker Street)",
    "project": "Q119222001",
+   "providers": [],
+   "type": "light_art"
+  },
+  {
+   "candidates": [
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Cumulus Gate Pavilion for Richard Pearse PA02.jpg",
+     "kind": "project_installation",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 7,
+      "decoded": {
+       "bytes": 372098,
+       "format": "jpeg",
+       "height": 1477,
+       "width": 960
+      },
+      "laplacian_var": 1902.6,
+      "measured_width": 960,
+      "phash": "8f13160e9bf02779",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "p18",
+     "tier": 4,
+     "title": "Cumulus Gate Pavilion for Richard Pearse PA02 · Cumulus Gate Pavilion for Richard Pearse PA02 · Cumulus Gate Pavilion for Richard Pearse, a 2012 sculpture by Gr",
+     "visual": {
+      "bright_share": 0.2165,
+      "colourfulness": 48.37,
+      "dark_share": 0.1521,
+      "height": 493,
+      "mean_luminance": 0.4767,
+      "saturated_bright": 0.064,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 1410
+    },
+    {
+     "approved": null,
+     "evidence": [
+      "scene_terms"
+     ],
+     "home_ok": false,
+     "identity": {
+      "method": "commons_category_or_item",
+      "ok": true
+     },
+     "key": "Cumulus Gate Pavilion for Richard Pearse PA01.jpg",
+     "kind": "project_installation",
+     "media": 0,
+     "media_terms": [],
+     "night": 0,
+     "night_terms": [],
+     "ok": true,
+     "provider": "commons",
+     "quality": {
+      "blockiness": 5,
+      "decoded": {
+       "bytes": 411166,
+       "format": "jpeg",
+       "height": 1545,
+       "width": 960
+      },
+      "laplacian_var": 3221.8,
+      "measured_width": 960,
+      "phash": "060e0c1c1c3c280e",
+      "sharpness": 100
+     },
+     "reasons": [],
+     "size_mismatch": null,
+     "source": "depicts",
+     "tier": 4,
+     "title": "Cumulus Gate Pavilion for Richard Pearse PA01 · Cumulus Gate Pavilion for Richard Pearse PA01 · Cumulus Gate Pavilion for Richard Pearse, a 2012 sculpture by Gr",
+     "visual": {
+      "bright_share": 0.2062,
+      "colourfulness": 48.9,
+      "dark_share": 0.0886,
+      "height": 515,
+      "mean_luminance": 0.4993,
+      "saturated_bright": 0.0808,
+      "visual": 0,
+      "width": 320
+     },
+     "width": 2024
+    }
+   ],
+   "card": "Cumulus Gate Pavilion for Richard Pearse PA02.jpg",
+   "country_iso2": "NZ",
+   "duplicates": [],
+   "featured": null,
+   "featured_decisions": [],
+   "hero": null,
+   "hero_decisions": [],
+   "name": "Cumulus Gate Pavilion for Richard Pearse",
+   "project": "Q142132856",
    "providers": [],
    "type": "light_art"
   },

@@ -1,15 +1,26 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 0,
-  "examples": []
+  "count": 2,
+  "examples": [
+   {
+    "id": "img-8fd5883ede1d",
+    "project": "Q142132856",
+    "title": "Cumulus Gate Pavilion for Richard Pearse PA02"
+   },
+   {
+    "id": "img-08594d1b55a4",
+    "project": "Q142132856",
+    "title": "Cumulus Gate Pavilion for Richard Pearse PA01"
+   }
+  ]
  },
- "at": "2026-11-12T19:57:43.697Z",
+ "at": "2026-11-13T02:08:04.701Z",
  "cards": {
   "all": {
-   "projects": 1008,
-   "rate_pct": 36.7,
-   "with_valid_card": 370
+   "projects": 1009,
+   "rate_pct": 36.8,
+   "with_valid_card": 371
   },
   "by_kr_region": {
    "busan_ulsan_gyeongnam": {
@@ -59,9 +70,9 @@
    "with_valid_card": 22
   },
   "world": {
-   "projects": 711,
-   "rate_pct": 48.9,
-   "with_valid_card": 348
+   "projects": 712,
+   "rate_pct": 49,
+   "with_valid_card": 349
   }
  },
  "projects": [
@@ -9881,6 +9892,19 @@
    "valid_card": false
   },
   {
+   "card_kind": "project_installation",
+   "card_tier": 4,
+   "card_title": "Cumulus Gate Pavilion for Richard Pearse PA02",
+   "id": "Q142132856",
+   "images": 2,
+   "kr": false,
+   "kr_region": null,
+   "name": "Cumulus Gate Pavilion for Richard Pearse",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
    "card_kind": "project_media",
    "card_tier": 3,
    "card_title": "20231027 201419 Chodź na pole - Tauron Arena Kraków",
@@ -14681,9 +14705,9 @@
  "summary": {
   "cards": {
    "all": {
-    "projects": 1008,
-    "rate_pct": 36.7,
-    "with_valid_card": 370
+    "projects": 1009,
+    "rate_pct": 36.8,
+    "with_valid_card": 371
    },
    "korea": {
     "projects": 297,
@@ -14691,53 +14715,53 @@
     "with_valid_card": 22
    },
    "world": {
-    "projects": 711,
-    "rate_pct": 48.9,
-    "with_valid_card": 348
+    "projects": 712,
+    "rate_pct": 49,
+    "with_valid_card": 349
    }
   },
   "duplicates_removed": 0,
   "duplicates_this_run": 13,
-  "images": 2735,
+  "images": 2737,
   "low_res_rejected": 83,
   "mislinked_rejected": 69,
   "mislinked_removed": 0,
-  "newly_added_valid": 0,
+  "newly_added_valid": 2,
   "person_rejected": 709,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2735,
   "rechecked_kept": 0,
-  "relevance_verified": 2735,
+  "relevance_verified": 2737,
   "removed_total": 0
  },
  "totals": {
   "by_kind": {
    "architecture_context": 449,
    "event_documentation": 14,
-   "project_installation": 44,
+   "project_installation": 46,
    "project_media": 2222,
    "technical_documentation": 6
   },
   "by_provider": {
-   "commons": 2731,
+   "commons": 2733,
    "editor": 4
   },
   "by_role": {
-   "card": 190,
+   "card": 191,
    "context": 397,
    "featured": 191,
-   "gallery": 1947,
+   "gallery": 1948,
    "hero": 10
   },
   "by_tier": {
    "1": 62,
    "2": 397,
    "3": 1779,
-   "4": 46,
+   "4": 48,
    "5": 451
   },
-  "images": 2735,
+  "images": 2737,
   "portraits": 3
  }
 }
