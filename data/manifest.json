@@ -1,5 +1,5 @@
 {
- "build_id": "20261112T083003Z-faf649ea",
+ "build_id": "20261113T020804Z-f21dca2a",
  "counts": {
   "by_country": {
    "AE": 6,
@@ -36,7 +36,7 @@
    "MO": 1,
    "MX": 4,
    "NL": 98,
-   "NZ": 8,
+   "NZ": 9,
    "PH": 1,
    "PL": 6,
    "PT": 1,
@@ -90,14 +90,14 @@
    "latin_america": 8,
    "middle_east": 15,
    "north_america": 127,
-   "oceania": 15,
+   "oceania": 16,
    "south_asia": 2,
    "southeast_asia": 10
   },
   "by_type": {
    "festival_program": 219,
    "interactive_installation": 21,
-   "light_art": 508,
+   "light_art": 509,
    "media_architecture": 80,
    "media_facade": 59,
    "media_wall": 16,
@@ -116,11 +116,11 @@
    "upcoming": 13
   },
   "korea": 297,
-  "projects": 1008,
-  "with_art_representative": 313,
+  "projects": 1009,
+  "with_art_representative": 314,
   "with_hero": 10,
-  "with_images": 371,
-  "world": 711
+  "with_images": 372,
+  "world": 712
  },
  "credits": {
   "data": "Wikidata (CC0 1.0), Wikipedia (CC BY-SA 4.0, article links), Wikimedia Commons (each image carries its own licence and author), curated records of the archive.",
@@ -143,17 +143,17 @@
   "stats": "stats.json",
   "status": "status.json"
  },
- "generated_at": "2026-11-12T08:30:03.378Z",
+ "generated_at": "2026-11-13T02:08:04.701Z",
  "schema": 1,
  "sources": {
   "commons": {
    "items": 372,
-   "last_success": "2026-11-12T08:30:03.378Z",
+   "last_success": "2026-11-13T02:08:04.701Z",
    "status": "ok"
   },
   "curated": {
    "items": 370,
-   "last_success": "2026-11-12T08:30:03.378Z",
+   "last_success": "2026-11-13T02:08:04.701Z",
    "status": "ok"
   },
   "seoul_events": {
@@ -167,18 +167,18 @@
    "status": "skipped"
   },
   "web": {
-   "items": 0,
+   "items": 7,
    "last_success": "2026-11-12T07:16:20.150Z",
-   "status": "error"
+   "status": "partial"
   },
   "wikidata": {
-   "items": 930,
-   "last_success": "2026-11-12T08:30:03.378Z",
+   "items": 931,
+   "last_success": "2026-11-13T02:08:04.701Z",
    "status": "ok"
   },
   "wikipedia": {
    "items": 283,
-   "last_success": "2026-11-12T08:30:03.378Z",
+   "last_success": "2026-11-13T02:08:04.701Z",
    "status": "ok"
   }
  }
