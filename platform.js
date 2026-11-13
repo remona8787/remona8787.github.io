@@ -51,7 +51,9 @@
       <div class="pf-tabs" role="tablist">${Object.entries(KIND).map(([k, v], i) => `<button class="button subtle small" role="tab" data-pf-kind="${k}" aria-selected="${i === 0}">${E(L(...v))}</button>`).join('')}</div>
       <section id="pfFeed" class="pf-feed" aria-live="polite"><p class="muted">${E(L('불러오는 중…', 'Loading…'))}</p></section>`
   }
-  const postCard = (p) => `<article class="pf-card"><h3><a href="#community/post/${E(p.id)}">${E(p.title)}</a></h3><p class="pf-meta">${E(p.author_name || L('이용자', 'Member'))} · ${E(when(p.published_at))}${p.project_id ? ` · <a href="#place/${E(p.project_id)}">${E(placeName(p.project_id))}</a>` : ''}${p.visited_on ? ` · ${E(L('방문', 'visited'))} ${E(when(p.visited_on))}` : ''}</p><p class="pf-body">${E(String(p.body).slice(0, 280))}${String(p.body).length > 280 ? '…' : ''}</p><p class="pf-meta">${I('heart')} ${E(p.like_count ?? 0)} · ${E(L('댓글', 'comments'))} ${E(p.comment_count ?? 0)}</p></article>`
+  // The author's name, linked to their public profile when they show one (a random public id, never the account id).
+  const author = (p) => { const n = E(p.author_name || L('이용자', 'Member')); return p.author_public_id && /^[0-9a-f-]{36}$/.test(p.author_public_id) ? `<a href="#community/member/${E(p.author_public_id)}">${n}</a>` : n }
+  const postCard = (p) => `<article class="pf-card"><h3><a href="#community/post/${E(p.id)}">${E(p.title)}</a></h3><p class="pf-meta">${author(p)} · ${E(when(p.published_at))}${p.project_id ? ` · <a href="#place/${E(p.project_id)}">${E(placeName(p.project_id))}</a>` : ''}${p.visited_on ? ` · ${E(L('방문', 'visited'))} ${E(when(p.visited_on))}` : ''}</p><p class="pf-body">${E(String(p.body).slice(0, 280))}${String(p.body).length > 280 ? '…' : ''}</p><p class="pf-meta">${I('heart')} ${E(p.like_count ?? 0)} · ${E(L('댓글', 'comments'))} ${E(p.comment_count ?? 0)}</p></article>`
   async function loadFeed(kind = 'review') {
     const box = document.getElementById('pfFeed'); if (!box) return
     try {
@@ -66,7 +68,7 @@
       const { post, comments } = await api().post(Number(id))
       if (!post) { box.innerHTML = `${head(L('글을 찾을 수 없어요', 'Post not found'))}<p class="muted">${E(L('공개되지 않았거나 삭제된 글이에요.', 'It is not published or was removed.'))}</p>`; return }
       const signed = !!api().user()
-      box.innerHTML = `${head(post.title)}<p class="pf-meta">${E(post.author_name || L('이용자', 'Member'))} · ${E(when(post.published_at))}${post.project_id ? ` · <a href="#place/${E(post.project_id)}">${E(placeName(post.project_id))}</a>` : ''}</p>
+      box.innerHTML = `${head(post.title)}<p class="pf-meta">${author(post)} · ${E(when(post.published_at))}${post.project_id ? ` · <a href="#place/${E(post.project_id)}">${E(placeName(post.project_id))}</a>` : ''}</p>
         <p class="pf-note">${E(L('이용자가 쓴 글이에요. 방문 사실은 확인하지 않았어요.', 'Written by a member. The visit was not verified.'))}</p>
         <div class="pf-body pf-full">${E(post.body).replace(/\n/g, '<br>')}</div>
         <div class="actions">${signed ? `<button class="button subtle small" data-pf-like="${E(post.id)}">${I('heart')}${E(L('좋아요', 'Like'))} ${E(post.like_count ?? 0)}</button>` : ''}<button class="button ghost small" data-pf-report="post:${E(post.id)}">${I('flag')}${E(L('신고', 'Report'))}</button></div>
@@ -179,14 +181,39 @@
     const box = document.getElementById('pfMine'); if (!box) return
     try {
       const m = await api().mine()
-      const row = (type, x, title) => `<li class="pf-row"><span>${E(title)}</span> ${badge(x.status)}${x.decision_reason ? `<p class="pf-reason">${E(L('사유', 'Reason'))}: ${E(x.decision_reason)}</p>` : ''}${['rejected', 'removed'].includes(x.status) ? `<button class="button ghost small" data-pf-appeal="${type}:${E(x.id)}">${E(L('이의신청', 'Appeal'))}</button>` : ''}${x.approved_project_id ? ` <a href="#place/${E(x.approved_project_id)}">${E(x.approved_project_id)}</a>` : ''}</li>`
+      const own = (type, x) => type === 'post' ? `${x.status !== 'removed' ? `<button class="button ghost small" data-pf-edit="${E(x.id)}">${E(L('수정', 'Edit'))}</button>` : ''}<button class="button ghost small" data-pf-delete="post:${E(x.id)}">${E(L('삭제', 'Delete'))}</button>`
+        : type === 'comment' ? `<button class="button ghost small" data-pf-delete="comment:${E(x.id)}">${E(L('삭제', 'Delete'))}</button>`
+        : type === 'photo' ? `<button class="button ghost small" data-pf-delete="photo:${E(x.id)}">${E(L('사진 내리기', 'Withdraw photo'))}</button>` : ''
+      const row = (type, x, title) => `<li class="pf-row"><span>${E(title)}</span> ${badge(x.status)}${x.decision_reason ? `<p class="pf-reason">${E(L('사유', 'Reason'))}: ${E(x.decision_reason)}</p>` : ''}${own(type, x)}${['rejected', 'removed'].includes(x.status) ? `<button class="button ghost small" data-pf-appeal="${type}:${E(x.id)}">${E(L('이의신청', 'Appeal'))}</button>` : ''}${x.approved_project_id ? ` <a href="#place/${E(x.approved_project_id)}">${E(x.approved_project_id)}</a>` : ''}</li>`
       box.innerHTML = [
         [L('글', 'Posts'), m.posts.map((x) => row('post', x, x.title))],
+        [L('댓글', 'Comments'), (m.comments || []).map((x) => row('comment', x, String(x.body).slice(0, 60)))],
         [L('사진', 'Photos'), m.photos.map((x) => row('photo', x, `${placeName(x.project_id)}${x.caption ? ' · ' + x.caption : ''}`))],
         [L('제보·등록 신청', 'Submissions'), m.submissions.map((x) => row('submission', x, `${L(...(SUBKIND[x.kind] || [x.kind, x.kind]))}: ${x.name || x.project_id || ''}`))],
         [L('이의신청', 'Appeals'), m.appeals.map((x) => `<li class="pf-row"><span>${E(x.target_type)} ${E(x.target_id ?? '')}</span> ${badge(x.status)}${x.note ? `<p class="pf-reason">${E(x.note)}</p>` : ''}</li>`)],
       ].map(([t, items]) => `<h2 class="group-caption">${E(t)}</h2>${items.length ? `<ul class="pf-list">${items.join('')}</ul>` : `<p class="muted">${E(L('없음', 'None'))}</p>`}`).join('')
+      mineCache = m
     } catch (e) { box.innerHTML = `<p class="form-message">${E(errText(e))}</p>` }
+  }
+  let mineCache = null
+  // Edit or delete the member's own content. A post that was public goes back to review after an edit (the database
+  // does that); a photo is withdrawn through the server so its public file goes too.
+  function editPost(id) {
+    const p = (mineCache?.posts || []).find((x) => String(x.id) === String(id)); if (!p) return
+    dialog(`<h2>${E(L('글 수정', 'Edit post'))}</h2><p class="muted">${E(L('공개된 글을 고치면 다시 검수를 거쳐 공개돼요.', 'An edited public post goes back to review.'))}</p><label class="field">${E(L('제목', 'Title'))}<input name="title" maxlength="120" required value="${E(p.title)}"></label><label class="field">${E(L('내용', 'Text'))}<textarea name="body" rows="6" maxlength="5000" required>${E(p.body || '')}</textarea></label>`,
+      async (fd) => { await api().updatePost(id, { title: String(fd.get('title')).trim(), body: String(fd.get('body')).trim() }); loadMine() })
+  }
+  async function removeOwn(target) {
+    const [type, id] = target.split(':')
+    const ask = type === 'photo' ? L('이 사진을 내릴까요? 공개 파일과 원본이 모두 지워져요.', 'Withdraw this photo? The public file and the original are deleted.') : L('정말 삭제할까요? 되돌릴 수 없어요.', 'Delete it? This cannot be undone.')
+    if (!confirm(ask)) return
+    try {
+      if (type === 'post') await api().deletePost(Number(id))
+      else if (type === 'comment') await api().deleteComment(Number(id))
+      else if (type === 'photo') await api().withdrawPhoto(Number(id))
+      window.AOLApp?.toast?.(L('지웠어요.', 'Deleted.'))
+      loadMine()
+    } catch (e) { say(errText(e)) }
   }
   const REASONS = { spam: ['광고·도배', 'Spam'], harassment: ['괴롭힘·비방', 'Harassment'], hate: ['혐오·차별', 'Hate'], sexual: ['성적 콘텐츠', 'Sexual content'], violence: ['폭력·위협', 'Violence or threats'], privacy: ['개인정보 노출', 'Personal data'], child_safety: ['아동 안전', 'Child safety'], malicious_link: ['악성 링크', 'Malicious link'], copyright: ['저작권 침해', 'Copyright'], unrelated: ['작품과 무관', 'Unrelated'], false_info: ['허위 정보', 'False information'], other: ['기타', 'Other'] }
   function dialog(html, onSubmit) {
@@ -240,7 +267,19 @@
     } catch (e) { box.innerHTML = `<p class="form-message">${E(errText(e))}</p>` }
   }
 
-  function profilePage() { return api().user() ? `${head(L('프로필', 'Profile'), L('공개 글에는 표시 이름만 보여요. 이메일은 공개되지 않아요.', 'Only the display name is shown with your posts. Your e-mail is never shown.'))}<form id="pfProfile" class="form-grid"><label class="field">${E(L('표시 이름 (2~40자)', 'Display name (2–40)'))}<input name="display_name" minlength="2" maxlength="40"></label><label class="field">${E(L('소개 (선택)', 'About (optional)'))}<textarea name="bio" maxlength="300" rows="3"></textarea></label><div class="actions"><button class="button">${E(L('저장', 'Save'))}</button><a class="button ghost" href="#account">${E(L('계정·탈퇴', 'Account and deletion'))}</a></div></form>${msg()}` : head(L('프로필', 'Profile')) + signInFirst() }
+  const PROFILE_ERR = { profile_name_contact: ['표시 이름에는 링크·이메일·전화번호를 쓸 수 없어요.', 'The display name cannot contain links, e-mail addresses or phone numbers.'], profile_name_reserved: ['운영자로 보일 수 있는 이름은 쓸 수 없어요.', 'Names that look like staff are not allowed.'], profile_bio_rules: ['소개에 연락처나 단축 링크는 쓸 수 없어요.', 'The about text cannot contain contacts or short links.'] }
+  function memberPage() { return `${head(L('회원 프로필', 'Member profile'))}<div id="pfMember"><p class="muted">${E(L('불러오는 중…', 'Loading…'))}</p></div>` }
+  async function loadMember(publicId) {
+    const box = document.getElementById('pfMember'); if (!box) return
+    if (!/^[0-9a-f-]{36}$/.test(String(publicId || ''))) { box.innerHTML = `<p class="muted">${E(L('프로필을 찾을 수 없어요.', 'Profile not found.'))}</p>`; return }
+    try {
+      const { profile, posts } = await api().member(publicId)
+      if (!profile) { box.innerHTML = `<p class="muted">${E(L('비공개이거나 없는 프로필이에요.', 'This profile is hidden or does not exist.'))}</p>`; return }
+      box.innerHTML = `<section class="panel"><h2>${E(profile.display_name)}</h2>${profile.bio ? `<p>${E(profile.bio)}</p>` : ''}<p class="pf-meta">${E(L('가입', 'Joined'))} ${E(when(profile.joined_at))} · ${E(L('공개 글', 'Public posts'))} ${E(profile.post_count ?? 0)}</p></section>
+        <h2 class="group-caption">${E(L('공개 글', 'Public posts'))}</h2>${posts.length ? `<div class="pf-cards">${posts.map(postCard).join('')}</div>` : `<p class="muted">${E(L('아직 공개된 글이 없어요.', 'No public posts yet.'))}</p>`}`
+    } catch (e) { box.innerHTML = `<p class="form-message">${E(errText(e))}</p>` }
+  }
+  function profilePage() { return api().user() ? `${head(L('프로필', 'Profile'), L('공개 글에는 표시 이름만 보여요. 이메일은 공개되지 않아요.', 'Only the display name is shown with your posts. Your e-mail is never shown.'))}<form id="pfProfile" class="form-grid"><label class="field">${E(L('표시 이름 (2~40자)', 'Display name (2–40)'))}<input name="display_name" minlength="2" maxlength="40"></label><label class="field">${E(L('소개 (선택)', 'About (optional)'))}<textarea name="bio" maxlength="300" rows="3"></textarea></label><label class="check"><input type="checkbox" name="show_profile" checked> ${E(L('프로필 공개 (표시 이름·소개·공개 글 목록. 이메일은 공개되지 않아요)', 'Show my profile (name, about and public posts; never the e-mail)'))}</label><p class="muted small" id="pfProfileLink"></p><div class="actions"><button class="button">${E(L('저장', 'Save'))}</button><a class="button ghost" href="#account">${E(L('계정·탈퇴', 'Account and deletion'))}</a></div></form>${msg()}` : head(L('프로필', 'Profile')) + signInFirst() }
 
   // ---- photo contribution guide (works without a server) ----------------------------------------------------------------
   function contributePage(projectId) {
@@ -287,6 +326,7 @@
     if (sub === 'submit') return submitPage(rest)
     if (sub === 'mine') return minePage()
     if (sub === 'post') return postPage(rest)
+    if (sub === 'member') return memberPage()
     return home()
   }
   function bind(name) {
@@ -297,7 +337,8 @@
     const [, sub, rest] = (location.hash.slice(1).split('?')[0]).split('/')
     if (name === 'community' && !sub) { loadFeed('review'); document.querySelectorAll('[data-pf-kind]').forEach((b) => { b.onclick = () => { document.querySelectorAll('[data-pf-kind]').forEach((x) => x.setAttribute('aria-selected', String(x === b))); loadFeed(b.dataset.pfKind) } }) }
     if (sub === 'post') loadPost(rest)
-    if (sub === 'mine') { loadMine(); document.getElementById('pfMine')?.addEventListener('click', (ev) => { const b = ev.target.closest('[data-pf-appeal]'); if (b) appeal(b.dataset.pfAppeal) }) }
+    if (sub === 'mine') { loadMine(); document.getElementById('pfMine')?.addEventListener('click', (ev) => { const b = ev.target.closest('[data-pf-appeal]'); if (b) return appeal(b.dataset.pfAppeal); const e = ev.target.closest('[data-pf-edit]'); if (e) return editPost(e.dataset.pfEdit); const d = ev.target.closest('[data-pf-delete]'); if (d) removeOwn(d.dataset.pfDelete) }) }
+    if (sub === 'member') loadMember(rest)
     const w = document.getElementById('pfWrite')
     if (w) w.onsubmit = async (ev) => { ev.preventDefault(); const fd = new FormData(w); try { await api().createPost({ kind: fd.get('kind'), project_id: String(fd.get('project_id') || '').trim() || null, title: fd.get('title'), body: fd.get('body'), visited_on: fd.get('visited_on') || null, status: ev.submitter?.value === 'draft' ? 'draft' : 'pending' }); w.reset(); say(ev.submitter?.value === 'draft' ? L('임시 저장했어요. 내 제보·등록 내역에서 볼 수 있어요.', 'Saved as a draft.') : L('보냈어요. 검수 후 공개돼요.', 'Sent. It appears after review.')) } catch (e) { say(errText(e)) } }
     const s = document.getElementById('pfSubmit')
@@ -319,12 +360,16 @@
       } catch (e) { say(errText(e)) }
     }
     const pf = document.getElementById('pfProfile')
-    if (pf) { api().profile().then((p) => { if (p) { pf.display_name.value = p.display_name || ''; pf.bio.value = p.bio || '' } }).catch(() => {}); pf.onsubmit = async (ev) => { ev.preventDefault(); try { await api().saveProfile({ display_name: pf.display_name.value.trim() || null, bio: pf.bio.value.trim() || null }); say(L('저장했어요.', 'Saved.')) } catch (e) { say(errText(e)) } } }
+    if (pf) { const showLink = (p) => { const el = document.getElementById('pfProfileLink'); if (el && p?.public_id && p.show_profile) el.innerHTML = `<a href="#community/member/${E(p.public_id)}">${E(L('내 공개 프로필 보기', 'See my public profile'))}</a>`; else if (el) el.textContent = '' }; api().profile().then((p) => { if (p) { pf.display_name.value = p.display_name || ''; pf.bio.value = p.bio || ''; pf.show_profile.checked = p.show_profile !== false; showLink(p) } }).catch(() => {}); pf.onsubmit = async (ev) => { ev.preventDefault(); try { await api().saveProfile({ display_name: pf.display_name.value.trim() || null, bio: pf.bio.value.trim() || null, show_profile: pf.show_profile.checked }); say(L('저장했어요.', 'Saved.')); api().profile().then(showLink).catch(() => {}) } catch (e) { say(PROFILE_ERR[String(e?.message || '').match(/profile_[a-z_]+/)?.[0]] ? L(...PROFILE_ERR[e.message.match(/profile_[a-z_]+/)[0]]) : errText(e)) } } }
     document.querySelectorAll('[data-pf-like]').forEach((b) => { b.onclick = async () => { try { await api().like(Number(b.dataset.pfLike)); b.disabled = true } catch (e) { window.AOLApp?.toast?.(errText(e)) } } })
   }
   const ROUTES = new Set(['community', 'contribute', 'profile', 'research-apply'])
   // Report buttons appear in content loaded after the page rendered: one delegated listener serves them all.
   document.addEventListener('click', (ev) => { const b = ev.target.closest?.('[data-pf-report]'); if (b && enabled()) { ev.preventDefault(); report(b.dataset.pfReport) } })
   window.AOLPlatform = { enabled, page, bind, detailSection, contributeLink, handles: (n) => ROUTES.has(n), _reencode: reencode }
+  // The session is restored after the first render: a member page shown as "sign in first" re-renders once the user
+  // changes (restored, signed in or out), and only then, so a form being typed is not redrawn by sync updates.
+  let lastUid = window.AOLCloud?.state?.user?.id || null
+  window.addEventListener('aol:cloud-state', () => { const u = window.AOLCloud?.state?.user?.id || null; if (u === lastUid) return; lastUid = u; const n = (location.hash.slice(1).split('?')[0]).split('/')[0]; if (ROUTES.has(n)) window.AOLApp?.render?.() })
   window.addEventListener('aol:platform-ready', () => { const n = (location.hash.slice(1).split('?')[0]).split('/')[0]; if (ROUTES.has(n) || n === 'place') window.AOLApp?.render?.() })
 })()
