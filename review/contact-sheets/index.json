@@ -1,6 +1,6 @@
 {
  "about": "Contact sheets per kind (hero: hero candidates and allowlisted images; featured: featured candidates; cards: the card of each project) and provider, Korean projects first. Tile lines: #n and image id; provider and the original width x height; S sharpness B blockiness T tier V visual, then OK (approved), R? (needs an approve_image after review) or H? (hero candidate, needs hero.json/set_hero); the project id; the project name in ASCII. index.json maps every tile to its project, image id, file or source URL.",
- "generated_at": "2026-11-13T04:56:19.578Z",
+ "generated_at": "2026-11-13T06:50:12.483Z",
  "schema": 2,
  "sheets": [
   {
@@ -8069,7 +8069,7 @@
    ]
   },
   {
-   "grey_tiles": 37,
+   "grey_tiles": 39,
    "kind": "featured",
    "provider": "commons",
    "sheet": "featured-commons-06.jpg",
@@ -8101,7 +8101,7 @@
      "height": 2000,
      "hero_candidate": false,
      "image": "img-cc09b37edced",
-     "image_in_sheet": true,
+     "image_in_sheet": false,
      "korean": false,
      "n": 202,
      "project": "CAT-1TQLHFI",
@@ -8120,7 +8120,7 @@
      "height": 3000,
      "hero_candidate": false,
      "image": "img-edfdd0670c90",
-     "image_in_sheet": true,
+     "image_in_sheet": false,
      "korean": false,
      "n": 203,
      "project": "CAT-1TQLHFI",
@@ -18278,7 +18278,7 @@
    ]
   },
   {
-   "grey_tiles": 3,
+   "grey_tiles": 6,
    "kind": "cards",
    "provider": null,
    "sheet": "cards-09.jpg",
@@ -18310,7 +18310,7 @@
      "height": 684,
      "hero_candidate": false,
      "image": "img-734f5a3920b2",
-     "image_in_sheet": true,
+     "image_in_sheet": false,
      "korean": false,
      "n": 322,
      "project": "REG-JP-0006",
@@ -18329,7 +18329,7 @@
      "height": 681,
      "hero_candidate": false,
      "image": "img-be2713339469",
-     "image_in_sheet": true,
+     "image_in_sheet": false,
      "korean": false,
      "n": 323,
      "project": "REG-JP-0009",
@@ -18367,7 +18367,7 @@
      "height": 561,
      "hero_candidate": false,
      "image": "img-7f521f73d5fb",
-     "image_in_sheet": true,
+     "image_in_sheet": false,
      "korean": false,
      "n": 325,
      "project": "REG-NZ-0002",

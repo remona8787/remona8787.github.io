@@ -1,36 +1,10 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 5,
-  "examples": [
-   {
-    "id": "img-734f5a3920b2",
-    "project": "REG-JP-0006",
-    "title": "Sapporo White Illumination 2"
-   },
-   {
-    "id": "img-be2713339469",
-    "project": "REG-JP-0009",
-    "title": "Nagasaki Lantern Festival"
-   },
-   {
-    "id": "img-7f521f73d5fb",
-    "project": "REG-NZ-0002",
-    "title": "Auckland Lantern Festival"
-   },
-   {
-    "id": "img-a5127861dc65",
-    "project": "SEOUL043",
-    "title": "N Seoul Tower"
-   },
-   {
-    "id": "img-c4e1b178c6d3",
-    "project": "SEOUL043",
-    "title": "N Seoul Tower on Mt. Namsan"
-   }
-  ]
+  "count": 0,
+  "examples": []
  },
- "at": "2026-11-13T04:56:19.578Z",
+ "at": "2026-11-13T06:50:12.483Z",
  "cards": {
   "all": {
    "projects": 1009,
@@ -3857,7 +3831,7 @@
    "kr": true,
    "kr_region": "seoul",
    "name": "N서울타워",
-   "previous_images": 8,
+   "previous_images": 10,
    "status": "scored",
    "valid_card": true
   },
@@ -12736,7 +12710,7 @@
    "kr": false,
    "kr_region": null,
    "name": "삿포로 화이트 일루미네이션",
-   "previous_images": 0,
+   "previous_images": 1,
    "status": "scored",
    "valid_card": true
   },
@@ -12775,7 +12749,7 @@
    "kr": false,
    "kr_region": null,
    "name": "나가사키 랜턴 페스티벌",
-   "previous_images": 0,
+   "previous_images": 1,
    "status": "scored",
    "valid_card": true
   },
@@ -12905,7 +12879,7 @@
    "kr": false,
    "kr_region": null,
    "name": "오클랜드 랜턴 페스티벌",
-   "previous_images": 0,
+   "previous_images": 1,
    "status": "scored",
    "valid_card": true
   },
@@ -13508,20 +13482,6 @@
     ]
    },
    {
-    "key": "N Seoul Tower Panorama Night (cropped).jpg",
-    "project": "SEOUL043",
-    "reasons": [
-     "extreme_aspect"
-    ]
-   },
-   {
-    "key": "N Seoul Tower Panorama Night.jpg",
-    "project": "SEOUL043",
-    "reasons": [
-     "extreme_aspect"
-    ]
-   },
-   {
     "key": "Height comparison tower infinity.jpg",
     "project": "Q15076316",
     "reasons": [
@@ -13553,6 +13513,20 @@
    {
     "key": "Korea Sevit Island 06 (15540748615).jpg",
     "project": "SEOUL044",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "N Seoul Tower Panorama Night (cropped).jpg",
+    "project": "SEOUL043",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "N Seoul Tower Panorama Night.jpg",
+    "project": "SEOUL043",
     "reasons": [
      "extreme_aspect"
     ]
@@ -13785,13 +13759,6 @@
   ],
   "mislinked": [
    {
-    "key": "Goong Teddy Bears.JPG",
-    "project": "SEOUL043",
-    "reasons": [
-     "subject:object_or_animal:teddy bears"
-    ]
-   },
-   {
     "key": "img-a988be29e763",
     "project": "Q15076316",
     "reasons": [
@@ -13820,6 +13787,13 @@
     "reasons": [
      "subject:object_or_animal:bird",
      "too_small"
+    ]
+   },
+   {
+    "key": "Goong Teddy Bears.JPG",
+    "project": "SEOUL043",
+    "reasons": [
+     "subject:object_or_animal:teddy bears"
     ]
    },
    {
@@ -14422,6 +14396,13 @@
     ]
    },
    {
+    "key": "롯대월드타워 - panoramio (3).jpg",
+    "project": "SEOUL018",
+    "reasons": [
+     "rights:foreign_no_freedom_of_panorama"
+    ]
+   },
+   {
     "key": "계동에서 남산을 향해 바라본 도심.jpg",
     "project": "SEOUL043",
     "reasons": [
@@ -14433,13 +14414,6 @@
     "project": "SEOUL043",
     "reasons": [
      "rights:license_not_allowed"
-    ]
-   },
-   {
-    "key": "롯대월드타워 - panoramio (3).jpg",
-    "project": "SEOUL018",
-    "reasons": [
-     "rights:foreign_no_freedom_of_panorama"
     ]
    },
    {
@@ -14746,11 +14720,11 @@
   "low_res_rejected": 82,
   "mislinked_rejected": 70,
   "mislinked_removed": 0,
-  "newly_added_valid": 5,
+  "newly_added_valid": 0,
   "person_rejected": 682,
   "person_removed": 0,
   "portraits": 3,
-  "previous_images": 2742,
+  "previous_images": 2747,
   "rechecked_kept": 0,
   "relevance_verified": 2747,
   "removed_total": 0
