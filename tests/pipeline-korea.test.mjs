@@ -14,7 +14,7 @@ import { Cache } from '../pipeline/lib/cache.mjs'
 import { redactKeys } from '../pipeline/lib/util.mjs'
 import { runPipeline, loadConfig } from '../pipeline/run.mjs'
 import { loadSharp } from '../pipeline/lib/visual.mjs'
-import { fixtureEnvironment, FIXTURE_OVERRIDES, FIXTURE_ENV } from './fixtures/pipeline/fake-fetch.mjs'
+import { fixtureEnvironment, FIXTURE_OVERRIDES, FIXTURE_ENV, FIXTURE_PHOTO_KEY } from './fixtures/pipeline/fake-fetch.mjs'
 
 const KC = loadKoreaConfig()
 const GAZ = compileGazetteer(KC)
@@ -219,8 +219,13 @@ test('client views: a foreign view stops at its earlier deadline while the clien
 test('dry run, Korea first: regions on every Korean project, Korean sources first in every queue, a record per Korean row', needSharp, async () => {
   const dir = await mkdtemp(path.join(tmpdir(), 'aol-korea-'))
   const env = fixtureEnvironment()
-  const r = await runPipeline({ dataDir: dir, editorialDir: path.join(FIX, 'editorial'), fetch: env.fetch, clock: env.clock, sleep: env.sleep, overrides: FIXTURE_OVERRIDES, env: FIXTURE_ENV, log: () => {} })
+  const r = await runPipeline({ dataDir: dir, editorialDir: path.join(FIX, 'editorial'), fetch: env.fetch, clock: env.clock, sleep: env.sleep, overrides: FIXTURE_OVERRIDES, env: { ...FIXTURE_ENV, TOURAPI_PHOTO_SERVICE_KEY: FIXTURE_PHOTO_KEY }, log: () => {} })
   assert.equal(r.publishStatus, 'published')
+  // The photo gallery uses its own key when one is set; KorService2 keeps the TourAPI key.
+  const goKr = env.requests.filter((q) => q.host === 'apis.data.go.kr').map((q) => new URL(q.url))
+  const gallery = goKr.filter((u) => u.pathname.includes('/PhotoGalleryService1/')), kor = goKr.filter((u) => u.pathname.includes('/KorService2/'))
+  assert.ok(gallery.length > 0 && gallery.every((u) => u.searchParams.get('serviceKey') === FIXTURE_PHOTO_KEY), 'gallery requests carry the photo key')
+  assert.ok(kor.length > 0 && kor.every((u) => u.searchParams.get('serviceKey') === FIXTURE_ENV.TOURAPI_SERVICE_KEY), 'KorService2 requests carry the TourAPI key')
   const site = path.join(dir, 'site-data')
   const index = JSON.parse(await readFile(path.join(site, 'index.json'), 'utf8'))
   const manifest = JSON.parse(await readFile(path.join(site, 'manifest.json'), 'utf8'))
@@ -265,7 +270,7 @@ test('dry run, Korea first: regions on every Korean project, Korean sources firs
   assert.ok(review.decisions.every((d) => d.rule && 'region' in d))
   const tour = JSON.parse(await readFile(path.join(dir, 'review/tourapi.json'), 'utf8'))
   assert.equal(tour.items.length, 6, 'five keyword hits and one light festival from the festival list')
-  for (const f of ['review/http-log.json', 'review/tourapi.json', 'admin-data/report.json']) assert.ok(!(await readFile(path.join(dir, f), 'utf8')).includes(FIXTURE_ENV.TOURAPI_SERVICE_KEY), f + ' never holds the key')
+  for (const f of ['review/http-log.json', 'review/tourapi.json', 'admin-data/report.json']) assert.ok(!(await readFile(path.join(dir, f), 'utf8')).includes(FIXTURE_ENV.TOURAPI_SERVICE_KEY) && !(await readFile(path.join(dir, f), 'utf8')).includes(FIXTURE_PHOTO_KEY), f + ' never holds a key')
   // Without the key TourAPI is skipped, and the report says why.
   const dir2 = await mkdtemp(path.join(tmpdir(), 'aol-korea-'))
   const env2 = fixtureEnvironment()

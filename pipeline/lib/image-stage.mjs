@@ -64,6 +64,9 @@ export async function imageStage(ctx) {
   const today = startedAt.slice(0, 10)
   const providerOn = (name) => PV[name]?.enabled !== false
   const flickrKey = env.FLICKR_API_KEY, tourKey = env.TOURAPI_SERVICE_KEY, unsplashKey = env.UNSPLASH_ACCESS_KEY, pexelsKey = env.PEXELS_API_KEY
+  // The photo gallery (PhotoGalleryService1) is a separate data.go.kr application; whether data.go.kr issues it the same
+  // key value was not confirmed (docs/PUBLIC_DATA.md), so a key of its own is used when set, else the TourAPI key.
+  const photoKey = env.TOURAPI_PHOTO_SERVICE_KEY || tourKey
   const naver = naverConfig((k) => env[k])
   let flickrLic = null
   const openverseLimits = {}
@@ -186,9 +189,9 @@ export async function imageStage(ctx) {
         for (const img of imgs) out.push({ ...tourapiCandidate(img, item), placeIds: [...placeIds] })
       }
     }
-    if (korean && tourKey && providerOn('kto_photo') && (p.name_ko || ko)) {
+    if (korean && photoKey && providerOn('kto_photo') && (p.name_ko || ko)) {
       const q = ko || p.name_ko
-      for (const ph of await ask('kto_photo', 'kto-photo', 'kw:' + q, () => galleryPhotos(client, P.kto_photo || {}, q, { key: tourKey, cache })) || []) out.push(ktoPhotoCandidate(ph, { defaultLicense: P.kto_photo?.default_license_when_missing ?? null }))
+      for (const ph of await ask('kto_photo', 'kto-photo', 'kw:' + q, () => galleryPhotos(client, P.kto_photo || {}, q, { key: photoKey, cache })) || []) out.push(ktoPhotoCandidate(ph, { defaultLicense: P.kto_photo?.default_license_when_missing ?? null }))
     }
     if (providerOn('openverse') && !(Object.values(openverseLimits).some((v) => v === 0))) {
       for (const q of uniq([en, korean ? ko : null, !en ? qn.other || ko : null]).slice(0, 2)) {

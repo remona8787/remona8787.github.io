@@ -792,6 +792,38 @@ test('member photos (v2.0): publishing needs the staff grade, which goes to the 
  await expect(page.locator('#toast')).toContainText('B등급');
 });
 
+test('permission ledger (v2.0 P1): a saved draft, sending only after the operator confirms, plain reasons for a refused step',async({page})=>{
+ const m=await mockSupabase(page,{fail:{image_permission_requests:{when:b=>b?.status==='sent',status:400,body:{code:'23514',message:'permission_send_incomplete'}}}});
+ const dialogs=[];page.on('dialog',d=>{dialogs.push(d.message());d.accept()});
+ await signIn(page,'admin','#platform');
+ const req=page.locator('[data-perm="2"]');
+ await expect(req).toContainText('초안');
+ await expect(req).toContainText(XSS);
+ expect(await req.locator('img').count()).toBe(0);
+ await expect(page.locator('#platformBox')).toContainText('이 화면은 메일을 보내지 않아요');
+ await req.getByRole('button',{name:'초안 새로 만들기'}).click();
+ await expect(req.getByLabel('메일 본문')).toHaveValue(/홍보팀 담당자님께[\s\S]*Dear 홍보팀/);
+ await expect(req.getByLabel('메일 제목')).toHaveValue(/사용 허락 요청/);
+ await req.getByRole('button',{name:'초안 저장'}).click();
+ await expect.poll(()=>m.calls.filter(c=>c.name==='image_permission_requests'&&c.method==='PATCH').length).toBe(1);
+ const saved=m.calls.filter(c=>c.name==='image_permission_requests'&&c.method==='PATCH')[0].body;
+ expect(Object.keys(saved).sort()).toEqual(['draft_subject','draft_text']);
+ expect(saved.draft_text).toContain('pr@example.org');
+ // The steps offered are the ledger's next steps from a draft; marking it sent asks first, and the server's refusal reads plainly.
+ await expect(req.locator('[data-act="pf-perm"]')).toHaveText(['연락처 없음','보냄','철회']);
+ await req.getByRole('button',{name:'보냄'}).click();
+ expect(dialogs.at(-1)).toContain('이 화면은 메일을 보내지 않아요');
+ await expect(page.locator('#toast')).toContainText('연락처를 찾은 곳, 권리자라고 본 근거, 저장한 초안');
+ // The record: where the contact was found and the basis are saved together.
+ await req.locator('summary',{hasText:'기록 고치기'}).click();
+ await req.getByLabel('연락처를 찾은 곳').fill('https://example.org/press');
+ await req.getByLabel('권리자라고 본 근거').fill('사진 설명에 제공처로 표시');
+ await req.getByRole('button',{name:'저장',exact:true}).click();
+ await expect.poll(()=>m.calls.filter(c=>c.name==='image_permission_requests'&&c.method==='PATCH'&&c.body?.contact_source).length).toBe(1);
+ const rec=m.calls.filter(c=>c.name==='image_permission_requests'&&c.method==='PATCH'&&c.body?.contact_source)[0].body;
+ expect(rec).toMatchObject({contact_source:'https://example.org/press',holder_basis:'사진 설명에 제공처로 표시',contact_value:'pr@example.org',valid_until:null});
+});
+
 test('members (v2.0): list, account state, role and research access for admins, every value shown as text',async({page})=>{
  const m=await mockSupabase(page);
  page.on('dialog',d=>d.accept(d.type()==='prompt'?'광고 도배 반복':undefined));

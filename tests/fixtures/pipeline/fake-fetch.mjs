@@ -39,6 +39,7 @@ export const FIXTURE_OVERRIDES = {
 
 // The keys of a fixture run (never real keys): the keyed sources and image providers answer from the fixtures.
 export const FIXTURE_ENV = { TOURAPI_SERVICE_KEY: 'fixture-tourapi-key', FLICKR_API_KEY: 'fixture-flickr-key', SEOUL_OPEN_DATA_KEY: 'fixture-seoul-key' }
+export const FIXTURE_PHOTO_KEY = 'fixture-photo-gallery-key'
 
 const jsonRes = (v, { status = 200, type = 'application/json; charset=utf-8', headers = {} } = {}) => new Response(JSON.stringify(v), { status, headers: { 'content-type': type, ...headers } })
 const normTitle = (t) => String(t || '').replace(/_/g, ' ').trim()
@@ -285,7 +286,9 @@ function seoulOpenApi(u) {
 /** apis.data.go.kr: TourAPI KorService2 and PhotoGalleryService1 (a wrong key gets the gateway's error header). */
 function dataGoKr(u) {
   const p = u.searchParams, T = FIX.tourapi
-  if (p.get('serviceKey') !== FIXTURE_ENV.TOURAPI_SERVICE_KEY) return jsonRes({ response: { header: { resultCode: '30', resultMsg: 'SERVICE_KEY_IS_NOT_REGISTERED_ERROR' } } })
+  // The photo gallery is its own data.go.kr application: it also takes a key of its own (TOURAPI_PHOTO_SERVICE_KEY).
+  const keys = u.pathname.includes('/PhotoGalleryService1/') ? [FIXTURE_ENV.TOURAPI_SERVICE_KEY, FIXTURE_PHOTO_KEY] : [FIXTURE_ENV.TOURAPI_SERVICE_KEY]
+  if (!keys.includes(p.get('serviceKey'))) return jsonRes({ response: { header: { resultCode: '30', resultMsg: 'SERVICE_KEY_IS_NOT_REGISTERED_ERROR' } } })
   if (p.get('_type') !== 'json' || !p.get('MobileOS') || !p.get('MobileApp')) return jsonRes({ response: { header: { resultCode: '10', resultMsg: 'INVALID_REQUEST_PARAMETER_ERROR' } } })
   const op = u.pathname.split('/').pop(), page = Number(p.get('pageNo') || 1), rows = Number(p.get('numOfRows') || 10)
   if (op === 'searchKeyword2') { const all = page > 1 ? [] : T.search[`${p.get('keyword')}|${p.get('contentTypeId') || ''}`] || []; return goEnvelope(all, all.length, page, rows) }

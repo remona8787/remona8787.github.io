@@ -10,7 +10,7 @@ import {PGlite} from '@electric-sql/pglite';
 import {pg_trgm} from '@electric-sql/pglite/contrib/pg_trgm';
 const root=new URL('../',import.meta.url);
 const sql=async f=>(await readFile(new URL(f,root),'utf8')).replace(/create extension if not exists "?pgcrypto"?[^;]*;/gi,'');
-const MIGRATIONS=['supabase/migrations/20261018000000_media_facade_archive.sql','supabase/migrations/20261026000000_research_data.sql','supabase/migrations/20261112000000_v2_platform.sql','supabase/migrations/20261113000000_v2_photo_grades.sql','supabase/migrations/20261113010000_v2_admin_members.sql'];
+const MIGRATIONS=['supabase/migrations/20261018000000_media_facade_archive.sql','supabase/migrations/20261026000000_research_data.sql','supabase/migrations/20261112000000_v2_platform.sql','supabase/migrations/20261113000000_v2_photo_grades.sql','supabase/migrations/20261113010000_v2_admin_members.sql','supabase/migrations/20261113020000_v2_permission_ledger.sql'];
 const DEFAULT_GRANTS=`alter default privileges in schema public grant all on tables to anon,authenticated,service_role;
 alter default privileges in schema public grant all on functions to anon,authenticated,service_role;
 alter default privileges in schema public grant all on sequences to anon,authenticated,service_role;`;
@@ -270,6 +270,7 @@ test('roles, statistics, audit, image permission requests: staff only; the last 
  await mfa(db,EDITOR,`insert into public.image_permission_requests(project_id,image_ref,rights_holder,contact_channel,contact_value) values('SEOUL018','https://example.org/photo.jpg','롯데월드타워 홍보팀','web_form','https://example.org/contact')`);
  assert.equal((await user(db,ALICE,`select * from public.image_permission_requests`)).length,0);
  assert.equal((await user(db,EDITOR,`select * from public.image_permission_requests`)).length,0,'staff without an MFA session see nothing');
+ await mfa(db,EDITOR,`update public.image_permission_requests set contact_source='https://example.org/about (공식 사이트 문의 페이지)',holder_basis='사진 페이지에 저작권자로 표시',draft_text='초안'`);
  await mfa(db,EDITOR,`update public.image_permission_requests set status='sent'`);
  const ip=await one(mfa(db,EDITOR,`select status,requested_at from public.image_permission_requests`));
  assert.equal(ip.status,'sent');assert.ok(ip.requested_at);
@@ -277,6 +278,43 @@ test('roles, statistics, audit, image permission requests: staff only; the last 
  assert.equal(me.email_confirmed,true);
  assert.equal(me.application.status,'submitted');
  assert.equal(me.staff_role,null);
+});
+
+test('permission ledger (v2.0 P1): no step rests on a guess; closed requests stay closed; applying needs an approval', async()=>{
+ const ins=(extra='')=>one(mfa(db,EDITOR,`insert into public.image_permission_requests(project_id,image_ref,rights_holder,contact_channel,contact_value${extra?','+extra.split('=')[0]:''}) values('SEOUL006','https://example.org/ddp.jpg','DDP 홍보팀','email','press@example.org'${extra?','+extra.split('=')[1]:''}) returning id`));
+ assert.match(await err(mfa(db,EDITOR,`insert into public.image_permission_requests(project_id,image_ref,rights_holder,contact_channel,status) values('SEOUL006','x.jpg','누군가','email','approved')`)),/permission_new_must_be_draft/);
+ const {id}=await ins();
+ const set=(cols)=>mfa(db,EDITOR,`update public.image_permission_requests set ${cols} where id=${id}`);
+ assert.match(await err(set(`status='sent'`)),/permission_send_incomplete/,'no source, basis or draft');
+ await set(`contact_source='https://example.org/press (보도자료 페이지의 홍보팀 메일)'`);
+ await set(`holder_basis='사진 설명에 DDP 제공으로 표시'`);
+ assert.match(await err(set(`status='sent'`)),/permission_send_incomplete/,'no saved draft');
+ await set(`draft_subject='[빛의 건축] 사진 사용 허락 요청',draft_text='DDP 홍보팀 담당자님께, ...'`);
+ await set(`status='sent',sent_by=null,requested_at='2020-01-01'`);
+ let r=await one(mfa(db,EDITOR,`select status,sent_by,requested_at from public.image_permission_requests where id=${id}`));
+ assert.equal(r.status,'sent');assert.equal(r.sent_by,EDITOR,'who sent it is the server\'s record');
+ assert.match(await err(set(`status='draft'`)),/permission_step_not_allowed/,'a sent request does not go back to draft');
+ assert.match(await err(set(`status='approved'`)),/permission_reply_note/);
+ await set(`reply_note='2026-11-13 메일 회신: 저작자 표시 조건으로 허락'`);
+ assert.match(await err(set(`status='approved'`)),/permission_approval_incomplete/,'scope and evidence');
+ assert.match(await err(set(`applied_at=now(),applied_ref='x-decision'`)),/permission_apply_needs_approval/,'not before approval');
+ await set(`granted_scope='상세 페이지 게시, 저작자 표시 ⓒDDP',evidence_note='회신 메일 보관(운영자 메일함, 2026-11-13)',valid_until='2027-11-13',status='approved'`);
+ assert.match(await err(set(`applied_at=now()`)),/permission_apply_needs_approval/,'the decision it went into is required');
+ await set(`applied_at=now(),applied_ref='editorial/decisions/2026-11-13-set_image.json'`);
+ await set(`applied_at=null`);
+ r=await one(mfa(db,EDITOR,`select applied_at,applied_ref,response_at from public.image_permission_requests where id=${id}`));
+ assert.ok(r.applied_at&&r.applied_ref&&r.response_at,'an applied record stays');
+ await set(`status='revoked'`);
+ assert.ok((await one(mfa(db,EDITOR,`select revoked_at from public.image_permission_requests where id=${id}`))).revoked_at);
+ assert.match(await err(set(`status='approved'`)),/permission_step_not_allowed/,'a revoked permission is not reopened');
+ const acts=(await db.query(`select action from public.platform_audit_log where target_type='image_permission_request' and target_id='${id}' order by id`)).rows.map(x=>x.action);
+ assert.deepEqual(acts,['permission_sent','permission_approved','permission_applied','permission_revoked']);
+ // No contact found: the note says what was searched; it can go back to draft when one turns up.
+ const nc=await ins();
+ assert.match(await err(mfa(db,EDITOR,`update public.image_permission_requests set status='no_contact' where id=${nc.id}`)),/permission_no_contact_note/);
+ await mfa(db,EDITOR,`update public.image_permission_requests set status='no_contact',evidence_note='공식 사이트·SNS·보도자료에 연락처 없음(2026-11-13)' where id=${nc.id}`);
+ await mfa(db,EDITOR,`update public.image_permission_requests set status='draft' where id=${nc.id}`);
+ assert.equal((await user(db,ALICE,`select id from public.image_permission_requests`)).length,0,'members see none');
 });
 
 test('account deletion removes the member\'s rows; logs keep no person', async()=>{

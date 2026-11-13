@@ -35,7 +35,7 @@
 | Wikimedia Commons | `pipeline/lib/commons.mjs` | 불필요 | 연결 성공 | 공개 반영(공개 이미지 1,742장 전부, 빌드 20261026T215526Z) |
 | Wikipedia(13개 언어, 한국어 포함) | `pipeline/lib/wikipedia.mjs` | 불필요 | 연결 성공 | 공개 반영. 단, 한국어 검색 결과 381건은 대부분 일반 개념어나 해외 항목이었습니다(개선 중). |
 | 한국관광공사 TourAPI KorService2 | `pipeline/lib/tourapi.mjs` | `TOURAPI_SERVICE_KEY` 미설정 | 키 필요(매 실행 "skipped") | 0 |
-| 한국관광공사 관광사진(PhotoGalleryService1) | `pipeline/lib/providers.mjs` | 같은 키 | 키 필요 | 0 |
+| 한국관광공사 관광사진(PhotoGalleryService1) | `pipeline/lib/tourapi.mjs` | `TOURAPI_PHOTO_SERVICE_KEY`, 없으면 `TOURAPI_SERVICE_KEY` | 키 필요 | 0 |
 | Openverse | `pipeline/lib/providers.mjs` | 선택(OAuth) | 연결 성공(실행당 100건). 403 오류가 일부 있습니다. | 0. 장소명+위치만으로 연결된 사진 150장은 검수 대기입니다(SEOUL006 사례). |
 | Flickr | `pipeline/lib/providers.mjs` | `FLICKR_API_KEY` 미설정 | 키 필요 | 0 |
 | Unsplash, Pexels | `pipeline/lib/providers.mjs` | 미설정 | 키 필요 | 0 |
@@ -69,6 +69,14 @@
 - **축제 일정:** `searchFestival2`(최근 30일 이후 시작하는 축제, 최대 10쪽×100건)로 이미 수록된 축제의 회차 날짜를 채우고, 제목에 빛 축제 검색어(유등축제, 빛초롱축제, 불빛축제 등)가 있는 축제를 후보로 더합니다. 이 오퍼레이션은 공개 GitHub 프로젝트들의 호출 예로만 확인했고 공식 문서는 찾지 못했습니다. 키를 등록한 뒤 첫 실행의 `review/tourapi.json`으로 확인합니다. [2차]
 - **호출 제한:** 초당 2회. 한 번 실행할 때 새 개요 조회는 120건, 이미지 조회는 300건까지입니다.
 - **키 발급:** data.go.kr에서 "한국관광공사_국문 관광정보 서비스_GW"와 "한국관광공사_관광사진 정보_GW"를 각각 활용신청해야 합니다.
+- **키 재확인(2026-11-13):** 이 개발 환경에서는 data.go.kr에 접속할 수 없어 웹 검색으로만 확인했습니다.
+  - 확인: 서비스마다 활용신청이 따로 필요하고(오류 안내 "해당 API의 활용신청 여부와 승인 상태"), 호출 한도도 서비스별입니다.
+    개발계정은 신청 후 바로 또는 승인 후 쓸 수 있고 무료입니다. 운영계정 전환은 심의가 필요합니다.
+  - **확인 못 함:** 두 서비스가 같은 인증키 값을 쓰는지(계정당 하나의 일반 인증키라는 설명과 API마다 키가 붙는다는 설명이 엇갈림),
+    관광사진 서비스의 정확한 이름(`PhotoGalleryService1`)과 오퍼레이션(`gallerySearchList1`). 둘 다 키를 받은 뒤 마이페이지의
+    활용신청 현황과 상세 기능 목록에서 확인하세요.
+  - 그래서 수집기는 두 경우를 모두 받습니다: 관광사진 키가 따로 나오면 `TOURAPI_PHOTO_SERVICE_KEY`에, 같으면 `TOURAPI_SERVICE_KEY`
+    하나만 등록합니다. 서비스 이름이 다르면 첫 수집 보고서(`admin-data/report.json`)에 오류 코드가 남고 다른 출처는 그대로 돕니다.
 - **관련성 판단:** 제목이나 개요에 미디어파사드·미디어아트·프로젝션 매핑·빛축제 등 검색어가 있고 분류기도 동의해야 후보가 됩니다. 판단 기록은 모두 `review/tourapi.json`에 남습니다.
 - **상태:** 코드 완료, 키 필요.
 
@@ -145,6 +153,7 @@
 | 키 | 발급처 | 효과 |
 |---|---|---|
 | `TOURAPI_SERVICE_KEY` | data.go.kr 활용신청(두 서비스) | 전국 관광지·문화시설·축제와 공공누리 이미지 |
+| `TOURAPI_PHOTO_SERVICE_KEY` (관광사진 키가 따로 나올 때만) | data.go.kr "한국관광공사_관광사진 정보_GW" | 관광사진 갤러리 |
 | `SEOUL_OPEN_DATA_KEY` | 서울 열린데이터광장 인증키 신청 | 서울 문화행사 |
 | `FLICKR_API_KEY` (선택) | Flickr | 사진 후보. 모든 사진은 승인을 거쳐야 공개됩니다 |
 
