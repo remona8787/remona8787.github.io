@@ -167,7 +167,7 @@ const placeLine=p=>[p?.city,countryName(p?.country_iso2)].filter(Boolean).join('
 function loginMsg(text){const m=$('#loginMsg');m.textContent=text||'';m.hidden=!text}
 function showLogin(){
  S.role=null;S.tab=null;
- $('#loginView').hidden=false;$('#nav').hidden=true;$('#who').hidden=true;$('#logoutBtn').hidden=true;
+ $('#loginView').hidden=false;$('#mfaView').hidden=true;$('#nav').hidden=true;$('#who').hidden=true;$('#logoutBtn').hidden=true;
  for(const v of $$('.view'))v.hidden=true;
  document.body.classList.remove('signed-in');
 }
@@ -176,13 +176,53 @@ async function boot(){
  if(!T){loginMsg('../archive-taxonomy.js를 불러오지 못했어요. 배포 파일을 확인하세요.');$('#loginBtn').disabled=true;return}
  if(!(cfg.SUPABASE_URL&&cfg.SUPABASE_PUBLISHABLE_KEY)){loginMsg('서버가 연결되지 않았어요. admin/config.js에 SUPABASE_URL과 SUPABASE_PUBLISHABLE_KEY를 넣어 주세요.');$('#loginBtn').disabled=true;return}
  const {createClient}=await import('../assets/supabase.js');
- sb=createClient(cfg.SUPABASE_URL,cfg.SUPABASE_PUBLISHABLE_KEY);
- // The button stays disabled (index.html) until the client exists: a click before that would do nothing, and a native
- // submit before app.js ran would send the password to the page itself.
- $('#loginBtn').disabled=false;
+ // The console keeps its own session, apart from the member site on the same origin: a member signed in to the site
+ // is not signed out by opening the console, and a staff sign-in here does not change who is signed in to the site.
+ sb=createClient(cfg.SUPABASE_URL,cfg.SUPABASE_PUBLISHABLE_KEY,{auth:{storageKey:'aol-console-auth',persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
  sb.auth.onAuthStateChange(event=>{if(event==='SIGNED_OUT')setTimeout(showLogin,0)});
  const {data:{session}}=await sb.auth.getSession();
  if(session)await enter(session);else showLogin();
+ // The button stays disabled (index.html) until the saved session has been checked: a click before the client exists
+ // would do nothing (or, before app.js ran, send the password to the page itself), and a sign-in while a saved session
+ // is still being checked would race its outcome.
+ $('#loginBtn').disabled=false;
+}
+// ---- 2단계 인증 (TOTP): enrol once, then a code at every sign-in ----
+S.mfa={factorId:null};
+const mfaMsg=t=>{const m=$('#mfaMsg');m.hidden=!t;m.textContent=t||''};
+async function mfaReady(){
+ const {data:aal,error}=await sb.auth.mfa.getAuthenticatorAssuranceLevel();
+ if(error)throw error;
+ if(aal?.currentLevel==='aal2')return true;
+ const {data:f,error:fe}=await sb.auth.mfa.listFactors();
+ if(fe)throw fe;
+ const verified=(f?.totp||[]).find(x=>x.status==='verified');
+ mfaMsg('');$('#mfaCode').value='';
+ if(verified){S.mfa.factorId=verified.id;$('#mfaEnroll').hidden=true;$('#mfaTitle').textContent='인증 앱 확인';$('#mfaLede').textContent='인증 앱에 표시된 6자리 코드를 입력하세요.'}
+ else{
+  // Leftover unverified factors (an enrolment that was not finished) are removed before a new one.
+  for(const x of (f?.all||[]).filter(x=>x.factor_type==='totp'&&x.status!=='verified'))await sb.auth.mfa.unenroll({factorId:x.id}).catch(()=>{});
+  const {data:en,error:ee}=await sb.auth.mfa.enroll({factorType:'totp',friendlyName:'빛의 건축 운영 콘솔'});
+  if(ee)throw ee;
+  S.mfa.factorId=en.id;$('#mfaEnroll').hidden=false;$('#mfaQr').src=en.totp.qr_code;$('#mfaSecret').textContent=en.totp.secret;
+  $('#mfaTitle').textContent='인증 앱 등록';$('#mfaLede').textContent='관리자·편집자 기능을 쓰려면 2단계 인증을 한 번 등록해야 해요.';
+ }
+ // Shown only once the factor (and, for a new one, its QR code and key) is ready.
+ $('#loginView').hidden=true;$('#mfaView').hidden=false;
+ $('#mfaCode').focus();
+ return false;
+}
+async function mfaVerify(){
+ const code=$('#mfaCode').value.trim();
+ if(!/^[0-9]{6}$/.test(code)){mfaMsg('6자리 숫자를 입력하세요.');return}
+ $('#mfaBtn').disabled=true;
+ try{
+  const {error}=await sb.auth.mfa.challengeAndVerify({factorId:S.mfa.factorId,code});
+  if(error)throw error;
+  const {data:{session}}=await sb.auth.getSession();
+  await enter(session);
+ }catch(e){mfaMsg(/invalid|expired|code/i.test(`${e.code||''} ${e.message||''}`)?'코드가 맞지 않거나 시간이 지났어요. 앱의 새 코드를 입력하세요.':errText(e))}
+ finally{$('#mfaBtn').disabled=false}
 }
 async function login(){
  if(!sb)return;
@@ -197,8 +237,12 @@ async function login(){
 async function enter(session){
  let role=null;
  try{role=await rpc('archive_role')}
- catch(e){await sb.auth.signOut().catch(()=>{});showLogin();loginMsg(e?.code==='PGRST202'?'서버에 archive_role 함수가 없어요. 아카이브 데이터베이스 마이그레이션을 먼저 적용하세요.':'역할을 확인하지 못해 로그아웃했어요. '+errText(e));return}
- if(!RANK[role]){await sb.auth.signOut().catch(()=>{});showLogin();loginMsg('이 계정에는 운영 역할이 없어서 로그아웃했어요. 관리자에게 역할(관리자·편집자·연구자)을 받아야 들어올 수 있어요.');return}
+ catch(e){await sb.auth.signOut({scope:'local'}).catch(()=>{});showLogin();loginMsg(e?.code==='PGRST202'?'서버에 archive_role 함수가 없어요. 아카이브 데이터베이스 마이그레이션을 먼저 적용하세요.':'역할을 확인하지 못해 로그아웃했어요. '+errText(e));return}
+ if(!RANK[role]){await sb.auth.signOut({scope:'local'}).catch(()=>{});showLogin();loginMsg('이 계정에는 운영 역할이 없어서 로그아웃했어요. 관리자에게 역할(관리자·편집자·연구자)을 받아야 들어올 수 있어요.');return}
+ // v2.0: staff (admin, editor) work only in a session verified with a second factor; the database refuses staff
+ // functions otherwise (platform_require: mfa_required). A researcher needs no second factor.
+ if((role==='admin'||role==='editor')&&!(await mfaReady()))return;
+ $('#mfaView').hidden=true;
  S.role=role;S.email=session?.user?.email||'';S.uid=session?.user?.id||null;
  $('#loginView').hidden=true;$('#nav').hidden=false;$('#who').hidden=false;$('#logoutBtn').hidden=false;
  $('#whoEmail').textContent=S.email;$('#whoRole').textContent=lbl('role',role);
@@ -932,10 +976,32 @@ async function loadMembers(){
   <h2 class="h3">데이터셋별 다운로드</h2>${Object.keys(st.by_dataset||{}).length?html`<ul>${Object.entries(st.by_dataset).map(([k,v])=>html`<li><code>${k}</code> ${num(v)}회</li>`)}</ul>`:html`<p class="muted">기간 내 다운로드가 없어요.</p>`}
   <h2 class="h3">이용자 유형 (선택 입력)</h2><ul>${Object.entries(st.user_types||{}).map(([k,v])=>html`<li>${({researcher:'연구자',student:'학생',professional:'전문가',public:'일반',other:'기타',not_given:'입력 안 함'})[k]||k} ${num(v)}명</li>`)}</ul>
   <h2 class="h3">데이터셋</h2>${rows(ds.data).length?html`<div class="table-scroll" tabindex="0" role="region" aria-label="데이터셋 표"><table><thead><tr><th scope="col">ID</th><th scope="col">이름</th><th scope="col">등급</th><th scope="col">라이선스</th><th scope="col">최신 버전</th></tr></thead><tbody>${rows(ds.data).map(d=>{const v=rows(vs.data).find(x=>x.dataset_id===d.id);return html`<tr><th scope="row"><code>${d.id}</code></th><td>${d.title_ko}${d.active?'':' (중단)'}</td><td>${({public:'공개',member:'회원',institution:'기관'})[d.tier]||d.tier}</td><td>${d.licence}</td><td>${v?`${v.version} · ${day(v.data_as_of)} 기준 · ${num(v.record_count)}건`:'—'}</td></tr>`})}</tbody></table></div>`:html`<p class="muted">등록된 데이터셋이 없어요. docs/RESEARCH_DATA.md 5절의 방법으로 추가해요.</p>`}
-  <p class="muted small">개인 단위 기록(이메일, 다운로드 이력)은 이 화면에 나오지 않아요.</p>`);
+  <div id="memberAdmin"></div>`);
+  loadMemberAdmin();
  }catch(e){put(box,errBox(e,e?.code==='PGRST202'?'서버에 연구 데이터 마이그레이션(20261026000000_research_data.sql)이 없어요.':'회원 통계를 불러오지 못했어요.'))}
 }
 forms['members-filter']=()=>loadMembers();
+
+// ---- v2.0: members, research access and the download log (admin, MFA; platform_member_list is audited) ----
+const MEMBER_STATE={active:'정상',suspended:'일시 정지',banned:'이용 차단'};
+S.mem={q:''};
+async function loadMemberAdmin(){
+ const box=$('#memberAdmin');if(!box)return;put(box,html`<p class="muted">회원 목록을 불러오는 중…</p>`);
+ try{
+  const [list,grants,dls]=await Promise.all([rpc('platform_member_list',{p_query:S.mem.q||null,p_limit:50}),rpc('platform_research_grants',{p_limit:100}),rpc('platform_research_downloads',{p_limit:100})]);
+  put(box,html`<h2 class="h3">회원 목록</h2><p class="muted small">이 목록을 볼 때마다 누가 무엇을 찾았는지 감사 기록에 남아요. 이메일은 연락과 권한 관리에만 써요.</p>
+   <form data-form="member-search" class="filters" role="search"><label class="field">이메일·표시 이름 <input name="q" value="${S.mem.q||''}" aria-label="회원 검색"></label><button class="btn" type="submit">찾기</button></form>
+   <div class="table-scroll" tabindex="0" role="region" aria-label="회원 목록"><table><thead><tr><th scope="col">이메일</th><th scope="col">가입</th><th scope="col">인증</th><th scope="col">최근 로그인</th><th scope="col">활동</th><th scope="col">연구자</th><th scope="col">상태</th><th scope="col">역할</th></tr></thead><tbody>${rows(list).map(m=>html`<tr><th scope="row">${m.email}<br><span class="muted small">${m.display_name||''}</span></th><td>${when(m.created_at)}</td><td>${m.email_confirmed?'완료':'미완료'}</td><td>${when(m.last_sign_in_at)}</td><td class="small">글 ${num(m.posts)} · 사진 ${num(m.photos)} · 제보 ${num(m.submissions)}</td><td>${m.researcher?(PF_STATUS[m.researcher]||m.researcher):'—'}</td>
+    <td><select id="memState-${m.user_id}" aria-label="${m.email} 상태">${Object.entries(MEMBER_STATE).map(([k,l])=>html`<option value="${k}"${on(k===(m.state||'active'),'selected')}>${l}</option>`)}</select><button class="btn ghost" data-act="mem-state" data-id="${m.user_id}" type="button">적용</button>${m.state_reason?html`<br><span class="muted small">${m.state_reason}</span>`:''}</td>
+    <td><select id="memRole-${m.user_id}" aria-label="${m.email} 역할"><option value=""${on(!m.role,'selected')}>없음</option><option value="editor"${on(m.role==='editor','selected')}>편집자</option><option value="admin"${on(m.role==='admin','selected')}>관리자</option></select><button class="btn ghost" data-act="mem-role" data-id="${m.user_id}" type="button">적용</button></td></tr>`)}</tbody></table></div>
+   <h2 class="h3">연구 데이터 접근 권한</h2>${rows(grants).length?html`<div class="table-scroll" tabindex="0" role="region" aria-label="연구 데이터 접근 권한"><table><thead><tr><th scope="col">이메일</th><th scope="col">데이터셋</th><th scope="col">부여</th><th scope="col">만료</th><th scope="col">상태</th><th scope="col"><span class="sr-only">취소</span></th></tr></thead><tbody>${rows(grants).map(g=>html`<tr><th scope="row">${g.email||'(탈퇴)'}</th><td><code>${g.dataset_id}</code></td><td>${when(g.granted_at)}</td><td>${when(g.expires_at)}</td><td>${g.revoked_at?html`취소됨 · ${g.revoke_reason||''}`:g.active?'유효':'만료'}</td><td>${g.active?html`<button class="btn danger" data-act="grant-revoke" data-id="${g.id}" type="button">권한 취소</button>`:''}</td></tr>`)}</tbody></table></div>`:html`<p class="muted">부여된 권한이 없어요.</p>`}
+   <h2 class="h3">연구 데이터 다운로드 기록</h2>${rows(dls).length?html`<div class="table-scroll" tabindex="0" role="region" aria-label="다운로드 기록"><table><thead><tr><th scope="col">시각</th><th scope="col">이메일</th><th scope="col">데이터셋</th><th scope="col">결과</th></tr></thead><tbody>${rows(dls).map(d=>html`<tr><td>${when(d.requested_at)}</td><th scope="row">${d.email||'(탈퇴)'}</th><td><code>${d.dataset_id} ${d.version}</code> ${String(d.format||'').toUpperCase()}</td><td>${d.ok?'성공':html`실패 · <code>${d.error||''}</code>`}</td></tr>`)}</tbody></table></div>`:html`<p class="muted">아직 다운로드가 없어요.</p>`}`);
+ }catch(e){put(box,errBox(e,/mfa_required/.test(e?.message||'')?'2단계 인증을 마친 로그인에서만 볼 수 있어요.':'회원 목록을 불러오지 못했어요.'))}
+}
+forms['member-search']=f=>{S.mem.q=String(new FormData(f).get('q')||'').trim();loadMemberAdmin()};
+acts['mem-state']=async el=>{const id=el.dataset.id,state=$(`#memState-${id}`).value;const reason=state==='active'?'운영자 해제':prompt(`${MEMBER_STATE[state]} 사유를 적어 주세요(회원에게 보여요).`);if(state!=='active'&&!reason)return;await rpc('platform_set_member_status',{p_user:id,p_state:state,p_reason:reason,p_until:null});toast(`상태를 ${MEMBER_STATE[state]}(으)로 바꿨어요.`);loadMemberAdmin()};
+acts['mem-role']=async el=>{const id=el.dataset.id,role=$(`#memRole-${id}`).value||null;if(!confirm(role?`이 회원에게 ${role==='admin'?'관리자':'편집자'} 역할을 줄까요? 2단계 인증을 해야 쓸 수 있어요.`:'이 회원의 운영 역할을 없앨까요?'))return;await rpc('platform_set_role',{p_user:id,p_role:role});toast('역할을 바꿨어요.');loadMemberAdmin()};
+acts['grant-revoke']=async el=>{const reason=prompt('권한 취소 사유를 적어 주세요(연구자에게 보여요). 취소하면 다음 다운로드부터 바로 막혀요.');if(!reason)return;await rpc('research_grant_revoke',{p_grant:Number(el.dataset.id),p_reason:reason});toast('권한을 취소했어요.');loadMemberAdmin()};
 
 
 // ---- v2.0 member platform (docs/PLATFORM.md): moderation queues, researcher applications, flags, appeals, image
@@ -1038,5 +1104,7 @@ document.addEventListener('keydown',e=>{
  }else if(e.key==='/'){e.preventDefault();$('#queueSearch').focus()}
 });
 $('#loginForm').addEventListener('submit',e=>{e.preventDefault();login()});
-$('#logoutBtn').addEventListener('click',async()=>{await sb?.auth.signOut().catch(()=>{});showLogin();loginMsg('')});
+$('#mfaForm').addEventListener('submit',e=>{e.preventDefault();mfaVerify()});
+$('#mfaCancel').addEventListener('click',()=>sb?.auth.signOut({scope:'local'}).catch(()=>{}).then(showLogin));
+$('#logoutBtn').addEventListener('click',async()=>{await sb?.auth.signOut({scope:'local'}).catch(()=>{});showLogin();loginMsg('')});
 boot().catch(e=>{loginMsg('연결하지 못했어요: '+errText(e));$('#loginBtn').disabled=true});

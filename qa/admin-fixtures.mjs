@@ -11,10 +11,13 @@ export const USERS={
  admin:{id:'00000000-0000-4000-8000-0000000000a1',email:'admin@aol.test',role:'admin'},
  editor:{id:'00000000-0000-4000-8000-0000000000e1',email:'editor@aol.test',role:'editor'},
  researcher:{id:'00000000-0000-4000-8000-0000000000f1',email:'researcher@aol.test',role:'researcher'},
+ // A new editor whose password session is aal1 and who has no second factor yet (v2.0 MFA enrolment).
+ newstaff:{id:'00000000-0000-4000-8000-0000000000e2',email:'newstaff@aol.test',role:'editor',aal:'aal1'},
  nobody:{id:'00000000-0000-4000-8000-000000000001',email:'nobody@aol.test',role:null}
 };
 const b64=x=>Buffer.from(JSON.stringify(x)).toString('base64url');
-export const token=u=>`${b64({alg:'HS256',typ:'JWT'})}.${b64({sub:u.id,email:u.email,role:'authenticated',aud:'authenticated',exp:2000000000})}.c2lnbmF0dXJl`;
+// Staff sessions carry aal2 (second factor done) unless a test asks for aal1 (u.aal), as the real Auth server issues them.
+export const token=u=>`${b64({alg:'HS256',typ:'JWT'})}.${b64({sub:u.id,email:u.email,role:'authenticated',aud:'authenticated',exp:2000000000,aal:u.aal||'aal2',amr:[{method:'password',timestamp:1700000000}]})}.c2lnbmF0dXJl`;
 const userObj=u=>({id:u.id,aud:'authenticated',role:'authenticated',email:u.email,app_metadata:{provider:'email'},user_metadata:{},created_at:'2026-01-01T00:00:00Z'});
 const session=u=>({access_token:token(u),token_type:'bearer',expires_in:3600,expires_at:Math.floor(Date.now()/1000)+3600,refresh_token:'refresh-'+u.id,user:userObj(u)});
 
@@ -120,13 +123,18 @@ export function seed(){
  };
 }
 
-const ADMIN_ONLY=new Set(['archive_admin_upsert_rule','archive_admin_upsert_keyword','archive_admin_delete_keyword','archive_admin_set_settings','research_admin_stats','platform_audit_recent']);
+const ADMIN_ONLY=new Set(['archive_admin_upsert_rule','archive_admin_upsert_keyword','archive_admin_delete_keyword','archive_admin_set_settings','research_admin_stats','platform_audit_recent','platform_member_list','platform_research_grants','platform_research_downloads','platform_set_member_status','platform_set_role','research_grant_revoke']);
 const ANY_ROLE=new Set(['archive_role','archive_search','archive_research_add_assessment']);
 const LEGACY=new Set(['admin_candidate_stats','admin_list_candidates','admin_update_candidate','admin_promote_candidate','admin_list_ingestion_jobs']);
 const now=()=>new Date().toISOString();
 const findP=(d,id)=>d.projects.find(p=>p.id===id);
 const RPC={
  // v2.0 member platform (docs/PLATFORM.md): the console's "회원 활동 검수" tab. Queued content carries the XSS probe.
+ platform_member_list:(d,b)=>[{user_id:'m1000000-0000-4000-8000-000000000001',email:XSS,display_name:'밤의 산책자',created_at:ago(500),email_confirmed:true,last_sign_in_at:ago(2),state:'active',role:null,posts:3,photos:1,submissions:0,researcher:'approved'},
+  {user_id:'m1000000-0000-4000-8000-000000000002',email:'bob@example.org',display_name:null,created_at:ago(100),email_confirmed:false,last_sign_in_at:null,state:'suspended',state_reason:'광고 도배',role:'editor',posts:0,photos:0,submissions:0,researcher:null}].filter(m=>!b.p_query||String(m.email).includes(b.p_query)),
+ platform_research_grants:()=>[{id:21,email:'alice@example.org',dataset_id:'aol-research',granted_at:ago(48),expires_at:ahead(8000),revoked_at:null,active:true},{id:22,email:null,dataset_id:'aol-images',granted_at:ago(900),expires_at:ago(10),revoked_at:null,active:false}],
+ platform_research_downloads:()=>[{id:31,email:'alice@example.org',dataset_id:'aol-research',version:'2.0.0',format:'csv',ok:true,error:null,requested_at:ago(3)},{id:32,email:'bob@example.org',dataset_id:'aol-research',version:'2.0.0',format:'csv',ok:false,error:'researcher_approval_required',requested_at:ago(4)}],
+ platform_set_member_status:()=>({ok:true}),platform_set_role:()=>({ok:true}),research_grant_revoke:()=>({ok:true}),
  platform_admin_stats:()=>({members:12,restricted:1,applications:{submitted:1},active_grants:2,queue:{posts:1,comments:0,photos:0,submissions:0,flags:1,appeals:0},published:{posts:4,photos:2,submissions:1}}),
  platform_admin_queue:(d,b,u)=>b.p_type==='post'?[{id:41,kind:'review',project_id:'SEOUL006',author_name:XSS,title:XSS,body:XSS_SCRIPT,status:'needs_review',moderation:{source:'rules',flags:['privacy:phone']},created_at:now()}]
   :b.p_type==='photo'?[{id:51,project_id:'SEOUL006',author_name:'김사진',caption:XSS,width:3000,height:2000,licence:'cc-by-4.0',offer_official:true,status:'needs_review',created_at:now()}]
@@ -194,6 +202,10 @@ const CORS={'access-control-allow-origin':'*','access-control-allow-methods':'GE
 // fail: {rpcOrFunctionName: {status, body}} makes that call fail.
 export async function mockSupabase(page,{fail={},data=seed()}={}){
  const calls=[],byToken=new Map(Object.values(USERS).map(u=>[token(u),u]));
+ // The second factor of the new editor (Auth's /factors endpoints): enrolled, challenged, verified with 123456.
+ const mfa={factors:[]};
+ const verifiedOf=u=>({...u,aal:'aal2'});
+ byToken.set(token(verifiedOf(USERS.newstaff)),verifiedOf(USERS.newstaff));
  await page.route(/^https?:\/\/(?!127\.0\.0\.1|localhost)/,r=>r.request().resourceType()==='image'?r.fulfill({contentType:'image/png',body:PNG}):r.abort('blockedbyclient'));
  await page.route('**/admin/config.js',r=>r.fulfill({contentType:'text/javascript',body:`window.AOL_ADMIN_CONFIG={SUPABASE_URL:${JSON.stringify(SUPABASE)},SUPABASE_PUBLISHABLE_KEY:${JSON.stringify(KEY)}};`}));
  await page.route(SUPABASE+'/**',async r=>{
@@ -209,7 +221,12 @@ export async function mockSupabase(page,{fail={},data=seed()}={}){
    return !u||body.password!==PASSWORD?reply(400,{code:400,error_code:'invalid_credentials',msg:'Invalid login credentials'}):reply(200,session(u));
   }
   if(path==='/auth/v1/logout'){calls.push({kind:'auth',name:'logout'});return r.fulfill({status:204,headers:CORS})}
-  if(path==='/auth/v1/user')return user?reply(200,userObj(user)):reply(401,{msg:'invalid JWT'});
+  if(path==='/auth/v1/factors'&&req.method()==='POST'){calls.push({kind:'auth',name:'mfa_enroll',body});const f={id:'f-1',factor_type:'totp',friendly_name:body?.friendly_name,status:'unverified'};mfa.factors.push(f);return reply(200,{id:f.id,type:'totp',friendly_name:f.friendly_name,totp:{qr_code:'data:image/svg+xml;utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"/>',secret:'JBSWY3DPEHPK3PXP',uri:'otpauth://totp/aol:newstaff?secret=JBSWY3DPEHPK3PXP'}})}
+  const fm=path.match(/^\/auth\/v1\/factors\/([^/]+)(?:\/(challenge|verify))?$/);
+  if(fm&&req.method()==='DELETE'){mfa.factors=mfa.factors.filter(f=>f.id!==fm[1]);return reply(200,{id:fm[1]})}
+  if(fm&&fm[2]==='challenge'){calls.push({kind:'auth',name:'mfa_challenge'});return reply(200,{id:'ch-1',type:'totp',expires_at:Math.floor(Date.now()/1000)+300})}
+  if(fm&&fm[2]==='verify'){calls.push({kind:'auth',name:'mfa_verify',body});if(body?.code!=='123456')return reply(422,{code:422,error_code:'mfa_verification_failed',msg:'Invalid TOTP code entered'});const f=mfa.factors.find(x=>x.id===fm[1]);if(f)f.status='verified';const v=verifiedOf(user||USERS.newstaff);return reply(200,{...session(v),user:{...userObj(v),factors:mfa.factors}})}
+  if(path==='/auth/v1/user')return user?reply(200,{...userObj(user),factors:user.id===USERS.newstaff.id?mfa.factors:[]}):reply(401,{msg:'invalid JWT'});
   const rpc=path.match(/^\/rest\/v1\/rpc\/(\w+)$/),fn=path.match(/^\/functions\/v1\/([\w-]+)$/);
   if(rpc||fn){
    const name=(rpc||fn)[1];

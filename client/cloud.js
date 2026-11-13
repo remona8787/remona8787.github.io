@@ -72,7 +72,7 @@ async function loadCatalog(){
  // Keep the last successful media snapshot on API failure; never replace it with [].
  if(!mediaError)app().setMedia(media||[]);
  const {data:posts,error:postError}=await client.from('archive_articles').select('id,title,summary,body,author,source_url,published_at,status').eq('status','published').order('published_at',{ascending:false}).limit(100);
- if(!postError){window.AOL_ARTICLES=posts||[];app().render()}
+ if(!postError){window.AOL_ARTICLES=posts||[];(app().catalogRender||app().render)()}
  if(mediaError||postError)throw mediaError||postError;
  state.catalogError='';notify();
 }

@@ -10,7 +10,7 @@ import {PGlite} from '@electric-sql/pglite';
 import {pg_trgm} from '@electric-sql/pglite/contrib/pg_trgm';
 const root=new URL('../',import.meta.url);
 const sql=async f=>(await readFile(new URL(f,root),'utf8')).replace(/create extension if not exists "?pgcrypto"?[^;]*;/gi,'');
-const MIGRATIONS=['supabase/migrations/20261018000000_media_facade_archive.sql','supabase/migrations/20261026000000_research_data.sql','supabase/migrations/20261112000000_v2_platform.sql','supabase/migrations/20261113000000_v2_photo_grades.sql'];
+const MIGRATIONS=['supabase/migrations/20261018000000_media_facade_archive.sql','supabase/migrations/20261026000000_research_data.sql','supabase/migrations/20261112000000_v2_platform.sql','supabase/migrations/20261113000000_v2_photo_grades.sql','supabase/migrations/20261113010000_v2_admin_members.sql'];
 const DEFAULT_GRANTS=`alter default privileges in schema public grant all on tables to anon,authenticated,service_role;
 alter default privileges in schema public grant all on functions to anon,authenticated,service_role;
 alter default privileges in schema public grant all on sequences to anon,authenticated,service_role;`;
@@ -290,4 +290,36 @@ test('account deletion removes the member\'s rows; logs keep no person', async()
  assert.equal((await svc(db,`select count(*)::int n from public.research_grants where user_id=$1`,[ALICE]))[0].n,0);
  assert.equal((await svc(db,`select count(*)::int n from public.content_flags where reporter=$1`,[ALICE]))[0].n,0,'flags lose the reporter');
  assert.ok((await svc(db,`select count(*)::int n from public.platform_audit_log`))[0].n>0,'the audit log stays');
+});
+
+let DANA;
+test('operator lists (v2.0): members, research grants and downloads for admins with MFA only; viewing members is audited', async()=>{
+ DANA=(await db.query(`insert into auth.users(email,email_confirmed_at) values('dana@t',now()) returning id`)).rows[0].id;
+ await user(db,DANA,`insert into public.member_profiles(user_id,display_name) values($1,'밤의 산책자')`,[DANA]);
+ assert.match(await err(user(db,ALICE,`select public.platform_member_list()`)),/admin|staff|role/i,'a member cannot list members');
+ assert.match(await err(mfa(db,EDITOR,`select public.platform_member_list()`)),/admin/i,'nor an editor');
+ assert.match(await err(user(db,ADMIN,`select public.platform_member_list()`)),/mfa_required/,'an admin needs the second factor');
+ const list=(await one(mfa(db,ADMIN,`select public.platform_member_list('dana') r`))).r;
+ assert.equal(list.length,1);
+ assert.deepEqual([list[0].email,list[0].display_name,list[0].state,list[0].email_confirmed],['dana@t','밤의 산책자','active',true]);
+ const audit=await svc(db,`select action,detail from public.platform_audit_log where action='member_list_viewed' order by id desc limit 1`);
+ assert.equal(audit[0].detail.query,'dana','who looked for whom is in the audit log');
+ assert.ok(Array.isArray((await one(mfa(db,ADMIN,`select public.platform_research_grants() r`))).r));
+ assert.ok(Array.isArray((await one(mfa(db,ADMIN,`select public.platform_research_downloads() r`))).r));
+ assert.match(await err(mfa(db,EDITOR,`select public.platform_research_downloads()`)),/admin/i);
+});
+
+test('public profiles (v2.0): a random public id the member cannot set, an opt-out, and no contacts or staff-like names', async()=>{
+ const before=(await svc(db,`select public_id from public.member_profiles where user_id=$1`,[DANA]))[0].public_id;
+ await user(db,DANA,`update public.member_profiles set public_id=gen_random_uuid(), bio='밤에 빛 작품을 보러 다녀요.' where user_id=$1`,[DANA]);
+ assert.equal((await svc(db,`select public_id from public.member_profiles where user_id=$1`,[DANA]))[0].public_id,before,'the public id is the server\'s');
+ for(const [name,re] of [['운영자 김씨',/profile_name_reserved/],['Admin Kim',/profile_name_reserved/],['kim@example.com',/profile_name_contact/],['010-1234-5678',/profile_name_contact/],['www.spam.example',/profile_name_contact/]])
+  assert.match(await err(user(db,DANA,`update public.member_profiles set display_name=$2 where user_id=$1`,[DANA,name])),re,name);
+ assert.match(await err(user(db,DANA,`update public.member_profiles set bio='연락 주세요 010-2222-3333' where user_id=$1`,[DANA])),/profile_bio_rules/);
+ const pub=await anon(db,`select * from public.community_public_members where public_id=$1`,[before]);
+ assert.equal(pub.length,1);
+ assert.ok(!('user_id' in pub[0]),'no account id in the public profile');
+ await user(db,DANA,`update public.member_profiles set show_profile=false where user_id=$1`,[DANA]);
+ assert.equal((await anon(db,`select count(*)::int n from public.community_public_members where public_id=$1`,[before]))[0].n,0,'a hidden profile is not listed');
+ await user(db,DANA,`update public.member_profiles set show_profile=true where user_id=$1`,[DANA]);
 });

@@ -40,6 +40,23 @@
       <div id="loginMsg" class="notice error" role="alert" hidden></div>
     </section>
 
+    <section id="mfaView" class="login" aria-labelledby="mfaTitle" hidden>
+      <p class="eyebrow">운영 콘솔 · 2단계 인증</p>
+      <h1 id="mfaTitle" tabindex="-1">인증 앱 확인</h1>
+      <p class="muted" id="mfaLede">관리자·편집자 기능은 2단계 인증을 거친 로그인에서만 열려요(서버가 확인해요).</p>
+      <div id="mfaEnroll" hidden>
+        <p>인증 앱(Google Authenticator, Microsoft Authenticator, 1Password 등)으로 아래 QR 코드를 찍거나 비밀 키를 직접 입력하세요. 이 화면을 닫으면 처음부터 다시 등록해요.</p>
+        <img id="mfaQr" alt="인증 앱 등록 QR 코드" width="180" height="180">
+        <p class="small">비밀 키: <code id="mfaSecret"></code></p>
+      </div>
+      <form id="mfaForm" class="stack" novalidate>
+        <label for="mfaCode">인증 앱의 6자리 코드</label><input id="mfaCode" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required>
+        <button class="btn primary" id="mfaBtn" type="submit">확인</button>
+        <button class="btn ghost" id="mfaCancel" type="button">로그아웃</button>
+      </form>
+      <div id="mfaMsg" class="notice error" role="alert" hidden></div>
+    </section>
+
     <section id="view-dashboard" class="view" aria-labelledby="h-dashboard" hidden>
       <div class="view-head"><div><h1 id="h-dashboard" tabindex="-1">대시보드</h1><p class="lede">수집과 검수가 어떻게 돌아가는지 한눈에 봐요.</p></div><button class="btn" type="button" data-act="reload">새로고침</button></div>
       <div id="dashTiles" class="tiles"></div>

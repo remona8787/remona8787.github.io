@@ -15,8 +15,8 @@ window.AOLPlatformAPI = {
   configured: !!client(),
   user: () => (uid() ? { id: uid() } : null),
   account: async () => must(await client().rpc('my_account')),
-  profile: async () => must(await client().from('member_profiles').select('display_name,bio').eq('user_id', uid()).maybeSingle()),
-  saveProfile: async (p) => must(await client().from('member_profiles').upsert({ user_id: uid(), display_name: p.display_name, bio: p.bio })),
+  profile: async () => must(await client().from('member_profiles').select('display_name,bio,show_profile,public_id').eq('user_id', uid()).maybeSingle()),
+  saveProfile: async (p) => must(await client().from('member_profiles').upsert({ user_id: uid(), display_name: p.display_name, bio: p.bio, show_profile: p.show_profile !== false })),
   posts: async ({ project = null, kind = null, limit = 30 } = {}) => {
     let q = client().from('community_public_posts').select('*').order('published_at', { ascending: false }).limit(limit)
     if (project) q = q.eq('project_id', project)
@@ -46,12 +46,22 @@ window.AOLPlatformAPI = {
     if (s.id) return must(await client().from('community_submissions').update(row).eq('id', s.id).select('id,status').single())
     return must(await client().from('community_submissions').insert(row).select('id,status').single())
   },
+  updatePost: async (id, p) => must(await client().from('community_posts').update({ title: p.title, body: p.body }).eq('id', id).eq('user_id', uid()).select('id,status').single()),
+  deletePost: async (id) => must(await client().from('community_posts').delete().eq('id', id).eq('user_id', uid())),
+  deleteComment: async (id) => must(await client().from('community_comments').delete().eq('id', id).eq('user_id', uid())),
+  // A photo goes through the server function so its public file is deleted with the record.
+  withdrawPhoto: async (id) => { const { data, error } = await client().functions.invoke('publish-photo', { body: { photo_id: id, action: 'withdraw' } }); if (error) throw error; return data },
+  member: async (publicId) => {
+    const profile = must(await client().from('community_public_members').select('*').eq('public_id', publicId).maybeSingle())
+    const posts = profile ? must(await client().from('community_public_posts').select('*').eq('author_public_id', publicId).order('published_at', { ascending: false }).limit(30)) : []
+    return { profile, posts }
+  },
   mine: async () => {
     const sel = (t, cols) => client().from(t).select(cols).eq('user_id', uid()).order('created_at', { ascending: false }).limit(100)
-    const [posts, photos, submissions, appeals] = await Promise.all([
-      sel('community_posts', 'id,kind,title,status,decision_reason,created_at'), sel('community_photos', 'id,project_id,caption,status,decision_reason,created_at'),
-      sel('community_submissions', 'id,kind,name,project_id,status,decision_reason,approved_project_id,created_at'), sel('moderation_appeals', 'id,target_type,target_id,status,note,created_at')])
-    return { posts: must(posts), photos: must(photos), submissions: must(submissions), appeals: must(appeals) }
+    const [posts, photos, submissions, appeals, comments] = await Promise.all([
+      sel('community_posts', 'id,kind,title,body,status,decision_reason,created_at'), sel('community_photos', 'id,project_id,caption,status,decision_reason,created_at'),
+      sel('community_submissions', 'id,kind,name,project_id,status,decision_reason,approved_project_id,created_at'), sel('moderation_appeals', 'id,target_type,target_id,status,note,created_at'), sel('community_comments', 'id,post_id,body,status,decision_reason,created_at')])
+    return { posts: must(posts), photos: must(photos), submissions: must(submissions), appeals: must(appeals), comments: must(comments) }
   },
   flag: async (f) => must(await client().from('content_flags').insert({ target_type: f.target_type, target_id: f.target_id, reason: f.reason, message: f.message, contact_email: f.contact_email, reporter: uid() })),
   appeal: async (a) => must(await client().from('moderation_appeals').insert({ target_type: a.target_type, target_id: a.target_id, message: a.message })),

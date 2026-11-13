@@ -708,6 +708,30 @@ test('data quality reads the collection report from the data branch and shows it
  expect(m.calls.filter(c=>c.kind==='raw').map(c=>new URL(c.url).pathname).sort()).toEqual(['/remona8787/remona8787.github.io/data/admin-data/report.json','/remona8787/remona8787.github.io/data/review/image-audit.json']);
 });
 
+test('staff second factor (v2.0): a new editor enrols a TOTP app, a wrong code is refused, the right one opens the console',async({page})=>{
+ const m=await mockSupabase(page);
+ await page.goto('/admin/');
+ await page.getByLabel('이메일').fill(USERS.newstaff.email);
+ await page.getByLabel('비밀번호').fill(PASSWORD);
+ await page.getByRole('button',{name:'로그인'}).click();
+ const view=page.locator('#mfaView');
+ await expect(view).toBeVisible();
+ await expect(page.locator('#nav')).toBeHidden();
+ await expect(view.getByRole('heading',{name:'인증 앱 등록'})).toBeVisible();
+ await expect(view.locator('#mfaSecret')).toHaveText('JBSWY3DPEHPK3PXP');
+ await expect(view.locator('#mfaQr')).toHaveAttribute('src',/^data:image\/svg\+xml/);
+ await view.getByLabel('인증 앱의 6자리 코드').fill('000000');
+ await view.getByRole('button',{name:'확인'}).click();
+ await expect(view.locator('#mfaMsg')).toContainText('코드가 맞지 않거나');
+ await expect(page.locator('#nav')).toBeHidden();
+ await view.getByLabel('인증 앱의 6자리 코드').fill('123456');
+ await view.getByRole('button',{name:'확인'}).click();
+ await expect(page.locator('#nav')).toBeVisible();
+ await expect(view).toBeHidden();
+ expect(m.calls.filter(c=>c.kind==='auth').map(c=>c.name)).toEqual(expect.arrayContaining(['token','mfa_enroll','mfa_challenge','mfa_verify']));
+ // A researcher needs no second factor.
+});
+
 test('image status (v2.0): numerator, denominator and definition; nine categories; a permission draft without a server',async({page})=>{
  const m=await mockSupabase(page);
  await signIn(page,'editor','#images');
@@ -757,7 +781,34 @@ test('member photos (v2.0): publishing needs the staff grade, which goes to the 
  await expect(page.locator('#toast')).toContainText('B등급');
 });
 
-test('members and research data: admins only, aggregates only',async({page})=>{
+test('members (v2.0): list, account state, role and research access for admins, every value shown as text',async({page})=>{
+ const m=await mockSupabase(page);
+ page.on('dialog',d=>d.accept(d.type()==='prompt'?'광고 도배 반복':undefined));
+ await signIn(page,'admin','#members');
+ const box=page.locator('#memberAdmin');
+ await expect(box.locator('table').first()).toBeVisible();
+ await expect(box).toContainText(XSS);
+ expect(await box.locator('img').count()).toBe(0);
+ await expect(box).toContainText('감사 기록에 남아요');
+ await box.locator('[aria-label="bob@example.org 상태"]').selectOption('banned');
+ await box.locator('[data-act="mem-state"][data-id="m1000000-0000-4000-8000-000000000002"]').click();
+ await expect.poll(()=>m.rpcs('platform_set_member_status').length).toBe(1);
+ expect(m.last('platform_set_member_status').body).toEqual({p_user:'m1000000-0000-4000-8000-000000000002',p_state:'banned',p_reason:'광고 도배 반복',p_until:null});
+ await box.locator('[aria-label="bob@example.org 역할"]').selectOption('');
+ await box.locator('[data-act="mem-role"][data-id="m1000000-0000-4000-8000-000000000002"]').click();
+ await expect.poll(()=>m.rpcs('platform_set_role').length).toBe(1);
+ expect(m.last('platform_set_role').body).toEqual({p_user:'m1000000-0000-4000-8000-000000000002',p_role:null});
+ await expect(box.getByRole('button',{name:'권한 취소'})).toHaveCount(1);
+ await box.getByRole('button',{name:'권한 취소'}).click();
+ await expect.poll(()=>m.rpcs('research_grant_revoke').length).toBe(1);
+ expect(m.last('research_grant_revoke').body).toEqual({p_grant:21,p_reason:'광고 도배 반복'});
+ await expect(box).toContainText('researcher_approval_required');
+ await box.getByLabel('회원 검색').fill('bob');
+ await box.getByRole('button',{name:'찾기'}).click();
+ await expect.poll(()=>m.rpcs('platform_member_list').at(-1)?.body?.p_query).toBe('bob');
+});
+
+test('members and research data: admins only; the statistics carry no personal data',async({page})=>{
  const m=await mockSupabase(page);
  await signIn(page,'admin','#members');
  const box=page.locator('#membersBox');
@@ -769,7 +820,8 @@ test('members and research data: admins only, aggregates only',async({page})=>{
  await page.locator('#membersDays').selectOption('90');
  await page.locator('#membersFilter').getByRole('button',{name:'보기'}).click();
  await expect.poll(()=>m.last('research_admin_stats').body).toEqual({p_days:90});
- await expect(box).not.toContainText('@');
+ // The statistics are aggregates; the member list below them (v2.0, audited) is where e-mail addresses appear.
+ for(const tiles of await box.locator('.tiles').all())await expect(tiles).not.toContainText('@');
  // Editors never get the tab, and a direct link falls back.
  await page.getByRole('button',{name:'로그아웃'}).click();
  await signIn(page,'editor','#members');

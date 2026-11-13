@@ -571,7 +571,9 @@ create policy community_likes_own on public.community_likes for all to authentic
 
 -- Public views: approved content only, no user ids. They run with the owner's rights on purpose (security_barrier);
 -- the WHERE clauses are the access rule.
-create or replace view public.community_public_posts with (security_barrier) as
+-- Dropped first: a later migration (20261113010000_v2_admin_members.sql) adds a column, and a re-run must not fail.
+drop view if exists public.community_public_posts;
+create view public.community_public_posts with (security_barrier) as
  select p.id,p.kind,p.project_id,p.author_name,p.title,p.body,p.visited_on,p.published_at,
   (select count(*) from public.community_likes l where l.post_id=p.id) as like_count,
   (select count(*) from public.community_comments c where c.post_id=p.id and c.status='approved') as comment_count

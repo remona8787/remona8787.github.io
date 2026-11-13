@@ -11,7 +11,9 @@ const FAKE=({signedIn=true,application=null,terms='2026-11'}={})=>{
  const posts=[{id:1,kind:'review',project_id:'piccadilly-lights',author_name:'밤의 산책자',title:'피카딜리 후기 <img src=x onerror="window.__xss=1">',body:'광고판이 정말 밝았어요. <script>window.__xss=2</script>',visited_on:null,published_at:'2026-11-01T00:00:00Z',like_count:2,comment_count:0}];
  window.AOLPlatformAPI={configured:true,user:()=>signedIn?{id:'u1'}:null,
   account:async()=>({user_id:'u1',email_confirmed:true,state:{state:'active'},staff_role:null,research_terms_version:terms,application,grants:application?.status==='approved'?[{dataset_id:'aol-research',expires_at:'2027-11-01T00:00:00Z',revoked:false}]:[]}),
-  profile:async()=>({display_name:'밤의 산책자',bio:null}),saveProfile:async p=>{calls.push(['saveProfile',p])},
+  profile:async()=>({display_name:'밤의 산책자',bio:null,show_profile:true,public_id:'a1b2c3d4-0000-4000-8000-000000000001'}),saveProfile:async p=>{calls.push(['saveProfile',p])},
+  updatePost:async(id,p)=>{calls.push(['updatePost',id,p]);return {id,status:'pending'}},deletePost:async id=>{calls.push(['deletePost',id])},deleteComment:async id=>{calls.push(['deleteComment',id])},withdrawPhoto:async id=>{calls.push(['withdrawPhoto',id]);return {ok:true}},
+  member:async pid=>pid==='a1b2c3d4-0000-4000-8000-000000000001'?{profile:{public_id:pid,display_name:'밤의 산책자 <b>x</b>',bio:'밤에 빛 작품을 보러 다녀요.',joined_at:'2026-10-01T00:00:00Z',post_count:1},posts:posts.slice(0,1)}:{profile:null,posts:[]},
   posts:async q=>{calls.push(['posts',q]);return posts.filter(p=>(!q.kind||p.kind===q.kind)&&(!q.project||p.project_id===q.project))},
   post:async id=>({post:posts.find(p=>p.id===id)||null,comments:[]}),
   createPost:async p=>{calls.push(['createPost',p]);return {id:nextId++,status:p.status}},
@@ -20,7 +22,7 @@ const FAKE=({signedIn=true,application=null,terms='2026-11'}={})=>{
   photos:async pid=>pid==='piccadilly-lights'?[{id:7,project_id:pid,author_name:'사진가',caption:'밤 풍경',licence:'cc-by-4.0',url:'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2230%22/%3E',width:1600,height:1200}]:[],
   uploadPhoto:async f=>{calls.push(['uploadPhoto',{...f,blob:{type:f.blob.type,size:f.blob.size}}]);return {id:nextId++,status:'pending'}},
   saveSubmission:async s=>{calls.push(['saveSubmission',s]);if(s.status==='pending'&&!s.country_iso2)throw new Error('missing_fields: country_iso2,city_or_venue,source');return {id:nextId++,status:s.status}},
-  mine:async()=>({posts:[{id:5,kind:'review',title:'반려된 후기',status:'rejected',decision_reason:'작품과 관련 없는 광고 문구가 있어요.'}],photos:[{id:8,project_id:'piccadilly-lights',caption:null,status:'needs_review',decision_reason:null}],submissions:[{id:9,kind:'new_project',name:'청주 미디어파사드',status:'approved',decision_reason:null,approved_project_id:'REG-CM-0001'}],appeals:[]}),
+  mine:async()=>({posts:[{id:5,kind:'review',title:'반려된 후기',body:'원래 내용',status:'rejected',decision_reason:'작품과 관련 없는 광고 문구가 있어요.'}],comments:[{id:11,post_id:1,body:'좋은 정보 감사합니다',status:'approved'}],photos:[{id:8,project_id:'piccadilly-lights',caption:null,status:'needs_review',decision_reason:null}],submissions:[{id:9,kind:'new_project',name:'청주 미디어파사드',status:'approved',decision_reason:null,approved_project_id:'REG-CM-0001'}],appeals:[]}),
   flag:async f=>{calls.push(['flag',f])},appeal:async a=>{calls.push(['appeal',a])},
   applyResearcher:async a=>{calls.push(['applyResearcher',a]);return {id:1,status:'submitted'}},acceptTerms:async v=>{calls.push(['acceptTerms',v])}};
 };
@@ -119,7 +121,7 @@ test.describe('with a backend (fake API in memory)',()=>{
  test('my submissions: statuses, reasons, an appeal; reports go to staff',async({page})=>{
   await page.addInitScript(FAKE,{});
   await page.goto('/#community/mine');
-  await expect(page.locator('#pfMine .pf-row')).toHaveCount(3);
+  await expect(page.locator('#pfMine .pf-row')).toHaveCount(4);
   await expect(page.locator('#pfMine')).toContainText('작품과 관련 없는 광고 문구가 있어요.');
   await expect(page.locator('#pfMine a[href="#place/REG-CM-0001"]')).toHaveCount(1);
   await page.click('#pfMine [data-pf-appeal="post:5"]');
@@ -133,6 +135,40 @@ test.describe('with a backend (fake API in memory)',()=>{
   await page.click('#modal button[value=ok]');
   expect((await calls(page)).find(x=>x[0]==='flag')[1]).toMatchObject({target_type:'post',target_id:1,reason:'spam'});
  });
+ test('own content (v2.0): edit and delete a post, delete a comment, withdraw a photo through the server',async({page})=>{
+  await page.addInitScript(FAKE,{});
+  page.on('dialog',d=>d.accept());
+  await page.goto('/#community/mine');
+  await page.click('#pfMine [data-pf-edit="5"]');
+  await expect(page.locator('#modal [name=body]')).toHaveValue('원래 내용');
+  await page.fill('#modal [name=body]','광고 문구를 지우고 다시 썼어요. 전시 안내만 남겼어요.');
+  await page.click('#modal button[value=ok]');
+  await expect(page.locator('#modal')).not.toBeVisible();
+  expect((await calls(page)).find(x=>x[0]==='updatePost')).toEqual(['updatePost','5',{title:'반려된 후기',body:'광고 문구를 지우고 다시 썼어요. 전시 안내만 남겼어요.'}]);
+  await page.click('#pfMine [data-pf-delete="comment:11"]');
+  await expect.poll(async()=>(await calls(page)).some(x=>x[0]==='deleteComment'&&x[1]===11)).toBe(true);
+  await page.click('#pfMine [data-pf-delete="photo:8"]');
+  await expect.poll(async()=>(await calls(page)).some(x=>x[0]==='withdrawPhoto'&&x[1]===8)).toBe(true);
+  await page.click('#pfMine [data-pf-delete="post:5"]');
+  await expect.poll(async()=>(await calls(page)).some(x=>x[0]==='deletePost'&&x[1]===5)).toBe(true);
+ });
+
+ test('public profiles (v2.0): a member page by public id, posts linked to it, the profile can be hidden',async({page})=>{
+  await page.addInitScript(FAKE,{});
+  await page.goto('/#community/member/a1b2c3d4-0000-4000-8000-000000000001');
+  const box=page.locator('#pfMember');
+  await expect(box.getByRole('heading',{name:'밤의 산책자 <b>x</b>'})).toBeVisible();
+  await expect(box).toContainText('밤에 빛 작품을 보러 다녀요.');
+  expect(await box.locator('b').count()).toBe(0);
+  await page.goto('/#community/member/not-a-real-id');
+  await expect(page.locator('#pfMember')).toContainText('프로필을 찾을 수 없어요.');
+  await page.goto('/#profile');
+  await expect(page.locator('#pfProfileLink a')).toHaveAttribute('href','#community/member/a1b2c3d4-0000-4000-8000-000000000001');
+  await page.uncheck('#pfProfile [name=show_profile]');
+  await page.click('#pfProfile button');
+  await expect.poll(async()=>(await calls(page)).find(x=>x[0]==='saveProfile')?.[1]?.show_profile).toBe(false);
+ });
+
  test('project page: member photos and reviews apart from the archive, labelled as member material',async({page})=>{
   await page.addInitScript(FAKE,{});
   await serveDataset(page);await serveImages(page);

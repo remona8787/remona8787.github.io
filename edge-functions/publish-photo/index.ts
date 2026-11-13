@@ -2,6 +2,8 @@
 // POST {"photo_id": 123, "grade": "A"|"B"|"C"} with the staff member's own session token (admin or editor, MFA
 // session). The grade is the staff member's (docs/IMAGE_GRADES.md); the SHA-256 of the cleaned file is recorded and a
 // file already published is refused (duplicate_photo).
+// POST {"photo_id": 123, "action": "withdraw"} with the member's own token: the author withdraws their own photo (the
+// public file, the private upload and the record go; no staff role needed).
 // POST {"photo_id": 123, "action": "remove", "reason": "..."} takes a published photo down (a copyright notice, a
 // moderation decision): the status becomes removed and the public file is deleted. Browsers and CDNs may keep a cached
 // copy for up to the cache lifetime (1 hour) after removal. Reads the upload
@@ -19,12 +21,25 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers })
   if (req.method !== "POST") return json({ error: "POST required" }, 405)
   const admin = createClient(Deno.env.get("SUPABASE_URL")!, getAdminKey(), { auth: { persistSession: false } })
-  const staff = await requireStaff(admin, (req.headers.get("authorization") || "").replace(/^Bearer\s+/i, ""))
-  if (!staff.ok) return json({ error: staff.error }, staff.status)
+  const token = (req.headers.get("authorization") || "").replace(/^Bearer\s+/i, "")
   let body: { photo_id?: unknown; action?: unknown; reason?: unknown; grade?: unknown }
   try { body = await req.json() } catch { return json({ error: "invalid_json" }, 400) }
   const id = Number(body.photo_id)
   if (!Number.isSafeInteger(id) || id <= 0) return json({ error: "invalid_request" }, 400)
+  if (body.action === "withdraw") {
+    // The author's own photo only: the user comes from their token, the row must be theirs.
+    const { data: who, error: whoError } = await admin.auth.getUser(token)
+    if (whoError || !who?.user) return json({ error: "invalid_session" }, 401)
+    const { data: p } = await admin.from("community_photos").select("user_id,public_path,upload_path").eq("id", id).single()
+    if (!p || p.user_id !== who.user.id) return json({ error: "not_found" }, 404)
+    if (p.public_path) await admin.storage.from("community-photos").remove([p.public_path])
+    await admin.storage.from("community-uploads").remove([p.upload_path])
+    const { error: delError } = await admin.from("community_photos").delete().eq("id", id).eq("user_id", who.user.id)
+    if (delError) return json({ error: "withdraw_failed" }, 409)
+    return json({ ok: true, withdrawn: true })
+  }
+  const staff = await requireStaff(admin, token)
+  if (!staff.ok) return json({ error: staff.error }, staff.status)
   if (body.action === "remove") {
     const reason = typeof body.reason === "string" ? body.reason.trim() : ""
     if (!reason) return json({ error: "reason_required" }, 400)

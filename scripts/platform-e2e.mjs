@@ -17,7 +17,8 @@
 //
 // Exit code 0 only when every check passed. Usage: node scripts/platform-e2e.mjs
 import { createClient } from '@supabase/supabase-js'
-import { createHmac, randomBytes } from 'node:crypto'
+import { randomBytes } from 'node:crypto'
+import { totp } from './lib/totp.mjs'
 import { writeFileSync } from 'node:fs'
 
 const env = (k, d = null) => process.env[k] || d
@@ -36,9 +37,6 @@ const service = createClient(URL_, SECRET, opts)
 const anon = createClient(URL_, PUB, opts)
 const created = { users: [], dataset: null, files: [] }
 
-// RFC 6238 TOTP (SHA-1, 6 digits, 30 s) for the staff test user's second factor.
-function base32(s) { const a = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567'; let bits = ''; for (const c of s.replace(/=+$/, '').toUpperCase()) bits += a.indexOf(c).toString(2).padStart(5, '0'); const out = []; for (let i = 0; i + 8 <= bits.length; i += 8) out.push(parseInt(bits.slice(i, i + 8), 2)); return Buffer.from(out) }
-export function totp(secret, t = Date.now()) { const c = Buffer.alloc(8); c.writeBigUInt64BE(BigInt(Math.floor(t / 30000))); const h = createHmac('sha1', base32(secret)).update(c).digest(); const o = h[h.length - 1] & 15; return String(((h.readUInt32BE(o) & 0x7fffffff) % 1e6)).padStart(6, '0') }
 
 async function fn(name, body, token, { secret = null } = {}) {
   const r = await fetch(`${URL_}/functions/v1/${name}`, { method: 'POST', headers: { 'content-type': 'application/json', origin: ORIGIN, apikey: PUB, ...(token ? { authorization: 'Bearer ' + token } : {}), ...(secret ? { 'x-aol-cron-secret': secret } : {}) }, body: JSON.stringify(body) })
