@@ -1,0 +1,77 @@
+# The v2.0 platform on the operator's Supabase project (docs/PLATFORM.md section 6): run by hand only, from the Actions
+# tab (Run workflow). It runs scripts/platform-deploy.mjs from the source branch with keys from GitHub Secrets; nothing
+# secret is printed, and the job summary and the artifact carry names, counts and pass/fail only.
+#   inspect  read only: what is installed and what is missing (run this first, and after any change)
+#   apply    changes the project: SQL (complete-backend.sql, platform-v2.sql; both one transaction, safe to run again),
+#            Vault secrets, the four platform functions and their secrets, the schedules, the Auth settings the platform
+#            needs (e-mail confirmation, 12-character passwords, TOTP). Type the project ref in "confirm" to run it.
+#   verify   the end-to-end check (scripts/platform-e2e.mjs) with test accounts named e2e-<run>, removed at the end;
+#            no e-mail is sent. It does not turn the member features on in the public site (config.js does).
+# Secrets (Settings → Secrets and variables → Actions): SUPABASE_ACCESS_TOKEN (inspect, apply), MODERATION_CRON_SECRET
+# (apply, verify), SUPABASE_SECRET_KEY (verify); optional ANTHROPIC_API_KEY (apply sets it on moderate-queue only when
+# present: a paid service, the operator's decision). Variables: SUPABASE_PROJECT_REF (default: the project in
+# release/launch/public-config.js), MODERATION_MODEL (optional).
+# This file lives on main (the default branch, where Run workflow reads it); deploy/pages-repo/.github/workflows/
+# platform.yml on source is its canonical copy.
+name: platform
+
+on:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: 'inspect (read only) · apply (installs; needs confirm) · verify (end-to-end check with test accounts)'
+        type: choice
+        options: [inspect, apply, verify]
+        default: inspect
+      confirm:
+        description: 'apply only: type the project ref (e.g. refwrdfxbhcsguweicle) to confirm'
+        type: string
+        default: ''
+
+concurrency:
+  group: platform
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  platform:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          ref: source
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            pipeline/package-lock.json
+      - name: Install (the site's packages; sharp for the photo checks)
+        run: |
+          npm ci --no-audit --no-fund
+          npm ci --prefix pipeline --no-audit --no-fund
+      - name: Run ${{ inputs.action }}
+        env:
+          ACTION: ${{ inputs.action }}
+          CONFIRM_REF: ${{ inputs.confirm }}
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_SECRET_KEY: ${{ secrets.SUPABASE_SECRET_KEY }}
+          MODERATION_CRON_SECRET: ${{ secrets.MODERATION_CRON_SECRET }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPABASE_PROJECT_REF: ${{ vars.SUPABASE_PROJECT_REF }}
+          MODERATION_MODEL: ${{ vars.MODERATION_MODEL }}
+          REPORT_DIR: ${{ runner.temp }}/platform
+        run: node scripts/platform-deploy.mjs "$ACTION"
+      - name: Keep the report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: platform-${{ inputs.action }}-${{ github.run_id }}
+          path: ${{ runner.temp }}/platform
+          if-no-files-found: ignore
+          retention-days: 30
