@@ -137,10 +137,13 @@ const RPC={
  platform_set_member_status:()=>({ok:true}),platform_set_role:()=>({ok:true}),research_grant_revoke:()=>({ok:true}),
  platform_admin_stats:()=>({members:12,restricted:1,applications:{submitted:1},active_grants:2,queue:{posts:1,comments:0,photos:0,submissions:0,flags:1,appeals:0},published:{posts:4,photos:2,submissions:1}}),
  platform_admin_queue:(d,b,u)=>b.p_type==='post'?[{id:41,kind:'review',project_id:'SEOUL006',author_name:XSS,title:XSS,body:XSS_SCRIPT,status:'needs_review',moderation:{source:'rules',flags:['privacy:phone']},created_at:now()}]
-  :b.p_type==='photo'?[{id:51,project_id:'SEOUL006',author_name:'김사진',caption:XSS,width:3000,height:2000,licence:'cc-by-4.0',offer_official:true,status:'needs_review',created_at:now()}]
+  :b.p_type==='photo'?[{id:51,project_id:'SEOUL006',upload_path:'m1000000-0000-4000-8000-000000000001/SEOUL006-a.jpg',author_name:'김사진',caption:XSS,width:3000,height:2000,licence:'cc-by-4.0',offer_official:true,status:'needs_review',created_at:now()},
+   {id:52,project_id:null,submission_id:61,upload_path:'m1000000-0000-4000-8000-000000000001/sub61-b.jpg',author_name:'김사진',caption:null,width:2400,height:1600,licence:'display',offer_official:false,status:'needs_review',created_at:now()}]
+  :b.p_type==='submission'?[{id:61,kind:'new_project',name:'수원 미디어파사드',country_iso2:'KR',city:'수원',project_type:'media_facade',description:XSS,source_urls:['https://example.org/press'],status:'needs_review',checks:{duplicates:[]},created_at:now()}]
   :b.p_type==='flag'?[{id:3,target_type:'post',target_id:41,reason:'spam',message:XSS,created_at:now()}]
   :b.p_type==='application'?(u?.role==='admin'?[{id:7,full_name:XSS,email:'alice@example.org',affiliation:null,applicant_type:'graduate_student',research_field:'미디어 건축',purpose:XSS_SCRIPT,verification_url:'javascript:alert(1)',requested_datasets:['aol-research'],terms_version:'2026-11',created_at:now()}]:(()=>{throw {status:403,body:{code:'42501',message:'staff role required: admin'}}})()):[],
  platform_audit_recent:()=>[{at:now(),action:'moderate_approved',target_type:'post',target_id:'40'}],
+ platform_moderate:(d,b)=>({ok:true,status:b.p_decision==='needs_info'?'draft':b.p_decision}),
  archive_role:(d,b,u)=>u?.role??null,
  research_admin_stats:(d,b)=>({...d.research.stats,days:b.p_days}),
  archive_admin_dashboard:d=>d.dashboard,
@@ -250,6 +253,9 @@ export async function mockSupabase(page,{fail={},data=seed()}={}){
    if(req.method()==='PATCH'){const rep=data.reports.find(x=>String(x.id)===eq('id'));if(rep)Object.assign(rep,body,{contact_email:body.status!=='open'?null:rep.contact_email});return r.fulfill({status:204,headers:CORS})}
    const st=eq('status');return reply(200,data.reports.filter(x=>!st||x.status===st));
   }
+  // Staff read member photos (a submission's attachments) and sign short private URLs for the preview.
+  if(path==='/rest/v1/community_photos'&&req.method()==='GET'){calls.push({kind:'rest',name:'community_photos',url:req.url()});return reply(200,[{id:52,submission_id:61,upload_path:'m1000000-0000-4000-8000-000000000001/sub61-b.jpg',width:2400,height:1600,status:'needs_review'}])}
+  if(path.startsWith('/storage/v1/object/sign/community-uploads/')){calls.push({kind:'sign',path:path.slice('/storage/v1/object/sign/'.length)});return reply(200,{signedURL:'/object/sign/'+path.slice('/storage/v1/object/sign/'.length)+'?token=t'})}
   if(path==='/rest/v1/image_permission_requests'){calls.push({kind:'rest',name:'image_permission_requests',method:req.method(),body});if(req.method()==='PATCH'&&fail.image_permission_requests&&(!fail.image_permission_requests.when||fail.image_permission_requests.when(body)))return reply(fail.image_permission_requests.status,fail.image_permission_requests.body);return req.method()==='GET'?reply(200,[{id:2,project_id:'SEOUL018',image_ref:XSS,rights_holder:'홍보팀',contact_channel:'email',contact_value:'pr@example.org',status:'draft',purpose:'대표 이미지',requested_scope:'display_with_credit'}]):r.fulfill({status:201,headers:CORS,body:''})}
   if(path==='/rest/v1/research_datasets'){calls.push({kind:'rest',name:'research_datasets'});return reply(200,data.research.datasets)}
   if(path==='/rest/v1/research_dataset_versions'){calls.push({kind:'rest',name:'research_dataset_versions'});return reply(200,data.research.versions)}

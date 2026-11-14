@@ -10,7 +10,7 @@ import {PGlite} from '@electric-sql/pglite';
 import {pg_trgm} from '@electric-sql/pglite/contrib/pg_trgm';
 const root=new URL('../',import.meta.url);
 const sql=async f=>(await readFile(new URL(f,root),'utf8')).replace(/create extension if not exists "?pgcrypto"?[^;]*;/gi,'');
-const MIGRATIONS=['supabase/migrations/20261018000000_media_facade_archive.sql','supabase/migrations/20261026000000_research_data.sql','supabase/migrations/20261112000000_v2_platform.sql','supabase/migrations/20261113000000_v2_photo_grades.sql','supabase/migrations/20261113010000_v2_admin_members.sql','supabase/migrations/20261113020000_v2_permission_ledger.sql'];
+const MIGRATIONS=['supabase/migrations/20261018000000_media_facade_archive.sql','supabase/migrations/20261026000000_research_data.sql','supabase/migrations/20261112000000_v2_platform.sql','supabase/migrations/20261113000000_v2_photo_grades.sql','supabase/migrations/20261113010000_v2_admin_members.sql','supabase/migrations/20261113020000_v2_permission_ledger.sql','supabase/migrations/20261114000000_v2_submission_followup.sql'];
 const DEFAULT_GRANTS=`alter default privileges in schema public grant all on tables to anon,authenticated,service_role;
 alter default privileges in schema public grant all on functions to anon,authenticated,service_role;
 alter default privileges in schema public grant all on sequences to anon,authenticated,service_role;`;
@@ -240,6 +240,49 @@ test('submissions: incomplete drafts, required fields on submit, approval needs 
  await mfa(db,EDITOR,`select public.platform_moderate('submission',$1,'approved',null,'REG-CM-0001')`,[d.id]);
  assert.equal((await svc(db,`select approved_project_id from public.community_submissions where id=$1`,[d.id]))[0].approved_project_id,'REG-CM-0001');
  assert.equal((await one(user(db,ALICE,`insert into public.community_submissions(kind,name,official_url,status) values('tip','부산 빛 축제','https://example.org/busan','pending') returning status`))).status,'pending');
+});
+
+test('submission follow-up (v2.0): staff ask for more information; photos ride with the submission and follow its decision', async()=>{
+ const fill=`country_iso2='KR',city='수원',project_type='media_facade',description='수원 화성행궁 앞 광장의 미디어파사드 작품입니다. 2025년 가을 공개.',official_url='https://example.org/suwon'`;
+ const s=await one(user(db,ALICE,`insert into public.community_submissions(kind,name) values('new_project','수원 미디어파사드') returning id`));
+ await user(db,ALICE,`update public.community_submissions set ${fill},status='pending' where id=$1`,[s.id]);
+ // A request for more information: submissions only, from review, with the request written; the author gets a draft.
+ assert.match(await err(mfa(db,EDITOR,`select public.platform_moderate('submission',$1,'needs_info')`,[s.id])),/reason_required/);
+ const post=await one(user(db,ALICE,`insert into public.community_posts(kind,project_id,title,body,status) values('review','SEOUL006','보완 시험','본문입니다. 좋았어요.','pending') returning id`));
+ assert.match(await err(mfa(db,EDITOR,`select public.platform_moderate('post',$1,'needs_info','x')`,[post.id])),/needs_info_submissions_only/);
+ assert.match(await err(user(db,ALICE,`select public.platform_moderate('submission',$1,'needs_info','x')`,[s.id])),/staff role required|mfa_required|permission denied/);
+ await mfa(db,EDITOR,`select public.platform_moderate('submission',$1,'needs_info','공식 출처(보도자료나 운영기관 페이지) 링크를 하나 더 붙여 주세요.')`,[s.id]);
+ let r=await one(user(db,ALICE,`select status,decision_reason from public.community_submissions where id=$1`,[s.id]));
+ assert.deepEqual([r.status,r.decision_reason],['draft','공식 출처(보도자료나 운영기관 페이지) 링크를 하나 더 붙여 주세요.']);
+ assert.match(await err(mfa(db,EDITOR,`select public.platform_moderate('submission',$1,'needs_info','again')`,[s.id])),/draft_not_submitted/,'nothing to decide while the author edits');
+ await user(db,ALICE,`update public.community_submissions set source_urls=array['https://example.org/press'],decision_reason=null,status='pending' where id=$1`,[s.id]);
+ r=await one(user(db,ALICE,`select status,decision_reason,source_urls from public.community_submissions where id=$1`,[s.id]));
+ assert.equal(r.status,'pending');assert.deepEqual(r.source_urls,['https://example.org/press']);assert.ok(r.decision_reason,'the member cannot erase the request');
+ assert.equal((await one(svc(db,`select count(*)::int n from public.moderation_events where target_type='submission' and target_id=$1 and decision='needs_info'`,[s.id]))).n,1);
+ // Photos with the submission: own open submission only, up to the limit, no project id until approval.
+ const photo=(u,sid,file,extra='')=>user(db,u,`insert into public.community_photos(project_id,submission_id,upload_path,mime,bytes,width,height,own_photo,can_license,people_ok,artwork_rights_notice) values('SEOUL006',$1,$2,'image/jpeg',1000,3000,2000,true,true,true,true) returning id,project_id,status`,[sid,`${u}/${file}`]);
+ const p1=await one(photo(ALICE,s.id,'sub-a.jpg'));
+ assert.equal(p1.project_id,null,'a new project has no id yet: the one the member sent is not kept');
+ assert.match(await err(photo(BOB,s.id,'sub-b.jpg')),/submission_not_found/,'not someone else\'s submission');
+ await svc(db,`update public.platform_settings set value='2' where key='submission_photo_limit'`);
+ await photo(ALICE,s.id,'sub-c.jpg');
+ assert.match(await err(photo(ALICE,s.id,'sub-d.jpg')),/submission_photo_limit/);
+ await svc(db,`update public.platform_settings set value='5' where key='submission_photo_limit'`);
+ await user(db,ALICE,`update public.community_photos set project_id='SEOUL001',submission_id=null where id=$1`,[p1.id]);
+ assert.deepEqual(Object.values(await one(svc(db,`select project_id,submission_id from public.community_photos where id=$1`,[p1.id]))),[null,s.id],'the member cannot move it');
+ assert.match(await err(user(db,ALICE,`insert into public.community_photos(upload_path,mime,bytes,width,height,own_photo,can_license,people_ok,artwork_rights_notice) values($1,'image/jpeg',1000,3000,2000,true,true,true,true)`,[`${ALICE}/none.jpg`])),/community_photos_target|check constraint/,'a photo needs a project or a submission');
+ // Approval with a project id gives the photos that id; they still wait for a staff grade.
+ await mfa(db,EDITOR,`select public.platform_moderate('submission',$1,'approved',null,'REG-CM-0002')`,[s.id]);
+ const after=await svc(db,`select project_id,status,public_path from public.community_photos where submission_id=$1`,[s.id]);
+ assert.ok(after.length===2&&after.every(x=>x.project_id==='REG-CM-0002'&&x.public_path===null&&x.status!=='approved'));
+ assert.match(await err(photo(ALICE,s.id,'late.jpg')),/submission_closed/,'a decided submission takes no more photos');
+ // A correction's photos take the existing project's id at once; rejecting the submission rejects its waiting photos.
+ const c=await one(user(db,ALICE,`insert into public.community_submissions(kind,project_id,field_name,proposed_value,source_urls,status) values('correction','SEOUL006','year_installed','2019',array['https://example.org/ddp'],'pending') returning id`));
+ const cp=await one(photo(ALICE,c.id,'corr.jpg'));
+ assert.equal(cp.project_id,'SEOUL006');
+ await mfa(db,EDITOR,`select public.platform_moderate('submission',$1,'rejected','출처가 정정 내용을 뒷받침하지 않아요.')`,[c.id]);
+ r=await one(svc(db,`select status,decision_reason from public.community_photos where id=$1`,[cp.id]));
+ assert.equal(r.status,'rejected');assert.match(r.decision_reason,/반려/);
 });
 
 test('automatic moderation: service role only; photos and submissions always wait for a person', async()=>{

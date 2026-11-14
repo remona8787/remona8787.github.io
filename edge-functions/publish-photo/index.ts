@@ -57,6 +57,8 @@ Deno.serve(async (req) => {
   if (!grade) return json({ error: "grade_required" }, 400)
   const { data: photo } = await admin.from("community_photos").select("id,project_id,upload_path,mime,status").eq("id", id).single()
   if (!photo || !["pending", "needs_review"].includes(photo.status)) return json({ error: "not_reviewable" }, 409)
+  // A photo sent with a new-project submission has no project until staff approve that submission.
+  if (!photo.project_id) return json({ error: "submission_not_approved" }, 409)
   const { data: file, error: dlError } = await admin.storage.from("community-uploads").download(photo.upload_path)
   if (dlError || !file) return json({ error: "upload_missing" }, 404)
   const checked = checkImage(new Uint8Array(await file.arrayBuffer()), { claimedMime: photo.mime })

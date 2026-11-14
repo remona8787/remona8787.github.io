@@ -24,7 +24,7 @@
   (`npm run platform:bundle-sql`로 만듦, 손으로 고치지 않음)
 - `release/launch/install-platform-cron.sql` — 자동 검수(5분마다)와 만료 처리(매일) 예약
 - `scripts/platform-deploy.mjs`, `.github/workflows/platform.yml` — 운영 프로젝트 점검·설치·실제 점검(6절)
-- `scripts/platform-e2e.mjs` — 실제 서버 종단 점검(가입·인증·글·사진·연구자·계정 삭제·운영자 목록, 78개 항목),
+- `scripts/platform-e2e.mjs` — 실제 서버 종단 점검(가입·인증·글·사진·연구자·계정 삭제·운영자 목록·보완 요청·신청 사진, 85개 항목),
   `qa/real-backend.spec.mjs` — 같은 흐름을 휴대전화·데스크톱 브라우저로
 - `edge-functions/{moderate-queue,publish-photo,research-download,delete-account}/index.ts`
 - `edge-functions/_shared/platform/` — 검수 규칙·판단(`moderation.mjs`), 분류 요청(`classify.mjs`), 사진 검사(`image-check.mjs`),
@@ -107,6 +107,14 @@ node scripts/researcher-package.mjs --data=<data 브랜치 체크아웃> --out=/
 - 제보·등록 신청: 제보(이름+링크), 새 프로젝트, 작가·제작사 본인 작품, 기존 사례 정정, 행사 일정. 임시 저장 가능, 제출할 때 종류별
   필수 항목을 데이터베이스가 확인합니다. 자동 검수 함수가 공개 색인과 이름을 비교해 중복 후보를, 링크 정책(사설 IP·자격증명 URL·
   이상한 포트 거부)을 `checks`에 남깁니다. 승인되기 전에는 공식 목록·검색엔진에 나오지 않습니다.
+- 보완 요청(`20261114000000_v2_submission_followup.sql`): 운영자가 반려 대신 무엇이 부족한지 적어 돌려보낼 수 있습니다. 신청은
+  '작성 중'으로 돌아가고 요청 내용이 회원의 "내 활동"과 신청서 맨 위에 보입니다. 회원은 "이어서 작성"으로 고쳐 다시 제출하고,
+  다시 자동 검사와 검토를 거칩니다. 검토 중인 신청에만 쓸 수 있고 요청 내용을 꼭 적어야 합니다.
+- 신청과 함께 사진(최대 5장, `submission_photo_limit`): 일반 사진 제공과 같은 확인·비공개 업로드·위치 정보 제거를 거칩니다.
+  정정·일정 신청의 사진은 그 사례에, 새 프로젝트 신청의 사진은 승인 때 정한 프로젝트 ID에 연결되고, 그 전에는 공개할 수 없습니다
+  (`submission_not_approved`). 신청이 반려되거나 게시 중단되면 검토를 기다리던 사진도 함께 반려됩니다.
+- 운영 콘솔은 검토할 사진을 비공개 저장소의 10분짜리 서명 주소로 미리 보여 줍니다(공개 전 원본). 신청 항목에는 첨부 사진이 함께
+  보입니다.
 - 승인된 새 프로젝트는 운영자가 프로젝트 ID(`REG-CM-0001` 형식)를 주고, 레지스트리 기록(`editorial/registry/`)으로 옮겨
   수집기가 공개합니다. 레지스트리·편집 결정은 자동 수집이 덮어쓰지 않습니다(편집 결정이 우선). 승인 기록은
   `community_submissions.approved_project_id`와 감사 로그에 남습니다.
@@ -237,6 +245,7 @@ SQL 편집기에서 위 1~3을 순서대로, 함수는 `npx supabase functions d
 | 연구자 신청·승인 전 거절·승인 후 120초 서명 URL·다른 회원 거절·비공개 버킷·권한 취소 즉시 거절·기록 | 검증 완료(로컬) |
 | 계정 삭제(글·사진 함께 삭제) | 검증 완료(로컬) |
 | 운영자 회원 목록(감사 로그 기록)·연구 권한 목록·다운로드 기록, 회원에게는 거절 | 검증 완료(로컬) |
+| 사례 신청 보완 요청 왕복, 신청 사진(승인 전 공개 불가, 승인 때 프로젝트 연결, 반려 때 함께 반려) | 검증 완료(로컬) · 화면은 가짜 서버 테스트 |
 | 휴대전화(390px)·데스크톱(1440px) 브라우저 통합(가입→인증 메일→로그인→후기→자동 검수→콘솔 TOTP 등록→승인→공개) | 검증 완료(로컬, `qa/real-backend.spec.mjs`, 5회 연속 통과) |
 | 예약 작업(pg_cron → Vault 비밀 → moderate-queue) | 검증 완료(로컬, 예약 명령을 직접 실행해 200 응답) · 실제 5분 주기 관찰은 운영 프로젝트에서 |
 | 화면(서버 없음·가짜 서버) | 테스트 완료(Playwright, `qa/v2-platform.spec.mjs`, `qa/admin.spec.mjs`) |

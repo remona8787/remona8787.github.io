@@ -32,14 +32,18 @@ window.AOLPlatformAPI = {
   comment: async (postId, body) => must(await client().from('community_comments').insert({ post_id: postId, body }).select('id,status').single()),
   like: async (postId) => must(await client().from('community_likes').insert({ post_id: postId, user_id: uid() })),
   photos: async (project) => (must(await client().from('community_public_photos').select('*').eq('project_id', project).order('published_at', { ascending: false }).limit(12))).map((f) => ({ ...f, url: publicUrl(f.public_path) })),
+  // A photo goes with a project, or with the member's own open submission (submission_id; the server gives it the
+  // project id when staff approve the submission).
   uploadPhoto: async (f) => {
-    const name = `${uid()}/${f.project_id}-${Date.now().toString(36)}.jpg`
+    const name = `${uid()}/${f.submission_id ? 'sub' + Number(f.submission_id) : f.project_id}-${Date.now().toString(36)}.jpg`
     must(await client().storage.from('community-uploads').upload(name, f.blob, { contentType: 'image/jpeg', upsert: false }))
-    const row = { project_id: f.project_id, upload_path: name, mime: 'image/jpeg', bytes: f.blob.size, width: f.width, height: f.height, caption: f.caption, credit_name: f.credit_name || null, taken_on: f.taken_on, licence: f.licence, offer_official: f.offer_official, own_photo: f.own_photo, can_license: f.can_license, people_ok: f.people_ok, artwork_rights_notice: f.artwork_rights_notice }
+    const row = { project_id: f.submission_id ? null : f.project_id, submission_id: f.submission_id ? Number(f.submission_id) : null, upload_path: name, mime: 'image/jpeg', bytes: f.blob.size, width: f.width, height: f.height, caption: f.caption, credit_name: f.credit_name || null, taken_on: f.taken_on, licence: f.licence, offer_official: f.offer_official, own_photo: f.own_photo, can_license: f.can_license, people_ok: f.people_ok, artwork_rights_notice: f.artwork_rights_notice }
     const r = await client().from('community_photos').insert(row).select('id,status').single()
     if (r.error) { await client().storage.from('community-uploads').remove([name]); throw r.error }
     return r.data
   },
+  submission: async (id) => must(await client().from('community_submissions').select('*').eq('id', Number(id)).eq('user_id', uid()).maybeSingle()),
+  submissionPhotos: async (id) => must(await client().from('community_photos').select('id,status,created_at').eq('submission_id', Number(id)).eq('user_id', uid())),
   saveSubmission: async (s) => {
     const row = Object.fromEntries(SUB_FIELDS.map((k) => [k, s[k] ?? null]))
     row.source_urls = s.source_urls || []
@@ -59,7 +63,7 @@ window.AOLPlatformAPI = {
   mine: async () => {
     const sel = (t, cols) => client().from(t).select(cols).eq('user_id', uid()).order('created_at', { ascending: false }).limit(100)
     const [posts, photos, submissions, appeals, comments] = await Promise.all([
-      sel('community_posts', 'id,kind,title,body,status,decision_reason,created_at'), sel('community_photos', 'id,project_id,caption,status,decision_reason,created_at'),
+      sel('community_posts', 'id,kind,title,body,status,decision_reason,created_at'), sel('community_photos', 'id,project_id,submission_id,caption,status,decision_reason,created_at'),
       sel('community_submissions', 'id,kind,name,project_id,status,decision_reason,approved_project_id,created_at'), sel('moderation_appeals', 'id,target_type,target_id,status,note,created_at'), sel('community_comments', 'id,post_id,body,status,decision_reason,created_at')])
     return { posts: must(posts), photos: must(photos), submissions: must(submissions), appeals: must(appeals), comments: must(comments) }
   },

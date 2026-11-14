@@ -824,6 +824,29 @@ test('permission ledger (v2.0 P1): a saved draft, sending only after the operato
  expect(rec).toMatchObject({contact_source:'https://example.org/press',holder_basis:'사진 설명에 제공처로 표시',contact_value:'pr@example.org',valid_until:null});
 });
 
+test('review previews (v2.0): photos are shown from short private URLs; a new-project photo waits for its submission; staff can ask for more information',async({page})=>{
+ const m=await mockSupabase(page);
+ const prompts=[];page.on('dialog',d=>{prompts.push(d.message());d.accept(d.type()==='prompt'?'공식 출처 링크를 하나 더 붙여 주세요.':undefined)});
+ await signIn(page,'admin','#platform');
+ const box=page.locator('#platformBox');
+ await box.getByRole('button',{name:'사진',exact:true}).click();
+ const p51=box.locator('img[alt="검토할 사진 #51"]');
+ await expect(p51).toHaveAttribute('src',/\/storage\/v1\/object\/sign\/community-uploads\/m1000000-0000-4000-8000-000000000001\/SEOUL006-a\.jpg\?token=t$/);
+ const p52=box.locator('.pf-item',{hasText:'#52'});
+ await expect(p52).toContainText('신청이 승인되면 그 프로젝트에 연결되고');
+ await expect(p52.getByRole('button',{name:'확인 후 공개 (메타데이터 제거)'})).toHaveCount(0);
+ await expect(box.locator('.pf-item',{hasText:'#51'}).getByRole('button',{name:'확인 후 공개 (메타데이터 제거)'})).toHaveCount(1);
+ await box.getByRole('button',{name:'제보·등록',exact:true}).click();
+ const sub=box.locator('.pf-item',{hasText:'#61'});
+ await expect(sub).toContainText('첨부 사진 1장');
+ await expect(sub.locator('img[alt="신청 #61의 첨부 사진 #52"]')).toHaveAttribute('src',/sub61-b\.jpg\?token=t$/);
+ expect(m.calls.find(c=>c.name==='community_photos')?.url).toMatch(/submission_id=in\.%2861%29|submission_id=in\.\(61\)/);
+ await sub.getByRole('button',{name:'보완 요청'}).click();
+ await expect.poll(()=>m.rpcs('platform_moderate').length).toBe(1);
+ expect(m.last('platform_moderate').body).toEqual({p_type:'submission',p_id:61,p_decision:'needs_info',p_reason:'공식 출처 링크를 하나 더 붙여 주세요.',p_project:null});
+ expect(prompts.at(-1)).toContain('보완 요청 내용');
+});
+
 test('members (v2.0): list, account state, role and research access for admins, every value shown as text',async({page})=>{
  const m=await mockSupabase(page);
  page.on('dialog',d=>d.accept(d.type()==='prompt'?'광고 도배 반복':undefined));

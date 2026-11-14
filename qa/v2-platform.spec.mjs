@@ -6,7 +6,7 @@
 import {test,expect} from './fixtures.mjs';
 import {serveDataset,serveImages} from './fixtures/site-data-routes.mjs';
 
-const FAKE=({signedIn=true,application=null,terms='2026-11'}={})=>{
+const FAKE=({signedIn=true,application=null,terms='2026-11',returned=false}={})=>{
  const calls=[];window.__calls=calls;let nextId=100;
  const posts=[{id:1,kind:'review',project_id:'piccadilly-lights',author_name:'밤의 산책자',title:'피카딜리 후기 <img src=x onerror="window.__xss=1">',body:'광고판이 정말 밝았어요. <script>window.__xss=2</script>',visited_on:null,published_at:'2026-11-01T00:00:00Z',like_count:2,comment_count:0}];
  window.AOLPlatformAPI={configured:true,user:()=>signedIn?{id:'u1'}:null,
@@ -21,8 +21,9 @@ const FAKE=({signedIn=true,application=null,terms='2026-11'}={})=>{
   like:async id=>{calls.push(['like',id])},
   photos:async pid=>pid==='piccadilly-lights'?[{id:7,project_id:pid,author_name:'사진가',caption:'밤 풍경',licence:'cc-by-4.0',url:'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2240%22 height=%2230%22/%3E',width:1600,height:1200}]:[],
   uploadPhoto:async f=>{calls.push(['uploadPhoto',{...f,blob:{type:f.blob.type,size:f.blob.size}}]);return {id:nextId++,status:'pending'}},
-  saveSubmission:async s=>{calls.push(['saveSubmission',s]);if(s.status==='pending'&&!s.country_iso2)throw new Error('missing_fields: country_iso2,city_or_venue,source');return {id:nextId++,status:s.status}},
-  mine:async()=>({posts:[{id:5,kind:'review',title:'반려된 후기',body:'원래 내용',status:'rejected',decision_reason:'작품과 관련 없는 광고 문구가 있어요.'}],comments:[{id:11,post_id:1,body:'좋은 정보 감사합니다',status:'approved'}],photos:[{id:8,project_id:'piccadilly-lights',caption:null,status:'needs_review',decision_reason:null}],submissions:[{id:9,kind:'new_project',name:'청주 미디어파사드',status:'approved',decision_reason:null,approved_project_id:'REG-CM-0001'}],appeals:[]}),
+  saveSubmission:async s=>{calls.push(['saveSubmission',s]);if(s.status==='pending'&&!s.country_iso2)throw new Error('missing_fields: country_iso2,city_or_venue,source');return {id:s.id||nextId++,status:s.status}},
+  submission:async id=>{calls.push(['submission',Number(id)]);return returned&&Number(id)===12?{id:12,kind:'new_project',name:'수원 미디어파사드',name_en:null,country_iso2:'KR',city:'수원',venue:'화성행궁 광장',project_type:'media_facade',description:'화성행궁 앞 광장의 미디어파사드 작품입니다. 2025년 가을 공개.',official_url:'https://example.org/suwon',source_urls:['https://example.org/suwon'],status:'draft',decision_reason:'공식 출처 링크를 하나 더 붙여 주세요.'}:null},
+  mine:async()=>returned?({posts:[],comments:[],photos:[{id:31,project_id:null,submission_id:12,caption:null,status:'pending',decision_reason:null}],submissions:[{id:12,kind:'new_project',name:'수원 미디어파사드',status:'draft',decision_reason:'공식 출처 링크를 하나 더 붙여 주세요.',approved_project_id:null}],appeals:[]}):({posts:[{id:5,kind:'review',title:'반려된 후기',body:'원래 내용',status:'rejected',decision_reason:'작품과 관련 없는 광고 문구가 있어요.'}],comments:[{id:11,post_id:1,body:'좋은 정보 감사합니다',status:'approved'}],photos:[{id:8,project_id:'piccadilly-lights',caption:null,status:'needs_review',decision_reason:null}],submissions:[{id:9,kind:'new_project',name:'청주 미디어파사드',status:'approved',decision_reason:null,approved_project_id:'REG-CM-0001'}],appeals:[]}),
   flag:async f=>{calls.push(['flag',f])},appeal:async a=>{calls.push(['appeal',a])},
   applyResearcher:async a=>{calls.push(['applyResearcher',a]);return {id:1,status:'submitted'}},acceptTerms:async v=>{calls.push(['acceptTerms',v])}};
 };
@@ -111,12 +112,38 @@ test.describe('with a backend (fake API in memory)',()=>{
   await page.goto('/#community/submit');
   await page.fill('#pfSubmit [name=name]','청주 문화제조창 미디어파사드');
   await page.click('#pfSubmit button[value=draft]');
-  await expect(page.locator('#pfMessage')).toHaveText('임시 저장했어요.');
+  await expect(page.locator('#pfMessage')).toContainText('임시 저장했어요.');
+  await expect(page.locator('#pfMessage a',{hasText:'이 신청에 사진 첨부하기'})).toHaveAttribute('href','#community/photo/sub:100');
   await page.click('#pfSubmit button[value=pending]');
   await expect(page.locator('#pfMessage')).toHaveText('빠진 항목: 국가, 도시 또는 장소, 출처 링크');
   const subs=(await calls(page)).filter(x=>x[0]==='saveSubmission').map(x=>x[1]);
   expect(subs.map(s=>s.status)).toEqual(['draft','pending']);
   expect(subs[1].id).toBe(100);
+ });
+ test('submission follow-up (v2.0): a draft sent back for more information is continued and resubmitted; photos go with the submission',async({page})=>{
+  await page.addInitScript(FAKE,{returned:true});
+  await page.goto('/#community/mine');
+  const row=page.locator('#pfMine .pf-row',{hasText:'수원 미디어파사드'});
+  await expect(row).toContainText('보완 요청: 공식 출처 링크를 하나 더 붙여 주세요.');
+  await expect(page.locator('#pfMine .pf-row',{hasText:'제보·등록 신청 #12'})).toHaveCount(1);
+  await expect(row.getByRole('link',{name:'사진 첨부'})).toHaveAttribute('href','#community/photo/sub:12');
+  await row.getByRole('link',{name:'이어서 작성'}).click();
+  await expect(page.locator('#pfSubmit [name=name]')).toHaveValue('수원 미디어파사드');
+  await expect(page.locator('#pfSubmit [name=venue]')).toHaveValue('화성행궁 광장');
+  await expect(page.locator('#pfSubmitNote')).toHaveText('운영자의 보완 요청: 공식 출처 링크를 하나 더 붙여 주세요.');
+  await page.fill('#pfSubmit [name=source_urls]','https://example.org/suwon\nhttps://example.org/press');
+  await page.click('#pfSubmit button[value=pending]');
+  await expect(page.locator('#pfMessage')).toContainText('제출했어요');
+  const sent=(await calls(page)).filter(x=>x[0]==='saveSubmission').at(-1)[1];
+  expect(sent).toMatchObject({id:12,status:'pending',name:'수원 미디어파사드',source_urls:['https://example.org/suwon','https://example.org/press']});
+  await page.locator('#pfMessage a',{hasText:'이 신청에 사진 첨부하기'}).click();
+  await expect(page.locator('#view')).toContainText('제보·등록 신청 #12에 첨부');
+  const png=await page.evaluate(async()=>{const c=document.createElement('canvas');c.width=1200;c.height=800;c.getContext('2d').fillRect(0,0,1200,800);const b=await new Promise(r=>c.toBlob(r,'image/png'));return Array.from(new Uint8Array(await b.arrayBuffer()))});
+  await page.setInputFiles('#pfPhoto [name=file]',{name:'suwon.png',mimeType:'image/png',buffer:Buffer.from(png)});
+  for(const n of ['own_photo','can_license','people_ok','artwork_rights_notice'])await page.check(`#pfPhoto [name=${n}]`);
+  await page.click('#pfPhoto button');
+  await expect(page.locator('#pfMessage')).toContainText('운영자가 확인한 뒤 공개');
+  expect((await calls(page)).find(x=>x[0]==='uploadPhoto')[1]).toMatchObject({submission_id:12,project_id:null,width:1200,height:800});
  });
  test('my submissions: statuses, reasons, an appeal; reports go to staff',async({page})=>{
   await page.addInitScript(FAKE,{});
