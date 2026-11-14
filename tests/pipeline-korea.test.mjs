@@ -354,7 +354,16 @@ test('Korea coverage: Wikidata search of named Korean things, probes of known ar
   const cat = (t) => cats.find((c) => c.title === 'Category:' + t)
   assert.deepEqual([cat('April 2017 in Daegu').decision, cat('April 2017 in Daegu').reason], ['rejected', 'date_category_month_year'])
   assert.deepEqual([cat('Akeneo Wikimedia Editathon - Mallorca, October 2022').decision, cat('Akeneo Wikimedia Editathon - Mallorca, October 2022').reason], ['rejected', 'wikimedia_event'])
-  assert.deepEqual([cat('Night in Seoul').decision, cat('Night in Seoul').reason], ['rejected', 'root_photo_topic_not_a_work'])
+  // Night in Seoul is a configured evidence root since 2026-11-14 (Commons has no "Night views of Seoul"): recorded as that, never a candidate.
+  assert.deepEqual([cat('Night in Seoul').decision, cat('Night in Seoul').reason], ['aggregate', 'configured_root'])
+  {
+    // The rule itself, with Night in Seoul not configured as a root: a root photo's night-of-the-city category is a topic, not a work.
+    const { discoverCategories } = await import('../pipeline/lib/commons.mjs')
+    const c = loadConfig().categories, env2 = fixtureEnvironment()
+    const out = await discoverCategories(createClient({ fetch: env2.fetch, clock: env2.clock, sleep: env2.sleep }), { ...c, korea_roots: c.korea_roots.filter((r) => r.title !== 'Category:Night in Seoul') }, {})
+    const n = out.categories.get('Category:Night in Seoul')
+    assert.deepEqual([n?.decision, n?.reason], ['rejected', 'root_photo_topic_not_a_work'])
+  }
   assert.deepEqual([cat('Events in Seoul in the 2010s').decision, cat('Events in Seoul in the 2010s').reason], ['rejected', 'date_category_place_in_date'])
   assert.equal(cat('Daegu Colorful Dalgubeol Lantern Festival').reason, 'category_of_a_korean_root_photo')
   const festival = shard.find((r) => r.name_en === 'Daegu Colorful Dalgubeol Lantern Festival')
@@ -387,7 +396,7 @@ test('a published record that is never a project is removed at once, not carried
   for (const id of ['CAT-LEAK001', 'CAT-LEAK002', 'CAT-LEAK003']) assert.ok(removed.includes(id), id)
   assert.ok(!r2.report.changes.carried_over.some((x) => x.id.startsWith('CAT-LEAK')))
   const never = JSON.parse(await readFile(path.join(dir, 'review/classes.json'), 'utf8')).never_project.removed_previous
-  assert.deepEqual(never.find((x) => x.id === 'CAT-LEAK001').reasons, ['category_rejected:root_photo_topic_not_a_work'])
+  assert.deepEqual(never.find((x) => x.id === 'CAT-LEAK001').reasons, ['category_container:evidence_root'], 'an evidence root is a container, never a project')
   assert.ok(never.find((x) => x.id === 'CAT-LEAK002').reasons.includes('name:date_category:month_year'))
   assert.deepEqual(never.find((x) => x.id === 'CAT-LEAK003').reasons, ['name:wikimedia_event'])
 })

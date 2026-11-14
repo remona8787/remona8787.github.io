@@ -153,22 +153,8 @@
    "project_type": "light_art"
   },
   {
-   "title": "Category:Light installations",
-   "qid": null,
-   "mode": "candidates",
-   "depth": 4,
-   "project_type": "light_art"
-  },
-  {
    "title": "Category:Festivals of lights",
    "qid": "Q53170938",
-   "mode": "candidates",
-   "depth": 3,
-   "project_type": "festival_program"
-  },
-  {
-   "title": "Category:Light festivals",
-   "qid": null,
    "mode": "candidates",
    "depth": 3,
    "project_type": "festival_program"
@@ -552,40 +538,10 @@
  ],
  "korea_roots": [
   {
-   "title": "Category:Light art in South Korea",
-   "mode": "candidates",
-   "depth": 2,
-   "project_type": "light_art"
-  },
-  {
-   "title": "Category:Media art in South Korea",
-   "mode": "candidates",
-   "depth": 2,
-   "project_type": "media_architecture"
-  },
-  {
    "title": "Category:Projection mapping in South Korea",
    "mode": "candidates",
    "depth": 2,
    "project_type": "projection_mapping"
-  },
-  {
-   "title": "Category:Light festivals in South Korea",
-   "mode": "candidates",
-   "depth": 2,
-   "project_type": "festival_program"
-  },
-  {
-   "title": "Category:Festivals of lights in South Korea",
-   "mode": "candidates",
-   "depth": 2,
-   "project_type": "festival_program"
-  },
-  {
-   "title": "Category:Media facades in South Korea",
-   "mode": "candidates",
-   "depth": 2,
-   "project_type": "media_facade"
   },
   {
    "title": "Category:Lantern festivals in South Korea",
@@ -594,95 +550,72 @@
    "project_type": "festival_program"
   },
   {
-   "title": "Category:Lantern festivals in Seoul",
-   "mode": "candidates",
-   "depth": 1,
-   "project_type": "festival_program"
-  },
-  {
-   "title": "Category:Projection mapping in Seoul",
-   "mode": "candidates",
-   "depth": 1,
-   "project_type": "projection_mapping"
-  },
-  {
-   "title": "Category:Media art exhibitions in South Korea",
-   "mode": "candidates",
-   "depth": 1,
-   "project_type": "media_architecture"
-  },
-  {
    "title": "Category:Night views of Busan",
    "mode": "evidence",
    "depth": 1
   },
   {
-   "title": "Category:Night views of Incheon",
+   "title": "Category:Night in Incheon",
    "mode": "evidence",
    "depth": 1
   },
   {
-   "title": "Category:Night views of Daegu",
+   "title": "Category:Night in Daegu",
    "mode": "evidence",
    "depth": 1
   },
   {
-   "title": "Category:Night views of Daejeon",
+   "title": "Category:Night in Daejeon",
    "mode": "evidence",
    "depth": 1
   },
   {
-   "title": "Category:Night views of Gwangju",
+   "title": "Category:Night in Gwangju",
    "mode": "evidence",
    "depth": 1
   },
   {
-   "title": "Category:Night views of Ulsan",
+   "title": "Category:Night in Ulsan",
    "mode": "evidence",
    "depth": 1
   },
   {
-   "title": "Category:Night views of Suwon",
+   "title": "Category:Night in Gyeonggi-do",
    "mode": "evidence",
    "depth": 1
   },
   {
-   "title": "Category:Night views of Jeju",
+   "title": "Category:Night in Jeju-do",
    "mode": "evidence",
    "depth": 1
   },
   {
-   "title": "Category:Night views of Gangneung",
+   "title": "Category:Night in Gangneung",
    "mode": "evidence",
    "depth": 1
   },
   {
-   "title": "Category:Night views of Jeonju",
+   "title": "Category:Night in Jeollanam-do",
    "mode": "evidence",
    "depth": 1
   },
   {
-   "title": "Category:Night views of Yeosu",
+   "title": "Category:Night in Gyeongsangbuk-do",
    "mode": "evidence",
    "depth": 1
   },
   {
-   "title": "Category:Night views of Pohang",
+   "title": "Category:Night in Gyeongju",
    "mode": "evidence",
    "depth": 1
   },
   {
-   "title": "Category:Night views of Gyeongju",
+   "title": "Category:Night in Gyeongsangnam-do",
    "mode": "evidence",
    "depth": 1
   },
   {
-   "title": "Category:Night views of Changwon",
-   "mode": "evidence",
-   "depth": 1
-  },
-  {
-   "title": "Category:Night views of Cheongju",
+   "title": "Category:Night in Chungcheongbuk-do",
    "mode": "evidence",
    "depth": 1
   },
@@ -692,17 +625,12 @@
    "depth": 2
   },
   {
-   "title": "Category:Illuminated buildings in Seoul",
-   "mode": "evidence",
-   "depth": 2
-  },
-  {
-   "title": "Category:Night views of Seoul",
+   "title": "Category:Night in Seoul",
    "mode": "evidence",
    "depth": 1
   }
  ],
- "about_korea": "Korea first (v0.18): korea_search runs before every other search (Korean terms, and English terms that must appear in the category name together with a Korean place); korea_roots are walked before the worldwide roots. Categories found this way carry korea: true and a Korean place hint (their own place name when they have one, else South Korea). A root that does not exist on Commons is only a warning in report.json; review/categories.json lists every decision.",
+ "about_korea": "Korea first (v0.18): korea_search runs before every other search (Korean terms, and English terms that must appear in the category name together with a Korean place); korea_roots are walked before the worldwide roots. Categories found this way carry korea: true and a Korean place hint (their own place name when they have one, else South Korea). A root that does not exist on Commons is only a warning in report.json; review/categories.json lists every decision. Root titles checked against Commons on 2026-11-14: names it does not have (\"Night views of <city>\", \"Light art in South Korea\" and others) were replaced by its \"Night in <city or province>\" categories or dropped (a single festival's own category, e.g. Seoul Lantern Festival, is never a root: it is a project).",
  "korea_allow_patterns": [
   {
    "pattern": "\\blantern festival\\b",

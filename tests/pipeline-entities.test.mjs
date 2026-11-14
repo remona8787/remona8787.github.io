@@ -175,7 +175,8 @@ test('Commons categories: aggregates, editions, blocklisted and specific categor
 test('Commons discovery over the fixtures: walk, search hits, decisions and place hints', async () => {
   const env = fixtureEnvironment()
   const client = createClient({ fetch: env.fetch, clock: env.clock, sleep: env.sleep })
-  const out = await discoverCategories(client, cfg.categories, {})
+  // A configured root Commons does not have (here a made-up one) is a warning, never a failure.
+  const out = await discoverCategories(client, { ...cfg.categories, roots: [...cfg.categories.roots, { title: 'Category:No such root (test)', mode: 'candidates', depth: 1 }] }, {})
   const get = (t) => out.categories.get(t)
   assert.equal(get('Category:Facades').decision, 'rejected')
   assert.equal(get('Category:Facades').reason, 'term_not_in_name', 'a loose search hit is never a project')
@@ -185,7 +186,7 @@ test('Commons discovery over the fixtures: walk, search hits, decisions and plac
   assert.equal(get('Category:Light artists').decision, 'rejected')
   assert.deepEqual(get('Category:Fête des Lumières').parts, ['Category:Fête des Lumières 2015'])
   assert.deepEqual(get('Category:Festival of Lights (Berlin)').editions, ['Category:Festival of Lights (Berlin, 2013)'])
-  assert.ok(out.warnings.some((w) => w.root === 'Category:Light installations'), 'a configured root that does not exist is a warning')
+  assert.ok(out.warnings.some((w) => w.root === 'Category:No such root (test)'), 'a configured root that does not exist is a warning')
   assert.deepEqual(out.errors, [])
   for (const [, c] of out.categories) assert.ok(c.reason, 'every decision carries its reason: ' + c.title)
 })

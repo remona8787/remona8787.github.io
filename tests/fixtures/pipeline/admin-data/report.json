@@ -1,16 +1,16 @@
 {
  "cache": {
   "hits": 6,
-  "misses": 1547,
+  "misses": 1525,
   "sizes": {
-   "commons-category": 53,
+   "commons-category": 40,
    "commons-category-item": 8,
    "commons-depicts": 26,
    "commons-file-cats": 6,
-   "commons-file-depicts": 54,
-   "commons-files": 54,
+   "commons-file-depicts": 50,
+   "commons-files": 50,
    "commons-geotags": 4,
-   "commons-members": 38,
+   "commons-members": 37,
    "commons-parents": 6,
    "commons-search": 72,
    "entities": 44,
@@ -32,7 +32,7 @@
    "wikidata-search": 2
   },
   "stale": 0,
-  "writes": 1270
+  "writes": 1248
  },
  "changes": {
   "carried_over": [],
@@ -161,8 +161,8 @@
   "kr_with_region": 64,
   "merged": 4,
   "new": 82,
-  "observations": 109,
-  "observations_kept": 105,
+  "observations": 110,
+  "observations_kept": 106,
   "projects_built": 89,
   "published": 82,
   "removed": 0,
@@ -431,16 +431,16 @@
    }
   },
   "commons.wikimedia.org": {
-   "bytes": 180558,
+   "bytes": 165828,
    "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 220480,
+   "ms": 204480,
    "not_modified": 0,
-   "ok": 235,
-   "requests": 235,
+   "ok": 219,
+   "requests": 219,
    "statuses": {
-    "200": 235
+    "200": 219
    }
   },
   "de.wikipedia.org": {
@@ -535,16 +535,16 @@
    }
   },
   "live.staticflickr.com": {
-   "bytes": 157251,
+   "bytes": 185396,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 40,
+   "ms": 120,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
+   "ok": 3,
+   "requests": 3,
    "statuses": {
-    "200": 1
+    "200": 3
    }
   },
   "nl.wikipedia.org": {
@@ -742,13 +742,144 @@
   "mislinked_rejected": 5,
   "mislinked_removed": 0,
   "newly_added_valid": 38,
-  "person_rejected": 8,
+  "person_rejected": 4,
   "person_removed": 0,
   "portraits": 1,
   "previous_images": 0,
   "rechecked_kept": 0,
   "relevance_verified": 38,
   "removed_total": 0
+ },
+ "image_inventory": {
+  "all": {
+   "by_category": {
+    "1_no_candidate": 11,
+    "2_identity_unverified": 1,
+    "5_b_usable": 1,
+    "6_context_only": 2,
+    "7_permission_needed": 48,
+    "rep_a": 19
+   },
+   "by_next_action": {
+    "request_permission": 48,
+    "search_commons": 14
+   },
+   "by_reason": {
+    "context_only": 2,
+    "identity_unclear": 1,
+    "no_candidate": 18,
+    "no_source_link": 41
+   },
+   "by_status": {
+    "context_only": 2,
+    "none": 60,
+    "representative": 20
+   },
+   "identity_review": 0,
+   "images": {
+    "A": 24,
+    "B": 2,
+    "C": 12
+   },
+   "permission_targets": 48,
+   "projects": 82,
+   "rate_pct": 24.4,
+   "rep_grade_a": 19,
+   "rep_grade_b": 1,
+   "representative": 20,
+   "rights_review": 1,
+   "without_images": 60
+  },
+  "changes": {
+   "gained": null,
+   "image_decision_files": [
+    "2026-10-04T09-00-00Z-block_image.json",
+    "2026-10-11T09-00-00Z-approve_image.json",
+    "2026-10-12T09-00-00Z-set_image.json",
+    "2026-10-14T09-00-00Z-block_image.json"
+   ],
+   "image_decisions_applied": 4,
+   "lost": null,
+   "net": null,
+   "new_image_approvals": null,
+   "new_image_decisions": null,
+   "previous_at": null,
+   "previous_representative": null
+  },
+  "definition": "representative = a project with at least one photo of grade A or B (rights, identity and quality per art-photo-policy.js); rate = representative / published projects; grade C context photos never count",
+  "korea": {
+   "by_category": {
+    "1_no_candidate": 6,
+    "5_b_usable": 1,
+    "7_permission_needed": 47,
+    "rep_a": 10
+   },
+   "by_next_action": {
+    "request_permission": 47,
+    "search_commons": 6
+   },
+   "by_reason": {
+    "no_candidate": 13,
+    "no_source_link": 40
+   },
+   "by_status": {
+    "none": 53,
+    "representative": 11
+   },
+   "identity_review": 0,
+   "images": {
+    "A": 12,
+    "B": 2,
+    "C": 9
+   },
+   "permission_targets": 47,
+   "projects": 64,
+   "rate_pct": 17.2,
+   "rep_grade_a": 10,
+   "rep_grade_b": 1,
+   "representative": 11,
+   "rights_review": 0,
+   "without_images": 53
+  },
+  "tourapi_key": true,
+  "world": {
+   "by_category": {
+    "1_no_candidate": 5,
+    "2_identity_unverified": 1,
+    "6_context_only": 2,
+    "7_permission_needed": 1,
+    "rep_a": 9
+   },
+   "by_next_action": {
+    "request_permission": 1,
+    "search_commons": 8
+   },
+   "by_reason": {
+    "context_only": 2,
+    "identity_unclear": 1,
+    "no_candidate": 5,
+    "no_source_link": 1
+   },
+   "by_status": {
+    "context_only": 2,
+    "none": 7,
+    "representative": 9
+   },
+   "identity_review": 0,
+   "images": {
+    "A": 12,
+    "B": 0,
+    "C": 3
+   },
+   "permission_targets": 1,
+   "projects": 18,
+   "rate_pct": 50,
+   "rep_grade_a": 9,
+   "rep_grade_b": 0,
+   "representative": 9,
+   "rights_review": 1,
+   "without_images": 7
+  }
  },
  "images": {
   "awaiting_review": 0,
@@ -759,7 +890,7 @@
    "openverse": 1,
    "tourapi": 2
   },
-  "candidates": 54,
+  "candidates": 50,
   "contact_sheets": [
    "hero-commons-01.jpg",
    "hero-official-01.jpg",
@@ -767,7 +898,8 @@
    "featured-commons-01.jpg",
    "featured-official-01.jpg",
    "featured-openverse-01.jpg",
-   "cards-01.jpg"
+   "cards-01.jpg",
+   "review-flickr-01.jpg"
   ],
   "depicts_errors": 0,
   "depicts_searches": 26,
@@ -818,9 +950,11 @@
    "rights:foreign_no_freedom_of_panorama": 1,
    "rights:license_not_allowed": 1,
    "subject:object_or_animal": 4,
-   "subject:people_or_event": 6,
+   "subject:people_or_event": 2,
    "subject:person": 3
   },
+  "review_tiles": 2,
+  "review_waiting": 2,
   "thumbnails_fetched": 38
  },
  "invalid_records": [],
@@ -926,8 +1060,8 @@
   "budget_minutes": 35,
   "build_id": "20261020T061700Z-34dee145",
   "drop_guard": null,
-  "duration_ms": 792460,
-  "finished_at": "2026-10-20T06:30:12.460Z",
+  "duration_ms": 776700,
+  "finished_at": "2026-10-20T06:29:56.700Z",
   "number": 1,
   "publish": "published",
   "started_at": "2026-10-20T06:17:00.000Z",
@@ -939,53 +1073,13 @@
  "sources": {
   "commons": {
    "consecutive_failures": 0,
-   "duration_ms": 125040,
+   "duration_ms": 114040,
    "errors": [],
-   "items": 17,
-   "korea_items": 4,
+   "items": 18,
+   "korea_items": 5,
    "last_success": "2026-10-20T06:17:00.000Z",
    "status": "ok",
    "warnings": [
-    {
-     "message": "category does not exist",
-     "root": "Category:Light art in South Korea",
-     "stage": "commons_root"
-    },
-    {
-     "message": "category does not exist",
-     "root": "Category:Media art in South Korea",
-     "stage": "commons_root"
-    },
-    {
-     "message": "category does not exist",
-     "root": "Category:Light festivals in South Korea",
-     "stage": "commons_root"
-    },
-    {
-     "message": "category does not exist",
-     "root": "Category:Festivals of lights in South Korea",
-     "stage": "commons_root"
-    },
-    {
-     "message": "category does not exist",
-     "root": "Category:Media facades in South Korea",
-     "stage": "commons_root"
-    },
-    {
-     "message": "category does not exist",
-     "root": "Category:Lantern festivals in Seoul",
-     "stage": "commons_root"
-    },
-    {
-     "message": "category does not exist",
-     "root": "Category:Projection mapping in Seoul",
-     "stage": "commons_root"
-    },
-    {
-     "message": "category does not exist",
-     "root": "Category:Media art exhibitions in South Korea",
-     "stage": "commons_root"
-    },
     {
      "message": "category does not exist",
      "root": "Category:Night views of Busan",
@@ -993,92 +1087,72 @@
     },
     {
      "message": "category does not exist",
-     "root": "Category:Night views of Incheon",
+     "root": "Category:Night in Incheon",
      "stage": "commons_root"
     },
     {
      "message": "category does not exist",
-     "root": "Category:Night views of Daegu",
+     "root": "Category:Night in Daegu",
      "stage": "commons_root"
     },
     {
      "message": "category does not exist",
-     "root": "Category:Night views of Daejeon",
+     "root": "Category:Night in Daejeon",
      "stage": "commons_root"
     },
     {
      "message": "category does not exist",
-     "root": "Category:Night views of Gwangju",
+     "root": "Category:Night in Gwangju",
      "stage": "commons_root"
     },
     {
      "message": "category does not exist",
-     "root": "Category:Night views of Ulsan",
+     "root": "Category:Night in Ulsan",
      "stage": "commons_root"
     },
     {
      "message": "category does not exist",
-     "root": "Category:Night views of Suwon",
+     "root": "Category:Night in Gyeonggi-do",
      "stage": "commons_root"
     },
     {
      "message": "category does not exist",
-     "root": "Category:Night views of Jeju",
+     "root": "Category:Night in Jeju-do",
      "stage": "commons_root"
     },
     {
      "message": "category does not exist",
-     "root": "Category:Night views of Gangneung",
+     "root": "Category:Night in Gangneung",
      "stage": "commons_root"
     },
     {
      "message": "category does not exist",
-     "root": "Category:Night views of Jeonju",
+     "root": "Category:Night in Jeollanam-do",
      "stage": "commons_root"
     },
     {
      "message": "category does not exist",
-     "root": "Category:Night views of Yeosu",
+     "root": "Category:Night in Gyeongsangbuk-do",
      "stage": "commons_root"
     },
     {
      "message": "category does not exist",
-     "root": "Category:Night views of Pohang",
+     "root": "Category:Night in Gyeongju",
      "stage": "commons_root"
     },
     {
      "message": "category does not exist",
-     "root": "Category:Night views of Gyeongju",
+     "root": "Category:Night in Gyeongsangnam-do",
      "stage": "commons_root"
     },
     {
      "message": "category does not exist",
-     "root": "Category:Night views of Changwon",
-     "stage": "commons_root"
-    },
-    {
-     "message": "category does not exist",
-     "root": "Category:Night views of Cheongju",
+     "root": "Category:Night in Chungcheongbuk-do",
      "stage": "commons_root"
     },
     {
      "message": "category does not exist",
      "root": "Category:Illuminated buildings in South Korea",
-     "stage": "commons_root"
-    },
-    {
-     "message": "category does not exist",
-     "root": "Category:Night views of Seoul",
-     "stage": "commons_root"
-    },
-    {
-     "message": "category does not exist",
-     "root": "Category:Light installations",
-     "stage": "commons_root"
-    },
-    {
-     "message": "category does not exist",
-     "root": "Category:Light festivals",
      "stage": "commons_root"
     },
     {
@@ -1222,7 +1296,7 @@
  },
  "stages": {
   "contact_sheets": {
-   "duration_ms": 0,
+   "duration_ms": 240,
    "status": "ok"
   },
   "enrich": {
@@ -1230,7 +1304,7 @@
    "status": "ok"
   },
   "images": {
-   "duration_ms": 555860,
+   "duration_ms": 550860,
    "status": "ok"
   },
   "links": {
@@ -1250,51 +1324,11 @@
    "status": "ok"
   },
   "sources": {
-   "duration_ms": 125040,
+   "duration_ms": 114040,
    "status": "ok"
   }
  },
  "warnings": [
-  {
-   "message": "category does not exist",
-   "root": "Category:Light art in South Korea",
-   "stage": "commons_root"
-  },
-  {
-   "message": "category does not exist",
-   "root": "Category:Media art in South Korea",
-   "stage": "commons_root"
-  },
-  {
-   "message": "category does not exist",
-   "root": "Category:Light festivals in South Korea",
-   "stage": "commons_root"
-  },
-  {
-   "message": "category does not exist",
-   "root": "Category:Festivals of lights in South Korea",
-   "stage": "commons_root"
-  },
-  {
-   "message": "category does not exist",
-   "root": "Category:Media facades in South Korea",
-   "stage": "commons_root"
-  },
-  {
-   "message": "category does not exist",
-   "root": "Category:Lantern festivals in Seoul",
-   "stage": "commons_root"
-  },
-  {
-   "message": "category does not exist",
-   "root": "Category:Projection mapping in Seoul",
-   "stage": "commons_root"
-  },
-  {
-   "message": "category does not exist",
-   "root": "Category:Media art exhibitions in South Korea",
-   "stage": "commons_root"
-  },
   {
    "message": "category does not exist",
    "root": "Category:Night views of Busan",
@@ -1302,92 +1336,72 @@
   },
   {
    "message": "category does not exist",
-   "root": "Category:Night views of Incheon",
+   "root": "Category:Night in Incheon",
    "stage": "commons_root"
   },
   {
    "message": "category does not exist",
-   "root": "Category:Night views of Daegu",
+   "root": "Category:Night in Daegu",
    "stage": "commons_root"
   },
   {
    "message": "category does not exist",
-   "root": "Category:Night views of Daejeon",
+   "root": "Category:Night in Daejeon",
    "stage": "commons_root"
   },
   {
    "message": "category does not exist",
-   "root": "Category:Night views of Gwangju",
+   "root": "Category:Night in Gwangju",
    "stage": "commons_root"
   },
   {
    "message": "category does not exist",
-   "root": "Category:Night views of Ulsan",
+   "root": "Category:Night in Ulsan",
    "stage": "commons_root"
   },
   {
    "message": "category does not exist",
-   "root": "Category:Night views of Suwon",
+   "root": "Category:Night in Gyeonggi-do",
    "stage": "commons_root"
   },
   {
    "message": "category does not exist",
-   "root": "Category:Night views of Jeju",
+   "root": "Category:Night in Jeju-do",
    "stage": "commons_root"
   },
   {
    "message": "category does not exist",
-   "root": "Category:Night views of Gangneung",
+   "root": "Category:Night in Gangneung",
    "stage": "commons_root"
   },
   {
    "message": "category does not exist",
-   "root": "Category:Night views of Jeonju",
+   "root": "Category:Night in Jeollanam-do",
    "stage": "commons_root"
   },
   {
    "message": "category does not exist",
-   "root": "Category:Night views of Yeosu",
+   "root": "Category:Night in Gyeongsangbuk-do",
    "stage": "commons_root"
   },
   {
    "message": "category does not exist",
-   "root": "Category:Night views of Pohang",
+   "root": "Category:Night in Gyeongju",
    "stage": "commons_root"
   },
   {
    "message": "category does not exist",
-   "root": "Category:Night views of Gyeongju",
+   "root": "Category:Night in Gyeongsangnam-do",
    "stage": "commons_root"
   },
   {
    "message": "category does not exist",
-   "root": "Category:Night views of Changwon",
-   "stage": "commons_root"
-  },
-  {
-   "message": "category does not exist",
-   "root": "Category:Night views of Cheongju",
+   "root": "Category:Night in Chungcheongbuk-do",
    "stage": "commons_root"
   },
   {
    "message": "category does not exist",
    "root": "Category:Illuminated buildings in South Korea",
-   "stage": "commons_root"
-  },
-  {
-   "message": "category does not exist",
-   "root": "Category:Night views of Seoul",
-   "stage": "commons_root"
-  },
-  {
-   "message": "category does not exist",
-   "root": "Category:Light installations",
-   "stage": "commons_root"
-  },
-  {
-   "message": "category does not exist",
-   "root": "Category:Light festivals",
    "stage": "commons_root"
   },
   {

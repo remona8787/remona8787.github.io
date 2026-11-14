@@ -713,6 +713,9 @@ export async function runPipeline(o) {
   // A previous record that is never a project (a date or Wikimedia-event name, an item of a never-a-project class, or
   // a Commons category this run rejected) is removed at once rather than carried over as unseen.
   const rejectedCats = new Map([...(categories?.categories?.values() || [])].filter((c) => c.decision === 'rejected').map((c) => [c.title, c.reason]))
+  // An evidence root (a city's or province's night photos, e.g. "Night in Seoul", 2026-11-14) is a container, never a
+  // project. Only evidence roots: a candidates root could in principle be a work's own category.
+  const rootCats = new Set([...(cfg.categories.roots || []), ...(cfg.categories.korea_roots || [])].filter((r) => r.mode === 'evidence').map((r) => r.title))
   const neverRemoved = []
   // So is a previous record an editor hid (the hide finds no built project to apply to while the record is only carried
   // over), and one that came only from the Korean search and that this run saw and refused with its facts in hand
@@ -726,8 +729,8 @@ export async function runPipeline(o) {
     const refused = r.wikidata && origins.length && origins.every((o) => o === 'wikidata_search') ? krRefused.get(r.wikidata) : null
     const f = r.wikidata ? facts.get(r.wikidata) : null
     const never = neverProject({ qid: r.wikidata, name_en: r.name_en, name_ko: r.name_ko, name_original: r.name_original, commons_category: r.commons_category, p31_labels: f?.p31_labels || [] }, { p31: r.wikidata ? entityP31.get(r.wikidata) || [] : [], member: r.wikidata ? neverMember.get(r.wikidata) || [] : [], blocks: neverBlocks, workClasses, workPattern: workOrEvent })
-    const cat = r.commons_category && rejectedCats.get(r.commons_category)
-    if (never.length || cat || hid?.hide || refused) { decided.add(id); neverRemoved.push({ id, name: r.name_en || r.name_ko || r.name_original, reasons: [...never, ...(cat ? ['category_rejected:' + cat] : []), ...(hid?.hide ? ['editorial_hide'] : []), ...(refused ? refused.map((x) => 'korea_search:' + x) : [])] }) }
+    const cat = r.commons_category && (rejectedCats.has(r.commons_category) ? 'category_rejected:' + rejectedCats.get(r.commons_category) : rootCats.has(r.commons_category) ? 'category_container:evidence_root' : null)
+    if (never.length || cat || hid?.hide || refused) { decided.add(id); neverRemoved.push({ id, name: r.name_en || r.name_ko || r.name_original, reasons: [...never, ...(cat ? [cat] : []), ...(hid?.hide ? ['editorial_hide'] : []), ...(refused ? refused.map((x) => 'korea_search:' + x) : [])] }) }
   }
   const publishedInfo = new Map(published.map((p) => [p.id, { origins: p.origins }]))
   const track = trackProjects(state.tracker, prev.records, { published: publishedInfo, decided, sourceStatus, runNo, nowIso: startedAt, staleAfter: P.output?.stale_after_missing_runs ?? 3, aliases: idAliases })

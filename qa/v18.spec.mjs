@@ -712,6 +712,8 @@ test.describe('place page polish',()=>{
   await page.goto('/#place/SEOUL006');
   const first=page.locator('#detailPhotos .dp-slide').first().locator('.dp-frame');
   await expect(first).toHaveClass(/has-backdrop/);
+  // The layout class comes from the record's size; the picture itself may still be decoding on a busy machine.
+  await expect.poll(()=>first.locator('img').evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true);
   expect(await first.locator('img').evaluate(i=>[getComputedStyle(i).objectFit,i.naturalWidth/i.naturalHeight])).toEqual(['contain',3]);
   await expect(page.locator('#detailPhotos .dp-slide').nth(1).locator('.dp-frame')).not.toHaveClass(/has-backdrop/);
  });
