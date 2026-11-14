@@ -279,6 +279,15 @@ export function prerender(dataset, { siteURL }) {
     files.set(`p/${place.dataset_id}/index.html`, projectPage(place, media, related, site, names))
   }
   files.set('p/index.html', listPage(all.map(x => x.place), site))
+  // Ids merged into another project (index.json moved): their old page sends the reader (and search engines, through the
+  // canonical link) to the project's page. Not in the sitemap.
+  const pageIds = new Set(all.map(x => x.place.dataset_id))
+  const moved = dataset.index?.moved && typeof dataset.index.moved === 'object' && !Array.isArray(dataset.index.moved) ? dataset.index.moved : {}
+  for (const [from, to] of Object.entries(moved)) {
+    if (!/^[A-Za-z0-9][A-Za-z0-9._-]{0,156}$/.test(from) || typeof to !== 'string' || !pageIds.has(to) || pageIds.has(from)) continue
+    const href = `${site}/p/${encodeURIComponent(to)}/`, name = names.get(to) || to
+    files.set(`p/${from}/index.html`, `<!doctype html>\n<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${E(name)} · 빛의 건축</title><link rel="canonical" href="${E(href)}"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=${E(href)}"></head><body><p>이 사례는 <a href="${E(href)}">${E(name)}</a>(으)로 합쳐졌어요. This project was merged into <a href="${E(href)}">${E(name)}</a>.</p></body></html>\n`)
+  }
   const day = (/** @type {any} */ t) => typeof t === 'string' && /^\d{4}-\d{2}-\d{2}/.test(t) ? t.slice(0, 10) : null
   const entries = [{ loc: site + '/p/', lastmod: day(dataset.manifest?.generated_at) }, ...all.map(x => ({ loc: `${site}/p/${encodeURIComponent(x.place.dataset_id)}/`, lastmod: day(x.place.created_at) }))]
   return { files, entries, count: all.length }

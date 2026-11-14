@@ -154,10 +154,11 @@ export async function assemble({ dist, dataDir, siteDir, sourceSha = null, dataS
   // index.html, from the dataset that is deployed (a rejected one never gets pages). Pure, so the deploy id stays a
   // function of the inputs; a dataset it cannot read leaves the site without p/.
   const used = fresh.ok ? fresh : old?.ok ? old : null
-  let pages = 0
+  let pages = 0, redirects = 0
   if (used) {
     try {
-      for (const [p, s] of prerenderSite(used.files, tree)) { tree.set(p, Buffer.from(s)); if (/^p\/[^/]+\/index\.html$/.test(p)) pages++ }
+      // A merged id's page (index.json moved) only sends readers on: counted apart from the project pages.
+      for (const [p, s] of prerenderSite(used.files, tree)) { tree.set(p, Buffer.from(s)); if (/^p\/[^/]+\/index\.html$/.test(p)) { if (s.includes('http-equiv="refresh"')) redirects++; else pages++ } }
     } catch (e) { log(`no project pages: ${e.message}`) }
   }
   // The research data package (scripts/research-package.mjs) of the deployed dataset: data/research/<version>/ and
@@ -182,7 +183,7 @@ export async function assemble({ dist, dataDir, siteDir, sourceSha = null, dataS
 
   const deployId = treeId(tree)
   const previous = (await readJSONFile(path.join(siteDir, 'deploy.json'))).value ?? null
-  const result = { deploy_id: deployId, build_id: buildId, dataset, admin, pages, research_files: research, removed_admin: removedAdmin, dataset_errors: datasetErrors.slice(0, 20), admin_errors: adminErrors.slice(0, 20), changed: previous?.deploy_id !== deployId || removedAdmin, files: tree.size + 1 }
+  const result = { deploy_id: deployId, build_id: buildId, dataset, admin, pages, redirect_pages: redirects, research_files: research, removed_admin: removedAdmin, dataset_errors: datasetErrors.slice(0, 20), admin_errors: adminErrors.slice(0, 20), changed: previous?.deploy_id !== deployId || removedAdmin, files: tree.size + 1 }
   if (!result.changed) { log(`deploy ${deployId} is already on main: nothing to change`); return result }
 
   // Replace main's tree: remove everything but KEEP, then write the new files and deploy.json.
@@ -196,7 +197,7 @@ export async function assemble({ dist, dataDir, siteDir, sourceSha = null, dataS
   }
   const stamp = { schema: 1, deploy_id: deployId, build_id: buildId, dataset, admin, source: sourceSha || null, data: dataSha || null, at: now }
   await writeFile(path.join(siteDir, 'deploy.json'), JSON.stringify(stamp, null, 1) + '\n')
-  log(`deploy ${deployId}: ${tree.size} files, dataset ${dataset}${buildId ? ' ' + buildId : ''}, ${pages} project pages, ${research} research files, admin data not published`)
+  log(`deploy ${deployId}: ${tree.size} files, dataset ${dataset}${buildId ? ' ' + buildId : ''}, ${pages} project pages${redirects ? ` (+${redirects} for merged ids)` : ''}, ${research} research files, admin data not published`)
   return result
 }
 

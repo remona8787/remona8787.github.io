@@ -18,6 +18,9 @@ const publicURL = String(cfg.PUBLIC_URL || '')
 const base = new URL('data/', document.baseURI)
 const TIMEOUT_MS = 20000
 let events = null, eventsRun = null, runStatus = null, runStatusRun = null
+// Ids merged into another project (index.json moved), filled with the index.
+let moved = new Map()
+const ID_OK = /^[A-Za-z0-9][A-Za-z0-9._-]{0,156}$/
 let buildId = null, home = null, indexState = 'idle', indexRun = null, manifest = null, manifestRun = null, indexRetryAt = 0
 /** @type {Map<string, any>} compact places by app id (home cards, index rows) */
 const compact = new Map()
@@ -91,6 +94,8 @@ export function ensureIndex() {
     try {
       const json = await get('index.json')
       const list = fromIndex(json, { publicURL })
+      // Ids merged into another project (pipeline output moved): an old link is sent on to the project.
+      moved = json && typeof json.moved === 'object' && !Array.isArray(json.moved) ? new Map(Object.entries(json.moved).filter(([a, b]) => ID_OK.test(a) && ID_OK.test(String(b)))) : new Map()
       addCompact(list, list.map(p => cardMedia(p, null)).filter(Boolean))
       indexState = 'ok'
     } catch { indexState = 'error'; indexRun = null; indexRetryAt = Date.now() + 15000 }
@@ -192,7 +197,9 @@ export const ready = (async () => {
   return status === 'ok'
 })()
 
-window.AOLDataset = { ready, ensureIndex, ensureRecord, ensureEvents, ensureRunStatus, record, videos, loading, get status() { return status } }
+/** The project an old, merged id now belongs to (or null). @param {string} id */
+const movedTo = (id) => moved.get(String(id || '').replace(/^AR-/, '')) || null
+window.AOLDataset = { ready, ensureIndex, movedTo, ensureRecord, ensureEvents, ensureRunStatus, record, videos, loading, get status() { return status } }
 window.AOL_DATASET = { status: 'probing', buildId: null, home: null, projects: [], media: [], index: 'idle', count: 0, version: 0 }
 window.AOL_DATASET_MEDIA = []
 addEventListener('hashchange', need)

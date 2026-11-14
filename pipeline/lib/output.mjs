@@ -249,9 +249,10 @@ const withArt = (records) => records.filter((r) => artCardOf(r)).length
  * index.json: compact rows (the card image's thumbnail, its size, and its tier: 1 media facade running … 5 architectural).
  * The thumbnail is always a photo of the work (artCardOf; representative_policy "artwork_only", thumb_kind_default and
  * thumb_installation_rows give its kind); a project without one has none. location_precision names the projects whose
- * position is not exact (city, approximate); build_id lets the app see that the index belongs to the build it started.
+ * position is not exact (city, approximate); build_id lets the app see that the index belongs to the build it started;
+ * moved maps ids merged into another project to that project's id.
  */
-export function buildIndex(records, { compactAboveBytes = 512 * 1024, buildId = null } = {}) {
+export function buildIndex(records, { compactAboveBytes = 512 * 1024, buildId = null, moved = {} } = {}) {
   const installation = [], precision = {}
   const rows = records.map((r, n) => {
     const card = artCardOf(r)
@@ -262,7 +263,9 @@ export function buildIndex(records, { compactAboveBytes = 512 * 1024, buildId = 
       r.country_iso2, r.city, r.lat === null ? null : round(r.lat, 4), r.lng === null ? null : round(r.lng, 4), r.project_type, yearOf(r),
       card?.thumb ?? null, card?.tier ?? null, r.shard, r.added_at ? r.added_at.slice(0, 10) : null, r.kr_region ?? null, card ? tw : null, card ? th : null, r.city_ko ?? null, r.district ?? null, r.kr_division ?? null]
   })
-  const meta = { ...(buildId ? { build_id: buildId } : {}), representative_policy: 'artwork_only', thumb_kind_default: 'project_media', ...(installation.length ? { thumb_installation_rows: installation } : {}), ...(Object.keys(precision).length ? { location_precision: precision } : {}) }
+  // moved: ids that merged into a published project (old id → its id), so old links keep working.
+  const movedOk = Object.fromEntries(Object.entries(moved || {}).filter(([a, b]) => typeof a === 'string' && typeof b === 'string' && a !== b).sort(([a], [b]) => a.localeCompare(b)))
+  const meta = { ...(buildId ? { build_id: buildId } : {}), ...(Object.keys(movedOk).length ? { moved: movedOk } : {}), representative_policy: 'artwork_only', thumb_kind_default: 'project_media', ...(installation.length ? { thumb_installation_rows: installation } : {}), ...(Object.keys(precision).length ? { location_precision: precision } : {}) }
   const full = { schema: DATA_SCHEMA, ...meta, fields: INDEX_FIELDS, rows }
   if (Buffer.byteLength(JSON.stringify(full)) <= compactAboveBytes) return full
   const t = INDEX_FIELDS.indexOf('thumb')

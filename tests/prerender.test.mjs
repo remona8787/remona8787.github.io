@@ -25,6 +25,20 @@ test('one page per project of index.json, a list page, and sitemap entries for a
   assert.ok(entries.every(e => e.loc.startsWith(SITE + '/p/')))
 })
 
+test('a merged id keeps its page: it sends readers and search engines to the project, and stays out of the sitemap', () => {
+  const data = siteData(RECORDS), into = RECORDS[0]
+  data.index = { ...data.index, moved: { 'REG-OLD-0001': into.id, 'BAD/../x': into.id, 'REG-NOWHERE': 'NO-SUCH-ID', [into.id]: RECORDS[1].id } }
+  const { files, entries } = prerender(data, { siteURL: SITE })
+  const html = files.get('p/REG-OLD-0001/index.html')
+  assert.ok(html, 'a page for the old id')
+  assert.match(html, new RegExp(`<link rel="canonical" href="${SITE}/p/${into.id}/">`))
+  assert.match(html, /<meta name="robots" content="noindex">/)
+  assert.match(html, new RegExp(`<meta http-equiv="refresh" content="0; url=${SITE}/p/${into.id}/">`))
+  assert.ok(![...files.keys()].some(k => /BAD|REG-NOWHERE/.test(k)), 'no page for an unsafe id or a missing target')
+  assert.doesNotMatch(files.get(`p/${into.id}/index.html`), /http-equiv="refresh"/, 'a published id is never replaced by a redirect')
+  assert.ok(!entries.some(e => e.loc.includes('REG-OLD-0001')))
+})
+
 test('a project page: title, description, canonical, OG/Twitter, JSON-LD with credited images, a link into the app', () => {
   const data = siteData(RECORDS)
   const r = RECORDS.find(x => x.country_iso2 === 'KR' && x.images.some(i => i.tier <= 2 && i.approved !== false))

@@ -150,6 +150,9 @@ test('project pages: made from the deployed dataset (never a rejected one), with
     assert.equal(r.dataset, 'data_branch')
     assert.equal(r.pages, ids.length)
     for (const id of ids) assert.ok(existsSync(path.join(w.site, 'p', id, 'index.html')), id)
+    // The fixture's merged ids (index.json moved) keep a page that sends readers to the project.
+    assert.equal(r.redirect_pages, Object.keys(index.moved || {}).length)
+    for (const [from, to] of Object.entries(index.moved || {})) assert.match(await readFile(path.join(w.site, 'p', from, 'index.html'), 'utf8'), new RegExp(`/p/${to}/`))
     assert.ok(existsSync(path.join(w.site, 'p/index.html')))
     assert.ok(!existsSync(path.join(w.site, 'p/STALE')), 'p/ of a build never mixes with the pages of the dataset')
     const sitemap = await readFile(path.join(w.site, 'sitemap.xml'), 'utf8')

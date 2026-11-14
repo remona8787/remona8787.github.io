@@ -788,7 +788,15 @@ export async function runPipeline(o) {
   // Events (lib/registry.mjs): the registry's series and editions, each edition's status in its own time zone. Part of
   // the content hash, so a run publishes when an edition opens or closes.
   const events = buildEvents(registry.records, { now: clock(), published: new Set(records.map((r) => r.id)), generatedAt: startedAt, buildId: null })
-  const hashParts = { records, events: events.series }
+  // Ids that merged into another published project (editorial merge, or two records that turned out to be one): the
+  // index carries them as moved, so an old link (#place/<id>, p/<id>/) still reaches the project. Chains resolve.
+  const publishedIdSet = new Set(records.map((r) => r.id)), moved = {}
+  for (const [from] of idAliases) {
+    let to = idAliases.get(from)
+    for (let i = 0; i < 5 && !publishedIdSet.has(to) && idAliases.has(to); i++) to = idAliases.get(to)
+    if (!publishedIdSet.has(from) && publishedIdSet.has(to) && from !== to) moved[from] = to
+  }
+  const hashParts = { records, events: events.series, ...(Object.keys(moved).length ? { moved } : {}) }
   const hash = contentHash(hashParts)
   const unchanged = state.runs.last_good?.content_hash === hash && prev.manifest
   const buildId = unchanged ? prev.manifest.build_id : `${compactTime(startedAt).slice(0, 15)}Z-${hash.slice(0, 8)}`
@@ -797,7 +805,7 @@ export async function runPipeline(o) {
   const files = {
     manifest: buildManifest({ buildId, generatedAt, records, shards, sources: unchanged ? prev.manifest.sources : sourcesManifest, events }),
     events: { ...events, build_id: buildId, generated_at: generatedAt },
-    index: buildIndex(records, { buildId }),
+    index: buildIndex(records, { buildId, moved }),
     home: buildHome(records, picks, { buildId, generatedAt, heroMax: P.output?.home_hero_max ?? 6, featuredMax: P.output?.home_featured ?? 12 }),
     stats: buildStats(records, { buildId, generatedAt }),
     shards: Object.fromEntries(shards.map((s) => [s, { schema: 1, shard: s, build_id: buildId, projects: records.filter((r) => r.shard === s) }])),

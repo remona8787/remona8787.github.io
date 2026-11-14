@@ -81,6 +81,8 @@ test('dry run: sources become projects only through the rules (merges, rejection
   // Two Wikidata items of one festival: merged by an editorial decision, both sources kept.
   assert.ok(!data.records.has('Q18391691'))
   assert.ok(r('Q15140473').sources.some((s) => s.url === 'https://www.wikidata.org/wiki/Q18391691'))
+  // The merged id stays reachable: index.json carries it as moved (old links, p/<id>/).
+  assert.equal(JSON.parse(await readFile(path.join(dir, 'site-data/index.json'), 'utf8')).moved?.Q18391691, 'Q15140473')
   // Wikipedia media-facade discovery: a building whose article states it, with the article as the source.
   assert.equal(r('Q99000101').project_type, 'media_facade')
   assert.ok(r('Q99000101').sources.some((s) => s.kind === 'wikipedia' && /Galleria_Centercity/.test(s.url)))
