@@ -322,3 +322,7 @@ fieldset.field>.field-meta{margin-bottom:4px}
 .badge.warn{background:var(--warning-bg);color:var(--warning-ink)}
 .pf-perm textarea{display:block;width:100%;max-width:100%;box-sizing:border-box;margin:6px 0;font:inherit}
 .pf-perm details{margin:6px 0}
+
+/* Photos under review: a bounded preview from the private bucket */
+.pf-preview{display:block;max-width:min(100%,480px);height:auto;border-radius:8px;background:var(--panel)}
+.pf-preview.small{display:inline-block;max-width:160px;margin:0 6px 6px 0}
