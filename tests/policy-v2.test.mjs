@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import {mkdtempSync,mkdirSync,cpSync,readFileSync,writeFileSync,existsSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
-import {notice,effective,addDays} from '../scripts/policy-v2.mjs';
+import {notice,effective,addDays,josa} from '../scripts/policy-v2.mjs';
 
 const root=path.resolve(import.meta.dirname,'..');
 function copy(){
@@ -25,6 +25,7 @@ test('the site carries the announced texts: notice on the current pages, -next p
   const cur=readFileSync(path.join(root,'site-public-cleared',kind+'.html'),'utf8'),next=readFileSync(path.join(root,'site-public-cleared',kind+'-next.html'),'utf8');
   assert.ok(cur.includes(`<a href="./${kind}-next.html">`)&&cur.includes(state.effective_date),kind+': notice with the effective date');
   assert.match(next,/name="robots" content="noindex"/);assert.doesNotMatch(next,/\{\{/);
+  assert.doesNotMatch(cur+next,/안내은|안내이 |방침는|방침가 /,kind+': particles');
  }
  assert.equal(state.effective_date,addDays(state.notice_date,7));
 });
@@ -77,4 +78,5 @@ test('effective: refused before the date; then the new texts are the policy, the
  assert.equal(existsSync(path.join(dir,'site-public-cleared/privacy-next.html')),false);
  assert.equal(effective({dir,today:'2026-12-01'}).status,'effective','running it again changes nothing');
  assert.equal(addDays('2026-12-28',7),'2027-01-04');
+ assert.deepEqual([josa('이 방침','은','는'),josa('이 안내','은','는'),josa('이용 안내','이','가'),josa('개인정보 처리방침','이','가')],['이 방침은','이 안내는','이용 안내가','개인정보 처리방침이']);
 });

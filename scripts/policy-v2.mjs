@@ -20,6 +20,8 @@ import path from 'node:path';
 const ROOT=path.resolve(import.meta.dirname,'..');
 const KINDS={privacy:{title:'개인정보 처리방침',label:'이 방침'},terms:{title:'이용 안내',label:'이 안내'}};
 const DATE=/^\d{4}-\d{2}-\d{2}$/;
+// A Korean particle after a word: the first form after a final consonant (방침은, 방침이), the second after a vowel (안내는, 안내가).
+export const josa=(word,withFinal,withoutFinal)=>{const c=word.charCodeAt(word.length-1);return word+((c>=0xac00&&c<=0xd7a3&&(c-0xac00)%28)?withFinal:withoutFinal)};
 export const esc=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 export const addDays=(d,n)=>new Date(Date.parse(d+'T00:00:00Z')+n*86400000).toISOString().slice(0,10);
 const kst=()=>new Date(Date.now()+9*3600000).toISOString().slice(0,10);
@@ -64,10 +66,10 @@ export function notice(opts){
  const site=path.join(dir,'site-public-cleared');
  for(const kind of Object.keys(KINDS)){
   const cur=readFileSync(path.join(site,kind+'.html'),'utf8'),body=readFileSync(path.join(dir,'release/policies/v2',kind+'.body.html'),'utf8');
-  const banner=`<p class="notice"><b>개정 예고</b> · ${KINDS[kind].label}은 ${effectiveDate}부터 시행됩니다. 그 전까지는 <a href="./${kind}.html">현재 ${KINDS[kind].title}</a>이 적용됩니다. 회원 기능(가입·로그인, 후기·댓글·방문 사진, 새 사례 제보, 연구데이터, 기기 동기화) 도입에 따라 개정합니다.</p>`;
+  const banner=`<p class="notice"><b>개정 예고</b> · ${josa(KINDS[kind].label,'은','는')} ${effectiveDate}부터 시행됩니다. 그 전까지는 <a href="./${kind}.html">현재 ${KINDS[kind].title}</a>${josa(KINDS[kind].title,'이','가').slice(KINDS[kind].title.length)} 적용됩니다. 회원 기능(가입·로그인, 후기·댓글·방문 사진, 새 사례 제보, 연구데이터, 기기 동기화) 도입에 따라 개정합니다.</p>`;
   const next=noindex(retitle(render(kind,withNotice(cur,''),body,{noticeDate,effectiveDate,mailProvider,mailCountry,banner}),'개정 예고'));
   writeFileSync(path.join(site,kind+'-next.html'),next);
-  writeFileSync(path.join(site,kind+'.html'),withNotice(cur,`<p class="notice"><b>개정 안내</b> · ${KINDS[kind].title}이 ${effectiveDate}부터 바뀝니다(회원 기능 도입). <a href="./${kind}-next.html">개정된 ${KINDS[kind].title} 보기</a> · 공고일 ${noticeDate}</p>`));
+  writeFileSync(path.join(site,kind+'.html'),withNotice(cur,`<p class="notice"><b>개정 안내</b> · ${josa(KINDS[kind].title,'이','가')} ${effectiveDate}부터 바뀝니다(회원 기능 도입). <a href="./${kind}-next.html">개정된 ${KINDS[kind].title} 보기</a> · 공고일 ${noticeDate}</p>`));
  }
  const state={status:'announced',notice_date:noticeDate,effective_date:effectiveDate,mail_provider:mailProvider.trim(),mail_country:mailCountry.trim(),version:'2.0.0'};
  writeFileSync(statePath,JSON.stringify(state,null,2)+'\n');
