@@ -234,14 +234,19 @@ SQL 편집기에서 위 1~3을 순서대로, 함수는 `npx supabase functions d
 
 ## 8. 정책 문서
 
-초안: `docs/policies/v2-drafts.md`. **아직 게시하지 않았고 법적 검토가 필요합니다.** 지금 사이트의 개인정보 처리방침·이용 안내는
-회원 기능이 없는 v1.0 기준이며, 회원 기능을 켜는 날 함께 바꿔야 합니다.
+확정본: `docs/policies/v2-final.md`(2026-11-15 운영자가 기본값으로 결정), 본문 `release/policies/v2/`, 게시 스크립트
+`scripts/policy-v2.mjs`(개정 예고 → 7일 뒤 시행). **아직 게시하지 않았습니다**: 이메일 발송 업체(SMTP)가 정해지면 예고를 게시하고,
+시행일에 회원 기능을 켭니다. 법률 검토는 받지 않았습니다(운영자 판단). 초안 기록은 `docs/policies/v2-drafts.md`.
+가입 화면은 만 14세 이상 확인과 이용 안내·개인정보 처리방침 동의를 받고, 그 기록(버전 2.0.0, 일시)을 계정 메타데이터 `consent`로
+남깁니다(`qa/signup-consent.spec.mjs`). 방침의 보관 기간은 `platform_expire`가 매일 지킵니다(`20261115000000_v2_retention.sql`).
 
 ## 9. 검증 상태
 
 로컬 실제 스택: 이 컨테이너의 Supabase CLI 2.122.1 로컬 스택(Postgres 17, GoTrue Auth와 메일 수신기, PostgREST, Storage, Edge Runtime).
-**운영 프로젝트(`refwrdfxbhcsguweicle`)에는 아직 적용하지 않았습니다**: 이 개발 환경은 `*.supabase.co`와 `api.supabase.com`에 접속할 수
-없어서, 적용과 실제 점검은 6-1의 workflow를 운영자가 실행해야 합니다.
+**운영 프로젝트(`refwrdfxbhcsguweicle`)에 2026-11-15 적용했습니다**(platform workflow `apply`, 운영자 승인). 같은 날 `verify`
+84개 항목 통과, 시험 계정·파일 정리 확인(`inspect`: 시험 계정 0, 공개 회원 사진 0). 로그인 설정(비밀번호 12자, 사이트 주소)은 토큰에
+프로젝트 설정 권한을 주지 않아 운영자가 대시보드에서 바꿨고, 운영자 계정을 admin으로 지정했습니다. 관리자 화면(`/admin/`)은 연결,
+공개 사이트의 회원 기능은 SMTP와 개정 방침 시행 전까지 꺼 둡니다. 보관 기간 마이그레이션(`20261115000000`)은 다음 `apply` 때 설치합니다.
 
 | 항목 | 상태 |
 |---|---|
@@ -258,6 +263,8 @@ SQL 편집기에서 위 1~3을 순서대로, 함수는 `npx supabase functions d
 | 예약 작업(pg_cron → Vault 비밀 → moderate-queue) | 검증 완료(로컬, 예약 명령을 직접 실행해 200 응답) · 실제 5분 주기 관찰은 운영 프로젝트에서 |
 | 화면(서버 없음·가짜 서버) | 테스트 완료(Playwright, `qa/v2-platform.spec.mjs`, `qa/admin.spec.mjs`) |
 | 문맥 분류기(Claude API) | 미검증(API 키 없음, 운영자 승인 필요) · 요청 형식은 현재 API 규칙으로 단위 테스트 |
-| 운영 프로젝트 설치·점검 workflow | 구현 완료·검증 필요(Management API 호출은 대체 서버로 단위 테스트, SQL 경로는 로컬 실제 스택. 첫 `inspect` 실행이 실제 확인) |
+| 운영 프로젝트 설치·점검 workflow | 검증 완료(2026-11-15 운영 프로젝트: inspect → apply → verify 84/84, 시험 데이터 정리 확인) |
+| 보관 기간 자동 삭제(1년·3년) | 검증 완료(SQL 시험, PGlite) · 운영 프로젝트 미설치(다음 apply) |
+| 가입 때 만 14세·약관·방침 확인 | 테스트 완료(가짜 Auth 서버, `qa/signup-consent.spec.mjs`) · 실제 서버 시험은 로컬 스택에서 다시 돌릴 때 |
 | 실제 이메일 발송(SMTP) | 운영 환경 설정 필요 |
 | 장기 안정성(예약 실행, 대기열, 비용) | 운영 후 일정 기간 관찰 필요(시험만으로 검증 완료라 하지 않음) |

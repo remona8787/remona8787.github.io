@@ -58,11 +58,16 @@ for (const [label, viewport] of [['phone', { width: 390, height: 844 }], ['deskt
     const form = page.locator('#authForm')
     await form.getByLabel('이메일').fill(email)
     await form.getByLabel('비밀번호 (12자 이상)').fill(PASSWORD)
+    // Sign-up needs the age and policy confirmation; signing in does not.
+    await form.getByRole('button', { name: '회원가입' }).click()
+    await expect(page.locator('#accountMessage')).toContainText('만 14세 이상')
+    await form.getByLabel(/만 14세 이상이며/).check()
     await form.getByRole('button', { name: '회원가입' }).click()
     // The account appears on the server (the page shows a short notice; the server is the proof).
     let me = null
     await expect.poll(async () => { const { data } = await service.auth.admin.listUsers({ page: 1, perPage: 200 }); me = data.users.find((u) => u.email === email) || null; return !!me }, { timeout: 15000, message: 'sign-up reached the server: ' + (await page.locator('#accountMessage').textContent().catch(() => '')) }).toBe(true)
     expect(me, 'the account exists').toBeTruthy()
+    expect(me.user_metadata?.consent, 'the confirmation is kept with the account').toMatchObject({ age_14_plus: true, terms_version: '2.0.0', privacy_version: '2.0.0' })
     users.push(me.id)
     expect(me.email_confirmed_at, 'not confirmed before the e-mail link').toBeFalsy()
     // 2. The link in the real confirmation e-mail.

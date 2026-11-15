@@ -1939,6 +1939,10 @@ a.group-row:hover .row-chev{transform:translateX(3px)}
 .legal a[href^="mailto:"]{display:inline-block;padding:6px 0;min-height:32px}
 .legal table{width:100%;border-collapse:collapse;font-size:var(--fs-label)}
 .legal th,.legal td{padding:var(--s-2) var(--s-3);border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.legal .table-wrap th,.legal .table-wrap td{word-break:keep-all}
+@media (min-width:641px){.legal .table-wrap td:first-child{min-width:7.5em}}
+/* Policy tables (privacy.html 2.0.0): on a phone each row becomes a block, each cell named by its column. */
+@media (max-width:640px){.legal .table-wrap thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.legal .table-wrap tr{display:block;padding:var(--s-3) 0;border-bottom:1px solid var(--line)}.legal .table-wrap td{display:block;border:0;padding:2px 0}.legal .table-wrap td:first-child{font-weight:700;padding-bottom:var(--s-1)}.legal .table-wrap td[data-th]::before{content:attr(data-th) " · ";color:var(--text-muted)}}
 .unresolved{color:var(--vermilion-strong);font-weight:700}
 .static-footer{max-width:832px;margin:0 auto;padding:0 var(--gutter) var(--s-10);color:var(--text-muted);font-size:var(--fs-caption)}
 .static-footer nav{display:flex;flex-wrap:wrap;column-gap:var(--s-4)}
