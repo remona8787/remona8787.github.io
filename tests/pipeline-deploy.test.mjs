@@ -304,7 +304,12 @@ test('verify-live: waits until the live site serves this deploy and build, or re
 
 test('verify-live: screens, viewports, detail pick and the summary', async () => {
   assert.deepEqual(VIEWPORTS.map((v) => [v.width, v.height]), [[390, 844], [1440, 900]])
-  assert.deepEqual(screens('Q1 x').map((s) => [s.name, s.path]), [['home', ''], ['explore', '#explore'], ['map', '#map'], ['detail', '#place/Q1%20x'], ['place-SEOUL006', '#place/SEOUL006'], ['data', '#data'], ['admin', 'admin/']])
+  assert.deepEqual(screens('Q1 x').map((s) => [s.name, s.path]), [['home', ''], ['explore', '#explore'], ['map', '#map'], ['detail', '#place/Q1%20x'], ['place-SEOUL006', '#place/SEOUL006'], ['data', '#data'], ['community', '#community'], ['account', '#account'], ['admin', 'admin/']])
+  // The member screens (v2.0): ok only when the list came from the server (posts or the empty notice) and the form asks for the confirmation.
+  const mem = (page, viewport, member) => ({ page, viewport, ok: true, console_errors: [], page_errors: [], failed_requests: [], http_errors: [], broken_images: 0, internal_terms: [], lcp: { ms: 500 }, transfer: { total_bytes: 1 }, data_files: [], member })
+  assert.deepEqual(summarize([mem('community', 'mobile', { backend: true, menu: true, posts: 0, empty: true, error: null }), mem('account', 'mobile', { backend: true, sign_up_form: true, consent: true })]).member, { ok: true, failed: [], community_posts: 0 })
+  assert.deepEqual(summarize([mem('community', 'desktop', { backend: true, menu: true, posts: 0, empty: false, error: '요청을 처리하지 못했어요.' }), mem('account', 'desktop', { backend: true, sign_up_form: true, consent: false })]).member.failed, ['desktop-community', 'desktop-account'])
+  assert.equal(summarize([mem('home', 'mobile', undefined)]).member, null)
   assert.equal(screens(null).some((s) => s.name === 'detail'), false)
   assert.equal(screens('SEOUL006').filter((s) => s.path === '#place/SEOUL006').length, 1, 'the regression page is not opened twice')
   // What a detail page shows, matched to its record by Commons file name or URL.

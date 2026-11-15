@@ -39,6 +39,10 @@ export function screens(detailId, { regression = REGRESSION_PAGES } = {}) {
     ...(detailId ? [{ name: 'detail', path: '#place/' + encodeURIComponent(detailId), public: true, project: detailId }] : []),
     ...regression.filter((id) => id !== detailId).map((id) => ({ name: 'place-' + id, path: '#place/' + encodeURIComponent(id), public: true, project: id })),
     { name: 'data', path: '#data', public: true },
+    // v2.0 member features (2026-11-15): the community list read from the operator's project by a real browser, and the
+    // sign-up form with its age and policy confirmation (screen.member: r.member says what the page showed).
+    { name: 'community', path: '#community', public: true, member: true },
+    { name: 'account', path: '#account', public: true, member: true },
     { name: 'admin', path: 'admin/', public: false },
   ]
 }
@@ -186,6 +190,13 @@ async function measure(browser, base, screen, vp, outDir, { settleMs = 1500 } = 
       const text = await page.evaluate(() => document.body?.innerText || '').catch(() => '')
       r.internal_terms = INTERNAL_TERMS.filter((t) => text.includes(t))
     }
+    if (screen.member) r.member = await page.evaluate((name) => {
+      const view = document.querySelector('#view'), text = view?.innerText || ''
+      const backend = !view?.querySelector('[data-platform="not-configured"]')
+      if (name === 'account') return { backend, sign_up_form: !!view?.querySelector('#authForm'), consent: !!view?.querySelector('#authForm input[name=consent]') }
+      const error = [...(view?.querySelectorAll('.form-message') || [])].map((e) => e.textContent.trim()).filter(Boolean)[0] || null
+      return { backend, menu: !!document.querySelector('#navigation a[href="#community"]'), posts: view?.querySelectorAll('.pf-cards > *').length ?? 0, empty: /아직 공개된 글이 없어요/.test(text), error }
+    }, screen.name).catch((e) => ({ error: String(e?.message || e).slice(0, 200) }))
     // Creator portraits belong inside [data-creator-portrait]; everything else on the page is checked against the record.
     if (screen.project) r.page_images = await page.evaluate(() => {
       const src = (i) => i.currentSrc || i.src
@@ -229,6 +240,9 @@ export function summarize(pages) {
     http_errors: sum((p) => p.http_errors.length),
     broken_images: sum((p) => p.broken_images),
     internal_terms: [...new Set(pages.flatMap((p) => p.internal_terms))],
+    // The member screens: the community list came from the server (posts or the empty notice, no error) and the sign-up
+    // form carries the confirmation, on every viewport that ran them.
+    member: (() => { const m = pages.filter((p) => p.member); if (!m.length) return null; const bad = m.filter((p) => p.page === 'community' ? !(p.member.backend && p.member.menu && !p.member.error && (p.member.posts > 0 || p.member.empty)) : !(p.member.backend && p.member.sign_up_form && p.member.consent)); return { ok: bad.length === 0, failed: bad.map((p) => `${p.viewport}-${p.page}`), community_posts: Math.max(0, ...m.filter((p) => p.page === 'community').map((p) => p.member.posts || 0)) } })(),
     max_lcp_ms: lcps.length ? Math.max(...lcps.map((p) => p.lcp.ms)) : null,
     lcp_ms: Object.fromEntries(lcps.map((p) => [`${p.viewport}-${p.page}`, p.lcp.ms])),
     transfer_bytes: Object.fromEntries(pages.map((p) => [`${p.viewport}-${p.page}`, p.transfer.total_bytes])),
