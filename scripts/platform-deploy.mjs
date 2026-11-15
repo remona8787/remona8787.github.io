@@ -64,7 +64,7 @@ begin
  if to_regclass('storage.objects') is not null then execute 'select count(*) from storage.objects where bucket_id=''community-photos''' into x; r:=r||jsonb_build_object('public_photos',x); end if;
  if to_regclass('public.places') is not null then execute 'select jsonb_build_object(''all'',count(*),''published'',count(*) filter (where is_published)) from public.places' into x; r:=r||jsonb_build_object('places',x); end if;
  if to_regclass('public.app_admins') is not null then execute 'select coalesce(jsonb_object_agg(role,n),''{}'') from (select role,count(*) n from public.app_admins group by role) t' into x; r:=r||jsonb_build_object('staff',x); end if;
- if to_regclass('public.platform_settings') is not null then execute 'select coalesce(jsonb_object_agg(key,value),''{}'') from public.platform_settings where key in (''require_staff_mfa'',''auto_approve_text'')' into x; r:=r||jsonb_build_object('settings',x); end if;
+ if to_regclass('public.platform_settings') is not null then execute 'select coalesce(jsonb_object_agg(key,value),''{}'') from public.platform_settings where key in (''require_staff_mfa'',''auto_approve_text'',''retention_application_days'',''retention_record_days'')' into x; r:=r||jsonb_build_object('settings',x); end if;
  if to_regclass('cron.job') is not null then execute 'select coalesce(jsonb_agg(jsonb_build_object(''name'',jobname,''schedule'',schedule,''active'',active) order by jobname),''[]'') from cron.job where jobname like ''aol-%''' into x; r:=r||jsonb_build_object('cron',x); end if;
  if to_regclass('vault.secrets') is not null then execute 'select coalesce(jsonb_agg(name order by name),''[]'') from vault.secrets where name in (''project_url'',''publishable_key'',''media_cron_secret'',''moderation_cron_secret'')' into x; r:=r||jsonb_build_object('vault',x); end if;
  return r;
@@ -140,6 +140,8 @@ export function readiness({ project, db, auth, functions, secrets, keys, configu
   // verify removes its e2e-… accounts and files at the end; these show that it did (and how many member photos are public).
   if (db.test_accounts !== undefined) add('no verify test accounts left', Number(db.test_accounts) === 0, String(db.test_accounts))
   if (db.public_photos !== undefined) add('public member photos (community-photos)', null, `${db.public_photos} files`)
+  if (db.platform) add('retention periods (privacy policy: 1 year, 3 years)', db.settings?.retention_record_days != null && db.settings?.retention_application_days != null,
+    db.settings?.retention_record_days != null ? `applications ${db.settings.retention_application_days} days, records ${db.settings.retention_record_days} days` : 'not installed: run apply')
   add('staff need a second factor', db.settings ? db.settings.require_staff_mfa !== false && db.settings.require_staff_mfa !== 'false' : !!db.platform, JSON.stringify(db.settings || {}))
   if (auth) {
     add('e-mail confirmation required', auth.mailer_autoconfirm === false)

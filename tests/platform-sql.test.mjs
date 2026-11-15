@@ -10,7 +10,7 @@ import {PGlite} from '@electric-sql/pglite';
 import {pg_trgm} from '@electric-sql/pglite/contrib/pg_trgm';
 const root=new URL('../',import.meta.url);
 const sql=async f=>(await readFile(new URL(f,root),'utf8')).replace(/create extension if not exists "?pgcrypto"?[^;]*;/gi,'');
-const MIGRATIONS=['supabase/migrations/20261018000000_media_facade_archive.sql','supabase/migrations/20261026000000_research_data.sql','supabase/migrations/20261112000000_v2_platform.sql','supabase/migrations/20261113000000_v2_photo_grades.sql','supabase/migrations/20261113010000_v2_admin_members.sql','supabase/migrations/20261113020000_v2_permission_ledger.sql','supabase/migrations/20261114000000_v2_submission_followup.sql'];
+const MIGRATIONS=['supabase/migrations/20261018000000_media_facade_archive.sql','supabase/migrations/20261026000000_research_data.sql','supabase/migrations/20261112000000_v2_platform.sql','supabase/migrations/20261113000000_v2_photo_grades.sql','supabase/migrations/20261113010000_v2_admin_members.sql','supabase/migrations/20261113020000_v2_permission_ledger.sql','supabase/migrations/20261114000000_v2_submission_followup.sql','supabase/migrations/20261115000000_v2_retention.sql'];
 const DEFAULT_GRANTS=`alter default privileges in schema public grant all on tables to anon,authenticated,service_role;
 alter default privileges in schema public grant all on functions to anon,authenticated,service_role;
 alter default privileges in schema public grant all on sequences to anon,authenticated,service_role;`;
@@ -403,4 +403,39 @@ test('public profiles (v2.0): a random public id the member cannot set, an opt-o
  await user(db,DANA,`update public.member_profiles set show_profile=false where user_id=$1`,[DANA]);
  assert.equal((await anon(db,`select count(*)::int n from public.community_public_members where public_id=$1`,[before]))[0].n,0,'a hidden profile is not listed');
  await user(db,DANA,`update public.member_profiles set show_profile=true where user_id=$1`,[DANA]);
+});
+
+test('retention (v2.0): platform_expire removes what the privacy policy keeps for a time, and nothing open or recent', async()=>{
+ const U=(await db.query(`insert into auth.users(email,email_confirmed_at) values('erin@t',now()) returning id`)).rows[0].id;
+ const ago=i=>`now()-interval '${i}'`;
+ const app=(st,age,extra='')=>db.query(`insert into public.researcher_applications(user_id,full_name,applicant_type,research_field,purpose,requested_datasets,terms_version,privacy_version,status,decided_at,updated_at,created_at${extra?',expires_at':''})
+  values($1,'에린 연구자','researcher','미디어 아트','공공 미디어 파사드의 지역 분포를 연구하려고 합니다.','{aol-research}','2027-01','2026-11',$2,${ago(age)},${ago(age)},${ago(age)}${extra?','+extra:''}) returning id`,[U,st]).then(r=>r.rows[0].id);
+ const oldRejected=await app('rejected','400 days'), recentWithdrawn=await app('withdrawn','200 days');
+ const lapsing=await app('approved','730 days',ago('366 days'));
+ const flag=(status,age)=>db.query(`insert into public.content_flags(target_type,target_id,reason,status,created_at,handled_at) values('post',999999,'spam',$1,${ago(age)},${status==='open'?'null':ago(age)}) returning id`,[status]).then(r=>r.rows[0].id);
+ const oldFlag=await flag('dismissed','4 years'), openFlag=await flag('open','4 years'), newerFlag=await flag('actioned','2 years');
+ const report=(status,age)=>db.query(`insert into public.content_reports(project_id,reason,status,created_at,handled_at) values('SEOUL006','other',$1,${ago(age)},${status==='open'?'null':ago(age)}) returning id`,[status]).then(r=>r.rows[0].id);
+ const oldReport=await report('accepted','4 years'), openReport=await report('open','4 years');
+ const appeal=(status,age,t)=>db.query(`insert into public.moderation_appeals(user_id,target_type,target_id,message,status,created_at,decided_at) values($1,'post',$2,'반려 사유를 다시 검토해 주세요.',$3,${ago(age)},${status==='open'?'null':ago(age)}) returning id`,[U,t,status]).then(r=>r.rows[0].id);
+ const oldAppeal=await appeal('upheld','4 years',1), openAppeal=await appeal('open','4 years',2);
+ const oldEvent=(await db.query(`insert into public.moderation_events(target_type,target_id,source,decision,at) values('post',999999,'staff','approved',${ago('4 years')}) returning id`)).rows[0].id;
+ const oldAudit=(await db.query(`insert into public.platform_audit_log(action,target_type,target_id,at) values('test_old','test','x',${ago('4 years')}) returning id`)).rows[0].id;
+ const recentAudit=(await db.query(`insert into public.platform_audit_log(action,target_type,target_id,at) values('test_new','test','x',${ago('2 years')}) returning id`)).rows[0].id;
+
+ assert.match(await err(user(db,CAROL,`select public.platform_expire()`)),/permission denied/,'members cannot run it');
+ const r=(await one(svc(db,`select public.platform_expire() r`))).r;
+ assert.deepEqual(r.removed,{applications:1,flags:1,reports:1,appeals:1,moderation_events:1,audit_log:1});
+ const has=async(t,id)=>(await svc(db,`select count(*)::int n from public.${t} where id=$1`,[id]))[0].n===1;
+ assert.equal(await has('researcher_applications',oldRejected),false,'rejected more than a year ago: removed');
+ assert.equal(await has('researcher_applications',recentWithdrawn),true,'withdrawn within the year: kept');
+ assert.equal((await one(svc(db,`select status from public.researcher_applications where id=$1`,[lapsing]))).status,'expired','an approval past its date expires and its year starts now');
+ for(const [t,id,kept] of [['content_flags',oldFlag,false],['content_flags',openFlag,true],['content_flags',newerFlag,true],['content_reports',oldReport,false],['content_reports',openReport,true],
+  ['moderation_appeals',oldAppeal,false],['moderation_appeals',openAppeal,true],['moderation_events',oldEvent,false],['platform_audit_log',oldAudit,false],['platform_audit_log',recentAudit,true]])
+  assert.equal(await has(t,id),kept,`${t} ${id}`);
+ // A period set too short is held at 30 days.
+ await svc(db,`update public.platform_settings set value='1'::jsonb where key='retention_record_days'`);
+ const tenDays=(await db.query(`insert into public.platform_audit_log(action,target_type,target_id,at) values('test_10d','test','x',${ago('10 days')}) returning id`)).rows[0].id;
+ await svc(db,`select public.platform_expire()`);
+ assert.equal(await has('platform_audit_log',tenDays),true);
+ await svc(db,`update public.platform_settings set value='1095'::jsonb where key='retention_record_days'`);
 });

@@ -8,7 +8,9 @@
 -- Schedules (UTC):
 --   aol-moderate-queue     every 5 minutes: rules (and the context classifier when its key is set) on pending items;
 --                          nothing is published by it unless platform_settings.auto_approve_text is on (off by default)
---   aol-platform-expire    daily 18:37 (03:37 KST): researcher approvals and grants past their date, old drafts
+--   aol-platform-expire    daily 18:37 (03:37 KST): researcher approvals past their date expire; ended applications
+--                          after 1 year, handled reports, decided appeals, decisions and the audit log after 3 years are
+--                          removed (the privacy policy's periods, supabase/migrations/20261115000000_v2_retention.sql)
 begin;
 create extension if not exists pg_cron;
 create extension if not exists pg_net;

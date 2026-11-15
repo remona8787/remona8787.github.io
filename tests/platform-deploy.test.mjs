@@ -133,7 +133,7 @@ test('apply: a token that may not change project settings installs everything el
 test('readiness: a fully installed project passes every required check; the classifier key stays optional', () => {
   const db = { ...V015, complete_backend: true, research: true, platform: true, photo_grades: true, admin_members: true,
     buckets: [{ id: 'community-photos', public: true }, { id: 'community-uploads', public: false }, { id: 'research-datasets', public: false }],
-    cron: [{ name: 'aol-moderate-queue' }, { name: 'aol-platform-expire' }], vault: ['moderation_cron_secret', 'project_url', 'publishable_key'], staff: { admin: 1 }, settings: { require_staff_mfa: true } }
+    cron: [{ name: 'aol-moderate-queue' }, { name: 'aol-platform-expire' }], vault: ['moderation_cron_secret', 'project_url', 'publishable_key'], staff: { admin: 1 }, settings: { require_staff_mfa: true, retention_application_days: 365, retention_record_days: 1095 }, test_accounts: 0 }
   const checks = readiness({ project: { status: 'ACTIVE_HEALTHY' }, db, auth: { mailer_autoconfirm: false, password_min_length: 12, mfa_totp_enroll_enabled: true, mfa_totp_verify_enabled: true, smtp_configured: true },
     functions: FUNCTIONS.map((slug) => ({ slug, status: 'ACTIVE', verify_jwt: false, version: 1 })), secrets: ['ALLOWED_ORIGINS', 'MODERATION_CRON_SECRET'] })
   assert.deepEqual(checks.filter((c) => c.ok === false), [])
