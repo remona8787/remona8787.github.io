@@ -167,7 +167,7 @@ const S={
  'nearby.title':['가까운 좌표 보유 장소','Nearest places with coordinates'],'nearby.distance':['직선 {d}km','{d} km in a straight line'],'nearby.none':['좌표가 확인된 장소가 없어요. 지역 이름으로 검색해 보세요.','No places with confirmed coordinates. Search by a place name.'],'nearby.failed':['위치를 확인하지 못했어요. 발견에서 지역 이름으로 검색해 보세요.','Your location could not be found. Search by a place name in Explore.'],
  // v0.18: Korea first — the menu, the Korean and world sections, the home page, the collection
  'nav.korea':['국내 미디어파사드','Media façades in Korea'],'nav.programs':['국내 미디어아트·전시','Media art in Korea'],'nav.world':["세계 사례", "Worldwide"],
- 'navShort.home':['홈','Home'],'navShort.korea':['국내','Korea'],'navShort.programs':['아트·전시','Art'],'navShort.map':['지도','Map'],'navShort.world':['세계','World'],'navShort.explore':['검색','Search'],'navShort.saved':['컬렉션','Collection'],
+ 'navShort.home':['홈','Home'],'navShort.korea':['국내','Korea'],'navShort.programs':['아트·전시','Art'],'navShort.map':['지도','Map'],'navShort.world':['세계','World'],'navShort.explore':['검색','Search'],'navShort.saved':['컬렉션','Collection'],'navShort.community':['커뮤니티','Community'],
  'shell.more':['전체 메뉴','All sections'],'shell.moreNav':['전체 메뉴','All sections'],'title.my':['마이','My'],
  'facet.country':['나라','Country'],'facet.kr_region':['국내 지역','Region of Korea'],
  'korea.eyebrow':['대한민국','Korea'],'korea.switch':['국내 분야','Korean sections'],'korea.sub':['서울에서 제주까지, 건축의 외벽을 캔버스로 쓰는 국내 프로젝트를 지역별로 모았어요.','From Seoul to Jeju: projects in Korea that turn building façades into a canvas, by region.'],

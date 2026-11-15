@@ -23,7 +23,7 @@ export const REGULAR=[
  'buildings','sparkle','monitor-play','lightbulb-filament','moon-stars','shapes','frame-corners','confetti'
 ];
 // Filled weight, used for active and selected states (id i-NAME-fill).
-export const FILLED=['house','compass','map-trifold','heart','user-circle','star','buildings','sparkle','globe-hemisphere-east','magnifying-glass','bookmarks-simple'];
+export const FILLED=['house','compass','map-trifold','heart','user-circle','star','buildings','sparkle','globe-hemisphere-east','magnifying-glass','bookmarks-simple','users-three'];
 export const ALL=[...REGULAR,...FILLED.map(n=>n+'-fill'),'arch'];
 
 const inner=svg=>svg.replace(/^[\s\S]*?<svg[^>]*>/,'').replace(/<\/svg>\s*$/,'').trim();
