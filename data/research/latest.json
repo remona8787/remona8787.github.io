@@ -1,41 +1,41 @@
 {
  "dataset": "light-architecture-archive",
  "title": "빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋",
- "version": "20261114T165858Z-c7897514-p2",
- "build_id": "20261114T165858Z-c7897514",
+ "version": "20261115T043838Z-e7e88f2e-p2",
+ "build_id": "20261115T043838Z-e7e88f2e",
  "package_format": 2,
- "created": "2026-11-14T16:58:58.343Z",
- "data_as_of": "2026-11-14",
- "path": "data/research/20261114T165858Z-c7897514-p2/",
- "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261114T165858Z-c7897514-p2, 데이터 기준일 2026-11-14). https://remona8787.github.io/data/research/20261114T165858Z-c7897514-p2/",
+ "created": "2026-11-15T04:38:38.619Z",
+ "data_as_of": "2026-11-15",
+ "path": "data/research/20261115T043838Z-e7e88f2e-p2/",
+ "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261115T043838Z-e7e88f2e-p2, 데이터 기준일 2026-11-15). https://remona8787.github.io/data/research/20261115T043838Z-e7e88f2e-p2/",
  "counts": {
-  "projects": 1008,
-  "sources": 1739,
-  "images": 2747,
+  "projects": 1005,
+  "sources": 1728,
+  "images": 2706,
   "relations": 73,
   "events": 0,
   "agents": 261
  },
  "files": {
   "projects.csv": {
-   "bytes": 548643,
-   "sha256": "05e53f331e33bfbdc6ba63f560cf745dc75d144ef1b23f2869f5440ca758f13a"
+   "bytes": 547241,
+   "sha256": "8f3461520535c22e097abce1a8b454291a87fa6862fc425b9549cb1f1517f359"
   },
   "projects.json": {
-   "bytes": 1651527,
-   "sha256": "f7a11ece48a0cc195e3b858d9975e38b3ce008e04fdec3e45255001684f801ef"
+   "bytes": 1646847,
+   "sha256": "c134949c31a7b82c8fa0a10c99419e666a9ae41e6f3be0c2a2149cbdec0f1740"
   },
   "projects.geojson": {
-   "bytes": 115732,
-   "sha256": "432bf926344ec63bfa7a5e9660f319cfb3a09596b02f50c3fc1d49136611662c"
+   "bytes": 115725,
+   "sha256": "1a2c693db64ebd116c83cf276b80bc023c33b467559e144be3ce520ecda45a15"
   },
   "sources.csv": {
-   "bytes": 239565,
-   "sha256": "1c90381239a609bba2dfaaaa6a6a8dca0eef6d155d718aa5e58626cced3cd5a1"
+   "bytes": 238271,
+   "sha256": "c739b7c9fb01412baeabaf3a86baf68f25fa7b2fe9afee4f422c06cea625630c"
   },
   "images.csv": {
-   "bytes": 802673,
-   "sha256": "6930e1a50aac3a0d802f996e41c239320852e0eb5d1f4df93b595f668e6d2fbe"
+   "bytes": 791713,
+   "sha256": "dd16e3f19c27af2e54911c0073514b60b65906d658685a4734bf566474d66f98"
   },
   "relations.csv": {
    "bytes": 9445,
@@ -50,24 +50,24 @@
    "sha256": "e8920f9e04585b0c7a46b99a924e5695593513bc66d59ad0e91f88d86652e5c5"
   },
   "archive.xlsx": {
-   "bytes": 550286,
-   "sha256": "d7e8996ad377a659e6a571e55fa662c08ccd84e970f5a6a55c63e0f3c4ba88bd"
+   "bytes": 545301,
+   "sha256": "e351459bbc7de437fa90c4c3d5d8c34b8be0cbf64645166a802895a9f406c5da"
   },
   "CITATION.txt": {
    "bytes": 274,
-   "sha256": "1290e01d0218c6cdeacf56945bc3c03a37de0a8ebd9d2a3a18046e233bbdb2c6"
+   "sha256": "0d36834440712ac894bb66cbe1d6da2c1126532c0cea8783ad1b7662e84ef73a"
   },
   "CHANGELOG.md": {
-   "bytes": 361,
-   "sha256": "9dc1e1a6eae87c504c50b0865d2a4a05af3bc334ba1ddc115ed8fb67db919ec5"
+   "bytes": 415,
+   "sha256": "5078b3b6c7df6d80dc38b95febeb648ad46dd0403733f1c8ba43a00d19b7a4a0"
   },
   "datapackage.json": {
    "bytes": 21275,
-   "sha256": "cbf8777cf914b3b06960348637d2b4b6cc9cef05f992e548ec307c8a8e0eb099"
+   "sha256": "635445273b1d11982ac29d56d41b3e0a617e1783a919304dc6445a613fe2a9b4"
   },
   "README.md": {
    "bytes": 12487,
-   "sha256": "df92f38a3fbceecd74f3499b634dc2cf78023000f124c1ef000ccf48db3de917"
+   "sha256": "73606b79970ab0b63e5117bf561d91d1cc79174b2ca9516462b50134e317166b"
   }
  }
 }
