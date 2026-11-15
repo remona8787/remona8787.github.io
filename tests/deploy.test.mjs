@@ -148,9 +148,11 @@ test('the operator and contact of config.js are written into the static pages, s
     if (src.OPERATOR_NAME) assert.ok(html.includes(`<span data-config="OPERATOR_NAME">${src.OPERATOR_NAME}</span>`), page)
     if (src.SUPPORT_EMAIL) assert.ok(html.includes(`<a href="mailto:${src.SUPPORT_EMAIL}">${src.SUPPORT_EMAIL}</a>`), page)
   }
-  // The guest-mode policy names no server feature the public site does not run.
+  // The policy names exactly the server features the public site runs: none without a backend; with the operator's
+  // project in config.js (since 2026-11-15) the processor, the transfer abroad, the age limit and the periods.
   const privacy = await readFile(path.join(out, 'privacy.html'), 'utf8')
-  assert.doesNotMatch(privacy, /Supabase|60초 유효 링크|연구 데이터 회원\(선택/)
+  if (src.SUPABASE_URL) for (const must of [/Supabase Inc\./, /국외 이전/, /만 14세 미만은 회원으로 가입할 수 없습니다/, /1년 뒤 자동 삭제/, /3년 뒤 자동 삭제/]) assert.match(privacy, must)
+  else assert.doesNotMatch(privacy, /Supabase|60초 유효 링크|연구 데이터 회원\(선택/)
   assert.match(privacy, /GitHub 이슈/)
 })
 

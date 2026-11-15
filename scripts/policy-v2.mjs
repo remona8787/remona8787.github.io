@@ -7,9 +7,10 @@
 //     writes site-public-cleared/privacy-next.html and terms-next.html (the new texts, marked as announced, not indexed)
 //     and a notice at the top of privacy.html and terms.html naming the effective date; records the dates and the mail
 //     provider in release/policies/v2/state.json. Run again to correct the provider (the dates stay unless given).
-//   node scripts/policy-v2.mjs effective [--today=YYYY-MM-DD]
+//   node scripts/policy-v2.mjs effective [--today=YYYY-MM-DD] [--now --reason="<the operator's decision>"]
 //     on or after the effective date only: keeps the current texts as privacy-v1.html and terms-v1.html (not indexed),
-//     writes the new texts into privacy.html and terms.html, removes the -next pages.
+//     writes the new texts into privacy.html and terms.html, removes the -next pages. --now starts them before the
+//     announced date, only on the operator's decision, whose reason is kept in state.json.
 //
 // Turning the member features on in the public site (config.js SUPABASE_URL and key) is a separate step on the effective
 // date; so is the database part of the policy (the retention periods, supabase/migrations/20261115000000_v2_retention.sql,
@@ -76,12 +77,17 @@ export function notice(opts){
  return state;
 }
 
-export function effective({dir=ROOT,today=kst()}){
+export function effective({dir=ROOT,today=kst(),early=false,reason=''}){
  const statePath=path.join(dir,'release/policies/v2/state.json');
  if(!existsSync(statePath))throw Error('announce first: node scripts/policy-v2.mjs notice …');
  const state=JSON.parse(readFileSync(statePath,'utf8'));
  if(state.status==='effective')return state;
- if(today<state.effective_date)throw Error(`the v2.0 policies apply from ${state.effective_date} (announced ${state.notice_date}); today is ${today}`);
+ // Only the operator may bring the date forward (early: true, with the reason recorded); the announced date stays in the state.
+ if(today<state.effective_date){
+  if(!early)throw Error(`the v2.0 policies apply from ${state.effective_date} (announced ${state.notice_date}); today is ${today}`);
+  if(!String(reason).trim())throw Error('an early start needs the reason (the operator decision)');
+  Object.assign(state,{announced_effective_date:state.effective_date,effective_date:today,early_reason:String(reason).trim().slice(0,300)});
+ }
  const site=path.join(dir,'site-public-cleared');
  for(const kind of Object.keys(KINDS)){
   const cur=withNotice(readFileSync(path.join(site,kind+'.html'),'utf8'),''),body=readFileSync(path.join(dir,'release/policies/v2',kind+'.body.html'),'utf8');
@@ -99,7 +105,7 @@ if(import.meta.url===`file://${process.argv[1]}`){
  const [cmd,...rest]=process.argv.slice(2),arg=k=>rest.find(a=>a.startsWith(`--${k}=`))?.slice(k.length+3);
  try{
   const out=cmd==='notice'?notice({mailProvider:arg('mail-provider'),mailCountry:arg('mail-country'),noticeDate:arg('notice-date'),...(arg('days')?{days:Number(arg('days'))}:{}),...(arg('today')?{today:arg('today')}:{})})
-   :cmd==='effective'?effective(arg('today')?{today:arg('today')}:{}):(()=>{throw Error('usage: node scripts/policy-v2.mjs notice --mail-provider=… --mail-country=… | effective')})();
+   :cmd==='effective'?effective({...(arg('today')?{today:arg('today')}:{}),...(rest.includes('--now')?{early:true,reason:arg('reason')||''}:{})}):(()=>{throw Error('usage: node scripts/policy-v2.mjs notice --mail-provider=… --mail-country=… | effective')})();
   console.log(JSON.stringify(out));
  }catch(e){console.error('policy-v2: '+e.message);process.exit(1)}
 }

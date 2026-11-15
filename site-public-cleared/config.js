@@ -1,6 +1,6 @@
 window.AOL_CONFIG = {
- SUPABASE_URL: '',
- SUPABASE_PUBLISHABLE_KEY: '',
+ SUPABASE_URL: 'https://refwrdfxbhcsguweicle.supabase.co',
+ SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_1yW330X5Xz1UbOno3OQogA_HAuZ42ZR',
  PUBLIC_URL: 'https://remona8787.github.io',
  TILE_URL: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
  TILE_ATTRIBUTION: '© OpenStreetMap contributors',

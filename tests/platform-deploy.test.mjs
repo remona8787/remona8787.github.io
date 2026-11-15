@@ -16,6 +16,16 @@ test('the project and its public key come from release/launch/public-config.js',
   assert.throws(() => publicConfig("SUPABASE_URL:'https://evil.example',SUPABASE_PUBLISHABLE_KEY:'x'"))
 })
 
+test('the public site and the admin console use the same project and public key as public-config.js (member features on since 2026-11-15)', () => {
+  const site = publicConfig(readFileSync(new URL('../site-public-cleared/config.js', import.meta.url), 'utf8'))
+  assert.deepEqual([site.ref, site.publishable], [cfg.ref, cfg.publishable])
+  for (const f of ['../site-public-cleared/admin/config.js', '../admin/config.js']) {
+    const t = readFileSync(new URL(f, import.meta.url), 'utf8')
+    assert.ok(t.includes(`"${cfg.url}"`) && t.includes(`"${cfg.publishable}"`), f)
+    assert.doesNotMatch(t, /sb_secret_|service_role/, f + ': never a secret key')
+  }
+})
+
 test('platform-v2.sql is the four v2 migrations, in order, in one transaction', async () => {
   const file = readFileSync(new URL('../' + BUNDLE, import.meta.url), 'utf8')
   assert.equal(file, await platformBundle(), 'run npm run platform:bundle-sql after changing a migration')
