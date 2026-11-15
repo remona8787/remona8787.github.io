@@ -233,14 +233,41 @@ export async function apply(d, log = console.log) {
   await d.sql(read('release/launch/complete-backend.sql')); step('release/launch/complete-backend.sql')
   await d.sql(read('release/launch/platform-v2.sql')); step('release/launch/platform-v2.sql')
   await d.sql(vaultSQL({ url: d.url, publishable: d.publishable, cronSecret: d.env.MODERATION_CRON_SECRET })); step('Vault: moderation_cron_secret set; project_url, publishable_key kept or added')
+  let manual = []
   if (d.token) {
-    deployFunctions(d, step)
-    const cur = await d.api('GET', `/v1/projects/${d.ref}/config/auth`), patch = authPatch(cur, d.site)
-    if (Object.keys(patch).length) { await d.api('PATCH', `/v1/projects/${d.ref}/config/auth`, patch); step('Auth settings: ' + Object.keys(patch).join(', ')) } else step('Auth settings: already as needed')
-  } else step('functions, function secrets and Auth settings: skipped (local database, no Management API)')
-  await d.sql(read('release/launch/install-platform-cron.sql')); step('schedules: aol-moderate-queue, aol-platform-expire')
+    (d.deployFunctions || deployFunctions)(d, step)
+    await d.sql(read('release/launch/install-platform-cron.sql')); step('schedules: aol-moderate-queue, aol-platform-expire')
+    manual = await authStep(d, step)
+  } else {
+    step('functions, function secrets and Auth settings: skipped (local database, no Management API)')
+    await d.sql(read('release/launch/install-platform-cron.sql')); step('schedules: aol-moderate-queue, aol-platform-expire')
+  }
   const after = await inspect(d)
-  return { at: new Date().toISOString(), steps, before: before.checks, after }
+  return { at: new Date().toISOString(), steps, manual, before: before.checks, after }
+}
+
+// Where each Auth setting is in the dashboard, for the operator when the token may not change them.
+export const AUTH_BY_HAND = {
+  mailer_autoconfirm: () => 'Authentication → Sign In / Providers → Email → Confirm email: 켜기',
+  password_min_length: (v) => `Authentication → Sign In / Providers → Email → Minimum password length: ${v}`,
+  mfa_totp_enroll_enabled: () => 'Authentication → Multi-Factor → TOTP (App Authenticator): Enabled',
+  mfa_totp_verify_enabled: () => 'Authentication → Multi-Factor → TOTP (App Authenticator): Enabled',
+  site_url: (v) => `Authentication → URL Configuration → Site URL: ${v}`,
+  uri_allow_list: (v, site) => `Authentication → URL Configuration → Redirect URLs: ${site}/** 추가 (Add URL)`,
+}
+// The Auth settings need a token that may change project settings (project_admin_write, "Project Settings" read-write,
+// a high-risk permission). Without it nothing else is held up: the run lists what to set by hand in the dashboard.
+export async function authStep(d, step) {
+  const cur = await d.api('GET', `/v1/projects/${d.ref}/config/auth`), patch = authPatch(cur, d.site)
+  if (!Object.keys(patch).length) { step('Auth settings: already as needed'); return [] }
+  try {
+    await d.api('PATCH', `/v1/projects/${d.ref}/config/auth`, patch); step('Auth settings: ' + Object.keys(patch).join(', ')); return []
+  } catch (e) {
+    if (!/HTTP 403/.test(String(e?.message))) throw e
+    const manual = [...new Set(Object.entries(patch).map(([k, v]) => AUTH_BY_HAND[k]?.(v, d.site) || `${k}: ${v}`))]
+    step('Auth settings: not changed (the token may not change project settings); set them in the dashboard: ' + Object.keys(patch).join(', '))
+    return manual
+  }
 }
 
 export function verify(d) {
@@ -272,7 +299,8 @@ async function main() {
   }
   if (action === 'apply') {
     const r = await apply(d); write('apply.json', r)
-    sum(summary(`플랫폼 설치 결과 (${d.ref})`, r.after.checks, ['적용한 단계:', '', ...r.steps.map((s) => '- ' + s)]))
+    sum(summary(`플랫폼 설치 결과 (${d.ref})`, r.after.checks, ['적용한 단계:', '', ...r.steps.map((s) => '- ' + s),
+      ...(r.manual.length ? ['', '운영자가 Supabase 대시보드에서 직접 바꿀 로그인 설정(이 토큰은 프로젝트 설정을 바꿀 권한이 없음):', '', ...r.manual.map((s) => '- ' + s)] : [])]))
     return
   }
   const code = verify(d)

@@ -40,13 +40,14 @@ test('Auth settings: only what the platform needs, never weaker than now', () =>
 })
 
 // A stand-in Management API: records every request; answers like the real one for a project in the v0.15 state.
-function fakeApi({ db, auth, functions = [], secrets = [], keys = null }) {
+function fakeApi({ db, auth, functions = [], secrets = [], keys = null, authWrite = 200 }) {
   const calls = []
   const fetchImpl = async (url, init) => {
     calls.push({ url, method: init.method, auth: init.headers.authorization, body: init.body ? JSON.parse(init.body) : null })
     const p = new URL(url).pathname, ok = (j) => ({ ok: true, status: 200, text: async () => JSON.stringify(j) })
     if (p === `/v1/projects/${cfg.ref}`) return ok({ name: 'architecture-of-light', region: 'ap-northeast-2', status: 'ACTIVE_HEALTHY' })
     if (p.endsWith('/database/query')) return ok([{ report: db }])
+    if (p.endsWith('/config/auth') && init.method === 'PATCH' && authWrite === 403) return { ok: false, status: 403, text: async () => '{"message":"Missing required permission(s): project_admin_write"}' }
     if (p.endsWith('/config/auth')) return ok({ ...auth, smtp_pass: 'never-shown', smtp_host: '' })
     if (p.endsWith('/functions')) return ok(functions)
     if (p.endsWith('/secrets')) return ok(secrets.map((name) => ({ name, value: 'digest' })))
@@ -110,6 +111,23 @@ test('apply refuses without the typed project ref, before any request', async ()
   const d = makeDeps({ SUPABASE_ACCESS_TOKEN: TOKEN, MODERATION_CRON_SECRET: 'weak', CONFIRM_REF: cfg.ref }, f.fetchImpl)
   await assert.rejects(apply(d, () => {}), /MODERATION_CRON_SECRET/)
   assert.equal(f.calls.length, 0)
+})
+
+test('apply: a token that may not change project settings installs everything else and lists the Auth settings to set by hand', async () => {
+  for (const authWrite of [403, 200]) {
+    const f = fakeApi({ db: V015, auth: { mailer_autoconfirm: false, password_min_length: 6, mfa_totp_enroll_enabled: true, mfa_totp_verify_enabled: true, site_url: 'https://remona8787.github.io', uri_allow_list: '' }, keys: KEYS, authWrite })
+    const d = makeDeps({ SUPABASE_ACCESS_TOKEN: TOKEN, MODERATION_CRON_SECRET: SECRET, CONFIRM_REF: cfg.ref }, f.fetchImpl)
+    d.site = 'https://remona8787.github.io'; let deployed = 0; d.deployFunctions = () => { deployed++ }
+    const r = await apply(d, () => {})
+    assert.equal(deployed, 1)
+    const cron = f.calls.findIndex((c) => /aol-moderate-queue/.test(c.body?.query || '')), patch = f.calls.findIndex((c) => c.method === 'PATCH')
+    assert.ok(cron > 0 && patch > cron, 'the schedules are installed before the Auth settings are tried')
+    assert.deepEqual(f.calls[patch].body, { password_min_length: 12, uri_allow_list: 'https://remona8787.github.io/**' })
+    if (authWrite === 403) {
+      assert.deepEqual(r.manual, ['Authentication → Sign In / Providers → Email → Minimum password length: 12', 'Authentication → URL Configuration → Redirect URLs: https://remona8787.github.io/** 추가 (Add URL)'])
+      assert.match(r.steps.at(-1), /not changed/)
+    } else assert.deepEqual(r.manual, [])
+  }
 })
 
 test('readiness: a fully installed project passes every required check; the classifier key stays optional', () => {

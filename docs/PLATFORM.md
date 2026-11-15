@@ -164,6 +164,10 @@ node scripts/researcher-package.mjs --data=<data 브랜치 체크아웃> --out=/
 1. GitHub 저장소 Settings → Secrets and variables → Actions → New repository secret:
    - `SUPABASE_ACCESS_TOKEN`: Supabase 대시보드 → Account → Access Tokens에서 만든 개인 토큰(점검·설치용).
      이 토큰은 계정의 모든 프로젝트를 바꿀 수 있으니, 설치가 끝나면 지우거나 다시 만들 때까지 보관만 하세요.
+     범위 지정 토큰(Project 범위, 30일)이면 충분합니다: Project Settings Read, Database Read-write, API Keys Read, Auth Config
+     Read-write, Edge Functions Read-write, Edge Function Secrets Read-write(2026-11-15 운영 프로젝트에서 inspect·apply로 확인).
+     Auth 설정 변경(PATCH)은 이것만으로는 거절됩니다(`project_admin_write`, Project Settings Read-write: 위험도 높음). 그 권한을 주지
+     않으면 `apply`는 나머지를 모두 설치하고, 대시보드에서 직접 바꿀 로그인 설정 항목을 결과 표 아래에 적습니다.
    - `MODERATION_CRON_SECRET`: 긴 무작위 값(영문·숫자 32자 이상). 예: 터미널에서 `openssl rand -hex 32`.
    - `SUPABASE_SECRET_KEY`: 대시보드 → Project Settings → API Keys의 secret 키(실제 점검용 시험 계정을 만들고 지움).
      그 화면에 **Create new API keys** 카드만 있고 목록이 비어 있으면 새 방식 키가 아직 없는 것입니다. 그 버튼으로 publishable 키와
