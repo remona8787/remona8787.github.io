@@ -2,7 +2,7 @@
 // in the pages' own frame, with every value filled and nothing unescaped. Runs on a copy of the two pages.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtempSync,mkdirSync,cpSync,readFileSync,existsSync} from 'node:fs';
+import {mkdtempSync,mkdirSync,cpSync,readFileSync,writeFileSync,existsSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {notice,effective,addDays} from '../scripts/policy-v2.mjs';
@@ -11,11 +11,23 @@ const root=path.resolve(import.meta.dirname,'..');
 function copy(){
  const dir=mkdtempSync(path.join(tmpdir(),'policy-v2-'));
  mkdirSync(path.join(dir,'site-public-cleared'));mkdirSync(path.join(dir,'release/policies/v2'),{recursive:true});
- for(const f of ['privacy.html','terms.html'])cpSync(path.join(root,'site-public-cleared',f),path.join(dir,'site-public-cleared',f));
+ // The pages as they are before any notice (the site's own copy may already carry one).
+ for(const f of ['privacy.html','terms.html'])writeFileSync(path.join(dir,'site-public-cleared',f),readFileSync(path.join(root,'site-public-cleared',f),'utf8').replace(/<!--policy-v2-notice-->[\s\S]*?<!--\/policy-v2-notice-->/,''));
  for(const f of ['privacy.body.html','terms.body.html'])cpSync(path.join(root,'release/policies/v2',f),path.join(dir,'release/policies/v2',f));
  return dir;
 }
 const read=(dir,f)=>readFileSync(path.join(dir,'site-public-cleared',f),'utf8');
+
+test('the site carries the announced texts: notice on the current pages, -next pages not indexed, dates recorded', ()=>{
+ const state=JSON.parse(readFileSync(path.join(root,'release/policies/v2/state.json'),'utf8'));
+ if(state.status!=='announced')return;
+ for(const kind of ['privacy','terms']){
+  const cur=readFileSync(path.join(root,'site-public-cleared',kind+'.html'),'utf8'),next=readFileSync(path.join(root,'site-public-cleared',kind+'-next.html'),'utf8');
+  assert.ok(cur.includes(`<a href="./${kind}-next.html">`)&&cur.includes(state.effective_date),kind+': notice with the effective date');
+  assert.match(next,/name="robots" content="noindex"/);assert.doesNotMatch(next,/\{\{/);
+ }
+ assert.equal(state.effective_date,addDays(state.notice_date,7));
+});
 
 test('the bodies name every value the policy needs and keep the operator placeholders the build fills', ()=>{
  for(const kind of ['privacy','terms']){

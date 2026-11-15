@@ -84,7 +84,8 @@ test('every built page carries the _headers Content-Security-Policy (minus frame
   // /data/*.json of the static archive is same-origin: connect-src 'self' covers it.
   assert.ok(directives.find((d) => d.startsWith('connect-src '))?.split(/\s+/).includes("'self'"))
   const list = await pages(out)
-  assert.deepEqual(list, ['404.html', 'about.html', 'admin/index.html', 'delete-account.html', 'index.html', 'partner.html', 'privacy.html', 'support.html', 'terms.html', 'updates.html'])
+  // The policy pages scripts/policy-v2.mjs adds for a while (-next while a change is announced, -v1 after) are checked too.
+  assert.deepEqual(list.filter((f) => !/^(privacy|terms)-(next|v1)\.html$/.test(f)), ['404.html', 'about.html', 'admin/index.html', 'delete-account.html', 'index.html', 'partner.html', 'privacy.html', 'support.html', 'terms.html', 'updates.html'])
   for (const f of list) {
     const html = await readFile(path.join(out, f), 'utf8')
     const metas = [...html.matchAll(/<meta http-equiv="Content-Security-Policy" content="([^"]*)">/g)]
