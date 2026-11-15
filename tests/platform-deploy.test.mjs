@@ -4,7 +4,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { publicConfig, vaultSQL, authPatch, readiness, makeDeps, inspect, apply, summary, FUNCTIONS, INSPECT_SQL } from '../scripts/platform-deploy.mjs'
+import { publicConfig, vaultSQL, authPatch, readiness, makeDeps, inspect, apply, summary, apiKeys, FUNCTIONS, INSPECT_SQL } from '../scripts/platform-deploy.mjs'
 import { platformBundle, BUNDLE, PLATFORM_MIGRATIONS } from '../scripts/platform-bundle-sql.mjs'
 
 const SECRET = 'a'.repeat(40), TOKEN = 'sbp_' + 'f'.repeat(40)
@@ -40,7 +40,7 @@ test('Auth settings: only what the platform needs, never weaker than now', () =>
 })
 
 // A stand-in Management API: records every request; answers like the real one for a project in the v0.15 state.
-function fakeApi({ db, auth, functions = [], secrets = [] }) {
+function fakeApi({ db, auth, functions = [], secrets = [], keys = null }) {
   const calls = []
   const fetchImpl = async (url, init) => {
     calls.push({ url, method: init.method, auth: init.headers.authorization, body: init.body ? JSON.parse(init.body) : null })
@@ -50,17 +50,25 @@ function fakeApi({ db, auth, functions = [], secrets = [] }) {
     if (p.endsWith('/config/auth')) return ok({ ...auth, smtp_pass: 'never-shown', smtp_host: '' })
     if (p.endsWith('/functions')) return ok(functions)
     if (p.endsWith('/secrets')) return ok(secrets.map((name) => ({ name, value: 'digest' })))
+    if (p.endsWith('/api-keys') && keys) return ok(keys)
     return { ok: false, status: 404, text: async () => 'not found' }
   }
   return { calls, fetchImpl }
 }
 const V015 = { base: true, complete_backend: false, research: false, platform: false, photo_grades: false, admin_members: false, buckets: [{ id: 'place-images', public: true }], places: { all: 50, published: 49 }, staff: {}, cron: [], vault: [] }
 
-test('inspect only reads: four GETs and one query, with the token in the header only; the report names what is missing', async () => {
-  const f = fakeApi({ db: V015, auth: { mailer_autoconfirm: true, password_min_length: 6 } })
+// The Management API's api-keys list, as it answers with reveal=false: secret values masked (here a marker the report
+// must never carry, in case a masked value ever arrives whole).
+const KEYS = [
+  { name: 'anon', type: 'legacy', api_key: 'eyJ.legacy-anon' }, { name: 'service_role', type: 'legacy', api_key: 'eyJ.legacy-service-never-shown' },
+  { name: 'default', type: 'publishable', api_key: cfg.publishable }, { name: 'default', type: 'secret', api_key: 'sb_secret_never-shown' }]
+
+test('inspect only reads: five GETs and one query, with the token in the header only; the report names what is missing', async () => {
+  const f = fakeApi({ db: V015, auth: { mailer_autoconfirm: true, password_min_length: 6 }, keys: KEYS })
   const d = makeDeps({ SUPABASE_ACCESS_TOKEN: TOKEN }, f.fetchImpl)
   const s = await inspect(d)
-  assert.deepEqual(f.calls.map((c) => c.method).sort(), ['GET', 'GET', 'GET', 'GET', 'POST'])
+  assert.deepEqual(f.calls.map((c) => c.method).sort(), ['GET', 'GET', 'GET', 'GET', 'GET', 'POST'])
+  assert.ok(f.calls.some((c) => c.url.endsWith('/api-keys?reveal=false')), 'secret key values are never requested')
   const q = f.calls.find((c) => c.method === 'POST')
   assert.equal(q.body.query, INSPECT_SQL); assert.doesNotMatch(INSPECT_SQL, /\b(insert|update|delete|drop|alter|truncate)\b/i)
   assert.ok(f.calls.every((c) => c.auth === 'Bearer ' + TOKEN && c.url.startsWith('https://api.supabase.com/v1/projects/' + cfg.ref)))
@@ -68,7 +76,29 @@ test('inspect only reads: four GETs and one query, with the token in the header 
   assert.equal(by['base schema (places)'], true); assert.equal(by['platform-v2.sql'], false); assert.equal(by['e-mail confirmation required'], false)
   for (const fn of FUNCTIONS) assert.equal(by['function ' + fn], false)
   const md = summary('t', s.checks)
-  assert.ok(!md.includes(TOKEN) && !JSON.stringify(s).includes('never-shown'), 'no token or SMTP password in the report')
+  assert.ok(!md.includes(TOKEN) && !JSON.stringify(s).includes('never-shown'), 'no token, SMTP password or secret key in the report')
+  assert.equal(by['publishable key in public-config.js is on the project'], true); assert.equal(by['a secret key exists (SUPABASE_SECRET_KEY, for verify)'], true)
+})
+
+test('API keys: a publishable key the project does not have is reported with the project\'s own; none at all says how to make one', async () => {
+  const other = 'sb_publishable_' + 'Z'.repeat(31)
+  const s = await inspect(makeDeps({ SUPABASE_ACCESS_TOKEN: TOKEN }, fakeApi({ db: V015, auth: {}, keys: [{ name: 'default', type: 'publishable', api_key: other }] }).fetchImpl))
+  const c = s.checks.find((x) => x.item.startsWith('publishable key'))
+  assert.equal(c.ok, false); assert.match(c.detail, new RegExp('default ' + other))
+  assert.equal(s.checks.find((x) => x.item.startsWith('a secret key')).ok, false)
+  const none = await inspect(makeDeps({ SUPABASE_ACCESS_TOKEN: TOKEN }, fakeApi({ db: V015, auth: {}, keys: [] }).fetchImpl))
+  assert.match(none.checks.find((x) => x.item.startsWith('publishable key')).detail, /Create new API keys/)
+  // An answer the script cannot read leaves the check open (➖), not failed, and inspect still finishes.
+  const err = await inspect(makeDeps({ SUPABASE_ACCESS_TOKEN: TOKEN }, fakeApi({ db: V015, auth: {} }).fetchImpl))
+  assert.equal(err.checks.find((x) => x.item.startsWith('API keys')).ok, null)
+  assert.deepEqual(apiKeys([{ type: 'secret', name: 's', api_key: 'sb_secret_x' }, { type: 'publishable', name: 'p', api_key: "sb_publishable_x' or 1=1" }, null]), { publishable: [], secret: ['s'], legacy: [] })
+})
+
+test('apply changes nothing while public-config.js holds a publishable key the project does not have', async () => {
+  const f = fakeApi({ db: V015, auth: {}, keys: [{ name: 'default', type: 'publishable', api_key: 'sb_publishable_' + 'Z'.repeat(31) }] })
+  const d = makeDeps({ SUPABASE_ACCESS_TOKEN: TOKEN, MODERATION_CRON_SECRET: SECRET, CONFIRM_REF: cfg.ref }, f.fetchImpl)
+  await assert.rejects(apply(d, () => {}), /update public-config\.js first; nothing was changed/)
+  assert.ok(f.calls.every((c) => c.method === 'GET' || c.body?.query === INSPECT_SQL), 'only the read-only inspect ran')
 })
 
 test('apply refuses without the typed project ref, before any request', async () => {

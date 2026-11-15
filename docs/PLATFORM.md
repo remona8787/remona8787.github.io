@@ -166,6 +166,10 @@ node scripts/researcher-package.mjs --data=<data 브랜치 체크아웃> --out=/
      이 토큰은 계정의 모든 프로젝트를 바꿀 수 있으니, 설치가 끝나면 지우거나 다시 만들 때까지 보관만 하세요.
    - `MODERATION_CRON_SECRET`: 긴 무작위 값(영문·숫자 32자 이상). 예: 터미널에서 `openssl rand -hex 32`.
    - `SUPABASE_SECRET_KEY`: 대시보드 → Project Settings → API Keys의 secret 키(실제 점검용 시험 계정을 만들고 지움).
+     그 화면에 **Create new API keys** 카드만 있고 목록이 비어 있으면 새 방식 키가 아직 없는 것입니다. 그 버튼으로 publishable 키와
+     secret 키를 함께 만듭니다(기존 legacy 키와 데이터는 그대로). `inspect`는 `release/launch/public-config.js`의 publishable 키가
+     프로젝트에 실제로 있는지 대조하고(없으면 프로젝트의 publishable 키를 표에 보여 줌, publishable 키는 원래 공개용), secret 키는
+     이름만 확인합니다(값은 요청하지 않음). 대조에 실패하면 `apply`는 아무것도 바꾸지 않고 멈추므로, 먼저 public-config.js를 고칩니다.
    - 선택 `ANTHROPIC_API_KEY`: 문맥 분류기(유료, 7절). 넣지 않으면 모든 글이 사람 검토로 갑니다.
 2. Actions 탭 → **platform** → Run workflow:
    - `inspect`(기본, 읽기 전용): 설치된 것과 빠진 것을 표로 보여 줍니다. 무엇도 바꾸지 않습니다.

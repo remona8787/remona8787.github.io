@@ -101,10 +101,31 @@ export function authPatch(cur, site) {
 export const AUTH_FIELDS = ['site_url', 'uri_allow_list', 'mailer_autoconfirm', 'password_min_length', 'password_hibp_enabled', 'mfa_totp_enroll_enabled', 'mfa_totp_verify_enabled', 'external_email_enabled', 'disable_signup', 'rate_limit_email_sent']
 export const pickAuth = (a) => Object.fromEntries([...AUTH_FIELDS.map((k) => [k, a?.[k] ?? null]), ['smtp_configured', !!a?.smtp_host]])
 
+// The project's API keys (Settings → API Keys). Publishable keys are public by design (they go in the site's config.js),
+// so their values are kept to compare with release/launch/public-config.js and to show the right one when it differs;
+// of the secret and legacy keys only the names are kept, and the request never asks for secret values (reveal=false).
+export function apiKeys(list) {
+  const arr = Array.isArray(list) ? list : []
+  return {
+    publishable: arr.filter((k) => k?.type === 'publishable' && /^sb_publishable_[A-Za-z0-9_-]+$/.test(k.api_key || '')).map((k) => ({ name: String(k.name || ''), key: k.api_key })),
+    secret: arr.filter((k) => k?.type === 'secret').map((k) => String(k.name || '')),
+    legacy: arr.filter((k) => k?.type === 'legacy').map((k) => String(k.name || '')),
+  }
+}
+export const keyOnProject = (keys, publishable) => !!keys && !keys.error && keys.publishable.some((k) => k.key === publishable)
+
 // What a run found, as checks a person can read: [{item, ok, detail}].
-export function readiness({ project, db, auth, functions, secrets }) {
+export function readiness({ project, db, auth, functions, secrets, keys, configured }) {
   const out = [], add = (item, ok, detail = '') => out.push({ item, ok, detail })
   if (project) add('project is running', project.status === 'ACTIVE_HEALTHY', `${project.name || ''} ${project.region || ''} ${project.status || ''}`.trim())
+  if (keys?.error) add('API keys (Settings → API Keys)', null, 'could not read: ' + keys.error)
+  else if (keys) {
+    const on = keys.publishable.find((k) => k.key === configured)
+    add('publishable key in public-config.js is on the project', !!on, on ? on.name
+      : keys.publishable.length ? 'the project\'s publishable keys: ' + keys.publishable.map((k) => `${k.name} ${k.key}`).join(', ')
+      : 'the project has no publishable key: Settings → API Keys → Create new API keys')
+    add('a secret key exists (SUPABASE_SECRET_KEY, for verify)', keys.secret.length > 0, keys.secret.join(', ') || 'none: Settings → API Keys → New secret key')
+  }
   add('base schema (places)', !!db.base, db.places ? `${db.places.published} of ${db.places.all} published` : '')
   add('complete-backend.sql', !!db.complete_backend)
   add('platform-v2.sql', !!(db.research && db.platform && db.photo_grades && db.admin_members))
@@ -163,7 +184,9 @@ export async function inspect(d) {
   const auth = d.token ? pickAuth(await d.api('GET', `/v1/projects/${d.ref}/config/auth`)) : null
   const functions = d.token ? (await d.api('GET', `/v1/projects/${d.ref}/functions`)).map((f) => ({ slug: f.slug, version: f.version, status: f.status, verify_jwt: f.verify_jwt, updated_at: f.updated_at })) : null
   const secrets = d.token ? (await d.api('GET', `/v1/projects/${d.ref}/secrets`)).map((s) => s.name).sort() : null
-  const state = { at: new Date().toISOString(), project: project && { name: project.name, region: project.region, status: project.status }, db, auth, functions, secrets }
+  let keys = null
+  if (d.token) { try { keys = apiKeys(await d.api('GET', `/v1/projects/${d.ref}/api-keys?reveal=false`)) } catch (e) { keys = { error: String(e?.message || e).slice(0, 200) } } }
+  const state = { at: new Date().toISOString(), project: project && { name: project.name, region: project.region, status: project.status }, db, auth, functions, secrets, keys, configured: d.publishable }
   state.checks = readiness(state)
   return state
 }
@@ -198,6 +221,11 @@ export async function apply(d, log = console.log) {
   if (!SECRET_RE.test(d.env.MODERATION_CRON_SECRET || '')) throw Error('MODERATION_CRON_SECRET (GitHub Secrets) must be 32 to 200 characters of A-Z a-z 0-9 . _ ~ -')
   const steps = [], step = (s) => { steps.push(s); log(s) }
   const before = await inspect(d)
+  // The publishable key goes into Vault (the schedules call the functions with it) and into the site's config.js: one
+  // the project does not have would leave both broken, so nothing is changed until public-config.js holds a real one.
+  if (before.keys && !before.keys.error && !keyOnProject(before.keys, d.publishable)) {
+    throw Error('the publishable key in release/launch/public-config.js is not one of the project\'s keys (inspect lists them): update public-config.js first; nothing was changed')
+  }
   if (!before.db.base) {
     await d.sql('begin;\n' + BASE_FILES.map((f) => `-- SOURCE: ${f}\n${read(f)}`).join('\n') + '\ncommit;')
     step('base schema: ' + BASE_FILES.map((f) => path.basename(f)).join(', '))
