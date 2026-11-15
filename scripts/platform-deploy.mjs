@@ -59,7 +59,9 @@ begin
   'admin_members',to_regprocedure('public.platform_member_list(text,integer)') is not null,
   'extensions',(select coalesce(jsonb_agg(extname order by extname),'[]') from pg_extension where extname in ('pg_cron','pg_net','supabase_vault','pgcrypto')),
   'buckets',(select coalesce(jsonb_agg(jsonb_build_object('id',id,'public',public) order by id),'[]') from storage.buckets),
-  'auth_users',(select count(*) from auth.users));
+  'auth_users',(select count(*) from auth.users),
+  'test_accounts',(select count(*) from auth.users where email like 'e2e-%@example.com'));
+ if to_regclass('storage.objects') is not null then execute 'select count(*) from storage.objects where bucket_id=''community-photos''' into x; r:=r||jsonb_build_object('public_photos',x); end if;
  if to_regclass('public.places') is not null then execute 'select jsonb_build_object(''all'',count(*),''published'',count(*) filter (where is_published)) from public.places' into x; r:=r||jsonb_build_object('places',x); end if;
  if to_regclass('public.app_admins') is not null then execute 'select coalesce(jsonb_object_agg(role,n),''{}'') from (select role,count(*) n from public.app_admins group by role) t' into x; r:=r||jsonb_build_object('staff',x); end if;
  if to_regclass('public.platform_settings') is not null then execute 'select coalesce(jsonb_object_agg(key,value),''{}'') from public.platform_settings where key in (''require_staff_mfa'',''auto_approve_text'')' into x; r:=r||jsonb_build_object('settings',x); end if;
@@ -135,6 +137,9 @@ export function readiness({ project, db, auth, functions, secrets, keys, configu
   add('schedules', jobs.includes('aol-moderate-queue') && jobs.includes('aol-platform-expire'), jobs.join(', ') || 'none')
   add('Vault secrets', ['project_url', 'publishable_key', 'moderation_cron_secret'].every((n) => (db.vault || []).includes(n)), (db.vault || []).join(', ') || 'none')
   add('an admin exists', (db.staff?.admin || 0) > 0, JSON.stringify(db.staff || {}))
+  // verify removes its e2e-… accounts and files at the end; these show that it did (and how many member photos are public).
+  if (db.test_accounts !== undefined) add('no verify test accounts left', Number(db.test_accounts) === 0, String(db.test_accounts))
+  if (db.public_photos !== undefined) add('public member photos (community-photos)', null, `${db.public_photos} files`)
   add('staff need a second factor', db.settings ? db.settings.require_staff_mfa !== false && db.settings.require_staff_mfa !== 'false' : !!db.platform, JSON.stringify(db.settings || {}))
   if (auth) {
     add('e-mail confirmation required', auth.mailer_autoconfirm === false)
