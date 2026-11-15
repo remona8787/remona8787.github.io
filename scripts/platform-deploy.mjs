@@ -259,6 +259,8 @@ export function summary(title, checks, extra = []) {
 async function main() {
   const action = process.argv[2]
   if (!['inspect', 'apply', 'verify'].includes(action)) { console.error('usage: node scripts/platform-deploy.mjs inspect|apply|verify'); process.exit(2) }
+  // A value pasted into GitHub Secrets often carries a space or a line break at its end; none of these has one.
+  for (const k of ['SUPABASE_ACCESS_TOKEN', 'SUPABASE_SECRET_KEY', 'MODERATION_CRON_SECRET', 'CONFIRM_REF', 'ANTHROPIC_API_KEY']) if (process.env[k]) process.env[k] = process.env[k].trim()
   const d = makeDeps(); d.site = (process.env.SITE_ORIGIN || 'https://remona8787.github.io').replace(/\/+$/, '')
   const out = process.env.REPORT_DIR; if (out) mkdirSync(out, { recursive: true })
   const write = (name, obj) => { if (out) writeFileSync(path.join(out, name), JSON.stringify(obj, null, 2) + '\n') }
