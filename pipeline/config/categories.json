@@ -219,7 +219,7 @@
    "reason": "aggregate_by"
   },
   {
-   "pattern": "^(projection mapping|light art|light installations?|light festivals?|festivals of lights|illuminated buildings|buildings illuminated [a-z]+|light shows|sound and light shows|media art|new media art|media facades?|lichtkunst|lichtinstallationen) (in|of|at|from) ",
+   "pattern": "^(projection mapping|light art|light installations?|light festivals?|festivals of lights|illuminated buildings|illuminated (objects|trees|structures|monuments|bridges|towers|fountains)|buildings illuminated [a-z]+|light shows|sound and light shows|media art|new media art|media facades?|lichtkunst|lichtinstallationen) (in|of|at|from) ",
    "reason": "aggregate_topic_in_place"
   },
   {
