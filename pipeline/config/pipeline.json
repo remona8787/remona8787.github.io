@@ -500,7 +500,7 @@
     ]
   },
   "wikidata_routes": {
-    "about": "Material, genre and movement routes (config/classes.json route): an item found only through them is capped at max_per_creator_place per creator, country and city (the most linked first); the rest wait in the review queue as route_diversity_cap.",
+    "about": "Material, genre and movement routes (config/classes.json route): an item found only through them is capped at max_per_creator_place per creator, country and city (the most linked first); the rest wait in the review queue as route_diversity_cap. The cap limits newcomers only: a public record is never capped and, while a run does not see it, still holds its slot (lib/route-cap.mjs, v0.26.5).",
     "max_per_creator_place": 6
   },
   "output": {

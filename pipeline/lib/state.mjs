@@ -51,7 +51,7 @@ export function updateFailures(failures, statuses, nowIso) {
  * Decides the fate of every previously published project that this run did not publish.
  * @param {{projects: Record<string, any>}} tracker previous tracker
  * @param {Map<string, any>} previous previous public records by id
- * @param {{published: Map<string, {origins: string[]}>, decided: Set<string>, sourceStatus: Record<string, {status: string}>, runNo: number, nowIso: string, staleAfter?: number, aliases?: Map<string, string>}} o
+ * @param {{published: Map<string, {origins: string[], route_group?: string|null}>, decided: Set<string>, sourceStatus: Record<string, {status: string}>, runNo: number, nowIso: string, staleAfter?: number, aliases?: Map<string, string>}} o
  *   decided: ids that were built this run but are hidden or ineligible (removed at once); aliases: old id → new id
  */
 export function trackProjects(tracker, previous, { published, decided, sourceStatus, runNo, nowIso, staleAfter = 3, aliases = new Map() }) {
@@ -59,7 +59,8 @@ export function trackProjects(tracker, previous, { published, decided, sourceSta
   const carried = [], removed = [], stale = []
   for (const [id, info] of published) {
     const old = tracker.projects?.[id] || [...aliases].filter(([, to]) => to === id).map(([from]) => tracker.projects?.[from]).find(Boolean) || null
-    next.projects[id] = { first_seen: old?.first_seen || nowIso, last_seen: nowIso, last_seen_run: runNo, missing_runs: 0, origins: info.origins, hash: info.hash ?? null }
+    // route_group (lib/route-cap.mjs): the creator-and-place slot a route-only record holds, null for any other record.
+    next.projects[id] = { first_seen: old?.first_seen || nowIso, last_seen: nowIso, last_seen_run: runNo, missing_runs: 0, origins: info.origins, hash: info.hash ?? null, ...('route_group' in info ? { route_group: info.route_group } : {}) }
   }
   for (const [id, record] of previous) {
     if (published.has(id)) continue

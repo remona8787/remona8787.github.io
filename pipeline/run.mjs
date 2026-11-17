@@ -38,6 +38,7 @@ import { checkCoordinates } from './lib/overpass.mjs'
 import { checkLinks } from './lib/links.mjs'
 import { loadSeed, seedObservations } from './lib/seed.mjs'
 import { loadRegistry, registryObservations, buildEvents, divisionOfText, KR_DIVISIONS } from './lib/registry.mjs'
+import { routeCap } from './lib/route-cap.mjs'
 import { clusterObservations, mergeByNameAndUrl, buildProject, eligibility, newId, neverProject, PROJECT_TYPES } from './lib/entities.mjs'
 import { imageStage } from './lib/image-stage.mjs'
 import { writeContactSheets, SHEET_ABOUT } from './lib/contact-sheet.mjs'
@@ -581,25 +582,13 @@ export async function runPipeline(o) {
     if (el.eligible) published.push(p)
     else excluded.push({ id: p.id, qid: p.qid, name: p.name_en || p.name_ko || p.name_original, origins: p.origins, reasons: el.reasons, ...(p.place_recovery_failed ? { place: p.place_recovery_failed } : {}) })
   }
-  // Route diversity (v0.26): items found only through a material, genre or movement route (no light class, no other
-  // source) are capped per creator and place, so one artist's works in one collection do not fill the archive. The
-  // rest wait in the review queue (reason route_diversity_cap); a curated or editor-approved record is never capped.
+  // Route diversity (lib/route-cap.mjs): items found only through a material, genre or movement route are capped per
+  // creator and place; the rest wait in the review queue (route_diversity_cap). A curated or editor-approved record is
+  // never capped, nor one that is already public; public records this run did not see keep their slots.
+  let routeGroups = new Map()
   {
-    const cap = P.wikidata_routes?.max_per_creator_place ?? 6
-    const routeOnly = (p) => !p.curated_id && !p.editorial?.approved && p.origins.every((o) => o === 'wikidata_class' || o === 'evidence') &&
-      (p.evidence || []).filter((e) => e.kind === 'wikidata_class').flatMap((e) => e.classes || []).every((k) => String(k).includes(':'))
-    const groups = new Map()
-    for (const p of published.filter(routeOnly)) {
-      const creator = (p.credits || []).find((c) => c.role !== 'operator' && c.wikidata_qid)?.wikidata_qid || 'unknown'
-      const key = creator + '|' + (p.country_iso2 || '') + '|' + (p.city || '')
-      groups.set(key, [...(groups.get(key) || []), p])
-    }
-    const capped = new Set()
-    for (const [, list] of groups) {
-      if (list.length <= cap) continue
-      list.sort((a, b) => (b.sitelink_count || 0) - (a.sitelink_count || 0) || (b.images?.length || 0) - (a.images?.length || 0) || compareStrings(a.id, b.id))
-      for (const p of list.slice(cap)) capped.add(p)
-    }
+    const { capped, groups } = routeCap(published, { cap: P.wikidata_routes?.max_per_creator_place ?? 6, built: new Set(projects.map((p) => p.id)), previous: prev.records, tracker: state.tracker, aliases: idAliases, compare: compareStrings })
+    routeGroups = groups
     for (const p of capped) {
       published.splice(published.indexOf(p), 1)
       p.eligibility = { eligible: false, reasons: ['route_diversity_cap'] }
@@ -732,7 +721,7 @@ export async function runPipeline(o) {
     const cat = r.commons_category && (rejectedCats.has(r.commons_category) ? 'category_rejected:' + rejectedCats.get(r.commons_category) : rootCats.has(r.commons_category) ? 'category_container:evidence_root' : null)
     if (never.length || cat || hid?.hide || refused) { decided.add(id); neverRemoved.push({ id, name: r.name_en || r.name_ko || r.name_original, reasons: [...never, ...(cat ? [cat] : []), ...(hid?.hide ? ['editorial_hide'] : []), ...(refused ? refused.map((x) => 'korea_search:' + x) : [])] }) }
   }
-  const publishedInfo = new Map(published.map((p) => [p.id, { origins: p.origins }]))
+  const publishedInfo = new Map(published.map((p) => [p.id, { origins: p.origins, route_group: routeGroups.get(p.id) ?? null }]))
   const track = trackProjects(state.tracker, prev.records, { published: publishedInfo, decided, sourceStatus, runNo, nowIso: startedAt, staleAfter: P.output?.stale_after_missing_runs ?? 3, aliases: idAliases })
   const carriedIds = new Set(track.carried.map((c) => c.id))
   const count = shardCount(published.length + carriedIds.size, P.output?.shard_target ?? 200)
