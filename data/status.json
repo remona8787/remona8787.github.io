@@ -1,22 +1,21 @@
 {
  "about": "last_check_at: when the collector last ran (its outcome in last_check); data_changed_at: when the published data last changed (the build it belongs to). A run that changed nothing moves only last_check_at.",
- "build_id": "20261117T075839Z-249da567",
- "data_changed_at": "2026-11-17T07:58:39.860Z",
+ "build_id": "20261117T140858Z-a19cdfc9",
+ "data_changed_at": "2026-11-17T14:08:58.828Z",
  "last_check": {
-  "changed": 1,
-  "new": 1,
+  "changed": 2,
+  "new": 0,
   "outcome": "published",
   "removed": 0,
   "status": "partial"
  },
- "last_check_at": "2026-11-17T07:58:39.860Z",
+ "last_check_at": "2026-11-17T14:08:58.828Z",
  "recent": {
   "changed": [
-   "Q122440749"
+   "Q327650",
+   "Q96409321"
   ],
-  "new": [
-   "Q130070466"
-  ]
+  "new": []
  },
  "schema": 1
 }
