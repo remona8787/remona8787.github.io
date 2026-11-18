@@ -1,7 +1,7 @@
 {
  "dataset": "light-architecture-archive",
- "version": "20261117T201919Z-660f084a-p2",
- "data_as_of": "2026-11-17",
+ "version": "20261118T022940Z-493df0a7-p2",
+ "data_as_of": "2026-11-18",
  "projects": [
   {
    "id": "CAT-006W654",
@@ -15405,8 +15405,8 @@
    "end_date": null,
    "status": "unknown",
    "status_source": null,
-   "year_installed": 2008,
-   "year_completed": null,
+   "year_installed": null,
+   "year_completed": 2008,
    "year_operating_since": null,
    "year_ended": null,
    "installation_method": null,
@@ -15431,11 +15431,11 @@
     "name_en": "wikidata",
     "name_ko": "wikidata",
     "name_original": "wikidata",
-    "project_type": "wikidata",
+    "project_type": "derived:commons_category",
     "summary_en": "wikidata",
-    "year_installed": "wikidata"
+    "year_completed": "wikidata"
    },
-   "confidence_project_type": "sourced",
+   "confidence_project_type": "inferred",
    "confidence_region": "sourced",
    "confidence_dates": "sourced",
    "confidence_artist": "unknown",
