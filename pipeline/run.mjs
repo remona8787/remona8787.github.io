@@ -406,8 +406,9 @@ export async function runPipeline(o) {
         for (const [k, v] of r.aux) auxMap.set(k, v)
       }
       const cityPattern = new RegExp(P.entity_rules?.city_class_pattern || '\\bcity\\b', 'i')
+      const notCityPattern = P.entity_rules?.not_city_class_pattern ? new RegExp(P.entity_rules.not_city_class_pattern, 'i') : undefined
       for (const [q, ent] of entities) {
-        facts.set(q, factsOf(ent, auxMap, { cityPattern, originalLanguageByCountry: P.original_language_by_country || {}, labelLanguages: P.label_languages, countryAt: (lat, lng) => countryAt(cc, lat, lng) }))
+        facts.set(q, factsOf(ent, auxMap, { cityPattern, notCityPattern, originalLanguageByCountry: P.original_language_by_country || {}, labelLanguages: P.label_languages, countryAt: (lat, lng) => countryAt(cc, lat, lng) }))
         entityP31.set(q, (ent.claims.P31 || []).map((v) => v.item).filter(Boolean))
       }
       // Which items reach a never-a-project class through P31/P279* (one query per 100 items, cached).

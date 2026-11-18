@@ -93,6 +93,33 @@ test('routes: a collection (P195) leads to its city through its own administrati
   assert.deepEqual(findCity({ claims: { P131: [{ item: 'Q901' }], P195: [{ item: 'Q910' }] } }, aux, city), { qid: 'Q901', rule: 'p131_city_class', depth: 0 }, 'an own P131 wins')
 })
 
+test('city (v0.26.6): without a city on the way, the first administrative area; never the venue a work stands in, nor a country', async () => {
+  const { findCity } = await import('../pipeline/lib/wikidata.mjs')
+  const city = /\bcity\b/i
+  const cls = (en) => [en, { en, p31: [], p131: [] }]
+  const aux = new Map([
+    cls('hotel'), cls('urban park'), cls('bridge'), cls('business'), cls('central business district'), cls('district of Turkey'), cls('canton of Switzerland'), cls('state of Australia'), cls('country'),
+    ['Q1', { en: 'The Peninsula Istanbul', p31: ['hotel'], p131: ['Q2'] }],
+    ['Q2', { en: 'Beyoğlu', p31: ['district of Turkey'], p131: ['Q9'] }],
+    ['Q3', { en: 'Mont Blanc Bridge', p31: ['bridge'], p131: ['Q4'] }],
+    ['Q4', { en: 'Canton of Geneva', p31: ['canton of Switzerland'], p131: [] }],
+    ['Q5', { en: 'Brush Square Park', p31: ['urban park'], p131: [] }],
+    ['Q6', { en: 'hanova WOHNEN GmbH', p31: ['business'], p131: [] }],
+    ['Q7', { en: 'Auckland Central', p31: ['central business district'], p131: ['Q9'] }],
+    ['Q8', { en: 'New South Wales', p31: ['state of Australia'], p131: ['Q9'] }],
+    ['Q9', { en: 'Somewhere', iso: 'XX', p31: ['country'], p131: [] }],
+  ])
+  const at = (pid, q) => findCity({ claims: { [pid]: [{ item: q }] } }, aux, city)?.qid ?? null
+  assert.equal(at('P276', 'Q1'), 'Q2', 'a hotel: its district')
+  assert.equal(at('P276', 'Q3'), 'Q4', 'a bridge: its canton')
+  assert.equal(at('P276', 'Q5'), null, 'a park with no area known: no city rather than the park')
+  assert.equal(at('P276', 'Q6'), null, 'a company is never a city')
+  assert.equal(at('P276', 'Q7'), 'Q7', 'a business district is an area')
+  assert.equal(at('P131', 'Q8'), 'Q8', 'a state is what Wikidata knows: kept')
+  assert.equal(at('P131', 'Q9'), null, 'a country is never a city')
+  assert.deepEqual(findCity({ claims: { P276: [{ item: 'Q1' }] } }, aux, city), { qid: 'Q2', rule: 'p131_first_area', depth: 0 })
+})
+
 test('page images (v0.26.1): the free lead image of each article, 50 titles per request, redirects followed, cached', async () => {
   const { pageImages } = await import('../pipeline/lib/wikipedia.mjs')
   const calls = []

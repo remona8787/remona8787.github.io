@@ -455,11 +455,18 @@ export async function classInstances(client, review, { cache, ttlHours = 24, lim
 
 export const label = (labels, langs) => { for (const l of langs) if (labels?.[l]) return labels[l]; return null }
 
+// A place a work stands in, never its city (v0.26.6; entity_rules.not_city_class_pattern): before, a work whose only
+// location was a hotel, park, bridge or company (P276) showed that name as its city ("The Peninsula Istanbul",
+// "Brush Square Park", "hanova WOHNEN GmbH"). A class naming an area (central business district) is still an area.
+export const NOT_CITY_CLASS = /\b(hotel|park|bridge|business|company|enterprise|corporation|building|built structure|structure|airport|aerodrome|street|road|avenue|square|plaza|venue|museum|gallery|theat(re|er)|hall|church|cathedral|station|tower|skyscraper|stadium|arena|mall|campus|university|school|garden|monument|memorial|pier|fountain|pavilion|landmark)\b/i
+const AREA_CLASS = /\b(district|region|area|neighbou?rhood|suburb|quarter|zone|ward)\b/i
+
 /**
  * Walks P131 up from the item (or P276 for events) to find the city: the first ancestor one of whose P31 classes has
- * an English label matching cityPattern; else the first administrative area. Returns {qid, rule} or null.
+ * an English label matching cityPattern; else the first administrative area on the way (never a country, nor a venue
+ * matching notCityPattern). Returns {qid, rule} or null.
  */
-export function findCity(entity, auxMap, cityPattern) {
+export function findCity(entity, auxMap, cityPattern, notCityPattern = NOT_CITY_CLASS) {
   const start = [...(entity.claims.P131 || []), ...(entity.claims.P276 || [])].map((v) => v.item).filter(Boolean)
   const seen = new Set()
   // P195 (collection) last, and only through its own administrative area: a work held by a museum without a location
@@ -475,9 +482,10 @@ export function findCity(entity, auxMap, cityPattern) {
       seen.add(q)
       const a = auxMap.get(q)
       if (!a) continue
-      first ||= q
       const classLabels = a.p31.map((c) => auxMap.get(c)?.en || '').filter(Boolean)
       if (classLabels.some((l) => cityPattern.test(l))) return { qid: q, rule: 'p131_city_class', depth }
+      const venue = classLabels.some((l) => notCityPattern.test(l)) && !classLabels.some((l) => AREA_CLASS.test(l))
+      if (!first && !a.iso && !venue) first = q
       next.push(...a.p131)
     }
     level = next
@@ -531,7 +539,7 @@ export function countryOfPlace(q, auxMap, depth = 3) {
  * Facts the archive keeps from a project item; every fact carries its property (field_sources) so the record can
  * cite Wikidata for it. Unknown facts are null.
  */
-export function factsOf(entity, auxMap, { cityPattern, originalLanguageByCountry = {}, labelLanguages = ['ko', 'en'], countryAt = null }) {
+export function factsOf(entity, auxMap, { cityPattern, notCityPattern = NOT_CITY_CLASS, originalLanguageByCountry = {}, labelLanguages = ['ko', 'en'], countryAt = null }) {
   const c = entity.claims
   const L = entity.labels || {}
   const aux = (q) => auxMap.get(q) || null
@@ -549,7 +557,7 @@ export function factsOf(entity, auxMap, { cityPattern, originalLanguageByCountry
   }
   const coord0 = (c.P625 || [])[0] || null
   if (!country && coord0 && countryAt) { const iso = countryAt(coord0.lat, coord0.lng); if (iso) { country = iso; countryRule = 'p625_borders' } }
-  const city = findCity(entity, auxMap, cityPattern)
+  const city = findCity(entity, auxMap, cityPattern, notCityPattern)
   const coord = (c.P625 || [])[0] || null
   const year = (pid) => { const v = (c[pid] || []).find((t) => t.year && t.precision >= 9); return v ? v.year : null }
   const people = (pid) => (c[pid] || []).map((v) => v.item).filter(Boolean).map((q) => ({ qid: q, name: aux(q)?.ko || auxName(q), name_en: aux(q)?.en || aux(q)?.mul || null })).filter((p) => p.name || p.name_en)
