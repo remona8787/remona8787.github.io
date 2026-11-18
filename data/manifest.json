@@ -1,5 +1,5 @@
 {
- "build_id": "20261118T073332Z-e1e2b518",
+ "build_id": "20261118T134351Z-4362130e",
  "counts": {
   "by_country": {
    "AE": 6,
@@ -13,7 +13,7 @@
    "CN": 3,
    "CO": 1,
    "CZ": 8,
-   "DE": 174,
+   "DE": 175,
    "DK": 3,
    "EC": 1,
    "EE": 1,
@@ -86,7 +86,7 @@
   "by_region": {
    "africa": 4,
    "east_asia": 328,
-   "europe": 503,
+   "europe": 504,
    "latin_america": 8,
    "middle_east": 15,
    "north_america": 127,
@@ -97,7 +97,7 @@
   "by_type": {
    "festival_program": 219,
    "interactive_installation": 21,
-   "light_art": 515,
+   "light_art": 516,
    "media_architecture": 79,
    "media_facade": 59,
    "media_wall": 16,
@@ -116,11 +116,11 @@
    "upcoming": 13
   },
   "korea": 296,
-  "projects": 1014,
+  "projects": 1015,
   "with_art_representative": 343,
   "with_hero": 10,
   "with_images": 381,
-  "world": 718
+  "world": 719
  },
  "credits": {
   "data": "Wikidata (CC0 1.0), Wikipedia (CC BY-SA 4.0, article links), Wikimedia Commons (each image carries its own licence and author), curated records of the archive.",
@@ -143,17 +143,17 @@
   "stats": "stats.json",
   "status": "status.json"
  },
- "generated_at": "2026-11-18T07:33:32.983Z",
+ "generated_at": "2026-11-18T13:43:51.286Z",
  "schema": 1,
  "sources": {
   "commons": {
    "items": 381,
-   "last_success": "2026-11-18T07:33:32.983Z",
+   "last_success": "2026-11-18T13:43:51.286Z",
    "status": "ok"
   },
   "curated": {
    "items": 370,
-   "last_success": "2026-11-18T07:33:32.983Z",
+   "last_success": "2026-11-18T13:43:51.286Z",
    "status": "ok"
   },
   "seoul_events": {
@@ -167,18 +167,18 @@
    "status": "skipped"
   },
   "web": {
-   "items": 0,
+   "items": 7,
    "last_success": "2026-11-16T22:08:29.704Z",
-   "status": "error"
+   "status": "partial"
   },
   "wikidata": {
-   "items": 934,
+   "items": 935,
    "last_success": "2026-11-18T07:33:32.983Z",
-   "status": "ok"
+   "status": "partial"
   },
   "wikipedia": {
    "items": 284,
-   "last_success": "2026-11-18T07:33:32.983Z",
+   "last_success": "2026-11-18T13:43:51.286Z",
    "status": "ok"
   }
  }
