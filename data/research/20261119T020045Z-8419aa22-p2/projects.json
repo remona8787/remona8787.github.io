@@ -1,7 +1,7 @@
 {
  "dataset": "light-architecture-archive",
- "version": "20261118T195026Z-23d7a27f-p2",
- "data_as_of": "2026-11-18",
+ "version": "20261119T020045Z-8419aa22-p2",
+ "data_as_of": "2026-11-19",
  "projects": [
   {
    "id": "CAT-006W654",
@@ -19446,7 +19446,7 @@
    "name_en": "Seoul Lantern Festival",
    "name_original": "서울빛초롱축제",
    "name_original_lang": "ko",
-   "project_type": "festival_program",
+   "project_type": "media_facade",
    "country_iso2": "KR",
    "region": "east_asia",
    "kr_region": "seoul",
@@ -19458,14 +19458,14 @@
    "lng": null,
    "location_precision": "city",
    "operating_status": null,
-   "kind": "festival",
+   "kind": "facility",
    "start_date": null,
    "end_date": null,
    "status": "unknown",
    "status_source": null,
    "year_installed": null,
-   "year_completed": null,
-   "year_operating_since": 2009,
+   "year_completed": 2009,
+   "year_operating_since": null,
    "year_ended": null,
    "installation_method": null,
    "envelope_type": null,
@@ -19490,7 +19490,7 @@
     "official_url": "wikidata",
     "project_type": "wikipedia:ko",
     "summary_en": "wikidata",
-    "year_operating_since": "wikidata"
+    "year_completed": "wikidata"
    },
    "confidence_project_type": "sourced",
    "confidence_region": "inferred",
