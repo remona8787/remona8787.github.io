@@ -1,0 +1,206 @@
+{
+ "at": "2026-11-20T13:31:27.834Z",
+ "errors": [
+  {
+   "http_status": null,
+   "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
+   "rule": "gdelt:GDELT ko · media facade",
+   "stage": "web_fetch",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Akorean&mode=ArtList&format=json&maxrecords=250&timespan=44h&sort=DateDesc"
+  },
+  {
+   "http_status": 429,
+   "message": "HTTP 429",
+   "rule": "gdelt:GDELT ja · media facade",
+   "stage": "web_fetch",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Ajapanese&mode=ArtList&format=json&maxrecords=250&timespan=8d&sort=DateDesc"
+  },
+  {
+   "http_status": null,
+   "message": "not a feed: root element <html>",
+   "rule": "rss:Creative Applications Network",
+   "stage": "web_parse",
+   "url": "https://www.creativeapplications.net/feed/"
+  }
+ ],
+ "rules": [
+  {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
+   "key": "gdelt:GDELT ko · media facade",
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
+  },
+  {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
+   "key": "gdelt:GDELT ja · media facade",
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
+  },
+  {
+   "key": "rss:Dezeen",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-11-22T01:52:25.478Z"
+  },
+  {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 10
+   },
+   "errors": 0,
+   "fetched": 10,
+   "kept": 0,
+   "key": "rss:designboom",
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
+  },
+  {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 24
+   },
+   "errors": 0,
+   "fetched": 24,
+   "kept": 0,
+   "key": "rss:ArchDaily",
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
+  },
+  {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 30
+   },
+   "errors": 0,
+   "fetched": 30,
+   "kept": 0,
+   "key": "rss:Archinect",
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
+  },
+  {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
+   "key": "rss:Creative Applications Network",
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
+  },
+  {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 3
+   },
+   "errors": 0,
+   "fetched": 10,
+   "kept": 7,
+   "key": "rss:Media Architecture Institute",
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
+  },
+  {
+   "key": "rss:Designboom Korea",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-11-21T07:31:22.009Z"
+  },
+  {
+   "key": "gdelt:GDELT ar · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT de · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT en · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT es · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT fr · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT it · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT nl · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT pl · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT pt · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT ru · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT tr · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  },
+  {
+   "key": "gdelt:GDELT zh · media facade",
+   "reason": "rotation",
+   "status": "skipped"
+  }
+ ],
+ "schema": 1
+}

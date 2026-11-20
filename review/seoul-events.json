@@ -1,0 +1,233 @@
+{
+ "about": "Seoul cultural events (OA-15486 culturalEventInfo): without SEOUL_OPEN_DATA_KEY one probe with the sample key (reachability and the live field names; never published). Every event with its relevance decision; the relevant ones linked to a project (name within 300 m) or listed as place candidates. Keys never appear.",
+ "at": "2026-11-20T13:31:27.834Z",
+ "counts": {
+  "merged": 0,
+  "new_candidates": 0,
+  "probe": true,
+  "published": 0,
+  "received": 5,
+  "relevant": 0,
+  "requested": 1
+ },
+ "dataset": {
+  "id": "OA-15486",
+  "license": "KOGL Type 1",
+  "license_url": "https://www.kogl.or.kr/info/licenseType1.do",
+  "page": "https://data.seoul.go.kr/dataList/OA-15486/S/1/datasetView.do",
+  "publisher": "서울특별시 (서울 열린데이터광장)",
+  "service": "culturalEventInfo"
+ },
+ "decisions": {
+  "no_media_term": 5
+ },
+ "errors": [],
+ "events": [
+  {
+   "category": "무용",
+   "coords_swapped": false,
+   "date_text": "2027-02-12~2027-02-28",
+   "decision": {
+    "reasons": [
+     "no_media_term"
+    ],
+    "relevant": false,
+    "terms": []
+   },
+   "district": "서초구",
+   "end": "2027-02-28",
+   "fee": "R 90,000원 / S 70,000원 / A 50,000원",
+   "id": "SEV-0ZT13XH",
+   "is_free": false,
+   "kind": "event",
+   "lat": 37.4856046634033,
+   "lng": 127.028078834421,
+   "org": "기타",
+   "place": "한전아트센터",
+   "player": "앰비규어스댄스컴퍼니",
+   "probe": true,
+   "program": "바디콘서트 2027. 02. 12 금 ~ 02. 14 일 피버 2027. 02. 19 금 ~ 02. 21 일 더 벨트 2027. 02. 26 금 ~ 02. 28 일",
+   "start": "2027-02-12",
+   "status": "upcoming",
+   "target": "초등학생 이상 관람가",
+   "theme": "기타",
+   "time_text": "금요일 19:30, 토·일요일 15:00",
+   "title": "앰비규어스댄스컴퍼니 [세 개의 심장]",
+   "url": "https://www.instagram.com/amdaco/"
+  },
+  {
+   "category": "국악",
+   "coords_swapped": false,
+   "date_text": "2026-12-26~2026-12-26",
+   "decision": {
+    "reasons": [
+     "no_media_term"
+    ],
+    "relevant": false,
+    "terms": []
+   },
+   "district": "서초구",
+   "end": "2026-12-26",
+   "fee": "S석 50,000원 / A석 30,000원 / B석 20,000원",
+   "id": "SEV-0BAVHNI",
+   "is_free": false,
+   "kind": "event",
+   "lat": 37.4777188083482,
+   "lng": 127.009818464555,
+   "org": "기타",
+   "place": "국립국악원 예악당",
+   "player": null,
+   "probe": true,
+   "program": null,
+   "start": "2026-12-26",
+   "status": "upcoming",
+   "target": "7세 이상 누구나",
+   "theme": "기타",
+   "time_text": "1회차 14:00 / 2회차 19:00",
+   "title": "2026 송년음악회 [One Voice, One Dream]",
+   "url": "http://worldpansori.com/?wHuLfc4e"
+  },
+  {
+   "category": "콘서트",
+   "coords_swapped": false,
+   "date_text": "2026-12-24~2026-12-24",
+   "decision": {
+    "reasons": [
+     "no_media_term"
+    ],
+    "relevant": false,
+    "terms": []
+   },
+   "district": "강동구",
+   "end": "2026-12-24",
+   "fee": "VIP석 88,000원 / R석 77,000원 / S석 66,000원 / A석 55,000원",
+   "id": "SEV-1467EZ6",
+   "is_free": false,
+   "kind": "event",
+   "lat": 37.5512204558342,
+   "lng": 127.157342546961,
+   "org": "기타",
+   "place": "강동아트센터 대극장 한강",
+   "player": "Piano : Kazumi Tateishi, Contrabass : Shinobu Sato, Drums : Mao Suzuki",
+   "probe": true,
+   "program": "Let It Snow, White Christmas 등 크리스마스 캐롤 명곡을 피아노, 콘트라베이스, 드럼의 일본 재즈 트리오 연주로 듣는 공연",
+   "start": "2026-12-24",
+   "status": "upcoming",
+   "target": "성인, 청소년",
+   "theme": "기타",
+   "time_text": "19:30",
+   "title": "2026 카즈미 타테이시 트리오 내한공연-크리스마스, 재즈를 만나다-(서울)",
+   "url": "https://tickets.interpark.com/goods/26010350"
+  },
+  {
+   "category": "클래식",
+   "coords_swapped": false,
+   "date_text": "2026-12-23~2026-11-23",
+   "decision": {
+    "reasons": [
+     "no_media_term"
+    ],
+    "relevant": false,
+    "terms": []
+   },
+   "district": "영등포구",
+   "end": "2026-11-23",
+   "fee": "R석 50,000원 / S석 30,000원",
+   "id": "SEV-1N3U3K0",
+   "is_free": false,
+   "kind": "event",
+   "lat": 37.5292719570904,
+   "lng": 126.924892738645,
+   "org": "기타",
+   "place": "영산아트홀(여의도)",
+   "player": "Violin 조유리 Clarinet 윤보라 Flute 오은지 Harp 전다현 Harp 이시우",
+   "probe": true,
+   "program": "크리스마스를 앞두고 만나는 특별한 클래식 음악회! 두 대의 하프로 새롭게 만나는 생상스 《동물의 사육제》. 원곡의 두 대의 피아노 파트를 두 대의 하프로 새롭게 편곡·재구성한 특별한 무대를 선보입니다. 클라리넷을 단계적으로 분해하며 연주하는 《Immer kleiner》, 재미있는 《장난감 교향곡》, 비발디 《사계》 중 가을과 겨울, 크리스마스 캐럴까지! ■ PROGRAM Leopold Mozart ― Toy Symphony A. Schreiner ― Immer kleiner A. Vivaldi ― The Four Seasons 중 Autumn / Winter C. Saint-Saens ― The Carnival of the Animals 크리스마스 캐럴 메들리 (앙코르 예정)",
+   "start": "2026-12-23",
+   "status": "upcoming",
+   "target": "가족, 청소년, 성인, 클래식 애호가",
+   "theme": "기타",
+   "time_text": "19:30~21:00",
+   "title": "동물의 사육제에 초대받은 하피스트",
+   "url": "https://blog.naver.com/handawoori/224476016853"
+  },
+  {
+   "category": "클래식",
+   "coords_swapped": false,
+   "date_text": "2026-12-22~2026-12-22",
+   "decision": {
+    "reasons": [
+     "no_media_term"
+    ],
+    "relevant": false,
+    "terms": []
+   },
+   "district": "서초구",
+   "end": "2026-12-22",
+   "fee": null,
+   "id": "SEV-0AIYO36",
+   "is_free": true,
+   "kind": "event",
+   "lat": 37.49904352601313,
+   "lng": 126.99165409240258,
+   "org": "서초문화재단",
+   "place": "반포심산아트홀",
+   "player": null,
+   "probe": true,
+   "program": null,
+   "start": "2026-12-22",
+   "status": "upcoming",
+   "target": "초등학생 이상 관람가능",
+   "theme": "기타",
+   "time_text": "화 19:30",
+   "title": "[서초문화재단] 2026서리풀 어울림 콘서트 [바이올리니스트 김지선의 Dia:logue-graph]",
+   "url": "https://www.seochocf.or.kr/site/main/seocho/show/view?show_idx=1020"
+  }
+ ],
+ "fields": [
+  "CODENAME",
+  "DATE",
+  "END_DATE",
+  "ETC_DESC",
+  "GUNAME",
+  "HMPG_ADDR",
+  "INQUIRY",
+  "IS_FREE",
+  "LAT",
+  "LOT",
+  "MAIN_IMG",
+  "ORG_LINK",
+  "ORG_NAME",
+  "PLACE",
+  "PLAYER",
+  "PROGRAM",
+  "PRO_TIME",
+  "RGSTDATE",
+  "STRTDATE",
+  "THEMECODE",
+  "TICKET",
+  "TITLE",
+  "USE_FEE",
+  "USE_TRGT"
+ ],
+ "linked": [],
+ "probe": true,
+ "probe_result": {
+  "code": "INFO-000",
+  "message": "정상 처리되었습니다",
+  "rows": 5,
+  "total": 19782
+ },
+ "schema": 1,
+ "status": {
+  "duration_ms": 1208,
+  "errors": [],
+  "items": 0,
+  "last_success": null,
+  "reason": "SEOUL_OPEN_DATA_KEY not set; sample probe INFO-000",
+  "received": 5,
+  "requested": 1,
+  "status": "skipped"
+ },
+ "total": null
+}
