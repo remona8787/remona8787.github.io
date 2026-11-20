@@ -1,12 +1,12 @@
 {
  "profile": "tabular-data-package",
- "id": "light-architecture-archive@20261120T015206Z-0b1495b1-p2",
+ "id": "light-architecture-archive@20261120T072110Z-80fa8c51-p2",
  "name": "light-architecture-archive",
  "title": "빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋",
- "version": "20261120T015206Z-0b1495b1-p2",
- "build_id": "20261120T015206Z-0b1495b1",
+ "version": "20261120T072110Z-80fa8c51-p2",
+ "build_id": "20261120T072110Z-80fa8c51",
  "package_format": 2,
- "created": "2026-11-20T01:52:06.502Z",
+ "created": "2026-11-20T07:21:10.341Z",
  "data_as_of": "2026-11-20",
  "homepage": "https://remona8787.github.io/",
  "description": "미디어파사드·건축 미디어아트·빛 설치 작품의 사실 정보(이름, 유형, 위치, 연도, 운영 상태, 식별자, 출처, 필드별 신뢰도), 레코드 사이의 관계, 공공 행사 정보, 공개 이미지의 저작권 정보. 편집부 해설문과 이미지 파일은 포함하지 않습니다.",
@@ -14,7 +14,7 @@
   "projects": 1015,
   "with_coordinates": 374,
   "sources": 1751,
-  "images": 2800,
+  "images": 2807,
   "relations": 73,
   "events": 0,
   "agents": 261,
@@ -87,10 +87,10 @@
    "jeju": 13
   },
   "by_type": {
-   "light_art": 517,
-   "festival_program": 217,
+   "light_art": 516,
+   "festival_program": 219,
    "media_architecture": 79,
-   "projection_mapping": 66,
+   "projection_mapping": 65,
    "media_facade": 59,
    "other": 37,
    "interactive_installation": 21,
@@ -98,8 +98,8 @@
    "urban_screen": 3
   },
   "by_kind": {
-   "facility": 740,
-   "festival": 242,
+   "facility": 738,
+   "festival": 244,
    "program": 20,
    "exhibition": 13
   },
@@ -140,10 +140,10 @@
    "path": "https://remona8787.github.io/"
   }
  ],
- "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261120T015206Z-0b1495b1-p2, 데이터 기준일 2026-11-20). https://remona8787.github.io/data/research/20261120T015206Z-0b1495b1-p2/",
+ "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261120T072110Z-80fa8c51-p2, 데이터 기준일 2026-11-20). https://remona8787.github.io/data/research/20261120T072110Z-80fa8c51-p2/",
  "changes": {
-  "from": "20261119T195055Z-af80aad4",
-  "added": 1,
+  "from": "20261120T015206Z-0b1495b1",
+  "added": 0,
   "removed": 0,
   "changed": 41
  },
@@ -154,8 +154,8 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "bytes": 552653,
-   "hash": "sha256:e3adffc937e182389bd4ade9dbff853a2cc56a79a00739a682c43134f0277aa1",
+   "bytes": 551954,
+   "hash": "sha256:79d7f9443ab47522d0da404eb752a9e9e09fc64d6c2f68c9ec49149e60ad3f0e",
    "schema": {
     "fields": [
      {
@@ -444,8 +444,8 @@
    "format": "json",
    "mediatype": "application/json",
    "encoding": "utf-8",
-   "bytes": 1663185,
-   "hash": "sha256:b0a72bcccbed739a29988b993d6336ec752ed07f0b5152043ccc4032d9c81fdb"
+   "bytes": 1662488,
+   "hash": "sha256:7dafb1280e46e42fca32de7c648e01915fed604297640454c287d9dfa7f55c97"
   },
   {
    "name": "projects-geojson",
@@ -506,8 +506,8 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "bytes": 816693,
-   "hash": "sha256:6f8b7217a3562862d3673b73ee447ed813793166e253bb0afee97b6f94dafe27",
+   "bytes": 818479,
+   "hash": "sha256:27f58ee78a5b0279873b1ab8c3b46971326cfe0f2610d330c87e09250090db0b",
    "schema": {
     "fields": [
      {
@@ -826,8 +826,8 @@
    "format": "xlsx",
    "mediatype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
    "encoding": "utf-8",
-   "bytes": 556180,
-   "hash": "sha256:8bf15993003dd0e39bef3d2f1be05d4ec902f79b82bdbca36296a6136d69109d"
+   "bytes": 556609,
+   "hash": "sha256:1518cdf1b3827f74a6c45d9e7322198a53f92cb146befcb3a03da28a5c645d01"
   },
   {
    "name": "citation",
@@ -836,7 +836,7 @@
    "mediatype": "text/plain",
    "encoding": "utf-8",
    "bytes": 274,
-   "hash": "sha256:3bc6d6457c3e30fdd8d5c36cf960e2bbfd981ebe9e5e3761ae8de11b1ede5137"
+   "hash": "sha256:a9fab18b0230e8b573823f14e2a9fa0b165521b3b8ea48b5844bc99e138f84de"
   },
   {
    "name": "changelog",
@@ -844,8 +844,8 @@
    "format": "md",
    "mediatype": "text/markdown",
    "encoding": "utf-8",
-   "bytes": 817,
-   "hash": "sha256:f2403153b57174d9e87aab651503d4f838f0504e2271a6634ac1076a6e51c035"
+   "bytes": 804,
+   "hash": "sha256:4329e25c13bcff0ded24901bff349a6093c82d329ebac691e7059c957cb917f2"
   }
  ]
 }
