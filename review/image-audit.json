@@ -4,12 +4,12 @@
   "count": 0,
   "examples": []
  },
- "at": "2026-11-20T13:31:27.834Z",
+ "at": "2026-11-20T19:41:45.575Z",
  "cards": {
   "all": {
-   "projects": 1015,
-   "rate_pct": 37.4,
-   "with_valid_card": 380
+   "projects": 1016,
+   "rate_pct": 37.3,
+   "with_valid_card": 379
   },
   "by_kr_region": {
    "busan_ulsan_gyeongnam": {
@@ -59,9 +59,9 @@
    "with_valid_card": 24
   },
   "world": {
-   "projects": 719,
-   "rate_pct": 49.5,
-   "with_valid_card": 356
+   "projects": 720,
+   "rate_pct": 49.3,
+   "with_valid_card": 355
   }
  },
  "projects": [
@@ -4435,19 +4435,6 @@
   },
   {
    "card_kind": "project_media",
-   "card_tier": 3,
-   "card_title": "2025 Brug 689, Asd-Origin (B)",
-   "id": "CAT-0MJOWPH",
-   "images": 12,
-   "kr": false,
-   "kr_region": null,
-   "name": "Origin",
-   "previous_images": 12,
-   "status": "carried_over",
-   "valid_card": true
-  },
-  {
-   "card_kind": "project_media",
    "card_tier": 2,
    "card_title": "Nuage de givre (6664511443)",
    "id": "CAT-0NIEF25",
@@ -6828,7 +6815,7 @@
   {
    "card_kind": "project_media",
    "card_tier": 3,
-   "card_title": "Leda and the Swan neon",
+   "card_title": "Leda und der Schwan 01 (cropped)",
    "id": "Q122440749",
    "images": 12,
    "kr": false,
@@ -9941,6 +9928,32 @@
    "kr": false,
    "kr_region": null,
    "name": "heimat",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q142214264",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "Plan of the Path of Light (In the House of the Hidden Places)",
+   "previous_images": 0,
+   "status": "scored",
+   "valid_card": false
+  },
+  {
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
+   "id": "Q142214265",
+   "images": 0,
+   "kr": false,
+   "kr_region": null,
+   "name": "What Matters (The Scattering)",
    "previous_images": 0,
    "status": "scored",
    "valid_card": false
@@ -13262,11 +13275,11 @@
   }
  ],
  "rejected": {
-  "identity": 3962,
+  "identity": 4071,
   "low_res": 83,
-  "mislinked": 70,
+  "mislinked": 73,
   "other": 1,
-  "person": 665,
+  "person": 676,
   "rights": 67
  },
  "rejected_examples": {
@@ -14058,6 +14071,22 @@
     ]
    },
    {
+    "key": "img-c7f1490c2948",
+    "project": "Q142214264",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:horse"
+    ]
+   },
+   {
+    "key": "img-0c224431d4c3",
+    "project": "Q142214264",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:horse"
+    ]
+   },
+   {
     "key": "img-0a1a894fa139",
     "project": "Q29885992",
     "reasons": [
@@ -14135,22 +14164,6 @@
     "reasons": [
      "identity_unproven",
      "subject:object_or_animal:dogs"
-    ]
-   },
-   {
-    "key": "img-73d25c17c875",
-    "project": "Q131338393",
-    "reasons": [
-     "identity_unproven",
-     "interior_unrelated_to_work"
-    ]
-   },
-   {
-    "key": "img-e60ea4108b95",
-    "project": "Q131338397",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:food"
     ]
    }
   ],
@@ -14774,15 +14787,80 @@
    }
   ]
  },
- "removed": {},
- "removed_examples": {},
+ "removed": {
+  "project_removed": 12
+ },
+ "removed_examples": {
+  "project_removed": [
+   {
+    "id": "img-f3e830b86537",
+    "project": "CAT-0MJOWPH",
+    "title": "2025 Brug 689, Asd-Origin (B)"
+   },
+   {
+    "id": "img-e997654ab818",
+    "project": "CAT-0MJOWPH",
+    "title": "2025 Brug 689, Asd-Origin (E)"
+   },
+   {
+    "id": "img-6747698cb0b2",
+    "project": "CAT-0MJOWPH",
+    "title": "2025 Brug 689, Asd-Origin (C)"
+   },
+   {
+    "id": "img-61f936de6159",
+    "project": "CAT-0MJOWPH",
+    "title": "2025 Brug 689, Asd-Origin (D)"
+   },
+   {
+    "id": "img-3cbd1ae23208",
+    "project": "CAT-0MJOWPH",
+    "title": "2025 Brug 689, Asd-Origin (A)"
+   },
+   {
+    "id": "img-d81917f8a0b3",
+    "project": "CAT-0MJOWPH",
+    "title": "2025 Brug 689, Asd-Origin (F)"
+   },
+   {
+    "id": "img-b42310f550b2",
+    "project": "CAT-0MJOWPH",
+    "title": "2025 Brug 689, Asd-Origin (G)"
+   },
+   {
+    "id": "img-4cd6feb6dcb6",
+    "project": "CAT-0MJOWPH",
+    "title": "2025 Brug 689, Asd-Origin (H)"
+   },
+   {
+    "id": "img-535a2430b47e",
+    "project": "CAT-0MJOWPH",
+    "title": "2025 Brug 689, Asd-Origin (I)"
+   },
+   {
+    "id": "img-3014ae10e718",
+    "project": "CAT-0MJOWPH",
+    "title": "2025 Brug 689, Asd-Origin (J)"
+   },
+   {
+    "id": "img-d19b419ebcfb",
+    "project": "CAT-0MJOWPH",
+    "title": "2025 Brug 689, Asd-Origin (K)"
+   },
+   {
+    "id": "img-3b0170a5e67e",
+    "project": "CAT-0MJOWPH",
+    "title": "2025 Brug 689, Asd-Origin (L)"
+   }
+  ]
+ },
  "schema": 1,
  "summary": {
   "cards": {
    "all": {
-    "projects": 1015,
-    "rate_pct": 37.4,
-    "with_valid_card": 380
+    "projects": 1016,
+    "rate_pct": 37.3,
+    "with_valid_card": 379
    },
    "korea": {
     "projects": 296,
@@ -14790,54 +14868,54 @@
     "with_valid_card": 24
    },
    "world": {
-    "projects": 719,
-    "rate_pct": 49.5,
-    "with_valid_card": 356
+    "projects": 720,
+    "rate_pct": 49.3,
+    "with_valid_card": 355
    }
   },
   "duplicates_removed": 0,
   "duplicates_this_run": 10,
-  "images": 2807,
+  "images": 2795,
   "low_res_rejected": 83,
-  "mislinked_rejected": 70,
+  "mislinked_rejected": 73,
   "mislinked_removed": 0,
   "newly_added_valid": 0,
-  "person_rejected": 665,
+  "person_rejected": 676,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2807,
-  "rechecked_kept": 77,
+  "rechecked_kept": 65,
   "relevance_verified": 2730,
-  "removed_total": 0
+  "removed_total": 12
  },
  "totals": {
   "by_kind": {
    "architecture_context": 449,
    "event_documentation": 14,
    "project_installation": 59,
-   "project_media": 2279,
+   "project_media": 2267,
    "technical_documentation": 6
   },
   "by_provider": {
-   "commons": 2793,
+   "commons": 2781,
    "editor": 4,
    "openverse": 10
   },
   "by_role": {
-   "card": 196,
+   "card": 197,
    "context": 413,
-   "featured": 194,
-   "gallery": 1994,
+   "featured": 192,
+   "gallery": 1983,
    "hero": 10
   },
   "by_tier": {
    "1": 62,
    "2": 406,
-   "3": 1841,
+   "3": 1829,
    "4": 47,
    "5": 451
   },
-  "images": 2807,
+  "images": 2795,
   "portraits": 3
  }
 }
