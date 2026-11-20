@@ -1,5 +1,5 @@
 {
- "build_id": "20261119T195055Z-af80aad4",
+ "build_id": "20261120T015206Z-0b1495b1",
  "counts": {
   "by_country": {
    "AE": 6,
@@ -35,7 +35,7 @@
    "LV": 1,
    "MO": 1,
    "MX": 4,
-   "NL": 98,
+   "NL": 99,
    "NZ": 9,
    "PH": 1,
    "PL": 6,
@@ -86,7 +86,7 @@
   "by_region": {
    "africa": 4,
    "east_asia": 328,
-   "europe": 503,
+   "europe": 504,
    "latin_america": 8,
    "middle_east": 15,
    "north_america": 127,
@@ -95,14 +95,14 @@
    "southeast_asia": 10
   },
   "by_type": {
-   "festival_program": 219,
+   "festival_program": 217,
    "interactive_installation": 21,
-   "light_art": 515,
+   "light_art": 517,
    "media_architecture": 79,
    "media_facade": 59,
    "media_wall": 16,
    "other": 37,
-   "projection_mapping": 65,
+   "projection_mapping": 66,
    "urban_screen": 3
   },
   "events": {
@@ -116,11 +116,11 @@
    "upcoming": 12
   },
   "korea": 296,
-  "projects": 1014,
-  "with_art_representative": 342,
+  "projects": 1015,
+  "with_art_representative": 343,
   "with_hero": 10,
-  "with_images": 380,
-  "world": 718
+  "with_images": 381,
+  "world": 719
  },
  "credits": {
   "data": "Wikidata (CC0 1.0), Wikipedia (CC BY-SA 4.0, article links), Wikimedia Commons (each image carries its own licence and author), curated records of the archive.",
@@ -143,17 +143,17 @@
   "stats": "stats.json",
   "status": "status.json"
  },
- "generated_at": "2026-11-19T19:50:55.262Z",
+ "generated_at": "2026-11-20T01:52:06.502Z",
  "schema": 1,
  "sources": {
   "commons": {
    "items": 381,
-   "last_success": "2026-11-19T19:50:55.262Z",
+   "last_success": "2026-11-20T01:52:06.502Z",
    "status": "ok"
   },
   "curated": {
    "items": 370,
-   "last_success": "2026-11-19T19:50:55.262Z",
+   "last_success": "2026-11-20T01:52:06.502Z",
    "status": "ok"
   },
   "seoul_events": {
@@ -172,13 +172,13 @@
    "status": "partial"
   },
   "wikidata": {
-   "items": 935,
+   "items": 0,
    "last_success": "2026-11-19T13:40:28.677Z",
-   "status": "partial"
+   "status": "error"
   },
   "wikipedia": {
    "items": 285,
-   "last_success": "2026-11-19T19:50:55.262Z",
+   "last_success": "2026-11-20T01:52:06.502Z",
    "status": "ok"
   }
  }
