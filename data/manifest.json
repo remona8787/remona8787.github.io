@@ -1,5 +1,5 @@
 {
- "build_id": "20261120T072110Z-80fa8c51",
+ "build_id": "20261120T133127Z-afe6ef08",
  "counts": {
   "by_country": {
    "AE": 6,
@@ -143,17 +143,17 @@
   "stats": "stats.json",
   "status": "status.json"
  },
- "generated_at": "2026-11-20T07:21:10.341Z",
+ "generated_at": "2026-11-20T13:31:27.834Z",
  "schema": 1,
  "sources": {
   "commons": {
    "items": 381,
-   "last_success": "2026-11-20T07:21:10.341Z",
+   "last_success": "2026-11-20T13:31:27.834Z",
    "status": "ok"
   },
   "curated": {
    "items": 370,
-   "last_success": "2026-11-20T07:21:10.341Z",
+   "last_success": "2026-11-20T13:31:27.834Z",
    "status": "ok"
   },
   "seoul_events": {
@@ -167,18 +167,18 @@
    "status": "skipped"
   },
   "web": {
-   "items": 0,
+   "items": 7,
    "last_success": "2026-11-16T22:08:29.704Z",
-   "status": "error"
+   "status": "partial"
   },
   "wikidata": {
-   "items": 936,
+   "items": 907,
    "last_success": "2026-11-19T13:40:28.677Z",
    "status": "partial"
   },
   "wikipedia": {
    "items": 285,
-   "last_success": "2026-11-20T07:21:10.341Z",
+   "last_success": "2026-11-20T13:31:27.834Z",
    "status": "ok"
   }
  }
