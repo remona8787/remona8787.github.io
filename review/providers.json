@@ -1,10 +1,34 @@
 {
  "about": "Image provider requests of this run: TourAPI name matches, caps reached, errors (keys never appear).",
- "at": "2026-11-21T13:24:12.507Z",
+ "at": "2026-11-21T19:19:31.268Z",
  "log": [
   {
    "key": "ilmin museum outdoor media display",
    "message": "HTTP 403",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
+   "key": "culture station seoul 284",
+   "message": "HTTP 504",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
+   "key": "반포대교",
+   "message": "HTTP 504",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
+   "key": "cascade",
+   "message": "HTTP 504",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
+   "key": "tokyo millenario",
+   "message": "HTTP 504",
    "provider": "openverse",
    "status": "error"
   }
@@ -12,21 +36,21 @@
  "schema": 1,
  "stats": {
   "errors": {
-   "openverse": 1
+   "openverse": 5
   },
   "new_requests": {
-   "openverse": 20
+   "openverse": 8
   },
   "openverse_rate_limit": {
    "x-ratelimit-available-anon_burst": 19,
    "x-ratelimit-available-anon_sustained": 199
   },
   "rejected": {
-   "openverse:identity_unproven": 4402,
-   "openverse:interior_unrelated_to_work": 34,
+   "openverse:identity_unproven": 4337,
+   "openverse:interior_unrelated_to_work": 31,
    "openverse:name": 45,
    "openverse:rights": 37,
-   "openverse:subject": 636
+   "openverse:subject": 628
   },
   "requests": {
    "openverse": 809
