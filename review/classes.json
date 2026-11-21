@@ -1,5 +1,5 @@
 {
- "at": "2026-11-21T07:13:55.281Z",
+ "at": "2026-11-21T13:24:12.507Z",
  "blocklist": [
   {
    "configured_label": "lighthouse",
@@ -742,9 +742,9 @@
   },
   {
    "configured_label": "light",
-   "error": null,
+   "error": "HTTP 502",
    "include": true,
-   "instances": 14,
+   "instances": null,
    "key": "Q9128:material",
    "korea_include": false,
    "label_matches": true,
@@ -758,7 +758,7 @@
    "reasons": [],
    "route": "material",
    "verified": true,
-   "with_coords": 11
+   "with_coords": null
   },
   {
    "configured_label": "laser",
