@@ -19,8 +19,8 @@
    "url": "https://www.staroriga.lv/"
   },
   {
-   "checked_at": "2026-11-19T20:16:18.451Z",
-   "consecutive_failures": 8,
+   "checked_at": "2026-11-21T01:58:47.745Z",
+   "consecutive_failures": 9,
    "field": "official_url",
    "http_status": 404,
    "project": "Q100510647",
@@ -64,8 +64,8 @@
    "url": "http://www.lichtkunst-unna.de/"
   },
   {
-   "checked_at": "2026-11-20T02:13:36.848Z",
-   "consecutive_failures": 31,
+   "checked_at": "2026-11-21T01:59:07.746Z",
+   "consecutive_failures": 32,
    "field": "official_url",
    "http_status": null,
    "project": "Q22912864",
@@ -208,8 +208,8 @@
    "url": "https://hel.fi/en/news/lux-helsinki-will-showcase-the-diverse-forms-of-light-art-in-january"
   },
   {
-   "checked_at": "2026-11-19T20:16:16.850Z",
-   "consecutive_failures": 7,
+   "checked_at": "2026-11-21T01:58:45.440Z",
+   "consecutive_failures": 8,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-FI-0001",
@@ -235,8 +235,8 @@
    "url": "https://www.aberdeencity.gov.uk/AAGM/whats-aberdeen-art-galleries-and-museums/spectra-aberdeens-festival-of-light"
   },
   {
-   "checked_at": "2026-11-20T02:14:09.585Z",
-   "consecutive_failures": 9,
+   "checked_at": "2026-11-21T02:00:02.416Z",
+   "consecutive_failures": 10,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-GB-0004",
@@ -253,8 +253,8 @@
    "url": "https://planets.teamlab.art/tokyo/"
   },
   {
-   "checked_at": "2026-11-20T02:13:36.848Z",
-   "consecutive_failures": 9,
+   "checked_at": "2026-11-21T01:59:29.712Z",
+   "consecutive_failures": 10,
    "field": "source:curated:check1",
    "http_status": null,
    "project": "REG-JP-0007",
@@ -280,8 +280,8 @@
    "url": "https://www.city.osaka.lg.jp/hodoshiryo/cmsfiles/contents/0000637/637517/hikarune2024.pdf"
   },
   {
-   "checked_at": "2026-11-20T02:14:10.952Z",
-   "consecutive_failures": 9,
+   "checked_at": "2026-11-21T02:00:04.049Z",
+   "consecutive_failures": 10,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-JP-0010",
@@ -307,8 +307,8 @@
    "url": "https://www.djto.kr/kor/page.do?menuIdx=652"
   },
   {
-   "checked_at": "2026-11-19T20:16:17.312Z",
-   "consecutive_failures": 8,
+   "checked_at": "2026-11-21T01:58:46.605Z",
+   "consecutive_failures": 9,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "REG-KR-0030",
@@ -568,8 +568,8 @@
    "url": "https://riyadhart.sa/en/noor-riyadh/"
   },
   {
-   "checked_at": "2026-11-20T02:14:06.851Z",
-   "consecutive_failures": 9,
+   "checked_at": "2026-11-21T01:59:59.713Z",
+   "consecutive_failures": 10,
    "field": "source:curated:check1",
    "http_status": null,
    "project": "REG-SG-0004",
@@ -611,15 +611,6 @@
    "project": "SEOUL007",
    "reason": "HTTP 404",
    "url": "https://english.visitseoul.net/area/COEXK-POPSquare/ENPnj8f9x"
-  },
-  {
-   "checked_at": "2026-11-19T20:16:15.503Z",
-   "consecutive_failures": 2,
-   "field": "source:curated:check1",
-   "http_status": null,
-   "project": "SEOUL009",
-   "reason": "robots_unreachable",
-   "url": "https://dept.galleria.co.kr/store-info/luxuryhall/way/by-public-transportation"
   },
   {
    "checked_at": "2026-11-20T07:36:12.048Z",
@@ -721,7 +712,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261120T194145Z-676de89e",
+ "build_id": "20261121T015205Z-a4902670",
  "coordinate_checks": [
   {
    "distance_m": 7576,
@@ -5162,6 +5153,18 @@
    ]
   },
   {
+   "id": "Q135232969",
+   "name": "Rain",
+   "origins": [
+    "wikidata_class"
+   ],
+   "qid": "Q135232969",
+   "reasons": [
+    "no_country",
+    "no_coordinates_or_city"
+   ]
+  },
+  {
    "id": "Q135307359",
    "name": "Os Cavaleiros do Zodíaco",
    "origins": [
@@ -5690,6 +5693,18 @@
     "commons"
    ],
    "qid": "Q1396323",
+   "reasons": [
+    "no_country",
+    "no_coordinates_or_city"
+   ]
+  },
+  {
+   "id": "Q139714874",
+   "name": "Flash Point",
+   "origins": [
+    "wikidata_class"
+   ],
+   "qid": "Q139714874",
    "reasons": [
     "no_country",
     "no_coordinates_or_city"
@@ -6684,6 +6699,18 @@
    ],
    "qid": "Q625724",
    "reasons": [
+    "no_coordinates_or_city"
+   ]
+  },
+  {
+   "id": "Q62589077",
+   "name": "Neon Led Discobolus",
+   "origins": [
+    "wikidata_class"
+   ],
+   "qid": "Q62589077",
+   "reasons": [
+    "no_country",
     "no_coordinates_or_city"
    ]
   },
@@ -8153,7 +8180,7 @@
    ]
   }
  ],
- "generated_at": "2026-11-20T19:41:45.575Z",
+ "generated_at": "2026-11-21T01:52:05.174Z",
  "image_rejections": {
   "extreme_aspect": 26,
   "interior_unrelated_to_work": 5,
@@ -8713,11 +8740,6 @@
   },
   {
    "id": "Q16034471",
-   "project_type": "light_art",
-   "type_source": "commons_category"
-  },
-  {
-   "id": "Q12640281",
    "project_type": "light_art",
    "type_source": "commons_category"
   },
@@ -9338,8 +9360,12 @@
    "name": "Beyond the Wall",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -9350,8 +9376,11 @@
    "name": "Crisscross Signal Spire",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -9362,8 +9391,12 @@
    "name": null,
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -9405,8 +9438,12 @@
    "name": null,
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -9464,8 +9501,12 @@
    "name": "Star Memorial",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -9753,8 +9794,11 @@
    "name": "The Bernard M. Gordon Tribute to Engineering Leadership",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -10066,8 +10110,12 @@
    "name": "For SAAM",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -10265,8 +10313,12 @@
    "name": "Ceiling Snake",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -10293,8 +10345,11 @@
    "name": null,
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -12225,8 +12280,12 @@
    "name": "Kaaret",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -12237,8 +12296,12 @@
    "name": "Memory/Diffusion",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -13716,8 +13779,11 @@
    "name": "Flame of Bachelard",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 1,
