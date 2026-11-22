@@ -1,5 +1,5 @@
 {
- "at": "2026-11-22T01:30:02.348Z",
+ "at": "2026-11-22T06:55:01.206Z",
  "blocklist": [
   {
    "configured_label": "lighthouse",
@@ -248,7 +248,7 @@
    "configured_label": "light sculpture",
    "error": null,
    "include": true,
-   "instances": 27,
+   "instances": 28,
    "key": "Q29885984",
    "korea_include": false,
    "label_matches": true,
@@ -662,9 +662,9 @@
   },
   {
    "configured_label": "light-emitting diode",
-   "error": null,
+   "error": "no answer within 65000 ms",
    "include": true,
-   "instances": 47,
+   "instances": null,
    "key": "Q25504:material",
    "korea_include": false,
    "label_matches": true,
@@ -678,7 +678,7 @@
    "reasons": [],
    "route": "material",
    "verified": true,
-   "with_coords": 30
+   "with_coords": null
   },
   {
    "configured_label": "fluorescent lamp",

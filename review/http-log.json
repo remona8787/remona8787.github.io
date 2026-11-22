@@ -1,19 +1,19 @@
 {
- "at": "2026-11-22T01:30:02.348Z",
+ "at": "2026-11-22T06:55:01.206Z",
  "entries": [
   {
-   "at": "2026-11-22T01:32:44.690Z",
+   "at": "2026-11-22T06:56:33.160Z",
    "host": "query.wikidata.org",
    "kind": "http_error",
    "message": "no answer within 65000 ms",
    "url": "https://query.wikidata.org/sparql"
   },
   {
-   "at": "2026-11-22T01:40:26.117Z",
-   "host": "overpass-api.de",
+   "at": "2026-11-22T06:59:03.600Z",
+   "host": "query.wikidata.org",
    "kind": "http_error",
-   "message": "network error: fetch failed (ECONNREFUSED)",
-   "url": "https://overpass-api.de/api/interpreter"
+   "message": "no answer within 65000 ms",
+   "url": "https://query.wikidata.org/sparql"
   }
  ],
  "schema": 1
