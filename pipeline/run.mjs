@@ -39,6 +39,7 @@ import { checkLinks } from './lib/links.mjs'
 import { loadSeed, seedObservations } from './lib/seed.mjs'
 import { loadRegistry, registryObservations, buildEvents, divisionOfText, KR_DIVISIONS } from './lib/registry.mjs'
 import { routeCap } from './lib/route-cap.mjs'
+import { duplicatesOfPublic } from './lib/public-duplicates.mjs'
 import { clusterObservations, mergeByNameAndUrl, buildProject, eligibility, newId, neverProject, PROJECT_TYPES } from './lib/entities.mjs'
 import { imageStage } from './lib/image-stage.mjs'
 import { writeContactSheets, SHEET_ABOUT } from './lib/contact-sheet.mjs'
@@ -595,6 +596,12 @@ export async function runPipeline(o) {
       p.eligibility = { eligible: false, reasons: ['route_diversity_cap'] }
       excluded.push({ id: p.id, qid: p.qid, name: p.name_en || p.name_ko || p.name_original, origins: p.origins, reasons: ['route_diversity_cap'] })
     }
+  }
+  // A new record repeating a public record's Commons category (lib/public-duplicates.mjs) waits in the review queue.
+  for (const { p, of } of duplicatesOfPublic(published, prev.records, idAliases)) {
+    published.splice(published.indexOf(p), 1)
+    p.eligibility = { eligible: false, reasons: ['duplicate_of_public_record'] }
+    excluded.push({ id: p.id, qid: p.qid, name: p.name_en || p.name_ko || p.name_original, origins: p.origins, reasons: ['duplicate_of_public_record'], duplicate_of: of })
   }
   say(`[pipeline] resolved ${projects.length} projects from ${kept.length} observations: ${published.length} eligible, ${excluded.length} excluded`)
 
