@@ -1,7 +1,7 @@
 {
  "dataset": "light-architecture-archive",
- "version": "20261121T191931Z-4ba1347e-p2",
- "data_as_of": "2026-11-21",
+ "version": "20261122T013002Z-57d8acb8-p2",
+ "data_as_of": "2026-11-22",
  "projects": [
   {
    "id": "CAT-006W654",
@@ -15405,8 +15405,8 @@
    "end_date": null,
    "status": "unknown",
    "status_source": null,
-   "year_installed": 2008,
-   "year_completed": null,
+   "year_installed": null,
+   "year_completed": 2008,
    "year_operating_since": null,
    "year_ended": null,
    "installation_method": null,
@@ -15431,11 +15431,11 @@
     "name_en": "wikidata",
     "name_ko": "wikidata",
     "name_original": "wikidata",
-    "project_type": "wikidata",
+    "project_type": "derived:commons_category",
     "summary_en": "wikidata",
-    "year_installed": "wikidata"
+    "year_completed": "wikidata"
    },
-   "confidence_project_type": "sourced",
+   "confidence_project_type": "inferred",
    "confidence_region": "sourced",
    "confidence_dates": "sourced",
    "confidence_artist": "unknown",
@@ -30512,11 +30512,11 @@
    "spatial_context": "",
    "content_types": "",
    "wikidata": "Q24190312",
-   "commons_category": null,
+   "commons_category": "Category:Winter Festival of Lights",
    "official_url": "https://www.niagarafallstourism.com/WFOL/",
    "record_origin": "auto_collected",
    "added_at": "2026-11-11T23:23:15.140Z",
-   "source_count": 3,
+   "source_count": 4,
    "image_count": 12,
    "has_valid_image": true,
    "field_sources": {
