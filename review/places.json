@@ -1,6 +1,6 @@
 {
  "about": "Country and location recovery (lib/places.mjs): projects whose only eligibility failures were a missing country or location, the evidence found (parent categories and their items, the category name, file geotags inside country borders, the item coordinates; the Wikipedia language as weak corroboration only) and the decision. Conflicting evidence leaves a project excluded.",
- "at": "2026-11-22T14:25:43.231Z",
+ "at": "2026-11-22T19:44:28.397Z",
  "decisions": [
   {
    "before": {
@@ -13458,42 +13458,6 @@
   },
   {
    "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q118957161",
-   "name": "Please Empty Your Pockets",
-   "outcome": "no_evidence",
-   "qid": "Q118957161",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q12340235",
-   "name": "Under Scan",
-   "outcome": "no_evidence",
-   "qid": "Q12340235",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
     "country": "ID",
     "located": false
    },
@@ -15680,12 +15644,12 @@
    "parent_category": 101,
    "parent_item": 24
   },
-  "candidates": 306,
+  "candidates": 304,
   "capped": 0,
   "conflict": 18,
   "duplicate_of_project": 1,
   "geotag_requests": 2,
-  "no_evidence": 95,
+  "no_evidence": 93,
   "part_of_project": 28,
   "recovered": 141,
   "region_candidates": 2

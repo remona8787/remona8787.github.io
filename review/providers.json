@@ -1,10 +1,22 @@
 {
  "about": "Image provider requests of this run: TourAPI name matches, caps reached, errors (keys never appear).",
- "at": "2026-11-22T14:25:43.231Z",
+ "at": "2026-11-22T19:44:28.397Z",
  "log": [
   {
    "key": "ilmin museum outdoor media display",
    "message": "HTTP 403",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
+   "key": "light to night singapore",
+   "message": "HTTP 504",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
+   "key": "zeus playing",
+   "message": "HTTP 504",
    "provider": "openverse",
    "status": "error"
   },
@@ -15,7 +27,25 @@
    "status": "error"
   },
   {
-   "key": "les anneaux",
+   "key": "chemin des lanternes",
+   "message": "HTTP 504",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
+   "key": "radiance",
+   "message": "HTTP 504",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
+   "key": "stuck red",
+   "message": "HTTP 504",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
+   "key": "av festival",
    "message": "HTTP 504",
    "provider": "openverse",
    "status": "error"
@@ -24,24 +54,24 @@
  "schema": 1,
  "stats": {
   "errors": {
-   "openverse": 3
+   "openverse": 8
   },
   "new_requests": {
-   "openverse": 6
+   "openverse": 23
   },
   "openverse_rate_limit": {
    "x-ratelimit-available-anon_burst": 19,
    "x-ratelimit-available-anon_sustained": 199
   },
   "rejected": {
-   "openverse:identity_unproven": 4370,
+   "openverse:identity_unproven": 4273,
    "openverse:interior_unrelated_to_work": 34,
-   "openverse:name": 44,
+   "openverse:name": 43,
    "openverse:rights": 37,
-   "openverse:subject": 631
+   "openverse:subject": 615
   },
   "requests": {
-   "openverse": 809
+   "openverse": 807
   }
  }
 }

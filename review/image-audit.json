@@ -1,71 +1,10 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 12,
-  "examples": [
-   {
-    "id": "img-da9fb4636a67",
-    "project": "Q136085207",
-    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (03)"
-   },
-   {
-    "id": "img-78961de7d81f",
-    "project": "Q136085207",
-    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (02)"
-   },
-   {
-    "id": "img-6a12223553df",
-    "project": "Q136085207",
-    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (01)"
-   },
-   {
-    "id": "img-fd6f240b8a71",
-    "project": "Q136085207",
-    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (23)"
-   },
-   {
-    "id": "img-74645f1053d8",
-    "project": "Q136085207",
-    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (06)"
-   },
-   {
-    "id": "img-4472c899e287",
-    "project": "Q136085207",
-    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (07)"
-   },
-   {
-    "id": "img-17ec63134793",
-    "project": "Q136085207",
-    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (08)"
-   },
-   {
-    "id": "img-483e7ef09467",
-    "project": "Q136085207",
-    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (09)"
-   },
-   {
-    "id": "img-995c9dd22c2e",
-    "project": "Q136085207",
-    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (10)"
-   },
-   {
-    "id": "img-a512ced168d2",
-    "project": "Q136085207",
-    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (11)"
-   },
-   {
-    "id": "img-f1b0191991e4",
-    "project": "Q136085207",
-    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (12)"
-   },
-   {
-    "id": "img-5ad134935f33",
-    "project": "Q136085207",
-    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (13)"
-   }
-  ]
+  "count": 0,
+  "examples": []
  },
- "at": "2026-11-22T14:25:43.231Z",
+ "at": "2026-11-22T19:44:28.397Z",
  "cards": {
   "all": {
    "projects": 1017,
@@ -6766,7 +6705,7 @@
    "kr_region": null,
    "name": "Please Empty Your Pockets",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9391,7 +9330,7 @@
    "kr": false,
    "kr_region": null,
    "name": "Ziegelstein und Baum - ein Lichtgehäuse",
-   "previous_images": 0,
+   "previous_images": 12,
    "status": "scored",
    "valid_card": true
   },
@@ -10432,7 +10371,7 @@
    "kr_region": null,
    "name": "33 Questions Per Minute",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -13349,11 +13288,11 @@
   }
  ],
  "rejected": {
-  "identity": 4154,
+  "identity": 4081,
   "low_res": 83,
   "mislinked": 71,
   "other": 1,
-  "person": 692,
+  "person": 677,
   "rights": 74
  },
  "rejected_examples": {
@@ -14895,11 +14834,11 @@
   "low_res_rejected": 83,
   "mislinked_rejected": 71,
   "mislinked_removed": 0,
-  "newly_added_valid": 12,
-  "person_rejected": 692,
+  "newly_added_valid": 0,
+  "person_rejected": 677,
   "person_removed": 0,
   "portraits": 3,
-  "previous_images": 2795,
+  "previous_images": 2807,
   "rechecked_kept": 0,
   "relevance_verified": 2807,
   "removed_total": 0
