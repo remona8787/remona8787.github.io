@@ -1,13 +1,7 @@
 {
  "about": "Image provider requests of this run: TourAPI name matches, caps reached, errors (keys never appear).",
- "at": "2026-11-22T13:05:17.573Z",
+ "at": "2026-11-22T14:25:43.231Z",
  "log": [
-  {
-   "key": "인천공항 k 컬처 뮤지엄",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
   {
    "key": "ilmin museum outdoor media display",
    "message": "HTTP 403",
@@ -19,6 +13,12 @@
    "message": "HTTP 504",
    "provider": "openverse",
    "status": "error"
+  },
+  {
+   "key": "les anneaux",
+   "message": "HTTP 504",
+   "provider": "openverse",
+   "status": "error"
   }
  ],
  "schema": 1,
@@ -27,21 +27,21 @@
    "openverse": 3
   },
   "new_requests": {
-   "openverse": 16
+   "openverse": 6
   },
   "openverse_rate_limit": {
    "x-ratelimit-available-anon_burst": 19,
    "x-ratelimit-available-anon_sustained": 199
   },
   "rejected": {
-   "openverse:identity_unproven": 4239,
+   "openverse:identity_unproven": 4370,
    "openverse:interior_unrelated_to_work": 34,
-   "openverse:name": 39,
-   "openverse:rights": 30,
-   "openverse:subject": 615
+   "openverse:name": 44,
+   "openverse:rights": 37,
+   "openverse:subject": 631
   },
   "requests": {
-   "openverse": 792
+   "openverse": 809
   }
  }
 }

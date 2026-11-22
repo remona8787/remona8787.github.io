@@ -100,8 +100,8 @@
    "url": "http://light-building.messefrankfurt.com/frankfurt/de/besucher/events/luminale.html"
   },
   {
-   "checked_at": "2026-11-21T13:35:19.738Z",
-   "consecutive_failures": 28,
+   "checked_at": "2026-11-22T14:32:14.922Z",
+   "consecutive_failures": 29,
    "field": "official_url",
    "http_status": 404,
    "project": "Q4173984",
@@ -541,8 +541,8 @@
    "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=387cfe24-b54f-464d-a06d-c1599d7eba59"
   },
   {
-   "checked_at": "2026-11-21T13:35:18.696Z",
-   "consecutive_failures": 9,
+   "checked_at": "2026-11-22T14:32:13.835Z",
+   "consecutive_failures": 10,
    "field": "official_url",
    "http_status": null,
    "project": "REG-KR-0231",
@@ -712,7 +712,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261122T065501Z-d62b9280",
+ "build_id": "20261122T142543Z-60494483",
  "coordinate_checks": [
   {
    "distance_m": 7576,
@@ -5141,6 +5141,18 @@
    ]
   },
   {
+   "id": "Q135232969",
+   "name": "Rain",
+   "origins": [
+    "wikidata_class"
+   ],
+   "qid": "Q135232969",
+   "reasons": [
+    "no_country",
+    "no_coordinates_or_city"
+   ]
+  },
+  {
    "id": "Q135307359",
    "name": "Os Cavaleiros do Zodíaco",
    "origins": [
@@ -5198,17 +5210,6 @@
    "qid": "Q135885525",
    "reasons": [
     "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "Q136085207",
-   "name": "Ziegelstein und Baum - ein Lichtgehäuse",
-   "origins": [
-    "wikidata_class"
-   ],
-   "qid": "Q136085207",
-   "reasons": [
     "no_coordinates_or_city"
    ]
   },
@@ -5681,6 +5682,18 @@
     "commons"
    ],
    "qid": "Q1396323",
+   "reasons": [
+    "no_country",
+    "no_coordinates_or_city"
+   ]
+  },
+  {
+   "id": "Q139714874",
+   "name": "Flash Point",
+   "origins": [
+    "wikidata_class"
+   ],
+   "qid": "Q139714874",
    "reasons": [
     "no_country",
     "no_coordinates_or_city"
@@ -6675,6 +6688,18 @@
    ],
    "qid": "Q625724",
    "reasons": [
+    "no_coordinates_or_city"
+   ]
+  },
+  {
+   "id": "Q62589077",
+   "name": "Neon Led Discobolus",
+   "origins": [
+    "wikidata_class"
+   ],
+   "qid": "Q62589077",
+   "reasons": [
+    "no_country",
     "no_coordinates_or_city"
    ]
   },
@@ -8144,7 +8169,7 @@
    ]
   }
  ],
- "generated_at": "2026-11-22T13:05:17.573Z",
+ "generated_at": "2026-11-22T14:25:43.231Z",
  "image_rejections": {
   "extreme_aspect": 26,
   "interior_unrelated_to_work": 5,
@@ -8704,11 +8729,6 @@
   },
   {
    "id": "Q16034471",
-   "project_type": "light_art",
-   "type_source": "commons_category"
-  },
-  {
-   "id": "Q12640281",
    "project_type": "light_art",
    "type_source": "commons_category"
   },
@@ -9329,8 +9349,12 @@
    "name": "Beyond the Wall",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -9341,8 +9365,11 @@
    "name": "Crisscross Signal Spire",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -9353,8 +9380,12 @@
    "name": null,
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -9396,8 +9427,12 @@
    "name": null,
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -9455,8 +9490,12 @@
    "name": "Star Memorial",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -9744,8 +9783,11 @@
    "name": "The Bernard M. Gordon Tribute to Engineering Leadership",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -10057,8 +10099,12 @@
    "name": "For SAAM",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -10255,8 +10301,12 @@
    "name": "Ceiling Snake",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -10283,8 +10333,11 @@
    "name": null,
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -12215,8 +12268,12 @@
    "name": "Kaaret",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -12227,8 +12284,12 @@
    "name": "Memory/Diffusion",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -13706,8 +13767,11 @@
    "name": "Flame of Bachelard",
    "project_type": "light_art",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 1,

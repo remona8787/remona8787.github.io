@@ -1,15 +1,76 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 0,
-  "examples": []
+  "count": 12,
+  "examples": [
+   {
+    "id": "img-da9fb4636a67",
+    "project": "Q136085207",
+    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (03)"
+   },
+   {
+    "id": "img-78961de7d81f",
+    "project": "Q136085207",
+    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (02)"
+   },
+   {
+    "id": "img-6a12223553df",
+    "project": "Q136085207",
+    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (01)"
+   },
+   {
+    "id": "img-fd6f240b8a71",
+    "project": "Q136085207",
+    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (23)"
+   },
+   {
+    "id": "img-74645f1053d8",
+    "project": "Q136085207",
+    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (06)"
+   },
+   {
+    "id": "img-4472c899e287",
+    "project": "Q136085207",
+    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (07)"
+   },
+   {
+    "id": "img-17ec63134793",
+    "project": "Q136085207",
+    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (08)"
+   },
+   {
+    "id": "img-483e7ef09467",
+    "project": "Q136085207",
+    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (09)"
+   },
+   {
+    "id": "img-995c9dd22c2e",
+    "project": "Q136085207",
+    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (10)"
+   },
+   {
+    "id": "img-a512ced168d2",
+    "project": "Q136085207",
+    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (11)"
+   },
+   {
+    "id": "img-f1b0191991e4",
+    "project": "Q136085207",
+    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (12)"
+   },
+   {
+    "id": "img-5ad134935f33",
+    "project": "Q136085207",
+    "title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (13)"
+   }
+  ]
  },
- "at": "2026-11-22T13:05:17.573Z",
+ "at": "2026-11-22T14:25:43.231Z",
  "cards": {
   "all": {
-   "projects": 1016,
-   "rate_pct": 37.3,
-   "with_valid_card": 379
+   "projects": 1017,
+   "rate_pct": 37.4,
+   "with_valid_card": 380
   },
   "by_kr_region": {
    "busan_ulsan_gyeongnam": {
@@ -59,9 +120,9 @@
    "with_valid_card": 24
   },
   "world": {
-   "projects": 720,
-   "rate_pct": 49.3,
-   "with_valid_card": 355
+   "projects": 721,
+   "rate_pct": 49.4,
+   "with_valid_card": 356
   }
  },
  "projects": [
@@ -5444,7 +5505,7 @@
    "kr_region": null,
    "name": "The light kite",
    "previous_images": 4,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": true
   },
   {
@@ -5834,7 +5895,7 @@
    "kr_region": null,
    "name": "Beyond the Wall",
    "previous_images": 0,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": false
   },
   {
@@ -5873,7 +5934,7 @@
    "kr_region": null,
    "name": "Crisscross Signal Spire",
    "previous_images": 0,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": false
   },
   {
@@ -5912,7 +5973,7 @@
    "kr_region": null,
    "name": "De Liefdesbrief",
    "previous_images": 1,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": true
   },
   {
@@ -5951,7 +6012,7 @@
    "kr_region": null,
    "name": "Titan 1",
    "previous_images": 0,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": false
   },
   {
@@ -5990,7 +6051,7 @@
    "kr_region": null,
    "name": "Straatlicht",
    "previous_images": 0,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": false
   },
   {
@@ -6055,7 +6116,7 @@
    "kr_region": null,
    "name": "Le contour des conifères dans la nuit bleue et les étoiles derrière ma tête sont dans tes yeux",
    "previous_images": 4,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": true
   },
   {
@@ -6146,7 +6207,7 @@
    "kr_region": null,
    "name": "Star Memorial",
    "previous_images": 0,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": false
   },
   {
@@ -6536,7 +6597,7 @@
    "kr_region": null,
    "name": "The Bernard M. Gordon Tribute to Engineering Leadership",
    "previous_images": 0,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": false
   },
   {
@@ -6913,7 +6974,7 @@
    "kr_region": null,
    "name": "For SAAM",
    "previous_images": 0,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": false
   },
   {
@@ -7173,7 +7234,7 @@
    "kr_region": null,
    "name": "Pinta Cura",
    "previous_images": 8,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": true
   },
   {
@@ -7199,7 +7260,7 @@
    "kr_region": null,
    "name": "Ceiling Snake",
    "previous_images": 0,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": false
   },
   {
@@ -7225,7 +7286,7 @@
    "kr_region": null,
    "name": "Ovonde",
    "previous_images": 0,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": false
   },
   {
@@ -7251,7 +7312,7 @@
    "kr_region": null,
    "name": "De Finishboog",
    "previous_images": 2,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": true
   },
   {
@@ -7277,7 +7338,7 @@
    "kr_region": null,
    "name": "Waimahara",
    "previous_images": 7,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": true
   },
   {
@@ -8226,7 +8287,7 @@
    "kr_region": null,
    "name": "Data Structure",
    "previous_images": 3,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": true
   },
   {
@@ -9253,7 +9314,7 @@
    "kr_region": null,
    "name": "Kaaret",
    "previous_images": 0,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": false
   },
   {
@@ -9266,7 +9327,7 @@
    "kr_region": null,
    "name": "Memory/Diffusion",
    "previous_images": 0,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": false
   },
   {
@@ -9318,6 +9379,19 @@
    "kr_region": null,
    "name": "Interactive Neon Mural #17",
    "previous_images": 2,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse (03)",
+   "id": "Q136085207",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "Ziegelstein und Baum - ein Lichtgehäuse",
+   "previous_images": 0,
    "status": "scored",
    "valid_card": true
   },
@@ -9916,7 +9990,7 @@
    "kr_region": null,
    "name": "Cumulus Gate Pavilion for Richard Pearse",
    "previous_images": 2,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": true
   },
   {
@@ -10098,7 +10172,7 @@
    "kr_region": null,
    "name": "Paint Torch",
    "previous_images": 2,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": true
   },
   {
@@ -10150,7 +10224,7 @@
    "kr_region": null,
    "name": "Terza Rima",
    "previous_images": 12,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": true
   },
   {
@@ -10865,7 +10939,7 @@
    "kr_region": null,
    "name": "Public Poetry Pavilion",
    "previous_images": 1,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": true
   },
   {
@@ -12009,7 +12083,7 @@
    "kr_region": null,
    "name": "Flame of Bachelard",
    "previous_images": 0,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": false
   },
   {
@@ -12204,7 +12278,7 @@
    "kr_region": null,
    "name": "Utah Bit and Mine",
    "previous_images": 9,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": true
   },
   {
@@ -12217,7 +12291,7 @@
    "kr_region": null,
    "name": "178 Bottles, 1 Message",
    "previous_images": 10,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": true
   },
   {
@@ -13275,12 +13349,12 @@
   }
  ],
  "rejected": {
-  "identity": 4051,
+  "identity": 4154,
   "low_res": 83,
-  "mislinked": 73,
+  "mislinked": 71,
   "other": 1,
-  "person": 673,
-  "rights": 67
+  "person": 692,
+  "rights": 74
  },
  "rejected_examples": {
   "identity": [
@@ -13975,22 +14049,6 @@
     ]
    },
    {
-    "key": "img-549ca7f34ed6",
-    "project": "Q118609706",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:statue"
-    ]
-   },
-   {
-    "key": "img-296351530240",
-    "project": "Q118609706",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:statue"
-    ]
-   },
-   {
     "key": "img-aa30e7a66f48",
     "project": "Q122916102",
     "reasons": [
@@ -14164,6 +14222,22 @@
     "reasons": [
      "identity_unproven",
      "subject:object_or_animal:dogs"
+    ]
+   },
+   {
+    "key": "img-73d25c17c875",
+    "project": "Q131338393",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "img-e60ea4108b95",
+    "project": "Q131338397",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:food"
     ]
    }
   ],
@@ -14621,6 +14695,62 @@
     ]
    },
    {
+    "key": "img-c8ff0f3ccdc7",
+    "project": "Q134487534",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-1e5c89f24b36",
+    "project": "Q134487534",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-804289ec399a",
+    "project": "Q134487534",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-b9a61f66bb51",
+    "project": "Q134487534",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-de87edc7e570",
+    "project": "Q134487534",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-4d2fe68acc3c",
+    "project": "Q134487534",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
+    "key": "img-1fc211665700",
+    "project": "Q134487534",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
+   },
+   {
     "key": "img-4e85ead736f3",
     "project": "Q141673318",
     "reasons": [
@@ -14735,55 +14865,6 @@
     "reasons": [
      "rights:license_not_allowed"
     ]
-   },
-   {
-    "key": "Classical spectacular04.jpg",
-    "project": "CAT-05MF2O1",
-    "reasons": [
-     "rights:license_not_allowed"
-    ]
-   },
-   {
-    "key": "Classical spectacular05.jpg",
-    "project": "CAT-05MF2O1",
-    "reasons": [
-     "rights:license_not_allowed"
-    ]
-   },
-   {
-    "key": "Classical spectacular06.jpg",
-    "project": "CAT-05MF2O1",
-    "reasons": [
-     "rights:license_not_allowed"
-    ]
-   },
-   {
-    "key": "Classical spectacular07.jpg",
-    "project": "CAT-05MF2O1",
-    "reasons": [
-     "rights:license_not_allowed"
-    ]
-   },
-   {
-    "key": "Spb 06-2017 img18 Leader Tower.jpg",
-    "project": "Q13668707",
-    "reasons": [
-     "rights:license_not_allowed"
-    ]
-   },
-   {
-    "key": "Jevrejsko groblje u Sarajevu.jpg",
-    "project": "Q7422981",
-    "reasons": [
-     "rights:foreign_no_freedom_of_panorama"
-    ]
-   },
-   {
-    "key": "Sarajevo Tram-257 Line-1 2013-10-25.jpg",
-    "project": "Q7422981",
-    "reasons": [
-     "rights:foreign_no_freedom_of_panorama"
-    ]
    }
   ]
  },
@@ -14793,9 +14874,9 @@
  "summary": {
   "cards": {
    "all": {
-    "projects": 1016,
-    "rate_pct": 37.3,
-    "with_valid_card": 379
+    "projects": 1017,
+    "rate_pct": 37.4,
+    "with_valid_card": 380
    },
    "korea": {
     "projects": 296,
@@ -14803,24 +14884,24 @@
     "with_valid_card": 24
    },
    "world": {
-    "projects": 720,
-    "rate_pct": 49.3,
-    "with_valid_card": 355
+    "projects": 721,
+    "rate_pct": 49.4,
+    "with_valid_card": 356
    }
   },
   "duplicates_removed": 0,
-  "duplicates_this_run": 10,
-  "images": 2795,
+  "duplicates_this_run": 13,
+  "images": 2807,
   "low_res_rejected": 83,
-  "mislinked_rejected": 73,
+  "mislinked_rejected": 71,
   "mislinked_removed": 0,
-  "newly_added_valid": 0,
-  "person_rejected": 673,
+  "newly_added_valid": 12,
+  "person_rejected": 692,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2795,
-  "rechecked_kept": 65,
-  "relevance_verified": 2730,
+  "rechecked_kept": 0,
+  "relevance_verified": 2807,
   "removed_total": 0
  },
  "totals": {
@@ -14828,29 +14909,29 @@
    "architecture_context": 449,
    "event_documentation": 14,
    "project_installation": 59,
-   "project_media": 2267,
+   "project_media": 2279,
    "technical_documentation": 6
   },
   "by_provider": {
-   "commons": 2781,
+   "commons": 2793,
    "editor": 4,
    "openverse": 10
   },
   "by_role": {
    "card": 197,
    "context": 413,
-   "featured": 192,
-   "gallery": 1983,
+   "featured": 193,
+   "gallery": 1994,
    "hero": 10
   },
   "by_tier": {
    "1": 62,
-   "2": 406,
-   "3": 1829,
+   "2": 408,
+   "3": 1839,
    "4": 47,
    "5": 451
   },
-  "images": 2795,
+  "images": 2807,
   "portraits": 3
  }
 }
