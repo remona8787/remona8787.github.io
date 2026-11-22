@@ -1,6 +1,6 @@
 {
  "about": "Country and location recovery (lib/places.mjs): projects whose only eligibility failures were a missing country or location, the evidence found (parent categories and their items, the category name, file geotags inside country borders, the item coordinates; the Wikipedia language as weak corroboration only) and the decision. Conflicting evidence leaves a project excluded.",
- "at": "2026-11-21T19:19:31.268Z",
+ "at": "2026-11-22T01:30:02.348Z",
  "decisions": [
   {
    "before": {
@@ -1794,30 +1794,6 @@
      "file_geotags"
     ]
    }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:Winter Festival of Lights",
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": {
-    "center": null,
-    "countries": {
-     "CA": 1
-    },
-    "n": 1
-   },
-   "id": "CAT-08L6582",
-   "name": "Winter Festival of Lights",
-   "outcome": "no_evidence",
-   "qid": null,
-   "reason": null,
-   "rule": null,
-   "votes": {}
   },
   {
    "before": {
@@ -13779,10 +13755,10 @@
    "country": null,
    "evidence": [],
    "geotags": null,
-   "id": "Q135232969",
-   "name": "Rain",
+   "id": "Q135885525",
+   "name": "Inaho",
    "outcome": "no_evidence",
-   "qid": "Q135232969",
+   "qid": "Q135885525",
    "reason": null,
    "rule": null,
    "votes": {}
@@ -13988,24 +13964,6 @@
    "name": "Color organ",
    "outcome": "no_evidence",
    "qid": "Q1396323",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q139714874",
-   "name": "Flash Point",
-   "outcome": "no_evidence",
-   "qid": "Q139714874",
    "reason": null,
    "rule": null,
    "votes": {}
@@ -15015,24 +14973,6 @@
    "country": null,
    "evidence": [],
    "geotags": null,
-   "id": "Q62589077",
-   "name": "Neon Led Discobolus",
-   "outcome": "no_evidence",
-   "qid": "Q62589077",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
    "id": "Q64658399",
    "name": "House of Eternal Return",
    "outcome": "no_evidence",
@@ -15704,12 +15644,12 @@
    "parent_category": 101,
    "parent_item": 24
   },
-  "candidates": 307,
+  "candidates": 304,
   "capped": 0,
   "conflict": 18,
   "duplicate_of_project": 1,
-  "geotag_requests": 4,
-  "no_evidence": 96,
+  "geotag_requests": 1,
+  "no_evidence": 93,
   "part_of_project": 28,
   "recovered": 141,
   "region_candidates": 2
