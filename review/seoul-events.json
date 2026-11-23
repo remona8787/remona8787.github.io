@@ -1,6 +1,6 @@
 {
  "about": "Seoul cultural events (OA-15486 culturalEventInfo): without SEOUL_OPEN_DATA_KEY one probe with the sample key (reachability and the live field names; never published). Every event with its relevance decision; the relevant ones linked to a project (name within 300 m) or listed as place candidates. Keys never appear.",
- "at": "2026-11-23T07:43:44.806Z",
+ "at": "2026-11-23T13:54:03.079Z",
  "counts": {
   "merged": 0,
   "new_candidates": 0,
@@ -54,6 +54,38 @@
    "time_text": "금요일 19:30, 토·일요일 15:00",
    "title": "앰비규어스댄스컴퍼니 [세 개의 심장]",
    "url": "https://www.instagram.com/amdaco/"
+  },
+  {
+   "category": "교육/체험",
+   "coords_swapped": false,
+   "date_text": "2027-01-09~2027-01-23",
+   "decision": {
+    "reasons": [
+     "no_media_term"
+    ],
+    "relevant": false,
+    "terms": []
+   },
+   "district": "종로구",
+   "end": "2027-01-23",
+   "fee": "회당 35,000원",
+   "id": "SEV-15MQB7X",
+   "is_free": false,
+   "kind": "event",
+   "lat": 37.60603328383823,
+   "lng": 126.96904312496109,
+   "org": "기타",
+   "place": "도암갤러리내 아카데미실",
+   "player": null,
+   "probe": true,
+   "program": null,
+   "start": "2027-01-09",
+   "status": "upcoming",
+   "target": "초등학교 1~6학년(초등학교 입학 예정자 제외)",
+   "theme": "어린이/청소년 문화행사",
+   "time_text": "10:30~12:00 (총 3회, 단회차 신청가능, 90분 수업)",
+   "title": "[도암 키즈 아카데미] 2027 DOAM WINTER KIDS ART CAMP: 겨울을 바라보는 세 가지 시선",
+   "url": "https://doam.me/Academy_Program_Information/?q=YToxOntzOjEyOiJrZXl3b3JkX3R5cGUiO3M6MzoiYWxsIjt9&bmode=view&idx=175399418&t=board"
   },
   {
    "category": "국악",
@@ -150,38 +182,6 @@
    "time_text": "19:30~21:00",
    "title": "동물의 사육제에 초대받은 하피스트",
    "url": "https://blog.naver.com/handawoori/224476016853"
-  },
-  {
-   "category": "클래식",
-   "coords_swapped": false,
-   "date_text": "2026-12-22~2026-12-22",
-   "decision": {
-    "reasons": [
-     "no_media_term"
-    ],
-    "relevant": false,
-    "terms": []
-   },
-   "district": "서초구",
-   "end": "2026-12-22",
-   "fee": null,
-   "id": "SEV-0AIYO36",
-   "is_free": true,
-   "kind": "event",
-   "lat": 37.49904352601313,
-   "lng": 126.99165409240258,
-   "org": "서초문화재단",
-   "place": "반포심산아트홀",
-   "player": null,
-   "probe": true,
-   "program": null,
-   "start": "2026-12-22",
-   "status": "upcoming",
-   "target": "초등학생 이상 관람가능",
-   "theme": "기타",
-   "time_text": "화 19:30",
-   "title": "[서초문화재단] 2026서리풀 어울림 콘서트 [바이올리니스트 김지선의 Dia:logue-graph]",
-   "url": "https://www.seochocf.or.kr/site/main/seocho/show/view?show_idx=1020"
   }
  ],
  "fields": [
@@ -216,11 +216,11 @@
   "code": "INFO-000",
   "message": "정상 처리되었습니다",
   "rows": 5,
-  "total": 19781
+  "total": 19789
  },
  "schema": 1,
  "status": {
-  "duration_ms": 1196,
+  "duration_ms": 1213,
   "errors": [],
   "items": 0,
   "last_success": null,

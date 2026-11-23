@@ -1,19 +1,19 @@
 {
- "at": "2026-11-23T07:43:44.806Z",
+ "at": "2026-11-23T13:54:03.079Z",
  "errors": [
   {
    "http_status": 429,
    "message": "HTTP 429",
-   "rule": "gdelt:GDELT en · media facade",
+   "rule": "gdelt:GDELT fr · media facade",
    "stage": "web_fetch",
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aenglish&mode=ArtList&format=json&maxrecords=250&timespan=4d&sort=DateDesc"
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Afrench&mode=ArtList&format=json&maxrecords=250&timespan=7d&sort=DateDesc"
   },
   {
-   "http_status": null,
-   "message": "not a feed: root element <html>",
-   "rule": "rss:Creative Applications Network",
-   "stage": "web_parse",
-   "url": "https://www.creativeapplications.net/feed/"
+   "http_status": 404,
+   "message": "HTTP 404",
+   "rule": "rss:Designboom Korea",
+   "stage": "web_fetch",
+   "url": "https://www.designboom.com/tag/korea/feed/"
   }
  ],
  "rules": [
@@ -26,17 +26,26 @@
    "errors": 1,
    "fetched": 0,
    "kept": 0,
-   "key": "gdelt:GDELT en · media facade",
+   "key": "gdelt:GDELT fr · media facade",
    "kind": "gdelt",
    "not_modified": false,
    "reason": null,
    "status": "error"
   },
   {
-   "key": "gdelt:GDELT es · media facade",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-11-23T19:20:40.514Z"
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 0,
+   "fetched": 0,
+   "kept": 0,
+   "key": "gdelt:GDELT it · media facade",
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
    "key": "rss:Dezeen",
@@ -90,19 +99,10 @@
    "status": "success"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 0
-   },
-   "errors": 1,
-   "fetched": 0,
-   "kept": 0,
    "key": "rss:Creative Applications Network",
-   "kind": "rss",
-   "not_modified": false,
-   "reason": null,
-   "status": "error"
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-11-25T07:44:22.753Z"
   },
   {
    "dropped": {
@@ -120,10 +120,19 @@
    "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
    "key": "rss:Designboom Korea",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-11-23T13:24:54.848Z"
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
   },
   {
    "key": "gdelt:GDELT ar · media facade",
@@ -136,12 +145,12 @@
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT fr · media facade",
+   "key": "gdelt:GDELT en · media facade",
    "reason": "rotation",
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT it · media facade",
+   "key": "gdelt:GDELT es · media facade",
    "reason": "rotation",
    "status": "skipped"
   },

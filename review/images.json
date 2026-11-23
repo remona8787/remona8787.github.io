@@ -1,6 +1,6 @@
 {
  "about": "Per project: every image candidate (Commons and the other providers) with rights, identity, keyword evidence, visual and quality measurements, tier, approval, the hero and featured decisions and the near-duplicates removed.",
- "at": "2026-11-23T07:43:44.806Z",
+ "at": "2026-11-23T13:54:03.079Z",
  "projects": [
   {
    "candidates": [],
@@ -75816,6 +75816,68 @@
    "project": "Q134487534",
    "providers": [
     {
+     "id": "img-36b656176e16",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "no_geotag",
+       "location_not_named"
+      ]
+     },
+     "license": "CC BY 4.0",
+     "ok": false,
+     "page": "https://www.finna.fi/Record/museovirasto.134DD7F3D1F3414DF4058FF415C5458A",
+     "provider": "openverse",
+     "reasons": [
+      "rights:no_creator",
+      "identity_unproven"
+     ],
+     "source_id": "3e2f7414-d7ba-49c0-9992-5f5fdcf06634",
+     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.134DD7F3D1F3414DF4058FF415C5458A&index=0&size=large",
+     "title": "Hämeen linna, 204 kuninkaansali, huone 18, kuninkaansalin holvin kaaret"
+    },
+    {
+     "id": "img-cee396502d6e",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "no_geotag",
+       "location_not_named"
+      ]
+     },
+     "license": "CC BY 4.0",
+     "ok": false,
+     "page": "https://www.finna.fi/Record/museovirasto.A61A8AFD3C686D04B5BB1FFC46E14CB1",
+     "provider": "openverse",
+     "reasons": [
+      "identity_unproven"
+     ],
+     "source_id": "7a83da75-e40e-40cb-9d16-b0a1b83dd35e",
+     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.A61A8AFD3C686D04B5BB1FFC46E14CB1&index=0&size=large",
+     "title": "Stockön hylky. Toisen kyljen kaaret ovat vedenpinnalle näkyvissä."
+    },
+    {
+     "id": "img-ea35423fbf7b",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "no_geotag",
+       "location_not_named"
+      ]
+     },
+     "license": "CC BY 4.0",
+     "ok": false,
+     "page": "https://www.finna.fi/Record/museovirasto.8743D49DD90E82FD87F47EAC1E4350DD",
+     "provider": "openverse",
+     "reasons": [
+      "rights:no_creator",
+      "identity_unproven"
+     ],
+     "source_id": "443f37ed-1622-4f05-8498-2f52b58b25f8",
+     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.8743D49DD90E82FD87F47EAC1E4350DD&index=0&size=large",
+     "title": "Mari Kaaret, Inarin ja Näätämön rajoilta"
+    },
+    {
      "id": "img-61aeb7e41f01",
      "identity": {
       "ok": false,
@@ -75854,6 +75916,108 @@
      "source_id": "608ac75b-6ea7-4f45-b891-ea2ffb378e10",
      "src": "https://api.collecte.fi/v1/images/108346/thumbnail?customer=knp",
      "title": "Muovihuoneiden kaaret valmiina muovikatteiden asennukseen. Kehittämisjaoston tutkija Tarmo Herranen tarkastelee työn tulosta. Metsähallitus, Nuojuan Taimitarha."
+    },
+    {
+     "id": "img-35caf2f5f38e",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "no_geotag",
+       "location_not_named"
+      ]
+     },
+     "license": "CC BY 4.0",
+     "ok": false,
+     "page": "https://www.finna.fi/Record/museovirasto.7B91D33E969BF1D2C5D5776CA62620D1",
+     "provider": "openverse",
+     "reasons": [
+      "rights:no_creator",
+      "identity_unproven"
+     ],
+     "source_id": "cd9c2415-3385-47e0-9a39-d429594efd9b",
+     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.7B91D33E969BF1D2C5D5776CA62620D1&index=0&size=large",
+     "title": "Hallan talon hevosen valjaiden osa, silan kaaret eli setolkka"
+    },
+    {
+     "id": "img-bc71e85749d9",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "no_geotag",
+       "location_not_named"
+      ]
+     },
+     "license": "CC BY 4.0",
+     "ok": false,
+     "page": "https://www.finna.fi/Record/museovirasto.4BF531627AF445E9AFA952B0B28DF44F",
+     "provider": "openverse",
+     "reasons": [
+      "identity_unproven"
+     ],
+     "source_id": "7a452f56-6915-4b58-baf8-338b856732b8",
+     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.4BF531627AF445E9AFA952B0B28DF44F&index=0&size=large",
+     "title": "Kuvassa näkyy ajoitetut kaaret, C1 ja C2."
+    },
+    {
+     "id": "img-e8327168a188",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "no_geotag",
+       "location_not_named"
+      ]
+     },
+     "license": "CC BY 4.0",
+     "ok": false,
+     "page": "https://www.finna.fi/Record/museovirasto.39AE919CA6FACCDD21B18A0BD9FC733E",
+     "provider": "openverse",
+     "reasons": [
+      "identity_unproven"
+     ],
+     "source_id": "1bbf59fb-ec72-410a-8cd3-d5724ef544f5",
+     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.39AE919CA6FACCDD21B18A0BD9FC733E&index=0&size=large",
+     "title": "Stockön hylky. Toisen kyljen kaaret ovat vedenpinnalle näkyvissä."
+    },
+    {
+     "id": "img-2cc75fa2a892",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "no_geotag",
+       "location_not_named"
+      ]
+     },
+     "license": "CC BY 4.0",
+     "ok": false,
+     "page": "https://www.finna.fi/Record/museovirasto.EAB626132C89FF8C6CC8FF262694E6F6",
+     "provider": "openverse",
+     "reasons": [
+      "identity_unproven"
+     ],
+     "source_id": "e1133dc3-c929-496d-bed4-88dfcd55f2d2",
+     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.EAB626132C89FF8C6CC8FF262694E6F6&index=0&size=large",
+     "title": "herra Botiths ja Eemeli Kaaret"
+    },
+    {
+     "id": "img-d4077acf1337",
+     "identity": {
+      "ok": false,
+      "reasons": [
+       "no_geotag",
+       "location_not_named"
+      ]
+     },
+     "license": "CC BY 4.0",
+     "ok": false,
+     "page": "https://www.finna.fi/Record/museovirasto.E7D5F9981B3BE64528AF58D31A89DFD5",
+     "provider": "openverse",
+     "reasons": [
+      "rights:no_creator",
+      "identity_unproven"
+     ],
+     "source_id": "08d52c14-beaf-422a-80b2-3d7f5ddcd6a2",
+     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.E7D5F9981B3BE64528AF58D31A89DFD5&index=0&size=large",
+     "title": "Turun linnan huoneeseen 37 pihalta johtavien portaiden seinät, kaaret ja holvit"
     },
     {
      "id": "img-35376907fabf",
@@ -75897,7 +76061,7 @@
      "title": "Clarens, huvila Villa Rurik: Algar, neiti Funkquist, Mascha, Arthur ja Tripoli puutarhassa, ruusukaari"
     },
     {
-     "id": "img-0f810cab0929",
+     "id": "img-e10485d70cb9",
      "identity": {
       "ok": false,
       "reasons": [
@@ -75907,118 +76071,18 @@
      },
      "license": "CC BY 4.0",
      "ok": false,
-     "page": "https://www.finna.fi/Record/museovirasto.2C38EA98B9521F662CC2A7851AD70071",
-     "provider": "openverse",
-     "reasons": [
-      "identity_unproven"
-     ],
-     "source_id": "f5ca15f4-d76d-447f-b1f5-9ec57f06d549",
-     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.2C38EA98B9521F662CC2A7851AD70071&index=0&size=large",
-     "title": "Porin teatteri, vas. Hj. Nortamoa esittävä veistos"
-    },
-    {
-     "id": "img-371c86099811",
-     "identity": {
-      "ok": false,
-      "reasons": [
-       "no_geotag",
-       "location_not_named"
-      ]
-     },
-     "license": "CC BY 4.0",
-     "ok": false,
-     "page": "https://www.finna.fi/Record/museovirasto.BE3FDA90058BD03538ECE86B3FD75E65",
-     "provider": "openverse",
-     "reasons": [
-      "identity_unproven"
-     ],
-     "source_id": "9152ede0-68f5-41a5-a846-e4765d69d7fc",
-     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.BE3FDA90058BD03538ECE86B3FD75E65&index=0&size=large",
-     "title": "lasten lukusali avataan uudessa kirjastotalossa"
-    },
-    {
-     "id": "img-f31d498d7533",
-     "identity": {
-      "ok": false,
-      "reasons": [
-       "no_geotag",
-       "location_not_named"
-      ]
-     },
-     "license": "CC BY 4.0",
-     "ok": false,
-     "page": "https://www.finna.fi/Record/museovirasto.C7CE419061FB621E7416CCBB7A531194",
-     "provider": "openverse",
-     "reasons": [
-      "identity_unproven"
-     ],
-     "source_id": "f685437e-cb98-442a-b12d-4efdaaf4d0ae",
-     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.C7CE419061FB621E7416CCBB7A531194&index=0&size=large",
-     "title": "Dahlroosin veneveistämö; paatin kaaria naulataan"
-    },
-    {
-     "id": "img-73b86c7c7358",
-     "identity": {
-      "ok": false,
-      "reasons": [
-       "no_geotag",
-       "location_not_named"
-      ]
-     },
-     "license": "CC BY 4.0",
-     "ok": false,
-     "page": "https://www.finna.fi/Record/museovirasto.1E5A1810A6B89F965CBD769AD0E933DE",
-     "provider": "openverse",
-     "reasons": [
-      "identity_unproven"
-     ],
-     "source_id": "9bfecfc4-1001-433e-bb96-696df7e4f534",
-     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.1E5A1810A6B89F965CBD769AD0E933DE&index=0&size=large",
-     "title": "nuorten ja lasten lukusali uudessa kirjastotalossa"
-    },
-    {
-     "id": "img-82f2c5e288d0",
-     "identity": {
-      "ok": false,
-      "reasons": [
-       "no_geotag",
-       "location_not_named"
-      ]
-     },
-     "license": "CC BY 4.0",
-     "ok": false,
-     "page": "https://www.finna.fi/Record/museovirasto.33BFE62F6A14E6C8527899630A0A804D",
-     "provider": "openverse",
-     "reasons": [
-      "identity_unproven"
-     ],
-     "source_id": "6d59c9e8-d518-4c64-9a4c-4db83166141e",
-     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.33BFE62F6A14E6C8527899630A0A804D&index=0&size=large",
-     "title": "Kallion kirkon koristemaalaukset"
-    },
-    {
-     "id": "img-1e5c89f24b36",
-     "identity": {
-      "ok": false,
-      "reasons": [
-       "no_geotag",
-       "location_not_named"
-      ]
-     },
-     "license": "CC BY 4.0",
-     "ok": false,
-     "page": "https://www.finna.fi/Record/museovirasto.F036D50F8DD597A93CC07540F08CC66E",
+     "page": "https://www.finna.fi/Record/museovirasto.5056a1d3-70f4-4952-88f0-d67eca0e12c3",
      "provider": "openverse",
      "reasons": [
       "rights:no_creator",
       "identity_unproven"
      ],
-     "source_id": "553ea752-bf71-489c-b344-ec9864ad2bb0",
-     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.F036D50F8DD597A93CC07540F08CC66E&index=0&size=large",
-     "title": "ruotsinkielinen kansakoulu, myöh. nimeltään Renlundin kansakoulu, käytävä"
+     "source_id": "85f6de30-7d08-41a7-befb-7d9a2323211c",
+     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.5056a1d3-70f4-4952-88f0-d67eca0e12c3&index=0&size=large",
+     "title": "Clarens, huvila Villa Rurik: Algar, neiti Funkquist ja Mascha puutarhassa, ruusukaari, ruusut"
     },
     {
-     "id": "img-8759217820eb",
+     "id": "img-c7163f74d50c",
      "identity": {
       "ok": false,
       "reasons": [
@@ -76028,17 +76092,17 @@
      },
      "license": "CC BY 4.0",
      "ok": false,
-     "page": "https://www.finna.fi/Record/museovirasto.10E8DB988D1350C97EB861154154396C",
+     "page": "https://www.finna.fi/Record/museovirasto.625346D802C0FB6036F1E73C32039B65",
      "provider": "openverse",
      "reasons": [
       "identity_unproven"
      ],
-     "source_id": "6bcb20bc-69d6-4e51-9862-748f24977e91",
-     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.10E8DB988D1350C97EB861154154396C&index=0&size=large",
-     "title": "Kallion kirkon koristemaalaukset"
+     "source_id": "c927f010-185a-4590-96b9-b7312218bcf7",
+     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.625346D802C0FB6036F1E73C32039B65&index=0&size=large",
+     "title": "Rantakatu 9, pihan puolelta"
     },
     {
-     "id": "img-804289ec399a",
+     "id": "img-2d3e98d6791d",
      "identity": {
       "ok": false,
       "reasons": [
@@ -76048,39 +76112,18 @@
      },
      "license": "CC BY 4.0",
      "ok": false,
-     "page": "https://www.finna.fi/Record/museovirasto.0E965DF2AC57F675330D10EA742A9F43",
-     "provider": "openverse",
-     "reasons": [
-      "rights:no_creator",
-      "identity_unproven"
-     ],
-     "source_id": "87c35220-8590-46eb-9eb5-b4720618022f",
-     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.0E965DF2AC57F675330D10EA742A9F43&index=0&size=large",
-     "title": "Turun linnan huoneen 51 länsiseinän kevennyskaari lattiatason kohdalla"
-    },
-    {
-     "id": "img-b9a61f66bb51",
-     "identity": {
-      "ok": false,
-      "reasons": [
-       "no_geotag",
-       "location_not_named"
-      ]
-     },
-     "license": "CC BY 4.0",
-     "ok": false,
-     "page": "https://www.finna.fi/Record/museovirasto.3E2633C23FC5AA9C34A891DD2E184EE1",
+     "page": "https://www.finna.fi/Record/museovirasto.8f480282-7c96-44e1-ae99-9eddf477ae4b",
      "provider": "openverse",
      "reasons": [
       "rights:no_creator",
       "identity_unproven"
      ],
-     "source_id": "1224ad7e-aff0-44a5-81e7-525031af118c",
-     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.3E2633C23FC5AA9C34A891DD2E184EE1&index=0&size=large",
-     "title": "Turun linnan huone 13: itätornin portin itäpään kaari länsipuolelta kuvattuna"
+     "source_id": "8189eb9e-5417-439f-8bcb-d8e546b0a0b9",
+     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.8f480282-7c96-44e1-ae99-9eddf477ae4b&index=0&size=large",
+     "title": "Clarens, huvila Villa Rurikin pihalla: kukkakaaret, Joalland ja taustalla muuri, jota koristaa ruusut, ruusukaaret"
     },
     {
-     "id": "img-ff36b79fb562",
+     "id": "img-b216dfd907c2",
      "identity": {
       "ok": false,
       "reasons": [
@@ -76090,17 +76133,17 @@
      },
      "license": "CC BY 4.0",
      "ok": false,
-     "page": "https://www.finna.fi/Record/museovirasto.3EAAD997F0046C322DB45B7089A63027",
+     "page": "https://www.finna.fi/Record/museovirasto.bc91b576-da97-4dd1-b818-97d19b44b079",
      "provider": "openverse",
      "reasons": [
       "identity_unproven"
      ],
-     "source_id": "d42f6a1f-ccbe-4dab-b0ea-f9368d92a80a",
-     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.3EAAD997F0046C322DB45B7089A63027&index=0&size=large",
-     "title": "Syntisten pitopöytä (Paholaisten pidot), kalkkimaalaus"
+     "source_id": "34264433-849c-4ef4-9564-0317a53c790d",
+     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.bc91b576-da97-4dd1-b818-97d19b44b079&index=0&size=large",
+     "title": "Kumlingen kirkko. Holvimaalaus, kolmas holvi"
     },
     {
-     "id": "img-de87edc7e570",
+     "id": "img-286971e2568e",
      "identity": {
       "ok": false,
       "reasons": [
@@ -76110,18 +76153,17 @@
      },
      "license": "CC BY 4.0",
      "ok": false,
-     "page": "https://www.finna.fi/Record/museovirasto.1D8B175AA580F4B17FB909AAE4EA6A37",
+     "page": "https://www.finna.fi/Record/museovirasto.184EC8C7AE98E18C2968D4FFCAF2DE86",
      "provider": "openverse",
      "reasons": [
-      "rights:no_creator",
       "identity_unproven"
      ],
-     "source_id": "6d417a0c-dead-4098-9083-5028784221dc",
-     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.1D8B175AA580F4B17FB909AAE4EA6A37&index=0&size=large",
-     "title": "Turun linnan huone 3, valokuvattuja mittapiirroksia itä- ja eteläseinästä sekä piirros itäseinän alkuasusta"
+     "source_id": "e4023c1b-f087-406b-9b20-1b5c086cf53f",
+     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.184EC8C7AE98E18C2968D4FFCAF2DE86&index=0&size=large",
+     "title": "Tarvaspää, Axel Gallénin suunnittelema ja 1911-1913 rakennuttama ateljee ja koti"
     },
     {
-     "id": "img-4d2fe68acc3c",
+     "id": "img-7a9500204b8a",
      "identity": {
       "ok": false,
       "reasons": [
@@ -76131,18 +76173,17 @@
      },
      "license": "CC BY 4.0",
      "ok": false,
-     "page": "https://www.finna.fi/Record/museovirasto.A2CBE3F10AA5879C0A36F62DA5819B6B",
+     "page": "https://www.finna.fi/Record/satakunnanmuseo.7d9aa226-aaa8-43e1-997e-9715c1c7e8fe",
      "provider": "openverse",
      "reasons": [
-      "rights:no_creator",
       "identity_unproven"
      ],
-     "source_id": "cd90161d-5414-433f-ac50-58d2437d94d8",
-     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.A2CBE3F10AA5879C0A36F62DA5819B6B&index=0&size=large",
-     "title": "Turun linnan huone 13: itätornin portin itäpään kaari itäpuolelta kuvattuna"
+     "source_id": "2304fd8b-0898-449a-b026-f4782d6e67ea",
+     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=satakunnanmuseo.7d9aa226-aaa8-43e1-997e-9715c1c7e8fe&index=0&size=large",
+     "title": "Yyterin kartano"
     },
     {
-     "id": "img-1fc211665700",
+     "id": "img-1b1c7f31bc6f",
      "identity": {
       "ok": false,
       "reasons": [
@@ -76152,55 +76193,14 @@
      },
      "license": "CC BY 4.0",
      "ok": false,
-     "page": "https://www.finna.fi/Record/museovirasto.DBDF0E0CB68CD8F18C3C42125C076EB2",
-     "provider": "openverse",
-     "reasons": [
-      "rights:no_creator",
-      "identity_unproven"
-     ],
-     "source_id": "5bd21b2f-51a2-489f-a5de-f4d5031aabc5",
-     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.DBDF0E0CB68CD8F18C3C42125C076EB2&index=0&size=large",
-     "title": "Turun linnan huoneen 40 itäseinän oviaukon kaaren maalaus"
-    },
-    {
-     "id": "img-891421d376c3",
-     "identity": {
-      "ok": false,
-      "reasons": [
-       "no_geotag",
-       "location_not_named"
-      ]
-     },
-     "license": "CC BY 4.0",
-     "ok": false,
-     "page": "https://www.finna.fi/Record/satakunnanmuseo.BAF0E5D0-073E-4145-841C-079FBA621D48",
+     "page": "https://www.finna.fi/Record/museovirasto.7646B27FE0CEF1F9DC6554BBEA42C17F",
      "provider": "openverse",
      "reasons": [
       "identity_unproven"
      ],
-     "source_id": "cad4829f-a037-42e0-a724-a4165a181e76",
-     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=satakunnanmuseo.BAF0E5D0-073E-4145-841C-079FBA621D48&index=0&size=large",
-     "title": "Veneenrakennus"
-    },
-    {
-     "id": "img-cc9ddab2972b",
-     "identity": {
-      "ok": false,
-      "reasons": [
-       "no_geotag",
-       "location_not_named"
-      ]
-     },
-     "license": "CC BY 4.0",
-     "ok": false,
-     "page": "https://www.finna.fi/Record/museovirasto.731DF72E6A254813F1FAA0BA7EBE4838",
-     "provider": "openverse",
-     "reasons": [
-      "identity_unproven"
-     ],
-     "source_id": "c2bce986-b35a-4c08-9449-b7640f9bd0b8",
-     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.731DF72E6A254813F1FAA0BA7EBE4838&index=0&size=large",
-     "title": "Turun linnan huoneen 40 itäseinän kaaren eteläinen osa"
+     "source_id": "ccdbf471-41b5-4156-9eae-42ab68e7020a",
+     "src": "https://api.finna.fi/Cover/Show?source=Solr&id=museovirasto.7646B27FE0CEF1F9DC6554BBEA42C17F&index=0&size=large",
+     "title": "näkymä aulasta eteiseen päin, uusi kirjastotalo"
     }
    ],
    "type": "light_art"
@@ -143370,35 +143370,23 @@
      "night_terms": [],
      "ok": true,
      "provider": "commons",
-     "quality": {
-      "blockiness": 0,
-      "decoded": {
-       "bytes": 322177,
-       "format": "jpeg",
-       "height": 965,
-       "width": 960
-      },
-      "laplacian_var": 7969.3,
-      "measured_width": 960,
-      "phash": "a4a42438301889e4",
-      "sharpness": 100
-     },
+     "quality": null,
      "reasons": [],
      "size_mismatch": null,
      "source": "category",
      "tier": 3,
      "title": "Overzicht Rademarkt   Groningen   20092339   RCE · Overzicht Rademarkt - Groningen - 20092339 - RCE · De Rademarkt in Groningen in 1980, gezien vanuit de Radebi",
      "visual": {
-      "bright_share": 0.3783,
-      "colourfulness": 0.2,
-      "dark_share": 0.0401,
+      "bright_share": 0.3759,
+      "colourfulness": 0,
+      "dark_share": 0.0346,
       "height": 322,
-      "mean_luminance": 0.584,
+      "mean_luminance": 0.583,
       "saturated_bright": 0,
       "visual": 0,
       "width": 320
      },
-     "width": 3074
+     "width": 1193
     },
     {
      "approved": null,
@@ -143468,7 +143456,19 @@
      "night_terms": [],
      "ok": true,
      "provider": "commons",
-     "quality": null,
+     "quality": {
+      "blockiness": 0,
+      "decoded": {
+       "bytes": 595598,
+       "format": "jpeg",
+       "height": 1280,
+       "width": 960
+      },
+      "laplacian_var": 12285,
+      "measured_width": 960,
+      "phash": "6184e6e68fcd0c0c",
+      "sharpness": 100
+     },
      "reasons": [],
      "size_mismatch": null,
      "source": "category",
@@ -143539,15 +143539,6 @@
     {
      "awaiting_review": false,
      "featured_candidate": false,
-     "key": "Overzicht Rademarkt - Groningen - 20092339 - RCE.jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
      "key": "Volten Groningen 02.JPG",
      "provider": "commons",
      "reasons": [
@@ -143560,8 +143551,7 @@
      "key": "Volten Groningen 03.JPG",
      "provider": "commons",
      "reasons": [
-      "not_home_ok",
-      "quality_not_measured"
+      "not_home_ok"
      ]
     },
     {
@@ -143571,6 +143561,17 @@
      "provider": "commons",
      "reasons": [
       "not_home_ok",
+      "quality_not_measured"
+     ]
+    },
+    {
+     "awaiting_review": false,
+     "featured_candidate": false,
+     "key": "Overzicht Rademarkt - Groningen - 20092339 - RCE.jpg",
+     "provider": "commons",
+     "reasons": [
+      "not_home_ok",
+      "original_too_small",
       "quality_not_measured"
      ]
     }
@@ -175708,19 +175709,7 @@
      ],
      "ok": true,
      "provider": "commons",
-     "quality": {
-      "blockiness": 39,
-      "decoded": {
-       "bytes": 119447,
-       "format": "jpeg",
-       "height": 1280,
-       "width": 960
-      },
-      "laplacian_var": 202.7,
-      "measured_width": 960,
-      "phash": "5a1ef9dc6c240674",
-      "sharpness": 73
-     },
+     "quality": null,
      "reasons": [],
      "size_mismatch": null,
      "source": "category",
@@ -175920,16 +175909,7 @@
      "source": "category",
      "tier": 3,
      "title": "Bilbao Moraza 11 301 · Bilbao-Moraza-11 301 · Juan Luis Moraza, Street lights, garden beacons and buried illuminations, 2001, – Spain, Bilbao, near Bilbao Fine ",
-     "visual": {
-      "bright_share": 0.1266,
-      "colourfulness": 65.66,
-      "dark_share": 0.1748,
-      "height": 427,
-      "mean_luminance": 0.4294,
-      "saturated_bright": 0.3829,
-      "visual": 7,
-      "width": 320
-     },
+     "visual": null,
      "width": 1600
     },
     {
@@ -175967,7 +175947,7 @@
      "evidence": [
       "own_category_of_light_work"
      ],
-     "home_ok": false,
+     "home_ok": true,
      "identity": {
       "method": "commons_category_or_item",
       "ok": true
@@ -175976,26 +175956,48 @@
      "kind": "project_media",
      "media": 40,
      "media_terms": [],
-     "night": 30,
+     "night": 45,
      "night_terms": [
+      "night",
       "illuminated"
      ],
      "ok": true,
      "provider": "commons",
-     "quality": null,
+     "quality": {
+      "blockiness": 12,
+      "decoded": {
+       "bytes": 143274,
+       "format": "jpeg",
+       "height": 720,
+       "width": 960
+      },
+      "laplacian_var": 943.1,
+      "measured_width": 960,
+      "phash": "80e0e3ccd8d9b0d0",
+      "sharpness": 94
+     },
      "reasons": [],
      "size_mismatch": null,
      "source": "category",
-     "tier": 3,
-     "title": "Museo de Bellas Artes Bilbao 2 · Museo de Bellas Artes-Bilbao-2 · This is a photo of a monument listed in the Spanish heritage register of Bienes de Interés Cul",
-     "visual": null,
+     "tier": 2,
+     "title": "Museo de Bellas Artes Bilbao 2 · Museo de Bellas Artes-Bilbao-2 · .mw-parser-output .bic-box{background-color:#F2E8CC;border:1px solid #A9782B;color:#202122}.mw",
+     "visual": {
+      "bright_share": 0.0417,
+      "colourfulness": 40.95,
+      "dark_share": 0.6781,
+      "height": 240,
+      "mean_luminance": 0.1845,
+      "saturated_bright": 0.0435,
+      "visual": 44,
+      "width": 320
+     },
      "width": 4320
     }
    ],
-   "card": "Bilbao-Moraza-11 301.jpg",
+   "card": "Museo de Bellas Artes-Bilbao-2.jpg",
    "country_iso2": "ES",
    "duplicates": [],
-   "featured": null,
+   "featured": "Museo de Bellas Artes-Bilbao-2.jpg",
    "featured_decisions": [
     {
      "awaiting_review": false,
@@ -176018,21 +176020,18 @@
     },
     {
      "awaiting_review": false,
+     "featured_candidate": true,
+     "key": "Museo de Bellas Artes-Bilbao-2.jpg",
+     "provider": "commons",
+     "reasons": []
+    },
+    {
+     "awaiting_review": false,
      "featured_candidate": false,
      "key": "Bilbao - Bosque de Farolas 2.jpg",
      "provider": "commons",
      "reasons": [
       "original_too_small",
-      "compression_artefacts"
-     ]
-    },
-    {
-     "awaiting_review": false,
-     "featured_candidate": false,
-     "key": "Bilbao-Moraza-11 301.jpg",
-     "provider": "commons",
-     "reasons": [
-      "not_home_ok",
       "quality_not_measured"
      ]
     },
@@ -176059,7 +176058,7 @@
     {
      "awaiting_review": false,
      "featured_candidate": false,
-     "key": "Museo de Bellas Artes-Bilbao-2.jpg",
+     "key": "Bilbao-Moraza-11 301.jpg",
      "provider": "commons",
      "reasons": [
       "not_home_ok",
@@ -176127,6 +176126,17 @@
     {
      "allowlisted": false,
      "below_target": false,
+     "file": "Museo de Bellas Artes-Bilbao-2.jpg",
+     "hero_candidate": false,
+     "key": "Museo de Bellas Artes-Bilbao-2.jpg",
+     "provider": "commons",
+     "reasons": [
+      "visual_below_threshold"
+     ]
+    },
+    {
+     "allowlisted": false,
+     "below_target": false,
      "file": "Bilbao - Bosque de Farolas 2.jpg",
      "hero_candidate": false,
      "key": "Bilbao - Bosque de Farolas 2.jpg",
@@ -176134,7 +176144,7 @@
      "reasons": [
       "visual_below_threshold",
       "original_too_small",
-      "compression_artefacts"
+      "quality_not_measured"
      ]
     }
    ],
@@ -201256,7 +201266,7 @@
      "tier": 3,
      "title": "Luminothérapie.2013.2014.QDS.MTL · Luminothérapie.2013.2014.QDS.MTL · 4th edition of «Luminothérapie» 2013/2014, Entre les rangs in Quartier des spectacles in M",
      "visual": null,
-     "width": 3047
+     "width": 759
     }
    ],
    "card": "Kanva, en collaboration avec Udo Design, Côté Jardin, Patrick Watson, Boris Dempsey et Pierre Fournier, Entre les rangs, 2013 (11871729816).jpg",
@@ -201349,6 +201359,7 @@
      "provider": "commons",
      "reasons": [
       "not_home_ok",
+      "original_too_small",
       "quality_not_measured"
      ]
     }
