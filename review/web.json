@@ -1,6 +1,21 @@
 {
- "at": "2026-11-23T01:54:44.786Z",
- "errors": [],
+ "at": "2026-11-23T07:43:44.806Z",
+ "errors": [
+  {
+   "http_status": 429,
+   "message": "HTTP 429",
+   "rule": "gdelt:GDELT en · media facade",
+   "stage": "web_fetch",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aenglish&mode=ArtList&format=json&maxrecords=250&timespan=4d&sort=DateDesc"
+  },
+  {
+   "http_status": null,
+   "message": "not a feed: root element <html>",
+   "rule": "rss:Creative Applications Network",
+   "stage": "web_parse",
+   "url": "https://www.creativeapplications.net/feed/"
+  }
+ ],
  "rules": [
   {
    "dropped": {
@@ -8,29 +23,20 @@
     "invalid": 0,
     "prefilter": 0
    },
-   "errors": 0,
+   "errors": 1,
    "fetched": 0,
    "kept": 0,
-   "key": "gdelt:GDELT de · media facade",
+   "key": "gdelt:GDELT en · media facade",
    "kind": "gdelt",
    "not_modified": false,
    "reason": null,
-   "status": "success"
+   "status": "error"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 0
-   },
-   "errors": 0,
-   "fetched": 0,
-   "kept": 0,
-   "key": "gdelt:GDELT ar · media facade",
-   "kind": "gdelt",
-   "not_modified": false,
-   "reason": null,
-   "status": "success"
+   "key": "gdelt:GDELT es · media facade",
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-11-23T19:20:40.514Z"
   },
   {
    "key": "rss:Dezeen",
@@ -84,10 +90,19 @@
    "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
    "key": "rss:Creative Applications Network",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-11-23T03:20:42.001Z"
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
   },
   {
    "dropped": {
@@ -111,12 +126,12 @@
    "until": "2026-11-23T13:24:54.848Z"
   },
   {
-   "key": "gdelt:GDELT en · media facade",
+   "key": "gdelt:GDELT ar · media facade",
    "reason": "rotation",
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT es · media facade",
+   "key": "gdelt:GDELT de · media facade",
    "reason": "rotation",
    "status": "skipped"
   },
