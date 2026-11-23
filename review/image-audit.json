@@ -4,7 +4,7 @@
   "count": 0,
   "examples": []
  },
- "at": "2026-11-23T13:54:03.079Z",
+ "at": "2026-11-23T19:55:55.329Z",
  "cards": {
   "all": {
    "projects": 1017,
@@ -13288,11 +13288,11 @@
   }
  ],
  "rejected": {
-  "identity": 4186,
+  "identity": 4061,
   "low_res": 83,
   "mislinked": 71,
   "other": 1,
-  "person": 695,
+  "person": 684,
   "rights": 74
  },
  "rejected_examples": {
@@ -14351,14 +14351,6 @@
     ]
    },
    {
-    "key": "img-e9b9acd2bcad",
-    "project": "SEOUL022",
-    "reasons": [
-     "identity_unproven",
-     "subject:person:portrait"
-    ]
-   },
-   {
     "key": "KOCIS Korea President Park MMCA 01 (10862970136).jpg",
     "project": "SEOUL025",
     "reasons": [
@@ -14494,6 +14486,13 @@
    },
    {
     "key": "Culture Minister Meeting 05 (15369674778).jpg",
+    "project": "REG-KR-0019",
+    "reasons": [
+     "subject:people_or_event:minister"
+    ]
+   },
+   {
+    "key": "Culture Minister Meeting 06 (15369795547).jpg",
     "project": "REG-KR-0019",
     "reasons": [
      "subject:people_or_event:minister"
@@ -14835,7 +14834,7 @@
   "mislinked_rejected": 71,
   "mislinked_removed": 0,
   "newly_added_valid": 0,
-  "person_rejected": 695,
+  "person_rejected": 684,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2807,
