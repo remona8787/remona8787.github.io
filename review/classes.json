@@ -1,5 +1,5 @@
 {
- "at": "2026-11-22T19:44:28.397Z",
+ "at": "2026-11-23T01:54:44.786Z",
  "blocklist": [
   {
    "configured_label": "lighthouse",
@@ -1020,7 +1020,7 @@
   "Q1798004": 1,
   "Q1823448": 139,
   "Q182925:material": 19,
-  "Q1872461:creator": null,
+  "Q1872461:creator": 4,
   "Q1938618:creator": 9,
   "Q2005487": 0,
   "Q25504:material": 47,
@@ -1047,44 +1047,7 @@
    "Q16022392"
   ],
   "decisions": [],
-  "errors": [
-   {
-    "message": "HTTP 429",
-    "stage": "never_project_classes"
-   },
-   {
-    "message": "query.wikidata.org asked to wait until 2026-11-22T19:52:31.523Z",
-    "stage": "never_project_classes"
-   },
-   {
-    "message": "query.wikidata.org asked to wait until 2026-11-22T19:52:31.523Z",
-    "stage": "never_project_classes"
-   },
-   {
-    "message": "query.wikidata.org asked to wait until 2026-11-22T19:52:31.523Z",
-    "stage": "never_project_classes"
-   },
-   {
-    "message": "query.wikidata.org asked to wait until 2026-11-22T19:52:31.523Z",
-    "stage": "never_project_classes"
-   },
-   {
-    "message": "query.wikidata.org asked to wait until 2026-11-22T19:52:31.523Z",
-    "stage": "never_project_classes"
-   },
-   {
-    "message": "query.wikidata.org asked to wait until 2026-11-22T19:52:31.523Z",
-    "stage": "never_project_classes"
-   },
-   {
-    "message": "query.wikidata.org asked to wait until 2026-11-22T19:52:31.523Z",
-    "stage": "never_project_classes"
-   },
-   {
-    "message": "query.wikidata.org asked to wait until 2026-11-22T19:52:31.523Z",
-    "stage": "never_project_classes"
-   }
-  ],
+  "errors": [],
   "removed_previous": []
  },
  "schema": 1

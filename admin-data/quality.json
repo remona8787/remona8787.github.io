@@ -1,8 +1,8 @@
 {
  "broken_links": [
   {
-   "checked_at": "2026-11-21T19:36:09.287Z",
-   "consecutive_failures": 9,
+   "checked_at": "2026-11-23T02:03:52.558Z",
+   "consecutive_failures": 10,
    "field": "official_url",
    "http_status": 404,
    "project": "CAT-0MDTSAX",
@@ -37,8 +37,8 @@
    "url": "https://www.spanishfork.org/residents/news_and_events/fol/"
   },
   {
-   "checked_at": "2026-11-21T19:36:32.466Z",
-   "consecutive_failures": 21,
+   "checked_at": "2026-11-23T02:04:12.133Z",
+   "consecutive_failures": 22,
    "field": "official_url",
    "http_status": null,
    "project": "Q131338420",
@@ -64,8 +64,8 @@
    "url": "http://www.lichtkunst-unna.de/"
   },
   {
-   "checked_at": "2026-11-22T01:39:35.520Z",
-   "consecutive_failures": 33,
+   "checked_at": "2026-11-23T02:04:32.134Z",
+   "consecutive_failures": 34,
    "field": "official_url",
    "http_status": null,
    "project": "Q22912864",
@@ -109,8 +109,8 @@
    "url": "https://www.lightinjerusalem.com/"
   },
   {
-   "checked_at": "2026-11-21T19:36:52.467Z",
-   "consecutive_failures": 26,
+   "checked_at": "2026-11-23T02:04:32.133Z",
+   "consecutive_failures": 27,
    "field": "official_url",
    "http_status": null,
    "project": "Q5057595",
@@ -145,8 +145,8 @@
    "url": "http://theilluminator.org/edward-snowden-hologram"
   },
   {
-   "checked_at": "2026-11-21T19:36:08.095Z",
-   "consecutive_failures": 9,
+   "checked_at": "2026-11-23T02:03:51.383Z",
+   "consecutive_failures": 10,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-AU-0002",
@@ -199,8 +199,8 @@
    "url": "https://lichtrouten.de/en/open-call-sponsoring/"
   },
   {
-   "checked_at": "2026-11-21T19:36:12.376Z",
-   "consecutive_failures": 9,
+   "checked_at": "2026-11-23T02:03:54.799Z",
+   "consecutive_failures": 10,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "REG-FI-0001",
@@ -235,8 +235,8 @@
    "url": "https://www.aberdeencity.gov.uk/AAGM/whats-aberdeen-art-galleries-and-museums/spectra-aberdeens-festival-of-light"
   },
   {
-   "checked_at": "2026-11-22T01:40:14.470Z",
-   "consecutive_failures": 11,
+   "checked_at": "2026-11-23T02:05:26.552Z",
+   "consecutive_failures": 12,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-GB-0004",
@@ -253,8 +253,8 @@
    "url": "https://planets.teamlab.art/tokyo/"
   },
   {
-   "checked_at": "2026-11-22T01:39:41.799Z",
-   "consecutive_failures": 11,
+   "checked_at": "2026-11-23T02:04:53.787Z",
+   "consecutive_failures": 12,
    "field": "source:curated:check1",
    "http_status": null,
    "project": "REG-JP-0007",
@@ -280,8 +280,8 @@
    "url": "https://www.city.osaka.lg.jp/hodoshiryo/cmsfiles/contents/0000637/637517/hikarune2024.pdf"
   },
   {
-   "checked_at": "2026-11-22T01:40:15.765Z",
-   "consecutive_failures": 11,
+   "checked_at": "2026-11-23T02:05:28.300Z",
+   "consecutive_failures": 12,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-JP-0010",
@@ -568,8 +568,8 @@
    "url": "https://riyadhart.sa/en/noor-riyadh/"
   },
   {
-   "checked_at": "2026-11-22T01:40:11.800Z",
-   "consecutive_failures": 11,
+   "checked_at": "2026-11-23T02:05:23.787Z",
+   "consecutive_failures": 12,
    "field": "source:curated:check1",
    "http_status": null,
    "project": "REG-SG-0004",
@@ -712,7 +712,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261122T142543Z-60494483",
+ "build_id": "20261123T015444Z-f434982a",
  "coordinate_checks": [
   {
    "distance_m": 7576,
@@ -3917,17 +3917,6 @@
    ]
   },
   {
-   "id": "Q118609665",
-   "name": "Please Empty Your Pockets",
-   "origins": [
-    "wikidata_class"
-   ],
-   "qid": "Q118609665",
-   "reasons": [
-    "class_requires_coordinates"
-   ]
-  },
-  {
    "id": "Q118609671",
    "name": "POEX Tape",
    "origins": [
@@ -4167,6 +4156,18 @@
    "qid": "Q118609792",
    "reasons": [
     "class_requires_coordinates"
+   ]
+  },
+  {
+   "id": "Q118957161",
+   "name": "Please Empty Your Pockets",
+   "origins": [
+    "wikidata_class"
+   ],
+   "qid": "Q118957161",
+   "reasons": [
+    "no_country",
+    "no_coordinates_or_city"
    ]
   },
   {
@@ -4494,8 +4495,7 @@
    "qid": "Q12340235",
    "reasons": [
     "no_country",
-    "no_coordinates_or_city",
-    "class_requires_coordinates"
+    "no_coordinates_or_city"
    ]
   },
   {
@@ -8169,7 +8169,7 @@
    ]
   }
  ],
- "generated_at": "2026-11-22T19:44:28.397Z",
+ "generated_at": "2026-11-23T01:54:44.786Z",
  "image_rejections": {
   "extreme_aspect": 26,
   "interior_unrelated_to_work": 5,
@@ -9911,7 +9911,8 @@
    "refused": {},
    "searched": [
     "commons_p18",
-    "commons_depicts"
+    "commons_depicts",
+    "openverse"
    ],
    "searched_this_run": true
   },
@@ -9955,8 +9956,12 @@
    "name": "Please Empty Your Pockets",
    "project_type": "interactive_installation",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts",
+    "openverse"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -10237,7 +10242,8 @@
    "refused": {},
    "searched": [
     "commons_p18",
-    "commons_depicts"
+    "commons_depicts",
+    "openverse"
    ],
    "searched_this_run": true
   },
@@ -11873,7 +11879,8 @@
    "refused": {},
    "searched": [
     "commons_p18",
-    "commons_depicts"
+    "commons_depicts",
+    "openverse"
    ],
    "searched_this_run": true
   },
@@ -12529,7 +12536,8 @@
    "refused": {},
    "searched": [
     "commons_p18",
-    "commons_depicts"
+    "commons_depicts",
+    "openverse"
    ],
    "searched_this_run": true
   },
@@ -12766,7 +12774,8 @@
    "refused": {},
    "searched": [
     "commons_p18",
-    "commons_depicts"
+    "commons_depicts",
+    "openverse"
    ],
    "searched_this_run": true
   },
@@ -13003,8 +13012,11 @@
    "name": "33 Questions Per Minute",
    "project_type": "interactive_installation",
    "refused": {},
-   "searched": [],
-   "searched_this_run": false
+   "searched": [
+    "commons_p18",
+    "commons_depicts"
+   ],
+   "searched_this_run": true
   },
   {
    "articles": 0,
@@ -13676,7 +13688,8 @@
    "searched": [
     "commons_p18",
     "wikipedia_lead_image",
-    "commons_depicts"
+    "commons_depicts",
+    "openverse"
    ],
    "searched_this_run": true
   },
@@ -17871,7 +17884,8 @@
    "project_type": "festival_program",
    "refused": {},
    "searched": [
-    "commons_p18"
+    "commons_p18",
+    "openverse"
    ],
    "searched_this_run": true
   },
