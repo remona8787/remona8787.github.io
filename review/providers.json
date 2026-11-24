@@ -1,178 +1,10 @@
 {
  "about": "Image provider requests of this run: TourAPI name matches, caps reached, errors (keys never appear).",
- "at": "2026-11-24T06:07:44.699Z",
+ "at": "2026-11-24T09:58:00.120Z",
  "log": [
-  {
-   "key": "mmca cheongju media canvas",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "칠암항 방파제",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
   {
    "key": "ilmin museum outdoor media display",
    "message": "HTTP 403",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "starlight garden space",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "jungle media park",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "국립나주박물관 실감콘텐츠 체험관",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "화성 루나빛축제",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "국립중앙박물관",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "lotte world tower",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "daejeon skyroad",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "osaka hikari renaissance",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "arte museum new york",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "i light singapore",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "wandering lights festival",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "lumiere london",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "flamigos",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "blackout",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "the space of the book the sublime",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "marching man",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "obscure",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "solar orbit transit station",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "five planets",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "flight of the birds",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "light tetrahedron",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "serendipity",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "neon digital arts festival",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "festival of northern lights",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "de finishboog",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
-  },
-  {
-   "key": "public poetry pavilion",
-   "message": "HTTP 504",
    "provider": "openverse",
    "status": "error"
   }
@@ -180,21 +12,21 @@
  "schema": 1,
  "stats": {
   "errors": {
-   "openverse": 29
+   "openverse": 1
   },
   "new_requests": {
-   "openverse": 42
+   "openverse": 44
   },
   "openverse_rate_limit": {
    "x-ratelimit-available-anon_burst": 19,
    "x-ratelimit-available-anon_sustained": 199
   },
   "rejected": {
-   "openverse:identity_unproven": 4137,
-   "openverse:interior_unrelated_to_work": 30,
-   "openverse:name": 43,
+   "openverse:identity_unproven": 4373,
+   "openverse:interior_unrelated_to_work": 34,
+   "openverse:name": 45,
    "openverse:rights": 37,
-   "openverse:subject": 585
+   "openverse:subject": 630
   },
   "requests": {
    "openverse": 809

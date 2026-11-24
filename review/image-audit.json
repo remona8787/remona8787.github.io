@@ -4,7 +4,7 @@
   "count": 0,
   "examples": []
  },
- "at": "2026-11-24T06:07:44.699Z",
+ "at": "2026-11-24T09:58:00.120Z",
  "cards": {
   "all": {
    "projects": 1017,
@@ -13288,11 +13288,11 @@
   }
  ],
  "rejected": {
-  "identity": 3938,
+  "identity": 4167,
   "low_res": 83,
-  "mislinked": 68,
+  "mislinked": 71,
   "other": 1,
-  "person": 648,
+  "person": 691,
   "rights": 74
  },
  "rejected_examples": {
@@ -13918,6 +13918,22 @@
     ]
    },
    {
+    "key": "img-fcfb07a050a6",
+    "project": "REG-SG-0001",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "img-11defeef0689",
+    "project": "REG-SG-0001",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
     "key": "img-26a2056d7c84",
     "project": "REG-FI-0001",
     "reasons": [
@@ -14162,22 +14178,6 @@
      "identity_unproven",
      "subject:object_or_animal:food"
     ]
-   },
-   {
-    "key": "img-f0a231992015",
-    "project": "Q131338410",
-    "reasons": [
-     "identity_unproven",
-     "interior_unrelated_to_work"
-    ]
-   },
-   {
-    "key": "img-4c746e68a50d",
-    "project": "Q131338414",
-    "reasons": [
-     "identity_unproven",
-     "interior_unrelated_to_work"
-    ]
    }
   ],
   "other": [
@@ -14271,6 +14271,30 @@
     ]
    },
    {
+    "key": "img-bb43d14f8ea5",
+    "project": "REG-KR-0102",
+    "reasons": [
+     "identity_unproven",
+     "subject:people_or_event:summit"
+    ]
+   },
+   {
+    "key": "img-55c55b2258be",
+    "project": "REG-KR-0102",
+    "reasons": [
+     "identity_unproven",
+     "subject:people_or_event:summit"
+    ]
+   },
+   {
+    "key": "img-90131301940a",
+    "project": "REG-KR-0102",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:family"
+    ]
+   },
+   {
     "key": "img-a8e18e3e8377",
     "project": "SEOUL028",
     "reasons": [
@@ -14324,6 +14348,14 @@
     "reasons": [
      "identity_unproven",
      "subject:person:children"
+    ]
+   },
+   {
+    "key": "img-e9b9acd2bcad",
+    "project": "SEOUL022",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:portrait"
     ]
    },
    {
@@ -14462,34 +14494,6 @@
    },
    {
     "key": "Culture Minister Meeting 05 (15369674778).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 06 (15369795547).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 07 (15369792747).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 08 (14935042194).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 09 (14935038144).jpg",
     "project": "REG-KR-0019",
     "reasons": [
      "subject:people_or_event:minister"
@@ -14828,10 +14832,10 @@
   "duplicates_this_run": 13,
   "images": 2807,
   "low_res_rejected": 83,
-  "mislinked_rejected": 68,
+  "mislinked_rejected": 71,
   "mislinked_removed": 0,
   "newly_added_valid": 0,
-  "person_rejected": 648,
+  "person_rejected": 691,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2807,
