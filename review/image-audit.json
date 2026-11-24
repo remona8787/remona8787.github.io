@@ -1,21 +1,82 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 0,
-  "examples": []
+  "count": 12,
+  "examples": [
+   {
+    "id": "img-a349ee8f46dd",
+    "project": "Q10244",
+    "title": "Diwali festival Crackers Tamilnadu India"
+   },
+   {
+    "id": "img-9c6d5065d2a3",
+    "project": "Q10244",
+    "title": "Diwali Festival at temple 06"
+   },
+   {
+    "id": "img-88b55f51db06",
+    "project": "Q10244",
+    "title": "Diwali Festival at temple 07"
+   },
+   {
+    "id": "img-25c94b06e047",
+    "project": "Q10244",
+    "title": "Celebrating Diwali-festival of lights away from Home (India)"
+   },
+   {
+    "id": "img-47bf7d78e289",
+    "project": "Q10244",
+    "title": "Diwali Festival at temple 08"
+   },
+   {
+    "id": "img-a646dddd684f",
+    "project": "Q10244",
+    "title": "Diwali Festival at town"
+   },
+   {
+    "id": "img-141ac9be0adb",
+    "project": "Q10244",
+    "title": "Glow in Clay"
+   },
+   {
+    "id": "img-f3af8cab9290",
+    "project": "Q10244",
+    "title": "Glow of Tradition 2025"
+   },
+   {
+    "id": "img-d893cc7dae75",
+    "project": "Q10244",
+    "title": "Lanterns during Diwali Festival"
+   },
+   {
+    "id": "img-ae9ab6d5d480",
+    "project": "Q10244",
+    "title": "Diwali festival vibes"
+   },
+   {
+    "id": "img-8b316d57cab6",
+    "project": "Q10244",
+    "title": "Athirasam அதிரசம் JEG2405"
+   },
+   {
+    "id": "img-2f2a73b0c6a4",
+    "project": "Q10244",
+    "title": "Annakut at BAPS Shri Swaminarayan Mandir Chicago"
+   }
+  ]
  },
- "at": "2026-11-24T09:58:00.120Z",
+ "at": "2026-11-24T16:08:18.617Z",
  "cards": {
   "all": {
-   "projects": 1017,
-   "rate_pct": 37.4,
-   "with_valid_card": 380
+   "projects": 1018,
+   "rate_pct": 37.1,
+   "with_valid_card": 378
   },
   "by_kr_region": {
    "busan_ulsan_gyeongnam": {
     "projects": 49,
-    "rate_pct": 4.1,
-    "with_valid_card": 2
+    "rate_pct": 2,
+    "with_valid_card": 1
    },
    "daegu_gyeongbuk": {
     "projects": 28,
@@ -34,8 +95,8 @@
    },
    "gwangju_jeolla": {
     "projects": 37,
-    "rate_pct": 8.1,
-    "with_valid_card": 3
+    "rate_pct": 5.4,
+    "with_valid_card": 2
    },
    "gyeonggi_incheon": {
     "projects": 42,
@@ -49,19 +110,19 @@
    },
    "seoul": {
     "projects": 75,
-    "rate_pct": 18.7,
-    "with_valid_card": 14
+    "rate_pct": 17.3,
+    "with_valid_card": 13
    }
   },
   "korea": {
    "projects": 296,
-   "rate_pct": 8.1,
-   "with_valid_card": 24
+   "rate_pct": 7.1,
+   "with_valid_card": 21
   },
   "world": {
-   "projects": 721,
+   "projects": 722,
    "rate_pct": 49.4,
-   "with_valid_card": 356
+   "with_valid_card": 357
   }
  },
  "projects": [
@@ -127,7 +188,7 @@
    "kr_region": "gyeonggi_incheon",
    "name": "Tower Infinity",
    "previous_images": 2,
-   "status": "scored",
+   "status": "kept_previous",
    "valid_card": true
   },
   {
@@ -365,17 +426,17 @@
    "valid_card": false
   },
   {
-   "card_kind": "project_media",
-   "card_tier": 1,
-   "card_title": "-include red, 75x16m 1,200㎡(2017) GRAYCODE, jiiiiin",
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
    "id": "REG-KR-0019",
    "images": 2,
    "kr": true,
    "kr_region": "gwangju_jeolla",
    "name": "국립아시아문화전당(ACC) 미디어월",
    "previous_images": 2,
-   "status": "scored",
-   "valid_card": true
+   "status": "kept_previous",
+   "valid_card": false
   },
   {
    "card_kind": null,
@@ -742,17 +803,17 @@
    "valid_card": false
   },
   {
-   "card_kind": "project_media",
-   "card_tier": 1,
-   "card_title": "Busan Cinema Center at BIFF 2020 - 05",
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
    "id": "REG-KR-0049",
    "images": 7,
    "kr": true,
    "kr_region": "busan_ulsan_gyeongnam",
    "name": "영화의전당 빅루프 LED",
    "previous_images": 7,
-   "status": "scored",
-   "valid_card": true
+   "status": "kept_previous",
+   "valid_card": false
   },
   {
    "card_kind": null,
@@ -3351,7 +3412,7 @@
    "kr_region": "seoul",
    "name": "동대문디자인플라자(DDP) / 서울라이트",
    "previous_images": 12,
-   "status": "scored",
+   "status": "kept_previous",
    "valid_card": true
   },
   {
@@ -3507,7 +3568,7 @@
    "kr_region": "seoul",
    "name": "롯데월드타워 미디어파사드",
    "previous_images": 9,
-   "status": "scored",
+   "status": "kept_previous",
    "valid_card": true
   },
   {
@@ -3667,17 +3728,17 @@
    "valid_card": false
   },
   {
-   "card_kind": "architecture_context",
-   "card_tier": 5,
-   "card_title": "Old Seoul Station",
+   "card_kind": null,
+   "card_tier": null,
+   "card_title": null,
    "id": "SEOUL031",
    "images": 1,
    "kr": true,
    "kr_region": "seoul",
    "name": "문화역서울284",
    "previous_images": 1,
-   "status": "scored",
-   "valid_card": true
+   "status": "kept_previous",
+   "valid_card": false
   },
   {
    "card_kind": null,
@@ -5444,7 +5505,7 @@
    "kr_region": null,
    "name": "The light kite",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5567,7 +5628,7 @@
   {
    "card_kind": "project_media",
    "card_tier": 3,
-   "card_title": "Overzicht rechterzijgevel - Rotterdam - 20342801 - RCE",
+   "card_title": "Rotterdam blaak10",
    "id": "Q102080596",
    "images": 3,
    "kr": false,
@@ -5691,6 +5752,19 @@
    "kr_region": null,
    "name": "Guangzhou International Light  Festival",
    "previous_images": 12,
+   "status": "scored",
+   "valid_card": true
+  },
+  {
+   "card_kind": "project_media",
+   "card_tier": 2,
+   "card_title": "Diwali festival Crackers Tamilnadu India",
+   "id": "Q10244",
+   "images": 12,
+   "kr": false,
+   "kr_region": null,
+   "name": "디왈리",
+   "previous_images": 0,
    "status": "scored",
    "valid_card": true
   },
@@ -5834,7 +5908,7 @@
    "kr_region": null,
    "name": "Beyond the Wall",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5873,7 +5947,7 @@
    "kr_region": null,
    "name": "Crisscross Signal Spire",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5912,7 +5986,7 @@
    "kr_region": null,
    "name": "De Liefdesbrief",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5951,7 +6025,7 @@
    "kr_region": null,
    "name": "Titan 1",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5990,7 +6064,7 @@
    "kr_region": null,
    "name": "Straatlicht",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6055,7 +6129,7 @@
    "kr_region": null,
    "name": "Le contour des conifères dans la nuit bleue et les étoiles derrière ma tête sont dans tes yeux",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -6146,7 +6220,7 @@
    "kr_region": null,
    "name": "Star Memorial",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6536,7 +6610,7 @@
    "kr_region": null,
    "name": "The Bernard M. Gordon Tribute to Engineering Leadership",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6913,7 +6987,7 @@
    "kr_region": null,
    "name": "For SAAM",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7173,7 +7247,7 @@
    "kr_region": null,
    "name": "Pinta Cura",
    "previous_images": 8,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7199,7 +7273,7 @@
    "kr_region": null,
    "name": "Ceiling Snake",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7225,7 +7299,7 @@
    "kr_region": null,
    "name": "Ovonde",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7251,7 +7325,7 @@
    "kr_region": null,
    "name": "De Finishboog",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7277,7 +7351,7 @@
    "kr_region": null,
    "name": "Waimahara",
    "previous_images": 7,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -8226,7 +8300,7 @@
    "kr_region": null,
    "name": "Data Structure",
    "previous_images": 3,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -9253,7 +9327,7 @@
    "kr_region": null,
    "name": "Kaaret",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9266,7 +9340,7 @@
    "kr_region": null,
    "name": "Memory/Diffusion",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9929,7 +10003,7 @@
    "kr_region": null,
    "name": "Cumulus Gate Pavilion for Richard Pearse",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10111,7 +10185,7 @@
    "kr_region": null,
    "name": "Paint Torch",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10163,7 +10237,7 @@
    "kr_region": null,
    "name": "Terza Rima",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10878,7 +10952,7 @@
    "kr_region": null,
    "name": "Public Poetry Pavilion",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -12022,7 +12096,7 @@
    "kr_region": null,
    "name": "Flame of Bachelard",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -12217,7 +12291,7 @@
    "kr_region": null,
    "name": "Utah Bit and Mine",
    "previous_images": 9,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -12230,7 +12304,7 @@
    "kr_region": null,
    "name": "178 Bottles, 1 Message",
    "previous_images": 10,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -13288,12 +13362,11 @@
   }
  ],
  "rejected": {
-  "identity": 4167,
-  "low_res": 83,
-  "mislinked": 71,
-  "other": 1,
-  "person": 691,
-  "rights": 74
+  "identity": 3948,
+  "low_res": 81,
+  "mislinked": 66,
+  "person": 664,
+  "rights": 65
  },
  "rejected_examples": {
   "identity": [
@@ -13587,35 +13660,6 @@
     ]
    },
    {
-    "key": "Height comparison tower infinity.jpg",
-    "project": "Q15076316",
-    "reasons": [
-     "too_small"
-    ]
-   },
-   {
-    "key": "Lotte World Tower near Cheongdam Bridge crop.jpg",
-    "project": "SEOUL018",
-    "reasons": [
-     "too_small",
-     "extreme_aspect"
-    ]
-   },
-   {
-    "key": "A performance combining elements of traditional Indian and Korean dance at the Asian Culture Complex in Gwangju, South Korea.jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "too_small"
-    ]
-   },
-   {
-    "key": "Asian culture complexp.jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "extreme_aspect"
-    ]
-   },
-   {
     "key": "Korea Sevit Island 06 (15540748615).jpg",
     "project": "SEOUL044",
     "reasons": [
@@ -13661,6 +13705,21 @@
     "key": "Lotus Lantern Festival 2022 07 (52039782546).jpg",
     "project": "CAT-080XNRV",
     "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "A Indian Pooja Performing During Diwali Festival.jpg",
+    "project": "Q10244",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "A father's creation for his child on his first birthday.jpg",
+    "project": "Q10244",
+    "reasons": [
+     "too_small",
      "extreme_aspect"
     ]
    },
@@ -13860,40 +13919,23 @@
     "reasons": [
      "too_small"
     ]
-   }
-  ],
-  "mislinked": [
-   {
-    "key": "img-a988be29e763",
-    "project": "Q15076316",
-    "reasons": [
-     "identity_unproven",
-     "interior_unrelated_to_work"
-    ]
    },
    {
-    "key": "img-b0cf22a07900",
-    "project": "Q15076316",
+    "key": "Illuminated River artwork on Millennium Bridge.jpg",
+    "project": "Q113318895",
     "reasons": [
-     "identity_unproven",
-     "interior_unrelated_to_work"
-    ]
-   },
-   {
-    "key": "DDP - Garden of withe roses.jpg",
-    "project": "SEOUL006",
-    "reasons": [
-     "interior_unrelated_to_work"
-    ]
-   },
-   {
-    "key": "Lady bird transformation.jpg",
-    "project": "REG-KR-0049",
-    "reasons": [
-     "subject:object_or_animal:bird",
      "too_small"
     ]
    },
+   {
+    "key": "Illuminated River artwork on Southwark Bridge.jpg",
+    "project": "Q113318895",
+    "reasons": [
+     "too_small"
+    ]
+   }
+  ],
+  "mislinked": [
    {
     "key": "Goong Teddy Bears.JPG",
     "project": "SEOUL043",
@@ -14178,14 +14220,37 @@
      "identity_unproven",
      "subject:object_or_animal:food"
     ]
-   }
-  ],
-  "other": [
+   },
    {
-    "key": "Dongdaemun Design Plaza at night, Seoul, Korea.jpg",
-    "project": "SEOUL006",
+    "key": "img-f0a231992015",
+    "project": "Q131338410",
     "reasons": [
-     "missing_file"
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "img-4c746e68a50d",
+    "project": "Q131338414",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "img-68b767814924",
+    "project": "Q131338414",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "img-bba33f0f382a",
+    "project": "Q131338414",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
     ]
    }
   ],
@@ -14427,76 +14492,82 @@
     ]
    },
    {
-    "key": "img-ab5f2f69a669",
-    "project": "Q15076316",
+    "key": "img-38c826b531bf",
+    "project": "REG-KR-0231",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:friends"
+    ]
+   },
+   {
+    "key": "img-0d7138bca6cc",
+    "project": "REG-KR-0231",
     "reasons": [
      "identity_unproven",
      "subject:person:people"
     ]
    },
    {
-    "key": "img-c44cc13be265",
-    "project": "Q15076316",
+    "key": "img-9f6e1e945d27",
+    "project": "SEOUL027",
     "reasons": [
      "identity_unproven",
-     "interior_unrelated_to_work",
+     "subject:person:portrait"
+    ]
+   },
+   {
+    "key": "img-01a6656781cf",
+    "project": "REG-KR-0173",
+    "reasons": [
+     "identity_unproven",
      "subject:person:people"
     ]
    },
    {
-    "key": "Korea President Park Kansong Culture Exhibition 01 (14324130250).jpg",
-    "project": "SEOUL006",
+    "key": "img-4358dcbf57b0",
+    "project": "REG-KR-0173",
     "reasons": [
-     "subject:people_or_event:president"
+     "identity_unproven",
+     "subject:person:portrait"
     ]
    },
    {
-    "key": "7TH Asia-Europe Culture Minister’s Meeting 27869172815 5d625ae04b o.jpg",
-    "project": "REG-KR-0019",
+    "key": "img-1f655a1b8265",
+    "project": "REG-KR-0173",
     "reasons": [
-     "subject:people_or_event:minister"
+     "identity_unproven",
+     "subject:person:man"
     ]
    },
    {
-    "key": "ASEM Culture Minister Meeting Opening 24.jpg",
-    "project": "REG-KR-0019",
+    "key": "img-f29a38579fa7",
+    "project": "REG-KR-0173",
     "reasons": [
-     "subject:people_or_event:minister"
+     "identity_unproven",
+     "subject:person:portrait"
     ]
    },
    {
-    "key": "Culture Minister Meeting 01 (15369683978).jpg",
-    "project": "REG-KR-0019",
+    "key": "img-27c0866a6fcb",
+    "project": "REG-AE-0004",
     "reasons": [
-     "subject:people_or_event:minister"
+     "subject:person:friends"
     ]
    },
    {
-    "key": "Culture Minister Meeting 02 (15553139071).jpg",
-    "project": "REG-KR-0019",
+    "key": "img-5a08b4cd5b2c",
+    "project": "REG-GB-0007",
     "reasons": [
-     "subject:people_or_event:minister"
+     "identity_unproven",
+     "subject:person:couple"
     ]
    },
    {
-    "key": "Culture Minister Meeting 03 (15369677898).jpg",
-    "project": "REG-KR-0019",
+    "key": "img-09dafb94572c",
+    "project": "REG-NL-0002",
     "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 04 (15556650202).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 05 (15369674778).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
+     "identity_unproven",
+     "subject:person:people"
     ]
    }
   ],
@@ -14507,13 +14578,6 @@
     "reasons": [
      "rights:no_creator",
      "identity_unproven"
-    ]
-   },
-   {
-    "key": "롯대월드타워 - panoramio (3).jpg",
-    "project": "SEOUL018",
-    "reasons": [
-     "rights:foreign_no_freedom_of_panorama"
     ]
    },
    {
@@ -14610,14 +14674,6 @@
     ]
    },
    {
-    "key": "img-78e551d15053",
-    "project": "Q127587225",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
     "key": "img-24d8cf679fdc",
     "project": "Q127587709",
     "reasons": [
@@ -14628,62 +14684,6 @@
    {
     "key": "img-3ec959b31ebb",
     "project": "Q127588173",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-36b656176e16",
-    "project": "Q134487534",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-ea35423fbf7b",
-    "project": "Q134487534",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-35caf2f5f38e",
-    "project": "Q134487534",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-d4077acf1337",
-    "project": "Q134487534",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-c8ff0f3ccdc7",
-    "project": "Q134487534",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-e10485d70cb9",
-    "project": "Q134487534",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-2d3e98d6791d",
-    "project": "Q134487534",
     "reasons": [
      "rights:no_creator",
      "identity_unproven"
@@ -14804,6 +14804,70 @@
     "reasons": [
      "rights:license_not_allowed"
     ]
+   },
+   {
+    "key": "Classical spectacular04.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Classical spectacular05.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Classical spectacular06.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Classical spectacular07.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Spb 06-2017 img18 Leader Tower.jpg",
+    "project": "Q13668707",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Jevrejsko groblje u Sarajevu.jpg",
+    "project": "Q7422981",
+    "reasons": [
+     "rights:foreign_no_freedom_of_panorama"
+    ]
+   },
+   {
+    "key": "Sarajevo Tram-257 Line-1 2013-10-25.jpg",
+    "project": "Q7422981",
+    "reasons": [
+     "rights:foreign_no_freedom_of_panorama"
+    ]
+   },
+   {
+    "key": "Sarajevo Tram-291 Line-3 2013-10-25.jpg",
+    "project": "Q7422981",
+    "reasons": [
+     "rights:foreign_no_freedom_of_panorama"
+    ]
+   },
+   {
+    "key": "img-b8fa930a8c4c",
+    "project": "Q102080622",
+    "reasons": [
+     "rights:no_creator",
+     "identity_unproven"
+    ]
    }
   ]
  },
@@ -14813,64 +14877,64 @@
  "summary": {
   "cards": {
    "all": {
-    "projects": 1017,
-    "rate_pct": 37.4,
-    "with_valid_card": 380
+    "projects": 1018,
+    "rate_pct": 37.1,
+    "with_valid_card": 378
    },
    "korea": {
     "projects": 296,
-    "rate_pct": 8.1,
-    "with_valid_card": 24
+    "rate_pct": 7.1,
+    "with_valid_card": 21
    },
    "world": {
-    "projects": 721,
+    "projects": 722,
     "rate_pct": 49.4,
-    "with_valid_card": 356
+    "with_valid_card": 357
    }
   },
   "duplicates_removed": 0,
-  "duplicates_this_run": 13,
-  "images": 2807,
-  "low_res_rejected": 83,
-  "mislinked_rejected": 71,
+  "duplicates_this_run": 12,
+  "images": 2819,
+  "low_res_rejected": 81,
+  "mislinked_rejected": 66,
   "mislinked_removed": 0,
-  "newly_added_valid": 0,
-  "person_rejected": 691,
+  "newly_added_valid": 12,
+  "person_rejected": 664,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2807,
-  "rechecked_kept": 0,
-  "relevance_verified": 2807,
+  "rechecked_kept": 98,
+  "relevance_verified": 2721,
   "removed_total": 0
  },
  "totals": {
   "by_kind": {
-   "architecture_context": 449,
+   "architecture_context": 456,
    "event_documentation": 14,
    "project_installation": 59,
-   "project_media": 2279,
+   "project_media": 2284,
    "technical_documentation": 6
   },
   "by_provider": {
-   "commons": 2793,
+   "commons": 2805,
    "editor": 4,
    "openverse": 10
   },
   "by_role": {
-   "card": 196,
-   "context": 413,
-   "featured": 194,
-   "gallery": 1994,
+   "card": 195,
+   "context": 421,
+   "featured": 193,
+   "gallery": 2000,
    "hero": 10
   },
   "by_tier": {
-   "1": 62,
-   "2": 409,
-   "3": 1838,
+   "1": 59,
+   "2": 410,
+   "3": 1845,
    "4": 47,
-   "5": 451
+   "5": 458
   },
-  "images": 2807,
+  "images": 2819,
   "portraits": 3
  }
 }

@@ -127,8 +127,8 @@
    "url": "http://www.c3a.es"
   },
   {
-   "checked_at": "2026-11-23T20:11:01.385Z",
-   "consecutive_failures": 14,
+   "checked_at": "2026-11-24T16:28:28.161Z",
+   "consecutive_failures": 15,
    "field": "official_url",
    "http_status": null,
    "project": "Q7715933",
@@ -154,8 +154,8 @@
    "url": "https://premier.sa.gov.au/media-releases/news-archive/lights-on-for-glowing-illuminate-adelaide-2024"
   },
   {
-   "checked_at": "2026-11-23T14:04:25.698Z",
-   "consecutive_failures": 11,
+   "checked_at": "2026-11-24T16:27:33.488Z",
+   "consecutive_failures": 12,
    "field": "source:curated:check2",
    "http_status": null,
    "project": "REG-AU-0003",
@@ -190,8 +190,8 @@
    "url": "https://lichtrouten.de/en/echtzeit/"
   },
   {
-   "checked_at": "2026-11-23T14:04:32.583Z",
-   "consecutive_failures": 11,
+   "checked_at": "2026-11-24T16:27:40.152Z",
+   "consecutive_failures": 12,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-DE-0002",
@@ -226,8 +226,8 @@
    "url": "https://luxhelsinki.fi/en/info-3/frequently-asked-questions/"
   },
   {
-   "checked_at": "2026-11-23T14:04:24.574Z",
-   "consecutive_failures": 11,
+   "checked_at": "2026-11-24T16:27:32.262Z",
+   "consecutive_failures": 12,
    "field": "source:curated:check1",
    "http_status": null,
    "project": "REG-GB-0003",
@@ -235,8 +235,8 @@
    "url": "https://aberdeencity.gov.uk/node/12843"
   },
   {
-   "checked_at": "2026-11-23T14:04:27.762Z",
-   "consecutive_failures": 11,
+   "checked_at": "2026-11-24T16:27:35.558Z",
+   "consecutive_failures": 12,
    "field": "source:curated:source",
    "http_status": null,
    "project": "REG-GB-0003",
@@ -280,8 +280,8 @@
    "url": "https://www.city.nagasaki.lg.jp/shimin/190000/192000/p041660_d/fil/04_202401_kairan.pdf"
   },
   {
-   "checked_at": "2026-11-23T20:11:03.310Z",
-   "consecutive_failures": 13,
+   "checked_at": "2026-11-24T16:28:31.377Z",
+   "consecutive_failures": 14,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "REG-JP-0010",
@@ -325,13 +325,22 @@
    "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=1942f11b-2632-4287-91bd-92423d144f5b"
   },
   {
-   "checked_at": "2026-11-23T07:53:18.502Z",
-   "consecutive_failures": 11,
+   "checked_at": "2026-11-24T16:27:30.411Z",
+   "consecutive_failures": 12,
    "field": "source:curated:source",
    "http_status": 302,
    "project": "REG-KR-0037",
    "reason": "HTTP 302",
    "url": "https://www.airport.kr/ap_ko/1009/subview.do"
+  },
+  {
+   "checked_at": "2026-11-24T16:25:11.633Z",
+   "consecutive_failures": 1,
+   "field": "source:curated:source",
+   "http_status": null,
+   "project": "REG-KR-0049",
+   "reason": "robots_unreachable",
+   "url": "https://www.busan.go.kr/news/totalnews01/view?dataNo=49119&gugun=Prev"
   },
   {
    "checked_at": "2026-11-24T00:08:45.820Z",
@@ -361,8 +370,8 @@
    "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=bcaf095a-f26a-47b1-aaaf-92eb48be6872"
   },
   {
-   "checked_at": "2026-11-23T14:05:16.536Z",
-   "consecutive_failures": 13,
+   "checked_at": "2026-11-24T16:28:20.113Z",
+   "consecutive_failures": 14,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "REG-KR-0071",
@@ -415,8 +424,17 @@
    "url": "https://news.gwangju.go.kr/gallery.es?mid=a20402000000&bid=0011&list_no=1671&act=view"
   },
   {
-   "checked_at": "2026-11-23T20:11:09.488Z",
-   "consecutive_failures": 14,
+   "checked_at": "2026-11-24T16:25:49.547Z",
+   "consecutive_failures": 1,
+   "field": "source:curated:source",
+   "http_status": null,
+   "project": "REG-KR-0127",
+   "reason": "robots_unreachable",
+   "url": "https://biz.mokpo.go.kr/tour/support/layer_urgent_popup?idx=528128&mode=view"
+  },
+  {
+   "checked_at": "2026-11-24T16:28:35.558Z",
+   "consecutive_failures": 15,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "REG-KR-0129",
@@ -424,8 +442,8 @@
    "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=38c52c0b-98b9-4cfb-b285-72ca7ec0b988"
   },
   {
-   "checked_at": "2026-11-23T14:05:17.239Z",
-   "consecutive_failures": 13,
+   "checked_at": "2026-11-24T16:28:21.286Z",
+   "consecutive_failures": 14,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "REG-KR-0146",
@@ -505,8 +523,8 @@
    "url": "https://gwangyang.go.kr/tour/?menuCd=DOM_000000403001001001"
   },
   {
-   "checked_at": "2026-11-23T14:05:21.934Z",
-   "consecutive_failures": 13,
+   "checked_at": "2026-11-24T16:28:24.640Z",
+   "consecutive_failures": 14,
    "field": "source:curated:source",
    "http_status": null,
    "project": "REG-KR-0205",
@@ -514,8 +532,8 @@
    "url": "https://www.sokcho.go.kr/ct/tour"
   },
   {
-   "checked_at": "2026-11-23T14:05:15.576Z",
-   "consecutive_failures": 13,
+   "checked_at": "2026-11-24T16:28:19.122Z",
+   "consecutive_failures": 14,
    "field": "source:curated:check1",
    "http_status": null,
    "project": "REG-KR-0206",
@@ -550,6 +568,15 @@
    "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=e4a61414-cd41-4bbb-bc85-3d4cb4cd2a15"
   },
   {
+   "checked_at": "2026-11-24T16:26:56.140Z",
+   "consecutive_failures": 1,
+   "field": "source:curated:source",
+   "http_status": null,
+   "project": "REG-KR-0215",
+   "reason": "no answer within 15000 ms",
+   "url": "https://www.swcf.or.kr/?p=207"
+  },
+  {
    "checked_at": "2026-11-24T10:10:26.534Z",
    "consecutive_failures": 13,
    "field": "source:curated:source",
@@ -557,6 +584,15 @@
    "project": "REG-KR-0228",
    "reason": "HTTP 404",
    "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=387cfe24-b54f-464d-a06d-c1599d7eba59"
+  },
+  {
+   "checked_at": "2026-11-24T16:26:56.140Z",
+   "consecutive_failures": 1,
+   "field": "source:curated:source",
+   "http_status": null,
+   "project": "REG-KR-0229",
+   "reason": "robots_unreachable",
+   "url": "https://www.busan.go.kr/depart/ablandscape04/333490"
   },
   {
    "checked_at": "2026-11-23T20:10:25.946Z",
@@ -604,8 +640,8 @@
    "url": "https://www.marinabaysands.com/attractions/spectra.html"
   },
   {
-   "checked_at": "2026-11-23T20:11:06.449Z",
-   "consecutive_failures": 13,
+   "checked_at": "2026-11-24T16:28:34.574Z",
+   "consecutive_failures": 14,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "REG-ZA-0001",
@@ -649,8 +685,8 @@
    "url": "https://lightroomseoul.com/en/"
   },
   {
-   "checked_at": "2026-11-23T14:04:53.614Z",
-   "consecutive_failures": 32,
+   "checked_at": "2026-11-24T16:27:57.161Z",
+   "consecutive_failures": 33,
    "field": "source:curated:source",
    "http_status": null,
    "project": "SEOUL023",
@@ -712,8 +748,8 @@
    "url": "https://parks.seoul.go.kr/template/sub/seoullo7017.do"
   },
   {
-   "checked_at": "2026-11-23T14:05:25.533Z",
-   "consecutive_failures": 35,
+   "checked_at": "2026-11-24T16:28:26.639Z",
+   "consecutive_failures": 36,
    "field": "official_url",
    "http_status": 404,
    "project": "SEOUL048",
@@ -730,7 +766,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261124T060744Z-0e8626fb",
+ "build_id": "20261124T160818Z-3a467b01",
  "coordinate_checks": [
   {
    "distance_m": 7576,
@@ -2117,17 +2153,6 @@
    "qid": "Q101552404",
    "reasons": [
     "class_requires_coordinates"
-   ]
-  },
-  {
-   "id": "Q10244",
-   "name": "Diwali",
-   "origins": [
-    "commons"
-   ],
-   "qid": "Q10244",
-   "reasons": [
-    "no_coordinates_or_city"
    ]
   },
   {
@@ -5159,18 +5184,6 @@
    ]
   },
   {
-   "id": "Q135232969",
-   "name": "Rain",
-   "origins": [
-    "wikidata_class"
-   ],
-   "qid": "Q135232969",
-   "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
    "id": "Q135307359",
    "name": "Os Cavaleiros do Zodíaco",
    "origins": [
@@ -5700,18 +5713,6 @@
     "commons"
    ],
    "qid": "Q1396323",
-   "reasons": [
-    "no_country",
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "Q139714874",
-   "name": "Flash Point",
-   "origins": [
-    "wikidata_class"
-   ],
-   "qid": "Q139714874",
    "reasons": [
     "no_country",
     "no_coordinates_or_city"
@@ -6706,18 +6707,6 @@
    ],
    "qid": "Q625724",
    "reasons": [
-    "no_coordinates_or_city"
-   ]
-  },
-  {
-   "id": "Q62589077",
-   "name": "Neon Led Discobolus",
-   "origins": [
-    "wikidata_class"
-   ],
-   "qid": "Q62589077",
-   "reasons": [
-    "no_country",
     "no_coordinates_or_city"
    ]
   },
@@ -8187,17 +8176,16 @@
    ]
   }
  ],
- "generated_at": "2026-11-24T09:58:00.120Z",
+ "generated_at": "2026-11-24T16:08:18.617Z",
  "image_rejections": {
-  "extreme_aspect": 26,
-  "interior_unrelated_to_work": 5,
-  "missing_file": 1,
-  "rights:foreign_no_freedom_of_panorama": 4,
+  "extreme_aspect": 25,
+  "interior_unrelated_to_work": 4,
+  "rights:foreign_no_freedom_of_panorama": 3,
   "rights:license_not_allowed": 40,
-  "subject:object_or_animal": 17,
-  "subject:people_or_event": 62,
-  "subject:person": 8,
-  "too_small": 63
+  "subject:object_or_animal": 16,
+  "subject:people_or_event": 47,
+  "subject:person": 9,
+  "too_small": 61
  },
  "low_confidence_types": [
   {
@@ -8367,6 +8355,11 @@
   },
   {
    "id": "Q1188708",
+   "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q10244",
    "project_type": "light_art",
    "type_source": "commons_category"
   },
@@ -8747,6 +8740,11 @@
   },
   {
    "id": "Q16034471",
+   "project_type": "light_art",
+   "type_source": "commons_category"
+  },
+  {
+   "id": "Q12640281",
    "project_type": "light_art",
    "type_source": "commons_category"
   },
@@ -9367,12 +9365,8 @@
    "name": "Beyond the Wall",
    "project_type": "light_art",
    "refused": {},
-   "searched": [
-    "commons_p18",
-    "commons_depicts",
-    "openverse"
-   ],
-   "searched_this_run": true
+   "searched": [],
+   "searched_this_run": false
   },
   {
    "articles": 0,
@@ -9383,11 +9377,8 @@
    "name": "Crisscross Signal Spire",
    "project_type": "light_art",
    "refused": {},
-   "searched": [
-    "commons_p18",
-    "commons_depicts"
-   ],
-   "searched_this_run": true
+   "searched": [],
+   "searched_this_run": false
   },
   {
    "articles": 0,
@@ -9398,12 +9389,8 @@
    "name": null,
    "project_type": "light_art",
    "refused": {},
-   "searched": [
-    "commons_p18",
-    "commons_depicts",
-    "openverse"
-   ],
-   "searched_this_run": true
+   "searched": [],
+   "searched_this_run": false
   },
   {
    "articles": 0,
@@ -9445,12 +9432,8 @@
    "name": null,
    "project_type": "light_art",
    "refused": {},
-   "searched": [
-    "commons_p18",
-    "commons_depicts",
-    "openverse"
-   ],
-   "searched_this_run": true
+   "searched": [],
+   "searched_this_run": false
   },
   {
    "articles": 0,
@@ -9508,12 +9491,8 @@
    "name": "Star Memorial",
    "project_type": "light_art",
    "refused": {},
-   "searched": [
-    "commons_p18",
-    "commons_depicts",
-    "openverse"
-   ],
-   "searched_this_run": true
+   "searched": [],
+   "searched_this_run": false
   },
   {
    "articles": 0,
@@ -9801,11 +9780,8 @@
    "name": "The Bernard M. Gordon Tribute to Engineering Leadership",
    "project_type": "light_art",
    "refused": {},
-   "searched": [
-    "commons_p18",
-    "commons_depicts"
-   ],
-   "searched_this_run": true
+   "searched": [],
+   "searched_this_run": false
   },
   {
    "articles": 0,
@@ -10116,12 +10092,8 @@
    "name": "For SAAM",
    "project_type": "light_art",
    "refused": {},
-   "searched": [
-    "commons_p18",
-    "commons_depicts",
-    "openverse"
-   ],
-   "searched_this_run": true
+   "searched": [],
+   "searched_this_run": false
   },
   {
    "articles": 0,
@@ -10319,12 +10291,8 @@
    "name": "Ceiling Snake",
    "project_type": "light_art",
    "refused": {},
-   "searched": [
-    "commons_p18",
-    "commons_depicts",
-    "openverse"
-   ],
-   "searched_this_run": true
+   "searched": [],
+   "searched_this_run": false
   },
   {
    "articles": 0,
@@ -10351,11 +10319,8 @@
    "name": null,
    "project_type": "light_art",
    "refused": {},
-   "searched": [
-    "commons_p18",
-    "commons_depicts"
-   ],
-   "searched_this_run": true
+   "searched": [],
+   "searched_this_run": false
   },
   {
    "articles": 0,
@@ -10638,8 +10603,7 @@
    "refused": {},
    "searched": [
     "commons_p18",
-    "commons_depicts",
-    "openverse"
+    "commons_depicts"
    ],
    "searched_this_run": true
   },
@@ -12286,12 +12250,8 @@
    "name": "Kaaret",
    "project_type": "light_art",
    "refused": {},
-   "searched": [
-    "commons_p18",
-    "commons_depicts",
-    "openverse"
-   ],
-   "searched_this_run": true
+   "searched": [],
+   "searched_this_run": false
   },
   {
    "articles": 0,
@@ -12302,12 +12262,8 @@
    "name": "Memory/Diffusion",
    "project_type": "light_art",
    "refused": {},
-   "searched": [
-    "commons_p18",
-    "commons_depicts",
-    "openverse"
-   ],
-   "searched_this_run": true
+   "searched": [],
+   "searched_this_run": false
   },
   {
    "articles": 0,
@@ -13785,11 +13741,8 @@
    "name": "Flame of Bachelard",
    "project_type": "light_art",
    "refused": {},
-   "searched": [
-    "commons_p18",
-    "commons_depicts"
-   ],
-   "searched_this_run": true
+   "searched": [],
+   "searched_this_run": false
   },
   {
    "articles": 1,
@@ -19236,6 +19189,14 @@
   {
    "best_tier": 3,
    "id": "REG-KR-0008"
+  },
+  {
+   "best_tier": 5,
+   "id": "REG-KR-0019"
+  },
+  {
+   "best_tier": 5,
+   "id": "REG-KR-0049"
   },
   {
    "best_tier": 5,
