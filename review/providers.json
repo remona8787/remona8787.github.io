@@ -1,10 +1,16 @@
 {
  "about": "Image provider requests of this run: TourAPI name matches, caps reached, errors (keys never appear).",
- "at": "2026-11-23T19:55:55.329Z",
+ "at": "2026-11-23T23:57:24.730Z",
  "log": [
   {
    "key": "ilmin museum outdoor media display",
    "message": "HTTP 403",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
+   "key": "jungle media park",
+   "message": "HTTP 504",
    "provider": "openverse",
    "status": "error"
   },
@@ -45,6 +51,12 @@
    "status": "error"
   },
   {
+   "key": "solar orbit transit station",
+   "message": "HTTP 504",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
    "key": "flight of the birds",
    "message": "HTTP 504",
    "provider": "openverse",
@@ -57,14 +69,20 @@
    "status": "error"
   },
   {
-   "key": "song bird",
+   "key": "neon digital arts festival",
    "message": "HTTP 504",
    "provider": "openverse",
    "status": "error"
   },
   {
    "key": "chicks 1994",
-   "message": "no answer within 30000 ms",
+   "message": "HTTP 504",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
+   "key": "public poetry pavilion",
+   "message": "HTTP 504",
    "provider": "openverse",
    "status": "error"
   }
@@ -72,21 +90,21 @@
  "schema": 1,
  "stats": {
   "errors": {
-   "openverse": 11
+   "openverse": 14
   },
   "new_requests": {
-   "openverse": 30
+   "openverse": 28
   },
   "openverse_rate_limit": {
    "x-ratelimit-available-anon_burst": 19,
    "x-ratelimit-available-anon_sustained": 199
   },
   "rejected": {
-   "openverse:identity_unproven": 4278,
+   "openverse:identity_unproven": 4262,
    "openverse:interior_unrelated_to_work": 34,
    "openverse:name": 44,
    "openverse:rights": 37,
-   "openverse:subject": 624
+   "openverse:subject": 621
   },
   "requests": {
    "openverse": 809

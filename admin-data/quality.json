@@ -64,8 +64,8 @@
    "url": "http://www.lichtkunst-unna.de/"
   },
   {
-   "checked_at": "2026-11-23T02:04:32.134Z",
-   "consecutive_failures": 34,
+   "checked_at": "2026-11-24T00:09:11.595Z",
+   "consecutive_failures": 35,
    "field": "official_url",
    "http_status": null,
    "project": "Q22912864",
@@ -172,8 +172,8 @@
    "url": "https://nca.gov.au/events/enlighten-festival-2026"
   },
   {
-   "checked_at": "2026-11-22T19:59:57.949Z",
-   "consecutive_failures": 10,
+   "checked_at": "2026-11-24T00:08:50.456Z",
+   "consecutive_failures": 11,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-CA-0001",
@@ -235,8 +235,8 @@
    "url": "https://www.aberdeencity.gov.uk/AAGM/whats-aberdeen-art-galleries-and-museums/spectra-aberdeens-festival-of-light"
   },
   {
-   "checked_at": "2026-11-23T02:05:26.552Z",
-   "consecutive_failures": 12,
+   "checked_at": "2026-11-24T00:10:06.261Z",
+   "consecutive_failures": 13,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-GB-0004",
@@ -253,8 +253,8 @@
    "url": "https://planets.teamlab.art/tokyo/"
   },
   {
-   "checked_at": "2026-11-23T02:04:53.787Z",
-   "consecutive_failures": 12,
+   "checked_at": "2026-11-24T00:09:33.561Z",
+   "consecutive_failures": 13,
    "field": "source:curated:check1",
    "http_status": null,
    "project": "REG-JP-0007",
@@ -262,8 +262,8 @@
    "url": "https://explore.visitmie-japan.travel/en/report/detail_157.html"
   },
   {
-   "checked_at": "2026-11-22T20:00:00.239Z",
-   "consecutive_failures": 10,
+   "checked_at": "2026-11-24T00:08:51.594Z",
+   "consecutive_failures": 11,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-JP-0009",
@@ -280,8 +280,8 @@
    "url": "https://www.city.osaka.lg.jp/hodoshiryo/cmsfiles/contents/0000637/637517/hikarune2024.pdf"
   },
   {
-   "checked_at": "2026-11-23T02:05:28.300Z",
-   "consecutive_failures": 12,
+   "checked_at": "2026-11-24T00:10:07.640Z",
+   "consecutive_failures": 13,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-JP-0010",
@@ -325,8 +325,8 @@
    "url": "https://www.airport.kr/ap_ko/1009/subview.do"
   },
   {
-   "checked_at": "2026-11-22T19:59:53.358Z",
-   "consecutive_failures": 10,
+   "checked_at": "2026-11-24T00:08:45.820Z",
+   "consecutive_failures": 11,
    "field": "source:curated:check1",
    "http_status": null,
    "project": "REG-KR-0062",
@@ -460,8 +460,8 @@
    "url": "https://opengov.seoul.go.kr/mediahub/25334134"
   },
   {
-   "checked_at": "2026-11-22T19:59:56.775Z",
-   "consecutive_failures": 10,
+   "checked_at": "2026-11-24T00:08:49.347Z",
+   "consecutive_failures": 11,
    "field": "source:curated:source",
    "http_status": null,
    "project": "REG-KR-0169",
@@ -568,8 +568,8 @@
    "url": "https://riyadhart.sa/en/noor-riyadh/"
   },
   {
-   "checked_at": "2026-11-23T02:05:23.787Z",
-   "consecutive_failures": 12,
+   "checked_at": "2026-11-24T00:10:03.562Z",
+   "consecutive_failures": 13,
    "field": "source:curated:check1",
    "http_status": null,
    "project": "REG-SG-0004",
@@ -712,7 +712,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261123T195555Z-7371fc88",
+ "build_id": "20261123T235724Z-6da336a0",
  "coordinate_checks": [
   {
    "distance_m": 7576,
@@ -8169,7 +8169,7 @@
    ]
   }
  ],
- "generated_at": "2026-11-23T19:55:55.329Z",
+ "generated_at": "2026-11-23T23:57:24.730Z",
  "image_rejections": {
   "extreme_aspect": 26,
   "interior_unrelated_to_work": 5,
@@ -11218,8 +11218,7 @@
    "refused": {},
    "searched": [
     "commons_p18",
-    "commons_depicts",
-    "openverse"
+    "commons_depicts"
    ],
    "searched_this_run": true
   },
@@ -11748,8 +11747,7 @@
    "refused": {},
    "searched": [
     "commons_p18",
-    "commons_depicts",
-    "openverse"
+    "commons_depicts"
    ],
    "searched_this_run": true
   },
@@ -15716,8 +15714,7 @@
    "project_type": "media_architecture",
    "refused": {},
    "searched": [
-    "commons_p18",
-    "openverse"
+    "commons_p18"
    ],
    "searched_this_run": true
   },

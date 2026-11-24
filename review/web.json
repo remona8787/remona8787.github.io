@@ -1,12 +1,19 @@
 {
- "at": "2026-11-23T19:55:55.329Z",
+ "at": "2026-11-23T23:57:24.730Z",
  "errors": [
+  {
+   "http_status": null,
+   "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
+   "rule": "gdelt:GDELT nl · media facade",
+   "stage": "web_fetch",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Adutch&mode=ArtList&format=json&maxrecords=250&timespan=4d&sort=DateDesc"
+  },
   {
    "http_status": 429,
    "message": "HTTP 429",
-   "rule": "gdelt:GDELT ja · media facade",
+   "rule": "gdelt:GDELT pl · media facade",
    "stage": "web_fetch",
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Ajapanese&mode=ArtList&format=json&maxrecords=250&timespan=40h&sort=DateDesc"
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Apolish&mode=ArtList&format=json&maxrecords=250&timespan=4d&sort=DateDesc"
   }
  ],
  "rules": [
@@ -16,14 +23,14 @@
     "invalid": 0,
     "prefilter": 0
    },
-   "errors": 0,
+   "errors": 1,
    "fetched": 0,
    "kept": 0,
-   "key": "gdelt:GDELT ko · media facade",
+   "key": "gdelt:GDELT nl · media facade",
    "kind": "gdelt",
    "not_modified": false,
    "reason": null,
-   "status": "success"
+   "status": "error"
   },
   {
    "dropped": {
@@ -34,7 +41,7 @@
    "errors": 1,
    "fetched": 0,
    "kept": 0,
-   "key": "gdelt:GDELT ja · media facade",
+   "key": "gdelt:GDELT pl · media facade",
    "kind": "gdelt",
    "not_modified": false,
    "reason": null,
@@ -47,49 +54,22 @@
    "until": "2026-11-24T06:56:23.303Z"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 10
-   },
-   "errors": 0,
-   "fetched": 10,
-   "kept": 0,
    "key": "rss:designboom",
-   "kind": "rss",
-   "not_modified": false,
-   "reason": null,
-   "status": "success"
+   "next_run_at": "2026-11-24T01:57:00.646Z",
+   "reason": "not_due",
+   "status": "skipped"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 24
-   },
-   "errors": 0,
-   "fetched": 24,
-   "kept": 0,
    "key": "rss:ArchDaily",
-   "kind": "rss",
-   "not_modified": false,
-   "reason": null,
-   "status": "success"
+   "next_run_at": "2026-11-24T01:57:00.887Z",
+   "reason": "not_due",
+   "status": "skipped"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 30
-   },
-   "errors": 0,
-   "fetched": 30,
-   "kept": 0,
    "key": "rss:Archinect",
-   "kind": "rss",
-   "not_modified": false,
-   "reason": null,
-   "status": "success"
+   "next_run_at": "2026-11-24T01:57:01.106Z",
+   "reason": "not_due",
+   "status": "skipped"
   },
   {
    "key": "rss:Creative Applications Network",
@@ -98,19 +78,10 @@
    "until": "2026-11-25T07:44:22.753Z"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 3
-   },
-   "errors": 0,
-   "fetched": 10,
-   "kept": 7,
    "key": "rss:Media Architecture Institute",
-   "kind": "rss",
-   "not_modified": false,
-   "reason": null,
-   "status": "success"
+   "next_run_at": "2026-11-24T01:57:02.015Z",
+   "reason": "not_due",
+   "status": "skipped"
   },
   {
    "key": "rss:Designboom Korea",
@@ -149,12 +120,12 @@
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT nl · media facade",
+   "key": "gdelt:GDELT ja · media facade",
    "reason": "rotation",
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT pl · media facade",
+   "key": "gdelt:GDELT ko · media facade",
    "reason": "rotation",
    "status": "skipped"
   },
