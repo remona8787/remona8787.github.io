@@ -4,7 +4,7 @@
   "count": 0,
   "examples": []
  },
- "at": "2026-11-24T17:23:50.757Z",
+ "at": "2026-11-24T22:29:34.437Z",
  "cards": {
   "all": {
    "projects": 1017,
@@ -13288,11 +13288,11 @@
   }
  ],
  "rejected": {
-  "identity": 4162,
+  "identity": 4096,
   "low_res": 83,
-  "mislinked": 72,
+  "mislinked": 70,
   "other": 1,
-  "person": 702,
+  "person": 695,
   "rights": 73
  },
  "rejected_examples": {
@@ -13587,20 +13587,6 @@
     ]
    },
    {
-    "key": "A performance combining elements of traditional Indian and Korean dance at the Asian Culture Complex in Gwangju, South Korea.jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "too_small"
-    ]
-   },
-   {
-    "key": "Asian culture complexp.jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "extreme_aspect"
-    ]
-   },
-   {
     "key": "Height comparison tower infinity.jpg",
     "project": "Q15076316",
     "reasons": [
@@ -13612,6 +13598,20 @@
     "project": "SEOUL018",
     "reasons": [
      "too_small",
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "A performance combining elements of traditional Indian and Korean dance at the Asian Culture Complex in Gwangju, South Korea.jpg",
+    "project": "REG-KR-0019",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Asian culture complexp.jpg",
+    "project": "REG-KR-0019",
+    "reasons": [
      "extreme_aspect"
     ]
    },
@@ -13864,14 +13864,6 @@
   ],
   "mislinked": [
    {
-    "key": "Lady bird transformation.jpg",
-    "project": "REG-KR-0049",
-    "reasons": [
-     "subject:object_or_animal:bird",
-     "too_small"
-    ]
-   },
-   {
     "key": "img-a988be29e763",
     "project": "Q15076316",
     "reasons": [
@@ -13892,6 +13884,14 @@
     "project": "SEOUL006",
     "reasons": [
      "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "Lady bird transformation.jpg",
+    "project": "REG-KR-0049",
+    "reasons": [
+     "subject:object_or_animal:bird",
+     "too_small"
     ]
    },
    {
@@ -14044,14 +14044,6 @@
     ]
    },
    {
-    "key": "img-09ded19cbcf0",
-    "project": "Q127587849",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:menu"
-    ]
-   },
-   {
     "key": "img-816c283c2086",
     "project": "Q140933380",
     "reasons": [
@@ -14177,6 +14169,14 @@
     "reasons": [
      "identity_unproven",
      "subject:object_or_animal:food"
+    ]
+   },
+   {
+    "key": "img-4c746e68a50d",
+    "project": "Q131338414",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
     ]
    }
   ],
@@ -14351,6 +14351,106 @@
     ]
    },
    {
+    "key": "img-e9b9acd2bcad",
+    "project": "SEOUL022",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:portrait"
+    ]
+   },
+   {
+    "key": "KOCIS Korea President Park MMCA 01 (10862970136).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "subject:people_or_event:president"
+    ]
+   },
+   {
+    "key": "KOCIS Korea President Park MMCA 02 (10863073124).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "subject:people_or_event:president"
+    ]
+   },
+   {
+    "key": "KOCIS Korea President Park MMCA 03 (10863072674).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "subject:people_or_event:president"
+    ]
+   },
+   {
+    "key": "KOCIS Korea President Park MMCA 04 (10862922525).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "subject:people_or_event:president"
+    ]
+   },
+   {
+    "key": "Minister of Culture, Sports and Tourism Yu In-chon and Jeju Mayor Oh Young-hun at the National Museum of Modern and Contemporary Art in Seoul 20240611 (01).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "rights:license_not_allowed",
+     "subject:people_or_event:minister"
+    ]
+   },
+   {
+    "key": "Minister of Culture, Sports and Tourism Yu In-chon and Jeju Mayor Oh Young-hun at the National Museum of Modern and Contemporary Art in Seoul 20240611 (02).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "rights:license_not_allowed",
+     "subject:people_or_event:minister"
+    ]
+   },
+   {
+    "key": "Minister of Culture, Sports and Tourism Yu In-chon and Jeju Mayor Oh Young-hun at the National Museum of Modern and Contemporary Art in Seoul 20240611 (03).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "rights:license_not_allowed",
+     "subject:people_or_event:minister"
+    ]
+   },
+   {
+    "key": "Minister of Culture, Sports and Tourism Yu In-chon and Jeju Mayor Oh Young-hun at the National Museum of Modern and Contemporary Art in Seoul 20240611 (04).jpg",
+    "project": "SEOUL025",
+    "reasons": [
+     "rights:license_not_allowed",
+     "subject:people_or_event:minister"
+    ]
+   },
+   {
+    "key": "img-fd116bd26c89",
+    "project": "SEOUL025",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:people"
+    ]
+   },
+   {
+    "key": "img-ab5f2f69a669",
+    "project": "Q15076316",
+    "reasons": [
+     "identity_unproven",
+     "subject:person:people"
+    ]
+   },
+   {
+    "key": "img-c44cc13be265",
+    "project": "Q15076316",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work",
+     "subject:person:people"
+    ]
+   },
+   {
+    "key": "Korea President Park Kansong Culture Exhibition 01 (14324130250).jpg",
+    "project": "SEOUL006",
+    "reasons": [
+     "subject:people_or_event:president"
+    ]
+   },
+   {
     "key": "7TH Asia-Europe Culture Minister’s Meeting 27869172815 5d625ae04b o.jpg",
     "project": "REG-KR-0019",
     "reasons": [
@@ -14396,99 +14496,6 @@
     "key": "Culture Minister Meeting 05 (15369674778).jpg",
     "project": "REG-KR-0019",
     "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 06 (15369795547).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 07 (15369792747).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 08 (14935042194).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 09 (14935038144).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "Culture Minister Meeting 10 (15369172169).jpg",
-    "project": "REG-KR-0019",
-    "reasons": [
-     "subject:people_or_event:minister"
-    ]
-   },
-   {
-    "key": "BIFF 2023 opening night.jpg",
-    "project": "REG-KR-0049",
-    "reasons": [
-     "subject:people_or_event:ceremonies"
-    ]
-   },
-   {
-    "key": "Busan Cinema Center BIFF 2023.jpg",
-    "project": "REG-KR-0049",
-    "reasons": [
-     "subject:people_or_event:ceremonies"
-    ]
-   },
-   {
-    "key": "img-e9b9acd2bcad",
-    "project": "SEOUL022",
-    "reasons": [
-     "identity_unproven",
-     "subject:person:portrait"
-    ]
-   },
-   {
-    "key": "KOCIS Korea President Park MMCA 01 (10862970136).jpg",
-    "project": "SEOUL025",
-    "reasons": [
-     "subject:people_or_event:president"
-    ]
-   },
-   {
-    "key": "KOCIS Korea President Park MMCA 02 (10863073124).jpg",
-    "project": "SEOUL025",
-    "reasons": [
-     "subject:people_or_event:president"
-    ]
-   },
-   {
-    "key": "KOCIS Korea President Park MMCA 03 (10863072674).jpg",
-    "project": "SEOUL025",
-    "reasons": [
-     "subject:people_or_event:president"
-    ]
-   },
-   {
-    "key": "KOCIS Korea President Park MMCA 04 (10862922525).jpg",
-    "project": "SEOUL025",
-    "reasons": [
-     "subject:people_or_event:president"
-    ]
-   },
-   {
-    "key": "Minister of Culture, Sports and Tourism Yu In-chon and Jeju Mayor Oh Young-hun at the National Museum of Modern and Contemporary Art in Seoul 20240611 (01).jpg",
-    "project": "SEOUL025",
-    "reasons": [
-     "rights:license_not_allowed",
      "subject:people_or_event:minister"
     ]
    }
@@ -14799,73 +14806,8 @@
    }
   ]
  },
- "removed": {
-  "project_removed": 12
- },
- "removed_examples": {
-  "project_removed": [
-   {
-    "id": "img-a349ee8f46dd",
-    "project": "Q10244",
-    "title": "Diwali festival Crackers Tamilnadu India"
-   },
-   {
-    "id": "img-9c6d5065d2a3",
-    "project": "Q10244",
-    "title": "Diwali Festival at temple 06"
-   },
-   {
-    "id": "img-88b55f51db06",
-    "project": "Q10244",
-    "title": "Diwali Festival at temple 07"
-   },
-   {
-    "id": "img-25c94b06e047",
-    "project": "Q10244",
-    "title": "Celebrating Diwali-festival of lights away from Home (India)"
-   },
-   {
-    "id": "img-47bf7d78e289",
-    "project": "Q10244",
-    "title": "Diwali Festival at temple 08"
-   },
-   {
-    "id": "img-a646dddd684f",
-    "project": "Q10244",
-    "title": "Diwali Festival at town"
-   },
-   {
-    "id": "img-141ac9be0adb",
-    "project": "Q10244",
-    "title": "Glow in Clay"
-   },
-   {
-    "id": "img-f3af8cab9290",
-    "project": "Q10244",
-    "title": "Glow of Tradition 2025"
-   },
-   {
-    "id": "img-d893cc7dae75",
-    "project": "Q10244",
-    "title": "Lanterns during Diwali Festival"
-   },
-   {
-    "id": "img-ae9ab6d5d480",
-    "project": "Q10244",
-    "title": "Diwali festival vibes"
-   },
-   {
-    "id": "img-8b316d57cab6",
-    "project": "Q10244",
-    "title": "Athirasam அதிரசம் JEG2405"
-   },
-   {
-    "id": "img-2f2a73b0c6a4",
-    "project": "Q10244",
-    "title": "Annakut at BAPS Shri Swaminarayan Mandir Chicago"
-   }
-  ]
- },
+ "removed": {},
+ "removed_examples": {},
  "schema": 1,
  "summary": {
   "cards": {
@@ -14889,16 +14831,16 @@
   "duplicates_this_run": 13,
   "images": 2807,
   "low_res_rejected": 83,
-  "mislinked_rejected": 72,
+  "mislinked_rejected": 70,
   "mislinked_removed": 0,
   "newly_added_valid": 0,
-  "person_rejected": 702,
+  "person_rejected": 695,
   "person_removed": 0,
   "portraits": 3,
-  "previous_images": 2819,
+  "previous_images": 2807,
   "rechecked_kept": 0,
   "relevance_verified": 2807,
-  "removed_total": 12
+  "removed_total": 0
  },
  "totals": {
   "by_kind": {

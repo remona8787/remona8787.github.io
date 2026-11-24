@@ -1,19 +1,26 @@
 {
- "at": "2026-11-24T17:23:50.757Z",
+ "at": "2026-11-24T22:29:34.437Z",
  "errors": [
   {
-   "http_status": 429,
-   "message": "HTTP 429",
-   "rule": "gdelt:GDELT en · media facade",
+   "http_status": null,
+   "message": "no answer within 20000 ms",
+   "rule": "gdelt:GDELT fr · media facade",
    "stage": "web_fetch",
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aenglish&mode=ArtList&format=json&maxrecords=250&timespan=5d&sort=DateDesc"
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Afrench&mode=ArtList&format=json&maxrecords=250&timespan=9d&sort=DateDesc"
   },
   {
-   "http_status": 429,
-   "message": "HTTP 429",
-   "rule": "gdelt:GDELT es · media facade",
+   "http_status": null,
+   "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
+   "rule": "gdelt:GDELT it · media facade",
    "stage": "web_fetch",
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aspanish&mode=ArtList&format=json&maxrecords=250&timespan=14d&sort=DateDesc"
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aitalian&mode=ArtList&format=json&maxrecords=250&timespan=35h&sort=DateDesc"
+  },
+  {
+   "http_status": 200,
+   "message": "response exceeded the 2097152-byte cap while streaming",
+   "rule": "rss:Dezeen",
+   "stage": "web_fetch",
+   "url": "https://www.dezeen.com/feed/"
   }
  ],
  "rules": [
@@ -26,7 +33,7 @@
    "errors": 1,
    "fetched": 0,
    "kept": 0,
-   "key": "gdelt:GDELT en · media facade",
+   "key": "gdelt:GDELT fr · media facade",
    "kind": "gdelt",
    "not_modified": false,
    "reason": null,
@@ -41,35 +48,71 @@
    "errors": 1,
    "fetched": 0,
    "kept": 0,
-   "key": "gdelt:GDELT es · media facade",
+   "key": "gdelt:GDELT it · media facade",
    "kind": "gdelt",
    "not_modified": false,
    "reason": null,
    "status": "error"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
    "key": "rss:Dezeen",
-   "next_run_at": "2026-11-24T22:09:13.110Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 10
+   },
+   "errors": 0,
+   "fetched": 10,
+   "kept": 0,
    "key": "rss:designboom",
-   "next_run_at": "2026-11-24T22:09:13.757Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 24
+   },
+   "errors": 0,
+   "fetched": 24,
+   "kept": 0,
    "key": "rss:ArchDaily",
-   "next_run_at": "2026-11-24T22:09:14.046Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 30
+   },
+   "errors": 0,
+   "fetched": 30,
+   "kept": 0,
    "key": "rss:Archinect",
-   "next_run_at": "2026-11-24T22:09:14.241Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
    "key": "rss:Creative Applications Network",
@@ -78,10 +121,19 @@
    "until": "2026-11-25T07:44:22.753Z"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 3
+   },
+   "errors": 0,
+   "fetched": 10,
+   "kept": 7,
    "key": "rss:Media Architecture Institute",
-   "next_run_at": "2026-11-24T22:09:15.020Z",
-   "reason": "not_due",
-   "status": "skipped"
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
    "key": "rss:Designboom Korea",
@@ -100,12 +152,12 @@
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT fr · media facade",
+   "key": "gdelt:GDELT en · media facade",
    "reason": "rotation",
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT it · media facade",
+   "key": "gdelt:GDELT es · media facade",
    "reason": "rotation",
    "status": "skipped"
   },
