@@ -4,7 +4,7 @@
   "count": 0,
   "examples": []
  },
- "at": "2026-11-23T23:57:24.730Z",
+ "at": "2026-11-24T06:07:44.699Z",
  "cards": {
   "all": {
    "projects": 1017,
@@ -13288,11 +13288,11 @@
   }
  ],
  "rejected": {
-  "identity": 4048,
+  "identity": 3938,
   "low_res": 83,
-  "mislinked": 71,
+  "mislinked": 68,
   "other": 1,
-  "person": 681,
+  "person": 648,
   "rights": 74
  },
  "rejected_examples": {
@@ -13918,22 +13918,6 @@
     ]
    },
    {
-    "key": "img-fcfb07a050a6",
-    "project": "REG-SG-0001",
-    "reasons": [
-     "identity_unproven",
-     "interior_unrelated_to_work"
-    ]
-   },
-   {
-    "key": "img-11defeef0689",
-    "project": "REG-SG-0001",
-    "reasons": [
-     "identity_unproven",
-     "interior_unrelated_to_work"
-    ]
-   },
-   {
     "key": "img-26a2056d7c84",
     "project": "REG-FI-0001",
     "reasons": [
@@ -14177,6 +14161,22 @@
     "reasons": [
      "identity_unproven",
      "subject:object_or_animal:food"
+    ]
+   },
+   {
+    "key": "img-f0a231992015",
+    "project": "Q131338410",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "img-4c746e68a50d",
+    "project": "Q131338414",
+    "reasons": [
+     "identity_unproven",
+     "interior_unrelated_to_work"
     ]
    }
   ],
@@ -14828,10 +14828,10 @@
   "duplicates_this_run": 13,
   "images": 2807,
   "low_res_rejected": 83,
-  "mislinked_rejected": 71,
+  "mislinked_rejected": 68,
   "mislinked_removed": 0,
   "newly_added_valid": 0,
-  "person_rejected": 681,
+  "person_rejected": 648,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2807,
