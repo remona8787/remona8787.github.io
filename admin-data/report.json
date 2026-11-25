@@ -1,7 +1,7 @@
 {
  "cache": {
-  "hits": 19819,
-  "misses": 5,
+  "hits": 19799,
+  "misses": 4,
   "sizes": {
    "commons-category": 314,
    "commons-category-item": 1251,
@@ -16,25 +16,24 @@
    "entities": 1160,
    "entities-aux": 3380,
    "labels": 91,
-   "links": 668,
+   "links": 666,
    "openverse": 842,
    "overpass": 380,
-   "quality": 1379,
+   "quality": 1380,
    "sparql": 335,
-   "visual": 2290,
+   "visual": 2291,
    "wiki-pageimages": 38,
    "wiki-pages": 590,
    "wiki-search": 76,
    "wikidata-articles": 1,
    "wikidata-search": 20
   },
-  "stale": 591,
-  "writes": 628
+  "stale": 612,
+  "writes": 649
  },
  "changes": {
   "carried_over": [],
   "changed": [
-   "Q126924742",
    "REG-TW-0001"
   ],
   "merges": [
@@ -50,7 +49,7 @@
  "counts": {
   "candidates_awaiting_review": 11,
   "carried_over": 0,
-  "changed": 2,
+  "changed": 1,
   "collected": 1652,
   "eligible": 1017,
   "excluded": 635,
@@ -5775,6 +5774,16 @@
    "reasons": [],
    "status": "applied",
    "target": "Q136085207"
+  },
+  {
+   "action": "block_image",
+   "at": "2026-11-25T15:30:00Z",
+   "by": "claude (2026-11-25 hourly check: the 14:51 collect's gallery of REG-TW-0001 read item by item)",
+   "file": "2026-11-25T15-30-001-block_image.json",
+   "note": "Not a photo of the festival: a printed Taipower Hsinchu branch notice of a 29 December 2020 power cut for the 2021 festival's works (Commons description, Solomon203). The 2021 Taiwan Lantern Festival was then called off. Delete this file to show the photo again.",
+   "reasons": [],
+   "status": "applied",
+   "target": "REG-TW-0001"
   }
  ],
  "errors": [],
@@ -5870,25 +5879,25 @@
  ],
  "http": {
   "api.openverse.org": {
-   "bytes": 769780,
-   "cached": 775,
+   "bytes": 288330,
+   "cached": 772,
    "errors": 1,
    "last_error": "HTTP 403",
-   "ms": 112447,
+   "ms": 132267,
    "not_modified": 0,
-   "ok": 34,
-   "requests": 35,
+   "ok": 37,
+   "requests": 38,
    "statuses": {
-    "200": 34,
+    "200": 37,
     "403": 1
    }
   },
   "ar.wikipedia.org": {
-   "bytes": 73,
-   "cached": 1,
+   "bytes": 975,
+   "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 614,
+   "ms": 283,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -5897,24 +5906,24 @@
    }
   },
   "commons.wikimedia.org": {
-   "bytes": 665791,
-   "cached": 811,
+   "bytes": 906708,
+   "cached": 812,
    "errors": 0,
    "last_error": null,
-   "ms": 125570,
+   "ms": 205409,
    "not_modified": 0,
-   "ok": 142,
-   "requests": 142,
+   "ok": 217,
+   "requests": 217,
    "statuses": {
-    "200": 142
+    "200": 217
    }
   },
   "de.wikipedia.org": {
-   "bytes": 3315,
+   "bytes": 1459,
    "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 1732,
+   "ms": 444,
    "not_modified": 0,
    "ok": 2,
    "requests": 2,
@@ -5923,42 +5932,40 @@
    }
   },
   "en.wikipedia.org": {
-   "bytes": 4686,
-   "cached": 4,
-   "errors": 0,
-   "last_error": null,
-   "ms": 1063,
-   "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
-   "statuses": {
-    "200": 2
-   }
-  },
-  "es.wikipedia.org": {
-   "bytes": 1516,
-   "cached": 2,
-   "errors": 0,
-   "last_error": null,
-   "ms": 1333,
-   "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
-   "statuses": {
-    "200": 2
-   }
-  },
-  "fr.wikipedia.org": {
-   "bytes": 1979,
+   "bytes": 3264,
    "cached": 3,
    "errors": 0,
    "last_error": null,
-   "ms": 1085,
+   "ms": 211,
    "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
+   "ok": 1,
+   "requests": 1,
    "statuses": {
-    "200": 2
+    "200": 1
+   }
+  },
+  "es.wikipedia.org": {
+   "bytes": 0,
+   "cached": 3,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "fr.wikipedia.org": {
+   "bytes": 379,
+   "cached": 2,
+   "errors": 0,
+   "last_error": null,
+   "ms": 229,
+   "not_modified": 0,
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
    }
   },
   "it.wikipedia.org": {
@@ -5984,24 +5991,24 @@
    "statuses": {}
   },
   "ko.wikipedia.org": {
-   "bytes": 5408,
-   "cached": 22,
+   "bytes": 8873,
+   "cached": 21,
    "errors": 0,
    "last_error": null,
-   "ms": 3067,
+   "ms": 6122,
    "not_modified": 0,
-   "ok": 4,
-   "requests": 4,
+   "ok": 7,
+   "requests": 7,
    "statuses": {
-    "200": 4
+    "200": 7
    }
   },
   "live.staticflickr.com": {
-   "bytes": 21525540,
+   "bytes": 21368310,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 2888,
+   "ms": 5028,
    "not_modified": 0,
    "ok": 122,
    "requests": 122,
@@ -6025,7 +6032,7 @@
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 1510,
+   "ms": 728,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -6034,28 +6041,28 @@
    }
   },
   "overpass-api.de": {
-   "bytes": 534,
+   "bytes": 0,
    "cached": 0,
    "errors": 1,
-   "last_error": "HTTP 502",
-   "ms": 65308,
+   "last_error": "network error: fetch failed (ECONNREFUSED)",
+   "ms": 10347,
    "not_modified": 0,
    "ok": 0,
    "requests": 1,
-   "statuses": {
-    "502": 1
-   }
+   "statuses": {}
   },
   "pl.wikipedia.org": {
-   "bytes": 0,
-   "cached": 2,
+   "bytes": 73,
+   "cached": 1,
    "errors": 0,
    "last_error": null,
-   "ms": 0,
+   "ms": 2992,
    "not_modified": 0,
-   "ok": 0,
-   "requests": 0,
-   "statuses": {}
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
   },
   "pt.wikipedia.org": {
    "bytes": 0,
@@ -6069,24 +6076,24 @@
    "statuses": {}
   },
   "query.wikidata.org": {
-   "bytes": 81134,
-   "cached": 78,
+   "bytes": 39207,
+   "cached": 110,
    "errors": 0,
    "last_error": null,
-   "ms": 205154,
+   "ms": 61162,
    "not_modified": 0,
-   "ok": 57,
-   "requests": 57,
+   "ok": 20,
+   "requests": 20,
    "statuses": {
-    "200": 57
+    "200": 20
    }
   },
   "ru.wikipedia.org": {
-   "bytes": 4701,
+   "bytes": 716,
    "cached": 1,
    "errors": 0,
    "last_error": null,
-   "ms": 622,
+   "ms": 283,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -6095,29 +6102,29 @@
    }
   },
   "thumb.wikimedia.org": {
-   "bytes": 13084559,
+   "bytes": 13180163,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 11039,
+   "ms": 31520,
    "not_modified": 0,
-   "ok": 420,
-   "requests": 420,
+   "ok": 419,
+   "requests": 419,
    "statuses": {
-    "200": 420
+    "200": 419
    }
   },
   "tr.wikipedia.org": {
-   "bytes": 18169,
-   "cached": 2,
+   "bytes": 899,
+   "cached": 3,
    "errors": 0,
    "last_error": null,
-   "ms": 1337,
+   "ms": 198,
    "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
+   "ok": 1,
+   "requests": 1,
    "statuses": {
-    "200": 2
+    "200": 1
    }
   },
   "upload.wikimedia.org": {
@@ -6125,7 +6132,7 @@
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 280,
+   "ms": 480,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -6134,16 +6141,16 @@
    }
   },
   "www.wikidata.org": {
-   "bytes": 863574,
-   "cached": 18,
+   "bytes": 656583,
+   "cached": 20,
    "errors": 0,
    "last_error": null,
-   "ms": 8160,
+   "ms": 8485,
    "not_modified": 0,
-   "ok": 9,
-   "requests": 9,
+   "ok": 8,
+   "requests": 8,
    "statuses": {
-    "200": 9
+    "200": 8
    }
   },
   "zh.wikipedia.org": {
@@ -6182,14 +6189,14 @@
   "low_res_rejected": 83,
   "mislinked_rejected": 71,
   "mislinked_removed": 0,
-  "newly_added_valid": 0,
+  "newly_added_valid": 1,
   "person_rejected": 703,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2807,
   "rechecked_kept": 0,
   "relevance_verified": 2807,
-  "removed_total": 0
+  "removed_total": 1
  },
  "image_inventory": {
   "all": {
@@ -6681,14 +6688,15 @@
     "2026-11-13T05-00-116-block_image.json",
     "2026-11-13T05-00-117-block_image.json",
     "2026-11-13T05-00-118-block_image.json",
-    "2026-11-13T05-00-119-block_image.json"
+    "2026-11-13T05-00-119-block_image.json",
+    "2026-11-25T15-30-001-block_image.json"
    ],
-   "image_decisions_applied": 438,
+   "image_decisions_applied": 439,
    "lost": [],
    "net": 0,
    "new_image_approvals": 0,
-   "new_image_decisions": 0,
-   "previous_at": "2026-11-25T08:41:06.042Z",
+   "new_image_decisions": 1,
+   "previous_at": "2026-11-25T14:51:23.452Z",
    "previous_representative": 343
   },
   "definition": "representative = a project with at least one photo of grade A or B (rights, identity and quality per art-photo-policy.js); rate = representative / published projects; grade C context photos never count",
@@ -6824,10 +6832,10 @@
    "review-openverse-03.jpg"
   ],
   "depicts_errors": 0,
-  "depicts_searches": 20,
+  "depicts_searches": 16,
   "duplicates": 13,
   "hero": 4,
-  "identity_rejected": 4400,
+  "identity_rejected": 4398,
   "institution_context": 103,
   "kept_demoted_context": 0,
   "kept_dropped_irrelevant": 0,
@@ -6835,11 +6843,11 @@
   "kept_dropped_unverified": 0,
   "kept_previous": 0,
   "measure_errors": 0,
-  "measured": 2,
+  "measured": 1,
   "none": 636,
   "openverse_rate_limit": {
-   "x-ratelimit-available-anon_burst": 19,
-   "x-ratelimit-available-anon_sustained": 197
+   "x-ratelimit-available-anon_burst": 85,
+   "x-ratelimit-available-anon_sustained": 963
   },
   "pageimage_projects": 5,
   "pageimage_requests": 5,
@@ -6849,10 +6857,10 @@
    "openverse": 1
   },
   "provider_new_requests": {
-   "openverse": 35
+   "openverse": 38
   },
   "provider_rejected": {
-   "openverse:identity_unproven": 4400,
+   "openverse:identity_unproven": 4398,
    "openverse:interior_unrelated_to_work": 34,
    "openverse:name": 46,
    "openverse:rights": 36,
@@ -6877,7 +6885,7 @@
   },
   "review_tiles": 120,
   "review_waiting": 142,
-  "thumbnails_fetched": 2
+  "thumbnails_fetched": 1
  },
  "invalid_records": [],
  "places": {
@@ -6986,13 +6994,13 @@
  },
  "run": {
   "budget_minutes": 35,
-  "build_id": "20261125T145123Z-6967db61",
+  "build_id": "20261125T210156Z-94e15936",
   "drop_guard": null,
-  "duration_ms": 941168,
-  "finished_at": "2026-11-25T15:07:04.620Z",
-  "number": 187,
+  "duration_ms": 675267,
+  "finished_at": "2026-11-25T21:13:11.851Z",
+  "number": 188,
   "publish": "published",
-  "started_at": "2026-11-25T14:51:23.452Z",
+  "started_at": "2026-11-25T21:01:56.584Z",
   "status": "partial",
   "user_agent": "LightArchitectureArchive/0.18 (+https://remona8787.github.io/; remona56@hanmail.net)",
   "validation_errors": []
@@ -7001,11 +7009,11 @@
  "sources": {
   "commons": {
    "consecutive_failures": 0,
-   "duration_ms": 11553,
+   "duration_ms": 45906,
    "errors": [],
    "items": 381,
    "korea_items": 4,
-   "last_success": "2026-11-25T14:51:23.452Z",
+   "last_success": "2026-11-25T21:01:56.584Z",
    "status": "ok",
    "warnings": []
   },
@@ -7013,23 +7021,23 @@
    "consecutive_failures": 0,
    "errors": [],
    "items": 370,
-   "last_success": "2026-11-25T14:51:23.452Z",
+   "last_success": "2026-11-25T21:01:56.584Z",
    "status": "ok"
   },
   "enrich": {
    "consecutive_failures": 0,
-   "duration_ms": 6876,
+   "duration_ms": 5536,
    "errors": [],
    "items": 1105,
-   "last_success": "2026-11-25T14:51:23.452Z",
+   "last_success": "2026-11-25T21:01:56.584Z",
    "status": "ok"
   },
   "links": {
    "consecutive_failures": 0,
    "errors": [],
-   "from_cache": 573,
-   "items": 76,
-   "last_success": "2026-11-25T14:51:23.452Z",
+   "from_cache": 611,
+   "items": 38,
+   "last_success": "2026-11-25T21:01:56.584Z",
    "status": "ok",
    "unchecked": 0
   },
@@ -7037,7 +7045,7 @@
    "consecutive_failures": 0,
    "errors": [
     {
-     "message": "HTTP 502"
+     "message": "network error: fetch failed (ECONNREFUSED)"
     }
    ],
    "items": 1,
@@ -7046,7 +7054,7 @@
   },
   "seoul_events": {
    "consecutive_failures": 0,
-   "duration_ms": 1511,
+   "duration_ms": 730,
    "errors": [],
    "items": 0,
    "last_success": null,
@@ -7065,21 +7073,21 @@
   },
   "web": {
    "consecutive_failures": 1,
-   "duration_ms": 78785,
+   "duration_ms": 76210,
    "errors": [
     {
-     "http_status": 429,
-     "message": "HTTP 429",
-     "rule": "gdelt:GDELT pt · media facade",
+     "http_status": null,
+     "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
+     "rule": "gdelt:GDELT zh · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aportuguese&mode=ArtList&format=json&maxrecords=250&timespan=14d&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Achinese&mode=ArtList&format=json&maxrecords=250&timespan=5d&sort=DateDesc"
     },
     {
-     "http_status": 429,
-     "message": "HTTP 429",
-     "rule": "gdelt:GDELT ru · media facade",
+     "http_status": null,
+     "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
+     "rule": "gdelt:GDELT tr · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Arussian&mode=ArtList&format=json&maxrecords=250&timespan=35h&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aturkish&mode=ArtList&format=json&maxrecords=250&timespan=38h&sort=DateDesc"
     },
     {
      "http_status": 200,
@@ -7087,13 +7095,6 @@
      "rule": "rss:Dezeen",
      "stage": "web_fetch",
      "url": "https://www.dezeen.com/feed/"
-    },
-    {
-     "http_status": 404,
-     "message": "HTTP 404",
-     "rule": "rss:Designboom Korea",
-     "stage": "web_fetch",
-     "url": "https://www.designboom.com/tag/korea/feed/"
     }
    ],
    "items": 7,
@@ -7108,7 +7109,7 @@
      "errors": 1,
      "fetched": 0,
      "kept": 0,
-     "key": "gdelt:GDELT pt · media facade",
+     "key": "gdelt:GDELT zh · media facade",
      "kind": "gdelt",
      "not_modified": false,
      "reason": null,
@@ -7123,7 +7124,7 @@
      "errors": 1,
      "fetched": 0,
      "kept": 0,
-     "key": "gdelt:GDELT ru · media facade",
+     "key": "gdelt:GDELT tr · media facade",
      "kind": "gdelt",
      "not_modified": false,
      "reason": null,
@@ -7211,19 +7212,10 @@
      "status": "success"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 0
-     },
-     "errors": 1,
-     "fetched": 0,
-     "kept": 0,
      "key": "rss:Designboom Korea",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "error"
+     "reason": "backoff",
+     "status": "skipped",
+     "until": "2026-11-27T14:52:42.433Z"
     },
     {
      "key": "gdelt:GDELT ar · media facade",
@@ -7276,12 +7268,12 @@
      "status": "skipped"
     },
     {
-     "key": "gdelt:GDELT tr · media facade",
+     "key": "gdelt:GDELT pt · media facade",
      "reason": "rotation",
      "status": "skipped"
     },
     {
-     "key": "gdelt:GDELT zh · media facade",
+     "key": "gdelt:GDELT ru · media facade",
      "reason": "rotation",
      "status": "skipped"
     }
@@ -7290,55 +7282,55 @@
   },
   "wikidata": {
    "consecutive_failures": 0,
-   "duration_ms": 204465,
+   "duration_ms": 64099,
    "errors": [],
    "items": 939,
    "korea_items": 0,
    "korea_search_items": 12,
-   "last_success": "2026-11-25T14:51:23.452Z",
+   "last_success": "2026-11-25T21:01:56.584Z",
    "status": "ok"
   },
   "wikipedia": {
    "consecutive_failures": 0,
-   "duration_ms": 5563,
+   "duration_ms": 8897,
    "errors": [],
    "items": 284,
    "korea_items": 89,
-   "last_success": "2026-11-25T14:51:23.452Z",
+   "last_success": "2026-11-25T21:01:56.584Z",
    "status": "ok"
   }
  },
  "stages": {
   "contact_sheets": {
-   "duration_ms": 134073,
+   "duration_ms": 144101,
    "status": "ok"
   },
   "enrich": {
-   "duration_ms": 6876,
+   "duration_ms": 5536,
    "status": "ok"
   },
   "images": {
-   "duration_ms": 230727,
+   "duration_ms": 295228,
    "status": "ok"
   },
   "links": {
-   "duration_ms": 293526,
+   "duration_ms": 138557,
    "status": "ok"
   },
   "overpass": {
-   "duration_ms": 65310,
+   "duration_ms": 10350,
    "status": "ok"
   },
   "places": {
-   "duration_ms": 4759,
+   "duration_ms": 3171,
    "status": "ok"
   },
   "resolve": {
-   "duration_ms": 96,
+   "duration_ms": 121,
    "status": "ok"
   },
   "sources": {
-   "duration_ms": 204466,
+   "duration_ms": 76216,
    "status": "ok"
   }
  },

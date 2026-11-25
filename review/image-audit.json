@@ -1,10 +1,16 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 0,
-  "examples": []
+  "count": 1,
+  "examples": [
+   {
+    "id": "img-45df65325f32",
+    "project": "REG-TW-0001",
+    "title": "2020台灣燈會主燈9518"
+   }
+  ]
  },
- "at": "2026-11-25T14:51:23.452Z",
+ "at": "2026-11-25T21:01:56.584Z",
  "cards": {
   "all": {
    "projects": 1017,
@@ -13288,7 +13294,7 @@
   }
  ],
  "rejected": {
-  "identity": 4180,
+  "identity": 4178,
   "low_res": 83,
   "mislinked": 71,
   "other": 1,
@@ -14806,8 +14812,18 @@
    }
   ]
  },
- "removed": {},
- "removed_examples": {},
+ "removed": {
+  "not_selected": 1
+ },
+ "removed_examples": {
+  "not_selected": [
+   {
+    "id": "img-302ef900a539",
+    "project": "REG-TW-0001",
+    "title": "TPC Hsinchu Branch power cut notice 20201223"
+   }
+  ]
+ },
  "schema": 1,
  "summary": {
   "cards": {
@@ -14833,14 +14849,14 @@
   "low_res_rejected": 83,
   "mislinked_rejected": 71,
   "mislinked_removed": 0,
-  "newly_added_valid": 0,
+  "newly_added_valid": 1,
   "person_rejected": 703,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2807,
   "rechecked_kept": 0,
   "relevance_verified": 2807,
-  "removed_total": 0
+  "removed_total": 1
  },
  "totals": {
   "by_kind": {
