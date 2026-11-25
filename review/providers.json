@@ -1,6 +1,6 @@
 {
  "about": "Image provider requests of this run: TourAPI name matches, caps reached, errors (keys never appear).",
- "at": "2026-11-24T22:29:34.437Z",
+ "at": "2026-11-25T04:39:59.638Z",
  "log": [
   {
    "key": "ilmin museum outdoor media display",
@@ -9,14 +9,14 @@
    "status": "error"
   },
   {
-   "key": "canal convergence",
+   "key": "castle of light",
    "message": "HTTP 504",
    "provider": "openverse",
    "status": "error"
   },
   {
-   "key": "cumulus",
-   "message": "HTTP 504",
+   "key": "winter light exhibition",
+   "message": "no answer within 30000 ms",
    "provider": "openverse",
    "status": "error"
   },
@@ -25,32 +25,26 @@
    "message": "HTTP 504",
    "provider": "openverse",
    "status": "error"
-  },
-  {
-   "key": "light gig",
-   "message": "HTTP 504",
-   "provider": "openverse",
-   "status": "error"
   }
  ],
  "schema": 1,
  "stats": {
   "errors": {
-   "openverse": 5
+   "openverse": 4
   },
   "new_requests": {
-   "openverse": 19
+   "openverse": 31
   },
   "openverse_rate_limit": {
-   "x-ratelimit-available-anon_burst": 19,
-   "x-ratelimit-available-anon_sustained": 197
+   "x-ratelimit-available-anon_burst": 18,
+   "x-ratelimit-available-anon_sustained": 198
   },
   "rejected": {
-   "openverse:identity_unproven": 4309,
-   "openverse:interior_unrelated_to_work": 32,
-   "openverse:name": 45,
+   "openverse:identity_unproven": 4341,
+   "openverse:interior_unrelated_to_work": 31,
+   "openverse:name": 46,
    "openverse:rights": 36,
-   "openverse:subject": 634
+   "openverse:subject": 633
   },
   "requests": {
    "openverse": 810
