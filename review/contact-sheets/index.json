@@ -1,6 +1,6 @@
 {
  "about": "Contact sheets per kind (hero: hero candidates and allowlisted images; featured: featured candidates; cards: the card of each project) and provider, Korean projects first. Tile lines: #n and image id; provider and the original width x height; S sharpness B blockiness T tier V visual, then OK (approved), R? (needs an approve_image after review) or H? (hero candidate, needs hero.json/set_hero); the project id; the project name in ASCII. index.json maps every tile to its project, image id, file or source URL.",
- "generated_at": "2026-11-25T08:41:06.042Z",
+ "generated_at": "2026-11-25T14:51:23.452Z",
  "schema": 2,
  "sheets": [
   {
@@ -4247,25 +4247,6 @@
      "tier": 2,
      "visual": 63,
      "width": 3072
-    },
-    {
-     "allowlisted": false,
-     "awaiting_review": false,
-     "blockiness": 4,
-     "file": "Taiwan Lantern Festival in 2008.jpg",
-     "height": 2048,
-     "hero_candidate": true,
-     "image": "img-bdd23d3ee9e4",
-     "image_in_sheet": true,
-     "korean": false,
-     "n": 222,
-     "project": "REG-TW-0001",
-     "provider": "commons",
-     "sharpness": 100,
-     "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Taiwan_Lantern_Festival_in_2008.jpg/330px-Taiwan_Lantern_Festival_in_2008.jpg",
-     "tier": 2,
-     "visual": 80,
-     "width": 3088
     }
    ]
   },
@@ -7415,7 +7396,7 @@
    ]
   },
   {
-   "grey_tiles": 3,
+   "grey_tiles": 4,
    "kind": "featured",
    "provider": "commons",
    "sheet": "featured-commons-05.jpg",
@@ -8112,7 +8093,7 @@
      "height": 3414,
      "hero_candidate": false,
      "image": "img-2e558f8caf72",
-     "image_in_sheet": true,
+     "image_in_sheet": false,
      "korean": false,
      "n": 197,
      "project": "CAT-1OC4PEX",
@@ -9719,7 +9700,7 @@
    ]
   },
   {
-   "grey_tiles": 37,
+   "grey_tiles": 40,
    "kind": "featured",
    "provider": "commons",
    "sheet": "featured-commons-08.jpg",
@@ -10055,7 +10036,7 @@
      "height": 6024,
      "hero_candidate": false,
      "image": "img-53c27752e0c2",
-     "image_in_sheet": true,
+     "image_in_sheet": false,
      "korean": false,
      "n": 298,
      "project": "Q15140473",
@@ -10074,7 +10055,7 @@
      "height": 4022,
      "hero_candidate": false,
      "image": "img-4a719e5b3c84",
-     "image_in_sheet": true,
+     "image_in_sheet": false,
      "korean": false,
      "n": 299,
      "project": "Q15140473",
@@ -10093,7 +10074,7 @@
      "height": 2996,
      "hero_candidate": false,
      "image": "img-a131b25cc126",
-     "image_in_sheet": true,
+     "image_in_sheet": false,
      "korean": false,
      "n": 300,
      "project": "Q15140473",
@@ -11255,7 +11236,7 @@
    ]
   },
   {
-   "grey_tiles": 39,
+   "grey_tiles": 40,
    "kind": "featured",
    "provider": "commons",
    "sheet": "featured-commons-10.jpg",
@@ -11344,7 +11325,7 @@
      "height": 3376,
      "hero_candidate": false,
      "image": "img-317df4e9cc05",
-     "image_in_sheet": true,
+     "image_in_sheet": false,
      "korean": false,
      "n": 365,
      "project": "Q63319303",
@@ -12023,7 +12004,7 @@
    ]
   },
   {
-   "grey_tiles": 19,
+   "grey_tiles": 18,
    "kind": "featured",
    "provider": "commons",
    "sheet": "featured-commons-11.jpg",
@@ -12369,25 +12350,6 @@
      "tier": 2,
      "visual": 63,
      "width": 3072
-    },
-    {
-     "allowlisted": false,
-     "awaiting_review": false,
-     "blockiness": 4,
-     "file": "Taiwan Lantern Festival in 2008.jpg",
-     "height": 2048,
-     "hero_candidate": false,
-     "image": "img-bdd23d3ee9e4",
-     "image_in_sheet": false,
-     "korean": false,
-     "n": 419,
-     "project": "REG-TW-0001",
-     "provider": "commons",
-     "sharpness": 100,
-     "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Taiwan_Lantern_Festival_in_2008.jpg/330px-Taiwan_Lantern_Festival_in_2008.jpg",
-     "tier": 2,
-     "visual": 80,
-     "width": 3088
     }
    ]
   },
@@ -16278,7 +16240,7 @@
    ]
   },
   {
-   "grey_tiles": 39,
+   "grey_tiles": 40,
    "kind": "cards",
    "provider": null,
    "sheet": "cards-06.jpg",
@@ -16747,7 +16709,7 @@
      "height": 6024,
      "hero_candidate": false,
      "image": "img-53c27752e0c2",
-     "image_in_sheet": true,
+     "image_in_sheet": false,
      "korean": false,
      "n": 225,
      "project": "Q15140473",
@@ -18780,21 +18742,21 @@
     {
      "allowlisted": false,
      "awaiting_review": false,
-     "blockiness": 4,
-     "file": "Taiwan Lantern Festival in 2008.jpg",
-     "height": 2048,
+     "blockiness": 6,
+     "file": "2020台灣燈會在台中 永畫心 燈光.jpg",
+     "height": 4096,
      "hero_candidate": false,
-     "image": "img-bdd23d3ee9e4",
+     "image": "img-e8fe54bb4f24",
      "image_in_sheet": false,
      "korean": false,
      "n": 331,
      "project": "REG-TW-0001",
      "provider": "commons",
      "sharpness": 100,
-     "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Taiwan_Lantern_Festival_in_2008.jpg/330px-Taiwan_Lantern_Festival_in_2008.jpg",
+     "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/2020%E5%8F%B0%E7%81%A3%E7%87%88%E6%9C%83%E5%9C%A8%E5%8F%B0%E4%B8%AD_%E6%B0%B8%E7%95%AB%E5%BF%83_%E7%87%88%E5%85%89.jpg/330px-2020%E5%8F%B0%E7%81%A3%E7%87%88%E6%9C%83%E5%9C%A8%E5%8F%B0%E4%B8%AD_%E6%B0%B8%E7%95%AB%E5%BF%83_%E7%87%88%E5%85%89.jpg",
      "tier": 2,
-     "visual": 80,
-     "width": 3088
+     "visual": 63,
+     "width": 3072
     }
    ]
   },

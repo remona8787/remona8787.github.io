@@ -1,76 +1,10 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 13,
-  "examples": [
-   {
-    "id": "img-53c27752e0c2",
-    "project": "Q15140473",
-    "title": "Signal Festival 2023, As Water Falls 01"
-   },
-   {
-    "id": "img-a131b25cc126",
-    "project": "Q15140473",
-    "title": "Signal Festival 2023, Axis Mundi"
-   },
-   {
-    "id": "img-4a719e5b3c84",
-    "project": "Q15140473",
-    "title": "Signal Festival 2023, As Water Falls 02"
-   },
-   {
-    "id": "img-bdc77a8285c8",
-    "project": "Q15140473",
-    "title": "Signal Festival 2023, ELEKTROSALON 02"
-   },
-   {
-    "id": "img-6d075690864a",
-    "project": "Q15140473",
-    "title": "Signal Festival 2023, ELEKTROSALON 03"
-   },
-   {
-    "id": "img-83c61a8d2f40",
-    "project": "Q15140473",
-    "title": "Signal Festival 2023, ELEKTROSALON 01"
-   },
-   {
-    "id": "img-3abbf8c14561",
-    "project": "Q15140473",
-    "title": "Signal Festival 2023, ELEKTROSALON 05"
-   },
-   {
-    "id": "img-2efc68371825",
-    "project": "Q15140473",
-    "title": "Signal Festival 2023, FLUX 02"
-   },
-   {
-    "id": "img-b8974417f892",
-    "project": "Q15140473",
-    "title": "Signal Festival 2023, Immersed by the Sound"
-   },
-   {
-    "id": "img-2cba800c119c",
-    "project": "Q15140473",
-    "title": "Signal Festival 2023, Emotional memory 03"
-   },
-   {
-    "id": "img-857600b2a148",
-    "project": "Q15140473",
-    "title": "Signal Festival 2023, FLUX 01"
-   },
-   {
-    "id": "img-c00ff09a1190",
-    "project": "Q15140473",
-    "title": "Signal Festival 2023, Emotional memory 01"
-   },
-   {
-    "id": "img-bfdd694a311a",
-    "project": "Q63319303",
-    "title": "2021-10-28 19-59-55 ILCE-7C DSC05665 DxO (51677304206)"
-   }
-  ]
+  "count": 0,
+  "examples": []
  },
- "at": "2026-11-25T08:41:06.042Z",
+ "at": "2026-11-25T14:51:23.452Z",
  "cards": {
   "all": {
    "projects": 1017,
@@ -13199,7 +13133,7 @@
   {
    "card_kind": "project_media",
    "card_tier": 2,
-   "card_title": "Taiwan Lantern Festival in 2008",
+   "card_title": "2020台灣燈會在台中 永畫心 燈光",
    "id": "REG-TW-0001",
    "images": 12,
    "kr": false,
@@ -13354,11 +13288,11 @@
   }
  ],
  "rejected": {
-  "identity": 4140,
+  "identity": 4180,
   "low_res": 83,
-  "mislinked": 70,
+  "mislinked": 71,
   "other": 1,
-  "person": 691,
+  "person": 703,
   "rights": 73
  },
  "rejected_examples": {
@@ -14030,6 +13964,14 @@
     ]
    },
    {
+    "key": "img-c3789b9ad7e7",
+    "project": "Q118609716",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:poster"
+    ]
+   },
+   {
     "key": "img-3717c354dd88",
     "project": "Q100437097",
     "reasons": [
@@ -14235,14 +14177,6 @@
     "reasons": [
      "identity_unproven",
      "subject:object_or_animal:food"
-    ]
-   },
-   {
-    "key": "img-f0a231992015",
-    "project": "Q131338410",
-    "reasons": [
-     "identity_unproven",
-     "interior_unrelated_to_work"
     ]
    }
   ],
@@ -14872,81 +14806,8 @@
    }
   ]
  },
- "removed": {
-  "mislinked": 1,
-  "not_a_candidate_this_run": 12
- },
- "removed_examples": {
-  "mislinked": [
-   {
-    "id": "img-2a71984edacc",
-    "project": "Q63319303",
-    "title": "2018-02-24 23-08-28 ILCE-6500 DSC08636"
-   }
-  ],
-  "not_a_candidate_this_run": [
-   {
-    "id": "img-16a6ff9ce6d3",
-    "project": "Q15140473",
-    "title": "2022 Signal festival 05"
-   },
-   {
-    "id": "img-8beadcef34c9",
-    "project": "Q15140473",
-    "title": "2022 Signal festival 06"
-   },
-   {
-    "id": "img-57bdd2f04eeb",
-    "project": "Q15140473",
-    "title": "2022 Signal festival 15"
-   },
-   {
-    "id": "img-47025bc4a968",
-    "project": "Q15140473",
-    "title": "2022 Signal festival 16"
-   },
-   {
-    "id": "img-4e6a40f63b6e",
-    "project": "Q15140473",
-    "title": "2022 Signal festival 03"
-   },
-   {
-    "id": "img-9ae4ee5c78d7",
-    "project": "Q15140473",
-    "title": "2022 Signal festival 04"
-   },
-   {
-    "id": "img-a4d6724d4f73",
-    "project": "Q15140473",
-    "title": "2022 Signal festival 07"
-   },
-   {
-    "id": "img-23250d7bbb61",
-    "project": "Q15140473",
-    "title": "2022 Signal festival 09"
-   },
-   {
-    "id": "img-cd02436ff6ac",
-    "project": "Q15140473",
-    "title": "2022 Signal festival 10"
-   },
-   {
-    "id": "img-e25e74aeab9d",
-    "project": "Q15140473",
-    "title": "2022 Signal festival 14"
-   },
-   {
-    "id": "img-979784c25a39",
-    "project": "Q15140473",
-    "title": "2022 Signal festival 08"
-   },
-   {
-    "id": "img-ebb7582021f4",
-    "project": "Q15140473",
-    "title": "2022 Signal festival 11"
-   }
-  ]
- },
+ "removed": {},
+ "removed_examples": {},
  "schema": 1,
  "summary": {
   "cards": {
@@ -14970,16 +14831,16 @@
   "duplicates_this_run": 13,
   "images": 2807,
   "low_res_rejected": 83,
-  "mislinked_rejected": 70,
-  "mislinked_removed": 1,
-  "newly_added_valid": 13,
-  "person_rejected": 691,
+  "mislinked_rejected": 71,
+  "mislinked_removed": 0,
+  "newly_added_valid": 0,
+  "person_rejected": 703,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2807,
   "rechecked_kept": 0,
   "relevance_verified": 2807,
-  "removed_total": 13
+  "removed_total": 0
  },
  "totals": {
   "by_kind": {
