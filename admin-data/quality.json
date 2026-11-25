@@ -10,8 +10,8 @@
    "url": "https://www.rhs.org.uk/press/releases/rhs-glow-shines-brighter-for-2026-with-40-new-ligh"
   },
   {
-   "checked_at": "2026-11-24T10:10:29.650Z",
-   "consecutive_failures": 13,
+   "checked_at": "2026-11-25T08:53:00.574Z",
+   "consecutive_failures": 14,
    "field": "official_url",
    "http_status": null,
    "project": "CAT-1BGZX8T",
@@ -136,8 +136,8 @@
    "url": "http://theilluminator.org/edward-snowden-hologram"
   },
   {
-   "checked_at": "2026-11-24T06:23:01.754Z",
-   "consecutive_failures": 11,
+   "checked_at": "2026-11-25T08:52:34.566Z",
+   "consecutive_failures": 12,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-AU-0002",
@@ -188,15 +188,6 @@
    "project": "REG-DE-0002",
    "reason": "HTTP 404",
    "url": "https://lichtrouten.de/en/open-call-sponsoring/"
-  },
-  {
-   "checked_at": "2026-11-24T10:09:06.683Z",
-   "consecutive_failures": 1,
-   "field": "source:curated:source",
-   "http_status": null,
-   "project": "REG-EC-0001",
-   "reason": "robots_unreachable",
-   "url": "https://www.quitoinforma.gob.ec/tag/fiesta-de-la-luz-2018"
   },
   {
    "checked_at": "2026-11-24T06:23:05.674Z",
@@ -289,8 +280,8 @@
    "url": "https://www.city.osaka.lg.jp/keizaisenryaku/cmsfiles/contents/0000664/664217/renaissance.pdf"
   },
   {
-   "checked_at": "2026-11-24T10:10:33.824Z",
-   "consecutive_failures": 15,
+   "checked_at": "2026-11-25T08:53:08.733Z",
+   "consecutive_failures": 16,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "REG-KR-0015",
@@ -352,8 +343,8 @@
    "url": "https://culture.seoul.go.kr/culture/culture/cultureEvent/view.do?cultcode=154841&menuNo=200008"
   },
   {
-   "checked_at": "2026-11-24T10:10:31.280Z",
-   "consecutive_failures": 14,
+   "checked_at": "2026-11-25T08:53:04.953Z",
+   "consecutive_failures": 15,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "REG-KR-0062",
@@ -361,8 +352,8 @@
    "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=4a5e4431-b885-4ed7-9108-5eb7b3006ca9"
   },
   {
-   "checked_at": "2026-11-24T10:10:34.872Z",
-   "consecutive_failures": 15,
+   "checked_at": "2026-11-25T08:53:09.897Z",
+   "consecutive_failures": 16,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "REG-KR-0069",
@@ -469,8 +460,8 @@
    "url": "https://www.songpa.go.kr/culture/detailInfo.do?key=3796&resrceCd=CT0155-1030773"
   },
   {
-   "checked_at": "2026-11-24T10:10:54.872Z",
-   "consecutive_failures": 15,
+   "checked_at": "2026-11-25T08:53:29.898Z",
+   "consecutive_failures": 16,
    "field": "source:curated:source",
    "http_status": null,
    "project": "REG-KR-0150",
@@ -478,8 +469,8 @@
    "url": "https://www.siheung.go.kr//cultour/contents.do?mId=0203010000"
   },
   {
-   "checked_at": "2026-11-24T10:10:02.441Z",
-   "consecutive_failures": 13,
+   "checked_at": "2026-11-25T08:52:58.558Z",
+   "consecutive_failures": 14,
    "field": "source:curated:check1",
    "http_status": null,
    "project": "REG-KR-0161",
@@ -640,8 +631,8 @@
    "url": "https://www.wesgro.co.za/travel/events/africas-first-festival-of-light-to-debut-in-cape-town"
   },
   {
-   "checked_at": "2026-11-24T10:10:33.396Z",
-   "consecutive_failures": 36,
+   "checked_at": "2026-11-25T08:53:07.506Z",
+   "consecutive_failures": 37,
    "field": "official_url",
    "http_status": null,
    "project": "SEOUL006",
@@ -694,8 +685,8 @@
    "url": "https://english.visitseoul.net/City-Hall-Area/Seoul-Hall-of-Urbanism--Architecture/ENP034149"
   },
   {
-   "checked_at": "2026-11-24T10:10:30.815Z",
-   "consecutive_failures": 35,
+   "checked_at": "2026-11-25T08:53:03.960Z",
+   "consecutive_failures": 36,
    "field": "official_url",
    "http_status": 404,
    "project": "SEOUL033",
@@ -757,7 +748,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261125T043959Z-07b00244",
+ "build_id": "20261125T084106Z-1efc74d1",
  "coordinate_checks": [
   {
    "distance_m": 7576,
@@ -8216,14 +8207,14 @@
    ]
   }
  ],
- "generated_at": "2026-11-25T04:39:59.638Z",
+ "generated_at": "2026-11-25T08:41:06.042Z",
  "image_rejections": {
   "extreme_aspect": 26,
-  "interior_unrelated_to_work": 5,
+  "interior_unrelated_to_work": 6,
   "missing_file": 1,
   "rights:foreign_no_freedom_of_panorama": 4,
   "rights:license_not_allowed": 40,
-  "subject:object_or_animal": 17,
+  "subject:object_or_animal": 15,
   "subject:people_or_event": 62,
   "subject:person": 8,
   "too_small": 63
@@ -10036,8 +10027,7 @@
    "refused": {},
    "searched": [
     "commons_p18",
-    "commons_depicts",
-    "openverse"
+    "commons_depicts"
    ],
    "searched_this_run": true
   },
@@ -11955,7 +11945,8 @@
    "refused": {},
    "searched": [
     "commons_p18",
-    "commons_depicts"
+    "commons_depicts",
+    "openverse"
    ],
    "searched_this_run": true
   },
@@ -12126,8 +12117,7 @@
    "refused": {},
    "searched": [
     "commons_p18",
-    "commons_depicts",
-    "openverse"
+    "commons_depicts"
    ],
    "searched_this_run": true
   },
@@ -14272,7 +14262,8 @@
    "project_type": "projection_mapping",
    "refused": {},
    "searched": [
-    "commons_p18"
+    "commons_p18",
+    "openverse"
    ],
    "searched_this_run": true
   },
@@ -15008,8 +14999,7 @@
    "searched": [
     "commons_p18",
     "wikipedia_lead_image",
-    "commons_depicts",
-    "openverse"
+    "commons_depicts"
    ],
    "searched_this_run": true
   },

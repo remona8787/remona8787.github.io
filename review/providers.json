@@ -1,6 +1,6 @@
 {
  "about": "Image provider requests of this run: TourAPI name matches, caps reached, errors (keys never appear).",
- "at": "2026-11-25T04:39:59.638Z",
+ "at": "2026-11-25T08:41:06.042Z",
  "log": [
   {
    "key": "ilmin museum outdoor media display",
@@ -9,19 +9,31 @@
    "status": "error"
   },
   {
-   "key": "castle of light",
+   "key": "공산성",
+   "message": "HTTP 504",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
+   "key": "nam june paik art center",
    "message": "HTTP 504",
    "provider": "openverse",
    "status": "error"
   },
   {
    "key": "winter light exhibition",
-   "message": "no answer within 30000 ms",
+   "message": "HTTP 504",
    "provider": "openverse",
    "status": "error"
   },
   {
-   "key": "digital weekender",
+   "key": "the colloquy of mobiles",
+   "message": "HTTP 504",
+   "provider": "openverse",
+   "status": "error"
+  },
+  {
+   "key": "notebooks 14",
    "message": "HTTP 504",
    "provider": "openverse",
    "status": "error"
@@ -30,21 +42,21 @@
  "schema": 1,
  "stats": {
   "errors": {
-   "openverse": 4
+   "openverse": 6
   },
   "new_requests": {
-   "openverse": 31
+   "openverse": 21
   },
   "openverse_rate_limit": {
-   "x-ratelimit-available-anon_burst": 18,
-   "x-ratelimit-available-anon_sustained": 198
+   "x-ratelimit-available-anon_burst": 19,
+   "x-ratelimit-available-anon_sustained": 199
   },
   "rejected": {
-   "openverse:identity_unproven": 4341,
-   "openverse:interior_unrelated_to_work": 31,
-   "openverse:name": 46,
+   "openverse:identity_unproven": 4347,
+   "openverse:interior_unrelated_to_work": 33,
+   "openverse:name": 45,
    "openverse:rights": 36,
-   "openverse:subject": 633
+   "openverse:subject": 630
   },
   "requests": {
    "openverse": 810
