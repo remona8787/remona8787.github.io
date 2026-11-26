@@ -1,19 +1,19 @@
 {
  "schema": 1,
  "site": "https://remona8787.github.io/",
- "started_at": "2026-11-26T14:53:22.058Z",
- "finished_at": "2026-11-26T14:54:45.463Z",
+ "started_at": "2026-11-26T21:00:54.277Z",
+ "finished_at": "2026-11-26T21:02:29.452Z",
  "expected": {
   "build_id": "20261126T031215Z-9ec79170",
-  "deploy_id": "f7516b0e1617"
+  "deploy_id": "70a6d232b305"
  },
  "wait": {
   "ok": true,
-  "waited_ms": 471,
+  "waited_ms": 164,
   "attempts": 1,
   "live": {
-   "deploy_id": "f7516b0e1617",
-   "deployed_at": "2026-11-26T14:51:37.469Z",
+   "deploy_id": "70a6d232b305",
+   "deployed_at": "2026-11-26T20:59:50.343Z",
    "source": "c6e3d2a29b1d4d6f41c6dabb6d4452c4164fc8d2",
    "dataset": "data_branch",
    "build_id": "20261126T031215Z-9ec79170",
@@ -53,46 +53,46 @@
    "failed": [],
    "community_posts": 0
   },
-  "max_lcp_ms": 2120,
+  "max_lcp_ms": 988,
   "lcp_ms": {
-   "mobile-home": 2120,
-   "mobile-explore": 1108,
-   "mobile-map": 636,
-   "mobile-detail": 2020,
-   "mobile-place-SEOUL006": 1036,
-   "mobile-data": 612,
-   "mobile-community": 1552,
-   "mobile-account": 600,
-   "mobile-admin": 248,
-   "desktop-home": 788,
-   "desktop-explore": 1680,
-   "desktop-map": 700,
-   "desktop-detail": 1096,
-   "desktop-place-SEOUL006": 1128,
-   "desktop-data": 716,
-   "desktop-community": 640,
-   "desktop-account": 672,
-   "desktop-admin": 248
+   "mobile-home": 988,
+   "mobile-explore": 648,
+   "mobile-map": 380,
+   "mobile-detail": 448,
+   "mobile-place-SEOUL006": 560,
+   "mobile-data": 568,
+   "mobile-community": 292,
+   "mobile-account": 328,
+   "mobile-admin": 112,
+   "desktop-home": 372,
+   "desktop-explore": 648,
+   "desktop-map": 352,
+   "desktop-detail": 548,
+   "desktop-place-SEOUL006": 640,
+   "desktop-data": 344,
+   "desktop-community": 308,
+   "desktop-account": 404,
+   "desktop-admin": 136
   },
   "transfer_bytes": {
-   "mobile-home": 6315635,
-   "mobile-explore": 10757448,
-   "mobile-map": 1925941,
-   "mobile-detail": 1756316,
-   "mobile-place-SEOUL006": 1178817,
-   "mobile-data": 853369,
-   "mobile-community": 671068,
-   "mobile-account": 668805,
-   "mobile-admin": 339829,
-   "desktop-home": 7189897,
-   "desktop-explore": 10178928,
-   "desktop-map": 1976025,
-   "desktop-detail": 2245579,
-   "desktop-place-SEOUL006": 1226290,
-   "desktop-data": 853627,
-   "desktop-community": 671069,
-   "desktop-account": 668829,
-   "desktop-admin": 339854
+   "mobile-home": 6315956,
+   "mobile-explore": 10757339,
+   "mobile-map": 1925896,
+   "mobile-detail": 1758569,
+   "mobile-place-SEOUL006": 1175475,
+   "mobile-data": 853503,
+   "mobile-community": 671049,
+   "mobile-account": 668770,
+   "mobile-admin": 339883,
+   "desktop-home": 7189748,
+   "desktop-explore": 10178729,
+   "desktop-map": 1975863,
+   "desktop-detail": 2246190,
+   "desktop-place-SEOUL006": 1227729,
+   "desktop-data": 853539,
+   "desktop-community": 671097,
+   "desktop-account": 668732,
+   "desktop-admin": 339867
   },
   "home_loads_index": false,
   "home_lcp_image_px": {
@@ -203,36 +203,36 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 2120,
+    "ms": 988,
     "size": 236992,
     "element": "img.hero-img",
     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/%EB%B3%B4%EC%84%B1%EC%B0%A8%EB%B0%AD_%EB%B9%9B_%EC%B6%95%EC%A0%9C_%2811%29.jpg/960px-%EB%B3%B4%EC%84%B1%EC%B0%A8%EB%B0%AD_%EB%B9%9B_%EC%B6%95%EC%A0%9C_%2811%29.jpg"
    },
    "timings": {
-    "ttfb_ms": 131,
-    "dom_content_loaded_ms": 1679,
-    "load_ms": 1679
+    "ttfb_ms": 59,
+    "dom_content_loaded_ms": 851,
+    "load_ms": 1037
    },
    "transfer": {
-    "total_bytes": 6315635,
+    "total_bytes": 6315956,
     "requests": 57,
     "by_type": {
-     "document": 17566,
-     "image": 5555019,
-     "stylesheet": 45952,
-     "script": 310262,
-     "font": 336656,
-     "fetch": 50180
+     "document": 17564,
+     "image": 5555571,
+     "stylesheet": 45736,
+     "script": 310338,
+     "font": 336882,
+     "fetch": 49865
     }
    },
    "data_files": [
     {
      "path": "data/home.json",
-     "bytes": 20681
+     "bytes": 20678
     },
     {
      "path": "data/status.json",
-     "bytes": 772
+     "bytes": 809
     }
    ],
    "broken_images": 0,
@@ -252,36 +252,36 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 1108,
+    "ms": 648,
     "size": 21399,
-    "element": null,
-    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Busan_Cinema_Center_at_BIFF_2020_-_05.jpg/500px-Busan_Cinema_Center_at_BIFF_2020_-_05.jpg"
+    "element": "img",
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/-include_red%2C_75x16m_1%2C200%E3%8E%A1%282017%29_GRAYCODE%2C_jiiiiin.png/500px--include_red%2C_75x16m_1%2C200%E3%8E%A1%282017%29_GRAYCODE%2C_jiiiiin.png"
    },
    "timings": {
-    "ttfb_ms": 52,
-    "dom_content_loaded_ms": 794,
-    "load_ms": 800
+    "ttfb_ms": 15,
+    "dom_content_loaded_ms": 431,
+    "load_ms": 435
    },
    "transfer": {
-    "total_bytes": 10757448,
+    "total_bytes": 10757339,
     "requests": 70,
     "by_type": {
-     "document": 17565,
-     "stylesheet": 45755,
-     "image": 9843800,
-     "script": 310108,
-     "font": 449589,
-     "fetch": 90631
+     "document": 17561,
+     "stylesheet": 45716,
+     "image": 9843587,
+     "script": 310443,
+     "font": 449402,
+     "fetch": 90630
     }
    },
    "data_files": [
     {
      "path": "data/index.json",
-     "bytes": 60297
+     "bytes": 60298
     },
     {
      "path": "data/manifest.json",
-     "bytes": 1637
+     "bytes": 1635
     }
    ],
    "broken_images": 0,
@@ -301,36 +301,36 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 636,
+    "ms": 380,
     "size": 10792,
     "element": "p",
     "url": null
    },
    "timings": {
-    "ttfb_ms": 56,
-    "dom_content_loaded_ms": 713,
-    "load_ms": 718
+    "ttfb_ms": 15,
+    "dom_content_loaded_ms": 427,
+    "load_ms": 430
    },
    "transfer": {
-    "total_bytes": 1925941,
+    "total_bytes": 1925896,
     "requests": 77,
     "by_type": {
-     "document": 17566,
-     "stylesheet": 49575,
-     "image": 965071,
-     "script": 353300,
-     "font": 449758,
-     "fetch": 90671
+     "document": 17563,
+     "image": 964991,
+     "stylesheet": 49603,
+     "script": 353333,
+     "font": 449753,
+     "fetch": 90653
     }
    },
    "data_files": [
     {
      "path": "data/index.json",
-     "bytes": 60297
+     "bytes": 60298
     },
     {
      "path": "data/manifest.json",
-     "bytes": 1638
+     "bytes": 1637
     }
    ],
    "broken_images": 0,
@@ -350,40 +350,40 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 2020,
+    "ms": 448,
     "size": 114075,
     "element": null,
     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/%EB%B3%B4%EC%84%B1%EC%B0%A8%EB%B0%AD_%EB%B9%9B_%EC%B6%95%EC%A0%9C_%2811%29.jpg/960px-%EB%B3%B4%EC%84%B1%EC%B0%A8%EB%B0%AD_%EB%B9%9B_%EC%B6%95%EC%A0%9C_%2811%29.jpg"
    },
    "timings": {
-    "ttfb_ms": 112,
-    "dom_content_loaded_ms": 1557,
-    "load_ms": 1559
+    "ttfb_ms": 12,
+    "dom_content_loaded_ms": 227,
+    "load_ms": 228
    },
    "transfer": {
-    "total_bytes": 1756316,
-    "requests": 66,
+    "total_bytes": 1758569,
+    "requests": 68,
     "by_type": {
-     "document": 17566,
-     "image": 854177,
-     "script": 310053,
-     "stylesheet": 45730,
-     "font": 342880,
-     "fetch": 185910
+     "document": 17564,
+     "stylesheet": 45722,
+     "image": 854682,
+     "script": 310278,
+     "font": 342828,
+     "fetch": 187495
     }
    },
    "data_files": [
     {
      "path": "data/index.json",
-     "bytes": 60297
+     "bytes": 60299
     },
     {
      "path": "data/manifest.json",
-     "bytes": 1637
+     "bytes": 1636
     },
     {
      "path": "data/projects/003.json",
-     "bytes": 85496
+     "bytes": 85458
     }
    ],
    "broken_images": 0,
@@ -428,40 +428,40 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 1036,
+    "ms": 560,
     "size": 114075,
-    "element": null,
+    "element": "div.card-art.detail-art",
     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/Dongdaemun_Design_Plaza_-_DDP2376.jpg/960px-Dongdaemun_Design_Plaza_-_DDP2376.jpg"
    },
    "timings": {
-    "ttfb_ms": 47,
-    "dom_content_loaded_ms": 730,
-    "load_ms": 748
+    "ttfb_ms": 21,
+    "dom_content_loaded_ms": 366,
+    "load_ms": 377
    },
    "transfer": {
-    "total_bytes": 1178817,
-    "requests": 68,
+    "total_bytes": 1175475,
+    "requests": 64,
     "by_type": {
-     "document": 17565,
-     "stylesheet": 45755,
-     "image": 297160,
-     "script": 309875,
-     "font": 317603,
-     "fetch": 190859
+     "document": 17563,
+     "stylesheet": 45715,
+     "image": 297152,
+     "script": 310113,
+     "font": 317349,
+     "fetch": 187583
     }
    },
    "data_files": [
     {
      "path": "data/index.json",
-     "bytes": 60296
+     "bytes": 60298
     },
     {
      "path": "data/manifest.json",
-     "bytes": 1637
+     "bytes": 1636
     },
     {
      "path": "data/projects/003.json",
-     "bytes": 85502
+     "bytes": 85457
     }
    ],
    "broken_images": 0,
@@ -507,26 +507,26 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 612,
+    "ms": 568,
     "size": 18232,
     "element": "p.section-note",
     "url": null
    },
    "timings": {
-    "ttfb_ms": 47,
-    "dom_content_loaded_ms": 690,
-    "load_ms": 693
+    "ttfb_ms": 37,
+    "dom_content_loaded_ms": 671,
+    "load_ms": 673
    },
    "transfer": {
-    "total_bytes": 853369,
+    "total_bytes": 853503,
     "requests": 54,
     "by_type": {
-     "document": 17567,
-     "stylesheet": 45754,
-     "image": 3405,
-     "script": 309898,
-     "font": 362149,
-     "fetch": 114596
+     "document": 17563,
+     "image": 3431,
+     "stylesheet": 45736,
+     "script": 309655,
+     "font": 362240,
+     "fetch": 114878
     }
    },
    "data_files": [
@@ -536,7 +536,7 @@
     },
     {
      "path": "data/index.json",
-     "bytes": 60298
+     "bytes": 60299
     },
     {
      "path": "data/manifest.json",
@@ -544,11 +544,11 @@
     },
     {
      "path": "data/research/latest.json",
-     "bytes": 1428
+     "bytes": 1378
     },
     {
      "path": "data/status.json",
-     "bytes": 810
+     "bytes": 792
     }
    ],
    "broken_images": 0,
@@ -568,32 +568,32 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 1552,
+    "ms": 292,
     "size": 29664,
     "element": "p",
     "url": null
    },
    "timings": {
-    "ttfb_ms": 115,
-    "dom_content_loaded_ms": 1574,
-    "load_ms": 1575
+    "ttfb_ms": 12,
+    "dom_content_loaded_ms": 276,
+    "load_ms": 277
    },
    "transfer": {
-    "total_bytes": 671068,
+    "total_bytes": 671049,
     "requests": 47,
     "by_type": {
-     "document": 17566,
-     "stylesheet": 45742,
-     "image": 3466,
-     "script": 309971,
-     "font": 261592,
-     "fetch": 32731
+     "document": 17562,
+     "stylesheet": 45716,
+     "image": 3176,
+     "script": 310045,
+     "font": 261803,
+     "fetch": 32747
     }
    },
    "data_files": [
     {
      "path": "data/manifest.json",
-     "bytes": 1636
+     "bytes": 1635
     }
    ],
    "broken_images": 0,
@@ -620,26 +620,26 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 600,
+    "ms": 328,
     "size": 13596,
-    "element": null,
+    "element": "p.muted",
     "url": null
    },
    "timings": {
-    "ttfb_ms": 40,
-    "dom_content_loaded_ms": 497,
-    "load_ms": 511
+    "ttfb_ms": 9,
+    "dom_content_loaded_ms": 267,
+    "load_ms": 275
    },
    "transfer": {
-    "total_bytes": 668805,
+    "total_bytes": 668770,
     "requests": 44,
     "by_type": {
-     "document": 17565,
-     "stylesheet": 45734,
-     "image": 3418,
-     "script": 309825,
-     "font": 261908,
-     "fetch": 30355
+     "document": 17562,
+     "image": 3223,
+     "stylesheet": 45927,
+     "script": 309862,
+     "font": 261835,
+     "fetch": 30361
     }
    },
    "data_files": [
@@ -670,25 +670,25 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 248,
+    "ms": 112,
     "size": 20085,
     "element": "p.muted",
     "url": null
    },
    "timings": {
-    "ttfb_ms": 95,
-    "dom_content_loaded_ms": 409,
-    "load_ms": 410
+    "ttfb_ms": 32,
+    "dom_content_loaded_ms": 193,
+    "load_ms": 193
    },
    "transfer": {
-    "total_bytes": 339829,
+    "total_bytes": 339883,
     "requests": 18,
     "by_type": {
-     "document": 6291,
-     "stylesheet": 20077,
-     "image": 2432,
-     "script": 102949,
-     "font": 208080
+     "document": 6290,
+     "stylesheet": 20061,
+     "image": 2444,
+     "script": 102989,
+     "font": 208099
     }
    },
    "data_files": [],
@@ -709,36 +709,36 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 788,
+    "ms": 372,
     "size": 33394,
     "element": "h1.hero-title",
     "url": null
    },
    "timings": {
-    "ttfb_ms": 54,
-    "dom_content_loaded_ms": 788,
-    "load_ms": 788
+    "ttfb_ms": 14,
+    "dom_content_loaded_ms": 410,
+    "load_ms": 410
    },
    "transfer": {
-    "total_bytes": 7189897,
+    "total_bytes": 7189748,
     "requests": 57,
     "by_type": {
-     "document": 17565,
-     "stylesheet": 45757,
-     "image": 6429458,
-     "script": 309880,
-     "font": 337058,
-     "fetch": 50179
+     "document": 17562,
+     "image": 6429140,
+     "stylesheet": 45716,
+     "script": 310279,
+     "font": 336847,
+     "fetch": 50204
     }
    },
    "data_files": [
     {
      "path": "data/home.json",
-     "bytes": 20681
+     "bytes": 20680
     },
     {
      "path": "data/status.json",
-     "bytes": 795
+     "bytes": 792
     }
    ],
    "broken_images": 0,
@@ -758,36 +758,36 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 1680,
+    "ms": 648,
     "size": 45085,
     "element": "img",
     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Banpo_Bridge_Moonlight_Rainbow_Fountain_at_night_-_2023-08-14.jpg/330px-Banpo_Bridge_Moonlight_Rainbow_Fountain_at_night_-_2023-08-14.jpg"
    },
    "timings": {
-    "ttfb_ms": 87,
-    "dom_content_loaded_ms": 1388,
-    "load_ms": 1396
+    "ttfb_ms": 16,
+    "dom_content_loaded_ms": 417,
+    "load_ms": 426
    },
    "transfer": {
-    "total_bytes": 10178928,
+    "total_bytes": 10178729,
     "requests": 64,
     "by_type": {
-     "document": 17565,
-     "image": 9423769,
-     "stylesheet": 45943,
-     "script": 309890,
-     "font": 290994,
-     "fetch": 90767
+     "document": 17562,
+     "image": 9423640,
+     "stylesheet": 45938,
+     "script": 309716,
+     "font": 291212,
+     "fetch": 90661
     }
    },
    "data_files": [
     {
      "path": "data/index.json",
-     "bytes": 60406
+     "bytes": 60297
     },
     {
      "path": "data/manifest.json",
-     "bytes": 1657
+     "bytes": 1637
     }
    ],
    "broken_images": 0,
@@ -807,36 +807,36 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 700,
+    "ms": 352,
     "size": 10830,
     "element": "p",
     "url": null
    },
    "timings": {
-    "ttfb_ms": 50,
-    "dom_content_loaded_ms": 765,
-    "load_ms": 770
+    "ttfb_ms": 12,
+    "dom_content_loaded_ms": 380,
+    "load_ms": 383
    },
    "transfer": {
-    "total_bytes": 1976025,
+    "total_bytes": 1975863,
     "requests": 85,
     "by_type": {
-     "document": 17564,
-     "stylesheet": 49700,
-     "image": 1015075,
-     "script": 353487,
-     "font": 449562,
-     "fetch": 90637
+     "document": 17562,
+     "script": 353287,
+     "stylesheet": 49623,
+     "image": 1015185,
+     "font": 449554,
+     "fetch": 90652
     }
    },
    "data_files": [
     {
      "path": "data/index.json",
-     "bytes": 60297
+     "bytes": 60298
     },
     {
      "path": "data/manifest.json",
-     "bytes": 1638
+     "bytes": 1636
     }
    ],
    "broken_images": 0,
@@ -856,32 +856,32 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 1096,
+    "ms": 548,
     "size": 332195,
-    "element": "div.card-art.detail-art",
+    "element": null,
     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/%EB%B3%B4%EC%84%B1%EC%B0%A8%EB%B0%AD_%EB%B9%9B_%EC%B6%95%EC%A0%9C_%2811%29.jpg/960px-%EB%B3%B4%EC%84%B1%EC%B0%A8%EB%B0%AD_%EB%B9%9B_%EC%B6%95%EC%A0%9C_%2811%29.jpg"
    },
    "timings": {
-    "ttfb_ms": 50,
-    "dom_content_loaded_ms": 628,
-    "load_ms": 629
+    "ttfb_ms": 12,
+    "dom_content_loaded_ms": 292,
+    "load_ms": 294
    },
    "transfer": {
-    "total_bytes": 2245579,
+    "total_bytes": 2246190,
     "requests": 79,
     "by_type": {
-     "document": 17565,
-     "stylesheet": 45754,
-     "image": 1342124,
-     "script": 309881,
-     "font": 343034,
-     "fetch": 187221
+     "document": 17563,
+     "stylesheet": 45717,
+     "image": 1342560,
+     "script": 310016,
+     "font": 342837,
+     "fetch": 187497
     }
    },
    "data_files": [
     {
      "path": "data/index.json",
-     "bytes": 60321
+     "bytes": 60297
     },
     {
      "path": "data/manifest.json",
@@ -889,7 +889,7 @@
     },
     {
      "path": "data/projects/003.json",
-     "bytes": 85501
+     "bytes": 85460
     }
    ],
    "broken_images": 0,
@@ -934,40 +934,40 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 1128,
+    "ms": 640,
     "size": 332003,
     "element": "img",
     "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/Dongdaemun_Design_Plaza_-_DDP2376.jpg/960px-Dongdaemun_Design_Plaza_-_DDP2376.jpg"
    },
    "timings": {
-    "ttfb_ms": 42,
-    "dom_content_loaded_ms": 754,
-    "load_ms": 773
+    "ttfb_ms": 13,
+    "dom_content_loaded_ms": 452,
+    "load_ms": 463
    },
    "transfer": {
-    "total_bytes": 1226290,
-    "requests": 70,
+    "total_bytes": 1227729,
+    "requests": 72,
     "by_type": {
-     "document": 17565,
-     "image": 344613,
-     "stylesheet": 45736,
-     "script": 310098,
-     "font": 317387,
-     "fetch": 190891
+     "document": 17563,
+     "stylesheet": 45957,
+     "image": 344587,
+     "script": 310048,
+     "font": 317175,
+     "fetch": 192399
     }
    },
    "data_files": [
     {
      "path": "data/index.json",
-     "bytes": 60297
+     "bytes": 60301
     },
     {
      "path": "data/manifest.json",
-     "bytes": 1657
+     "bytes": 1636
     },
     {
      "path": "data/projects/003.json",
-     "bytes": 85496
+     "bytes": 85458
     }
    ],
    "broken_images": 0,
@@ -1013,32 +1013,32 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 716,
+    "ms": 344,
     "size": 16348,
     "element": "h1.large-title",
     "url": null
    },
    "timings": {
-    "ttfb_ms": 60,
-    "dom_content_loaded_ms": 813,
-    "load_ms": 815
+    "ttfb_ms": 12,
+    "dom_content_loaded_ms": 390,
+    "load_ms": 392
    },
    "transfer": {
-    "total_bytes": 853627,
+    "total_bytes": 853539,
     "requests": 54,
     "by_type": {
-     "document": 17565,
-     "stylesheet": 45756,
-     "image": 3296,
-     "script": 309889,
-     "font": 362118,
-     "fetch": 115003
+     "document": 17562,
+     "stylesheet": 45735,
+     "image": 3207,
+     "script": 310347,
+     "font": 361801,
+     "fetch": 114887
     }
    },
    "data_files": [
     {
      "path": "data/home.json",
-     "bytes": 20418
+     "bytes": 20404
     },
     {
      "path": "data/index.json",
@@ -1046,15 +1046,15 @@
     },
     {
      "path": "data/manifest.json",
-     "bytes": 1656
+     "bytes": 1637
     },
     {
      "path": "data/research/latest.json",
-     "bytes": 1422
+     "bytes": 1365
     },
     {
      "path": "data/status.json",
-     "bytes": 842
+     "bytes": 792
     }
    ],
    "broken_images": 0,
@@ -1074,32 +1074,32 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 640,
+    "ms": 308,
     "size": 27120,
     "element": "p.page-sub",
     "url": null
    },
    "timings": {
-    "ttfb_ms": 48,
-    "dom_content_loaded_ms": 582,
-    "load_ms": 584
+    "ttfb_ms": 13,
+    "dom_content_loaded_ms": 271,
+    "load_ms": 273
    },
    "transfer": {
-    "total_bytes": 671069,
+    "total_bytes": 671097,
     "requests": 47,
     "by_type": {
-     "document": 17566,
-     "stylesheet": 45757,
-     "image": 3381,
-     "script": 309872,
-     "font": 261724,
-     "fetch": 32769
+     "document": 17563,
+     "stylesheet": 45718,
+     "script": 310075,
+     "image": 3402,
+     "font": 261550,
+     "fetch": 32789
     }
    },
    "data_files": [
     {
      "path": "data/manifest.json",
-     "bytes": 1638
+     "bytes": 1637
     }
    ],
    "broken_images": 0,
@@ -1126,32 +1126,32 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 672,
+    "ms": 404,
     "size": 21915,
     "element": "p.muted",
     "url": null
    },
    "timings": {
-    "ttfb_ms": 49,
-    "dom_content_loaded_ms": 537,
-    "load_ms": 550
+    "ttfb_ms": 13,
+    "dom_content_loaded_ms": 341,
+    "load_ms": 347
    },
    "transfer": {
-    "total_bytes": 668829,
+    "total_bytes": 668732,
     "requests": 44,
     "by_type": {
-     "document": 17566,
-     "stylesheet": 45755,
-     "image": 3287,
-     "script": 310069,
-     "font": 261806,
-     "fetch": 30346
+     "document": 17563,
+     "image": 3414,
+     "stylesheet": 45725,
+     "script": 309803,
+     "font": 261868,
+     "fetch": 30359
     }
    },
    "data_files": [
     {
      "path": "data/manifest.json",
-     "bytes": 1637
+     "bytes": 1636
     }
    ],
    "broken_images": 0,
@@ -1176,25 +1176,25 @@
    "failed_requests": [],
    "http_errors": [],
    "lcp": {
-    "ms": 248,
+    "ms": 136,
     "size": 15666,
     "element": "p.muted",
     "url": null
    },
    "timings": {
-    "ttfb_ms": 98,
-    "dom_content_loaded_ms": 448,
-    "load_ms": 448
+    "ttfb_ms": 41,
+    "dom_content_loaded_ms": 225,
+    "load_ms": 225
    },
    "transfer": {
-    "total_bytes": 339854,
+    "total_bytes": 339867,
     "requests": 18,
     "by_type": {
-     "document": 6291,
-     "stylesheet": 20191,
-     "image": 2317,
-     "script": 103158,
-     "font": 207897
+     "document": 6289,
+     "stylesheet": 20015,
+     "image": 2330,
+     "script": 103169,
+     "font": 208064
     }
    },
    "data_files": [],
