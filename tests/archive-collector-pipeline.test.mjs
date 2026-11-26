@@ -5,7 +5,8 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { PGlite } from '@electric-sql/pglite'
-import { collectRule, buildItems, validateItem, ruleState, backoffUntil, labelCounts, boundRaw, collectorLimiter } from '../edge-functions/_shared/archive/pipeline.mjs'
+import { collectRule, buildItems, validateItem, ruleState, backoffUntil, labelCounts, boundRaw, collectorLimiter, FEED_MAX_BYTES } from '../edge-functions/_shared/archive/pipeline.mjs'
+import { MAX_BYTES } from '../edge-functions/_shared/archive/http.mjs'
 import { buildAliasIndex } from '../edge-functions/_shared/archive/normalize.mjs'
 import { CLASSIFIER_VERSION } from '../edge-functions/_shared/archive/classify.mjs'
 import { SEED_RULES, SEED_KEYWORDS, GDELT_LANGUAGES } from '../edge-functions/_shared/archive/seed-rules.mjs'
@@ -100,6 +101,21 @@ test('RSS rule: positive-keyword prefilter, conditional GET validators, 304, hub
   const fb = await collectRule({ id: RULE_ID, kind: 'rss', name: 'ArchDaily', url: 'https://feeds.feedburner.com/Archdaily' }, w)
   assert.deepEqual(fb.items.map((i) => i.url), ['https://www.archdaily.com/1050001/media-facade-for-a-cultural-centre-in-rotterdam-fixture-architects'])
   assert.deepEqual(fb.websub, { hub: 'http://pubsubhubbub.appspot.com/', self: 'http://feeds.feedburner.com/Archdaily' })
+})
+
+test('a feed over the general 2 MB cap is read (Dezeen, 2026-11-26); one over the 8 MB feed cap is a too_large error', async () => {
+  const dezeen = await fixture('dezeen-rss.xml')
+  const padded = (/** @type {number} */ bytes) => dezeen.replace('<channel>', '<channel><!--' + 'x'.repeat(bytes) + '-->')
+  const w = world({
+    'https://www.dezeen.com/feed/': () => new Response(padded(3 * 1024 * 1024), { headers: { 'content-type': 'application/rss+xml' } }),
+    'https://huge.example/feed': () => new Response(padded(FEED_MAX_BYTES + 1), { headers: { 'content-type': 'application/rss+xml' } }),
+  })
+  const r = await collectRule({ id: RULE_ID, kind: 'rss', name: 'Dezeen', url: 'https://www.dezeen.com/feed/' }, w)
+  assert.deepEqual([r.status, r.fetched, r.items.length, r.errors.length], ['success', 3, 2, 0])
+  const huge = await collectRule({ id: RULE_ID, kind: 'rss', name: 'Huge', url: 'https://huge.example/feed' }, w)
+  assert.equal(huge.status, 'error')
+  assert.match(huge.errors[0].message, new RegExp(`exceeded the ${FEED_MAX_BYTES}-byte cap`))
+  assert.ok(FEED_MAX_BYTES > MAX_BYTES, 'only feeds get the larger cap')
 })
 
 test('a failing feed: error with stage and HTTP status, failure count and the spec backoff; Retry-After when longer', async () => {

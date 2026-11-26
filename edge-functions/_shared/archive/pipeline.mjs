@@ -20,6 +20,10 @@ export const MAX_RAW_BYTES = 4096
 export const NAVER_MAX_PAGES = 2
 export const BACKOFF_BASE_MS = 3600e3
 export const BACKOFF_MAX_MS = 48 * 3600e3
+// A feed is read whole before parsing. Dezeen's feed carries 50 full articles and passes the general 2 MB cap on
+// some days (5 of 7 runs from 2026-11-24 22:29 to 11-26 08:25 failed with "exceeded the 2097152-byte cap"), so
+// feeds get a larger cap of their own; every other request keeps MAX_BYTES.
+export const FEED_MAX_BYTES = 8 * 1024 * 1024
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 export const ITEM_KEYS = ['provider', 'rule_id', 'external_id', 'url', 'canonical_url', 'title', 'excerpt', 'publisher', 'language', 'published_at', 'source_kind', 'reliability', 'classification', 'detected', 'keys', 'raw']
 
@@ -272,7 +276,7 @@ export async function collectRule(rule, ctx = {}) {
       case 'rss': {
         if (!rule.url) return skip('no_url')
         let res
-        try { res = await fetchWithPolicy(rule.url, { ...policy, headers: { accept: 'application/rss+xml, application/atom+xml, application/rdf+xml, application/xml;q=0.9, text/xml;q=0.8, */*;q=0.1', ...conditionalHeaders(rule) } }) } catch (e) { fail(e, 'fetch', rule.url); break }
+        try { res = await fetchWithPolicy(rule.url, { ...policy, maxBytes: FEED_MAX_BYTES, headers: { accept: 'application/rss+xml, application/atom+xml, application/rdf+xml, application/xml;q=0.9, text/xml;q=0.8, */*;q=0.1', ...conditionalHeaders(rule) } }) } catch (e) { fail(e, 'fetch', rule.url); break }
         const v = validatorsOf(res.headers)
         result.validators.etag = v.etag ?? result.validators.etag
         result.validators.last_modified = v.last_modified ?? result.validators.last_modified
