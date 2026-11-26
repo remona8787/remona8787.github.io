@@ -1,5 +1,13 @@
 {
- "at": "2026-11-26T08:25:04.769Z",
- "entries": [],
+ "at": "2026-11-26T14:35:28.004Z",
+ "entries": [
+  {
+   "at": "2026-11-26T14:40:28.838Z",
+   "host": "query.wikidata.org",
+   "kind": "http_error",
+   "message": "no answer within 65000 ms",
+   "url": "https://query.wikidata.org/sparql"
+  }
+ ],
  "schema": 1
 }
