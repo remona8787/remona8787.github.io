@@ -4,7 +4,7 @@
   "count": 0,
   "examples": []
  },
- "at": "2026-11-26T14:35:28.004Z",
+ "at": "2026-11-26T20:45:48.609Z",
  "cards": {
   "all": {
    "projects": 1017,
@@ -11645,7 +11645,7 @@
    "kr_region": null,
    "name": "Golden Angel",
    "previous_images": 0,
-   "status": "carried_over",
+   "status": "scored",
    "valid_card": false
   },
   {
@@ -13288,12 +13288,12 @@
   }
  ],
  "rejected": {
-  "identity": 4154,
+  "identity": 4171,
   "low_res": 83,
-  "mislinked": 71,
+  "mislinked": 72,
   "other": 1,
-  "person": 706,
-  "rights": 73
+  "person": 708,
+  "rights": 70
  },
  "rejected_examples": {
   "identity": [
@@ -14116,6 +14116,14 @@
     ]
    },
    {
+    "key": "img-72c40ef2b434",
+    "project": "Q63862072",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:statues"
+    ]
+   },
+   {
     "key": "img-0b48165d3d64",
     "project": "Q126689470",
     "reasons": [
@@ -14169,14 +14177,6 @@
     "reasons": [
      "identity_unproven",
      "interior_unrelated_to_work"
-    ]
-   },
-   {
-    "key": "img-e60ea4108b95",
-    "project": "Q131338397",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:food"
     ]
    }
   ],
@@ -14831,10 +14831,10 @@
   "duplicates_this_run": 13,
   "images": 2807,
   "low_res_rejected": 83,
-  "mislinked_rejected": 71,
+  "mislinked_rejected": 72,
   "mislinked_removed": 0,
   "newly_added_valid": 0,
-  "person_rejected": 706,
+  "person_rejected": 708,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2807,

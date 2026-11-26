@@ -1,6 +1,6 @@
 {
  "about": "Image provider requests of this run: TourAPI name matches, caps reached, errors (keys never appear).",
- "at": "2026-11-26T14:35:28.004Z",
+ "at": "2026-11-26T20:45:48.609Z",
  "log": [
   {
    "key": "ilmin museum outdoor media display",
@@ -15,21 +15,21 @@
    "openverse": 1
   },
   "new_requests": {
-   "openverse": 33
+   "openverse": 30
   },
   "openverse_rate_limit": {
-   "x-ratelimit-available-anon_burst": 93,
-   "x-ratelimit-available-anon_sustained": 968
+   "x-ratelimit-available-anon_burst": 85,
+   "x-ratelimit-available-anon_sustained": 971
   },
   "rejected": {
-   "openverse:identity_unproven": 4377,
+   "openverse:identity_unproven": 4393,
    "openverse:interior_unrelated_to_work": 34,
    "openverse:name": 46,
-   "openverse:rights": 36,
-   "openverse:subject": 644
+   "openverse:rights": 33,
+   "openverse:subject": 647
   },
   "requests": {
-   "openverse": 809
+   "openverse": 810
   }
  }
 }
