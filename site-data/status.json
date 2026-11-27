@@ -1,15 +1,15 @@
 {
  "about": "last_check_at: when the collector last ran (its outcome in last_check); data_changed_at: when the published data last changed (the build it belongs to). A run that changed nothing moves only last_check_at.",
- "build_id": "20261126T031215Z-9ec79170",
- "data_changed_at": "2026-11-26T03:12:15.525Z",
+ "build_id": "20261127T025606Z-e343626c",
+ "data_changed_at": "2026-11-27T02:56:06.603Z",
  "last_check": {
-  "changed": 0,
+  "changed": 273,
   "new": 0,
-  "outcome": "unchanged",
+  "outcome": "published",
   "removed": 0,
   "status": "partial"
  },
- "last_check_at": "2026-11-26T20:45:48.609Z",
+ "last_check_at": "2026-11-27T02:56:06.603Z",
  "recent": {
   "changed": [
    "CAT-006W654",

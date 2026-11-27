@@ -4,7 +4,7 @@
   "count": 0,
   "examples": []
  },
- "at": "2026-11-26T20:45:48.609Z",
+ "at": "2026-11-27T02:56:06.603Z",
  "cards": {
   "all": {
    "projects": 1017,
@@ -13290,9 +13290,9 @@
  "rejected": {
   "identity": 4171,
   "low_res": 83,
-  "mislinked": 72,
+  "mislinked": 71,
   "other": 1,
-  "person": 708,
+  "person": 712,
   "rights": 70
  },
  "rejected_examples": {
@@ -13980,14 +13980,6 @@
     ]
    },
    {
-    "key": "img-fadc6029f3b9",
-    "project": "Q115919182",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:animals"
-    ]
-   },
-   {
     "key": "img-aa30e7a66f48",
     "project": "Q122916102",
     "reasons": [
@@ -14177,6 +14169,14 @@
     "reasons": [
      "identity_unproven",
      "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "img-e60ea4108b95",
+    "project": "Q131338397",
+    "reasons": [
+     "identity_unproven",
+     "subject:object_or_animal:food"
     ]
    }
   ],
@@ -14831,10 +14831,10 @@
   "duplicates_this_run": 13,
   "images": 2807,
   "low_res_rejected": 83,
-  "mislinked_rejected": 72,
+  "mislinked_rejected": 71,
   "mislinked_removed": 0,
   "newly_added_valid": 0,
-  "person_rejected": 708,
+  "person_rejected": 712,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2807,

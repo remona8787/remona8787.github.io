@@ -1,7 +1,7 @@
 {
  "cache": {
-  "hits": 19981,
-  "misses": 2,
+  "hits": 19895,
+  "misses": 3,
   "sizes": {
    "commons-category": 314,
    "commons-category-item": 1251,
@@ -14,13 +14,13 @@
    "commons-parents": 395,
    "commons-search": 72,
    "entities": 1160,
-   "entities-aux": 3380,
+   "entities-aux": 3381,
    "labels": 91,
-   "links": 660,
+   "links": 658,
    "openverse": 842,
    "overpass": 380,
    "quality": 1380,
-   "sparql": 336,
+   "sparql": 333,
    "visual": 2291,
    "wiki-pageimages": 38,
    "wiki-pages": 590,
@@ -28,12 +28,213 @@
    "wikidata-articles": 1,
    "wikidata-search": 20
   },
-  "stale": 432,
-  "writes": 478
+  "stale": 518,
+  "writes": 542
  },
  "changes": {
   "carried_over": [],
-  "changed": [],
+  "changed": [
+   "CAT-006W654",
+   "CAT-006YK0N",
+   "CAT-01N4LGF",
+   "CAT-01WE6KC",
+   "CAT-01ZBA4K",
+   "CAT-02UFF78",
+   "CAT-0336B9D",
+   "CAT-03OOV2I",
+   "CAT-03ULN0L",
+   "CAT-05VF7HL",
+   "CAT-060SMQ9",
+   "CAT-0666LZC",
+   "CAT-06EZBAG",
+   "CAT-06MTGIV",
+   "CAT-06RUPY4",
+   "CAT-06VLQHR",
+   "CAT-07MN9XB",
+   "CAT-080XNRV",
+   "CAT-087XY0Y",
+   "CAT-08BN77L",
+   "CAT-09ZDYWO",
+   "CAT-09ZYAFP",
+   "CAT-0AEBIPR",
+   "CAT-0B6IDQU",
+   "CAT-0B9ZNFX",
+   "CAT-0BLB3MO",
+   "CAT-0CWOTJI",
+   "CAT-0E8G1MU",
+   "CAT-0EAYBY6",
+   "CAT-0GL7X3U",
+   "CAT-0H4BEQU",
+   "CAT-0J1KTII",
+   "CAT-0JXFXA2",
+   "CAT-0JYY9CE",
+   "CAT-0LLELAR",
+   "CAT-0M0QV3O",
+   "CAT-0MDTSAX",
+   "CAT-0NIEF25",
+   "CAT-0OXIFOM",
+   "CAT-0PDE534",
+   "CAT-0PSGJ9K",
+   "CAT-0QAASWL",
+   "CAT-0QH0T0A",
+   "CAT-0QJFC3C",
+   "CAT-0RRRVOK",
+   "CAT-0SLUD1S",
+   "CAT-0T9MVFP",
+   "CAT-0TBVQ3P",
+   "CAT-0UUDID6",
+   "CAT-0V5ZFBN",
+   "CAT-0X5OH68",
+   "CAT-0X8IWCG",
+   "CAT-0XKXRFR",
+   "CAT-0YNL8BM",
+   "CAT-0ZF9M7G",
+   "CAT-0ZY9NJG",
+   "CAT-13KGH9X",
+   "CAT-14IPYSX",
+   "CAT-14L575Y",
+   "CAT-15K694A",
+   "CAT-15KFS5O",
+   "CAT-15Q3ETO",
+   "CAT-15VOYUE",
+   "CAT-179IC4O",
+   "CAT-17Q294E",
+   "CAT-18MPLNM",
+   "CAT-18PSLHE",
+   "CAT-194EIQ6",
+   "CAT-19UI5Z0",
+   "CAT-19WSIOC",
+   "CAT-19YNNHA",
+   "CAT-1AXKR8E",
+   "CAT-1BGZX8T",
+   "CAT-1BSJHZ3",
+   "CAT-1CFHLL4",
+   "CAT-1CT46DX",
+   "CAT-1CXE5YL",
+   "CAT-1DGGGK7",
+   "CAT-1DPSBSO",
+   "CAT-1EQT3UH",
+   "CAT-1FUKQNM",
+   "CAT-1FV2MEP",
+   "CAT-1GBA2KD",
+   "CAT-1GGUXSH",
+   "CAT-1HI6B5P",
+   "CAT-1KCQL6I",
+   "CAT-1LEO0H0",
+   "CAT-1M413NK",
+   "CAT-1MB7I90",
+   "CAT-1MIYU2V",
+   "CAT-1NNE06W",
+   "CAT-1OC4PEX",
+   "CAT-1OKTAW1",
+   "CAT-1OXNCQS",
+   "CAT-1Q1RXR2",
+   "CAT-1QMMVV2",
+   "CAT-1QV2IWZ",
+   "CAT-1QWNNSV",
+   "CAT-1SSQIKM",
+   "CAT-1TQLHFI",
+   "CAT-1TTC7RH",
+   "CAT-1VRT7O9",
+   "CAT-1W4W4BP",
+   "CAT-1XKXSVP",
+   "CAT-1Y8FLLA",
+   "CAT-1YTY28W",
+   "Q100510647",
+   "Q101623588",
+   "Q101623614",
+   "Q102079626",
+   "Q102079673",
+   "Q10224945",
+   "Q104042899",
+   "Q10457263",
+   "Q105658382",
+   "Q105765811",
+   "Q105817457",
+   "Q1068874",
+   "Q107265489",
+   "Q108139453",
+   "Q108865330",
+   "Q110820897",
+   "Q111023439",
+   "Q111305324",
+   "Q11242901",
+   "Q113509569",
+   "Q113527000",
+   "Q114669123",
+   "Q116278022",
+   "Q116484",
+   "Q116823022",
+   "Q117225588",
+   "Q117248257",
+   "Q11756714",
+   "Q11783870",
+   "Q11825476",
+   "Q1188708",
+   "Q120508549",
+   "Q120798485",
+   "Q122172761",
+   "Q122440749",
+   "Q122944544",
+   "Q124362637",
+   "Q124539982",
+   "Q124838702",
+   "Q125715",
+   "Q12618343",
+   "Q12640281",
+   "Q126924742",
+   "Q127586812",
+   "Q128211807",
+   "Q12859650",
+   "Q131314431",
+   "Q132797212",
+   "Q133137484",
+   "Q134006872",
+   "Q134126751",
+   "Q135276616",
+   "Q136085207",
+   "Q136219703",
+   "Q13668707",
+   "Q136702043",
+   "Q137796942",
+   "Q1385120",
+   "Q140069746",
+   "Q140937471",
+   "Q15014400",
+   "Q15107562",
+   "Q15140473",
+   "Q16034471",
+   "Q1636567",
+   "Q17051597",
+   "Q1710238",
+   "Q1800283",
+   "Q1806570",
+   "Q18219743",
+   "Q1823431",
+   "Q18302297",
+   "Q184921",
+   "Q18536617",
+   "Q18694056",
+   "Q191212",
+   "Q2001578",
+   "Q20103498",
+   "Q20888385",
+   "Q20888882",
+   "Q22912864",
+   "Q24190312",
+   "Q2494975",
+   "Q26156861",
+   "Q265292",
+   "Q270746",
+   "Q28648698",
+   "Q28873401",
+   "Q2920487",
+   "Q2961245",
+   "Q3070027",
+   "Q3148738",
+   "Q3207426",
+   "Q327650"
+  ],
   "merges": [
    {
     "a": "REG-KR-0057",
@@ -47,7 +248,7 @@
  "counts": {
   "candidates_awaiting_review": 11,
   "carried_over": 0,
-  "changed": 0,
+  "changed": 273,
   "collected": 1652,
   "eligible": 1017,
   "excluded": 635,
@@ -5877,16 +6078,16 @@
  ],
  "http": {
   "api.openverse.org": {
-   "bytes": 452755,
-   "cached": 780,
+   "bytes": 486200,
+   "cached": 769,
    "errors": 1,
    "last_error": "HTTP 403",
-   "ms": 106037,
+   "ms": 281088,
    "not_modified": 0,
-   "ok": 29,
-   "requests": 30,
+   "ok": 40,
+   "requests": 41,
    "statuses": {
-    "200": 29,
+    "200": 40,
     "403": 1
    }
   },
@@ -5902,37 +6103,37 @@
    "statuses": {}
   },
   "commons.wikimedia.org": {
-   "bytes": 728405,
-   "cached": 818,
+   "bytes": 652869,
+   "cached": 808,
    "errors": 0,
    "last_error": null,
-   "ms": 110491,
+   "ms": 150951,
    "not_modified": 0,
-   "ok": 122,
-   "requests": 122,
+   "ok": 166,
+   "requests": 166,
    "statuses": {
-    "200": 122
+    "200": 166
    }
   },
   "de.wikipedia.org": {
-   "bytes": 1572,
-   "cached": 2,
+   "bytes": 11582,
+   "cached": 1,
    "errors": 0,
    "last_error": null,
-   "ms": 442,
+   "ms": 3624,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
+   "ok": 2,
+   "requests": 2,
    "statuses": {
-    "200": 1
+    "200": 2
    }
   },
   "en.wikipedia.org": {
-   "bytes": 95,
+   "bytes": 1411,
    "cached": 4,
    "errors": 0,
    "last_error": null,
-   "ms": 206,
+   "ms": 459,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -5985,24 +6186,24 @@
    "statuses": {}
   },
   "ko.wikipedia.org": {
-   "bytes": 11408,
-   "cached": 22,
+   "bytes": 1223,
+   "cached": 23,
    "errors": 0,
    "last_error": null,
-   "ms": 1129,
+   "ms": 2109,
    "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
+   "ok": 3,
+   "requests": 3,
    "statuses": {
-    "200": 2
+    "200": 3
    }
   },
   "live.staticflickr.com": {
-   "bytes": 21522453,
+   "bytes": 21462677,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 3684,
+   "ms": 1796,
    "not_modified": 0,
    "ok": 122,
    "requests": 122,
@@ -6026,7 +6227,20 @@
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 1202,
+   "ms": 1056,
+   "not_modified": 0,
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
+  },
+  "overpass-api.de": {
+   "bytes": 287,
+   "cached": 0,
+   "errors": 0,
+   "last_error": null,
+   "ms": 48768,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -6035,15 +6249,17 @@
    }
   },
   "pl.wikipedia.org": {
-   "bytes": 0,
-   "cached": 2,
+   "bytes": 73,
+   "cached": 1,
    "errors": 0,
    "last_error": null,
-   "ms": 0,
+   "ms": 637,
    "not_modified": 0,
-   "ok": 0,
-   "requests": 0,
-   "statuses": {}
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
   },
   "pt.wikipedia.org": {
    "bytes": 0,
@@ -6057,37 +6273,35 @@
    "statuses": {}
   },
   "query.wikidata.org": {
-   "bytes": 67674,
-   "cached": 89,
+   "bytes": 79661,
+   "cached": 100,
    "errors": 0,
    "last_error": null,
-   "ms": 211008,
+   "ms": 122601,
    "not_modified": 0,
-   "ok": 43,
-   "requests": 43,
+   "ok": 32,
+   "requests": 32,
    "statuses": {
-    "200": 43
+    "200": 32
    }
   },
   "ru.wikipedia.org": {
-   "bytes": 2460,
+   "bytes": 0,
    "cached": 1,
    "errors": 0,
    "last_error": null,
-   "ms": 572,
+   "ms": 0,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   },
   "thumb.wikimedia.org": {
    "bytes": 12817363,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 49953,
+   "ms": 29674,
    "not_modified": 0,
    "ok": 417,
    "requests": 417,
@@ -6096,22 +6310,24 @@
    }
   },
   "tr.wikipedia.org": {
-   "bytes": 0,
+   "bytes": 3794,
    "cached": 3,
    "errors": 0,
    "last_error": null,
-   "ms": 0,
+   "ms": 678,
    "not_modified": 0,
-   "ok": 0,
-   "requests": 0,
-   "statuses": {}
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
   },
   "upload.wikimedia.org": {
    "bytes": 4385656,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 454,
+   "ms": 403,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -6120,28 +6336,30 @@
    }
   },
   "www.wikidata.org": {
-   "bytes": 825186,
-   "cached": 15,
+   "bytes": 766725,
+   "cached": 20,
    "errors": 0,
    "last_error": null,
-   "ms": 12631,
+   "ms": 8587,
    "not_modified": 0,
-   "ok": 11,
-   "requests": 11,
+   "ok": 8,
+   "requests": 8,
    "statuses": {
-    "200": 11
+    "200": 8
    }
   },
   "zh.wikipedia.org": {
-   "bytes": 0,
-   "cached": 3,
+   "bytes": 73,
+   "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 0,
+   "ms": 584,
    "not_modified": 0,
-   "ok": 0,
-   "requests": 0,
-   "statuses": {}
+   "ok": 1,
+   "requests": 1,
+   "statuses": {
+    "200": 1
+   }
   }
  },
  "image_audit": {
@@ -6166,10 +6384,10 @@
   "duplicates_this_run": 13,
   "images": 2807,
   "low_res_rejected": 83,
-  "mislinked_rejected": 72,
+  "mislinked_rejected": 71,
   "mislinked_removed": 0,
   "newly_added_valid": 0,
-  "person_rejected": 708,
+  "person_rejected": 712,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2807,
@@ -6675,7 +6893,7 @@
    "net": 0,
    "new_image_approvals": 0,
    "new_image_decisions": 0,
-   "previous_at": "2026-11-26T14:35:28.004Z",
+   "previous_at": "2026-11-26T20:45:48.609Z",
    "previous_representative": 343
   },
   "definition": "representative = a project with at least one photo of grade A or B (rights, identity and quality per art-photo-policy.js); rate = representative / published projects; grade C context photos never count",
@@ -6811,10 +7029,10 @@
    "review-openverse-03.jpg"
   ],
   "depicts_errors": 0,
-  "depicts_searches": 15,
+  "depicts_searches": 23,
   "duplicates": 13,
   "hero": 4,
-  "identity_rejected": 4393,
+  "identity_rejected": 4396,
   "institution_context": 103,
   "kept_demoted_context": 0,
   "kept_dropped_irrelevant": 0,
@@ -6825,8 +7043,8 @@
   "measured": 0,
   "none": 636,
   "openverse_rate_limit": {
-   "x-ratelimit-available-anon_burst": 85,
-   "x-ratelimit-available-anon_sustained": 971
+   "x-ratelimit-available-anon_burst": 98,
+   "x-ratelimit-available-anon_sustained": 960
   },
   "pageimage_projects": 5,
   "pageimage_requests": 5,
@@ -6836,14 +7054,14 @@
    "openverse": 1
   },
   "provider_new_requests": {
-   "openverse": 30
+   "openverse": 41
   },
   "provider_rejected": {
-   "openverse:identity_unproven": 4393,
+   "openverse:identity_unproven": 4396,
    "openverse:interior_unrelated_to_work": 34,
    "openverse:name": 46,
    "openverse:rights": 33,
-   "openverse:subject": 647
+   "openverse:subject": 651
   },
   "provider_requests": {
    "openverse": 810
@@ -6863,7 +7081,7 @@
    "too_small": 63
   },
   "review_tiles": 120,
-  "review_waiting": 144,
+  "review_waiting": 145,
   "thumbnails_fetched": 0
  },
  "invalid_records": [],
@@ -6878,7 +7096,7 @@
   "capped": 0,
   "conflict": 17,
   "duplicate_of_project": 1,
-  "geotag_requests": 1,
+  "geotag_requests": 5,
   "no_evidence": 95,
   "part_of_project": 28,
   "recovered": 140,
@@ -6918,6 +7136,7 @@
   "live.staticflickr.com": "reachable",
   "nl.wikipedia.org": "reachable",
   "openapi.seoul.go.kr:8088": "reachable",
+  "overpass-api.de": "reachable",
   "pl.wikipedia.org": "reachable",
   "pt.wikipedia.org": "reachable",
   "query.wikidata.org": "reachable",
@@ -6972,13 +7191,13 @@
  },
  "run": {
   "budget_minutes": 35,
-  "build_id": "20261126T031215Z-9ec79170",
+  "build_id": "20261127T025606Z-e343626c",
   "drop_guard": null,
-  "duration_ms": 800720,
-  "finished_at": "2026-11-26T20:59:09.329Z",
-  "number": 192,
-  "publish": "unchanged",
-  "started_at": "2026-11-26T20:45:48.609Z",
+  "duration_ms": 883287,
+  "finished_at": "2026-11-27T03:10:49.890Z",
+  "number": 193,
+  "publish": "published",
+  "started_at": "2026-11-27T02:56:06.603Z",
   "status": "partial",
   "user_agent": "LightArchitectureArchive/0.18 (+https://remona8787.github.io/; remona56@hanmail.net)",
   "validation_errors": []
@@ -6987,11 +7206,11 @@
  "sources": {
   "commons": {
    "consecutive_failures": 0,
-   "duration_ms": 18579,
+   "duration_ms": 16679,
    "errors": [],
    "items": 381,
    "korea_items": 4,
-   "last_success": "2026-11-26T20:45:48.609Z",
+   "last_success": "2026-11-27T02:56:06.603Z",
    "status": "ok",
    "warnings": []
   },
@@ -6999,36 +7218,36 @@
    "consecutive_failures": 0,
    "errors": [],
    "items": 370,
-   "last_success": "2026-11-26T20:45:48.609Z",
+   "last_success": "2026-11-27T02:56:06.603Z",
    "status": "ok"
   },
   "enrich": {
    "consecutive_failures": 0,
-   "duration_ms": 5695,
+   "duration_ms": 4620,
    "errors": [],
    "items": 1105,
-   "last_success": "2026-11-26T20:45:48.609Z",
+   "last_success": "2026-11-27T02:56:06.603Z",
    "status": "ok"
   },
   "links": {
    "consecutive_failures": 0,
    "errors": [],
-   "from_cache": 607,
-   "items": 42,
-   "last_success": "2026-11-26T20:45:48.609Z",
+   "from_cache": 604,
+   "items": 45,
+   "last_success": "2026-11-27T02:56:06.603Z",
    "status": "ok",
    "unchecked": 0
   },
   "overpass": {
    "consecutive_failures": 0,
    "errors": [],
-   "items": 0,
-   "last_success": "2026-11-26T20:45:48.609Z",
+   "items": 1,
+   "last_success": "2026-11-27T02:56:06.603Z",
    "status": "ok"
   },
   "seoul_events": {
    "consecutive_failures": 0,
-   "duration_ms": 1205,
+   "duration_ms": 1057,
    "errors": [],
    "items": 0,
    "last_success": null,
@@ -7047,17 +7266,24 @@
   },
   "web": {
    "consecutive_failures": 0,
-   "duration_ms": 82077,
+   "duration_ms": 72136,
    "errors": [
     {
      "http_status": 429,
      "message": "HTTP 429",
-     "rule": "gdelt:GDELT ko · media facade",
+     "rule": "gdelt:GDELT nl · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Akorean&mode=ArtList&format=json&maxrecords=250&timespan=4d&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Adutch&mode=ArtList&format=json&maxrecords=250&timespan=7d&sort=DateDesc"
+    },
+    {
+     "http_status": 429,
+     "message": "HTTP 429",
+     "rule": "gdelt:GDELT pl · media facade",
+     "stage": "web_fetch",
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Apolish&mode=ArtList&format=json&maxrecords=250&timespan=45h&sort=DateDesc"
     }
    ],
-   "items": 8,
+   "items": 7,
    "last_success": "2026-11-26T14:35:28.004Z",
    "rules": [
     {
@@ -7069,7 +7295,7 @@
      "errors": 1,
      "fetched": 0,
      "kept": 0,
-     "key": "gdelt:GDELT ko · media facade",
+     "key": "gdelt:GDELT nl · media facade",
      "kind": "gdelt",
      "not_modified": false,
      "reason": null,
@@ -7081,20 +7307,29 @@
       "invalid": 0,
       "prefilter": 0
      },
-     "errors": 0,
-     "fetched": 1,
-     "kept": 1,
-     "key": "gdelt:GDELT ja · media facade",
+     "errors": 1,
+     "fetched": 0,
+     "kept": 0,
+     "key": "gdelt:GDELT pl · media facade",
      "kind": "gdelt",
      "not_modified": false,
      "reason": null,
-     "status": "success"
+     "status": "error"
     },
     {
+     "dropped": {
+      "duplicate_url": 0,
+      "invalid": 0,
+      "prefilter": 50
+     },
+     "errors": 0,
+     "fetched": 50,
+     "kept": 0,
      "key": "rss:Dezeen",
-     "reason": "backoff",
-     "status": "skipped",
-     "until": "2026-11-27T00:25:45.208Z"
+     "kind": "rss",
+     "not_modified": false,
+     "reason": null,
+     "status": "success"
     },
     {
      "dropped": {
@@ -7199,12 +7434,12 @@
      "status": "skipped"
     },
     {
-     "key": "gdelt:GDELT nl · media facade",
+     "key": "gdelt:GDELT ja · media facade",
      "reason": "rotation",
      "status": "skipped"
     },
     {
-     "key": "gdelt:GDELT pl · media facade",
+     "key": "gdelt:GDELT ko · media facade",
      "reason": "rotation",
      "status": "skipped"
     },
@@ -7233,55 +7468,55 @@
   },
   "wikidata": {
    "consecutive_failures": 0,
-   "duration_ms": 216869,
+   "duration_ms": 124536,
    "errors": [],
    "items": 939,
    "korea_items": 0,
    "korea_search_items": 12,
-   "last_success": "2026-11-26T20:45:48.609Z",
+   "last_success": "2026-11-27T02:56:06.603Z",
    "status": "ok"
   },
   "wikipedia": {
    "consecutive_failures": 0,
-   "duration_ms": 5535,
+   "duration_ms": 4650,
    "errors": [],
    "items": 284,
    "korea_items": 89,
-   "last_success": "2026-11-26T20:45:48.609Z",
+   "last_success": "2026-11-27T02:56:06.603Z",
    "status": "ok"
   }
  },
  "stages": {
   "contact_sheets": {
-   "duration_ms": 149754,
+   "duration_ms": 134403,
    "status": "ok"
   },
   "enrich": {
-   "duration_ms": 5695,
+   "duration_ms": 4621,
    "status": "ok"
   },
   "images": {
-   "duration_ms": 204495,
+   "duration_ms": 414957,
    "status": "ok"
   },
   "links": {
-   "duration_ms": 217851,
+   "duration_ms": 146954,
    "status": "ok"
   },
   "overpass": {
-   "duration_ms": 3,
+   "duration_ms": 48770,
    "status": "ok"
   },
   "places": {
-   "duration_ms": 3736,
+   "duration_ms": 7651,
    "status": "ok"
   },
   "resolve": {
-   "duration_ms": 175,
+   "duration_ms": 118,
    "status": "ok"
   },
   "sources": {
-   "duration_ms": 216870,
+   "duration_ms": 124536,
    "status": "ok"
   }
  },
