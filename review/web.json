@@ -1,20 +1,36 @@
 {
- "at": "2026-11-27T08:39:41.367Z",
+ "at": "2026-11-27T14:50:11.153Z",
  "errors": [
   {
-   "http_status": null,
-   "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
-   "rule": "gdelt:GDELT ru · media facade",
+   "http_status": 429,
+   "message": "HTTP 429",
+   "rule": "gdelt:GDELT zh · media facade",
    "stage": "web_fetch",
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Arussian&mode=ArtList&format=json&maxrecords=250&timespan=4d&sort=DateDesc"
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Achinese&mode=ArtList&format=json&maxrecords=250&timespan=7d&sort=DateDesc"
+  },
+  {
+   "http_status": 429,
+   "message": "HTTP 429",
+   "rule": "gdelt:GDELT tr · media facade",
+   "stage": "web_fetch",
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aturkish&mode=ArtList&format=json&maxrecords=250&timespan=4d&sort=DateDesc"
   }
  ],
  "rules": [
   {
-   "key": "gdelt:GDELT pt · media facade",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-11-27T14:52:02.423Z"
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 0
+   },
+   "errors": 1,
+   "fetched": 0,
+   "kept": 0,
+   "key": "gdelt:GDELT zh · media facade",
+   "kind": "gdelt",
+   "not_modified": false,
+   "reason": null,
+   "status": "error"
   },
   {
    "dropped": {
@@ -25,7 +41,7 @@
    "errors": 1,
    "fetched": 0,
    "kept": 0,
-   "key": "gdelt:GDELT ru · media facade",
+   "key": "gdelt:GDELT tr · media facade",
    "kind": "gdelt",
    "not_modified": false,
    "reason": null,
@@ -92,10 +108,19 @@
    "status": "success"
   },
   {
+   "dropped": {
+    "duplicate_url": 0,
+    "invalid": 0,
+    "prefilter": 1
+   },
+   "errors": 0,
+   "fetched": 1,
+   "kept": 0,
    "key": "rss:Creative Applications Network",
-   "reason": "backoff",
-   "status": "skipped",
-   "until": "2026-11-27T08:42:23.628Z"
+   "kind": "rss",
+   "not_modified": false,
+   "reason": null,
+   "status": "success"
   },
   {
    "dropped": {
@@ -169,12 +194,12 @@
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT tr · media facade",
+   "key": "gdelt:GDELT pt · media facade",
    "reason": "rotation",
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT zh · media facade",
+   "key": "gdelt:GDELT ru · media facade",
    "reason": "rotation",
    "status": "skipped"
   }
