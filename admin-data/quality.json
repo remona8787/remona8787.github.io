@@ -64,8 +64,8 @@
    "url": "http://www.lichtkunst-unna.de/"
   },
   {
-   "checked_at": "2026-11-26T20:58:11.433Z",
-   "consecutive_failures": 38,
+   "checked_at": "2026-11-27T21:11:25.802Z",
+   "consecutive_failures": 39,
    "field": "official_url",
    "http_status": null,
    "project": "Q22912864",
@@ -109,8 +109,8 @@
    "url": "https://disneyworld.disney.go.com/entertainment/magic-kingdom/celebrate-the-magic/"
   },
   {
-   "checked_at": "2026-11-26T20:58:11.433Z",
-   "consecutive_failures": 38,
+   "checked_at": "2026-11-27T21:11:05.800Z",
+   "consecutive_failures": 39,
    "field": "official_url",
    "http_status": null,
    "project": "Q5839725",
@@ -136,8 +136,8 @@
    "url": "http://theilluminator.org/edward-snowden-hologram"
   },
   {
-   "checked_at": "2026-11-26T14:49:11.825Z",
-   "consecutive_failures": 13,
+   "checked_at": "2026-11-27T21:10:38.063Z",
+   "consecutive_failures": 14,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-AU-0002",
@@ -226,8 +226,8 @@
    "url": "https://www.aberdeencity.gov.uk/AAGM/whats-aberdeen-art-galleries-and-museums/spectra-aberdeens-festival-of-light"
   },
   {
-   "checked_at": "2026-11-26T20:59:05.847Z",
-   "consecutive_failures": 16,
+   "checked_at": "2026-11-27T21:12:20.045Z",
+   "consecutive_failures": 17,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-GB-0004",
@@ -244,8 +244,8 @@
    "url": "https://planets.teamlab.art/tokyo/"
   },
   {
-   "checked_at": "2026-11-26T20:58:33.153Z",
-   "consecutive_failures": 16,
+   "checked_at": "2026-11-27T21:11:47.363Z",
+   "consecutive_failures": 17,
    "field": "source:curated:check1",
    "http_status": null,
    "project": "REG-JP-0007",
@@ -271,8 +271,8 @@
    "url": "https://www.city.osaka.lg.jp/hodoshiryo/cmsfiles/contents/0000637/637517/hikarune2024.pdf"
   },
   {
-   "checked_at": "2026-11-26T20:59:07.631Z",
-   "consecutive_failures": 16,
+   "checked_at": "2026-11-27T21:12:22.599Z",
+   "consecutive_failures": 17,
    "field": "source:curated:check1",
    "http_status": 404,
    "project": "REG-JP-0010",
@@ -289,8 +289,8 @@
    "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=b67b51b3-f566-4fe1-9b66-85c8ad3fb83d"
   },
   {
-   "checked_at": "2026-11-26T14:49:08.585Z",
-   "consecutive_failures": 13,
+   "checked_at": "2026-11-27T21:10:34.326Z",
+   "consecutive_failures": 14,
    "field": "source:curated:source",
    "http_status": null,
    "project": "REG-KR-0027",
@@ -352,8 +352,8 @@
    "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=bcaf095a-f26a-47b1-aaaf-92eb48be6872"
   },
   {
-   "checked_at": "2026-11-26T20:58:06.383Z",
-   "consecutive_failures": 16,
+   "checked_at": "2026-11-27T21:11:00.556Z",
+   "consecutive_failures": 17,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "REG-KR-0071",
@@ -442,8 +442,8 @@
    "url": "https://www.dangjin.go.kr/media/Board/media/0101/View/24558"
   },
   {
-   "checked_at": "2026-11-26T20:58:08.693Z",
-   "consecutive_failures": 16,
+   "checked_at": "2026-11-27T21:11:02.992Z",
+   "consecutive_failures": 17,
    "field": "source:curated:source",
    "http_status": 404,
    "project": "REG-KR-0149",
@@ -476,6 +476,15 @@
    "project": "REG-KR-0169",
    "reason": "robots_unreachable",
    "url": "https://www.gangwon.to/gwtour/information/news?articleSeq=60918"
+  },
+  {
+   "checked_at": "2026-11-27T21:10:19.304Z",
+   "consecutive_failures": 1,
+   "field": "source:curated:check1",
+   "http_status": null,
+   "project": "REG-KR-0184",
+   "reason": "robots_unreachable",
+   "url": "https://www.busan.go.kr/news/totalnews01/view?dataNo=63242"
   },
   {
    "checked_at": "2026-11-26T20:58:02.593Z",
@@ -532,15 +541,6 @@
    "url": "https://culture.seoul.go.kr/culture/culture/cultureEvent/view.do?cultcode=149607&menuNo=200009"
   },
   {
-   "checked_at": "2026-11-26T14:48:29.526Z",
-   "consecutive_failures": 1,
-   "field": "source:curated:source",
-   "http_status": null,
-   "project": "REG-KR-0208",
-   "reason": "robots_unreachable",
-   "url": "https://www.yangcheon.go.kr/site/yangcheon/ex/bbs/View.do?cbIdx=290&bcIdx=282871"
-  },
-  {
    "checked_at": "2026-11-26T20:58:03.078Z",
    "consecutive_failures": 14,
    "field": "source:curated:source",
@@ -548,6 +548,15 @@
    "project": "REG-KR-0210",
    "reason": "HTTP 404",
    "url": "https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=e4a61414-cd41-4bbb-bc85-3d4cb4cd2a15"
+  },
+  {
+   "checked_at": "2026-11-27T21:10:19.304Z",
+   "consecutive_failures": 1,
+   "field": "source:curated:source",
+   "http_status": null,
+   "project": "REG-KR-0225",
+   "reason": "robots_unreachable",
+   "url": "https://www.busan.go.kr/news/totalnews01/view?dataNo=63242"
   },
   {
    "checked_at": "2026-11-27T15:00:59.867Z",
@@ -577,8 +586,8 @@
    "url": "https://culture.changwon.go.kr/index.changwon?contentId=130&bbsId=BBSMSTR_000000000082&nttId=7993&menuNo=11010000"
   },
   {
-   "checked_at": "2026-11-26T14:49:10.249Z",
-   "consecutive_failures": 13,
+   "checked_at": "2026-11-27T21:10:36.533Z",
+   "consecutive_failures": 14,
    "field": "official_url",
    "http_status": null,
    "project": "REG-SA-0001",
@@ -586,8 +595,8 @@
    "url": "https://riyadhart.sa/en/noor-riyadh/"
   },
   {
-   "checked_at": "2026-11-26T20:59:03.153Z",
-   "consecutive_failures": 16,
+   "checked_at": "2026-11-27T21:12:17.364Z",
+   "consecutive_failures": 17,
    "field": "source:curated:check1",
    "http_status": null,
    "project": "REG-SG-0004",
@@ -631,8 +640,8 @@
    "url": "https://english.visitseoul.net/area/COEXK-POPSquare/ENPnj8f9x"
   },
   {
-   "checked_at": "2026-11-26T20:56:29.967Z",
-   "consecutive_failures": 1,
+   "checked_at": "2026-11-27T21:11:00.049Z",
+   "consecutive_failures": 2,
    "field": "official_url",
    "http_status": null,
    "project": "SEOUL009",
@@ -739,7 +748,7 @@
    "url": "https://www.seoulwave.co.kr/"
   }
  ],
- "build_id": "20261127T145011Z-6b63b01a",
+ "build_id": "20261127T210035Z-4678dd91",
  "coordinate_checks": [
   {
    "distance_m": 7576,
@@ -8198,7 +8207,7 @@
    ]
   }
  ],
- "generated_at": "2026-11-27T14:50:11.153Z",
+ "generated_at": "2026-11-27T21:00:35.435Z",
  "image_rejections": {
   "extreme_aspect": 26,
   "interior_unrelated_to_work": 6,
@@ -19374,6 +19383,10 @@
   {
    "project": "REG-KR-0198",
    "url": "https://www.seosan.go.kr/tour/contents.do?key=6105"
+  },
+  {
+   "project": "REG-KR-0208",
+   "url": "https://www.yangcheon.go.kr/site/yangcheon/ex/bbs/View.do?cbIdx=290&bcIdx=282871"
   },
   {
    "project": "REG-KR-0211",
