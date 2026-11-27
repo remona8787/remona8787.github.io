@@ -1,12 +1,12 @@
 {
  "profile": "tabular-data-package",
- "id": "light-architecture-archive@20261127T145011Z-6b63b01a-p2",
+ "id": "light-architecture-archive@20261127T210035Z-4678dd91-p2",
  "name": "light-architecture-archive",
  "title": "빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋",
- "version": "20261127T145011Z-6b63b01a-p2",
- "build_id": "20261127T145011Z-6b63b01a",
+ "version": "20261127T210035Z-4678dd91-p2",
+ "build_id": "20261127T210035Z-4678dd91",
  "package_format": 2,
- "created": "2026-11-27T14:50:11.153Z",
+ "created": "2026-11-27T21:00:35.435Z",
  "data_as_of": "2026-11-27",
  "homepage": "https://remona8787.github.io/",
  "description": "미디어파사드·건축 미디어아트·빛 설치 작품의 사실 정보(이름, 유형, 위치, 연도, 운영 상태, 식별자, 출처, 필드별 신뢰도), 레코드 사이의 관계, 공공 행사 정보, 공개 이미지의 저작권 정보. 편집부 해설문과 이미지 파일은 포함하지 않습니다.",
@@ -140,9 +140,9 @@
    "path": "https://remona8787.github.io/"
   }
  ],
- "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261127T145011Z-6b63b01a-p2, 데이터 기준일 2026-11-27). https://remona8787.github.io/data/research/20261127T145011Z-6b63b01a-p2/",
+ "citation": "빛의 건축 (Architecture of Light). (2026). 빛의 건축 미디어파사드·미디어아트 아카이브 공개 데이터셋 (버전 20261127T210035Z-4678dd91-p2, 데이터 기준일 2026-11-27). https://remona8787.github.io/data/research/20261127T210035Z-4678dd91-p2/",
  "changes": {
-  "from": "20261127T025606Z-e343626c",
+  "from": "20261127T145011Z-6b63b01a",
   "added": 0,
   "removed": 0,
   "changed": 0
@@ -445,7 +445,7 @@
    "mediatype": "application/json",
    "encoding": "utf-8",
    "bytes": 1665715,
-   "hash": "sha256:7809790afaaf870d63dff49d4984a5b55fa05d511da940d56225d278714b4dca"
+   "hash": "sha256:483118eb1d3ed4a65117f44d19a5b20c444237157fb6b7759fbe4ef26c1a712b"
   },
   {
    "name": "projects-geojson",
@@ -506,8 +506,8 @@
    "format": "csv",
    "mediatype": "text/csv",
    "encoding": "utf-8",
-   "bytes": 820117,
-   "hash": "sha256:d9fe47f1e2bbd1d562ba68b34185c86c320e1f53fc708f5d83e8a54eb42f69ff",
+   "bytes": 820109,
+   "hash": "sha256:91dee9e8f4944546aafbdfc1fb7931c2b72238293045da2b51b41d2dcc8ce8d5",
    "schema": {
     "fields": [
      {
@@ -826,8 +826,8 @@
    "format": "xlsx",
    "mediatype": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
    "encoding": "utf-8",
-   "bytes": 557287,
-   "hash": "sha256:33f564c16fe36faac529ef73bb579f1dccc6186600db7db6a11cb31b47ba0cd1"
+   "bytes": 557289,
+   "hash": "sha256:b4326d6d315cf8ae0e75ee4b7c9cf8cc98658aa962fb7a454069ff82fba75286"
   },
   {
    "name": "citation",
@@ -836,7 +836,7 @@
    "mediatype": "text/plain",
    "encoding": "utf-8",
    "bytes": 274,
-   "hash": "sha256:d06d5871c73d162918e30f70316f038cc84e3131054cdfa3aafa7c0c540e32b3"
+   "hash": "sha256:bc98d7d1013f1d8389cde3dc4d5f1b24320ae53eaddfaa00a84be6683a3b3633"
   },
   {
    "name": "changelog",
@@ -845,7 +845,7 @@
    "mediatype": "text/markdown",
    "encoding": "utf-8",
    "bytes": 348,
-   "hash": "sha256:2b486b1bdbb2b7a93700dd394a6447539c568a945804e45bc16aa2e458b367e4"
+   "hash": "sha256:45e0250d0a4a104bd1e5ab6c3454f156112a47a5281705028822400f4f4f1bba"
   }
  ]
 }
