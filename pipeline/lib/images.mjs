@@ -22,6 +22,7 @@ import { assessRights, toMediaRow, DEFAULT_POLICY } from '../../edge-functions/_
 import { fold } from './util.mjs'
 import { hamming, qualityScore } from './quality.mjs'
 import { nameIn as nameInText } from './identity.mjs'
+import { commonsAuthor } from './commons.mjs'
 
 const T = (weight, ...terms) => terms.map((t) => [t, weight])
 // Night and illumination words (folded matching; CJK as substrings).
@@ -380,7 +381,7 @@ export function commonsDisplay(info, { maxOriginalBytes = 8e6 } = {}) {
 
 /** A Commons file (fileRecord) as a provider-neutral candidate. */
 export function commonsCandidate(info, a) {
-  const row = toMediaRow('x', info.file, { imageinfo: [{ url: info.url, thumburl: info.thumburl, extmetadata: { Artist: { value: info.artist || '' }, Credit: { value: info.credit || '' }, LicenseShortName: { value: info.license || '' }, LicenseUrl: { value: info.license_url || '' }, DateTimeOriginal: { value: info.date || '' } } }] }, { qid: null, krFop: !!a?.kr_fop, now: null })
+  const row = toMediaRow('x', info.file, { imageinfo: [{ url: info.url, thumburl: info.thumburl, extmetadata: { Artist: { value: commonsAuthor(info) || '' }, Credit: { value: '' }, LicenseShortName: { value: info.license || '' }, LicenseUrl: { value: info.license_url || '' }, DateTimeOriginal: { value: info.date || '' } } }] }, { qid: null, krFop: !!a?.kr_fop, now: null })
   const w = info.width || null
   return {
     provider: 'commons', source_id: info.file, file: info.file, src: cleanMediaUrl(info.url), page: info.page || row.source_url, sizes: commonsDisplay(info),

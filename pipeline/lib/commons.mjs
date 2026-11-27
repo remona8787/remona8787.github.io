@@ -429,6 +429,8 @@ export function fileRecord(file, page) {
     license_url: /^https?:\/\//.test(m.LicenseUrl?.value || '') ? m.LicenseUrl.value : null,
     artist: v('Artist') || null,
     credit: v('Credit') || null,
+    // The uploader: the name to credit when Artist and Credit name no one (see commonsAuthor).
+    user: ii.user || null,
     attribution: v('Attribution') || null,
     description: v('ImageDescription').slice(0, 600) || null,
     object_name: v('ObjectName') || null,
@@ -439,6 +441,19 @@ export function fileRecord(file, page) {
   }
 }
 
+// Artist/Credit text that names no one. Commons renders a {{Creator}} template with a broken Wikidata link as
+// "missing name" (category "Creator templates with bad Wikidata link"); "Own work" in Credit is a source, not a
+// name. On 2026-11-27 two CC BY 4.0 photos of CAT-1FUKQNM were credited to "missing name". "Unknown author" and
+// "Anonymous" are statements about the work and are kept.
+const NO_NAME = /^(missing name|own work|eigenes werk|travail personnel|trabajo propio|自作|자작)$/i
+const named = (s) => { const t = String(s || '').replace(/\s+/g, ' ').trim(); return t && !NO_NAME.test(t) ? t : null }
+
+/** The name to credit for a Commons file: the Artist field, else a Credit that names someone, else the uploader. */
+export const commonsAuthor = (rec) => named(rec?.artist) || named(rec?.credit) || named(rec?.user) || null
+
+// A cached record from before the uploader was fetched, with no name to credit: fetched again for the uploader.
+const wantsUploader = (rec) => !!rec && !rec.missing && !('user' in rec) && !commonsAuthor(rec)
+
 /**
  * File metadata for the rights check and scoring, cached per file ('commons-files'). It uses live-media.mjs
  * fetchCommonsPages (batches of 50, every template of each file with continuation, templatesComplete) with the
@@ -448,13 +463,13 @@ export async function fileInfo(client, files, { cache, ttlHours = 336, thumbWidt
   const out = new Map(), want = []
   for (const f of uniq(files.map(bareFile))) {
     const hit = cache?.fresh('commons-files', f)
-    if (hit !== undefined) out.set(f, hit); else want.push(f)
+    if (hit !== undefined && !wantsUploader(hit)) out.set(f, hit); else want.push(f)
   }
   if (!want.length) return out
   const fetchJSON = (url) => {
     const u = new URL(url)
     u.searchParams.set('formatversion', '2')
-    u.searchParams.set('iiprop', 'url|extmetadata|mime|size|sha1|timestamp')
+    u.searchParams.set('iiprop', 'url|extmetadata|mime|size|sha1|timestamp|user')
     u.searchParams.set('iiurlwidth', String(thumbWidth))
     u.searchParams.set('iiextmetadatafilter', 'Artist|Credit|Attribution|LicenseShortName|LicenseUrl|UsageTerms|DateTimeOriginal|ImageDescription|ObjectName|Categories')
     u.searchParams.delete('origin')
