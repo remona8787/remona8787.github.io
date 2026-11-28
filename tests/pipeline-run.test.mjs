@@ -484,6 +484,23 @@ test('when every source fails, the last good dataset stays published and the rep
   assert.deepEqual(checkReport(r.report), [])
 })
 
+test('class queries Wikidata does not answer keep their last answer: public types and years do not change (v0.26.8)', needSharp, async () => {
+  // 2026-11-28 03:10: the Wikidata stage ran out of time, every class was lost for one run, and projects found
+  // through their Commons categories showed an installation year as a completion year until the next run.
+  const { dir, data } = await firstRun()
+  const copy = await tmp()
+  await cp(dir, copy, { recursive: true })
+  const classesFail = (url, init) => (url.startsWith('https://query.wikidata.org/') && /class-instances/.test(decodeURIComponent(String(init?.body || '')).replace(/\+/g, ' ')) ? new TypeError('fetch failed') : null)
+  const r = await run(copy, { start: START + 240 * HOUR, fail: classesFail })
+  const after = await site(copy)
+  const facts = (p) => [p.project_type, p.year_installed, p.year_completed, p.field_sources.project_type]
+  for (const id of ['Q7715933', 'Q5447104', 'Q7899954', 'Q2001578', 'Q4167']) assert.deepEqual(facts(after.records.get(id)), facts(data.records.get(id)), id)
+  assert.equal(after.records.get('Q7715933').year_installed, 2013)
+  assert.ok(r.report.sources.wikidata.stale_classes.includes('Q1823448'))
+  assert.equal(r.report.sources.wikidata.status, 'error', 'no live answer is still an error')
+  assert.deepEqual([...after.records.keys()].sort(), [...data.records.keys()].sort())
+})
+
 test('a project that disappears from complete sources is stale for two runs, then removed', needSharp, async () => {
   const { dir } = await firstRun()
   const copy = await tmp()

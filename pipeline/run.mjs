@@ -239,12 +239,14 @@ export async function runPipeline(o) {
           }
         } else if (koreaOn) e.push({ stage: 'korea', message: `country item ${KC.country.qid} not confirmed this run (live label differs or was not read)` })
         // Discovery counts and the worldwide instances (foreign: stops first when time runs short).
-        await addClassCounts(foreign, classReview.classes, { ttlHours: ttl.class_counts ?? 24, errors: e })
-        const inst = await classInstances(foreign, classReview.classes, { cache, ttlHours: ttl.sparql ?? 24 })
+        // Out of time on the counts: the instances still come, from their last answers (classInstances staleOnly).
+        let countsOutOfTime = false
+        try { await addClassCounts(foreign, classReview.classes, { ttlHours: ttl.class_counts ?? 24, errors: e }) } catch (x) { if (!isBudget(x)) throw x; countsOutOfTime = true; e.push({ stage: 'discovery', message: msg(x) }) }
+        const inst = await classInstances(foreign, classReview.classes, { cache, ttlHours: ttl.sparql ?? 24, staleOnly: countsOutOfTime })
         e.push(...inst.errors)
         classReview.instances = inst
         const n = new Set([...inst.byQid.keys(), ...(krInst?.byQid.keys() || [])]).size
-        status('wikidata', { status: e.length ? (n ? 'partial' : 'error') : 'ok', items: n, korea_items: krInst?.byQid.size ?? 0, korea_search_items: krSearch.byQid.size, errors: e, duration_ms: clock() - t })
+        status('wikidata', { status: e.length ? (n ? 'partial' : 'error') : 'ok', items: n, korea_items: krInst?.byQid.size ?? 0, korea_search_items: krSearch.byQid.size, stale_classes: inst.stale, errors: e, duration_ms: clock() - t })
       } catch (x) {
         err('wikidata', x)
         const n = (classReview?.instances?.byQid.size ?? 0) + (krInst?.byQid.size ?? 0)
@@ -359,6 +361,11 @@ export async function runPipeline(o) {
     if (h.score < h.min_score || !h.qid || configuredClassQids.has(h.qid)) continue
     observations.push({ origin: 'wikipedia', qid: h.qid, korea: h.lang === 'ko', sources: [], evidence: [{ kind: 'wikipedia', lang: h.lang, title: h.title, url: h.url, term: h.term, score: h.score, reasons: h.reasons, accepted: false, ...(rule.type ? { type: rule.type } : {}) }] })
   }
+  // Classes answered from their last answer (classInstances, v0.26.8) give their classes back to items another route
+  // found this run, so the type and the year fields read from them stay; they never make an item seen on their own
+  // (an item no route found is carried over unchanged, as when Wikidata does not answer at all).
+  const seenQids = new Set(observations.map((o) => o.qid).filter(Boolean))
+  for (const [qid, classQids] of classReview?.instances?.staleByQid || []) if (seenQids.has(qid)) observations.push(classObservation(qid, classQids, false))
 
   // ---------------------------------------------------------------- enrichment
   client.setDeadline(stageDeadline('enrich'))

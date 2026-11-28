@@ -434,21 +434,35 @@ export async function countryClassInstances(client, review, countryQid, { cache,
   return { byQid, perClass, errors }
 }
 
-/** Instances of the classes that may be published from. Returns {byQid: Map(qid → [class qids]), perClass, errors}. */
-export async function classInstances(client, review, { cache, ttlHours = 24, limit = INSTANCE_LIMIT }) {
-  const byQid = new Map(), perClass = {}, errors = []
+/**
+ * Instances of the classes that may be published from. Returns {byQid: Map(qid → [class qids]) from live answers,
+ * staleByQid: Map(qid → [class qids]) from last answers, perClass, errors, stale: [class keys answered from the last
+ * answer]}.
+ *
+ * A class whose query fails, or is not reached because the time budget ran out (or ran out before, staleOnly), is
+ * answered by its last answer in the cache (v0.26.8). Those answers only say which classes an item had: the run uses
+ * them for items another route found (run.mjs), never to count an item as seen. On 2026-11-28 the 03:10 run ran out of
+ * time in the Wikidata stage and lost every class at once: the projects stayed public through their Commons
+ * categories, but without their classes 71 fields changed for one run (a work's installation year shown as a
+ * completion year, types read from the categories) and changed back at 07:53.
+ */
+export async function classInstances(client, review, { cache, ttlHours = 24, limit = INSTANCE_LIMIT, staleOnly = false }) {
+  const byQid = new Map(), staleByQid = new Map(), perClass = {}, errors = [], stale = []
+  let budget = staleOnly
+  const add = (map, c, qids) => { perClass[c.key] = qids.length; for (const q of qids) map.set(q, [...(map.get(q) || []), c.key]) }
   for (const c of review.filter((x) => x.publish)) {
-    try {
-      const qids = parseInstances(await sparql(client, classInstancesQuery(c.qid, limit, c.route), { cache: { ns: 'sparql', key: 'instances:' + c.qid + routeKey(c.route), ttlMs: ttlHours * HOUR }, stage: 'wikidata' }))
-      perClass[c.key] = qids.length
-      for (const q of qids) byQid.set(q, [...(byQid.get(q) || []), c.key])
-    } catch (e) {
-      if (e?.code === 'budget') throw e
-      perClass[c.key] = null
-      errors.push({ stage: 'wikidata', class: c.key, message: String(e?.message || e).slice(0, 300) })
+    const key = 'instances:' + c.qid + routeKey(c.route)
+    if (!budget) {
+      try { add(byQid, c, parseInstances(await sparql(client, classInstancesQuery(c.qid, limit, c.route), { cache: { ns: 'sparql', key, ttlMs: ttlHours * HOUR }, stage: 'wikidata' }))); continue } catch (e) {
+        if (e?.code === 'budget') budget = true
+        else errors.push({ stage: 'wikidata', class: c.key, message: String(e?.message || e).slice(0, 300) })
+      }
     }
+    const rows = cache?.any('sparql', key)?.results?.bindings
+    if (Array.isArray(rows)) { add(staleByQid, c, parseInstances(rows)); stale.push(c.key) } else perClass[c.key] = null
   }
-  return { byQid, perClass, errors }
+  if (budget) errors.push({ stage: 'wikidata', message: `time budget exhausted: ${stale.length} classes answered from their last answer` })
+  return { byQid, staleByQid, perClass, errors, stale }
 }
 
 // ---- facts ----
