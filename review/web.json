@@ -1,26 +1,12 @@
 {
- "at": "2026-11-27T21:00:35.435Z",
+ "at": "2026-11-28T03:10:52.051Z",
  "errors": [
   {
    "http_status": null,
    "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
-   "rule": "gdelt:GDELT de · media facade",
+   "rule": "gdelt:GDELT en · media facade",
    "stage": "web_fetch",
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Agerman&mode=ArtList&format=json&maxrecords=250&timespan=5d&sort=DateDesc"
-  },
-  {
-   "http_status": null,
-   "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
-   "rule": "gdelt:GDELT ar · media facade",
-   "stage": "web_fetch",
-   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aarabic&mode=ArtList&format=json&maxrecords=250&timespan=4d&sort=DateDesc"
-  },
-  {
-   "http_status": 404,
-   "message": "HTTP 404",
-   "rule": "rss:Designboom Korea",
-   "stage": "web_fetch",
-   "url": "https://www.designboom.com/tag/korea/feed/"
+   "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aenglish&mode=ArtList&format=json&maxrecords=250&timespan=9d&sort=DateDesc"
   }
  ],
  "rules": [
@@ -33,7 +19,7 @@
    "errors": 1,
    "fetched": 0,
    "kept": 0,
-   "key": "gdelt:GDELT de · media facade",
+   "key": "gdelt:GDELT en · media facade",
    "kind": "gdelt",
    "not_modified": false,
    "reason": null,
@@ -45,14 +31,14 @@
     "invalid": 0,
     "prefilter": 0
    },
-   "errors": 1,
+   "errors": 0,
    "fetched": 0,
    "kept": 0,
-   "key": "gdelt:GDELT ar · media facade",
+   "key": "gdelt:GDELT es · media facade",
    "kind": "gdelt",
    "not_modified": false,
    "reason": null,
-   "status": "error"
+   "status": "success"
   },
   {
    "dropped": {
@@ -145,27 +131,18 @@
    "status": "success"
   },
   {
-   "dropped": {
-    "duplicate_url": 0,
-    "invalid": 0,
-    "prefilter": 0
-   },
-   "errors": 1,
-   "fetched": 0,
-   "kept": 0,
    "key": "rss:Designboom Korea",
-   "kind": "rss",
-   "not_modified": false,
-   "reason": null,
-   "status": "error"
+   "reason": "backoff",
+   "status": "skipped",
+   "until": "2026-11-29T21:01:52.688Z"
   },
   {
-   "key": "gdelt:GDELT en · media facade",
+   "key": "gdelt:GDELT ar · media facade",
    "reason": "rotation",
    "status": "skipped"
   },
   {
-   "key": "gdelt:GDELT es · media facade",
+   "key": "gdelt:GDELT de · media facade",
    "reason": "rotation",
    "status": "skipped"
   },

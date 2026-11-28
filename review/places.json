@@ -1,6 +1,6 @@
 {
  "about": "Country and location recovery (lib/places.mjs): projects whose only eligibility failures were a missing country or location, the evidence found (parent categories and their items, the category name, file geotags inside country borders, the item coordinates; the Wikipedia language as weak corroboration only) and the decision. Conflicting evidence leaves a project excluded.",
- "at": "2026-11-27T21:00:35.435Z",
+ "at": "2026-11-28T03:10:52.051Z",
  "decisions": [
   {
    "before": {
@@ -4073,6 +4073,93 @@
   },
   {
    "before": {
+    "country": "NL",
+    "located": false
+   },
+   "category": "Category:Origin (Vendel & De Wolf)",
+   "city": "Amsterdam",
+   "corroborated": false,
+   "country": "NL",
+   "evidence": [
+    {
+     "city": "Amsterdam",
+     "country": "NL",
+     "detail": {
+      "category": "Category:Derkinderenstraat, Amsterdam",
+      "matched": [
+       "Amsterdam"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": null,
+     "country": "NL",
+     "detail": {
+      "category": "Category:Light art in the Netherlands",
+      "matched": [
+       "Netherlands"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "city": "Amsterdam",
+     "country": "NL",
+     "detail": {
+      "category": "Category:Sculptures in Amsterdam Nieuw-West",
+      "matched": [
+       "Amsterdam"
+      ]
+     },
+     "kind": "parent_category",
+     "strength": "strong"
+    },
+    {
+     "country": "NL",
+     "detail": {
+      "item": "Q19015998",
+      "via": "Q55"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    },
+    {
+     "country": "NL",
+     "detail": {
+      "item": "Q2913055",
+      "via": "Q55"
+     },
+     "kind": "parent_item",
+     "strength": "strong"
+    }
+   ],
+   "geotags": {
+    "center": null,
+    "countries": {},
+    "n": 0
+   },
+   "id": "CAT-0MJOWPH",
+   "located_after": true,
+   "name": "Origin",
+   "outcome": "recovered",
+   "qid": null,
+   "reason": null,
+   "rule": "parent_category",
+   "votes": {
+    "NL": [
+     "parent_category",
+     "parent_category",
+     "parent_category",
+     "parent_item",
+     "parent_item"
+    ]
+   }
+  },
+  {
+   "before": {
     "country": "FR",
     "located": false
    },
@@ -6047,7 +6134,7 @@
    },
    "category": "Category:Lichtsäule auf dem Kerstenplatz",
    "corroborated": false,
-   "country": null,
+   "country": "DE",
    "evidence": [
     {
      "country": "DE",
@@ -6065,11 +6152,11 @@
     "n": 0
    },
    "id": "CAT-1343SLI",
+   "located_after": false,
    "name": "Lichtsäule auf dem Kerstenplatz",
-   "outcome": "part_of_project",
-   "part_of": "Q127587129",
+   "outcome": "recovered",
    "qid": null,
-   "reason": "part of Q127587129",
+   "reason": null,
    "rule": "parent_item",
    "votes": {
     "DE": [
@@ -12048,1135 +12135,6 @@
     "country": null,
     "located": false
    },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q110810697",
-   "name": "Dorothy and Mel Tanner",
-   "outcome": "no_evidence",
-   "qid": "Q110810697",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "NL",
-    "located": false
-   },
-   "category": "Category:Chicks, 1994",
-   "center": {
-    "file": "Kiplampen bij het Kookpunt, april 1997 - 01.jpg",
-    "lat": 51.931108,
-    "lng": 4.484503
-   },
-   "corroborated": false,
-   "country": "NL",
-   "evidence": [
-    {
-     "country": "NL",
-     "detail": {
-      "item": "Q113509569",
-      "via": "Q29999"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    },
-    {
-     "country": "NL",
-     "detail": {
-      "item": "Q113532364",
-      "via": "Q29999"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    },
-    {
-     "country": "NL",
-     "detail": {
-      "countries": {
-       "NL": 4
-      },
-      "files": 4
-     },
-     "kind": "file_geotags",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": {
-     "file": "Kiplampen bij het Kookpunt, april 1997 - 01.jpg",
-     "lat": 51.931108,
-     "lng": 4.484503
-    },
-    "countries": {
-     "NL": 4
-    },
-    "n": 4
-   },
-   "id": "Q113509569",
-   "located_after": true,
-   "name": "Chicks, 1994",
-   "outcome": "recovered",
-   "qid": "Q113509569",
-   "reason": null,
-   "rule": "parent_item",
-   "votes": {
-    "NL": [
-     "parent_item",
-     "parent_item",
-     "file_geotags"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:De vijf klaprozen, 1994",
-   "city": "Rotterdam",
-   "corroborated": false,
-   "country": "NL",
-   "evidence": [
-    {
-     "city": "Rotterdam",
-     "country": "NL",
-     "detail": {
-      "category": "Category:De Graankorrel (Rotterdam)",
-      "matched": [
-       "Rotterdam"
-      ]
-     },
-     "kind": "parent_category",
-     "strength": "strong"
-    },
-    {
-     "country": "NL",
-     "detail": {
-      "item": "Q2755027",
-      "via": "Q55"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    },
-    {
-     "country": "NL",
-     "detail": {
-      "countries": {
-       "NL": 2
-      },
-      "files": 2
-     },
-     "kind": "file_geotags",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": {
-     "file": "Galerie 2x2 Delfshaven, 1994.jpg",
-     "lat": 51.907643,
-     "lng": 4.447858
-    },
-    "countries": {
-     "NL": 2
-    },
-    "n": 2
-   },
-   "id": "Q113527000",
-   "located_after": true,
-   "name": "De vijf klaprozen, 1994",
-   "outcome": "recovered",
-   "qid": "Q113527000",
-   "reason": null,
-   "rule": "parent_category",
-   "votes": {
-    "NL": [
-     "parent_category",
-     "parent_item",
-     "file_geotags"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115862188",
-   "name": "Nights of Lights",
-   "outcome": "no_evidence",
-   "qid": "Q115862188",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115918726",
-   "name": "3",
-   "outcome": "no_evidence",
-   "qid": "Q115918726",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115918752",
-   "name": "Absence",
-   "outcome": "no_evidence",
-   "qid": "Q115918752",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115918763",
-   "name": "Moderate Visibility",
-   "outcome": "no_evidence",
-   "qid": "Q115918763",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115918829",
-   "name": "Breath",
-   "outcome": "no_evidence",
-   "qid": "Q115918829",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115918830",
-   "name": "Breathe",
-   "outcome": "no_evidence",
-   "qid": "Q115918830",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115918840",
-   "name": "Car Show",
-   "outcome": "no_evidence",
-   "qid": "Q115918840",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115918849",
-   "name": "City Canvas",
-   "outcome": "no_evidence",
-   "qid": "Q115918849",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115918855",
-   "name": "Colour Music with Fractures",
-   "outcome": "no_evidence",
-   "qid": "Q115918855",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115918867",
-   "name": "Conserved Light",
-   "outcome": "no_evidence",
-   "qid": "Q115918867",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115918929",
-   "name": "Enter Tina Turner",
-   "outcome": "no_evidence",
-   "qid": "Q115918929",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115918937",
-   "name": "Aesthetic footprint series",
-   "outcome": "no_evidence",
-   "qid": "Q115918937",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115918961",
-   "name": "Finlandia",
-   "outcome": "no_evidence",
-   "qid": "Q115918961",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115918990",
-   "name": "FYR",
-   "outcome": "no_evidence",
-   "qid": "Q115918990",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919018",
-   "name": "Hamistagan",
-   "outcome": "no_evidence",
-   "qid": "Q115919018",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919022",
-   "name": "They Were Here",
-   "outcome": "no_evidence",
-   "qid": "Q115919022",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919033",
-   "name": "Hide and Seek",
-   "outcome": "no_evidence",
-   "qid": "Q115919033",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919035",
-   "name": "Hissivalo",
-   "outcome": "no_evidence",
-   "qid": "Q115919035",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919114",
-   "name": "Kajo",
-   "outcome": "no_evidence",
-   "qid": "Q115919114",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919144",
-   "name": "Glow of the Stone",
-   "outcome": "no_evidence",
-   "qid": "Q115919144",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919172",
-   "name": "L102 Light Amber",
-   "outcome": "no_evidence",
-   "qid": "Q115919172",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919201",
-   "name": "Light And Shadow of Fundamental Interactions",
-   "outcome": "no_evidence",
-   "qid": "Q115919201",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919202",
-   "name": "Light Art Installation",
-   "outcome": "no_evidence",
-   "qid": "Q115919202",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919203",
-   "name": "Light Chi",
-   "outcome": "no_evidence",
-   "qid": "Q115919203",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919205",
-   "name": "Light test 157",
-   "outcome": "no_evidence",
-   "qid": "Q115919205",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919211",
-   "name": "Lines",
-   "outcome": "no_evidence",
-   "qid": "Q115919211",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919235",
-   "name": "Madonna",
-   "outcome": "no_evidence",
-   "qid": "Q115919235",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919253",
-   "name": "Medicine City",
-   "outcome": "no_evidence",
-   "qid": "Q115919253",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919254",
-   "name": "Medium",
-   "outcome": "no_evidence",
-   "qid": "Q115919254",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919264",
-   "name": "Where Time Ends",
-   "outcome": "no_evidence",
-   "qid": "Q115919264",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919274",
-   "name": "Model of an Imaginary Structure",
-   "outcome": "no_evidence",
-   "qid": "Q115919274",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919277",
-   "name": "Momentary Appearence: Katharsis",
-   "outcome": "no_evidence",
-   "qid": "Q115919277",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919285",
-   "name": "Museoitu maisema",
-   "outcome": "no_evidence",
-   "qid": "Q115919285",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919340",
-   "name": "Osmosis I–III",
-   "outcome": "no_evidence",
-   "qid": "Q115919340",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919416",
-   "name": "Pulse",
-   "outcome": "no_evidence",
-   "qid": "Q115919416",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919422",
-   "name": "Swipe",
-   "outcome": "no_evidence",
-   "qid": "Q115919422",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919436",
-   "name": "Red Chair",
-   "outcome": "no_evidence",
-   "qid": "Q115919436",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919439",
-   "name": "Red Horizon",
-   "outcome": "no_evidence",
-   "qid": "Q115919439",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919481",
-   "name": "Sateenkaarikone",
-   "outcome": "no_evidence",
-   "qid": "Q115919481",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919491",
-   "name": "Sensorial Activities 1",
-   "outcome": "no_evidence",
-   "qid": "Q115919491",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919493",
-   "name": "Serve Somebody",
-   "outcome": "no_evidence",
-   "qid": "Q115919493",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919494",
-   "name": "Shadow takes a walk",
-   "outcome": "no_evidence",
-   "qid": "Q115919494",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919495",
-   "name": "Shadowplay",
-   "outcome": "no_evidence",
-   "qid": "Q115919495",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919520",
-   "name": "Blind Wall",
-   "outcome": "no_evidence",
-   "qid": "Q115919520",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919543",
-   "name": "Sula",
-   "outcome": "no_evidence",
-   "qid": "Q115919543",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919558",
-   "name": "Fall is for Leaving",
-   "outcome": "no_evidence",
-   "qid": "Q115919558",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919566",
-   "name": "A house to Inhabit",
-   "outcome": "no_evidence",
-   "qid": "Q115919566",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919572",
-   "name": "Taustakangas-live",
-   "outcome": "no_evidence",
-   "qid": "Q115919572",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919638",
-   "name": "Tonic Light",
-   "outcome": "no_evidence",
-   "qid": "Q115919638",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919645",
-   "name": "Trespassing",
-   "outcome": "no_evidence",
-   "qid": "Q115919645",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919695",
-   "name": "Valopeli",
-   "outcome": "no_evidence",
-   "qid": "Q115919695",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919702",
-   "name": "Free",
-   "outcome": "no_evidence",
-   "qid": "Q115919702",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919718",
-   "name": "Visualisoitua varjotanssia",
-   "outcome": "no_evidence",
-   "qid": "Q115919718",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "FI",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q115919749",
-   "name": "Connection",
-   "outcome": "no_evidence",
-   "qid": "Q115919749",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
    "category": "Category:Nobel Week Lights",
    "city": "Stockholm",
    "corroborated": false,
@@ -13334,42 +12292,6 @@
   },
   {
    "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q118957161",
-   "name": "Please Empty Your Pockets",
-   "outcome": "no_evidence",
-   "qid": "Q118957161",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q12340235",
-   "name": "Under Scan",
-   "outcome": "no_evidence",
-   "qid": "Q12340235",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
     "country": "ID",
     "located": false
    },
@@ -13417,24 +12339,6 @@
      "parent_item"
     ]
    }
-  },
-  {
-   "before": {
-    "country": "FR",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q126722835",
-   "name": "Visual System",
-   "outcome": "no_evidence",
-   "qid": "Q126722835",
-   "reason": null,
-   "rule": null,
-   "votes": {}
   },
   {
    "before": {
@@ -13498,164 +12402,6 @@
      "file_geotags"
     ]
    }
-  },
-  {
-   "before": {
-    "country": "NL",
-    "located": false
-   },
-   "category": "Category:Pearl Light, 1995",
-   "corroborated": false,
-   "country": "NL",
-   "evidence": [
-    {
-     "country": "NL",
-     "detail": {
-      "item": "Q130391940",
-      "via": "Q55"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    },
-    {
-     "country": "NL",
-     "detail": {
-      "item": "Q113532386",
-      "via": "Q55"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    },
-    {
-     "country": "NL",
-     "detail": {
-      "item": "Q113532364",
-      "via": "Q29999"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": null,
-    "countries": {},
-    "n": 0
-   },
-   "id": "Q130391940",
-   "located_after": false,
-   "name": "Pearl Light, 1995",
-   "outcome": "recovered",
-   "qid": "Q130391940",
-   "reason": null,
-   "rule": "parent_item",
-   "votes": {
-    "NL": [
-     "parent_item",
-     "parent_item",
-     "parent_item"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:Little Swan 1996",
-   "corroborated": false,
-   "country": "NL",
-   "evidence": [
-    {
-     "country": "NL",
-     "detail": {
-      "item": "Q113532386",
-      "via": "Q55"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    },
-    {
-     "country": "NL",
-     "detail": {
-      "item": "Q113532364",
-      "via": "Q29999"
-     },
-     "kind": "parent_item",
-     "strength": "strong"
-    }
-   ],
-   "geotags": {
-    "center": null,
-    "countries": {},
-    "n": 0
-   },
-   "id": "Q130392129",
-   "located_after": false,
-   "name": "Little Swan 1996",
-   "outcome": "recovered",
-   "qid": "Q130392129",
-   "reason": null,
-   "rule": "parent_item",
-   "votes": {
-    "NL": [
-     "parent_item",
-     "parent_item"
-    ]
-   }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q131419179",
-   "name": "Shuster + Moseley",
-   "outcome": "no_evidence",
-   "qid": "Q131419179",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q135232969",
-   "name": "Rain",
-   "outcome": "no_evidence",
-   "qid": "Q135232969",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q135885525",
-   "name": "Inaho",
-   "outcome": "no_evidence",
-   "qid": "Q135885525",
-   "reason": null,
-   "rule": null,
-   "votes": {}
   },
   {
    "before": {
@@ -13849,24 +12595,6 @@
     "country": null,
     "located": false
    },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q139714874",
-   "name": "Flash Point",
-   "outcome": "no_evidence",
-   "qid": "Q139714874",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
    "category": "Category:Lesbian Simulator (art project)",
    "city": "Amsterdam",
    "corroborated": false,
@@ -13923,28 +12651,6 @@
   },
   {
    "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:Himmelsleiter by Billi Thanner",
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": {
-    "center": null,
-    "countries": {},
-    "n": 0
-   },
-   "id": "Q141950366",
-   "name": "Himmelsleiter",
-   "outcome": "no_evidence",
-   "qid": "Q141950366",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
     "country": "DE",
     "located": false
    },
@@ -13984,24 +12690,6 @@
      "parent_category"
     ]
    }
-  },
-  {
-   "before": {
-    "country": "DD",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q1599608",
-   "name": "Rache des Papstes",
-   "outcome": "no_evidence",
-   "qid": "Q1599608",
-   "reason": null,
-   "rule": null,
-   "votes": {}
   },
   {
    "before": {
@@ -14146,24 +12834,6 @@
      "file_geotags"
     ]
    }
-  },
-  {
-   "before": {
-    "country": "US",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q16844203",
-   "name": "Holiday Trail of Lights",
-   "outcome": "no_evidence",
-   "qid": "Q16844203",
-   "reason": null,
-   "rule": null,
-   "votes": {}
   },
   {
    "before": {
@@ -14329,24 +12999,6 @@
   },
   {
    "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q1823448",
-   "name": "light installation",
-   "outcome": "no_evidence",
-   "qid": "Q1823448",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
     "country": "DE",
     "located": false
    },
@@ -14384,42 +13036,6 @@
      "parent_category"
     ]
    }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q2115884",
-   "name": "liquid light show",
-   "outcome": "no_evidence",
-   "qid": "Q2115884",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "BE",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q24525397",
-   "name": "Untitled (to the real Dan Hill)",
-   "outcome": "no_evidence",
-   "qid": "Q24525397",
-   "reason": null,
-   "rule": null,
-   "votes": {}
   },
   {
    "before": {
@@ -14496,33 +13112,6 @@
      "file_geotags"
     ]
    }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": "Category:Skyspaces",
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": {
-    "center": null,
-    "countries": {
-     "BE": 1,
-     "DE": 1,
-     "GB": 5,
-     "NL": 1
-    },
-    "n": 8
-   },
-   "id": "Q3486472",
-   "name": "skyspace",
-   "outcome": "conflict",
-   "qid": "Q3486472",
-   "reason": "geotags in several countries: {\"GB\":5,\"NL\":1,\"DE\":1,\"BE\":1}",
-   "rule": null,
-   "votes": {}
   },
   {
    "before": {
@@ -14605,24 +13194,6 @@
      "category_name"
     ]
    }
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q5057646",
-   "name": "Celebration of Lights",
-   "outcome": "no_evidence",
-   "qid": "Q5057646",
-   "reason": null,
-   "rule": null,
-   "votes": {}
   },
   {
    "before": {
@@ -14854,60 +13425,6 @@
    "outcome": "conflict",
    "qid": "Q60744298",
    "reason": "geotags in several countries: {\"BR\":3,\"TR\":14,\"DE\":1,\"KR\":1,\"TW\":10,\"JP\":1,\"CL\":1,\"KP\":1}",
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q62589077",
-   "name": "Neon Led Discobolus",
-   "outcome": "no_evidence",
-   "qid": "Q62589077",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": null,
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q64658399",
-   "name": "House of Eternal Return",
-   "outcome": "no_evidence",
-   "qid": "Q64658399",
-   "reason": null,
-   "rule": null,
-   "votes": {}
-  },
-  {
-   "before": {
-    "country": "GB",
-    "located": false
-   },
-   "category": null,
-   "corroborated": false,
-   "country": null,
-   "evidence": [],
-   "geotags": null,
-   "id": "Q6546052",
-   "name": "Light Night",
-   "outcome": "no_evidence",
-   "qid": "Q6546052",
-   "reason": null,
    "rule": null,
    "votes": {}
   },
@@ -15554,16 +14071,16 @@
   "by_rule": {
    "file_geotags": 15,
    "parent_category": 101,
-   "parent_item": 24
+   "parent_item": 22
   },
-  "candidates": 304,
+  "candidates": 228,
   "capped": 0,
-  "conflict": 17,
+  "conflict": 16,
   "duplicate_of_project": 1,
-  "geotag_requests": 3,
-  "no_evidence": 95,
-  "part_of_project": 28,
-  "recovered": 140,
+  "geotag_requests": 5,
+  "no_evidence": 23,
+  "part_of_project": 27,
+  "recovered": 138,
   "region_candidates": 2
  }
 }

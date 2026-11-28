@@ -1,10 +1,36 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 0,
-  "examples": []
+  "count": 5,
+  "examples": [
+   {
+    "id": "img-a642243bc911",
+    "project": "Q5054749",
+    "title": "Red (3123536873)"
+   },
+   {
+    "id": "img-4762e8528ca4",
+    "project": "Q5054749",
+    "title": "Cavalcade of Lights (53394645275)"
+   },
+   {
+    "id": "img-dab9a4ed290f",
+    "project": "Q5054749",
+    "title": "Fireworks (8209408441)"
+   },
+   {
+    "id": "img-eb453c9af971",
+    "project": "Q5054749",
+    "title": "Ice Sculptor 1 (Cavalcade of Lights 2021, Toronto)"
+   },
+   {
+    "id": "img-a801bda19798",
+    "project": "Q5054749",
+    "title": "Mirror Star at the Cavalcade of Lights in Toronto"
+   }
+  ]
  },
- "at": "2026-11-27T21:00:35.435Z",
+ "at": "2026-11-28T03:10:52.051Z",
  "cards": {
   "all": {
    "projects": 1017,
@@ -5392,7 +5418,7 @@
    "kr_region": null,
    "name": "Blue Blood",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5405,7 +5431,7 @@
    "kr_region": null,
    "name": "TV In and TV Out",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5418,7 +5444,7 @@
    "kr_region": null,
    "name": "Bower Birds - A Docufiction",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5444,7 +5470,7 @@
    "kr_region": null,
    "name": "The light kite",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5457,7 +5483,7 @@
    "kr_region": null,
    "name": "Mirror, Mirror",
    "previous_images": 7,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5470,7 +5496,7 @@
    "kr_region": null,
    "name": "Vortex (Maxim Velčovský)",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5496,7 +5522,7 @@
    "kr_region": null,
    "name": "Alles van waarde",
    "previous_images": 7,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5522,7 +5548,7 @@
    "kr_region": null,
    "name": "De stemmen van bloed in mijn zakdoek",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5535,7 +5561,7 @@
    "kr_region": null,
    "name": "Wie meer wil weten moet woorden eten",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5548,7 +5574,7 @@
    "kr_region": null,
    "name": "ThE riGHt tO RighT/WrOnG",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5561,7 +5587,7 @@
    "kr_region": null,
    "name": "Question of Balance",
    "previous_images": 3,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5574,7 +5600,7 @@
    "kr_region": null,
    "name": "Untitled",
    "previous_images": 3,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5587,7 +5613,7 @@
    "kr_region": null,
    "name": "Bakboord / Stuurboord",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5600,7 +5626,7 @@
    "kr_region": null,
    "name": "Nu alles is zoals het is…",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5613,7 +5639,7 @@
    "kr_region": null,
    "name": "A rose is a rose is a rose",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5626,7 +5652,7 @@
    "kr_region": null,
    "name": "De verlichte brug",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5639,7 +5665,7 @@
    "kr_region": null,
    "name": "Energy Line",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5652,7 +5678,7 @@
    "kr_region": null,
    "name": "Van alles is weer waardeloos",
    "previous_images": 3,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5665,7 +5691,7 @@
    "kr_region": null,
    "name": "Het muizengaatje",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5678,7 +5704,7 @@
    "kr_region": null,
    "name": "In alles is een oogopslag",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5704,7 +5730,7 @@
    "kr_region": null,
    "name": "VEDO DOVE DEVO",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5730,7 +5756,7 @@
    "kr_region": null,
    "name": "Night Sky",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5743,7 +5769,7 @@
    "kr_region": null,
    "name": "Flamigos",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5756,7 +5782,7 @@
    "kr_region": null,
    "name": "TO B I EX",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5808,7 +5834,7 @@
    "kr_region": null,
    "name": "Omega Mart",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5834,7 +5860,7 @@
    "kr_region": null,
    "name": "Beyond the Wall",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5860,7 +5886,7 @@
    "kr_region": null,
    "name": "Convergence Station",
    "previous_images": 6,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5873,7 +5899,7 @@
    "kr_region": null,
    "name": "Crisscross Signal Spire",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5886,7 +5912,7 @@
    "kr_region": null,
    "name": "Oil Silo 468",
    "previous_images": 10,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5899,7 +5925,7 @@
    "kr_region": null,
    "name": "Stein-Papier-Schere",
    "previous_images": 3,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5912,7 +5938,7 @@
    "kr_region": null,
    "name": "De Liefdesbrief",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -5951,7 +5977,7 @@
    "kr_region": null,
    "name": "Titan 1",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5964,7 +5990,7 @@
    "kr_region": null,
    "name": "Klokwijzers",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5977,7 +6003,7 @@
    "kr_region": null,
    "name": "Zonder titel (Polhuis)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -5990,7 +6016,7 @@
    "kr_region": null,
    "name": "Straatlicht",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6003,7 +6029,7 @@
    "kr_region": null,
    "name": "Axioms from Spinoza's Ethics",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -6016,7 +6042,7 @@
    "kr_region": null,
    "name": "De vlam",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6029,7 +6055,7 @@
    "kr_region": null,
    "name": "Caelesti Lumine",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6042,7 +6068,7 @@
    "kr_region": null,
    "name": "Untitled (Column - Zuil)",
    "previous_images": 6,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -6055,7 +6081,7 @@
    "kr_region": null,
    "name": "Le contour des conifères dans la nuit bleue et les étoiles derrière ma tête sont dans tes yeux",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -6068,7 +6094,7 @@
    "kr_region": null,
    "name": "Liebe deine Stadt",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -6081,7 +6107,7 @@
    "kr_region": null,
    "name": "Clytemnestra",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6107,7 +6133,7 @@
    "kr_region": null,
    "name": "Illuminated River",
    "previous_images": 3,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -6120,7 +6146,7 @@
    "kr_region": null,
    "name": "Chicks, 1994",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -6133,7 +6159,7 @@
    "kr_region": null,
    "name": "De vijf klaprozen, 1994",
    "previous_images": 6,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -6146,7 +6172,7 @@
    "kr_region": null,
    "name": "Star Memorial",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6159,7 +6185,7 @@
    "kr_region": null,
    "name": "Lichtinstallation am KölnTurm",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6172,7 +6198,7 @@
    "kr_region": null,
    "name": "Porisontti",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6198,7 +6224,7 @@
    "kr_region": null,
    "name": "5 light drops",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6211,7 +6237,7 @@
    "kr_region": null,
    "name": "Tokyo Millenario",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -6224,7 +6250,7 @@
    "kr_region": null,
    "name": "Light Wall",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6237,7 +6263,7 @@
    "kr_region": null,
    "name": "4000 V Shadow of Light",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6250,7 +6276,7 @@
    "kr_region": null,
    "name": "Colorado 2 ja 3",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6263,7 +6289,7 @@
    "kr_region": null,
    "name": "He sanoivat: Rajat kiinni!",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6276,7 +6302,7 @@
    "kr_region": null,
    "name": "Language is Dead (We are Born)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6289,7 +6315,7 @@
    "kr_region": null,
    "name": "Material Conditions of Inner Spaces",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6302,7 +6328,7 @@
    "kr_region": null,
    "name": "Oodi vedelle",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6315,7 +6341,7 @@
    "kr_region": null,
    "name": "Projektor B",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6328,7 +6354,7 @@
    "kr_region": null,
    "name": "Teknopitsi",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6341,7 +6367,7 @@
    "kr_region": null,
    "name": "Triad",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6354,7 +6380,7 @@
    "kr_region": null,
    "name": "Valoprisma",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6367,7 +6393,7 @@
    "kr_region": null,
    "name": "Valosilmä",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6380,7 +6406,7 @@
    "kr_region": null,
    "name": "Zonder titel (Jan van Goethem, Reinwardtstraat)",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -6393,7 +6419,7 @@
    "kr_region": null,
    "name": "Riding Bikes",
    "previous_images": 7,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -6419,7 +6445,7 @@
    "kr_region": null,
    "name": "Untitled (To Bob and Pat Rohm)",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -6432,7 +6458,7 @@
    "kr_region": null,
    "name": "the diagonal of May 25, 1963",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6445,7 +6471,7 @@
    "kr_region": null,
    "name": "untitled (in honor of Leo at the 30th anniversary of his gallery)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6458,7 +6484,7 @@
    "kr_region": null,
    "name": "Blackout (siniristilippu)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6471,7 +6497,7 @@
    "kr_region": null,
    "name": "Zonder titel",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -6536,7 +6562,7 @@
    "kr_region": null,
    "name": "The Bernard M. Gordon Tribute to Engineering Leadership",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6575,7 +6601,7 @@
    "kr_region": null,
    "name": "Mechatron 10/11",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6588,7 +6614,7 @@
    "kr_region": null,
    "name": "Chronhomme 3",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6601,7 +6627,7 @@
    "kr_region": null,
    "name": "Laserfilm",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6614,7 +6640,7 @@
    "kr_region": null,
    "name": "Lightwave",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6627,7 +6653,7 @@
    "kr_region": null,
    "name": "Waterfall",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6640,7 +6666,7 @@
    "kr_region": null,
    "name": "Luma2solator",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6653,7 +6679,7 @@
    "kr_region": null,
    "name": "Revolutions per Minute / ... et in Occidente Lux",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6666,7 +6692,7 @@
    "kr_region": null,
    "name": "Zeus Playing",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6679,7 +6705,7 @@
    "kr_region": null,
    "name": "Hyper Book. “Angelica and Medoro” by Luis de Góngora",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6692,7 +6718,7 @@
    "kr_region": null,
    "name": "The Space of the Book. The Sublime",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6705,7 +6731,7 @@
    "kr_region": null,
    "name": "Please Empty Your Pockets",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6718,7 +6744,7 @@
    "kr_region": null,
    "name": "Game of Life",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6731,7 +6757,7 @@
    "kr_region": null,
    "name": "The Colloquy of Mobiles",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6757,7 +6783,7 @@
    "kr_region": null,
    "name": "Hive (Bleecker Street)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6796,7 +6822,7 @@
    "kr_region": null,
    "name": "Lune",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -6809,7 +6835,7 @@
    "kr_region": null,
    "name": "Le Valais et ses hasards",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -6848,7 +6874,7 @@
    "kr_region": null,
    "name": "This Present Moment",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6861,7 +6887,7 @@
    "kr_region": null,
    "name": "Red Neon Circle Fragments on a Blue Wall",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6874,7 +6900,7 @@
    "kr_region": null,
    "name": "Installation Model for Moonlight on the Great Pee Dee",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6887,7 +6913,7 @@
    "kr_region": null,
    "name": "Untitled",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6900,7 +6926,7 @@
    "kr_region": null,
    "name": "Mellow Yellow",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6913,7 +6939,7 @@
    "kr_region": null,
    "name": "For SAAM",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6926,7 +6952,7 @@
    "kr_region": null,
    "name": "GODS BLESS AMERICA!",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6952,7 +6978,7 @@
    "kr_region": null,
    "name": "Steppen Police",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6965,7 +6991,7 @@
    "kr_region": null,
    "name": "Tengri Boy",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6978,7 +7004,7 @@
    "kr_region": null,
    "name": "Forever Umai",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -6991,7 +7017,7 @@
    "kr_region": null,
    "name": "The Observer",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7004,7 +7030,7 @@
    "kr_region": null,
    "name": "Lesser",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7030,7 +7056,7 @@
    "kr_region": null,
    "name": "Luftzug",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7043,7 +7069,7 @@
    "kr_region": null,
    "name": "Zwei Leuchttürme für das MDC",
    "previous_images": 3,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7056,7 +7082,7 @@
    "kr_region": null,
    "name": "Das Leben entwerfen",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7069,7 +7095,7 @@
    "kr_region": null,
    "name": "Il luogo dell’illusione: sipario",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7082,7 +7108,7 @@
    "kr_region": null,
    "name": "Movement",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7095,7 +7121,7 @@
    "kr_region": null,
    "name": "Polychromie architek­turale",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7108,7 +7134,7 @@
    "kr_region": null,
    "name": "Lichtfestival Luzern",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7121,7 +7147,7 @@
    "kr_region": null,
    "name": "Nous allons Observer une Minute de Silence",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7134,7 +7160,7 @@
    "kr_region": null,
    "name": "Nausicaa",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7147,7 +7173,7 @@
    "kr_region": null,
    "name": "Song Bird (Kharkiv)",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7160,7 +7186,7 @@
    "kr_region": null,
    "name": "Song Bird (Kyiv)",
    "previous_images": 3,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7173,7 +7199,7 @@
    "kr_region": null,
    "name": "Pinta Cura",
    "previous_images": 8,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7186,7 +7212,7 @@
    "kr_region": null,
    "name": "Untitled",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7199,7 +7225,7 @@
    "kr_region": null,
    "name": "Ceiling Snake",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7212,7 +7238,7 @@
    "kr_region": null,
    "name": "Marching Man",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7225,7 +7251,7 @@
    "kr_region": null,
    "name": "Ovonde",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7238,7 +7264,7 @@
    "kr_region": null,
    "name": "L'Automne (De Herfst)",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7251,7 +7277,7 @@
    "kr_region": null,
    "name": "De Finishboog",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7277,7 +7303,7 @@
    "kr_region": null,
    "name": "Waimahara",
    "previous_images": 7,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7290,7 +7316,7 @@
    "kr_region": null,
    "name": "Ramses Shaffy, levenslijnen",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7329,7 +7355,7 @@
    "kr_region": null,
    "name": "L'appel de la mer",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7355,7 +7381,7 @@
    "kr_region": null,
    "name": "ROOT Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7368,7 +7394,7 @@
    "kr_region": null,
    "name": "Video Positive Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7381,7 +7407,7 @@
    "kr_region": null,
    "name": "Look Up",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7394,7 +7420,7 @@
    "kr_region": null,
    "name": "Three Gems",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7420,7 +7446,7 @@
    "kr_region": null,
    "name": "Day and Night Brainwave",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7433,7 +7459,7 @@
    "kr_region": null,
    "name": "Ich kann, weil ich will, was ich muss.",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7459,7 +7485,7 @@
    "kr_region": null,
    "name": "Arch Bridge",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7472,7 +7498,7 @@
    "kr_region": null,
    "name": "OBEYNOBODY",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7485,7 +7511,7 @@
    "kr_region": null,
    "name": "The Herford Eichen",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7498,7 +7524,7 @@
    "kr_region": null,
    "name": "Pacemaker",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7511,7 +7537,7 @@
    "kr_region": null,
    "name": "Catch as catch can",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7524,7 +7550,7 @@
    "kr_region": null,
    "name": "public preposition / Metal-Light",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7537,7 +7563,7 @@
    "kr_region": null,
    "name": "Flowers for Marl",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7550,7 +7576,7 @@
    "kr_region": null,
    "name": "Gate of Light",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7563,7 +7589,7 @@
    "kr_region": null,
    "name": "Cascade",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7576,7 +7602,7 @@
    "kr_region": null,
    "name": "Light Column",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7589,7 +7615,7 @@
    "kr_region": null,
    "name": "Blue Wave",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7602,7 +7628,7 @@
    "kr_region": null,
    "name": "Grün-Blauer Mäander",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7615,7 +7641,7 @@
    "kr_region": null,
    "name": "Ohne Titel",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7628,7 +7654,7 @@
    "kr_region": null,
    "name": "Sun Beam",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7641,7 +7667,7 @@
    "kr_region": null,
    "name": "Light Stele 2",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7654,7 +7680,7 @@
    "kr_region": null,
    "name": "Holographic Object",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7667,7 +7693,7 @@
    "kr_region": null,
    "name": "Bright Chamber",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7680,7 +7706,7 @@
    "kr_region": null,
    "name": "Consol Yellow",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7693,7 +7719,7 @@
    "kr_region": null,
    "name": "Twelve Marker",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7706,7 +7732,7 @@
    "kr_region": null,
    "name": "Ohne Titel (Silbernagel)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7719,7 +7745,7 @@
    "kr_region": null,
    "name": "Diminishing View",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7732,7 +7758,7 @@
    "kr_region": null,
    "name": "Lipstadium or Frederick the Great, the Medium, and the Small",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7745,7 +7771,7 @@
    "kr_region": null,
    "name": "obscure",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7758,7 +7784,7 @@
    "kr_region": null,
    "name": "Basement",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7771,7 +7797,7 @@
    "kr_region": null,
    "name": "Plaza Design",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7784,7 +7810,7 @@
    "kr_region": null,
    "name": "The World Maps",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7797,7 +7823,7 @@
    "kr_region": null,
    "name": "Skyline",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7810,7 +7836,7 @@
    "kr_region": null,
    "name": "Slinky Springs to Fame",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7823,7 +7849,7 @@
    "kr_region": null,
    "name": "Animal Office Hours",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7836,7 +7862,7 @@
    "kr_region": null,
    "name": "Miner’s Lamp",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7849,7 +7875,7 @@
    "kr_region": null,
    "name": "Brainwaves",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7862,7 +7888,7 @@
    "kr_region": null,
    "name": "Angst",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -7875,7 +7901,7 @@
    "kr_region": null,
    "name": "Plus ou moins",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7888,7 +7914,7 @@
    "kr_region": null,
    "name": "Safety Cones (for Herford)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7901,7 +7927,7 @@
    "kr_region": null,
    "name": "Glitter Tree",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7914,7 +7940,7 @@
    "kr_region": null,
    "name": "Milky Way",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7927,7 +7953,7 @@
    "kr_region": null,
    "name": "The Way of the Mariner",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7940,7 +7966,7 @@
    "kr_region": null,
    "name": "Grasping",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7953,7 +7979,7 @@
    "kr_region": null,
    "name": "Ark",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7966,7 +7992,7 @@
    "kr_region": null,
    "name": "Cumulus",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7979,7 +8005,7 @@
    "kr_region": null,
    "name": "Silence",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -7992,7 +8018,7 @@
    "kr_region": null,
    "name": "Closed",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8005,7 +8031,7 @@
    "kr_region": null,
    "name": "Light Fossil",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8018,7 +8044,7 @@
    "kr_region": null,
    "name": "Permanent Lightning",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8031,7 +8057,7 @@
    "kr_region": null,
    "name": "Colored Light Column II",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8057,7 +8083,7 @@
    "kr_region": null,
    "name": "River Guard",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8070,7 +8096,7 @@
    "kr_region": null,
    "name": "Blaues Lichtoval",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8083,7 +8109,7 @@
    "kr_region": null,
    "name": "Light Gate",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8096,7 +8122,7 @@
    "kr_region": null,
    "name": "Lunetta",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8109,7 +8135,7 @@
    "kr_region": null,
    "name": "He Makes His Angels as Winds",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8122,7 +8148,7 @@
    "kr_region": null,
    "name": "Yellow Marker",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8135,7 +8161,7 @@
    "kr_region": null,
    "name": "Impulse Bergkamen",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8148,7 +8174,7 @@
    "kr_region": null,
    "name": "Bergkamen Sets Standards",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8161,7 +8187,7 @@
    "kr_region": null,
    "name": "Pulse-Light Marina Rünthe",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8174,7 +8200,7 @@
    "kr_region": null,
    "name": "Water Screen",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8187,7 +8213,7 @@
    "kr_region": null,
    "name": "City Gates",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -8213,7 +8239,7 @@
    "kr_region": null,
    "name": "Welcome (Shaking Hands)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8226,7 +8252,7 @@
    "kr_region": null,
    "name": "Data Structure",
    "previous_images": 3,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -8239,7 +8265,7 @@
    "kr_region": null,
    "name": "Solar Orbit Transit Station",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8252,7 +8278,7 @@
    "kr_region": null,
    "name": "Water – Light",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8265,7 +8291,7 @@
    "kr_region": null,
    "name": "Untitled (2 elements, Ingo Maurer)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8278,7 +8304,7 @@
    "kr_region": null,
    "name": "Possibility Plant",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8291,7 +8317,7 @@
    "kr_region": null,
    "name": "Untitled (Hans van Bentem)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8304,7 +8330,7 @@
    "kr_region": null,
    "name": "Second Thought",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -8317,7 +8343,7 @@
    "kr_region": null,
    "name": "Untitled",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -8330,7 +8356,7 @@
    "kr_region": null,
    "name": "Untitled (Tom Postma, Alexander Schabracq)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8343,7 +8369,7 @@
    "kr_region": null,
    "name": "Untitled (2 parts)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8356,7 +8382,7 @@
    "kr_region": null,
    "name": "Bus stops",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8369,7 +8395,7 @@
    "kr_region": null,
    "name": "The Catwalk",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8395,7 +8421,7 @@
    "kr_region": null,
    "name": "Untitled (3 elements, Martinitoren)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8408,7 +8434,7 @@
    "kr_region": null,
    "name": "Lightwork for garage 2001-2005",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8421,7 +8447,7 @@
    "kr_region": null,
    "name": "Light monuments Ebbingekwartier",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8434,7 +8460,7 @@
    "kr_region": null,
    "name": "N.NE.E.SE.S.SW.W.NW.N.",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8447,7 +8473,7 @@
    "kr_region": null,
    "name": "Memories, Memories",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8460,7 +8486,7 @@
    "kr_region": null,
    "name": "Untitled",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -8473,7 +8499,7 @@
    "kr_region": null,
    "name": "AND Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8486,7 +8512,7 @@
    "kr_region": null,
    "name": "Lumia Gallery",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -8499,7 +8525,7 @@
    "kr_region": null,
    "name": "Hope",
    "previous_images": 3,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -8525,7 +8551,7 @@
    "kr_region": null,
    "name": "Neons for Back Bay Station",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8538,7 +8564,7 @@
    "kr_region": null,
    "name": "Portrait of Rudi Fuchs",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8551,7 +8577,7 @@
    "kr_region": null,
    "name": "Optronica",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8564,7 +8590,7 @@
    "kr_region": null,
    "name": "Alpha-Ville Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8577,7 +8603,7 @@
    "kr_region": null,
    "name": "Instal",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8590,7 +8616,7 @@
    "kr_region": null,
    "name": "Kill Your Timid Notion",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8603,7 +8629,7 @@
    "kr_region": null,
    "name": "Berwick Film and Media Arts Festival (BFMAF)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8616,7 +8642,7 @@
    "kr_region": null,
    "name": "Ultrasound",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8629,7 +8655,7 @@
    "kr_region": null,
    "name": "_Open Source City Micro-Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8642,7 +8668,7 @@
    "kr_region": null,
    "name": "FutureEverything Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8655,7 +8681,7 @@
    "kr_region": null,
    "name": "Futuresonic Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8668,7 +8694,7 @@
    "kr_region": null,
    "name": "The Festival of Lying",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8681,7 +8707,7 @@
    "kr_region": null,
    "name": "Improvisation and Digital Arts Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8694,7 +8720,7 @@
    "kr_region": null,
    "name": "Brighton Digital Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8707,7 +8733,7 @@
    "kr_region": null,
    "name": "Pandaemonium Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8720,7 +8746,7 @@
    "kr_region": null,
    "name": "Lovebytes Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8733,7 +8759,7 @@
    "kr_region": null,
    "name": "Evolution",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8746,7 +8772,7 @@
    "kr_region": null,
    "name": "Metapod Digital Arts Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8759,7 +8785,7 @@
    "kr_region": null,
    "name": "DMZ Media Arts Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8772,7 +8798,7 @@
    "kr_region": null,
    "name": "NEoN Digital Arts Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8785,7 +8811,7 @@
    "kr_region": null,
    "name": "node.London",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8798,7 +8824,7 @@
    "kr_region": null,
    "name": "Digital Cultures Lab festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8811,7 +8837,7 @@
    "kr_region": null,
    "name": "onedotzero_adventures in motion",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8824,7 +8850,7 @@
    "kr_region": null,
    "name": "Photo98",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8837,7 +8863,7 @@
    "kr_region": null,
    "name": "Chromatologies",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8850,7 +8876,7 @@
    "kr_region": null,
    "name": "Expo Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8863,7 +8889,7 @@
    "kr_region": null,
    "name": "Radiator Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8876,7 +8902,7 @@
    "kr_region": null,
    "name": "AV Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8889,7 +8915,7 @@
    "kr_region": null,
    "name": "Sightsonic",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8902,7 +8928,7 @@
    "kr_region": null,
    "name": "Digital Weekender",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8915,7 +8941,7 @@
    "kr_region": null,
    "name": "Watermans International Festival of Digital Art",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8928,7 +8954,7 @@
    "kr_region": null,
    "name": "The Connectors",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8941,7 +8967,7 @@
    "kr_region": null,
    "name": "b.TWEEN Festival of Future Entertainment",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8954,7 +8980,7 @@
    "kr_region": null,
    "name": "Kinetica Art Fair",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8967,7 +8993,7 @@
    "kr_region": null,
    "name": "Lancaster Film & New Media Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8980,7 +9006,7 @@
    "kr_region": null,
    "name": "May You Live in Interesting Times",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -8993,7 +9019,7 @@
    "kr_region": null,
    "name": "moves: International Festival of Movement on Screen",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9006,7 +9032,7 @@
    "kr_region": null,
    "name": "New Visions",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9019,7 +9045,7 @@
    "kr_region": null,
    "name": "NOW Festival",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9032,7 +9058,7 @@
    "kr_region": null,
    "name": "Takeaway Festival of DIY Media",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9045,7 +9071,7 @@
    "kr_region": null,
    "name": "Notebooks 14/16 #3 [Warm White]",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9058,7 +9084,7 @@
    "kr_region": null,
    "name": "f.city",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9071,7 +9097,7 @@
    "kr_region": null,
    "name": "(to Don Judd, colorist) 1",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9084,7 +9110,7 @@
    "kr_region": null,
    "name": "Helios-Matrix",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9097,7 +9123,7 @@
    "kr_region": null,
    "name": "five planets",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9110,7 +9136,7 @@
    "kr_region": null,
    "name": "Un mystérieux héritage",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9123,7 +9149,7 @@
    "kr_region": null,
    "name": "Raw Paradise",
    "previous_images": 8,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -9136,7 +9162,7 @@
    "kr_region": null,
    "name": "Bible Bike (Borealis)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9149,7 +9175,7 @@
    "kr_region": null,
    "name": "Celà s'appelle l'aurore",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9162,7 +9188,7 @@
    "kr_region": null,
    "name": "Pittore in Africa",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9188,7 +9214,7 @@
    "kr_region": null,
    "name": "Sonic Runway",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9201,7 +9227,7 @@
    "kr_region": null,
    "name": "Sonic Runway",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9214,7 +9240,7 @@
    "kr_region": null,
    "name": "Sonic Runway",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9240,7 +9266,7 @@
    "kr_region": null,
    "name": "Wer sucht, der findet",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -9253,7 +9279,7 @@
    "kr_region": null,
    "name": "Kaaret",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9266,7 +9292,7 @@
    "kr_region": null,
    "name": "Memory/Diffusion",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9279,7 +9305,7 @@
    "kr_region": null,
    "name": "Motion Experience",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9292,7 +9318,7 @@
    "kr_region": null,
    "name": "Cost of Living",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9305,7 +9331,7 @@
    "kr_region": null,
    "name": "U-Turn",
    "previous_images": 9,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -9318,7 +9344,7 @@
    "kr_region": null,
    "name": "Interactive Neon Mural #17",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -9331,7 +9357,7 @@
    "kr_region": null,
    "name": "Ziegelstein und Baum - ein Lichtgehäuse",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -9344,7 +9370,7 @@
    "kr_region": null,
    "name": "Origin",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -9357,7 +9383,7 @@
    "kr_region": null,
    "name": "Cloud Gate",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9370,7 +9396,7 @@
    "kr_region": null,
    "name": "Flight of the birds",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9383,7 +9409,7 @@
    "kr_region": null,
    "name": "light tetrahedron",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9396,7 +9422,7 @@
    "kr_region": null,
    "name": "laser installation for airspace",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9435,7 +9461,7 @@
    "kr_region": null,
    "name": "FloridaRAMA",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9448,7 +9474,7 @@
    "kr_region": null,
    "name": "light kinetic relief",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9461,7 +9487,7 @@
    "kr_region": null,
    "name": "Seagrass",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9474,7 +9500,7 @@
    "kr_region": null,
    "name": "Serendipity",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9487,7 +9513,7 @@
    "kr_region": null,
    "name": "Neon - Self-Defined",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9500,7 +9526,7 @@
    "kr_region": null,
    "name": "paradise",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9526,7 +9552,7 @@
    "kr_region": null,
    "name": "Memorie Palais Des Tuileries",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9539,7 +9565,7 @@
    "kr_region": null,
    "name": "De Vlam van Tivoli",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -9552,7 +9578,7 @@
    "kr_region": null,
    "name": "Objet Mathématique",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -9565,7 +9591,7 @@
    "kr_region": null,
    "name": "Loom Light",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -9578,7 +9604,7 @@
    "kr_region": null,
    "name": "Wereldkaart",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -9591,7 +9617,7 @@
    "kr_region": null,
    "name": "Světelný objekt před nákupním střediskem Máj",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9617,7 +9643,7 @@
    "kr_region": null,
    "name": "Xirómero/Dryland",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9630,7 +9656,7 @@
    "kr_region": null,
    "name": "Chemin des Lanternes",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9643,7 +9669,7 @@
    "kr_region": null,
    "name": "Djembe Public Art Project",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9656,7 +9682,7 @@
    "kr_region": null,
    "name": "Heijasteita",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9669,7 +9695,7 @@
    "kr_region": null,
    "name": "Inner Glow 1 2 3",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9682,7 +9708,7 @@
    "kr_region": null,
    "name": "Merikosken m³s",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9695,7 +9721,7 @@
    "kr_region": null,
    "name": "valo- ja äänitaiteen teos Flumen",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9708,7 +9734,7 @@
    "kr_region": null,
    "name": "Pendulum",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9734,7 +9760,7 @@
    "kr_region": null,
    "name": "Uros House",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -9747,7 +9773,7 @@
    "kr_region": null,
    "name": "Golden Waters",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9760,7 +9786,7 @@
    "kr_region": null,
    "name": "Hedera",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9773,7 +9799,7 @@
    "kr_region": null,
    "name": "Amplexus",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9786,7 +9812,7 @@
    "kr_region": null,
    "name": "Pink Lotus",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9799,7 +9825,7 @@
    "kr_region": null,
    "name": "Golden Array",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9812,7 +9838,7 @@
    "kr_region": null,
    "name": "Scientia",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9825,7 +9851,7 @@
    "kr_region": null,
    "name": "Passage",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9838,7 +9864,7 @@
    "kr_region": null,
    "name": "Maritime",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9851,7 +9877,7 @@
    "kr_region": null,
    "name": "Radiance",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9864,7 +9890,7 @@
    "kr_region": null,
    "name": "Perfect Timing",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9890,7 +9916,7 @@
    "kr_region": null,
    "name": "Valokaivo",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9903,7 +9929,7 @@
    "kr_region": null,
    "name": "Kartastoja / 1",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9916,7 +9942,7 @@
    "kr_region": null,
    "name": "Viivasto",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9929,7 +9955,7 @@
    "kr_region": null,
    "name": "Cumulus Gate Pavilion for Richard Pearse",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -9942,7 +9968,7 @@
    "kr_region": null,
    "name": "heimat",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9955,7 +9981,7 @@
    "kr_region": null,
    "name": "Plan of the Path of Light (In the House of the Hidden Places)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9968,7 +9994,7 @@
    "kr_region": null,
    "name": "What Matters (The Scattering)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -9994,12 +10020,12 @@
    "kr_region": null,
    "name": "Beyond Recall (Salzburg)",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
    "card_kind": "project_media",
-   "card_tier": 2,
+   "card_tier": 1,
    "card_title": "Signal Festival 2023, As Water Falls 01",
    "id": "Q15140473",
    "images": 12,
@@ -10033,7 +10059,7 @@
    "kr_region": null,
    "name": "고베 루미나리에",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10046,7 +10072,7 @@
    "kr_region": null,
    "name": "Luminous at Darling Quarter",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10085,7 +10111,7 @@
    "kr_region": null,
    "name": "Tiger and Turtle – Magic Mountain",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10111,7 +10137,7 @@
    "kr_region": null,
    "name": "Paint Torch",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10150,7 +10176,7 @@
    "kr_region": null,
    "name": "Lichtzeitpegel",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10163,7 +10189,7 @@
    "kr_region": null,
    "name": "Terza Rima",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10176,7 +10202,7 @@
    "kr_region": null,
    "name": "3 arcs de néon inclinés à 0°-90°-45°",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10215,7 +10241,7 @@
    "kr_region": null,
    "name": "Fibonacci Sequence 1–55",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10228,7 +10254,7 @@
    "kr_region": null,
    "name": "Härän merkki",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10241,7 +10267,7 @@
    "kr_region": null,
    "name": "Network",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10254,7 +10280,7 @@
    "kr_region": null,
    "name": "Pixelache Helsinki",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10267,7 +10293,7 @@
    "kr_region": null,
    "name": "Centre for International Light Art",
    "previous_images": 6,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10280,7 +10306,7 @@
    "kr_region": null,
    "name": "Bremer Raupe",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10293,7 +10319,7 @@
    "kr_region": null,
    "name": "Lichtskulptur Gelmeroda",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10306,7 +10332,7 @@
    "kr_region": null,
    "name": "Tribute in Light",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10332,7 +10358,7 @@
    "kr_region": null,
    "name": "Installation for Nantes Courthouse",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10345,7 +10371,7 @@
    "kr_region": null,
    "name": "Sol Lumen",
    "previous_images": 3,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10358,7 +10384,7 @@
    "kr_region": null,
    "name": "A Frontal Passage",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10371,7 +10397,7 @@
    "kr_region": null,
    "name": "33 Questions Per Minute",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10384,7 +10410,7 @@
    "kr_region": null,
    "name": "Field",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10397,7 +10423,7 @@
    "kr_region": null,
    "name": "Untitled",
    "previous_images": 7,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10410,7 +10436,7 @@
    "kr_region": null,
    "name": "1989",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10436,7 +10462,7 @@
    "kr_region": null,
    "name": "the diagonal of May 25, 1963",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10449,7 +10475,7 @@
    "kr_region": null,
    "name": "2 carrés",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10462,7 +10488,7 @@
    "kr_region": null,
    "name": "Skyspace",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10475,7 +10501,7 @@
    "kr_region": null,
    "name": "Luminator Bernocchi",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10501,7 +10527,7 @@
    "kr_region": null,
    "name": "Joitakin teknokukkasia",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10514,7 +10540,7 @@
    "kr_region": null,
    "name": "SolarWind",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10527,7 +10553,7 @@
    "kr_region": null,
    "name": "Le Plongeon",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10540,7 +10566,7 @@
    "kr_region": null,
    "name": "Les Fourmis",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10553,7 +10579,7 @@
    "kr_region": null,
    "name": "Still Light",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10566,7 +10592,7 @@
    "kr_region": null,
    "name": "Wedgework III",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10579,7 +10605,7 @@
    "kr_region": null,
    "name": "Suite from Aten Reign",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10592,7 +10618,7 @@
    "kr_region": null,
    "name": "Scramble",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10605,7 +10631,7 @@
    "kr_region": null,
    "name": "Grandes Ondes",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10631,7 +10657,7 @@
    "kr_region": null,
    "name": "Hain",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10670,7 +10696,7 @@
    "kr_region": null,
    "name": "transmediale",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10683,7 +10709,7 @@
    "kr_region": null,
    "name": "Grasspriet met veel energie",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10722,7 +10748,7 @@
    "kr_region": null,
    "name": "Que pouvait bien raconter saint François aux oiseaux",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10735,7 +10761,7 @@
    "kr_region": null,
    "name": "Radiesthesic Hall 1",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10748,7 +10774,7 @@
    "kr_region": null,
    "name": "Le siècle de Lévi-Strauss",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10761,7 +10787,7 @@
    "kr_region": null,
    "name": "Fate will tear us apart (Christiane)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10774,7 +10800,7 @@
    "kr_region": null,
    "name": "Fate will tear us apart (Sébastien)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10787,7 +10813,7 @@
    "kr_region": null,
    "name": "Fate will tear us apart (Mike)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10826,7 +10852,7 @@
    "kr_region": null,
    "name": "Call & Response",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10852,7 +10878,7 @@
    "kr_region": null,
    "name": "Red, White and Blue",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10865,7 +10891,7 @@
    "kr_region": null,
    "name": "Untitled",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10878,7 +10904,7 @@
    "kr_region": null,
    "name": "Public Poetry Pavilion",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10917,7 +10943,7 @@
    "kr_region": null,
    "name": "Incubate Lactate Perambulate",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -10930,7 +10956,7 @@
    "kr_region": null,
    "name": "The Ring of Fire",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -10969,7 +10995,7 @@
    "kr_region": null,
    "name": "Les Anneaux",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11047,7 +11073,7 @@
    "kr_region": null,
    "name": "Éclats verts, jaunes, rouges",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11086,7 +11112,7 @@
    "kr_region": null,
    "name": "Juicy Light",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11099,7 +11125,7 @@
    "kr_region": null,
    "name": "Schrijvende hand",
    "previous_images": 3,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11112,7 +11138,7 @@
    "kr_region": null,
    "name": "Acton",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11157,9 +11183,9 @@
   {
    "card_kind": "project_media",
    "card_tier": 2,
-   "card_title": "Fireworks at City Hall",
+   "card_title": "Red (3123536873)",
    "id": "Q5054749",
-   "images": 12,
+   "images": 5,
    "kr": false,
    "kr_region": null,
    "name": "Cavalcade of Lights Festival",
@@ -11190,7 +11216,7 @@
    "kr_region": null,
    "name": "Eiffel Tower Lighting",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11203,7 +11229,7 @@
    "kr_region": null,
    "name": "Cybersonica",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11216,7 +11242,7 @@
    "kr_region": null,
    "name": "Sem título (Maurício Bentes)",
    "previous_images": 5,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11229,7 +11255,7 @@
    "kr_region": null,
    "name": "Empire Towers",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11242,7 +11268,7 @@
    "kr_region": null,
    "name": "Festival of Lights",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11268,7 +11294,7 @@
    "kr_region": null,
    "name": "Festival of Northern Lights",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11281,7 +11307,7 @@
    "kr_region": null,
    "name": "Fire and Water",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11294,7 +11320,7 @@
    "kr_region": null,
    "name": "Light Gig",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11320,7 +11346,7 @@
    "kr_region": null,
    "name": "Passage de la Baleine",
    "previous_images": 5,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11333,7 +11359,7 @@
    "kr_region": null,
    "name": "Schlosslichtspiele 2015",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11346,7 +11372,7 @@
    "kr_region": null,
    "name": "Yön kahdeksan hetkeä",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11385,7 +11411,7 @@
    "kr_region": null,
    "name": "Elämän puu",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11398,7 +11424,7 @@
    "kr_region": null,
    "name": "Space That Sees",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11424,7 +11450,7 @@
    "kr_region": null,
    "name": "Monument for V. Tatlin",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11476,7 +11502,7 @@
    "kr_region": null,
    "name": "Royce",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11489,7 +11515,7 @@
    "kr_region": null,
    "name": "Artar",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11502,7 +11528,7 @@
    "kr_region": null,
    "name": "Amba",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11515,7 +11541,7 @@
    "kr_region": null,
    "name": "Orca",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11528,7 +11554,7 @@
    "kr_region": null,
    "name": "\"monument\" for V. Tatlin",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11541,7 +11567,7 @@
    "kr_region": null,
    "name": "\"monument\" for V. Tatlin",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11554,7 +11580,7 @@
    "kr_region": null,
    "name": "New Light",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11567,7 +11593,7 @@
    "kr_region": null,
    "name": "untitled (to Barnett Newman to commemorate his simple problem, red, yellow and blue)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11580,7 +11606,7 @@
    "kr_region": null,
    "name": "Multiverse",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11606,7 +11632,7 @@
    "kr_region": null,
    "name": "Bright Brussels",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11619,7 +11645,7 @@
    "kr_region": null,
    "name": "Roden Crater",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11632,7 +11658,7 @@
    "kr_region": null,
    "name": "Anemometer",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11645,7 +11671,7 @@
    "kr_region": null,
    "name": "Golden Angel",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11658,7 +11684,7 @@
    "kr_region": null,
    "name": "Kendall Band",
    "previous_images": 10,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11671,7 +11697,7 @@
    "kr_region": null,
    "name": "Solidarity Grid",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11697,7 +11723,7 @@
    "kr_region": null,
    "name": "Magnificent Mile Lights Festival",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11710,7 +11736,7 @@
    "kr_region": null,
    "name": "아르스 일렉트로니카",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11749,7 +11775,7 @@
    "kr_region": null,
    "name": "Solar Collector",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11762,7 +11788,7 @@
    "kr_region": null,
    "name": "Stuck Red/Stuck Blue",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11775,7 +11801,7 @@
    "kr_region": null,
    "name": "The Bay Lights",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11788,7 +11814,7 @@
    "kr_region": null,
    "name": "Triforium",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11801,7 +11827,7 @@
    "kr_region": null,
    "name": "UIC Skyspace",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11814,7 +11840,7 @@
    "kr_region": null,
    "name": "Urban Light",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11853,7 +11879,7 @@
    "kr_region": null,
    "name": "Das Wasser; Lichtskulpturen Beethoven 2020",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11866,7 +11892,7 @@
    "kr_region": null,
    "name": "Das Zimmer; Lichtskulpturen Beethoven 2020",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11879,7 +11905,7 @@
    "kr_region": null,
    "name": "Der Bürger; Lichtskulpturen Beethoven 2020",
    "previous_images": 3,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11892,7 +11918,7 @@
    "kr_region": null,
    "name": "Der Geist; Lichtskulpturen Beethoven 2020",
    "previous_images": 3,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11905,7 +11931,7 @@
    "kr_region": null,
    "name": "Die Kugel; Lichtskulpturen Beethoven 2020",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11918,7 +11944,7 @@
    "kr_region": null,
    "name": "Die Menschen; Lichtskulpturen Beethoven 2020",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11931,7 +11957,7 @@
    "kr_region": null,
    "name": "Die Wand; Lichtskulpturen Beethoven 2020",
    "previous_images": 3,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11944,7 +11970,7 @@
    "kr_region": null,
    "name": "Die Welt; Lichtskulpturen Beethoven 2020",
    "previous_images": 8,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11970,7 +11996,7 @@
    "kr_region": null,
    "name": "Ludwig nimmt die Treppe - Beethovenfest 2015",
    "previous_images": 2,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -11983,7 +12009,7 @@
    "kr_region": null,
    "name": "Snowden Hologram",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -11996,7 +12022,7 @@
    "kr_region": null,
    "name": "Nieuw",
    "previous_images": 6,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -12022,7 +12048,7 @@
    "kr_region": null,
    "name": "Flame of Bachelard",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -12035,7 +12061,7 @@
    "kr_region": null,
    "name": "The Celestial Vault",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -12048,7 +12074,7 @@
    "kr_region": null,
    "name": "Stadsmarkering S07",
    "previous_images": 6,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -12061,7 +12087,7 @@
    "kr_region": null,
    "name": "Stadsmarkering S01 Gate Tower Clio",
    "previous_images": 4,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -12087,7 +12113,7 @@
    "kr_region": null,
    "name": "Bluebox (Kunst)",
    "previous_images": 1,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -12126,7 +12152,7 @@
    "kr_region": null,
    "name": "Dividing the Light",
    "previous_images": 11,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -12139,7 +12165,7 @@
    "kr_region": null,
    "name": "Times Square",
    "previous_images": 5,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -12152,7 +12178,7 @@
    "kr_region": null,
    "name": "MQ Libelle",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -12191,7 +12217,7 @@
    "kr_region": null,
    "name": "Silberne Frequenz",
    "previous_images": 12,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -12204,7 +12230,7 @@
    "kr_region": null,
    "name": "Dream House",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -12217,7 +12243,7 @@
    "kr_region": null,
    "name": "Utah Bit and Mine",
    "previous_images": 9,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -12230,7 +12256,7 @@
    "kr_region": null,
    "name": "178 Bottles, 1 Message",
    "previous_images": 10,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -12243,7 +12269,7 @@
    "kr_region": null,
    "name": "(quietly, to the memory of Mia Visser)",
    "previous_images": 0,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": false
   },
   {
@@ -12269,7 +12295,7 @@
    "kr_region": null,
    "name": "Configuracions Urbanes: Deuce Coop",
    "previous_images": 8,
-   "status": "scored",
+   "status": "carried_over",
    "valid_card": true
   },
   {
@@ -13288,12 +13314,12 @@
   }
  ],
  "rejected": {
-  "identity": 4183,
-  "low_res": 83,
-  "mislinked": 71,
+  "identity": 1345,
+  "low_res": 62,
+  "mislinked": 27,
   "other": 1,
-  "person": 721,
-  "rights": 70
+  "person": 157,
+  "rights": 35
  },
  "rejected_examples": {
   "identity": [
@@ -13665,20 +13691,6 @@
     ]
    },
    {
-    "key": "LuminousDarlingQuarter17.jpg",
-    "project": "Q17011583",
-    "reasons": [
-     "too_small"
-    ]
-   },
-   {
-    "key": "Raupe - Bernd Uiberall - Bremen.jpg",
-    "project": "Q19275762",
-    "reasons": [
-     "too_small"
-    ]
-   },
-   {
     "key": "Winterstrahlen Teichsmuehle.jpg",
     "project": "CAT-07VY0TI",
     "reasons": [
@@ -13688,13 +13700,6 @@
    {
     "key": "V2 Institute for the Unstable Media facade.jpg",
     "project": "Q110169084",
-    "reasons": [
-     "too_small"
-    ]
-   },
-   {
-    "key": "Haerle Hubacher Architekten BSA, Oerlikerpark Zürich, 2001.jpg",
-    "project": "Q127587463",
     "reasons": [
      "too_small"
     ]
@@ -13827,13 +13832,6 @@
     ]
    },
    {
-    "key": "20070522alles van waarde2.jpg",
-    "project": "Q102079626",
-    "reasons": [
-     "too_small"
-    ]
-   },
-   {
     "key": "Victoria Harbour around Chinese New Year Night with Fireworks and Laser Show(edited).jpg",
     "project": "Q1068874",
     "reasons": [
@@ -13857,6 +13855,35 @@
    {
     "key": "Pagent-of-light.jpg",
     "project": "Q11242901",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Denkzeichen Georg Elser Berlin 09.jpg",
+    "project": "Q1188708",
+    "reasons": [
+     "extreme_aspect"
+    ]
+   },
+   {
+    "key": "Hp laser gruen.jpg",
+    "project": "Q1806570",
+    "reasons": [
+     "rights:license_not_allowed",
+     "too_small"
+    ]
+   },
+   {
+    "key": "Bosque de Farolas Bilbao.jpg",
+    "project": "Q20888882",
+    "reasons": [
+     "too_small"
+    ]
+   },
+   {
+    "key": "Bye bye Blue Goals.jpg",
+    "project": "CAT-01WE6KC",
     "reasons": [
      "too_small"
     ]
@@ -13957,226 +13984,110 @@
     ]
    },
    {
-    "key": "Djembe George Sabra artist Austin.jpg",
-    "project": "Q139502938",
+    "key": "ETOPIA Centro de Arte y Tecnología - IMG 20230512 101742.jpg",
+    "project": "Q96055560",
     "reasons": [
-     "subject:object_or_animal:cooking"
+     "interior_unrelated_to_work"
     ]
    },
    {
-    "key": "img-c3789b9ad7e7",
-    "project": "Q118609716",
+    "key": "img-ca564738965e",
+    "project": "Q626425",
     "reasons": [
      "identity_unproven",
-     "subject:object_or_animal:poster"
+     "subject:object_or_animal:lion"
     ]
    },
    {
-    "key": "img-3717c354dd88",
-    "project": "Q100437097",
+    "key": "20231021 184556 weźże wyluzuj neon sign.jpg",
+    "project": "Q15014400",
     "reasons": [
-     "identity_unproven",
+     "subject:object_or_animal:neon sign"
+    ]
+   },
+   {
+    "key": "Facade Zeilgalerie Frankfurt - Redesign 2010.jpg",
+    "project": "Q184921",
+    "reasons": [
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "Cna gobears.jpg",
+    "project": "Q351126",
+    "reasons": [
+     "subject:object_or_animal:bears",
+     "too_small"
+    ]
+   },
+   {
+    "key": "Chemnitz Hbf Gleishalle.jpg",
+    "project": "CAT-1QV2IWZ",
+    "reasons": [
+     "interior_unrelated_to_work"
+    ]
+   },
+   {
+    "key": "Mirai Mizue, The Baby Birds of Norman McLaren, 2014 (14145425427).jpg",
+    "project": "CAT-0336B9D",
+    "reasons": [
+     "subject:object_or_animal:birds"
+    ]
+   },
+   {
+    "key": "Mirai Mizue, The Baby Birds of Norman McLaren, 2014 (14150895020).jpg",
+    "project": "CAT-0336B9D",
+    "reasons": [
+     "subject:object_or_animal:birds"
+    ]
+   },
+   {
+    "key": "Mirai Mizue, The Baby Birds of Norman McLaren, 2014 (14330206262).jpg",
+    "project": "CAT-0336B9D",
+    "reasons": [
+     "subject:object_or_animal:birds"
+    ]
+   },
+   {
+    "key": "After the Light Festival in Marburg, green dragon and knight sculpture in white light 2016-11-25.jpg",
+    "project": "CAT-0SLUD1S",
+    "reasons": [
+     "subject:object_or_animal:horse"
+    ]
+   },
+   {
+    "key": "Spanish Fork Festival of Lights toy soldiers, Dec 16.jpg",
+    "project": "Q105749709",
+    "reasons": [
+     "subject:object_or_animal:toy"
+    ]
+   },
+   {
+    "key": "20210222 Copenhagen Light Festival Højbro Plads - Absalon statue (51039221562).jpg",
+    "project": "Q124539982",
+    "reasons": [
      "subject:object_or_animal:statue"
     ]
    },
    {
-    "key": "img-aa30e7a66f48",
-    "project": "Q122916102",
+    "key": "Burst Of Color Illuminations Reflections Of Eart (112369359).jpeg",
+    "project": "Q3148738",
     "reasons": [
-     "identity_unproven",
+     "subject:object_or_animal:animal"
+    ]
+   },
+   {
+    "key": "Fête des Lumières (Lyon, 2024, place Bellecour).jpg",
+    "project": "Q4167",
+    "reasons": [
+     "subject:object_or_animal:statue"
+    ]
+   },
+   {
+    "key": "2024 Winter Festival of Lights 6.jpg",
+    "project": "Q24190312",
+    "reasons": [
      "subject:object_or_animal:bear"
-    ]
-   },
-   {
-    "key": "img-bc3b1031dc17",
-    "project": "Q126723036",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:cat"
-    ]
-   },
-   {
-    "key": "img-800db21856d3",
-    "project": "Q127587050",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:bird"
-    ]
-   },
-   {
-    "key": "img-9cd38154f7fa",
-    "project": "Q127587050",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:dogs"
-    ]
-   },
-   {
-    "key": "img-615005e2d45a",
-    "project": "Q127587238",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:statue"
-    ]
-   },
-   {
-    "key": "img-9c007d06a76b",
-    "project": "Q127587238",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:figurine"
-    ]
-   },
-   {
-    "key": "img-4e8d1f65a0d4",
-    "project": "Q127587832",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:dog"
-    ]
-   },
-   {
-    "key": "img-1fa6b3e0acc2",
-    "project": "Q127587846",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:statue"
-    ]
-   },
-   {
-    "key": "img-09ded19cbcf0",
-    "project": "Q127587849",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:menu"
-    ]
-   },
-   {
-    "key": "img-816c283c2086",
-    "project": "Q140933380",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:statues"
-    ]
-   },
-   {
-    "key": "img-2d1c87c5fd03",
-    "project": "Q140933888",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:poster"
-    ]
-   },
-   {
-    "key": "img-c7f1490c2948",
-    "project": "Q142214264",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:horse"
-    ]
-   },
-   {
-    "key": "img-0c224431d4c3",
-    "project": "Q142214264",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:horse"
-    ]
-   },
-   {
-    "key": "img-0a1a894fa139",
-    "project": "Q29885992",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:poster"
-    ]
-   },
-   {
-    "key": "img-2cdccdfcbb8d",
-    "project": "Q5374168",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:food"
-    ]
-   },
-   {
-    "key": "img-6f7133ce4387",
-    "project": "Q5374168",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:food"
-    ]
-   },
-   {
-    "key": "img-72c40ef2b434",
-    "project": "Q63862072",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:statues"
-    ]
-   },
-   {
-    "key": "img-0b48165d3d64",
-    "project": "Q126689470",
-    "reasons": [
-     "identity_unproven",
-     "interior_unrelated_to_work"
-    ]
-   },
-   {
-    "key": "img-c3df7777b5b9",
-    "project": "Q131338380",
-    "reasons": [
-     "identity_unproven",
-     "interior_unrelated_to_work"
-    ]
-   },
-   {
-    "key": "img-16ed36aa4809",
-    "project": "Q131338382",
-    "reasons": [
-     "identity_unproven",
-     "interior_unrelated_to_work"
-    ]
-   },
-   {
-    "key": "img-ef31fd06e3a9",
-    "project": "Q131338384",
-    "reasons": [
-     "identity_unproven",
-     "interior_unrelated_to_work"
-    ]
-   },
-   {
-    "key": "img-0819928c7bd7",
-    "project": "Q131338387",
-    "reasons": [
-     "identity_unproven",
-     "interior_unrelated_to_work"
-    ]
-   },
-   {
-    "key": "img-099a3c89d718",
-    "project": "Q131338388",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:dogs"
-    ]
-   },
-   {
-    "key": "img-73d25c17c875",
-    "project": "Q131338393",
-    "reasons": [
-     "identity_unproven",
-     "interior_unrelated_to_work"
-    ]
-   },
-   {
-    "key": "img-e60ea4108b95",
-    "project": "Q131338397",
-    "reasons": [
-     "identity_unproven",
-     "subject:object_or_animal:food"
     ]
    }
   ],
@@ -14538,182 +14449,6 @@
     ]
    },
    {
-    "key": "img-5768fc8916a9",
-    "project": "Q102080964",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-58dc5ef7fdfd",
-    "project": "Q102080964",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-e8a24f2bdbaf",
-    "project": "Q102080964",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-3be14658ac34",
-    "project": "Q110646144",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-874cafe353c0",
-    "project": "Q110646144",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-3227e690ee89",
-    "project": "Q123597350",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-22cb61880936",
-    "project": "Q123597350",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-34f2a9c308ac",
-    "project": "Q123597350",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-54062115a3dc",
-    "project": "Q123597350",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-24d8cf679fdc",
-    "project": "Q127587709",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-3ec959b31ebb",
-    "project": "Q127588173",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-36b656176e16",
-    "project": "Q134487534",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-ea35423fbf7b",
-    "project": "Q134487534",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-35caf2f5f38e",
-    "project": "Q134487534",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-d4077acf1337",
-    "project": "Q134487534",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-c8ff0f3ccdc7",
-    "project": "Q134487534",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-e10485d70cb9",
-    "project": "Q134487534",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-2d3e98d6791d",
-    "project": "Q134487534",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-4e85ead736f3",
-    "project": "Q141673318",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-af1ce3066180",
-    "project": "Q141673318",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-b0c66cfeb940",
-    "project": "Q141673318",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
-    "key": "img-4235429e2bd4",
-    "project": "Q141673318",
-    "reasons": [
-     "rights:no_creator",
-     "identity_unproven"
-    ]
-   },
-   {
     "key": "Classical spectacular laser effects.jpg",
     "project": "CAT-05MF2O1",
     "reasons": [
@@ -14803,11 +14538,195 @@
     "reasons": [
      "rights:license_not_allowed"
     ]
+   },
+   {
+    "key": "Classical spectacular05.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Classical spectacular06.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Classical spectacular07.jpg",
+    "project": "CAT-05MF2O1",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Spb 06-2017 img18 Leader Tower.jpg",
+    "project": "Q13668707",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Jevrejsko groblje u Sarajevu.jpg",
+    "project": "Q7422981",
+    "reasons": [
+     "rights:foreign_no_freedom_of_panorama"
+    ]
+   },
+   {
+    "key": "Sarajevo Tram-257 Line-1 2013-10-25.jpg",
+    "project": "Q7422981",
+    "reasons": [
+     "rights:foreign_no_freedom_of_panorama"
+    ]
+   },
+   {
+    "key": "Sarajevo Tram-291 Line-3 2013-10-25.jpg",
+    "project": "Q7422981",
+    "reasons": [
+     "rights:foreign_no_freedom_of_panorama"
+    ]
+   },
+   {
+    "key": "Kazan Arena 08-2016.jpg",
+    "project": "Q33993",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "16-09-25-Graz-Nachtaufnahmen-RR2 6452.jpg",
+    "project": "CAT-1VRT7O9",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Hong Kong Victoria Harbor light show.jpg",
+    "project": "Q1068874",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Victoria Harbor illumination.jpg",
+    "project": "Q1068874",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Lindenbrauerei Unna Kamin 2008 IMGP6397 wp.jpg",
+    "project": "Q127588061",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Muenchen-Georg-Elser-Neon.jpg",
+    "project": "Q270746",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "An illuminated 'Standard' - geograph.org.uk - 1345914.jpg",
+    "project": "Q4923257",
+    "reasons": [
+     "rights:commons_templates_incomplete"
+    ]
+   },
+   {
+    "key": "2009-10-24-berlin-by-RalfR-01.jpg",
+    "project": "CAT-0GL7X3U",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "2009-10-24-berlin-by-RalfR-02.jpg",
+    "project": "CAT-0GL7X3U",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
+   },
+   {
+    "key": "Amiens-Kathedrale-bei-Nacht.jpg",
+    "project": "CAT-194EIQ6",
+    "reasons": [
+     "rights:license_not_allowed"
+    ]
    }
   ]
  },
- "removed": {},
- "removed_examples": {},
+ "removed": {
+  "not_a_candidate_this_run": 12
+ },
+ "removed_examples": {
+  "not_a_candidate_this_run": [
+   {
+    "id": "img-0179814356af",
+    "project": "Q5054749",
+    "title": "Fireworks at City Hall"
+   },
+   {
+    "id": "img-a844b1e33736",
+    "project": "Q5054749",
+    "title": "Cavalcade of Lights (8209409161)"
+   },
+   {
+    "id": "img-be86c2992843",
+    "project": "Q5054749",
+    "title": "Calvacade of lights in Toronto"
+   },
+   {
+    "id": "img-fb2c0a7977e0",
+    "project": "Q5054749",
+    "title": "Cavalcade of Lights (8210498136)"
+   },
+   {
+    "id": "img-afa170d7104f",
+    "project": "Q5054749",
+    "title": "Cavalcade of Lights (8210498322)"
+   },
+   {
+    "id": "img-78c13df86a88",
+    "project": "Q5054749",
+    "title": "Fireworks at Toronto City Hall - 2008"
+   },
+   {
+    "id": "img-b87684738e47",
+    "project": "Q5054749",
+    "title": "Green (3124365146)"
+   },
+   {
+    "id": "img-80597c0334fc",
+    "project": "Q5054749",
+    "title": "Fireworks at Toronto City Hall 2008"
+   },
+   {
+    "id": "img-823d1442c024",
+    "project": "Q5054749",
+    "title": "Matt Dusk in concert 2009"
+   },
+   {
+    "id": "img-f81af7efd3a9",
+    "project": "Q5054749",
+    "title": "Cavalcade of Lights - Toronto"
+   },
+   {
+    "id": "img-403fe7dec35f",
+    "project": "Q5054749",
+    "title": "Keshia Chanté 10"
+   },
+   {
+    "id": "img-cc977ad8734f",
+    "project": "Q5054749",
+    "title": "Keshia Chanté 11"
+   }
+  ]
+ },
  "schema": 1,
  "summary": {
   "cards": {
@@ -14828,30 +14747,30 @@
    }
   },
   "duplicates_removed": 0,
-  "duplicates_this_run": 13,
-  "images": 2807,
-  "low_res_rejected": 83,
-  "mislinked_rejected": 71,
+  "duplicates_this_run": 9,
+  "images": 2800,
+  "low_res_rejected": 62,
+  "mislinked_rejected": 27,
   "mislinked_removed": 0,
-  "newly_added_valid": 0,
-  "person_rejected": 721,
+  "newly_added_valid": 5,
+  "person_rejected": 157,
   "person_removed": 0,
   "portraits": 3,
   "previous_images": 2807,
-  "rechecked_kept": 0,
-  "relevance_verified": 2807,
-  "removed_total": 0
+  "rechecked_kept": 563,
+  "relevance_verified": 2237,
+  "removed_total": 12
  },
  "totals": {
   "by_kind": {
    "architecture_context": 449,
    "event_documentation": 14,
    "project_installation": 59,
-   "project_media": 2279,
+   "project_media": 2272,
    "technical_documentation": 6
   },
   "by_provider": {
-   "commons": 2793,
+   "commons": 2786,
    "editor": 4,
    "openverse": 10
   },
@@ -14859,17 +14778,17 @@
    "card": 195,
    "context": 413,
    "featured": 193,
-   "gallery": 1996,
+   "gallery": 1989,
    "hero": 10
   },
   "by_tier": {
-   "1": 62,
-   "2": 410,
-   "3": 1837,
+   "1": 64,
+   "2": 407,
+   "3": 1831,
    "4": 47,
    "5": 451
   },
-  "images": 2807,
+  "images": 2800,
   "portraits": 3
  }
 }
