@@ -1,7 +1,7 @@
 {
  "cache": {
-  "hits": 13502,
-  "misses": 6,
+  "hits": 20003,
+  "misses": 2,
   "sizes": {
    "commons-category": 314,
    "commons-category-item": 1252,
@@ -10,10 +10,10 @@
    "commons-file-depicts": 4218,
    "commons-files": 4357,
    "commons-geotags": 384,
-   "commons-members": 882,
+   "commons-members": 877,
    "commons-parents": 395,
    "commons-search": 72,
-   "entities": 1156,
+   "entities": 1152,
    "entities-aux": 3381,
    "labels": 91,
    "links": 652,
@@ -24,3192 +24,115 @@
    "visual": 2291,
    "wiki-pageimages": 38,
    "wiki-pages": 590,
-   "wiki-search": 63,
+   "wiki-search": 60,
    "wikidata-articles": 1,
    "wikidata-search": 20
   },
-  "stale": 403,
-  "writes": 482
+  "stale": 413,
+  "writes": 483
  },
  "changes": {
-  "carried_over": [
-   {
-    "id": "Q101623588",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q102079902",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q102080964",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q105623405",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q105817457",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q110044129",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q110474409",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q110482101",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q115919576",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q115919648",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q115919697",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q118609542",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q119222001",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q122933893",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q123001919",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q123001920",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q124498125",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q126723036",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587204",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587279",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587590",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587709",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587796",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587833",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587842",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127588164",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130492393",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338379",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338384",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338397",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338403",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338410",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338418",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q132797212",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q133834642",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q133838071",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q136565365",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q137170403",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q137433690",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q137458983",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q139502938",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q141655422",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q142214264",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q17011583",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q22254429",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q29885992",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q5374168",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q5445785",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q55956590",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q62471084",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q87719549",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q97590510",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q97933052",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q98520082",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q100386500",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q102080206",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q102080596",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q102082194",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q110646148",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q113318895",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q113509569",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q113552842",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q115205489",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q118609523",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q118609549",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q122172761",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q123301665",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q123653566",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587049",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587463",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587838",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587849",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127588017",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127588105",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130070134",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130070390",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130070642",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338387",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338394",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338400",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338408",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338413",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q133097394",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q139973326",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q140923042",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q140934536",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q140934587",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q18335816",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q19275762",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q28864047",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q28864054",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q5445799",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q5451541",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q54854997",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q55373598",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q60191880",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q62471087",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q7555863",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q102080979",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q102082094",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q114245074",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q115919336",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q116621737",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q118609665",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q122178982",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q122916102",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q123705149",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q123859743",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q124300145",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q124360402",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q124360594",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q124362637",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q124428397",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127586928",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587277",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587303",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587527",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127588009",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130069911",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130070063",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130070254",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130070597",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130070760",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338382",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338391",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338399",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338416",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131632211",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q134126751",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q136219703",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q139969474",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q140062281",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q1636567",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q18302297",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q18659265",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q18662775",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q22316310",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q23045109",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q28864051",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q30181397",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q3207118",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q3230585",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q62471082",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q62471103",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q63862072",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q7627440",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q885975",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q102079626",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q102079873",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q102080622",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q102080921",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q102080990",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q105621899",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q115919182",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q115919407",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q115919696",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q118609613",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q118609716",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q122934178",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q122934884",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q123001918",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q123001921",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q126682295",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q126899330",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587065",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587241",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587832",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127588107",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q129856004",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130069835",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130070002",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130070125",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338378",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338385",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338396",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338402",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338411",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338419",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338420",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q132167502",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q133098362",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q134487534",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q137997359",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q138786110",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q140934358",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q142214265",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q15107562",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q19289172",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q2001578",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q20741456",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q20741764",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q22703904",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q23638005",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q24046100",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q3577528",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q5197843",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q678361",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q80200605",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q87749075",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q101623614",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q101965745",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q102080946",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q110820897",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q111023439",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q111305324",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q116662666",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q118609573",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q122933457",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q123760692",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q123766012",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q124428368",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q124498198",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587060",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587129",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587301",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587792",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587846",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587851",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587965",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127588168",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127588173",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338380",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338388",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338393",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338407",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338414",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131359226",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131632082",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q133097083",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q133838093",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q134613455",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q134964386",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q136085207",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q136261144",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q136563132",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q136926489",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q137264744",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q140923540",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q140933888",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q141221829",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q141673318",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q142132856",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q1800283",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q20741479",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q20888385",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q265292",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q51097424",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q62471080",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q62471088",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q6388883",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q80192871",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q80312363",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q98523821",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q99509370",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q100437097",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q102079949",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q105621912",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q107136388",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q108655183",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q110645974",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q110646144",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q115919023",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q116621736",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q118609527",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q118609570",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q118609615",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q122934802",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q123597350",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q124360348",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q124418980",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q124498096",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127586914",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587052",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587203",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587210",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587225",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587276",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587526",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587966",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127588109",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127588170",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130070237",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131324056",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338390",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338398",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338417",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q137285496",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q138025051",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q138025082",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q138505573",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q139969264",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q140922593",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q140923279",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q140933380",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q18084747",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q20681664",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q2071621",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q20888386",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q23389493",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q23762717",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q24522389",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q2655782",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q4413586",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q54856397",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q62471098",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q7715933",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q7841560",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q7899954",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q80196674",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q80198034",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q80199477",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q86086779",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q87658285",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q96409917",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q100510647",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q108139453",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q108865330",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q109369046",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q110475431",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q111707926",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q11524427",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q115918854",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q116207399",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q117729090",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q118609584",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q118609706",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q125740412",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127413446",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127586803",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127586999",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587206",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587794",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127588063",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127588166",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127588175",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q129159614",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130070522",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130070661",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130070759",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130706467",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338386",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338395",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338409",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338412",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q136244644",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q138718345",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q140054569",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q140934443",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q140934506",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q191212",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q23759783",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q23759848",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q28864055",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q41980149",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q56696077",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q63319303",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q63860935",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q66116253",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q80201137",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q96409321",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q104042899",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q110474369",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q113527000",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q114053490",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q115347055",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q115918729",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q115919249",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q116278022",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q116504811",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q116636378",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q118609617",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q122933508",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q124351351",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q124838702",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q125124583",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q126689470",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587050",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587058",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587201",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587238",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587388",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587678",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127587847",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q127588161",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130069822",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130070420",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q130271090",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131325314",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338381",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338389",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338392",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131338424",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131452414",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q131619992",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q135264093",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q135276616",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q135289104",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q138024906",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q138025044",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q142203492",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q1823573",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q18658760",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q18694056",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q22266340",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q23638012",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q23946926",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q28864049",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q28864052",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q2934058",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q29912653",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q3149976",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q4677658",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q52035646",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q56401421",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q62471081",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q62471092",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q63860886",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q6731738",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q7864703",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q80188532",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q80198623",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q85261195",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q87172790",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q96739513",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   },
-   {
-    "id": "Q99203673",
-    "reason": "source_not_complete",
-    "sources": [
-     "wikidata"
-    ]
-   }
-  ],
+  "carried_over": [],
   "changed": [
-   "CAT-006W654",
-   "CAT-006YK0N",
-   "CAT-01N4LGF",
-   "CAT-01WE6KC",
-   "CAT-01ZBA4K",
-   "CAT-02UFF78",
-   "CAT-0336B9D",
-   "CAT-03OOV2I",
-   "CAT-03ULN0L",
-   "CAT-05VF7HL",
-   "CAT-060SMQ9",
-   "CAT-0666LZC",
-   "CAT-06EZBAG",
-   "CAT-06MTGIV",
-   "CAT-06RUPY4",
-   "CAT-06VLQHR",
-   "CAT-07MN9XB",
-   "CAT-080XNRV",
-   "CAT-087XY0Y",
-   "CAT-08BN77L",
-   "CAT-09ZDYWO",
-   "CAT-09ZYAFP",
-   "CAT-0AEBIPR",
-   "CAT-0B6IDQU",
-   "CAT-0B9ZNFX",
-   "CAT-0BLB3MO",
-   "CAT-0CWOTJI",
-   "CAT-0E8G1MU",
-   "CAT-0EAYBY6",
-   "CAT-0GL7X3U",
-   "CAT-0H4BEQU",
-   "CAT-0J1KTII",
-   "CAT-0JXFXA2",
-   "CAT-0JYY9CE",
-   "CAT-0LLELAR",
-   "CAT-0M0QV3O",
-   "CAT-0MDTSAX",
-   "CAT-0NIEF25",
-   "CAT-0OXIFOM",
-   "CAT-0PDE534",
-   "CAT-0PSGJ9K",
-   "CAT-0QAASWL",
-   "CAT-0QH0T0A",
-   "CAT-0QJFC3C",
-   "CAT-0RRRVOK",
-   "CAT-0SLUD1S",
-   "CAT-0T9MVFP",
-   "CAT-0TBVQ3P",
-   "CAT-0UUDID6",
-   "CAT-0V5ZFBN",
-   "CAT-0X5OH68",
-   "CAT-0X8IWCG",
-   "CAT-0XKXRFR",
-   "CAT-0YNL8BM",
-   "CAT-0ZF9M7G",
-   "CAT-0ZY9NJG",
-   "CAT-13KGH9X",
-   "CAT-14IPYSX",
-   "CAT-14L575Y",
-   "CAT-15K694A",
-   "CAT-15KFS5O",
-   "CAT-15Q3ETO",
-   "CAT-15VOYUE",
-   "CAT-179IC4O",
-   "CAT-17Q294E",
-   "CAT-18MPLNM",
-   "CAT-18PSLHE",
-   "CAT-194EIQ6",
-   "CAT-19UI5Z0",
-   "CAT-19WSIOC",
-   "CAT-19YNNHA",
-   "CAT-1AXKR8E",
-   "CAT-1BGZX8T",
-   "CAT-1BSJHZ3",
-   "CAT-1CFHLL4",
-   "CAT-1CT46DX",
-   "CAT-1CXE5YL",
-   "CAT-1DGGGK7",
-   "CAT-1DPSBSO",
-   "CAT-1EQT3UH",
-   "CAT-1FUKQNM",
-   "CAT-1FV2MEP",
-   "CAT-1GBA2KD",
-   "CAT-1GGUXSH",
-   "CAT-1HI6B5P",
-   "CAT-1KCQL6I",
-   "CAT-1LEO0H0",
-   "CAT-1M413NK",
-   "CAT-1MB7I90",
-   "CAT-1MIYU2V",
-   "CAT-1NNE06W",
-   "CAT-1OC4PEX",
-   "CAT-1OKTAW1",
-   "CAT-1OXNCQS",
-   "CAT-1Q1RXR2",
-   "CAT-1QMMVV2",
-   "CAT-1QV2IWZ",
-   "CAT-1QWNNSV",
-   "CAT-1SSQIKM",
-   "CAT-1TQLHFI",
-   "CAT-1TTC7RH",
-   "CAT-1VRT7O9",
-   "CAT-1W4W4BP",
-   "CAT-1XKXSVP",
-   "CAT-1Y8FLLA",
-   "CAT-1YTY28W",
+   "Q100510647",
+   "Q101623588",
+   "Q101623614",
    "Q102079622",
+   "Q102079626",
    "Q102079673",
    "Q10224945",
-   "Q10457263",
+   "Q104042899",
    "Q105658382",
    "Q105765811",
-   "Q1068874",
+   "Q105817457",
    "Q107265489",
+   "Q108139453",
+   "Q108865330",
    "Q110264446",
-   "Q11242901",
+   "Q110820897",
+   "Q111023439",
+   "Q111305324",
+   "Q113509569",
+   "Q113527000",
    "Q114669123",
-   "Q116484",
+   "Q116278022",
    "Q116823022",
    "Q117225588",
-   "Q117248257",
-   "Q11756714",
-   "Q11783870",
-   "Q11825476",
-   "Q1188708",
-   "Q120508549",
-   "Q120798485",
+   "Q122172761",
    "Q122440749",
-   "Q122944544",
-   "Q124539982",
+   "Q124362637",
+   "Q124838702",
    "Q125675831",
    "Q125715",
-   "Q12618343",
    "Q12640281",
-   "Q126924742",
    "Q127586812",
    "Q127588061",
    "Q128211807",
-   "Q12859650",
    "Q130070499",
-   "Q131314431",
+   "Q132797212",
    "Q133137484",
-   "Q134006872",
-   "Q13668707",
+   "Q134126751",
+   "Q135276616",
+   "Q136085207",
+   "Q136219703",
    "Q136702043",
-   "Q137796942",
-   "Q1385120",
-   "Q140069746",
    "Q140937471",
-   "Q15014400",
+   "Q15107562",
    "Q15140473",
-   "Q16034471",
-   "Q17051597",
-   "Q1710238",
+   "Q1636567",
+   "Q1800283",
    "Q1806570",
-   "Q18219743",
    "Q1823431",
-   "Q184921",
+   "Q18302297",
    "Q18536617",
-   "Q20103498",
-   "Q20888882",
-   "Q22912864",
+   "Q18694056",
+   "Q191212",
+   "Q2001578",
+   "Q20888385",
    "Q24190312",
-   "Q2494975",
    "Q26156861",
-   "Q270746",
-   "Q28648698",
+   "Q265292",
    "Q28873401",
-   "Q2920487",
-   "Q2961245",
-   "Q3070027",
-   "Q3148738",
-   "Q3207426",
-   "Q327650",
-   "Q328491",
-   "Q33993",
    "Q351126",
    "Q4167",
    "Q4173984",
+   "Q41980149",
    "Q47902176",
-   "Q48757176",
-   "Q4923257",
    "Q5054749",
-   "Q5057595",
+   "Q52035646",
    "Q5445787",
    "Q54856189",
-   "Q56089114",
-   "Q5839725",
-   "Q60741120",
+   "Q54856397",
+   "Q56696077",
    "Q61473821",
    "Q62024042",
-   "Q6703298",
+   "Q62471103",
+   "Q63319303",
+   "Q6388883",
+   "Q66116253",
+   "Q678361",
    "Q72941537",
-   "Q7422981",
+   "Q7841560",
    "Q7937834",
+   "Q80188532",
+   "Q80192871",
+   "Q80198623",
+   "Q80199477",
+   "Q80201137",
    "Q80201211",
-   "Q862407",
-   "Q882517",
-   "Q89596354",
-   "Q96055560"
+   "Q86086779",
+   "Q87658285",
+   "Q87719549",
+   "Q87749075",
+   "Q885975",
+   "Q96409321",
+   "Q96409917",
+   "Q96739513",
+   "Q97590510",
+   "Q98520082",
+   "Q98523821",
+   "Q99213573",
+   "Q99509370"
   ],
   "merges": [
    {
@@ -3223,20 +146,20 @@
  },
  "counts": {
   "candidates_awaiting_review": 11,
-  "carried_over": 425,
-  "changed": 223,
-  "collected": 760,
-  "eligible": 592,
-  "excluded": 168,
+  "carried_over": 0,
+  "changed": 99,
+  "collected": 1652,
+  "eligible": 1017,
+  "excluded": 635,
   "foreign": 721,
-  "hero_candidates_awaiting_review": 188,
+  "hero_candidates_awaiting_review": 208,
   "kr": 296,
   "kr_with_region": 296,
   "merged": 1,
   "new": 0,
-  "observations": 778,
-  "observations_kept": 764,
-  "projects_built": 760,
+  "observations": 1717,
+  "observations_kept": 1703,
+  "projects_built": 1652,
   "published": 1017,
   "removed": 0,
   "stale": 0,
@@ -3367,8 +290,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-012-hide.json",
    "note": "Academic symposium, not a festival or project.",
+   "project": "Q126689885",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q126689885"
   },
   {
@@ -3377,8 +301,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-013-hide.json",
    "note": "A collection, not one work.",
+   "project": "Q127587524",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q127587524"
   },
   {
@@ -3387,8 +312,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-014-hide.json",
    "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q127867500",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q127867500"
   },
   {
@@ -3397,8 +323,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-015-hide.json",
    "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q127869230",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q127869230"
   },
   {
@@ -3407,8 +334,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-016-hide.json",
    "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128188479",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q128188479"
   },
   {
@@ -3417,8 +345,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-017-hide.json",
    "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128197049",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q128197049"
   },
   {
@@ -3427,8 +356,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-018-hide.json",
    "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128234371",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q128234371"
   },
   {
@@ -3437,8 +367,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-019-hide.json",
    "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128241531",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q128241531"
   },
   {
@@ -3447,8 +378,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-020-hide.json",
    "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128303488",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q128303488"
   },
   {
@@ -3457,8 +389,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-021-hide.json",
    "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128303619",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q128303619"
   },
   {
@@ -3467,8 +400,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-022-hide.json",
    "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128305860",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q128305860"
   },
   {
@@ -3477,8 +411,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-023-hide.json",
    "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128569764",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q128569764"
   },
   {
@@ -3487,8 +422,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-024-hide.json",
    "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128573229",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q128573229"
   },
   {
@@ -3497,8 +433,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-025-hide.json",
    "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q128578587",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q128578587"
   },
   {
@@ -3507,8 +444,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-026-hide.json",
    "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q129176499",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q129176499"
   },
   {
@@ -3517,8 +455,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-027-hide.json",
    "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q129177577",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q129177577"
   },
   {
@@ -3527,8 +466,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-40-028-hide.json",
    "note": "Yearly edition of Pixelache; the festival is kept once (Q18694056).",
+   "project": "Q129255808",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q129255808"
   },
   {
@@ -3559,8 +499,9 @@
    "by": "claude (review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-41-031-edit.json",
    "note": "Times Square is known for its large urban screens.",
+   "project": "Q96409917",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q96409917"
   },
   {
@@ -3602,8 +543,9 @@
    "by": "claude (visual review of live run 20261020T114517Z)",
    "file": "2026-10-20T12-50-042-set_hero.json",
    "note": "Contact sheet #90 reviewed visually: Bright Brussels: projection across a palace facade.",
+   "project": "Q63319303",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q63319303"
   },
   {
@@ -4087,8 +1029,9 @@
    "by": "claude (review of live run 20261111T031101Z)",
    "file": "2026-11-11T03-45-000-hide.json",
    "note": "An advertising sign (neon, Coca-Cola, Five Points, Atlanta) found through the neon-sign material route: a commercial sign, not light art (v0.26 brief: plain advertising is not included).",
+   "project": "Q136807895",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q136807895"
   },
   {
@@ -4568,8 +1511,9 @@
    "by": "claude (review of live run 20261111T064407Z)",
    "file": "2026-11-11T07-20-000-hide.json",
    "note": "A film festival (South by Southwest Film Festival), not a light or media art festival; its only photo showed the SXSW Center building.",
+   "project": "Q55122717",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q55122717"
   },
   {
@@ -4666,8 +1610,9 @@
    "by": "claude (v1.0 launch brief 2026-11-11: recover excluded projects with a sourced place)",
    "file": "2026-11-11T22-00-001-edit.json",
    "note": "Wintrust Magnificent Mile Lights Festival on North Michigan Avenue, Chicago: about one million lights on over 200 trees, held the Saturday before Thanksgiving for more than three decades (organiser The Magnificent Mile Association).",
+   "project": "Q6731738",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q6731738"
   },
   {
@@ -4709,8 +1654,9 @@
    "by": "claude (v1.0 launch brief 2026-11-11: recover excluded projects with a sourced place)",
    "file": "2026-11-11T22-10-002-edit.json",
    "note": "Dream House, sound and light environment by La Monte Young and Marian Zazeela, run by the MELA Foundation at 275 Church Street, New York (MELA Foundation).",
+   "project": "Q97933052",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q97933052"
   },
   {
@@ -4741,8 +1687,9 @@
    "by": "claude (v1.0 launch brief 2026-11-11: recover excluded projects with a sourced place)",
    "file": "2026-11-11T22-20-001-edit.json",
    "note": "Festival of Northern Lights, the annual winter light displays in Owen Sound's River District and Harrison Park, Ontario (Owen Sound Tourism; 2025 season 15 November 2025 – 5 January 2026).",
+   "project": "Q5445799",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q5445799"
   },
   {
@@ -8921,8 +5868,9 @@
    "by": "claude (keep public pages: restore with a sourced place)",
    "file": "2026-11-22T14-40-001-edit.json",
    "note": "Paul Schwer's light installation (2021) in the stairwell of hanova WOHNEN's main building in Hanover: the Commons photos of the work (2021 Paul Schwer Lichtinstallation Ziegelstein und Baum - ein Lichtgehäuse, Bernd Schwabe, own work) describe it as installed 'in Hannover' and seen from the Goseried",
+   "project": "Q136085207",
    "reasons": [],
-   "status": "target_not_found",
+   "status": "applied",
    "target": "Q136085207"
   },
   {
@@ -8936,12 +5884,7 @@
    "target": "REG-TW-0001"
   }
  ],
- "errors": [
-  {
-   "message": "time budget exhausted (wikidata)",
-   "stage": "wikidata"
-  }
- ],
+ "errors": [],
  "hero_list": [
   {
    "image": "049 Llum BCN, projecció a la façana de l'Ajuntament, pl. Sant Jaume.JPG",
@@ -8962,7 +5905,7 @@
    "note": "Reviewed on hero-candidates contact sheet #90: Bright Brussels: projection across a palace facade.",
    "project": "Q63319303",
    "reasons": [],
-   "status": "project_not_published"
+   "status": "hero"
   },
   {
    "image": "Gabriel Poirier-Galarneau et Vincent Bilodeau, 9X-MTL-, 2015 (18433093181).jpg",
@@ -9034,11 +5977,11 @@
  ],
  "http": {
   "api.openverse.org": {
-   "bytes": 185820,
-   "cached": 449,
+   "bytes": 380781,
+   "cached": 794,
    "errors": 1,
    "last_error": "HTTP 403",
-   "ms": 53682,
+   "ms": 54590,
    "not_modified": 0,
    "ok": 16,
    "requests": 17,
@@ -9048,47 +5991,8 @@
    }
   },
   "ar.wikipedia.org": {
-   "bytes": 73,
-   "cached": 1,
-   "errors": 0,
-   "last_error": null,
-   "ms": 446,
-   "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
-  },
-  "commons.wikimedia.org": {
-   "bytes": 760506,
-   "cached": 396,
-   "errors": 0,
-   "last_error": null,
-   "ms": 125609,
-   "not_modified": 0,
-   "ok": 135,
-   "requests": 135,
-   "statuses": {
-    "200": 135
-   }
-  },
-  "de.wikipedia.org": {
-   "bytes": 362,
-   "cached": 2,
-   "errors": 0,
-   "last_error": null,
-   "ms": 360,
-   "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
-  },
-  "en.wikipedia.org": {
    "bytes": 0,
-   "cached": 4,
+   "cached": 2,
    "errors": 0,
    "last_error": null,
    "ms": 0,
@@ -9097,18 +6001,53 @@
    "requests": 0,
    "statuses": {}
   },
-  "es.wikipedia.org": {
-   "bytes": 73,
+  "commons.wikimedia.org": {
+   "bytes": 498157,
+   "cached": 821,
+   "errors": 0,
+   "last_error": null,
+   "ms": 127156,
+   "not_modified": 0,
+   "ok": 138,
+   "requests": 138,
+   "statuses": {
+    "200": 138
+   }
+  },
+  "de.wikipedia.org": {
+   "bytes": 0,
    "cached": 2,
    "errors": 0,
    "last_error": null,
-   "ms": 503,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
+  },
+  "en.wikipedia.org": {
+   "bytes": 100,
+   "cached": 4,
+   "errors": 0,
+   "last_error": null,
+   "ms": 152,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
    "statuses": {
     "200": 1
    }
+  },
+  "es.wikipedia.org": {
+   "bytes": 0,
+   "cached": 3,
+   "errors": 0,
+   "last_error": null,
+   "ms": 0,
+   "not_modified": 0,
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   },
   "fr.wikipedia.org": {
    "bytes": 0,
@@ -9144,24 +6083,24 @@
    "statuses": {}
   },
   "ko.wikipedia.org": {
-   "bytes": 13378,
-   "cached": 18,
+   "bytes": 2753,
+   "cached": 22,
    "errors": 0,
    "last_error": null,
-   "ms": 11633,
+   "ms": 1313,
    "not_modified": 0,
-   "ok": 9,
-   "requests": 9,
+   "ok": 3,
+   "requests": 3,
    "statuses": {
-    "200": 9
+    "200": 3
    }
   },
   "live.staticflickr.com": {
-   "bytes": 21384139,
+   "bytes": 21577993,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 2628,
+   "ms": 14013,
    "not_modified": 0,
    "ok": 122,
    "requests": 122,
@@ -9185,20 +6124,7 @@
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 1465,
-   "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
-  },
-  "overpass-api.de": {
-   "bytes": 287,
-   "cached": 0,
-   "errors": 0,
-   "last_error": null,
-   "ms": 33425,
+   "ms": 453,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -9229,37 +6155,35 @@
    "statuses": {}
   },
   "query.wikidata.org": {
-   "bytes": 97809,
-   "cached": 69,
-   "errors": 4,
-   "last_error": "no answer within 65000 ms",
-   "ms": 607714,
+   "bytes": 33009,
+   "cached": 106,
+   "errors": 0,
+   "last_error": null,
+   "ms": 86169,
    "not_modified": 0,
-   "ok": 46,
-   "requests": 50,
+   "ok": 27,
+   "requests": 27,
    "statuses": {
-    "200": 46
+    "200": 27
    }
   },
   "ru.wikipedia.org": {
-   "bytes": 609,
+   "bytes": 0,
    "cached": 1,
    "errors": 0,
    "last_error": null,
-   "ms": 387,
+   "ms": 0,
    "not_modified": 0,
-   "ok": 1,
-   "requests": 1,
-   "statuses": {
-    "200": 1
-   }
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   },
   "thumb.wikimedia.org": {
-   "bytes": 12678593,
+   "bytes": 12817363,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 16769,
+   "ms": 45119,
    "not_modified": 0,
    "ok": 417,
    "requests": 417,
@@ -9268,24 +6192,22 @@
    }
   },
   "tr.wikipedia.org": {
-   "bytes": 9395,
-   "cached": 2,
+   "bytes": 0,
+   "cached": 3,
    "errors": 0,
    "last_error": null,
-   "ms": 1086,
+   "ms": 0,
    "not_modified": 0,
-   "ok": 2,
-   "requests": 2,
-   "statuses": {
-    "200": 2
-   }
+   "ok": 0,
+   "requests": 0,
+   "statuses": {}
   },
   "upload.wikimedia.org": {
    "bytes": 4385656,
    "cached": 0,
    "errors": 0,
    "last_error": null,
-   "ms": 232,
+   "ms": 366,
    "not_modified": 0,
    "ok": 1,
    "requests": 1,
@@ -9294,16 +6216,16 @@
    }
   },
   "www.wikidata.org": {
-   "bytes": 71450,
-   "cached": 19,
+   "bytes": 905921,
+   "cached": 21,
    "errors": 0,
    "last_error": null,
-   "ms": 6511,
+   "ms": 9379,
    "not_modified": 0,
-   "ok": 5,
-   "requests": 5,
+   "ok": 8,
+   "requests": 8,
    "statuses": {
-    "200": 5
+    "200": 8
    }
   },
   "zh.wikipedia.org": {
@@ -9337,47 +6259,47 @@
    }
   },
   "duplicates_removed": 0,
-  "duplicates_this_run": 9,
-  "images": 2800,
-  "low_res_rejected": 62,
-  "mislinked_rejected": 27,
+  "duplicates_this_run": 13,
+  "images": 2807,
+  "low_res_rejected": 83,
+  "mislinked_rejected": 71,
   "mislinked_removed": 0,
-  "newly_added_valid": 5,
-  "person_rejected": 157,
+  "newly_added_valid": 12,
+  "person_rejected": 724,
   "person_removed": 0,
   "portraits": 3,
-  "previous_images": 2807,
-  "rechecked_kept": 563,
-  "relevance_verified": 2237,
-  "removed_total": 12
+  "previous_images": 2800,
+  "rechecked_kept": 0,
+  "relevance_verified": 2807,
+  "removed_total": 5
  },
  "image_inventory": {
   "all": {
    "by_category": {
-    "1_no_candidate": 309,
-    "2_identity_unverified": 3,
+    "1_no_candidate": 306,
+    "2_identity_unverified": 5,
     "3_rights_review": 4,
-    "4_quality_below": 5,
+    "4_quality_below": 8,
     "5_b_usable": 33,
-    "6_context_only": 30,
-    "7_permission_needed": 53,
+    "6_context_only": 29,
+    "7_permission_needed": 52,
     "8_access_needed": 270,
     "rep_a": 310
    },
    "by_next_action": {
     "add_tourapi_key": 270,
     "approve_review": 1,
-    "request_permission": 63,
-    "search_commons": 340
+    "request_permission": 62,
+    "search_commons": 341
    },
    "by_reason": {
     "api_key_missing": 270,
-    "context_only": 30,
-    "identity_unclear": 2,
-    "no_candidate": 296,
+    "context_only": 29,
+    "identity_unclear": 4,
+    "no_candidate": 292,
     "no_source_link": 66,
     "pending_review": 1,
-    "resolution_low": 5,
+    "resolution_low": 8,
     "rights_unclear": 4
    },
    "by_status": {
@@ -9388,17 +6310,17 @@
    },
    "identity_review": 1,
    "images": {
-    "A": 1992,
-    "B": 279,
+    "A": 1993,
+    "B": 285,
     "C": 529
    },
-   "permission_targets": 63,
+   "permission_targets": 62,
    "projects": 1017,
    "rate_pct": 33.7,
    "rep_grade_a": 310,
    "rep_grade_b": 33,
    "representative": 343,
-   "rights_review": 8,
+   "rights_review": 15,
    "without_images": 636
   },
   "changes": {
@@ -9849,7 +6771,7 @@
    "net": 0,
    "new_image_approvals": 0,
    "new_image_decisions": 0,
-   "previous_at": "2026-11-27T21:00:35.435Z",
+   "previous_at": "2026-11-28T03:10:52.051Z",
    "previous_representative": 343
   },
   "definition": "representative = a project with at least one photo of grade A or B (rights, identity and quality per art-photo-policy.js); rate = representative / published projects; grade C context photos never count",
@@ -9898,25 +6820,25 @@
   "tourapi_key": false,
   "world": {
    "by_category": {
-    "1_no_candidate": 309,
-    "2_identity_unverified": 2,
+    "1_no_candidate": 306,
+    "2_identity_unverified": 4,
     "3_rights_review": 4,
-    "4_quality_below": 3,
+    "4_quality_below": 6,
     "5_b_usable": 31,
-    "6_context_only": 25,
-    "7_permission_needed": 53,
+    "6_context_only": 24,
+    "7_permission_needed": 52,
     "rep_a": 294
    },
    "by_next_action": {
-    "request_permission": 59,
-    "search_commons": 337
+    "request_permission": 58,
+    "search_commons": 338
    },
    "by_reason": {
-    "context_only": 25,
-    "identity_unclear": 2,
-    "no_candidate": 296,
+    "context_only": 24,
+    "identity_unclear": 4,
+    "no_candidate": 292,
     "no_source_link": 66,
-    "resolution_low": 3,
+    "resolution_low": 6,
     "rights_unclear": 4
    },
    "by_status": {
@@ -9927,35 +6849,36 @@
    },
    "identity_review": 0,
    "images": {
-    "A": 1930,
-    "B": 274,
+    "A": 1931,
+    "B": 280,
     "C": 412
    },
-   "permission_targets": 59,
+   "permission_targets": 58,
    "projects": 721,
    "rate_pct": 45.1,
    "rep_grade_a": 294,
    "rep_grade_b": 31,
    "representative": 325,
-   "rights_review": 6,
+   "rights_review": 13,
    "without_images": 365
   }
  },
  "images": {
   "awaiting_review": 0,
-  "below_threshold": 7,
+  "below_threshold": 18,
   "by_provider": {
-   "commons": 2225,
+   "commons": 2793,
    "editor": 4,
-   "openverse": 8
+   "openverse": 10
   },
-  "candidates": 6308,
+  "candidates": 7431,
   "contact_sheets": [
    "hero-commons-01.jpg",
    "hero-commons-02.jpg",
    "hero-commons-03.jpg",
    "hero-commons-04.jpg",
    "hero-commons-05.jpg",
+   "hero-commons-06.jpg",
    "hero-editor-01.jpg",
    "hero-openverse-01.jpg",
    "featured-commons-01.jpg",
@@ -9968,6 +6891,7 @@
    "featured-commons-08.jpg",
    "featured-commons-09.jpg",
    "featured-commons-10.jpg",
+   "featured-commons-11.jpg",
    "featured-editor-01.jpg",
    "cards-01.jpg",
    "cards-02.jpg",
@@ -9975,15 +6899,18 @@
    "cards-04.jpg",
    "cards-05.jpg",
    "cards-06.jpg",
+   "cards-07.jpg",
+   "cards-08.jpg",
+   "cards-09.jpg",
    "review-openverse-01.jpg",
    "review-openverse-02.jpg",
    "review-openverse-03.jpg"
   ],
   "depicts_errors": 0,
-  "depicts_searches": 3,
-  "duplicates": 9,
+  "depicts_searches": 13,
+  "duplicates": 13,
   "hero": 4,
-  "identity_rejected": 1004,
+  "identity_rejected": 4413,
   "institution_context": 103,
   "kept_demoted_context": 0,
   "kept_dropped_irrelevant": 0,
@@ -9992,15 +6919,15 @@
   "kept_previous": 0,
   "measure_errors": 0,
   "measured": 0,
-  "none": 344,
+  "none": 636,
   "openverse_rate_limit": {
-   "x-ratelimit-available-anon_burst": 98,
-   "x-ratelimit-available-anon_sustained": 984
+   "x-ratelimit-available-anon_burst": 84,
+   "x-ratelimit-available-anon_sustained": 980
   },
-  "pageimage_projects": 2,
-  "pageimage_requests": 4,
-  "portraits": 2,
-  "processed": 592,
+  "pageimage_projects": 5,
+  "pageimage_requests": 5,
+  "portraits": 3,
+  "processed": 1017,
   "provider_errors": {
    "openverse": 1
   },
@@ -10008,32 +6935,32 @@
    "openverse": 17
   },
   "provider_rejected": {
-   "openverse:identity_unproven": 1004,
-   "openverse:interior_unrelated_to_work": 11,
-   "openverse:name": 6,
-   "openverse:rights": 1,
-   "openverse:subject": 94
+   "openverse:identity_unproven": 4413,
+   "openverse:interior_unrelated_to_work": 34,
+   "openverse:name": 47,
+   "openverse:rights": 32,
+   "openverse:subject": 662
   },
   "provider_requests": {
-   "openverse": 466
+   "openverse": 811
   },
-  "provider_unverified": 439,
+  "provider_unverified": 490,
   "quality_fetched": 0,
   "quality_measured": 0,
   "rejected": {
-   "extreme_aspect": 25,
-   "interior_unrelated_to_work": 4,
+   "extreme_aspect": 26,
+   "interior_unrelated_to_work": 6,
    "missing_file": 1,
    "rights:commons_templates_incomplete": 1,
    "rights:foreign_no_freedom_of_panorama": 4,
-   "rights:license_not_allowed": 35,
-   "subject:object_or_animal": 13,
-   "subject:people_or_event": 59,
-   "subject:person": 3,
-   "too_small": 43
+   "rights:license_not_allowed": 40,
+   "subject:object_or_animal": 15,
+   "subject:people_or_event": 62,
+   "subject:person": 8,
+   "too_small": 63
   },
   "review_tiles": 120,
-  "review_waiting": 130,
+  "review_waiting": 147,
   "thumbnails_fetched": 0
  },
  "invalid_records": [],
@@ -10042,16 +6969,16 @@
   "by_rule": {
    "file_geotags": 15,
    "parent_category": 101,
-   "parent_item": 22
+   "parent_item": 24
   },
-  "candidates": 228,
+  "candidates": 304,
   "capped": 0,
-  "conflict": 16,
+  "conflict": 17,
   "duplicate_of_project": 1,
-  "geotag_requests": 5,
-  "no_evidence": 23,
-  "part_of_project": 27,
-  "recovered": 138,
+  "geotag_requests": 1,
+  "no_evidence": 95,
+  "part_of_project": 28,
+  "recovered": 140,
   "region_candidates": 2
  },
  "public_data": {
@@ -10088,7 +7015,6 @@
   "live.staticflickr.com": "reachable",
   "nl.wikipedia.org": "reachable",
   "openapi.seoul.go.kr:8088": "reachable",
-  "overpass-api.de": "reachable",
   "pl.wikipedia.org": "reachable",
   "pt.wikipedia.org": "reachable",
   "query.wikidata.org": "reachable",
@@ -10139,17 +7065,17 @@
  },
  "review_queue": {
   "candidates": 11,
-  "hero_candidates": 188
+  "hero_candidates": 208
  },
  "run": {
   "budget_minutes": 35,
-  "build_id": "20261128T031052Z-5660baab",
+  "build_id": "20261128T075359Z-d34869f2",
   "drop_guard": null,
-  "duration_ms": 1150218,
-  "finished_at": "2026-11-28T03:30:02.269Z",
-  "number": 197,
+  "duration_ms": 521009,
+  "finished_at": "2026-11-28T08:02:40.517Z",
+  "number": 198,
   "publish": "published",
-  "started_at": "2026-11-28T03:10:52.051Z",
+  "started_at": "2026-11-28T07:53:59.508Z",
   "status": "partial",
   "user_agent": "LightArchitectureArchive/0.18 (+https://remona8787.github.io/; remona56@hanmail.net)",
   "validation_errors": []
@@ -10158,11 +7084,11 @@
  "sources": {
   "commons": {
    "consecutive_failures": 0,
-   "duration_ms": 36581,
+   "duration_ms": 25850,
    "errors": [],
    "items": 381,
    "korea_items": 4,
-   "last_success": "2026-11-28T03:10:52.051Z",
+   "last_success": "2026-11-28T07:53:59.508Z",
    "status": "ok",
    "warnings": []
   },
@@ -10170,36 +7096,36 @@
    "consecutive_failures": 0,
    "errors": [],
    "items": 370,
-   "last_success": "2026-11-28T03:10:52.051Z",
+   "last_success": "2026-11-28T07:53:59.508Z",
    "status": "ok"
   },
   "enrich": {
    "consecutive_failures": 0,
-   "duration_ms": 7057,
+   "duration_ms": 11871,
    "errors": [],
-   "items": 213,
-   "last_success": "2026-11-28T03:10:52.051Z",
+   "items": 1105,
+   "last_success": "2026-11-28T07:53:59.508Z",
    "status": "ok"
   },
   "links": {
    "consecutive_failures": 0,
    "errors": [],
-   "from_cache": 531,
-   "items": 50,
-   "last_success": "2026-11-28T03:10:52.051Z",
+   "from_cache": 628,
+   "items": 21,
+   "last_success": "2026-11-28T07:53:59.508Z",
    "status": "ok",
    "unchecked": 0
   },
   "overpass": {
    "consecutive_failures": 0,
    "errors": [],
-   "items": 1,
-   "last_success": "2026-11-28T03:10:52.051Z",
+   "items": 0,
+   "last_success": "2026-11-28T07:53:59.508Z",
    "status": "ok"
   },
   "seoul_events": {
    "consecutive_failures": 0,
-   "duration_ms": 1467,
+   "duration_ms": 454,
    "errors": [],
    "items": 0,
    "last_success": null,
@@ -10217,18 +7143,25 @@
    "status": "skipped"
   },
   "web": {
-   "consecutive_failures": 0,
-   "duration_ms": 67393,
+   "consecutive_failures": 1,
+   "duration_ms": 64449,
    "errors": [
     {
-     "http_status": null,
-     "message": "network error: fetch failed (Connect Timeout Error (attempted address: api.gdeltproject.org:443, timeout: 10000ms))",
-     "rule": "gdelt:GDELT en · media facade",
+     "http_status": 429,
+     "message": "HTTP 429",
+     "rule": "gdelt:GDELT fr · media facade",
      "stage": "web_fetch",
-     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aenglish&mode=ArtList&format=json&maxrecords=250&timespan=9d&sort=DateDesc"
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Afrench&mode=ArtList&format=json&maxrecords=250&timespan=44h&sort=DateDesc"
+    },
+    {
+     "http_status": 429,
+     "message": "HTTP 429",
+     "rule": "gdelt:GDELT it · media facade",
+     "stage": "web_fetch",
+     "url": "https://api.gdeltproject.org/api/v2/doc/doc?query=%28%22media+facade%22+OR+%22media+facades%22+OR+%22led+facade%22+OR+%22digital+facade%22+OR+%22facade+projection%22+OR+%22projection+mapping%22+OR+%22media+architecture%22%29+sourcelang%3Aitalian&mode=ArtList&format=json&maxrecords=250&timespan=44h&sort=DateDesc"
     }
    ],
-   "items": 7,
+   "items": 0,
    "last_success": "2026-11-26T14:35:28.004Z",
    "rules": [
     {
@@ -10240,7 +7173,7 @@
      "errors": 1,
      "fetched": 0,
      "kept": 0,
-     "key": "gdelt:GDELT en · media facade",
+     "key": "gdelt:GDELT fr · media facade",
      "kind": "gdelt",
      "not_modified": false,
      "reason": null,
@@ -10252,104 +7185,50 @@
       "invalid": 0,
       "prefilter": 0
      },
-     "errors": 0,
+     "errors": 1,
      "fetched": 0,
      "kept": 0,
-     "key": "gdelt:GDELT es · media facade",
+     "key": "gdelt:GDELT it · media facade",
      "kind": "gdelt",
      "not_modified": false,
      "reason": null,
-     "status": "success"
+     "status": "error"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 50
-     },
-     "errors": 0,
-     "fetched": 50,
-     "kept": 0,
      "key": "rss:Dezeen",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-28T09:11:57.236Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 10
-     },
-     "errors": 0,
-     "fetched": 10,
-     "kept": 0,
      "key": "rss:designboom",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-28T09:11:57.927Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 24
-     },
-     "errors": 0,
-     "fetched": 24,
-     "kept": 0,
      "key": "rss:ArchDaily",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-28T09:11:58.232Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 30
-     },
-     "errors": 0,
-     "fetched": 30,
-     "kept": 0,
      "key": "rss:Archinect",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-28T09:11:58.485Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 1
-     },
-     "errors": 0,
-     "fetched": 1,
-     "kept": 0,
      "key": "rss:Creative Applications Network",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-28T09:11:58.776Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
-     "dropped": {
-      "duplicate_url": 0,
-      "invalid": 0,
-      "prefilter": 3
-     },
-     "errors": 0,
-     "fetched": 10,
-     "kept": 7,
      "key": "rss:Media Architecture Institute",
-     "kind": "rss",
-     "not_modified": false,
-     "reason": null,
-     "status": "success"
+     "next_run_at": "2026-11-28T09:11:59.791Z",
+     "reason": "not_due",
+     "status": "skipped"
     },
     {
      "key": "rss:Designboom Korea",
@@ -10368,12 +7247,12 @@
      "status": "skipped"
     },
     {
-     "key": "gdelt:GDELT fr · media facade",
+     "key": "gdelt:GDELT en · media facade",
      "reason": "rotation",
      "status": "skipped"
     },
     {
-     "key": "gdelt:GDELT it · media facade",
+     "key": "gdelt:GDELT es · media facade",
      "reason": "rotation",
      "status": "skipped"
     },
@@ -10418,77 +7297,59 @@
      "status": "skipped"
     }
    ],
-   "status": "partial"
+   "status": "error"
   },
   "wikidata": {
-   "consecutive_failures": 1,
-   "duration_ms": 606303,
-   "errors": [
-    {
-     "class": "Q12177156",
-     "message": "no answer within 65000 ms",
-     "stage": "discovery"
-    },
-    {
-     "class": "Q9128",
-     "message": "no answer within 65000 ms",
-     "stage": "discovery"
-    },
-    {
-     "class": "Q47616",
-     "message": "no answer within 65000 ms",
-     "stage": "discovery"
-    },
-    {
-     "message": "time budget exhausted (wikidata)"
-    }
-   ],
-   "items": 0,
+   "consecutive_failures": 0,
+   "duration_ms": 82895,
+   "errors": [],
+   "items": 939,
    "korea_items": 0,
-   "last_success": "2026-11-27T21:00:35.435Z",
-   "status": "error"
+   "korea_search_items": 12,
+   "last_success": "2026-11-28T07:53:59.508Z",
+   "status": "ok"
   },
   "wikipedia": {
    "consecutive_failures": 0,
-   "duration_ms": 11506,
+   "duration_ms": 3792,
    "errors": [],
    "items": 284,
    "korea_items": 89,
-   "last_success": "2026-11-28T03:10:52.051Z",
+   "last_success": "2026-11-28T07:53:59.508Z",
    "status": "ok"
   }
  },
  "stages": {
   "contact_sheets": {
-   "duration_ms": 144940,
+   "duration_ms": 143591,
    "status": "ok"
   },
   "enrich": {
-   "duration_ms": 7058,
+   "duration_ms": 11871,
    "status": "ok"
   },
   "images": {
-   "duration_ms": 144710,
+   "duration_ms": 159687,
    "status": "ok"
   },
   "links": {
-   "duration_ms": 205254,
+   "duration_ms": 117823,
    "status": "ok"
   },
   "overpass": {
-   "duration_ms": 33426,
+   "duration_ms": 2,
    "status": "ok"
   },
   "places": {
-   "duration_ms": 6686,
+   "duration_ms": 3161,
    "status": "ok"
   },
   "resolve": {
-   "duration_ms": 92,
+   "duration_ms": 118,
    "status": "ok"
   },
   "sources": {
-   "duration_ms": 606304,
+   "duration_ms": 82896,
    "status": "ok"
   }
  },

@@ -1,5 +1,5 @@
 {
- "at": "2026-11-28T03:10:52.051Z",
+ "at": "2026-11-28T07:53:59.508Z",
  "blocklist": [
   {
    "configured_label": "lighthouse",
@@ -587,7 +587,7 @@
    "configured_label": "media artwork",
    "error": null,
    "include": false,
-   "instances": 27285,
+   "instances": 27292,
    "key": "Q110775916",
    "korea_include": false,
    "label_matches": true,
@@ -711,9 +711,9 @@
   },
   {
    "configured_label": "neon lighting",
-   "error": "no answer within 65000 ms",
+   "error": null,
    "include": true,
-   "instances": null,
+   "instances": 46,
    "key": "Q12177156:material",
    "korea_include": false,
    "label_matches": true,
@@ -727,7 +727,7 @@
    "reasons": [],
    "route": "material",
    "verified": true,
-   "with_coords": null
+   "with_coords": 32
   },
   {
    "configured_label": "neon sign",
@@ -751,9 +751,9 @@
   },
   {
    "configured_label": "light",
-   "error": "no answer within 65000 ms",
+   "error": null,
    "include": true,
-   "instances": null,
+   "instances": 14,
    "key": "Q9128:material",
    "korea_include": false,
    "label_matches": true,
@@ -767,7 +767,7 @@
    "reasons": [],
    "route": "material",
    "verified": true,
-   "with_coords": null
+   "with_coords": 11
   },
   {
    "configured_label": "laser",
@@ -791,9 +791,9 @@
   },
   {
    "configured_label": "incandescent light bulb",
-   "error": "no answer within 65000 ms",
+   "error": null,
    "include": true,
-   "instances": null,
+   "instances": 2,
    "key": "Q47616:material",
    "korea_include": false,
    "label_matches": true,
@@ -807,7 +807,7 @@
    "reasons": [],
    "route": "material",
    "verified": true,
-   "with_coords": null
+   "with_coords": 1
   },
   {
    "configured_label": "Dan Flavin",
@@ -1011,7 +1011,43 @@
   }
  ],
  "errors": [],
- "instances_per_class": null,
+ "instances_per_class": {
+  "Q110409771": 6,
+  "Q1136999": 1,
+  "Q11454138:creator": 0,
+  "Q115452528": 111,
+  "Q12177156:material": 46,
+  "Q124414048": 23,
+  "Q126682939": 47,
+  "Q126682969": 60,
+  "Q1363354:creator": 0,
+  "Q1421557": 14,
+  "Q1421557:genre": 188,
+  "Q1421557:movement": 3,
+  "Q15429571:creator": 3,
+  "Q17158007": 0,
+  "Q1798004": 1,
+  "Q1823448": 139,
+  "Q182925:material": 19,
+  "Q1872461:creator": 4,
+  "Q1938618:creator": 9,
+  "Q2005487": 0,
+  "Q25504:material": 47,
+  "Q29885984": 28,
+  "Q327520:creator": 2,
+  "Q378604": 267,
+  "Q38867:material": 3,
+  "Q4287692": 0,
+  "Q47616:material": 2,
+  "Q504395:creator": 12,
+  "Q6006:material": 10,
+  "Q63442021": 5,
+  "Q6524309:creator": 6,
+  "Q740966:creator": 21,
+  "Q776483": 1,
+  "Q9128:material": 14,
+  "Q916421:creator": 2
+ },
  "never_project": {
   "classes": [
    "Q56061",
