@@ -1,71 +1,10 @@
 {
  "about": "Image audit of the published dataset: counted from this run's records, the previous published dataset and this run's image decisions (review/images.json). removed: previous images that are not published any more, with this run's reason; rejected: this run's candidates by reason group; cards: the share of projects with a valid card (card, featured or hero of kind project_media, project_installation or architecture_context).",
  "added": {
-  "count": 12,
-  "examples": [
-   {
-    "id": "img-0179814356af",
-    "project": "Q5054749",
-    "title": "Fireworks at City Hall"
-   },
-   {
-    "id": "img-a844b1e33736",
-    "project": "Q5054749",
-    "title": "Cavalcade of Lights (8209409161)"
-   },
-   {
-    "id": "img-be86c2992843",
-    "project": "Q5054749",
-    "title": "Calvacade of lights in Toronto"
-   },
-   {
-    "id": "img-fb2c0a7977e0",
-    "project": "Q5054749",
-    "title": "Cavalcade of Lights (8210498136)"
-   },
-   {
-    "id": "img-afa170d7104f",
-    "project": "Q5054749",
-    "title": "Cavalcade of Lights (8210498322)"
-   },
-   {
-    "id": "img-78c13df86a88",
-    "project": "Q5054749",
-    "title": "Fireworks at Toronto City Hall - 2008"
-   },
-   {
-    "id": "img-b87684738e47",
-    "project": "Q5054749",
-    "title": "Green (3124365146)"
-   },
-   {
-    "id": "img-80597c0334fc",
-    "project": "Q5054749",
-    "title": "Fireworks at Toronto City Hall 2008"
-   },
-   {
-    "id": "img-823d1442c024",
-    "project": "Q5054749",
-    "title": "Matt Dusk in concert 2009"
-   },
-   {
-    "id": "img-f81af7efd3a9",
-    "project": "Q5054749",
-    "title": "Cavalcade of Lights - Toronto"
-   },
-   {
-    "id": "img-403fe7dec35f",
-    "project": "Q5054749",
-    "title": "Keshia Chanté 10"
-   },
-   {
-    "id": "img-cc977ad8734f",
-    "project": "Q5054749",
-    "title": "Keshia Chanté 11"
-   }
-  ]
+  "count": 0,
+  "examples": []
  },
- "at": "2026-11-28T07:53:59.508Z",
+ "at": "2026-11-28T14:04:21.220Z",
  "cards": {
   "all": {
    "projects": 1017,
@@ -11224,7 +11163,7 @@
    "kr": false,
    "kr_region": null,
    "name": "Cavalcade of Lights Festival",
-   "previous_images": 5,
+   "previous_images": 12,
    "status": "scored",
    "valid_card": true
   },
@@ -14867,38 +14806,8 @@
    }
   ]
  },
- "removed": {
-  "not_a_candidate_this_run": 5
- },
- "removed_examples": {
-  "not_a_candidate_this_run": [
-   {
-    "id": "img-a642243bc911",
-    "project": "Q5054749",
-    "title": "Red (3123536873)"
-   },
-   {
-    "id": "img-4762e8528ca4",
-    "project": "Q5054749",
-    "title": "Cavalcade of Lights (53394645275)"
-   },
-   {
-    "id": "img-dab9a4ed290f",
-    "project": "Q5054749",
-    "title": "Fireworks (8209408441)"
-   },
-   {
-    "id": "img-eb453c9af971",
-    "project": "Q5054749",
-    "title": "Ice Sculptor 1 (Cavalcade of Lights 2021, Toronto)"
-   },
-   {
-    "id": "img-a801bda19798",
-    "project": "Q5054749",
-    "title": "Mirror Star at the Cavalcade of Lights in Toronto"
-   }
-  ]
- },
+ "removed": {},
+ "removed_examples": {},
  "schema": 1,
  "summary": {
   "cards": {
@@ -14924,14 +14833,14 @@
   "low_res_rejected": 83,
   "mislinked_rejected": 71,
   "mislinked_removed": 0,
-  "newly_added_valid": 12,
+  "newly_added_valid": 0,
   "person_rejected": 724,
   "person_removed": 0,
   "portraits": 3,
-  "previous_images": 2800,
+  "previous_images": 2807,
   "rechecked_kept": 0,
   "relevance_verified": 2807,
-  "removed_total": 5
+  "removed_total": 0
  },
  "totals": {
   "by_kind": {
