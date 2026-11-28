@@ -1,5 +1,5 @@
 {
- "build_id": "20261128T031052Z-5660baab",
+ "build_id": "20261128T075359Z-d34869f2",
  "counts": {
   "by_country": {
    "AE": 6,
@@ -95,14 +95,14 @@
    "southeast_asia": 10
   },
   "by_type": {
-   "festival_program": 217,
+   "festival_program": 219,
    "interactive_installation": 21,
-   "light_art": 519,
+   "light_art": 518,
    "media_architecture": 79,
    "media_facade": 59,
    "media_wall": 16,
    "other": 37,
-   "projection_mapping": 66,
+   "projection_mapping": 65,
    "urban_screen": 3
   },
   "events": {
@@ -143,17 +143,17 @@
   "stats": "stats.json",
   "status": "status.json"
  },
- "generated_at": "2026-11-28T03:10:52.051Z",
+ "generated_at": "2026-11-28T07:53:59.508Z",
  "schema": 1,
  "sources": {
   "commons": {
    "items": 381,
-   "last_success": "2026-11-28T03:10:52.051Z",
+   "last_success": "2026-11-28T07:53:59.508Z",
    "status": "ok"
   },
   "curated": {
    "items": 370,
-   "last_success": "2026-11-28T03:10:52.051Z",
+   "last_success": "2026-11-28T07:53:59.508Z",
    "status": "ok"
   },
   "seoul_events": {
@@ -167,18 +167,18 @@
    "status": "skipped"
   },
   "web": {
-   "items": 7,
+   "items": 0,
    "last_success": "2026-11-26T14:35:28.004Z",
-   "status": "partial"
+   "status": "error"
   },
   "wikidata": {
-   "items": 0,
-   "last_success": "2026-11-27T21:00:35.435Z",
-   "status": "error"
+   "items": 939,
+   "last_success": "2026-11-28T07:53:59.508Z",
+   "status": "ok"
   },
   "wikipedia": {
    "items": 284,
-   "last_success": "2026-11-28T03:10:52.051Z",
+   "last_success": "2026-11-28T07:53:59.508Z",
    "status": "ok"
   }
  }
